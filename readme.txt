@@ -21,7 +21,9 @@ options:
 
 Install prepacked binary:
 
-You can download an executable from the Releases section and save it in your WoW Logs folder.
+You can download an executable from the Releases section [1] and save it in your WoW Logs folder.
+
+[1] https://github.com/melbaa/summarize_consumes/releases
 
 
 
