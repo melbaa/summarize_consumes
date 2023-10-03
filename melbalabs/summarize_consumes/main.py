@@ -1,10 +1,17 @@
-import sys
-import io
+import argparse
 import collections
-import re
 import datetime
+import io
+import re
+import sys
+import webbrowser
 import zipfile
 from datetime import datetime as dt
+
+
+import requests
+
+
 
 rename_consumable = {
     'Supreme Power': 'Flask of Supreme Power',
@@ -588,8 +595,6 @@ class KTFrostblast:
 
 current_year = datetime.datetime.now().year
 
-filename = sys.argv[1]
-
 # player - consumable - count
 player = collections.defaultdict(lambda: collections.defaultdict(int))
 
@@ -613,63 +618,68 @@ kt_shadowfissure = KTShadowFissure()
 kt_frostbolt = KTFrostbolt()
 kt_frostblast = KTFrostblast()
 
-with io.open(filename, encoding='utf8') as f:
-    for line in f:
-        # skip some ambiguous buffs
-        if 'Prayer of Shadow Protection' in line:
-            continue
-        if 'gains Holy Strength (1)' in line:
-            continue
-        if 'Berserker Rage Effect' in line:
-            continue
 
-        if 'gains' in line and '(1)' in line:
-            if gains_consumable(line):
+def parse_log(filename):
+    with io.open(filename, encoding='utf8') as f:
+        for line in f:
+            # skip some ambiguous buffs
+            if 'Prayer of Shadow Protection' in line:
                 continue
-            if player_detected(line):
+            if 'gains Holy Strength (1)' in line:
+                continue
+            if 'Berserker Rage Effect' in line:
                 continue
 
-
-        if tea_with_sugar(line):
-            continue
-        if great_rage(line):
-            continue
-        if mana_potion(line):
-            continue
-        if mana_rune(line):
-            continue
-        if health_potion(line):
-            continue
-        if begins_to_cast_consumable(line):
-            continue
-        if casts_consumable(line):
-            continue
-        if hits_consumable(line):
-            continue
-
-        if consolidated_log(line):
-            continue
-        if deaths_log(line):
-            continue
+            if 'gains' in line and '(1)' in line:
+                if gains_consumable(line):
+                    continue
+                if player_detected(line):
+                    continue
 
 
-        if huhuran.parse(line):
-            continue
-        if cthun_chain.parse(line):
-            continue
-        if gluth.parse(line):
-            continue
-        if fourhm_chain.parse(line):
-            continue
-        if kt_shadowfissure.parse(line):
-            continue
-        if kt_frostbolt.parse(line):
-            continue
-        if kt_frostblast.parse(line):
-            continue
+            if tea_with_sugar(line):
+                continue
+            if great_rage(line):
+                continue
+            if mana_potion(line):
+                continue
+            if mana_rune(line):
+                continue
+            if health_potion(line):
+                continue
+            if begins_to_cast_consumable(line):
+                continue
+            if casts_consumable(line):
+                continue
+            if hits_consumable(line):
+                continue
+
+            if consolidated_log(line):
+                continue
+            if deaths_log(line):
+                continue
+
+
+            if huhuran.parse(line):
+                continue
+            if cthun_chain.parse(line):
+                continue
+            if gluth.parse(line):
+                continue
+            if fourhm_chain.parse(line):
+                continue
+            if kt_shadowfissure.parse(line):
+                continue
+            if kt_frostbolt.parse(line):
+                continue
+            if kt_frostblast.parse(line):
+                continue
+
 
 
 def generate_output():
+
+
 
     output = io.StringIO()
 
@@ -721,8 +731,56 @@ def generate_output():
     return output
 
 
+def get_user_input():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('logpath', help='path to WoWCombatLog.txt')
+    parser.add_argument('--pastebin', action='store_true', help='upload result to a pastebin and return the url')
+    parser.add_argument('--open-browser', action='store_true', help='used with --pastebin. open the pastebin url with your browser')
+    args = parser.parse_args()
+
+    return args
+
+
+def upload_pastebin(output):
+    data = output.getvalue()
+
+    username, password = 'summarize_consumes', 'summarize_consumes'
+    auth = requests.auth.HTTPBasicAuth(username, password)
+    data = output.getvalue().encode('utf8')
+    response = requests.post(
+        url='http://ix.io',
+        files={'f:1': data},
+        auth=auth,
+        timeout=30,
+    )
+
+    print(response.text)
+    if 'already exists' in response.text:
+        print("didn't get a new url")
+        import pdb;pdb.set_trace()
+        raise RuntimeError('no url')
+
+    url = response.text.strip().split('\n')[-1]
+    return url
+
+
+def open_browser(url):
+    print(f'opening browser with {url}')
+    webbrowser.open(url)
+
+
 def main():
-    generate_output()
+
+    args = get_user_input()
+
+    parse_log(filename=args.logpath)
+    output = generate_output()
+
+    if not args.pastebin: return
+    url = upload_pastebin(output)
+
+    if not args.open_browser: return
+    open_browser(url)
 
 
 if __name__ == '__main__':
