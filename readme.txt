@@ -5,7 +5,30 @@ Check out summary.txt for an example.
 
 
 
-Example install from source on windows:
+usage: summarize_consumes.exe [-h] [--pastebin] [--open-browser] logpath
+
+positional arguments:
+  logpath         path to WoWCombatLog.txt
+
+options:
+  -h, --help      show this help message and exit
+  --pastebin      upload result to a pastebin and return the url
+  --open-browser  used with --pastebin. open the pastebin url with your browser
+
+
+
+
+
+Install prepacked binary:
+
+You can download an executable from the Releases section and save it in your WoW Logs folder.
+
+
+
+
+
+
+Installing from source on windows:
 
 To create a virtualenv with the project in the current directory
 python -m venv venv
@@ -21,5 +44,3 @@ Create summary, upload to a pastebin and open with your browser
 .\venv\Scripts\summarize_consumes.exe path\to\your\Logs\WoWCombatLog.txt --pastebin --open-browser
 
 
-TODO
-release an .exe so people don't have to mess with python
