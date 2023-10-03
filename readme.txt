@@ -5,7 +5,7 @@ Check out summary.txt for an example.
 
 
 
-Example install on windows:
+Example install from source on windows:
 
 To create a virtualenv with the project in the current directory
 python -m venv venv
@@ -17,8 +17,8 @@ Install dependencies
 Create a summary
 .\venv\Scripts\summarize_consumes.exe path\to\your\Logs\WoWCombatLog.txt > summary.txt
 
-Usually you want to share the summary, there's a util that generates it, uploads it to a pastebin and opens the link in your browser.
-.\venv\Scripts\summarize_consumes_upload.exe path\to\your\Logs\WoWCombatLog.txt > summary.txt
+Create summary, upload to a pastebin and open with your browser
+.\venv\Scripts\summarize_consumes.exe path\to\your\Logs\WoWCombatLog.txt --pastebin --open-browser
 
 
 TODO
