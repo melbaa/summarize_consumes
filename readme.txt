@@ -19,3 +19,7 @@ Create a summary
 
 Usually you want to share the summary, there's a util that generates it, uploads it to a pastebin and opens the link in your browser.
 .\venv\Scripts\summarize_consumes_upload.exe path\to\your\Logs\WoWCombatLog.txt > summary.txt
+
+
+TODO
+release an .exe so people don't have to mess with python
