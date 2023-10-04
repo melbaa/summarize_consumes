@@ -1,7 +1,7 @@
 The project generates a summary of a raid combat log.
 The summary includes consumables (as much as the combat log allows), details about some boss fights (huhuran, cthun chains, gluth, four horsemen chains, kt shadow fissures, kt frostbolts, kt frostblasts), pets found.
 
-Check out summary.txt for an example.
+Check out the examples directory for summaries of various raids.
 
 
 
