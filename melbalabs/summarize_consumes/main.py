@@ -216,6 +216,7 @@ def gains_consumable(line):
             'Stamina',
             'Enlarge',
             'Greater Intellect',
+            'Greater Armor',
             # 'Armor',
 
             'Nature Protection ',  # extra space
