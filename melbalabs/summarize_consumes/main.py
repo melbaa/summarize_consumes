@@ -31,6 +31,7 @@ rename_consumable = {
     'Frost Power': 'Elixir of Frost Power',
     'Nature Protection ': 'Nature Protection',
     'Shadow Protection ': 'Shadow Protection',
+    'Holy Protection ': 'Holy Protection',
     '100 energy': 'Thistle Tea',
     'Sharpen Weapon - Critical': 'Elemental Sharpening Stone',
     'Consecrated Weapon': 'Consecrated Sharpening Stone',
@@ -202,6 +203,7 @@ def gains_consumable(line):
             'Crystal Ward',
             'Infallible Mind',
             'Crystal Protection',
+            'Dreamtonic',
 
 
             # ambiguous
@@ -218,6 +220,7 @@ def gains_consumable(line):
 
             'Nature Protection ',  # extra space
             'Shadow Protection ',
+            'Holy Protection ',
             'Fire Protection',
             'Frost Protection',
             'Arcane Protection',
