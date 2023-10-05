@@ -204,6 +204,7 @@ def gains_consumable(line):
             'Infallible Mind',
             'Crystal Protection',
             'Dreamtonic',
+            'Dreamshard Elixir',
 
 
             # ambiguous
