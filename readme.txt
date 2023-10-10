@@ -22,11 +22,12 @@ options:
 Install prepacked binary:
 
 You can download an executable from the Releases section [1] and save it in your WoW Logs folder.
-
-A bunch of anti-virus software as usual gives a false positive [2], so if you are worried, install from source as shown below.
+The release is automatically generated and you can see exactly how in the Actions section [2].
+A bunch of anti-virus software as usual gives a false positive [3], so if you are worried, install from source as shown below.
 
 [1] https://github.com/melbaa/summarize_consumes/releases
-[2] https://www.virustotal.com/gui/file/49633f660d6efc13bfc8705d89349e5f28ef135cc7dc0639a563c61f3a3bffa2?nocache=1
+[2] https://github.com/melbaa/summarize_consumes/actions
+[3] https://www.virustotal.com/gui/file/49633f660d6efc13bfc8705d89349e5f28ef135cc7dc0639a563c61f3a3bffa2?nocache=1
 
 
 

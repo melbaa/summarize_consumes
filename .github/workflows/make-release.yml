@@ -2,14 +2,37 @@ name: make-release
 run-name: ${{ github.actor }} making a release
 on: [push]
 jobs:
-  make-release:
+  make-artifact:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v4
         with:
-            python-version: '3.10'
+          python-version: '3.10'
+      - run: pip install pyinstaller
       - run: pip install -r .\requirements.txt
       - run: pip install .
       - run: pyinstaller.exe -F --name summarize_consumes .\melbalabs\summarize_consumes\main.py
       - run: gci .\dist\
+      - uses: actions/upload-artifact@v3
+        with:
+          name: summarize_consumes.exe
+          path: .\dist\summarize_consumes.exe
+
+  make-release:
+      needs: make-artifact
+      permissions:
+        contents:
+          write
+      runs-on: windows-latest
+      steps:
+      - uses: actions/download-artifact@v3
+        with:
+          name: summarize_consumes.exe
+      - uses: "marvinpinto/action-automatic-releases@v1.2.1"
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          automatic_release_tag: "latest"
+          prerelease: false
+          files: |
+            summarize_consumes.exe
