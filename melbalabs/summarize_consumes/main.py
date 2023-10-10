@@ -205,6 +205,7 @@ def gains_consumable(line):
             'Crystal Protection',
             'Dreamtonic',
             'Dreamshard Elixir',
+            "Medivh's Merlot",
 
 
             # ambiguous
