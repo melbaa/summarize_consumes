@@ -1,0 +1,15 @@
+name: make-release
+run-name: ${{ github.actor }} making a release
+on: [push]
+jobs:
+  make-release:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v4
+        with:
+            python-version: '3.10'
+      - run: pip install -r .\requirements.txt
+      - run: pip install .
+      - run: pyinstaller.exe -F --name summarize_consumes .\melbalabs\summarize_consumes\main.py
+      - run: gci .\dist\
