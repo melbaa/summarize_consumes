@@ -1,5 +1,5 @@
 The project generates a summary of a raid combat log.
-The summary includes consumables (as much as the combat log allows), details about some boss fights (huhuran, cthun chains, gluth, four horsemen chains, kt shadow fissures, kt frostbolts, kt frostblasts), pets found.
+The summary includes consumables (as much as the combat log allows), details about some boss fights (nefarian corrupted healing, huhuran, cthun chains, gluth, four horsemen chains, kt shadow fissures, kt frostbolts, kt frostblasts), pets found.
 It is assumed that the combat log was generated while the AdvancedVanillaCombatLog addon is active.
 
 Check out the examples directory for summaries of various raids.
