@@ -2,14 +2,17 @@ import argparse
 import collections
 import datetime
 import io
+import os
 import re
 import sys
+import time
 import webbrowser
 import zipfile
 from datetime import datetime as dt
 
 
 import requests
+import humanize
 
 
 
@@ -624,6 +627,29 @@ class KTFrostblast:
         return self.parser.print(output)
 
 
+class Techinfo:
+    def __init__(self):
+        self.time_start = time.time()
+        self.logsize = 0
+        self.linecount = 0
+
+    def get_file_size(self, filename):
+        self.logsize = os.path.getsize(filename)
+
+    def get_line_count(self, count):
+        self.linecount = count
+
+    def print(self, output):
+        time_end = time.time()
+        time_delta = time_end - self.time_start
+        print("\n\nTech", file=output)
+        print('  ', f'log size {humanize.naturalsize(self.logsize)}', file=output)
+        print('  ', f'log lines {self.linecount}', file=output)
+        print('  ', f'processed in {time_delta:.3f} seconds', file=output)
+
+
+
+
 
 current_year = datetime.datetime.now().year
 
@@ -650,11 +676,17 @@ fourhm_chain = BeamChain(logname="4HM Zeliek Chain Log (4+)", beamname="Sir Zeli
 kt_shadowfissure = KTShadowFissure()
 kt_frostbolt = KTFrostbolt()
 kt_frostblast = KTFrostblast()
+techinfo = Techinfo()
 
 
 def parse_log(filename):
+
+    techinfo.get_file_size(filename)
+
     with io.open(filename, encoding='utf8') as f:
+        linecount = 0
         for line in f:
+            linecount += 1
             # skip some ambiguous buffs
             if 'Prayer of Shadow Protection' in line:
                 continue
@@ -710,11 +742,10 @@ def parse_log(filename):
             if kt_frostblast.parse(line):
                 continue
 
+        techinfo.get_line_count(linecount)
 
 
 def generate_output():
-
-
 
     output = io.StringIO()
 
@@ -748,7 +779,6 @@ def generate_output():
         if not consumables:
             print('  ', '<nothing found>', file=output)
 
-
     nef_corrupted_healing.print(output)
     huhuran.print(output)
     cthun_chain.print(output)
@@ -758,10 +788,11 @@ def generate_output():
     kt_frostbolt.print(output)
     kt_frostblast.print(output)
 
-
-    print(f"\n\nPets:", file=output)
+    print(f"\n\nPets", file=output)
     for pet in pet_detect:
         print('  ', pet, 'owned by', pet_detect[pet], file=output)
+
+    techinfo.print(output)
 
     print(output.getvalue())
     return output
@@ -810,6 +841,8 @@ def main():
     args = get_user_input()
 
     parse_log(filename=args.logpath)
+
+
     output = generate_output()
 
     if not args.pastebin: return
