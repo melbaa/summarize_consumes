@@ -1,5 +1,6 @@
 The project generates a summary of a raid combat log.
 The summary includes consumables (as much as the combat log allows), details about some boss fights (huhuran, cthun chains, gluth, four horsemen chains, kt shadow fissures, kt frostbolts, kt frostblasts), pets found.
+It is assumed that the combat log was generated while the AdvancedVanillaCombatLog addon is active.
 
 Check out the examples directory for summaries of various raids.
 
@@ -35,6 +36,8 @@ A bunch of anti-virus software as usual gives a false positive [3], so if you ar
 
 
 Installing from source on windows:
+
+This is only needed if you don't want to use the binary from the Releases section and prefer to use the source code.
 
 To create a virtualenv with the project in the current directory
 python -m venv venv
