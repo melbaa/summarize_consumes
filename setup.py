@@ -8,7 +8,6 @@ setup(
     entry_points={
         'console_scripts': [
             'summarize_consumes=melbalabs.summarize_consumes.main:main',
-            'summarize_consumes_upload=melbalabs.summarize_consumes.upload:main',
         ],
     }
 )

@@ -206,6 +206,7 @@ def gains_consumable(line):
             'Dreamtonic',
             'Dreamshard Elixir',
             "Medivh's Merlot",
+            "Elixir of Greater Nature Power",
 
 
             # ambiguous
@@ -331,6 +332,31 @@ def player_detected(line):
             name = match.group(1)
             player_detect[name] = buff
             return True
+
+
+class NefCorruptedHealing:
+
+    """
+10/14 22:02:40.403  Psykhe absorbs Jarnp 's Corrupted Healing.
+10/14 22:02:41.443  Psykhe absorbs Jarnp 's Corrupted Healing.
+10/14 22:02:42.457  Psykhe suffers 315 Shadow damage from Jarnp 's Corrupted Healing.
+10/14 22:02:43.366  Psykhe suffers 315 Shadow damage from Jarnp 's Corrupted Healing.
+    """
+    def __init__(self):
+        logname = 'Nefarian Priest Corrupted Healing'
+        needles = [
+            r"(\w+) absorbs (\w+) 's Corrupted Healing.",
+            r"(\w+) suffers \d+ Shadow damage from (\w+) 's Corrupted Healing.",
+        ]
+        self.parser = LogParser(logname, needles)
+
+    def parse(self, line):
+        return self.parser.parse(line)
+
+    def print(self, output):
+        return self.parser.print(output)
+
+
 
 
 class Huhuran:
@@ -616,6 +642,7 @@ pet_detect = dict()
 # name -> death count
 death_count = collections.defaultdict(int)
 
+nef_corrupted_healing = NefCorruptedHealing()
 huhuran = Huhuran()
 gluth = Gluth()
 cthun_chain = BeamChain(logname="C'Thun Chain Log (2+)", beamname="Eye of C'Thun 's Eye Beam", chainsize=2)
@@ -666,6 +693,8 @@ def parse_log(filename):
                 continue
 
 
+            if nef_corrupted_healing.parse(line):
+                continue
             if huhuran.parse(line):
                 continue
             if cthun_chain.parse(line):
@@ -720,6 +749,7 @@ def generate_output():
             print('  ', '<nothing found>', file=output)
 
 
+    nef_corrupted_healing.print(output)
     huhuran.print(output)
     cthun_chain.print(output)
     gluth.print(output)
