@@ -1,0 +1,229 @@
+Notes:
+    - The report is generated using the combat log.
+    - Jujus and many foods are not in the combat log, so they can't be easily counted.
+    - Dragonbreath chili and goblin sappers have only "on hit" messages, so their usage is estimated based on timestamps and cooldowns.
+    - Mageblood and some other mana consumes are "mana regeneration" in the combat log, can't tell them apart.
+
+    
+Bananaheal deaths:0
+   Fire Protection 2
+   Lesser Mana Oil 1
+   Mana Potion - Major 1
+   Tea with Sugar 1
+Bigjelly deaths:1
+   Mana Potion - Major 3
+Bloxie deaths:4
+   Free Action Potion 1
+   Gift of Arthas 1
+   Greater Stoneshield 1
+   Tea with Sugar 4
+Bubasita deaths:2
+   Dense Sharpening Stone 5
+   Elixir of Greater Agility 5
+   Elixir of the Giants 5
+   Elixir of the Mongoose 5
+   Fire Protection 1
+   Goblin Sapper Charge 3
+   Mighty Rage Potion 3
+   Winterfall Firewater 5
+Chan deaths:2
+   Elixir of the Mongoose 3
+   Fire Protection 4
+   Increased Stamina 5
+   Mana Potion - Major 1
+   Mana Potion - Superior 1
+   Spirit of Zanza 2
+   Strike of the Scorpok 2
+Charmia deaths:1
+   Increased Stamina 3
+   Spirit of Zanza 2
+Christella deaths:4
+   <nothing found>
+Daenshoo deaths:1
+   <nothing found>
+Daenshy deaths:2
+   <nothing found>
+Dregoth deaths:2
+   Arcane Elixir 1
+   Fire Protection 2
+Druindy deaths:2
+   Tea with Sugar 1
+Dyrachyo deaths:1
+   Elixir of the Mongoose 2
+   Fire Protection 4
+   Free Action Potion 2
+   Gift of Arthas 3
+   Invulnerability 2
+   Mighty Rage Potion 7
+   Noggenfogger Elixir 3
+   Rage of Ages (ROIDS) 2
+   Winterfall Firewater 4
+Everglow deaths:2
+   Free Action Potion 4
+   Rumsey Rum Black Label 1
+Geniesham deaths:4
+   <nothing found>
+Getterfour deaths:6
+   Demonic Rune 2
+   Dragonbreath Chili 7
+   Elixir of Giant Growth 3
+   Elixir of the Mongoose 4
+   Fire Protection 2
+   Greater Arcane Elixir 4
+   Invulnerability 1
+   Mana Potion - Major 4
+   Winterfall Firewater 5
+Illasei deaths:1
+   Elixir of the Mongoose 3
+   Winterfall Firewater 5
+Iniri deaths:2
+   Elixir of Greater Agility 1
+   Elixir of the Giants 3
+   Elixir of the Mongoose 2
+   Invulnerability 2
+Ionize deaths:1
+   Brilliant Wizard Oil 4
+   Dense Dynamite 4
+   Elixir of Greater Nature Power 2
+   Fire Protection 4
+   Healing Potion - Major 1
+   Invulnerability 1
+   Mana Potion - Major 6
+   Tea with Sugar 8
+Jarnp deaths:2
+   Mana Potion - Major 1
+   Noggenfogger Elixir 1
+Kazgrun deaths:1
+   Spirit of Zanza 1
+Maryhuff deaths:3
+   Elixir of the Mongoose 3
+   Healing Potion - Major 2
+   Spirit of Zanza 1
+   Tea with Sugar 1
+Montford deaths:4
+   Healing Potion - Superior 1
+   Strength 1
+Morinethar deaths:1
+   Elixir of Fortitude 3
+   Fire Protection 1
+   Increased Stamina 5
+   Mana Potion - Major 3
+Nightleaf deaths:9
+   <nothing found>
+Niviri deaths:1
+   Elixir of Fortitude 1
+   Fire Protection 1
+   Kreeg's Stout Beatdown 3
+   Mana Potion - Greater 2
+   Spirit of Zanza 1
+   Tea with Sugar 1
+Psykhe deaths:3
+   Elixir of Greater Agility 2
+   Elixir of Superior Defense 1
+   Elixir of the Mongoose 2
+   Flask of the Titans 1
+   Free Action Potion 2
+   Greater Stoneshield 4
+   Increased Stamina 1
+   Spirit of Zanza 4
+Ridea deaths:4
+   Invulnerability 1
+Rossol deaths:1
+   Fire Protection 2
+Shrimpshark deaths:2
+   Brilliant Wizard Oil 5
+   Elixir of Fortitude 2
+   Greater Arcane Elixir 2
+   Healing Potion - Major 1
+   Increased Intellect 1
+   Mana Potion - Major 2
+   Tea with Sugar 1
+Shumy deaths:1
+   Mana Potion - Major 1
+Smahingbolt deaths:1
+   Elixir of Greater Agility 2
+   Elixir of the Mongoose 1
+   Fire Protection 1
+Steinberg deaths:3
+   Wizard Oil 2
+Stormsnake deaths:5
+   Thorium Grenade 1
+Sunor deaths:5
+   Brilliant Wizard Oil 1
+   Mana Potion - Major 9
+   Tea with Sugar 9
+Teldelar deaths:1
+   <nothing found>
+Thorshifter deaths:1
+   Dark Rune 2
+   Mana Potion - Major 1
+Tlw deaths:2
+   Mana Potion - Major 1
+   Tea with Sugar 1
+Windfurytotm deaths:3
+   Blessed Sunfruit 4
+   Dragonbreath Chili 1
+   Elixir of Greater Agility 4
+   Elixir of the Giants 3
+   Fire Protection 3
+   Free Action Potion 1
+   Mana Potion - Greater 11
+   Tea with Sugar 13
+   Winterfall Firewater 5
+Xanadun deaths:1
+   Invulnerability 3
+Yis deaths:1
+   Elixir of the Mongoose 2
+   Mana Potion - Major 1
+   Tea with Sugar 1
+thak deaths:0
+   <nothing found>
+
+
+Nefarian Priest Corrupted Healing
+   10/14 22:02:39.340  Psykhe suffers 315 Shadow damage from Jarnp 's Corrupted Healing.
+   10/14 22:02:40.403  Psykhe absorbs Jarnp 's Corrupted Healing.
+   10/14 22:02:41.443  Psykhe absorbs Jarnp 's Corrupted Healing.
+   10/14 22:02:42.457  Psykhe suffers 315 Shadow damage from Jarnp 's Corrupted Healing.
+   10/14 22:02:43.366  Psykhe suffers 315 Shadow damage from Jarnp 's Corrupted Healing.
+   10/14 22:02:44.293  Psykhe suffers 315 Shadow damage from Jarnp 's Corrupted Healing.
+   10/14 22:02:45.372  Psykhe suffers 315 Shadow damage from Jarnp 's Corrupted Healing.
+   10/14 22:02:46.417  Psykhe suffers 315 Shadow damage from Jarnp 's Corrupted Healing.
+   10/14 22:02:47.354  Psykhe suffers 315 Shadow damage from Jarnp 's Corrupted Healing.
+   10/14 22:02:48.389  Psykhe suffers 315 Shadow damage from Jarnp 's Corrupted Healing.
+   10/14 22:02:49.313  Psykhe suffers 315 Shadow damage from Jarnp 's Corrupted Healing.
+   10/14 22:02:50.335  Psykhe suffers 158 Shadow damage from Jarnp 's Corrupted Healing. (157 resisted)
+   10/14 22:02:51.327  Psykhe suffers 315 Shadow damage from Jarnp 's Corrupted Healing.
+   10/14 22:02:52.433  Psykhe suffers 315 Shadow damage from Jarnp 's Corrupted Healing.
+   10/14 22:02:53.452  Psykhe suffers 315 Shadow damage from Jarnp 's Corrupted Healing.
+   10/14 22:02:54.325  Psykhe suffers 315 Shadow damage from Jarnp 's Corrupted Healing.
+   10/14 22:02:55.315  Psykhe suffers 315 Shadow damage from Jarnp 's Corrupted Healing.
+   10/14 22:02:56.342  Psykhe suffers 385 Shadow damage from Jarnp 's Corrupted Healing.
+   10/14 22:02:57.366  Psykhe suffers 385 Shadow damage from Jarnp 's Corrupted Healing.
+   10/14 22:02:58.358  Psykhe suffers 385 Shadow damage from Jarnp 's Corrupted Healing.
+   10/14 22:02:59.421  Psykhe suffers 385 Shadow damage from Jarnp 's Corrupted Healing.
+   10/14 22:03:00.427  Psykhe suffers 385 Shadow damage from Jarnp 's Corrupted Healing.
+   10/14 22:03:01.418  Psykhe suffers 315 Shadow damage from Jarnp 's Corrupted Healing.
+   10/14 22:03:02.386  Psykhe suffers 315 Shadow damage from Jarnp 's Corrupted Healing.
+   10/14 22:03:03.403  Psykhe suffers 315 Shadow damage from Jarnp 's Corrupted Healing.
+   10/14 22:03:04.356  Psykhe suffers 315 Shadow damage from Jarnp 's Corrupted Healing.
+   10/14 22:03:05.388  Psykhe suffers 315 Shadow damage from Jarnp 's Corrupted Healing.
+   10/14 22:03:06.414  Psykhe suffers 315 Shadow damage from Jarnp 's Corrupted Healing.
+   10/14 22:03:07.491  Psykhe suffers 315 Shadow damage from Jarnp 's Corrupted Healing.
+   10/14 22:03:08.402  Psykhe suffers 315 Shadow damage from Jarnp 's Corrupted Healing.
+
+
+Pets
+   Fiertevere owned by Dregoth
+   Betwena owned by Xanadun
+   Razorgore owned by Sunor
+   Kotick owned by Chan
+   Juk owned by Xanadun
+   Rat owned by Yis
+   brennanheart owned by Smahingbolt
+
+
+Tech
+   log size 21.0 MB
+   log lines 273896
+   processed in 35.907 seconds
