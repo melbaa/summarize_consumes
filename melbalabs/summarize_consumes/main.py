@@ -632,6 +632,7 @@ class Techinfo:
         self.time_start = time.time()
         self.logsize = 0
         self.linecount = 0
+        self.skiplinecount = 0
 
     def get_file_size(self, filename):
         self.logsize = os.path.getsize(filename)
@@ -639,13 +640,17 @@ class Techinfo:
     def get_line_count(self, count):
         self.linecount = count
 
+    def get_skipped_line_count(self, count):
+        self.skiplinecount = count
+
     def print(self, output):
         time_end = time.time()
         time_delta = time_end - self.time_start
         print("\n\nTech", file=output)
         print('  ', f'log size {humanize.naturalsize(self.logsize)}', file=output)
         print('  ', f'log lines {self.linecount}', file=output)
-        print('  ', f'processed in {time_delta:.3f} seconds', file=output)
+        print('  ', f'skipped log lines {self.skiplinecount} ({(self.skiplinecount / self.linecount) * 100:.2f}%)', file=output)
+        print('  ', f'processed in {time_delta:.2f} seconds', file=output)
 
 
 
@@ -685,6 +690,7 @@ def parse_log(filename):
 
     with io.open(filename, encoding='utf8') as f:
         linecount = 0
+        skiplinecount = 0
         for line in f:
             linecount += 1
             # skip some ambiguous buffs
@@ -742,7 +748,10 @@ def parse_log(filename):
             if kt_frostblast.parse(line):
                 continue
 
+            skiplinecount += 1
+
         techinfo.get_line_count(linecount)
+        techinfo.get_skipped_line_count(skiplinecount)
 
 
 def generate_output():
