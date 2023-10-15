@@ -156,87 +156,19 @@ def great_rage(line):
         return True
 
 def tea_with_sugar(line):
-    match = re.search(r'Tea with Sugar.*heals (\w+)', line)
+    match = parse_line(grammar.tea_with_sugar_line, line)
     if match:
-        name = match.group(1)
-        player[name]['Tea with Sugar'] += 1
+        player[match.name]['Tea with Sugar'] += 1
         return True
 
 def gains_consumable(line):
-    for consumable in [
-            'Greater Arcane Elixir',
-            'Arcane Elixir',
-            'Elixir of the Mongoose',
-            'Elixir of the Giants',
-            'Flask of the Titans',
-            'Supreme Power',
-            'Distilled Wisdom',
-            'Spirit of Zanza',
-            'Swiftness of Zanza',
-            'Sheen of Zanza',
-            'Rage of Ages',
-            'Invulnerability',
-            'Noggenfogger Elixir',
-            'Shadow Power',
-            'Greater Stoneshield',
-            'Stoneshield',
-            'Health II',
-            'Rumsey Rum Black Label',
-            'Rumsey Rum',
-            'Fury of the Bogling',
-            'Winterfall Firewater',
-            'Greater Agility',
-            'Elixir of the Sages',
-            'Greater Firepower',
-            'Fire Power',
-            'Strike of the Scorpok',
-            'Spirit of the Boar',
-            'Greater Armor',
-            'Free Action',
-            'Blessed Sunfruit',
-            'Elixir of Resistance',
-            'Gordok Green Grog',
-            'Frost Power',
-            'Gift of Arthas',
-            '100 Energy',  # Restore Energy aka Thistle Tea
-            'Restoration',
-            'Crystal Ward',
-            'Infallible Mind',
-            'Crystal Protection',
-            'Dreamtonic',
-            'Dreamshard Elixir',
-            "Medivh's Merlot",
-            "Elixir of Greater Nature Power",
-
-
-            # ambiguous
-            'Increased Stamina',
-            'Increased Intellect',
-            'Mana Regeneration',
-            'Regeneration',
-            'Agility',  # pots or scrolls
-            'Strength',
-            'Stamina',
-            'Enlarge',
-            'Greater Intellect',
-            'Greater Armor',
-            # 'Armor',
-
-            'Nature Protection ',  # extra space
-            'Shadow Protection ',
-            'Holy Protection ',
-            'Fire Protection',
-            'Frost Protection',
-            'Arcane Protection',
-        ]:
-            needle = r'(\w+) gains ' + consumable + r' \(1\)'
-            match = re.search(needle, line)
-            if match:
-                name = match.group(1)
-                if consumable in rename_consumable:
-                    consumable = rename_consumable[consumable]
-                player[name][consumable] += 1
-                return True
+    match = parse_line(grammar.gains_consumable_line, line)
+    if match:
+        consumable = match.consumable
+        if consumable in rename_consumable:
+            consumable = rename_consumable[consumable]
+        player[match.name][consumable] += 1
+        return True
 
 def casts_consumable(line):
     casts_consumables = [
@@ -325,6 +257,7 @@ def player_detected(line):
         'Greater Blessing of Might',
         'Prayer of Spirit',
         'Prayer of Fortitude',
+        'Prayer of Shadow Protection',
     ]:
         needle = r'(\w+) gains ' + buff + r' \(1\)'
         match = re.search(needle, line)
@@ -690,11 +623,6 @@ def parse_log(filename):
         skiplinecount = 0
         for line in f:
             linecount += 1
-            # skip some ambiguous buffs
-            if 'Prayer of Shadow Protection' in line:
-                continue
-            if 'gains Holy Strength (1)' in line:
-                continue
 
             if 'gains' in line and '(1)' in line:
                 if gains_consumable(line):
