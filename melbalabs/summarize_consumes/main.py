@@ -15,6 +15,9 @@ import requests
 import humanize
 
 
+from melbalabs.summarize_consumes import grammar
+parse_line = grammar.parse_line
+
 
 rename_consumable = {
     'Supreme Power': 'Flask of Supreme Power',
@@ -145,18 +148,12 @@ def mana_rune(line):
             player[name][consumable] += 1
             return True
 
-
-
 def great_rage(line):
-    for consumable in ['Mighty Rage', 'Great Rage', 'Rage']:
-        needle = r'(\w+) gains \d+ Rage from .* ' + consumable
-        match = re.search(needle, line)
-        if match:
-            name = match.group(1)
-            consumable += ' Potion'
-            player[name][consumable] += 1
-            return True
-
+    match = parse_line(grammar.rage_line, line)
+    if match:
+        consumable = match.rage_pot + ' Potion'
+        player[match.name][consumable] += 1
+        return True
 
 def tea_with_sugar(line):
     match = re.search(r'Tea with Sugar.*heals (\w+)', line)
@@ -698,8 +695,6 @@ def parse_log(filename):
                 continue
             if 'gains Holy Strength (1)' in line:
                 continue
-            if 'Berserker Rage Effect' in line:
-                continue
 
             if 'gains' in line and '(1)' in line:
                 if gains_consumable(line):
@@ -845,12 +840,12 @@ def open_browser(url):
     webbrowser.open(url)
 
 
+
 def main():
 
     args = get_user_input()
 
     parse_log(filename=args.logpath)
-
 
     output = generate_output()
 

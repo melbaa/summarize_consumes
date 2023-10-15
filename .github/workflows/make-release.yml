@@ -10,8 +10,10 @@ jobs:
         with:
           python-version: '3.10'
       - run: pip install -r .\requirements-release.txt
+      - run: pip install -r .\requirements-dev.txt
       - run: pip install -r .\requirements.txt
       - run: pip install .
+      - run: pytest -v
       - run: pyinstaller.exe -F --name summarize_consumes .\melbalabs\summarize_consumes\main.py
       - run: gci .\dist\
       - uses: actions/upload-artifact@v3
