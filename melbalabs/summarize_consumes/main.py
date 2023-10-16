@@ -13,10 +13,11 @@ from datetime import datetime as dt
 
 import requests
 import humanize
+import lark
 
 
 from melbalabs.summarize_consumes import grammar
-parse_line = grammar.parse_line
+parser = grammar.parser
 
 
 rename_consumable = {
@@ -53,18 +54,6 @@ rename_consumable = {
 }
 
 
-def deaths_log(line):
-    if not 'dies.' in line:
-        return
-
-    needle = r'  ([\w ]+) dies\.'
-    match = re.search(needle, line)
-    if match:
-        name = match.group(1)
-        death_count[name] += 1
-        return True
-
-
 def consolidated_log(line):
     idx = line.find("CONSOLIDATED: ")
     if idx == -1:
@@ -98,128 +87,7 @@ def healpot_lookup(amount):
     return 'Healing Potion - unknown'
 
 
-def health_potion(line):
-    needle = r'Healing Potion heals (\w+) for (\d+)'
-    match = re.search(needle, line)
-    if match:
-        name = match.group(1)
-        amount = int(match.group(2))
-        consumable = healpot_lookup(amount)
-        player[name][consumable] += 1
-        return True
 
-    needle = r'Healing Potion critically heals (\w+) for (\d+)'
-    match = re.search(needle, line)
-    if match:
-        name = match.group(1)
-        amount = int(match.group(2))
-        consumable = healpot_lookup(amount/1.5)
-        player[name][consumable] += 1
-        return True
-
-def mana_potion(line):
-    needle = r'(\w+) gains (\d+) Mana from .* Restore Mana'
-    match = re.search(needle, line)
-    if match:
-        name = match.group(1)
-        mana = int(match.group(2))
-        consumable = 'Restore Mana (mana potion?)'
-        if 1350 <= mana <= 2250:
-            consumable = 'Mana Potion - Major'
-        elif 900 <= mana <= 1500:
-            consumable = 'Mana Potion - Superior'
-        elif 700 <= mana <= 900:
-            consumable = 'Mana Potion - Greater'
-        elif 455 <= mana <= 585:
-            consumable = 'Mana Potion - 455 to 585'
-        elif 280 <= mana <= 360:
-            consumable = 'Mana Potion - Lesser'
-        elif 140 <= mana <= 180:
-            consumable = 'Mana Potion - Minor'
-        player[name][consumable] += 1
-        return True
-
-def mana_rune(line):
-    for consumable in ['Dark Rune', 'Demonic Rune']:
-        needle = r'(\w+) gains (\d+) Mana from .* ' + consumable
-        match = re.search(needle, line)
-        if match:
-            name = match.group(1)
-            player[name][consumable] += 1
-            return True
-
-def great_rage(line):
-    match = parse_line(grammar.rage_line, line)
-    if match:
-        consumable = match.rage_pot + ' Potion'
-        player[match.name][consumable] += 1
-        return True
-
-def tea_with_sugar(line):
-    match = parse_line(grammar.tea_with_sugar_line, line)
-    if match:
-        player[match.name]['Tea with Sugar'] += 1
-        return True
-
-def gains_consumable(line):
-    match = parse_line(grammar.gains_consumable_line, line)
-    if match:
-        consumable = match.consumable
-        if consumable in rename_consumable:
-            consumable = rename_consumable[consumable]
-        player[match.name][consumable] += 1
-        return True
-
-def casts_consumable(line):
-    casts_consumables = [
-        'Powerful Anti-Venom',
-        'Strong Anti-Venom',
-        'Cure Ailments',
-        'Advanced Target Dummy',
-    ]
-    for consumable in casts_consumables:
-        needle = r'(\w+) casts ' + consumable
-        match = re.search(needle, line)
-        if match:
-            name = match.group(1)
-            if consumable in rename_consumable:
-                consumable = rename_consumable[consumable]
-            player[name][consumable] += 1
-            return True
-
-
-
-def begins_to_cast_consumable(line):
-    begins_to_cast_consumables = [
-        'Brilliant Mana Oil',
-        'Lesser Mana Oil',
-        'Brilliant Wizard Oil',
-        'Blessed Wizard Oil',
-        'Wizard Oil',
-        'Frost Oil',
-        'Shadow Oil',
-        'Dense Dynamite',
-        'Solid Dynamite',
-        'Sharpen Weapon - Critical',
-        'Consecrated Weapon',
-        'Iron Grenade',
-        'Thorium Grenade',
-        "Kreeg's Stout Beatdown",
-        'Fire-toasted Bun',
-        'Sharpen Blade V',
-        'Enhance Blunt Weapon V',
-        'Crystal Force',
-    ]
-
-    for consumable in begins_to_cast_consumables:
-        needle = r'(\w+) begins to cast ' + consumable
-        match = re.search(needle, line)
-        if match:
-            name = match.group(1)
-            if consumable in rename_consumable:
-                consumable = rename_consumable[consumable]
-            player[name][consumable] += 1
-            return 1
 
 def hits_consumable(line):
 
@@ -246,25 +114,6 @@ def hits_consumable(line):
 
             return True
 
-
-
-def player_detected(line):
-    for buff in [
-        'Greater Blessing of Wisdom',
-        'Greater Blessing of Salvation',
-        'Greater Blessing of Light',
-        'Greater Blessing of Kings',
-        'Greater Blessing of Might',
-        'Prayer of Spirit',
-        'Prayer of Fortitude',
-        'Prayer of Shadow Protection',
-    ]:
-        needle = r'(\w+) gains ' + buff + r' \(1\)'
-        match = re.search(needle, line)
-        if match:
-            name = match.group(1)
-            player_detect[name] = buff
-            return True
 
 
 class NefCorruptedHealing:
@@ -580,7 +429,7 @@ class Techinfo:
         print('  ', f'log size {humanize.naturalsize(self.logsize)}', file=output)
         print('  ', f'log lines {self.linecount}', file=output)
         print('  ', f'skipped log lines {self.skiplinecount} ({(self.skiplinecount / self.linecount) * 100:.2f}%)', file=output)
-        print('  ', f'processed in {time_delta:.2f} seconds', file=output)
+        print('  ', f'processed in {time_delta:.2f} seconds. {self.linecount / time_delta:.2f} log lines/sec', file=output)
 
 
 
@@ -614,6 +463,96 @@ kt_frostblast = KTFrostblast()
 techinfo = Techinfo()
 
 
+def parse_line(line):
+    try:
+        tree = parser.parse(line)
+        timestamp = tree.children[0]
+        subtree = tree.children[1]
+
+        # inline some parsing to reduce funcalls
+        # for same reason not using visitors to traverse the parse tree
+        if subtree.data == 'gains_consumable_line':
+            name = subtree.children[0].value
+            consumable = subtree.children[1].value
+            if consumable in rename_consumable:
+                consumable = rename_consumable[consumable]
+            player[name][consumable] += 1
+            return True
+        elif subtree.data == 'tea_with_sugar_line':
+            name = subtree.children[0].value
+            player[name]['Tea with Sugar'] += 1
+            return True
+        elif subtree.data == 'rage_consumable_line':
+            name = subtree.children[0].value
+            consumable = subtree.children[3].value
+            consumable += ' Potion'
+            player[name][consumable] += 1
+            return True
+        elif subtree.data == 'buff_line':
+            name = subtree.children[0].value
+            buff = subtree.children[1].value
+            player_detect[name] = buff
+            return True
+        elif subtree.data == 'dies_line':
+            name = subtree.children[0].value
+            death_count[name] += 1
+            return True
+        elif subtree.data == 'healpot_line':
+            name = subtree.children[0].value
+            amount = int(subtree.children[-1].value)
+            is_crit = subtree.children[1].type == 'HEALPOT_CRIT'
+            if is_crit:
+                amount = amount / 1.5
+            consumable = healpot_lookup(amount)
+            player[name][consumable] += 1
+            return True
+        elif subtree.data == 'manapot_line':
+            name = subtree.children[0].value
+            mana = int(subtree.children[1].value)
+            consumable = 'Restore Mana (mana potion?)'
+            if 1350 <= mana <= 2250:
+                consumable = 'Mana Potion - Major'
+            elif 900 <= mana <= 1500:
+                consumable = 'Mana Potion - Superior'
+            elif 700 <= mana <= 900:
+                consumable = 'Mana Potion - Greater'
+            elif 455 <= mana <= 585:
+                consumable = 'Mana Potion - 455 to 585'
+            elif 280 <= mana <= 360:
+                consumable = 'Mana Potion - Lesser'
+            elif 140 <= mana <= 180:
+                consumable = 'Mana Potion - Minor'
+            player[name][consumable] += 1
+            return True
+        elif subtree.data == 'manarune_line':
+            name = subtree.children[0].value
+            consumable = subtree.children[-1].value
+            player[name][consumable] += 1
+            return True
+        elif subtree.data == 'begins_to_cast_consumable_line':
+            name = subtree.children[0].value
+            consumable = subtree.children[-1].value
+            if consumable in rename_consumable:
+                consumable = rename_consumable[consumable]
+            player[name][consumable] += 1
+            return True
+        elif subtree.data == 'casts_consumable_line':
+            name = subtree.children[0].value
+            consumable = subtree.children[1].value
+            if consumable in rename_consumable:
+                consumable = rename_consumable[consumable]
+            player[name][consumable] += 1
+            return True
+
+
+
+
+
+    except lark.LarkError:
+        # parse errors ignored to try different strategies
+        pass
+    return
+
 def parse_log(filename):
 
     techinfo.get_file_size(filename)
@@ -624,34 +563,15 @@ def parse_log(filename):
         for line in f:
             linecount += 1
 
-            if 'gains' in line and '(1)' in line:
-                if gains_consumable(line):
-                    continue
-                if player_detected(line):
-                    continue
+            if parse_line(line):
+                continue
 
-
-            if tea_with_sugar(line):
-                continue
-            if great_rage(line):
-                continue
-            if mana_potion(line):
-                continue
-            if mana_rune(line):
-                continue
-            if health_potion(line):
-                continue
-            if begins_to_cast_consumable(line):
-                continue
-            if casts_consumable(line):
-                continue
             if hits_consumable(line):
                 continue
 
             if consolidated_log(line):
                 continue
-            if deaths_log(line):
-                continue
+
 
 
             if nef_corrupted_healing.parse(line):
