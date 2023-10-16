@@ -14,7 +14,9 @@ _line: gains_consumable_line
     | manarune_line
     | begins_to_cast_consumable_line
     | casts_consumable_line
+    | hits_consumable_line
 
+hits_consumable_line: PLAYER " 's " HITS_CONSUMABLE " " /.+/
 casts_consumable_line: PLAYER " casts " CASTS_CONSUMABLE (" on " PLAYER)? "."
 begins_to_cast_consumable_line: PLAYER " begins to cast " BEGINS_TO_CAST_CONSUMABLE "."
 gains_consumable_line: PLAYER " gains " GAINS_CONSUMABLE " (1)."
@@ -24,8 +26,10 @@ buff_line: PLAYER " gains " BUFF_SPELL " (1)."
 dies_line: PLAYER " dies."
 healpot_line: PLAYER " 's Healing Potion " HEALPOT_CRIT? "heals " PLAYER " for " INT "."
 manapot_line: PLAYER " gains " INT " Mana from " PLAYER " 's Restore Mana."
-manarune_line: PLAYER " gains " INT " Mana from " PLAYER " 's " MANARUNE_CONSUMABLE "."  # TODO same as above
+manarune_line: PLAYER " gains " INT " Mana from " PLAYER " 's " MANARUNE_CONSUMABLE "."
 
+HITS_CONSUMABLE: "Goblin Sapper Charge"
+    | "Dragonbreath Chili"
 CASTS_CONSUMABLE: "Powerful Anti-Venom"
     |  "Strong Anti-Venom"
     |  "Cure Ailments"
@@ -48,7 +52,6 @@ BEGINS_TO_CAST_CONSUMABLE: "Brilliant Mana Oil"
     | "Sharpen Blade V"
     | "Enhance Blunt Weapon V"
     | "Crystal Force"
-
 GAINS_CONSUMABLE: "Greater Arcane Elixir"
     | "Arcane Elixir"
     | "Elixir of the Mongoose"
@@ -103,7 +106,7 @@ GAINS_CONSUMABLE: "Greater Arcane Elixir"
     | "Enlarge"
     | "Greater Intellect"
     | "Greater Armor"
-   # |  "Armor",  # same as a spell?
+  # |  "Armor",  # same as a spell?
     # protections
     | "Fire Protection"
     | "Frost Protection"
@@ -112,9 +115,6 @@ GAINS_CONSUMABLE: "Greater Arcane Elixir"
     | "Nature Protection "
     | "Shadow Protection "
     | "Holy Protection "
-
-
-
 MANARUNE_CONSUMABLE: "Demonic Rune"
     | "Dark Rune"
 HEALPOT_CRIT: "critically "
@@ -126,16 +126,18 @@ BUFF_SPELL: "Greater Blessing of Wisdom"
     | "Prayer of Spirit"
     | "Prayer of Fortitude"
     | "Prayer of Shadow Protection"
-
 RAGE_CONSUMABLE: "Mighty Rage"
     | "Great Rage"
     | "Rage"
 
 PLAYER: CNAME
+_WORD: (LETTER | DIGIT)+
 
 timestamp: INT "/" INT " " INT ":" INT ":" INT "." INT
 
 %import common.INT
+%import common.LETTER
+%import common.DIGIT
 %import common.CNAME
 %import common.NEWLINE
 """,

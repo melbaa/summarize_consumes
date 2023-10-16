@@ -54,6 +54,12 @@ rename_consumable = {
 }
 
 
+HITS_CONSUMABLES_COOLDOWNS = {
+    'Dragonbreath Chili': 10 * 60,
+    'Goblin Sapper Charge': 5 * 60,
+}
+
+
 def consolidated_log(line):
     idx = line.find("CONSOLIDATED: ")
     if idx == -1:
@@ -89,33 +95,6 @@ def healpot_lookup(amount):
 
 
 
-def hits_consumable(line):
-
-    hits_consumables = [
-        ('Dragonbreath Chili', 10 * 60),
-        ('Goblin Sapper Charge', 5 * 60),
-    ]
-    for consumable, cooldown in hits_consumables:
-        needle = r"(\d+)/(\d+) (\d+):(\d+):(\d+).(\d+)  (\w+) 's " + consumable + ' '
-        match = re.search(needle, line)
-        if match:
-            groups = match.groups()
-            month, day, hour, minute, sec, ms = int(groups[0]), int(groups[1]), int(groups[2]), int(groups[3]), int(groups[4]), int(groups[5])
-            name = groups[-1]
-            timestamp = dt(year=current_year, month=month, day=day, hour=hour, minute=minute, second=sec, tzinfo=datetime.timezone.utc)
-            unixtime = timestamp.timestamp()  # seconds
-            delta = unixtime - last_hit_cache[name][consumable]
-            if delta >= cooldown:
-                player[name][consumable] += 1
-                last_hit_cache[name][consumable] = unixtime
-            elif delta < 0:
-                # probably a new year, will ignore for now
-                raise RuntimeError('fixme')
-
-            return True
-
-
-
 class NefCorruptedHealing:
 
     """
@@ -123,12 +102,14 @@ class NefCorruptedHealing:
 10/14 22:02:41.443  Psykhe absorbs Jarnp 's Corrupted Healing.
 10/14 22:02:42.457  Psykhe suffers 315 Shadow damage from Jarnp 's Corrupted Healing.
 10/14 22:02:43.366  Psykhe suffers 315 Shadow damage from Jarnp 's Corrupted Healing.
+5/6 22:14:32.515  Arzetlam 's Corrupted Healing is absorbed by Jaekta.
     """
     def __init__(self):
         logname = 'Nefarian Priest Corrupted Healing'
         needles = [
             r"(\w+) absorbs (\w+) 's Corrupted Healing.",
             r"(\w+) suffers \d+ Shadow damage from (\w+) 's Corrupted Healing.",
+            r"(\w+) 's Corrupted Healing is absorbed by (\w+).",
         ]
         self.parser = LogParser(logname, needles)
 
@@ -462,8 +443,22 @@ kt_frostbolt = KTFrostbolt()
 kt_frostblast = KTFrostblast()
 techinfo = Techinfo()
 
+def parse_ts2unixtime(timestamp):
+    month, day, hour, minute, sec, ms = timestamp.children
+    month = int(month)
+    day = int(day)
+    hour = int(hour)
+    minute = int(minute)
+    sec = int(sec)
+    ms = int(ms)
+    timestamp = dt(year=current_year, month=month, day=day, hour=hour, minute=minute, second=sec, tzinfo=datetime.timezone.utc)
+    unixtime = timestamp.timestamp()  # seconds
+    return unixtime
 
 def parse_line(line):
+    """
+    returns True when a match is found, so we can stop trying different parsers
+    """
     try:
         tree = parser.parse(line)
         timestamp = tree.children[0]
@@ -543,8 +538,19 @@ def parse_line(line):
                 consumable = rename_consumable[consumable]
             player[name][consumable] += 1
             return True
-
-
+        elif subtree.data == 'hits_consumable_line':
+            name = subtree.children[0].value
+            consumable = subtree.children[1].value
+            cooldown = HITS_CONSUMABLES_COOLDOWNS[consumable]
+            unixtime =  parse_ts2unixtime(timestamp)
+            delta = unixtime - last_hit_cache[name][consumable]
+            if delta >= cooldown:
+                player[name][consumable] += 1
+                last_hit_cache[name][consumable] = unixtime
+            elif delta < 0:
+                # probably a new year, will ignore for now
+                raise RuntimeError('fixme')
+            return True
 
 
 
@@ -566,8 +572,6 @@ def parse_log(filename):
             if parse_line(line):
                 continue
 
-            if hits_consumable(line):
-                continue
 
             if consolidated_log(line):
                 continue

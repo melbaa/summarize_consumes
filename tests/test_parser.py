@@ -155,3 +155,21 @@ def test_casts_consumable_line():
     assert player['Faradin']["Advanced Target Dummy"] == 1
     assert player['Psykhe']["Powerful Anti-Venom"] == 1
     assert player['Doombabe']["Jungle Remedy"] == 2
+
+def test_hits_consumable_line():
+    lines = """
+4/19 20:15:15.532  Getterfour 's Dragonbreath Chili crits Razorgore the Untamed for 521 Fire damage. (173 resisted)
+4/19 20:25:16.797  Getterfour 's Dragonbreath Chili hits Razorgore the Untamed for 591 Fire damage.
+4/19 20:25:27.034  Srj 's Dragonbreath Chili was resisted by Razorgore the Untamed.
+4/19 20:54:19.933  Abstractz 's Goblin Sapper Charge fails. Corrupted Red Whelp is immune.
+4/19 20:54:19.933  Abstractz 's Goblin Sapper Charge crits Corrupted Green Whelp for 837 Fire damage.
+4/19 20:54:19.933  Abstractz 's Goblin Sapper Charge crits Corrupted Bronze Whelp for 949 Fire damage.
+4/19 20:54:19.933  Abstractz 's Goblin Sapper Charge crits Corrupted Green Whelp for 864 Fire damage.
+4/19 20:54:19.933  Abstractz 's Goblin Sapper Charge hits Corrupted Bronze Whelp for 717 Fire damage.
+    """
+    lines = lines.split('\n')
+    for line in lines:
+        parse_line(line)
+    assert player['Getterfour']["Dragonbreath Chili"] == 2
+    assert player['Srj']["Dragonbreath Chili"] == 1
+    assert player['Abstractz']["Goblin Sapper Charge"] == 1
