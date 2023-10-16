@@ -4,9 +4,12 @@ from pyparsing import alphanums
 from pyparsing import Group
 from pyparsing import Literal
 from pyparsing import White
+from pyparsing import Regex
 from pyparsing import Combine
 from pyparsing import ParseException
 
+# from pyparsing import ParserElement
+# ParserElement.enable_packrat()
 
 
 def parse_line(expr, line):
@@ -16,7 +19,9 @@ def parse_line(expr, line):
         return None
 
 
-log_ts = (Word(nums) + '/' + Word(nums) + Word(nums) + ':' + Word(nums) + ':' + Word(nums) + '.' + Word(nums))("logts")
+# log_ts = (Word(nums) + '/' + Word(nums) + Word(nums) + ':' + Word(nums) + ':' + Word(nums) + '.' + Word(nums))("log_ts")
+month, day, hour, minute, sec, ms = "\d+", "\d+", "\d+", "\d+", "\d+", "\d+"
+log_ts = Regex(fr"{month}/{day} {hour}:{minute}:{sec}\.{ms}")("log_ts")
 
 # players have no spaces in their name
 name = Word(alphanums)("name")
