@@ -54,10 +54,34 @@ rename_consumable = {
 }
 
 
-HITS_CONSUMABLES_COOLDOWNS = {
-    'Dragonbreath Chili': 10 * 60,
-    'Goblin Sapper Charge': 5 * 60,
+MELEE_INTERRUPT_SPELLS = {
+    'Kick',
+    'Pummel',
+    'Shield Bash',
 }
+
+
+BEGINS_TO_CAST_CONSUMABLE = {
+    "Brilliant Mana Oil",
+    "Lesser Mana Oil",
+    "Brilliant Wizard Oil",
+    "Blessed Wizard Oil",
+    "Wizard Oil",
+    "Frost Oil",
+    "Shadow Oil",
+    "Dense Dynamite",
+    "Solid Dynamite",
+    "Sharpen Weapon - Critical",
+    "Consecrated Weapon",
+    "Iron Grenade",
+    "Thorium Grenade",
+    "Kreeg's Stout Beatdown",
+    "Fire-toasted Bun",
+    "Sharpen Blade V",
+    "Enhance Blunt Weapon V",
+    "Crystal Force",
+}
+
 
 
 def healpot_lookup(amount):
@@ -212,12 +236,15 @@ class BeamChain:
     def print(self, output):
         if not self.log: return
 
-        print(f"\n\n{self.logname}", file=output)
+        do_once = False
 
         batch = []
         for line in self.log:
             if line == '\n':
                 if len(batch) > self.chainsize:
+                    if not do_once:
+                        print(f"\n\n{self.logname}", file=output)
+                        do_once = True
                     for batch_line in batch:
                         print('  ', batch_line, end='', file=output)
                 batch = []
@@ -345,6 +372,30 @@ class KTFrostbolt:
         return self.parser.print(output)
 
 
+def print_collected_log(section_name, log_list, output):
+    if not log_list: return
+    print(f"\n\n{section_name}", file=output)
+    for line in log_list:
+        print('  ', line, end='', file=output)
+    return
+
+
+
+class KTFrostbolt2:
+    def __init__(self):
+        self.logname = 'KT Frostbolt Log'
+        self.log = []
+    def begins_to_cast(self, line):
+        self.log.append('\n')
+        self.log.append(line)
+    def interrupt(self, line):
+        self.log.append(line)
+    def parry(self, line):
+        line = "*** honorable mention *** " + line
+        self.log.append(line)
+    def print(self, output):
+        print_collected_log(self.logname, self.log, output)
+
 class KTFrostblast:
     """
     9/28 22:52:03.404  Bloxie is afflicted by Frost Blast (1).
@@ -419,6 +470,28 @@ class NullLogger:
     def flush(self):
         pass
 
+class HitsConsumable:
+
+
+    COOLDOWNS = {
+        'Dragonbreath Chili': 10 * 60,
+        'Goblin Sapper Charge': 5 * 60,
+    }
+
+
+    def update(self, name, consumable, timestamp):
+        cooldown = self.COOLDOWNS[consumable]
+        unixtime =  parse_ts2unixtime(timestamp)
+        delta = unixtime - last_hit_cache[name][consumable]
+        if delta >= cooldown:
+            player[name][consumable] += 1
+            last_hit_cache[name][consumable] = unixtime
+        elif delta < 0:
+            # probably a new year, will ignore for now
+            raise RuntimeError('fixme')
+
+
+
 current_year = datetime.datetime.now().year
 
 # player - consumable - count
@@ -442,9 +515,10 @@ gluth = Gluth()
 cthun_chain = BeamChain(logname="C'Thun Chain Log (2+)", beamname="Eye of C'Thun 's Eye Beam", chainsize=2)
 fourhm_chain = BeamChain(logname="4HM Zeliek Chain Log (4+)", beamname="Sir Zeliek 's Holy Wrath", chainsize=4)
 kt_shadowfissure = KTShadowFissure()
-kt_frostbolt = KTFrostbolt()
+kt_frostbolt2 = KTFrostbolt2()
 kt_frostblast = KTFrostblast()
 techinfo = Techinfo()
+hits_consumable = HitsConsumable()
 
 def parse_ts2unixtime(timestamp):
     month, day, hour, minute, sec, ms = timestamp.children
@@ -528,12 +602,19 @@ def parse_line(line):
             consumable = subtree.children[-1].value
             player[name][consumable] += 1
             return True
-        elif subtree.data == 'begins_to_cast_consumable_line':
+        elif subtree.data == 'begins_to_cast_line':
             name = subtree.children[0].value
-            consumable = subtree.children[-1].value
-            if consumable in rename_consumable:
-                consumable = rename_consumable[consumable]
-            player[name][consumable] += 1
+            spellname = subtree.children[-1].value
+
+            if spellname in BEGINS_TO_CAST_CONSUMABLE:
+                consumable = spellname
+                if consumable in rename_consumable:
+                    consumable = rename_consumable[consumable]
+                player[name][consumable] += 1
+
+            if name == "Kel'Thuzad" and spellname == 'Frostbolt':
+                kt_frostbolt2.begins_to_cast(line)
+
             return True
         elif subtree.data == 'casts_consumable_line':
             name = subtree.children[0].value
@@ -541,19 +622,6 @@ def parse_line(line):
             if consumable in rename_consumable:
                 consumable = rename_consumable[consumable]
             player[name][consumable] += 1
-            return True
-        elif subtree.data == 'hits_consumable_line':
-            name = subtree.children[0].value
-            consumable = subtree.children[1].value
-            cooldown = HITS_CONSUMABLES_COOLDOWNS[consumable]
-            unixtime =  parse_ts2unixtime(timestamp)
-            delta = unixtime - last_hit_cache[name][consumable]
-            if delta >= cooldown:
-                player[name][consumable] += 1
-                last_hit_cache[name][consumable] = unixtime
-            elif delta < 0:
-                # probably a new year, will ignore for now
-                raise RuntimeError('fixme')
             return True
         elif subtree.data == 'combatant_info_line':
             return True
@@ -568,13 +636,51 @@ def parse_line(line):
                     # parse but ignore the other consolidated entries
                     pass
             return True
+        elif subtree.data == 'hits_line':
+
+            name = subtree.children[0].value
+            spellname = subtree.children[1].value
+            targetname = subtree.children[2].value
+
+            if spellname in hits_consumable.COOLDOWNS:
+                hits_consumable.update(name, spellname, timestamp)
+
+            if spellname in MELEE_INTERRUPT_SPELLS and targetname == "Kel'Thuzad":
+                kt_frostbolt2.interrupt(line)
+
+            return True
+        elif subtree.data == 'parry_line':
+            name = subtree.children[0].value
+            spellname = subtree.children[1].value
+            targetname = subtree.children[2].value
+
+            if spellname in MELEE_INTERRUPT_SPELLS and targetname == "Kel'Thuzad":
+                kt_frostbolt2.parry(line)
+
+            return True
+
+        elif subtree.data == 'resist_line':
+            name = subtree.children[0].value
+            spellname = subtree.children[1].value
+            targetname = subtree.children[2].value
+
+
+            if spellname in hits_consumable.COOLDOWNS:
+                hits_consumable.update(name, spellname, timestamp)
+
+            return True
+        elif subtree.data == 'fails_line':
+            name = subtree.children[0].value
+            spellname = subtree.children[1].value
+
+            if spellname in hits_consumable.COOLDOWNS:
+                hits_consumable.update(name, spellname, timestamp)
+
+            return True
 
 
 
-
-
-
-    except lark.LarkError:
+    except lark.LarkError as e:
         # parse errors ignored to try different strategies
         pass
     return False
@@ -611,8 +717,6 @@ def parse_log(filename, log_unparsed_lines):
             if fourhm_chain.parse(line):
                 continue
             if kt_shadowfissure.parse(line):
-                continue
-            if kt_frostbolt.parse(line):
                 continue
             if kt_frostblast.parse(line):
                 continue
@@ -667,7 +771,7 @@ def generate_output():
     gluth.print(output)
     fourhm_chain.print(output)
     kt_shadowfissure.print(output)
-    kt_frostbolt.print(output)
+    kt_frostbolt2.print(output)
     kt_frostblast.print(output)
 
     print(f"\n\nPets", file=output)

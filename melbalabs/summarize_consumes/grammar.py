@@ -16,17 +16,19 @@ _line: gains_consumable_line
     | healpot_line
     | manapot_line
     | manarune_line
-    | begins_to_cast_consumable_line
+    | begins_to_cast_line
     | casts_consumable_line
-    | hits_consumable_line
     | consolidated_line
     | combatant_info_line
+    | hits_line
+    | parry_line
+    | resist_line
+    | fails_line
 
 
 timestamp: INT "/" INT " " INT ":" INT ":" INT "." INT
-hits_consumable_line: WORD " 's " HITS_CONSUMABLE " " /.+/
 casts_consumable_line: WORD " casts " CASTS_CONSUMABLE (" on " WORD)? "."
-begins_to_cast_consumable_line: WORD " begins to cast " BEGINS_TO_CAST_CONSUMABLE "."
+begins_to_cast_line: WORD " begins to cast " MULTIWORD "."
 gains_consumable_line: WORD " gains " GAINS_CONSUMABLE " (1)."
 tea_with_sugar_line: WORD " 's Tea with Sugar heals " WORD " for " INT "."
 rage_consumable_line: WORD " gains " INT " Rage from " WORD " 's " RAGE_CONSUMABLE "."
@@ -37,6 +39,11 @@ manapot_line: WORD " gains " INT " Mana from " WORD " 's Restore Mana."
 manarune_line: WORD " gains " INT " Mana from " WORD " 's " MANARUNE_CONSUMABLE "."
 consolidated_line: WORD ": " (_consolidated_case "{"?)+
 combatant_info_line: _COMBATANT_INFO_TOKEN /.+/
+hits_line: WORD " 's " MULTIWORD " " ("hits"|"crits") " " MULTIWORD " for " INT _SPELL_DAMAGE? "." (" (" INT " resisted)")? (" (" INT " absorbed)")?
+parry_line: WORD " 's " MULTIWORD " was parried by " MULTIWORD "."
+resist_line: WORD " 's " MULTIWORD " was resisted by " MULTIWORD "."
+fails_line: WORD " 's " MULTIWORD " fails. " MULTIWORD " is immune."
+
 
 
 _consolidated_case: consolidated_pet
@@ -51,31 +58,12 @@ consolidated_zone: "ZONE_INFO: " _CONSOLIDATED_TIMESTAMP /[^\{\n]+/
 _COMBATANT_INFO_TOKEN.2: "COMBATANT_INFO: "
 
 
+_SPELL_DAMAGE: " " ("Fire"|"Frost"|"Holy"|"Arcane"|"Nature"|"Shadow") " damage"
 _CONSOLIDATED_TIMESTAMP: INT "." INT "." INT " " INT ":" INT ":" INT "&"
-HITS_CONSUMABLE: "Goblin Sapper Charge"
-    | "Dragonbreath Chili"
 CASTS_CONSUMABLE: "Powerful Anti-Venom"
     |  "Strong Anti-Venom"
     |  "Cure Ailments"
     |  "Advanced Target Dummy"
-BEGINS_TO_CAST_CONSUMABLE: "Brilliant Mana Oil"
-    | "Lesser Mana Oil"
-    | "Brilliant Wizard Oil"
-    | "Blessed Wizard Oil"
-    | "Wizard Oil"
-    | "Frost Oil"
-    | "Shadow Oil"
-    | "Dense Dynamite"
-    | "Solid Dynamite"
-    | "Sharpen Weapon - Critical"
-    | "Consecrated Weapon"
-    | "Iron Grenade"
-    | "Thorium Grenade"
-    | "Kreeg's Stout Beatdown"
-    | "Fire-toasted Bun"
-    | "Sharpen Blade V"
-    | "Enhance Blunt Weapon V"
-    | "Crystal Force"
 GAINS_CONSUMABLE: "Greater Arcane Elixir"
     | "Arcane Elixir"
     | "Elixir of the Mongoose"
@@ -154,11 +142,15 @@ RAGE_CONSUMABLE: "Mighty Rage"
     | "Great Rage"
     | "Rage"
 
-WORD: (LETTER | DIGIT)+
-MULTIWORD: (LETTER | DIGIT | SPACE)+
+LETTER_CAPITAL: "A".."Z"
+WORD: LETTER_CAPITAL (LETTER | DIGIT | CONNECTING_APOSTROPHE)*
+MULTIWORD: WORD ((SPACE | DASH) CONNECTING_WORD)*
+CONNECTING_APOSTROPHE: /(?<! )'/  # allow it only inside a word
+CONNECTING_WORD: "the"|WORD
 
-TS_SEP: "  "
+_TS_SEP: SPACE SPACE
 SPACE: " "
+DASH: "-"
 
 %import common.INT
 %import common.LETTER -> LETTER
