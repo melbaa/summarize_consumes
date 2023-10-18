@@ -20,7 +20,10 @@ _line: gains_consumable_line
     | casts_consumable_line
     | hits_consumable_line
     | consolidated_line
+    | combatant_info_line
 
+
+timestamp: INT "/" INT " " INT ":" INT ":" INT "." INT
 hits_consumable_line: WORD " 's " HITS_CONSUMABLE " " /.+/
 casts_consumable_line: WORD " casts " CASTS_CONSUMABLE (" on " WORD)? "."
 begins_to_cast_consumable_line: WORD " begins to cast " BEGINS_TO_CAST_CONSUMABLE "."
@@ -33,16 +36,21 @@ healpot_line: WORD " 's Healing Potion " HEALPOT_CRIT? "heals " WORD " for " INT
 manapot_line: WORD " gains " INT " Mana from " WORD " 's Restore Mana."
 manarune_line: WORD " gains " INT " Mana from " WORD " 's " MANARUNE_CONSUMABLE "."
 consolidated_line: WORD ": " (_consolidated_case "{"?)+
+combatant_info_line: _COMBATANT_INFO_TOKEN /.+/
 
 
 _consolidated_case: consolidated_pet
     | consolidated_loot
     | consolidated_zone
-    | consolidated_combatant
 consolidated_pet: "PET: " _CONSOLIDATED_TIMESTAMP WORD "&" MULTIWORD
 consolidated_loot: "LOOT: " _CONSOLIDATED_TIMESTAMP /[^\{\n]+/
 consolidated_zone: "ZONE_INFO: " _CONSOLIDATED_TIMESTAMP /[^\{\n]+/
-consolidated_combatant: "COMBATANT_INFO: " _CONSOLIDATED_TIMESTAMP /[^\{\n]+/
+
+
+# higher prio terminals
+_COMBATANT_INFO_TOKEN.2: "COMBATANT_INFO: "
+
+
 _CONSOLIDATED_TIMESTAMP: INT "." INT "." INT " " INT ":" INT ":" INT "&"
 HITS_CONSUMABLE: "Goblin Sapper Charge"
     | "Dragonbreath Chili"
@@ -149,7 +157,6 @@ RAGE_CONSUMABLE: "Mighty Rage"
 WORD: (LETTER | DIGIT)+
 MULTIWORD: (LETTER | DIGIT | SPACE)+
 
-timestamp: INT "/" INT " " INT ":" INT ":" INT "." INT
 TS_SEP: "  "
 SPACE: " "
 

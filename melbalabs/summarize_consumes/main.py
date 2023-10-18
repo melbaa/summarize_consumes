@@ -316,6 +316,9 @@ class KTFrostbolt:
     9/28 22:50:46.086  Kel'Thuzad 's Frostbolt hits Dregoth for 2624 Frost damage.
     9/28 22:52:16.775  Kel'Thuzad 's Frostbolt was resisted by Belayer.
     9/28 22:50:14.102  Kel'Thuzad 's Frostbolt is absorbed by Srj.
+    10/12 22:43:07.017  Psykhe absorbs Kel'Thuzad 's Frostbolt.
+    10/12 22:45:07.829  Kel'Thuzad 's Frostbolt hits Rhudaur for 449 Frost damage. (2112 absorbed)
+
 
     9/28 22:52:56.103  Srj 's Kick hits Kel'Thuzad for 66.
     9/28 22:50:38.406  Mupsi 's Kick crits Kel'Thuzad for 132.
@@ -396,7 +399,25 @@ class Techinfo:
 
 
 
+class UnparsedLogger:
+    def __init__(self, filename):
+        self.filename = filename
+        self.buffer = io.StringIO()
 
+    def log(self, line):
+        print(line, end='', file=self.buffer)
+
+    def flush(self):
+        with open(self.filename, 'wb') as f:
+            f.write(self.buffer.getvalue().encode('utf8'))
+
+class NullLogger:
+    def __init__(self, filename):
+        pass
+    def log(self, line):
+        pass
+    def flush(self):
+        pass
 
 current_year = datetime.datetime.now().year
 
@@ -442,8 +463,6 @@ def parse_line(line):
     returns True when a match is found, so we can stop trying different parsers
     """
     try:
-
-
 
         tree = parser.parse(line)
         timestamp = tree.children[0]
@@ -536,6 +555,8 @@ def parse_line(line):
                 # probably a new year, will ignore for now
                 raise RuntimeError('fixme')
             return True
+        elif subtree.data == 'combatant_info_line':
+            return True
         elif subtree.data == 'consolidated_line':
             for entry in subtree.children[1:]:
                 if entry.data == 'consolidated_pet':
@@ -544,8 +565,8 @@ def parse_line(line):
                     pet_detect[petname] = name
                     player_detect[name] = 'pet: ' + petname
                 else:
+                    # parse but ignore the other consolidated entries
                     pass
-
             return True
 
 
@@ -558,7 +579,12 @@ def parse_line(line):
         pass
     return False
 
-def parse_log(filename):
+def parse_log(filename, log_unparsed_lines):
+
+    if log_unparsed_lines:
+        unparsed_logger = UnparsedLogger(filename='unparsed.txt')
+    else:
+        unparsed_logger = NullLogger(filename='unparsed.txt')
 
     techinfo.get_file_size(filename)
 
@@ -570,7 +596,6 @@ def parse_log(filename):
 
             if parse_line(line):
                 continue
-
 
 
 
@@ -594,8 +619,12 @@ def parse_log(filename):
 
             skiplinecount += 1
 
+            unparsed_logger.log(line)
+
         techinfo.get_line_count(linecount)
         techinfo.get_skipped_line_count(skiplinecount)
+
+        unparsed_logger.flush()
 
 
 def generate_output():
@@ -656,6 +685,8 @@ def get_user_input():
     parser.add_argument('logpath', help='path to WoWCombatLog.txt')
     parser.add_argument('--pastebin', action='store_true', help='upload result to a pastebin and return the url')
     parser.add_argument('--open-browser', action='store_true', help='used with --pastebin. open the pastebin url with your browser')
+
+    parser.add_argument('--expert-log-unparsed-lines', action='store_true', help='create an unparsed.txt with everything that was not parsed')
     args = parser.parse_args()
 
     return args
@@ -694,7 +725,7 @@ def main():
 
     args = get_user_input()
 
-    parse_log(filename=args.logpath)
+    parse_log(filename=args.logpath, log_unparsed_lines=args.expert_log_unparsed_lines)
 
     output = generate_output()
 
