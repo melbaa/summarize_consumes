@@ -1,8 +1,12 @@
+import logging
+
 import lark
+
+# lark.logger.setLevel(logging.DEBUG)
 
 
 parser = lark.Lark(r"""
-start: timestamp "  " _line NEWLINE?
+start: timestamp "  " _line NEWLINE
 
 _line: gains_consumable_line
     | tea_with_sugar_line
@@ -15,19 +19,31 @@ _line: gains_consumable_line
     | begins_to_cast_consumable_line
     | casts_consumable_line
     | hits_consumable_line
+    | consolidated_line
 
-hits_consumable_line: PLAYER " 's " HITS_CONSUMABLE " " /.+/
-casts_consumable_line: PLAYER " casts " CASTS_CONSUMABLE (" on " PLAYER)? "."
-begins_to_cast_consumable_line: PLAYER " begins to cast " BEGINS_TO_CAST_CONSUMABLE "."
-gains_consumable_line: PLAYER " gains " GAINS_CONSUMABLE " (1)."
-tea_with_sugar_line: PLAYER " 's Tea with Sugar heals " PLAYER " for " INT "."
-rage_consumable_line: PLAYER " gains " INT " Rage from " PLAYER " 's " RAGE_CONSUMABLE "."
-buff_line: PLAYER " gains " BUFF_SPELL " (1)."
-dies_line: PLAYER " dies."
-healpot_line: PLAYER " 's Healing Potion " HEALPOT_CRIT? "heals " PLAYER " for " INT "."
-manapot_line: PLAYER " gains " INT " Mana from " PLAYER " 's Restore Mana."
-manarune_line: PLAYER " gains " INT " Mana from " PLAYER " 's " MANARUNE_CONSUMABLE "."
+hits_consumable_line: WORD " 's " HITS_CONSUMABLE " " /.+/
+casts_consumable_line: WORD " casts " CASTS_CONSUMABLE (" on " WORD)? "."
+begins_to_cast_consumable_line: WORD " begins to cast " BEGINS_TO_CAST_CONSUMABLE "."
+gains_consumable_line: WORD " gains " GAINS_CONSUMABLE " (1)."
+tea_with_sugar_line: WORD " 's Tea with Sugar heals " WORD " for " INT "."
+rage_consumable_line: WORD " gains " INT " Rage from " WORD " 's " RAGE_CONSUMABLE "."
+buff_line: WORD " gains " BUFF_SPELL " (1)."
+dies_line: WORD " dies."
+healpot_line: WORD " 's Healing Potion " HEALPOT_CRIT? "heals " WORD " for " INT "."
+manapot_line: WORD " gains " INT " Mana from " WORD " 's Restore Mana."
+manarune_line: WORD " gains " INT " Mana from " WORD " 's " MANARUNE_CONSUMABLE "."
+consolidated_line: WORD ": " (_consolidated_case "{"?)+
 
+
+_consolidated_case: consolidated_pet
+    | consolidated_loot
+    | consolidated_zone
+    | consolidated_combatant
+consolidated_pet: "PET: " _CONSOLIDATED_TIMESTAMP WORD "&" MULTIWORD
+consolidated_loot: "LOOT: " _CONSOLIDATED_TIMESTAMP /[^\{\n]+/
+consolidated_zone: "ZONE_INFO: " _CONSOLIDATED_TIMESTAMP /[^\{\n]+/
+consolidated_combatant: "COMBATANT_INFO: " _CONSOLIDATED_TIMESTAMP /[^\{\n]+/
+_CONSOLIDATED_TIMESTAMP: INT "." INT "." INT " " INT ":" INT ":" INT "&"
 HITS_CONSUMABLE: "Goblin Sapper Charge"
     | "Dragonbreath Chili"
 CASTS_CONSUMABLE: "Powerful Anti-Venom"
@@ -130,18 +146,21 @@ RAGE_CONSUMABLE: "Mighty Rage"
     | "Great Rage"
     | "Rage"
 
-PLAYER: CNAME
-_WORD: (LETTER | DIGIT)+
+WORD: (LETTER | DIGIT)+
+MULTIWORD: (LETTER | DIGIT | SPACE)+
 
 timestamp: INT "/" INT " " INT ":" INT ":" INT "." INT
+TS_SEP: "  "
+SPACE: " "
 
 %import common.INT
-%import common.LETTER
-%import common.DIGIT
-%import common.CNAME
+%import common.LETTER -> LETTER
+%import common.DIGIT -> DIGIT
 %import common.NEWLINE
 """,
     parser='lalr',
-    # strict=True,
+    # debug=True,
+    # ambiguity='explicit',  # not in lalr
+    strict=True,
 )
 

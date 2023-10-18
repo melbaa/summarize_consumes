@@ -60,24 +60,6 @@ HITS_CONSUMABLES_COOLDOWNS = {
 }
 
 
-def consolidated_log(line):
-    idx = line.find("CONSOLIDATED: ")
-    if idx == -1:
-        return
-
-
-    line = line[idx+len('CONSOLIDATED: '):]
-    entries = line.split('{')
-    for entry in entries:
-        needle = r'PET: \d+\.\d+\.\d+ \d+:\d+:\d+&(\w+)&(\w+)'
-        match = re.search(needle, line)
-        if match:
-            player = match.group(1)
-            pet = match.group(2)
-            pet_detect[pet] = player
-            player_detect[player] = 'pet: ' + pet
-    return True
-
 def healpot_lookup(amount):
     # bigger ranges for rounding errors
     if 1049 <= amount <= 1751:
@@ -460,6 +442,9 @@ def parse_line(line):
     returns True when a match is found, so we can stop trying different parsers
     """
     try:
+
+
+
         tree = parser.parse(line)
         timestamp = tree.children[0]
         subtree = tree.children[1]
@@ -551,13 +536,27 @@ def parse_line(line):
                 # probably a new year, will ignore for now
                 raise RuntimeError('fixme')
             return True
+        elif subtree.data == 'consolidated_line':
+            for entry in subtree.children[1:]:
+                if entry.data == 'consolidated_pet':
+                    name = entry.children[0].value
+                    petname = entry.children[1].value
+                    pet_detect[petname] = name
+                    player_detect[name] = 'pet: ' + petname
+                else:
+                    pass
+
+            return True
+
+
+
 
 
 
     except lark.LarkError:
         # parse errors ignored to try different strategies
         pass
-    return
+    return False
 
 def parse_log(filename):
 
@@ -573,8 +572,6 @@ def parse_log(filename):
                 continue
 
 
-            if consolidated_log(line):
-                continue
 
 
 
