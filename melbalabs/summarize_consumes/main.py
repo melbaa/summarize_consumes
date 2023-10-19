@@ -59,6 +59,8 @@ def create_app(expert_log_unparsed_lines):
 
     app.hits_consumable = HitsConsumable()
     app.kt_frostblast = KTFrostblast()
+    app.kt_frostbolt = KTFrostbolt()
+    app.kt_shadowfissure = KTShadowfissure()
 
     return app
 
@@ -394,66 +396,6 @@ class LogParser:
 
 
 
-class KTShadowFissure:
-    """
-    9/28 22:51:03.811  Kel'Thuzad casts Shadow Fissure.
-    9/28 22:51:06.876  Shadow Fissure 's Void Blast hits Getterfour for 72890 Shadow damage.
-    9/28 22:51:20.183  Kel'Thuzad casts Shadow Fissure.
-    9/28 22:51:23.087  Shadow Fissure 's Void Blast hits Sunor for 89663 Shadow damage.
-    9/28 22:51:50.105  Kel'Thuzad casts Shadow Fissure.
-    9/28 22:51:53.197  Shadow Fissure 's Void Blast hits Lyahsunsworn for 73590 Shadow damage. (24529 resisted)
-    """
-    def __init__(self):
-        logname = 'KT Shadow Fissure Log'
-        needles = [
-            "Kel'Thuzad casts Shadow Fissure.",
-            "Shadow Fissure 's Void Blast hits",
-        ]
-        self.parser = LogParser(logname, needles)
-
-    def parse(self, line):
-        return self.parser.parse(line)
-
-    def print(self, output):
-        return self.parser.print(output)
-
-class KTFrostbolt:
-    """
-    9/28 22:50:37.695  Kel'Thuzad begins to cast Frostbolt.
-
-    -- seems those are from a different uninterruptable ability, ignore them for now.
-    9/28 22:50:46.086  Kel'Thuzad 's Frostbolt hits Dregoth for 2624 Frost damage.
-    9/28 22:52:16.775  Kel'Thuzad 's Frostbolt was resisted by Belayer.
-    9/28 22:50:14.102  Kel'Thuzad 's Frostbolt is absorbed by Srj.
-    10/12 22:43:07.017  Psykhe absorbs Kel'Thuzad 's Frostbolt.
-    10/12 22:45:07.829  Kel'Thuzad 's Frostbolt hits Rhudaur for 449 Frost damage. (2112 absorbed)
-
-
-    9/28 22:52:56.103  Srj 's Kick hits Kel'Thuzad for 66.
-    9/28 22:50:38.406  Mupsi 's Kick crits Kel'Thuzad for 132.
-    9/28 22:52:27.732  Jaekta 's Pummel hits Kel'Thuzad for 17.
-    9/28 22:52:51.129  Psykhe 's Shield Bash hits Kel'Thuzad for 33.
-    9/28 22:50:24.408  Melevolence 's Pummel was parried by Kel'Thuzad.
-
-    """
-    def __init__(self):
-        logname = 'KT Frostbolt Log'
-        needles = [
-            "Kel'Thuzad begins to cast Frostbolt",
-            # "Kel'Thuzad 's Frostbolt",
-            "Kick ((hits)|(crits)|(was parried by)) Kel'Thuzad",
-            "Pummel ((hits)|(crits)|(was parried by)) Kel'Thuzad",
-            "Shield Bash ((hits)|(crits)|(was parried by)) Kel'Thuzad",
-        ]
-        self.parser = LogParser(logname, needles)
-
-    def parse(self, line):
-        return self.parser.parse(line)
-
-    def print(self, output):
-        return self.parser.print(output)
-
-
 def print_collected_log(section_name, log_list, output):
     if not log_list: return
     print(f"\n\n{section_name}", file=output)
@@ -463,7 +405,7 @@ def print_collected_log(section_name, log_list, output):
 
 
 
-class KTFrostbolt2:
+class KTFrostbolt:
     def __init__(self):
         self.logname = 'KT Frostbolt Log'
         self.log = []
@@ -481,6 +423,15 @@ class KTFrostbolt2:
 class KTFrostblast:
     def __init__(self):
         self.logname = 'KT Frost Blast Log'
+        self.log = []
+    def add(self, line):
+        self.log.append(line)
+    def print(self, output):
+        print_collected_log(self.logname, self.log, output)
+
+class KTShadowfissure:
+    def __init__(self):
+        self.logname = 'KT Shadow Fissure Log'
         self.log = []
     def add(self, line):
         self.log.append(line)
@@ -559,8 +510,6 @@ huhuran = Huhuran()
 gluth = Gluth()
 cthun_chain = BeamChain(logname="C'Thun Chain Log (2+)", beamname="Eye of C'Thun 's Eye Beam", chainsize=2)
 fourhm_chain = BeamChain(logname="4HM Zeliek Chain Log (4+)", beamname="Sir Zeliek 's Holy Wrath", chainsize=4)
-kt_shadowfissure = KTShadowFissure()
-kt_frostbolt2 = KTFrostbolt2()
 techinfo = Techinfo()
 
 def parse_line(app, line):
@@ -644,7 +593,7 @@ def parse_line(app, line):
                 player[name][consumable] += 1
 
             if name == "Kel'Thuzad" and spellname == 'Frostbolt':
-                kt_frostbolt2.begins_to_cast(line)
+                app.kt_frostbolt.begins_to_cast(line)
 
             return True
         elif subtree.data == 'casts_consumable_line':
@@ -677,7 +626,7 @@ def parse_line(app, line):
                 app.hits_consumable.update(name, spellname, timestamp)
 
             if spellname in MELEE_INTERRUPT_SPELLS and targetname == "Kel'Thuzad":
-                kt_frostbolt2.interrupt(line)
+                app.kt_frostbolt.interrupt(line)
 
             if name == "Kel'Thuzad" and spellname == "Frost Blast":
                 app.kt_frostblast.add(line)
@@ -689,7 +638,7 @@ def parse_line(app, line):
             targetname = subtree.children[2].value
 
             if spellname in MELEE_INTERRUPT_SPELLS and targetname == "Kel'Thuzad":
-                kt_frostbolt2.parry(line)
+                app.kt_frostbolt.parry(line)
 
             return True
 
@@ -761,8 +710,6 @@ def parse_log(app, filename):
                 continue
             if fourhm_chain.parse(line):
                 continue
-            if kt_shadowfissure.parse(line):
-                continue
 
             skiplinecount += 1
 
@@ -813,8 +760,8 @@ def generate_output(app):
     cthun_chain.print(output)
     gluth.print(output)
     fourhm_chain.print(output)
-    kt_shadowfissure.print(output)
-    kt_frostbolt2.print(output)
+    app.kt_shadowfissure.print(output)
+    app.kt_frostbolt.print(output)
     app.kt_frostblast.print(output)
 
     print(f"\n\nPets", file=output)

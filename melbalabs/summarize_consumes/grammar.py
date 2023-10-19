@@ -26,12 +26,15 @@ _line: gains_consumable_line
 
 dies_line: MULTIWORD " dies."
 
-absorbed_line: MULTIWORD " 's " MULTIWORD " is absorbed by " WORD "."
+parry_line: MULTIWORD " 's " MULTIWORD " was parried by " MULTIWORD "."
+resist_line: MULTIWORD " 's " MULTIWORD " was resisted by " MULTIWORD "."
+fails_line: MULTIWORD " 's " MULTIWORD " fails. " MULTIWORD " is immune."
+absorbed_line: MULTIWORD " 's " MULTIWORD " is absorbed by " MULTIWORD "."
 tea_with_sugar_line: MULTIWORD " 's Tea with Sugar heals " MULTIWORD " for " INT "."
 healpot_line: MULTIWORD " 's Healing Potion " HEALPOT_CRIT? "heals " MULTIWORD " for " INT "."
 
 gains_consumable_line: MULTIWORD " gains " GAINS_CONSUMABLE " (1)."
-rage_consumable_line: MULTIWORD " gains " INT " Rage from " WORD " 's " RAGE_CONSUMABLE "."
+rage_consumable_line: MULTIWORD " gains " INT " Rage from " MULTIWORD " 's " RAGE_CONSUMABLE "."
 buff_line: MULTIWORD " gains " BUFF_SPELL " (1)."
 
 manapot_line: MULTIWORD " gains " INT " Mana from " MULTIWORD " 's Restore Mana."
@@ -39,15 +42,13 @@ manarune_line: MULTIWORD " gains " INT " Mana from " MULTIWORD " 's " MANARUNE_C
 
 afflicted_line: MULTIWORD " is afflicted by " MULTIWORD " (1)."
 timestamp: INT "/" INT " " INT ":" INT ":" INT "." INT
-casts_consumable_line: MULTIWORD " casts " CASTS_CONSUMABLE (" on " WORD)? "."
+casts_consumable_line: MULTIWORD " casts " CASTS_CONSUMABLE (" on " MULTIWORD)? "."
 begins_to_cast_line: MULTIWORD " begins to cast " MULTIWORD "."
 
 consolidated_line: MULTIWORD ": " (_consolidated_case "{"?)+
 combatant_info_line: _COMBATANT_INFO_TOKEN /.+/
 hits_line: MULTIWORD " 's " MULTIWORD " " ("hits"|"crits") " " MULTIWORD " for " INT _SPELL_DAMAGE? "." (" (" INT " resisted)")? (" (" INT " absorbed)")?
-parry_line: MULTIWORD " 's " MULTIWORD " was parried by " MULTIWORD "."
-resist_line: MULTIWORD " 's " MULTIWORD " was resisted by " MULTIWORD "."
-fails_line: MULTIWORD " 's " MULTIWORD " fails. " MULTIWORD " is immune."
+
 
 
 

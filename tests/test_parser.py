@@ -4,7 +4,6 @@ from melbalabs.summarize_consumes.main import player
 from melbalabs.summarize_consumes.main import player_detect
 from melbalabs.summarize_consumes.main import death_count
 from melbalabs.summarize_consumes.main import pet_detect
-from melbalabs.summarize_consumes.main import kt_frostbolt2
 
 from melbalabs.summarize_consumes.main import parse_line
 from melbalabs.summarize_consumes.main import create_app
@@ -296,7 +295,6 @@ def test_hits_line(app):
 
 
 def test_ktfrostbolt(app):
-    kt_frostbolt2.log = []
     lines = """
 9/28 22:50:37.695  Kel'Thuzad begins to cast Frostbolt.
 9/28 22:50:38.406  Mupsi 's Kick crits Kel'Thuzad for 132.
@@ -310,7 +308,7 @@ def test_ktfrostbolt(app):
     for line in lines:
         parse_line(app, line)
     # 2 synthetic newlines and all other lines
-    assert len(kt_frostbolt2.log) == 9
+    assert len(app.kt_frostbolt.log) == 9
 
 
 def test_kt_frostblast(app):
@@ -330,4 +328,18 @@ def test_kt_frostblast(app):
         parse_line(app, line)
     assert len(app.kt_frostblast.log) == 9
 
+def test_kt_shadowfissure(app):
+    lines = """
+10/19 22:27:40.741  Kel'Thuzad casts Shadow Fissure.
+10/19 22:27:43.799  Shadow Fissure 's Void Blast hits Shumy for 103074 Shadow damage. (34357 resisted)
+10/19 22:28:01.739  Kel'Thuzad casts Shadow Fissure.
+10/19 22:28:21.892  Kel'Thuzad casts Shadow Fissure.
+10/19 22:28:38.946  Kel'Thuzad casts Shadow Fissure.
+10/19 22:28:42.004  Shadow Fissure 's Void Blast hits Windfurytotm for 127456 Shadow damage.
+10/19 22:28:42.004  Shadow Fissure 's Void Blast hits Everglow for 102705 Shadow damage.
+    """
+    lines = lines.splitlines(keepends=True)
+    for line in lines:
+        parse_line(app, line)
+    assert len(app.kt_shadowfissure.log) == 7
 
