@@ -16,6 +16,61 @@ def app():
     return create_app(expert_log_unparsed_lines=True)
 
 
+
+
+@pytest.mark.skip('not using basic lexer; grammar too ambiguous for it')
+def test_lark_basic_lexer():
+    from lark import Lark
+
+    lines = """4/21 21:01:38.861  Psykhe 's Tea with Sugar heals Psykhe for 1613.
+"""
+    lines = lines.splitlines(keepends=True)
+    lark = Lark(grammar, parser=None, lexer='basic')
+    # All tokens: print([t.name for t in self.lark.parser.lexer.tokens])
+    for token in lark.lex(lines[0]):
+        pass
+
+def test_lark_contextual_lexer(app):
+    lines = """4/21 21:01:38.861  Psykhe 's Tea with Sugar heals Psykhe for 1613.
+"""
+    lines = lines.splitlines(keepends=True)
+    assert len(app.parser.parser.parser.parser.parse_table.states)
+
+
+def test_lark_whitespace():
+    lines = """a .
+a  .
+a.
+"""
+    from lark import Lark
+    parser = Lark(r"""
+
+start: A_SPACE " " DOT
+    | A " " DOT
+    | A DOT
+
+A_SPACE: /\w+ /
+A: /\w+/
+DOT: "."
+%import common.WS
+%ignore WS
+""")
+    lines = lines.splitlines(keepends=True)
+    res1 = parser.parse(lines[0])
+    assert res1.children[0] == 'a'
+    assert res1.children[1] == '.'
+
+    res2 = parser.parse(lines[1])
+    assert res2.children[0] == 'a '
+    assert res2.children[1] == '.'
+
+    res3 = parser.parse(lines[2])
+    assert res3.children[0] == 'a'
+    assert res3.children[1] == '.'
+
+
+
+
 def test_rage_consumable_line(app):
     lines = """
 4/14 13:55:49.949  Jaekta gains 10 Rage from Jaekta 's Berserker Rage Effect.
@@ -59,7 +114,7 @@ def test_gains_consumable_line(app):
     assert player['Rando']['Increased Stamina'] == 0
     assert player['Psykhe']['Shadow Protection'] == 1
     assert player['Axe']['Gift of Arthas'] == 1
-    assert player['Unholy Axe']['Gift of Arthas'] == 0
+    assert player['Unholy Axe']['Gift of Arthas'] == 1
 
 def test_buff_line(app):
     lines = """
@@ -85,7 +140,7 @@ def test_dies_line(app):
     for line in lines:
         parse_line(app, line)
     assert death_count['Nilia'] == 1
-    assert death_count['Blackwing Mage'] == 0
+    assert death_count['Blackwing Mage'] == 1
 
 def test_healpot_line(app):
     lines = """
@@ -252,61 +307,27 @@ def test_ktfrostbolt(app):
 9/28 22:52:51.129  Psykhe 's Shield Bash hits Kel'Thuzad for 33.
     """
     lines = lines.splitlines(keepends=True)
-    match = 0
     for line in lines:
-        match += parse_line(app, line)
+        parse_line(app, line)
     # 2 synthetic newlines and all other lines
     assert len(kt_frostbolt2.log) == 9
 
 
-def test_lark_whitespace():
-    lines = """a .
-a  .
-a.
-"""
-    from lark import Lark
-    parser = Lark(r"""
-
-start: A_SPACE " " DOT
-    | A " " DOT
-    | A DOT
-
-A_SPACE: /\w+ /
-A: /\w+/
-DOT: "."
-%import common.WS
-%ignore WS
-""")
+def test_kt_frostblast(app):
+    lines = """
+9/28 22:52:03.404  Bloxie is afflicted by Frost Blast (1).
+9/28 22:52:03.404  Dyrachyo is afflicted by Frost Blast (1).
+9/28 22:52:03.404  Killanime is afflicted by Frost Blast (1).
+9/28 22:52:03.404  Melevolence is afflicted by Frost Blast (1).
+9/28 22:52:03.414  Djune is afflicted by Frost Blast (1).
+9/28 22:52:04.449  Kel'Thuzad 's Frost Blast is absorbed by Djune.
+9/28 22:52:04.449  Kel'Thuzad 's Frost Blast hits Melevolence for 1315 Frost damage.
+9/28 22:52:04.449  Kel'Thuzad 's Frost Blast hits Killanime for 1605 Frost damage.
+9/28 22:52:04.449  Kel'Thuzad 's Frost Blast hits Dyrachyo for 1546 Frost damage.
+    """
     lines = lines.splitlines(keepends=True)
-    res1 = parser.parse(lines[0])
-    assert res1.children[0] == 'a'
-    assert res1.children[1] == '.'
-
-    res2 = parser.parse(lines[1])
-    assert res2.children[0] == 'a '
-    assert res2.children[1] == '.'
-
-    res3 = parser.parse(lines[2])
-    assert res3.children[0] == 'a'
-    assert res3.children[1] == '.'
-
-
-@pytest.mark.skip('not using basic lexer; grammar too ambiguous for it')
-def test_lark_basic_lexer():
-    from lark import Lark
-
-    lines = """4/21 21:01:38.861  Psykhe 's Tea with Sugar heals Psykhe for 1613.
-"""
-    lines = lines.splitlines(keepends=True)
-    lark = Lark(grammar, parser=None, lexer='basic')
-    # All tokens: print([t.name for t in self.lark.parser.lexer.tokens])
-    for token in lark.lex(lines[0]):
-        pass
-
-def test_lark_contextual_lexer(app):
-    lines = """4/21 21:01:38.861  Psykhe 's Tea with Sugar heals Psykhe for 1613.
-"""
-    lines = lines.splitlines(keepends=True)
-    assert len(app.parser.parser.parser.parser.parse_table.states)
+    for line in lines:
+        parse_line(app, line)
+    assert len(app.kt_frostblast.log) == 9
 
 

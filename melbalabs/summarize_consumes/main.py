@@ -50,13 +50,15 @@ def create_app(expert_log_unparsed_lines):
 
     app.parser = create_parser(grammar=grammar.grammar, debug=lark_debug)
 
-    app.hits_consumable = HitsConsumable()
 
     if expert_log_unparsed_lines:
         app.unparsed_logger = UnparsedLogger(filename='unparsed.txt')
     else:
         app.unparsed_logger = NullLogger(filename='unparsed.txt')
 
+
+    app.hits_consumable = HitsConsumable()
+    app.kt_frostblast = KTFrostblast()
 
     return app
 
@@ -477,30 +479,14 @@ class KTFrostbolt2:
         print_collected_log(self.logname, self.log, output)
 
 class KTFrostblast:
-    """
-    9/28 22:52:03.404  Bloxie is afflicted by Frost Blast (1).
-    9/28 22:52:03.404  Dyrachyo is afflicted by Frost Blast (1).
-    9/28 22:52:03.404  Killanime is afflicted by Frost Blast (1).
-    9/28 22:52:03.404  Melevolence is afflicted by Frost Blast (1).
-    9/28 22:52:03.414  Djune is afflicted by Frost Blast (1).
-    9/28 22:52:04.449  Kel'Thuzad 's Frost Blast is absorbed by Djune.
-    9/28 22:52:04.449  Kel'Thuzad 's Frost Blast hits Melevolence for 1315 Frost damage.
-    9/28 22:52:04.449  Kel'Thuzad 's Frost Blast hits Killanime for 1605 Frost damage.
-    9/28 22:52:04.449  Kel'Thuzad 's Frost Blast hits Dyrachyo for 1546 Frost damage.
-    """
     def __init__(self):
-        logname = 'KT Frost Blast Log'
-        needles = [
-            r"is afflicted by Frost Blast \(1\)",
-            "Kel'Thuzad 's Frost Blast",
-        ]
-        self.parser = LogParser(logname, needles)
-
-    def parse(self, line):
-        return self.parser.parse(line)
-
+        self.logname = 'KT Frost Blast Log'
+        self.log = []
+    def add(self, line):
+        self.log.append(line)
     def print(self, output):
-        return self.parser.print(output)
+        print_collected_log(self.logname, self.log, output)
+
 
 
 class Techinfo:
@@ -575,7 +561,6 @@ cthun_chain = BeamChain(logname="C'Thun Chain Log (2+)", beamname="Eye of C'Thun
 fourhm_chain = BeamChain(logname="4HM Zeliek Chain Log (4+)", beamname="Sir Zeliek 's Holy Wrath", chainsize=4)
 kt_shadowfissure = KTShadowFissure()
 kt_frostbolt2 = KTFrostbolt2()
-kt_frostblast = KTFrostblast()
 techinfo = Techinfo()
 
 def parse_line(app, line):
@@ -694,6 +679,9 @@ def parse_line(app, line):
             if spellname in MELEE_INTERRUPT_SPELLS and targetname == "Kel'Thuzad":
                 kt_frostbolt2.interrupt(line)
 
+            if name == "Kel'Thuzad" and spellname == "Frost Blast":
+                app.kt_frostblast.add(line)
+
             return True
         elif subtree.data == 'parry_line':
             name = subtree.children[0].value
@@ -722,6 +710,22 @@ def parse_line(app, line):
             if spellname in app.hits_consumable.COOLDOWNS:
                 app.hits_consumable.update(name, spellname, timestamp)
 
+            return True
+        elif subtree.data == 'afflicted_line':
+            name = subtree.children[0].value
+            spellname = subtree.children[1].value
+
+            if spellname == "Frost Blast":
+                app.kt_frostblast.add(line)
+
+            return True
+        elif subtree.data == 'absorbed_line':
+
+            name = subtree.children[0].value
+            spellname = subtree.children[1].value
+
+            if name == "Kel'Thuzad" and spellname == "Frost Blast":
+                app.kt_frostblast.add(line)
             return True
 
 
@@ -759,8 +763,6 @@ def parse_log(app, filename):
                 continue
             if kt_shadowfissure.parse(line):
                 continue
-            if kt_frostblast.parse(line):
-                continue
 
             skiplinecount += 1
 
@@ -772,7 +774,7 @@ def parse_log(app, filename):
         app.unparsed_logger.flush()
 
 
-def generate_output():
+def generate_output(app):
 
     output = io.StringIO()
 
@@ -813,7 +815,7 @@ def generate_output():
     fourhm_chain.print(output)
     kt_shadowfissure.print(output)
     kt_frostbolt2.print(output)
-    kt_frostblast.print(output)
+    app.kt_frostblast.print(output)
 
     print(f"\n\nPets", file=output)
     for pet in pet_detect:
@@ -878,7 +880,7 @@ def main():
 
     parse_log(app, filename=args.logpath)
 
-    output = generate_output()
+    output = generate_output(app)
 
     if not args.pastebin: return
     url = upload_pastebin(output)

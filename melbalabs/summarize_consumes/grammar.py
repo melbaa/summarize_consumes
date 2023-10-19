@@ -20,32 +20,41 @@ _line: gains_consumable_line
     | parry_line
     | resist_line
     | fails_line
+    | afflicted_line
+    | absorbed_line
 
 
+dies_line: MULTIWORD " dies."
+
+absorbed_line: MULTIWORD " 's " MULTIWORD " is absorbed by " WORD "."
+tea_with_sugar_line: MULTIWORD " 's Tea with Sugar heals " MULTIWORD " for " INT "."
+healpot_line: MULTIWORD " 's Healing Potion " HEALPOT_CRIT? "heals " MULTIWORD " for " INT "."
+
+gains_consumable_line: MULTIWORD " gains " GAINS_CONSUMABLE " (1)."
+rage_consumable_line: MULTIWORD " gains " INT " Rage from " WORD " 's " RAGE_CONSUMABLE "."
+buff_line: MULTIWORD " gains " BUFF_SPELL " (1)."
+
+manapot_line: MULTIWORD " gains " INT " Mana from " MULTIWORD " 's Restore Mana."
+manarune_line: MULTIWORD " gains " INT " Mana from " MULTIWORD " 's " MANARUNE_CONSUMABLE "."
+
+afflicted_line: MULTIWORD " is afflicted by " MULTIWORD " (1)."
 timestamp: INT "/" INT " " INT ":" INT ":" INT "." INT
-casts_consumable_line: WORD " casts " CASTS_CONSUMABLE (" on " WORD)? "."
-begins_to_cast_line: WORD " begins to cast " MULTIWORD "."
-gains_consumable_line: WORD " gains " GAINS_CONSUMABLE " (1)."
-tea_with_sugar_line: WORD " 's Tea with Sugar heals " WORD " for " INT "."
-rage_consumable_line: WORD " gains " INT " Rage from " WORD " 's " RAGE_CONSUMABLE "."
-buff_line: WORD " gains " BUFF_SPELL " (1)."
-dies_line: WORD " dies."
-healpot_line: WORD " 's Healing Potion " HEALPOT_CRIT? "heals " WORD " for " INT "."
-manapot_line: WORD " gains " INT " Mana from " WORD " 's Restore Mana."
-manarune_line: WORD " gains " INT " Mana from " WORD " 's " MANARUNE_CONSUMABLE "."
-consolidated_line: WORD ": " (_consolidated_case "{"?)+
+casts_consumable_line: MULTIWORD " casts " CASTS_CONSUMABLE (" on " WORD)? "."
+begins_to_cast_line: MULTIWORD " begins to cast " MULTIWORD "."
+
+consolidated_line: MULTIWORD ": " (_consolidated_case "{"?)+
 combatant_info_line: _COMBATANT_INFO_TOKEN /.+/
-hits_line: WORD " 's " MULTIWORD " " ("hits"|"crits") " " MULTIWORD " for " INT _SPELL_DAMAGE? "." (" (" INT " resisted)")? (" (" INT " absorbed)")?
-parry_line: WORD " 's " MULTIWORD " was parried by " MULTIWORD "."
-resist_line: WORD " 's " MULTIWORD " was resisted by " MULTIWORD "."
-fails_line: WORD " 's " MULTIWORD " fails. " MULTIWORD " is immune."
+hits_line: MULTIWORD " 's " MULTIWORD " " ("hits"|"crits") " " MULTIWORD " for " INT _SPELL_DAMAGE? "." (" (" INT " resisted)")? (" (" INT " absorbed)")?
+parry_line: MULTIWORD " 's " MULTIWORD " was parried by " MULTIWORD "."
+resist_line: MULTIWORD " 's " MULTIWORD " was resisted by " MULTIWORD "."
+fails_line: MULTIWORD " 's " MULTIWORD " fails. " MULTIWORD " is immune."
 
 
 
 _consolidated_case: consolidated_pet
     | consolidated_loot
     | consolidated_zone
-consolidated_pet: "PET: " _CONSOLIDATED_TIMESTAMP WORD "&" MULTIWORD
+consolidated_pet: "PET: " _CONSOLIDATED_TIMESTAMP MULTIWORD "&" MULTIWORD
 consolidated_loot: "LOOT: " _CONSOLIDATED_TIMESTAMP /[^\{\n]+/
 consolidated_zone: "ZONE_INFO: " _CONSOLIDATED_TIMESTAMP /[^\{\n]+/
 
