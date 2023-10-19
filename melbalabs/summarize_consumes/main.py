@@ -7,8 +7,11 @@ import re
 import sys
 import time
 import webbrowser
-import zipfile
+import functools
+import logging
 from datetime import datetime as dt
+
+import zipfile
 
 
 import requests
@@ -17,7 +20,84 @@ import lark
 
 
 from melbalabs.summarize_consumes import grammar
-parser = grammar.parser
+
+
+LarkError = lark.LarkError
+
+class App:
+    pass
+
+
+@functools.cache
+def create_parser(grammar: str, debug):
+    return lark.Lark(
+        grammar,
+        parser='lalr',
+        debug=debug,
+        # ambiguity='explicit',  # not in lalr
+        strict=True,
+    )
+
+
+def create_app(expert_log_unparsed_lines):
+
+    app = App()
+
+    lark_debug = False
+    if expert_log_unparsed_lines:
+        lark.logger.setLevel(logging.DEBUG)
+        lark_debug = True
+
+    app.parser = create_parser(grammar=grammar.grammar, debug=lark_debug)
+
+    app.hits_consumable = HitsConsumable()
+
+    if expert_log_unparsed_lines:
+        app.unparsed_logger = UnparsedLogger(filename='unparsed.txt')
+    else:
+        app.unparsed_logger = NullLogger(filename='unparsed.txt')
+
+
+    return app
+
+
+
+def parse_ts2unixtime(timestamp):
+    month, day, hour, minute, sec, ms = timestamp.children
+    month = int(month)
+    day = int(day)
+    hour = int(hour)
+    minute = int(minute)
+    sec = int(sec)
+    ms = int(ms)
+    timestamp = dt(year=current_year, month=month, day=day, hour=hour, minute=minute, second=sec, tzinfo=datetime.timezone.utc)
+    unixtime = timestamp.timestamp()  # seconds
+    return unixtime
+
+
+
+
+class HitsConsumable:
+
+
+    COOLDOWNS = {
+        'Dragonbreath Chili': 10 * 60,
+        'Goblin Sapper Charge': 5 * 60,
+    }
+
+
+    def update(self, name, consumable, timestamp):
+        cooldown = self.COOLDOWNS[consumable]
+        unixtime =  parse_ts2unixtime(timestamp)
+        delta = unixtime - last_hit_cache[name][consumable]
+        if delta >= cooldown:
+            player[name][consumable] += 1
+            last_hit_cache[name][consumable] = unixtime
+        elif delta < 0:
+            # probably a new year, will ignore for now
+            raise RuntimeError('fixme')
+
+
 
 
 rename_consumable = {
@@ -470,27 +550,6 @@ class NullLogger:
     def flush(self):
         pass
 
-class HitsConsumable:
-
-
-    COOLDOWNS = {
-        'Dragonbreath Chili': 10 * 60,
-        'Goblin Sapper Charge': 5 * 60,
-    }
-
-
-    def update(self, name, consumable, timestamp):
-        cooldown = self.COOLDOWNS[consumable]
-        unixtime =  parse_ts2unixtime(timestamp)
-        delta = unixtime - last_hit_cache[name][consumable]
-        if delta >= cooldown:
-            player[name][consumable] += 1
-            last_hit_cache[name][consumable] = unixtime
-        elif delta < 0:
-            # probably a new year, will ignore for now
-            raise RuntimeError('fixme')
-
-
 
 current_year = datetime.datetime.now().year
 
@@ -518,27 +577,14 @@ kt_shadowfissure = KTShadowFissure()
 kt_frostbolt2 = KTFrostbolt2()
 kt_frostblast = KTFrostblast()
 techinfo = Techinfo()
-hits_consumable = HitsConsumable()
 
-def parse_ts2unixtime(timestamp):
-    month, day, hour, minute, sec, ms = timestamp.children
-    month = int(month)
-    day = int(day)
-    hour = int(hour)
-    minute = int(minute)
-    sec = int(sec)
-    ms = int(ms)
-    timestamp = dt(year=current_year, month=month, day=day, hour=hour, minute=minute, second=sec, tzinfo=datetime.timezone.utc)
-    unixtime = timestamp.timestamp()  # seconds
-    return unixtime
-
-def parse_line(line):
+def parse_line(app, line):
     """
     returns True when a match is found, so we can stop trying different parsers
     """
     try:
 
-        tree = parser.parse(line)
+        tree = app.parser.parse(line)
         timestamp = tree.children[0]
         subtree = tree.children[1]
 
@@ -642,8 +688,8 @@ def parse_line(line):
             spellname = subtree.children[1].value
             targetname = subtree.children[2].value
 
-            if spellname in hits_consumable.COOLDOWNS:
-                hits_consumable.update(name, spellname, timestamp)
+            if spellname in app.hits_consumable.COOLDOWNS:
+                app.hits_consumable.update(name, spellname, timestamp)
 
             if spellname in MELEE_INTERRUPT_SPELLS and targetname == "Kel'Thuzad":
                 kt_frostbolt2.interrupt(line)
@@ -665,32 +711,27 @@ def parse_line(line):
             targetname = subtree.children[2].value
 
 
-            if spellname in hits_consumable.COOLDOWNS:
-                hits_consumable.update(name, spellname, timestamp)
+            if spellname in app.hits_consumable.COOLDOWNS:
+                app.hits_consumable.update(name, spellname, timestamp)
 
             return True
         elif subtree.data == 'fails_line':
             name = subtree.children[0].value
             spellname = subtree.children[1].value
 
-            if spellname in hits_consumable.COOLDOWNS:
-                hits_consumable.update(name, spellname, timestamp)
+            if spellname in app.hits_consumable.COOLDOWNS:
+                app.hits_consumable.update(name, spellname, timestamp)
 
             return True
 
 
 
-    except lark.LarkError as e:
+    except LarkError as e:
         # parse errors ignored to try different strategies
         pass
     return False
 
-def parse_log(filename, log_unparsed_lines):
-
-    if log_unparsed_lines:
-        unparsed_logger = UnparsedLogger(filename='unparsed.txt')
-    else:
-        unparsed_logger = NullLogger(filename='unparsed.txt')
+def parse_log(app, filename):
 
     techinfo.get_file_size(filename)
 
@@ -700,7 +741,7 @@ def parse_log(filename, log_unparsed_lines):
         for line in f:
             linecount += 1
 
-            if parse_line(line):
+            if parse_line(app, line):
                 continue
 
 
@@ -723,12 +764,12 @@ def parse_log(filename, log_unparsed_lines):
 
             skiplinecount += 1
 
-            unparsed_logger.log(line)
+            app.unparsed_logger.log(line)
 
         techinfo.get_line_count(linecount)
         techinfo.get_skipped_line_count(skiplinecount)
 
-        unparsed_logger.flush()
+        app.unparsed_logger.flush()
 
 
 def generate_output():
@@ -825,11 +866,17 @@ def open_browser(url):
 
 
 
+
+
 def main():
 
     args = get_user_input()
 
-    parse_log(filename=args.logpath, log_unparsed_lines=args.expert_log_unparsed_lines)
+    app = create_app(
+        expert_log_unparsed_lines=args.expert_log_unparsed_lines,
+    )
+
+    parse_log(app, filename=args.logpath)
 
     output = generate_output()
 

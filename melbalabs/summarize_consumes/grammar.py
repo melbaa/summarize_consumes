@@ -1,11 +1,7 @@
 import logging
 
-import lark
 
-# lark.logger.setLevel(logging.DEBUG)
-
-
-parser = lark.Lark(r"""
+grammar = r"""
 start: timestamp "  " _line NEWLINE
 
 _line: gains_consumable_line
@@ -142,24 +138,20 @@ RAGE_CONSUMABLE: "Mighty Rage"
     | "Great Rage"
     | "Rage"
 
-LETTER_CAPITAL: "A".."Z"
-WORD: LETTER_CAPITAL (LETTER | DIGIT | CONNECTING_APOSTROPHE)*
+WORD: UCASE_LETTER (LETTER | DIGIT | CONNECTING_APOSTROPHE)*
 MULTIWORD: WORD ((SPACE | DASH) CONNECTING_WORD)*
 CONNECTING_APOSTROPHE: /(?<! )'/  # allow it only inside a word
-CONNECTING_WORD: "the"|WORD
+CONNECTING_WORD: "of"|"the"|WORD
 
 _TS_SEP: SPACE SPACE
 SPACE: " "
 DASH: "-"
 
+# https://github.com/lark-parser/lark/blob/master/lark/grammars/common.lark
 %import common.INT
+%import common.UCASE_LETTER -> UCASE_LETTER
 %import common.LETTER -> LETTER
 %import common.DIGIT -> DIGIT
 %import common.NEWLINE
-""",
-    parser='lalr',
-    # debug=True,
-    # ambiguity='explicit',  # not in lalr
-    strict=True,
-)
+"""
 
