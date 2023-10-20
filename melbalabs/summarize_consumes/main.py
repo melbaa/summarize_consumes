@@ -63,7 +63,13 @@ def create_app(expert_log_unparsed_lines):
     # player - consumable - unix_timestamp
     app.last_hit_cache = collections.defaultdict(lambda: collections.defaultdict(float))
 
+    # player - buff
+    app.player_detect = collections.defaultdict(str)
+
     app.hits_consumable = HitsConsumable(player=app.player, last_hit_cache=app.last_hit_cache)
+
+    app.huhuran = Huhuran()
+
     app.kt_frostblast = KTFrostblast()
     app.kt_frostbolt = KTFrostbolt()
     app.kt_shadowfissure = KTShadowfissure()
@@ -145,13 +151,6 @@ RENAME_CONSUMABLE = {
 }
 
 
-MELEE_INTERRUPT_SPELLS = {
-    'Kick',
-    'Pummel',
-    'Shield Bash',
-}
-
-
 BEGINS_TO_CAST_CONSUMABLE = {
     "Brilliant Mana Oil",
     "Lesser Mana Oil",
@@ -178,6 +177,91 @@ CASTS_CONSUMABLE = {
     "Strong Anti-Venom",
     "Cure Ailments",
     "Advanced Target Dummy",
+}
+
+
+GAINS_CONSUMABLE = {
+    "Greater Arcane Elixir",
+    "Arcane Elixir",
+    "Elixir of the Mongoose",
+    "Elixir of the Giants",
+    "Elixir of the Sages",
+    "Elixir of Resistance",
+    "Elixir of Greater Nature Power",
+    "Flask of the Titans",
+    "Supreme Power",
+    "Distilled Wisdom",
+    "Spirit of Zanza",
+    "Swiftness of Zanza",
+    "Sheen of Zanza",
+    "Rage of Ages",
+    "Invulnerability",
+    "Noggenfogger Elixir",
+    "Shadow Power",
+    "Stoneshield",
+    "Health II",
+    "Rumsey Rum Black Label",
+    "Rumsey Rum",
+    "Fury of the Bogling",
+    "Winterfall Firewater",
+    "Greater Agility",
+    "Greater Firepower",
+    "Greater Armor",
+    "Greater Stoneshield",
+    "Fire Power",
+    "Strike of the Scorpok",
+    "Spirit of the Boar",
+    "Free Action",
+    "Blessed Sunfruit",
+    "Gordok Green Grog",
+    "Frost Power",
+    "Gift of Arthas",
+    "100 Energy",  # Restore Energy aka Thistle Tea
+    "Restoration",
+    "Crystal Ward",
+    "Infallible Mind",
+    "Crystal Protection",
+    "Dreamtonic",
+    "Dreamshard Elixir",
+    "Medivh's Merlot",
+    # ambiguous
+    "Increased Stamina",
+    "Increased Intellect",
+    "Mana Regeneration",
+    "Regeneration",
+    "Agility",  # pots or scrolls
+    "Strength",
+    "Stamina",
+    "Enlarge",
+    "Greater Intellect",
+    "Greater Armor",
+    ## "Armor",  # same as a spell?
+    # protections
+    "Fire Protection",
+    "Frost Protection",
+    "Arcane Protection",
+    # extra space here because there's a spell version with no space, which shouldn't match
+    "Nature Protection ",
+    "Shadow Protection ",
+    "Holy Protection ",
+}
+
+
+MELEE_INTERRUPT_SPELLS = {
+    'Kick',
+    'Pummel',
+    'Shield Bash',
+}
+
+BUFF_SPELL = {
+    "Greater Blessing of Wisdom",
+    "Greater Blessing of Salvation",
+    "Greater Blessing of Light",
+    "Greater Blessing of Kings",
+    "Greater Blessing of Might",
+    "Prayer of Spirit",
+    "Prayer of Fortitude",
+    "Prayer of Shadow Protection",
 }
 
 
@@ -226,7 +310,7 @@ class NefCorruptedHealing:
 
 
 
-class Huhuran:
+class Huhuran_old:
     def __init__(self):
         self.log = []
         self.found_huhuran = 0
@@ -452,6 +536,16 @@ class KTShadowfissure:
     def print(self, output):
         print_collected_log(self.logname, self.log, output)
 
+class Huhuran:
+    def __init__(self):
+        self.logname = 'Princess Huhuran Log'
+        self.log = []
+    def add(self, line):
+        self.log.append(line)
+    def print(self, output):
+        print_collected_log(self.logname, self.log, output)
+
+
 
 
 class Techinfo:
@@ -506,8 +600,6 @@ current_year = datetime.datetime.now().year
 
 
 
-# player - buff
-player_detect = collections.defaultdict(str)
 
 # pet -> owner
 pet_detect = dict()
@@ -516,7 +608,6 @@ pet_detect = dict()
 death_count = collections.defaultdict(int)
 
 nef_corrupted_healing = NefCorruptedHealing()
-huhuran = Huhuran()
 gluth = Gluth()
 cthun_chain = BeamChain(logname="C'Thun Chain Log (2+)", beamname="Eye of C'Thun 's Eye Beam", chainsize=2)
 fourhm_chain = BeamChain(logname="4HM Zeliek Chain Log (4+)", beamname="Sir Zeliek 's Holy Wrath", chainsize=4)
@@ -534,12 +625,22 @@ def parse_line(app, line):
 
         # inline some parsing to reduce funcalls
         # for same reason not using visitors to traverse the parse tree
-        if subtree.data == 'gains_consumable_line':
+        if subtree.data == 'gains_line':
             name = subtree.children[0].value
-            consumable = subtree.children[1].value
-            if consumable in RENAME_CONSUMABLE:
-                consumable = RENAME_CONSUMABLE[consumable]
-            app.player[name][consumable] += 1
+            spellname = subtree.children[1].value
+
+            if spellname in GAINS_CONSUMABLE:
+                consumable = spellname
+                if consumable in RENAME_CONSUMABLE:
+                    consumable = RENAME_CONSUMABLE[consumable]
+                app.player[name][consumable] += 1
+
+            if spellname in BUFF_SPELL:
+                app.player_detect[name] = spellname
+
+            if name == 'Princess Huhuran' and spellname in {'Frenzy', 'Berserk'}:
+                app.huhuran.add(line)
+
             return True
         elif subtree.data == 'tea_with_sugar_line':
             name = subtree.children[0].value
@@ -551,14 +652,14 @@ def parse_line(app, line):
             consumable += ' Potion'
             app.player[name][consumable] += 1
             return True
-        elif subtree.data == 'buff_line':
-            name = subtree.children[0].value
-            buff = subtree.children[1].value
-            player_detect[name] = buff
-            return True
+
         elif subtree.data == 'dies_line':
             name = subtree.children[0].value
             death_count[name] += 1
+
+            if name == 'Princess Huhuran':
+                app.huhuran.add(line)
+
             return True
         elif subtree.data == 'healpot_line':
             name = subtree.children[0].value
@@ -619,6 +720,15 @@ def parse_line(app, line):
             if name == "Kel'Thuzad" and spellname == "Shadow Fissure":
                 app.kt_shadowfissure.add(line)
 
+            if spellname == 'Death by Peasant':
+                app.huhuran.add(line)
+
+            if len(subtree.children) == 3:
+                targetname = subtree.children[2].value
+
+                if spellname == 'Tranquilizing Shot' and targetname == 'Princess Huhuran':
+                    app.huhuran.add(line)
+
             return True
         elif subtree.data == 'combatant_info_line':
             return True
@@ -628,7 +738,7 @@ def parse_line(app, line):
                     name = entry.children[0].value
                     petname = entry.children[1].value
                     pet_detect[petname] = name
-                    player_detect[name] = 'pet: ' + petname
+                    app.player_detect[name] = 'pet: ' + petname
                 else:
                     # parse but ignore the other consolidated entries
                     pass
@@ -696,6 +806,12 @@ def parse_line(app, line):
             if name == "Kel'Thuzad" and spellname == "Frost Blast":
                 app.kt_frostblast.add(line)
             return True
+        elif subtree.data == 'removed_line':
+            name = subtree.children[0].value
+            spellname = subtree.children[1].value
+
+            if name == 'Princess Huhuran' and spellname == 'Frenzy':
+                app.huhuran.add(line)
 
 
 
@@ -721,8 +837,6 @@ def parse_log(app, filename):
 
 
             if nef_corrupted_healing.parse(line):
-                continue
-            if huhuran.parse(line):
                 continue
             if cthun_chain.parse(line):
                 continue
@@ -756,11 +870,11 @@ def generate_output(app):
 
     # remove pets
     for pet in pet_detect:
-        if pet in player_detect:
-            del player_detect[pet]
+        if pet in app.player_detect:
+            del app.player_detect[pet]
 
     # add players detected
-    for name in player_detect:
+    for name in app.player_detect:
         app.player[name]
 
 
@@ -776,7 +890,7 @@ def generate_output(app):
             print('  ', '<nothing found>', file=output)
 
     nef_corrupted_healing.print(output)
-    huhuran.print(output)
+    app.huhuran.print(output)
     cthun_chain.print(output)
     gluth.print(output)
     fourhm_chain.print(output)

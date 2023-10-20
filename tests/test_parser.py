@@ -1,6 +1,5 @@
 import pytest
 
-from melbalabs.summarize_consumes.main import player_detect
 from melbalabs.summarize_consumes.main import death_count
 from melbalabs.summarize_consumes.main import pet_detect
 
@@ -126,7 +125,7 @@ def test_buff_line(app):
         parse_line(app, line)
 
     for name in {'Niviri', 'Ikoretta', 'Samet', 'Charmia'}:
-        assert name in player_detect
+        assert name in app.player_detect
 
 def test_dies_line(app):
     lines = """
@@ -262,10 +261,10 @@ def test_consolidated_line(app):
     for line in lines:
         match += parse_line(app, line)
     assert pet_detect['Khuujhom'] == 'Doombabe'
-    assert player_detect['Doombabe'] == 'pet: Khuujhom'
+    assert app.player_detect['Doombabe'] == 'pet: Khuujhom'
 
     assert pet_detect['Deathknight Understudy'] == 'Arzetlam'
-    assert player_detect['Arzetlam'] == 'pet: Deathknight Understudy'
+    assert app.player_detect['Arzetlam'] == 'pet: Deathknight Understudy'
     assert match == 13
 
 def test_combatant_info_line(app):
@@ -342,3 +341,29 @@ def test_kt_shadowfissure(app):
         parse_line(app, line)
     assert len(app.kt_shadowfissure.log) == 7
 
+
+def test_huhuran(app):
+    lines = """
+10/6 21:05:31.480  Princess Huhuran gains Frenzy (1).
+10/6 21:05:32.460  Princess Huhuran 's Frenzy is removed.
+10/6 21:05:32.460  Berserkss casts Tranquilizing Shot on Princess Huhuran.
+10/6 21:05:50.787  Princess Huhuran gains Frenzy (1).
+10/6 21:05:53.500  Princess Huhuran 's Frenzy is removed.
+10/6 21:05:53.500  Chan casts Tranquilizing Shot on Princess Huhuran.
+10/6 21:05:53.772  Hrin casts Tranquilizing Shot on Princess Huhuran.
+10/6 21:06:05.304  Princess Huhuran gains Frenzy (1).
+10/6 21:06:06.412  Princess Huhuran 's Frenzy is removed.
+10/6 21:06:06.412  Berserkss casts Tranquilizing Shot on Princess Huhuran.
+10/6 21:06:08.239  Srj casts Death by Peasant.
+10/6 21:06:08.242  Princess Huhuran gains Berserk (1).
+10/6 21:06:09.376  Rhudaur casts Death by Peasant.
+10/6 21:06:09.376  Jaekta casts Death by Peasant.
+10/6 21:06:10.027  Psykhe casts Death by Peasant.
+10/6 21:06:14.089  Killanime casts Death by Peasant.
+10/6 21:06:16.497  Iniri casts Death by Peasant.
+4/13 21:11:02.121  Princess Huhuran dies.
+    """
+    lines = lines.splitlines(keepends=True)
+    for line in lines:
+        parse_line(app, line)
+    assert len(app.huhuran.log) == 18
