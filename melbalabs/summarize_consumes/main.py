@@ -57,7 +57,10 @@ def create_app(expert_log_unparsed_lines):
         app.unparsed_logger = NullLogger(filename='unparsed.txt')
 
 
-    app.hits_consumable = HitsConsumable()
+    # player - consumable - count
+    app.player = collections.defaultdict(lambda: collections.defaultdict(int))
+
+    app.hits_consumable = HitsConsumable(player=app.player)
     app.kt_frostblast = KTFrostblast()
     app.kt_frostbolt = KTFrostbolt()
     app.kt_shadowfissure = KTShadowfissure()
@@ -79,8 +82,6 @@ def parse_ts2unixtime(timestamp):
     return unixtime
 
 
-
-
 class HitsConsumable:
 
 
@@ -89,13 +90,15 @@ class HitsConsumable:
         'Goblin Sapper Charge': 5 * 60,
     }
 
+    def __init__(self, player):
+        self.player = player
 
     def update(self, name, consumable, timestamp):
         cooldown = self.COOLDOWNS[consumable]
         unixtime =  parse_ts2unixtime(timestamp)
         delta = unixtime - last_hit_cache[name][consumable]
         if delta >= cooldown:
-            player[name][consumable] += 1
+            self.player[name][consumable] += 1
             last_hit_cache[name][consumable] = unixtime
         elif delta < 0:
             # probably a new year, will ignore for now
@@ -164,6 +167,13 @@ BEGINS_TO_CAST_CONSUMABLE = {
     "Sharpen Blade V",
     "Enhance Blunt Weapon V",
     "Crystal Force",
+}
+
+CASTS_CONSUMABLE = {
+    "Powerful Anti-Venom",
+    "Strong Anti-Venom",
+    "Cure Ailments",
+    "Advanced Target Dummy",
 }
 
 
@@ -490,8 +500,6 @@ class NullLogger:
 
 current_year = datetime.datetime.now().year
 
-# player - consumable - count
-player = collections.defaultdict(lambda: collections.defaultdict(int))
 
 # player - consumable - unix_timestamp
 last_hit_cache = collections.defaultdict(lambda: collections.defaultdict(float))
@@ -529,17 +537,17 @@ def parse_line(app, line):
             consumable = subtree.children[1].value
             if consumable in rename_consumable:
                 consumable = rename_consumable[consumable]
-            player[name][consumable] += 1
+            app.player[name][consumable] += 1
             return True
         elif subtree.data == 'tea_with_sugar_line':
             name = subtree.children[0].value
-            player[name]['Tea with Sugar'] += 1
+            app.player[name]['Tea with Sugar'] += 1
             return True
         elif subtree.data == 'rage_consumable_line':
             name = subtree.children[0].value
             consumable = subtree.children[3].value
             consumable += ' Potion'
-            player[name][consumable] += 1
+            app.player[name][consumable] += 1
             return True
         elif subtree.data == 'buff_line':
             name = subtree.children[0].value
@@ -557,7 +565,7 @@ def parse_line(app, line):
             if is_crit:
                 amount = amount / 1.5
             consumable = healpot_lookup(amount)
-            player[name][consumable] += 1
+            app.player[name][consumable] += 1
             return True
         elif subtree.data == 'manapot_line':
             name = subtree.children[0].value
@@ -575,12 +583,12 @@ def parse_line(app, line):
                 consumable = 'Mana Potion - Lesser'
             elif 140 <= mana <= 180:
                 consumable = 'Mana Potion - Minor'
-            player[name][consumable] += 1
+            app.player[name][consumable] += 1
             return True
         elif subtree.data == 'manarune_line':
             name = subtree.children[0].value
             consumable = subtree.children[-1].value
-            player[name][consumable] += 1
+            app.player[name][consumable] += 1
             return True
         elif subtree.data == 'begins_to_cast_line':
             name = subtree.children[0].value
@@ -590,18 +598,25 @@ def parse_line(app, line):
                 consumable = spellname
                 if consumable in rename_consumable:
                     consumable = rename_consumable[consumable]
-                player[name][consumable] += 1
+                app.player[name][consumable] += 1
 
             if name == "Kel'Thuzad" and spellname == 'Frostbolt':
                 app.kt_frostbolt.begins_to_cast(line)
 
             return True
-        elif subtree.data == 'casts_consumable_line':
+        elif subtree.data == 'casts_line':
             name = subtree.children[0].value
-            consumable = subtree.children[1].value
-            if consumable in rename_consumable:
-                consumable = rename_consumable[consumable]
-            player[name][consumable] += 1
+            spellname = subtree.children[1].value
+
+            if spellname in CASTS_CONSUMABLE:
+                consumable = spellname
+                if consumable in rename_consumable:
+                    consumable = rename_consumable[consumable]
+                app.player[name][consumable] += 1
+
+            if name == "Kel'Thuzad" and spellname == "Shadow Fissure":
+                app.kt_shadowfissure.add(line)
+
             return True
         elif subtree.data == 'combatant_info_line':
             return True
@@ -630,6 +645,9 @@ def parse_line(app, line):
 
             if name == "Kel'Thuzad" and spellname == "Frost Blast":
                 app.kt_frostblast.add(line)
+
+            if name == "Shadow Fissure" and spellname == "Void Blast":
+                app.kt_shadowfissure.add(line)
 
             return True
         elif subtree.data == 'parry_line':
@@ -741,13 +759,13 @@ def generate_output(app):
 
     # add players detected
     for name in player_detect:
-        player[name]
+        app.player[name]
 
 
-    names = sorted(player.keys())
+    names = sorted(app.player.keys())
     for name in names:
         print(name, f'deaths:{death_count[name]}', file=output)
-        cons = player[name]
+        cons = app.player[name]
         consumables = sorted(cons.keys())
         for consumable in consumables:
             count = cons[consumable]

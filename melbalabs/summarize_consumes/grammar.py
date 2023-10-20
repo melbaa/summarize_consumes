@@ -13,7 +13,7 @@ _line: gains_consumable_line
     | manapot_line
     | manarune_line
     | begins_to_cast_line
-    | casts_consumable_line
+    | casts_line
     | consolidated_line
     | combatant_info_line
     | hits_line
@@ -42,7 +42,7 @@ manarune_line: MULTIWORD " gains " INT " Mana from " MULTIWORD " 's " MANARUNE_C
 
 afflicted_line: MULTIWORD " is afflicted by " MULTIWORD " (1)."
 timestamp: INT "/" INT " " INT ":" INT ":" INT "." INT
-casts_consumable_line: MULTIWORD " casts " CASTS_CONSUMABLE (" on " MULTIWORD)? "."
+casts_line: MULTIWORD " casts " MULTIWORD (" on " MULTIWORD)? "."
 begins_to_cast_line: MULTIWORD " begins to cast " MULTIWORD "."
 
 consolidated_line: MULTIWORD ": " (_consolidated_case "{"?)+
@@ -66,10 +66,6 @@ _COMBATANT_INFO_TOKEN.2: "COMBATANT_INFO: "
 
 _SPELL_DAMAGE: " " ("Fire"|"Frost"|"Holy"|"Arcane"|"Nature"|"Shadow") " damage"
 _CONSOLIDATED_TIMESTAMP: INT "." INT "." INT " " INT ":" INT ":" INT "&"
-CASTS_CONSUMABLE: "Powerful Anti-Venom"
-    |  "Strong Anti-Venom"
-    |  "Cure Ailments"
-    |  "Advanced Target Dummy"
 GAINS_CONSUMABLE: "Greater Arcane Elixir"
     | "Arcane Elixir"
     | "Elixir of the Mongoose"

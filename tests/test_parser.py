@@ -1,6 +1,5 @@
 import pytest
 
-from melbalabs.summarize_consumes.main import player
 from melbalabs.summarize_consumes.main import player_detect
 from melbalabs.summarize_consumes.main import death_count
 from melbalabs.summarize_consumes.main import pet_detect
@@ -81,7 +80,7 @@ def test_rage_consumable_line(app):
     for line in lines:
         parse_line(app, line)
     for pot in ['Great Rage Potion', 'Mighty Rage Potion', 'Rage Potion']:
-        assert player['Dragoon'][pot] == 1
+        assert app.player['Dragoon'][pot] == 1
 
 def test_tea_with_sugar_line(app):
     lines = """
@@ -91,8 +90,8 @@ def test_tea_with_sugar_line(app):
     lines = lines.splitlines(keepends=True)
     for line in lines:
         parse_line(app, line)
-    assert player['Psykhe']['Tea with Sugar'] == 1
-    assert player['Shumy']['Tea with Sugar'] == 0
+    assert app.player['Psykhe']['Tea with Sugar'] == 1
+    assert app.player['Shumy']['Tea with Sugar'] == 0
 
 def test_gains_consumable_line(app):
     lines = """
@@ -107,13 +106,13 @@ def test_gains_consumable_line(app):
     lines = lines.splitlines(keepends=True)
     for line in lines:
         parse_line(app, line)
-    assert player['Rando']['Greater Arcane Elixir'] == 1
-    assert player['Rando']['Arcane Elixir'] == 1
-    assert player['Rando']['Elixir of Fortitude'] == 1
-    assert player['Rando']['Increased Stamina'] == 0
-    assert player['Psykhe']['Shadow Protection'] == 1
-    assert player['Axe']['Gift of Arthas'] == 1
-    assert player['Unholy Axe']['Gift of Arthas'] == 1
+    assert app.player['Rando']['Greater Arcane Elixir'] == 1
+    assert app.player['Rando']['Arcane Elixir'] == 1
+    assert app.player['Rando']['Elixir of Fortitude'] == 1
+    assert app.player['Rando']['Increased Stamina'] == 0
+    assert app.player['Psykhe']['Shadow Protection'] == 1
+    assert app.player['Axe']['Gift of Arthas'] == 1
+    assert app.player['Unholy Axe']['Gift of Arthas'] == 1
 
 def test_buff_line(app):
     lines = """
@@ -149,8 +148,8 @@ def test_healpot_line(app):
     lines = lines.splitlines(keepends=True)
     for line in lines:
         parse_line(app, line)
-    assert player['Macc']['Healing Potion - Major'] == 1
-    assert player['Srj']['Healing Potion - Major'] == 1
+    assert app.player['Macc']['Healing Potion - Major'] == 1
+    assert app.player['Srj']['Healing Potion - Major'] == 1
 
 def test_manapot_line(app):
     lines = """
@@ -161,9 +160,9 @@ def test_manapot_line(app):
     lines = lines.splitlines(keepends=True)
     for line in lines:
         parse_line(app, line)
-    assert player['Ikoretta']['Mana Potion - Major'] == 1
-    assert player['Smahingbolt']['Mana Potion - Major'] == 1
-    assert player['Magikal']['Mana Potion - Major'] == 1
+    assert app.player['Ikoretta']['Mana Potion - Major'] == 1
+    assert app.player['Smahingbolt']['Mana Potion - Major'] == 1
+    assert app.player['Magikal']['Mana Potion - Major'] == 1
 
 def test_manarune_line(app):
     lines = """
@@ -177,9 +176,9 @@ def test_manarune_line(app):
     lines = lines.splitlines(keepends=True)
     for line in lines:
         parse_line(app, line)
-    assert player['Getterfour']['Demonic Rune'] == 1
-    assert player['Ionize']['Dark Rune'] == 1
-    assert player['Badmanaz']['Demonic Rune'] == 1
+    assert app.player['Getterfour']['Demonic Rune'] == 1
+    assert app.player['Ionize']['Dark Rune'] == 1
+    assert app.player['Badmanaz']['Demonic Rune'] == 1
 
 def test_begins_to_cast_line(app):
     lines = """
@@ -202,9 +201,9 @@ def test_begins_to_cast_line(app):
     lines = lines.splitlines(keepends=True)
     for line in lines:
         parse_line(app, line)
-    assert player['Hammerlammy']['Consecrated Sharpening Stone'] == 1
-    assert player['Nethrion']['Consecrated Sharpening Stone'] == 2
-    assert player['Bruceweed']["Kreeg's Stout Beatdown"] == 3
+    assert app.player['Hammerlammy']['Consecrated Sharpening Stone'] == 1
+    assert app.player['Nethrion']['Consecrated Sharpening Stone'] == 2
+    assert app.player['Bruceweed']["Kreeg's Stout Beatdown"] == 3
 
 def test_casts_consumable_line(app):
     lines = """
@@ -218,9 +217,9 @@ def test_casts_consumable_line(app):
     lines = lines.splitlines(keepends=True)
     for line in lines:
         parse_line(app, line)
-    assert player['Faradin']["Advanced Target Dummy"] == 1
-    assert player['Psykhe']["Powerful Anti-Venom"] == 1
-    assert player['Doombabe']["Jungle Remedy"] == 2
+    assert app.player['Faradin']["Advanced Target Dummy"] == 1
+    assert app.player['Psykhe']["Powerful Anti-Venom"] == 1
+    assert app.player['Doombabe']["Jungle Remedy"] == 2
 
 def test_hits_consumable_line(app):
     lines = """
@@ -237,9 +236,9 @@ def test_hits_consumable_line(app):
     match = 0
     for line in lines:
         match += parse_line(app, line)
-    assert player['Getterfour']["Dragonbreath Chili"] == 2
-    assert player['Srj']["Dragonbreath Chili"] == 1
-    assert player['Abstractz']["Goblin Sapper Charge"] == 1
+    assert app.player['Getterfour']["Dragonbreath Chili"] == 2
+    assert app.player['Srj']["Dragonbreath Chili"] == 1
+    assert app.player['Abstractz']["Goblin Sapper Charge"] == 1
     assert match == 8
 
 def test_consolidated_line(app):
