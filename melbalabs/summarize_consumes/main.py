@@ -60,7 +60,10 @@ def create_app(expert_log_unparsed_lines):
     # player - consumable - count
     app.player = collections.defaultdict(lambda: collections.defaultdict(int))
 
-    app.hits_consumable = HitsConsumable(player=app.player)
+    # player - consumable - unix_timestamp
+    app.last_hit_cache = collections.defaultdict(lambda: collections.defaultdict(float))
+
+    app.hits_consumable = HitsConsumable(player=app.player, last_hit_cache=app.last_hit_cache)
     app.kt_frostblast = KTFrostblast()
     app.kt_frostbolt = KTFrostbolt()
     app.kt_shadowfissure = KTShadowfissure()
@@ -90,16 +93,17 @@ class HitsConsumable:
         'Goblin Sapper Charge': 5 * 60,
     }
 
-    def __init__(self, player):
+    def __init__(self, player, last_hit_cache):
         self.player = player
+        self.last_hit_cache = last_hit_cache
 
     def update(self, name, consumable, timestamp):
         cooldown = self.COOLDOWNS[consumable]
         unixtime =  parse_ts2unixtime(timestamp)
-        delta = unixtime - last_hit_cache[name][consumable]
+        delta = unixtime - self.last_hit_cache[name][consumable]
         if delta >= cooldown:
             self.player[name][consumable] += 1
-            last_hit_cache[name][consumable] = unixtime
+            self.last_hit_cache[name][consumable] = unixtime
         elif delta < 0:
             # probably a new year, will ignore for now
             raise RuntimeError('fixme')
@@ -107,7 +111,7 @@ class HitsConsumable:
 
 
 
-rename_consumable = {
+RENAME_CONSUMABLE = {
     'Supreme Power': 'Flask of Supreme Power',
     'Distilled Wisdom': 'Flask of Distilled Wisdom',
     'Rage of Ages': 'Rage of Ages (ROIDS)',
@@ -382,7 +386,7 @@ class BeamChain:
 
 
 class LogParser:
-    # simple parser for individual lines with no context
+    # simple slow parser for individual lines with no context
 
     def __init__(self, logname, needles):
         self.log = []
@@ -501,8 +505,6 @@ class NullLogger:
 current_year = datetime.datetime.now().year
 
 
-# player - consumable - unix_timestamp
-last_hit_cache = collections.defaultdict(lambda: collections.defaultdict(float))
 
 # player - buff
 player_detect = collections.defaultdict(str)
@@ -535,8 +537,8 @@ def parse_line(app, line):
         if subtree.data == 'gains_consumable_line':
             name = subtree.children[0].value
             consumable = subtree.children[1].value
-            if consumable in rename_consumable:
-                consumable = rename_consumable[consumable]
+            if consumable in RENAME_CONSUMABLE:
+                consumable = RENAME_CONSUMABLE[consumable]
             app.player[name][consumable] += 1
             return True
         elif subtree.data == 'tea_with_sugar_line':
@@ -596,8 +598,8 @@ def parse_line(app, line):
 
             if spellname in BEGINS_TO_CAST_CONSUMABLE:
                 consumable = spellname
-                if consumable in rename_consumable:
-                    consumable = rename_consumable[consumable]
+                if consumable in RENAME_CONSUMABLE:
+                    consumable = RENAME_CONSUMABLE[consumable]
                 app.player[name][consumable] += 1
 
             if name == "Kel'Thuzad" and spellname == 'Frostbolt':
@@ -610,8 +612,8 @@ def parse_line(app, line):
 
             if spellname in CASTS_CONSUMABLE:
                 consumable = spellname
-                if consumable in rename_consumable:
-                    consumable = rename_consumable[consumable]
+                if consumable in RENAME_CONSUMABLE:
+                    consumable = RENAME_CONSUMABLE[consumable]
                 app.player[name][consumable] += 1
 
             if name == "Kel'Thuzad" and spellname == "Shadow Fissure":
