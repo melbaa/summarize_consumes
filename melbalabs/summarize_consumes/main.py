@@ -69,6 +69,9 @@ def create_app(expert_log_unparsed_lines):
     # pet -> owner
     app.pet_detect = dict()
 
+    # name -> death count
+    app.death_count = collections.defaultdict(int)
+
     app.hits_consumable = HitsConsumable(player=app.player, last_hit_cache=app.last_hit_cache)
 
     # bwl
@@ -297,60 +300,6 @@ def healpot_lookup(amount):
 
 
 
-class Gluth:
-    def __init__(self):
-        self.log = []
-        self.boss_found = 0
-
-    def print(self, output):
-        if not self.boss_found: return
-        if not self.log: return
-
-        print("\n\nGluth Log", file=output)
-        for line in self.log:
-            print('  ', line, end='', file=output)
-
-    def parse(self, line):
-        """
-9/21 22:59:43.807  Jaekta is afflicted by Mortal Wound (2).
-9/21 22:59:53.950  Jaekta is afflicted by Mortal Wound (3).
-9/21 23:00:03.947  Jaekta is afflicted by Mortal Wound (4).
-9/21 23:00:13.870  Jaekta is afflicted by Mortal Wound (5).
-9/21 23:00:24.074  Jaekta is afflicted by Mortal Wound (6).
-9/21 23:00:34.043  Jaekta is afflicted by Mortal Wound (7).
-
-9/21 22:59:44.495  Gluth 's Decimate hits Mikkasa for 5266.
-9/21 22:59:44.495  Gluth 's Decimate hits Psykhe for 6887.
-9/21 22:59:44.495  Gluth 's Decimate hits Shumy for 5358.
-
-9/21 22:59:52.517  Hrin casts Tranquilizing Shot on Gluth.
-9/21 23:00:03.082  Smahingbolt casts Tranquilizing Shot on Gluth.
-9/21 23:00:03.673  Berserkss casts Tranquilizing Shot on Gluth.
-9/21 23:00:12.698  Hrin casts Tranquilizing Shot on Gluth.
-9/21 23:00:22.440  Yis casts Tranquilizing Shot on Gluth.
-
-9/21 22:58:39.978  Gluth gains Frenzy (1).
-
-9/21 23:00:42.334  Gluth 's Frenzy is removed.
-
-        """
-        log_needles = [
-            'Gluth dies',
-            'Gluth gains Frenzy',
-            "Gluth 's Frenzy is removed.",
-            'casts Tranquilizing Shot on Gluth',
-            "Gluth 's Decimate hits",
-        ]
-        for needle in log_needles:
-            if needle in line:
-                self.log.append(line)
-                self.boss_found = 1
-                return 1
-        if not self.boss_found and 'Gluth' in line:
-            self.boss_found = 1
-            return 1
-
-
 class LogParser:
     # simple slow parser for individual lines with no context
 
@@ -431,16 +380,19 @@ class NefCorruptedHealing:
     def __init__(self):
         self.logname = 'Nefarian Priest Corrupted Healing'
         self.log = []
-
-        needles = [
-            r"(\w+) suffers \d+ Shadow damage from (\w+) 's Corrupted Healing.",
-        ]
-
     def add(self, line):
         self.log.append(line)
     def print(self, output):
         print_collected_log(self.logname, self.log, output)
 
+class Gluth:
+    def __init__(self):
+        self.logname = 'Gluth Log'
+        self.log = []
+    def add(self, line):
+        self.log.append(line)
+    def print(self, output):
+        print_collected_log(self.logname, self.log, output)
 
 
 class BeamChain:
@@ -550,10 +502,6 @@ CURRENT_YEAR = datetime.datetime.now().year
 
 
 
-# name -> death count
-death_count = collections.defaultdict(int)
-
-
 def parse_line(app, line):
     """
     returns True when a match is found, so we can stop trying different parsers
@@ -581,6 +529,8 @@ def parse_line(app, line):
 
             if name == 'Princess Huhuran' and spellname in {'Frenzy', 'Berserk'}:
                 app.huhuran.add(line)
+            if name == 'Gluth' and spellname == 'Frenzy':
+                app.gluth.add(line)
 
             return True
         elif subtree.data == 'tea_with_sugar_line':
@@ -596,10 +546,12 @@ def parse_line(app, line):
 
         elif subtree.data == 'dies_line':
             name = subtree.children[0].value
-            death_count[name] += 1
+            app.death_count[name] += 1
 
             if name == 'Princess Huhuran':
                 app.huhuran.add(line)
+            if name == 'Gluth':
+                app.gluth.add(line)
 
             return True
         elif subtree.data == 'healpot_line':
@@ -669,6 +621,8 @@ def parse_line(app, line):
 
                 if spellname == 'Tranquilizing Shot' and targetname == 'Princess Huhuran':
                     app.huhuran.add(line)
+                if spellname == 'Tranquilizing Shot' and targetname == 'Gluth':
+                    app.gluth.add(line)
 
             return True
         elif subtree.data == 'combatant_info_line':
@@ -695,6 +649,9 @@ def parse_line(app, line):
 
             if name == "Eye of C'Thun" and spellname == "Eye Beam":
                 app.cthun_chain.add(timestamp, line)
+
+            if name == 'Gluth' and spellname == 'Decimate':
+                app.gluth.add(line)
 
             if name == "Sir Zeliek" and spellname == "Holy Wrath":
                 app.fourhm_chain.add(timestamp, line)
@@ -744,8 +701,11 @@ def parse_line(app, line):
 
             return True
         elif subtree.data == 'afflicted_line':
-            name = subtree.children[0].value
+            targetname = subtree.children[0].value
             spellname = subtree.children[1].value
+
+            if spellname == 'Decimate':
+                app.gluth.add(line)
 
             if spellname == "Frost Blast":
                 app.kt_frostblast.add(line)
@@ -783,6 +743,9 @@ def parse_line(app, line):
             if name == 'Princess Huhuran' and spellname == 'Frenzy':
                 app.huhuran.add(line)
 
+            if name == 'Gluth' and spellname == 'Frenzy':
+                app.gluth.add(line)
+
             return True
         elif subtree.data == 'suffers_line':
             targetname = subtree.children[0]
@@ -813,12 +776,6 @@ def parse_log(app, filename):
             linecount += 1
 
             if parse_line(app, line):
-                continue
-
-
-
-
-            if gluth.parse(line):
                 continue
 
             skiplinecount += 1
@@ -856,7 +813,7 @@ def generate_output(app):
 
     names = sorted(app.player.keys())
     for name in names:
-        print(name, f'deaths:{death_count[name]}', file=output)
+        print(name, f'deaths:{app.death_count[name]}', file=output)
         cons = app.player[name]
         consumables = sorted(cons.keys())
         for consumable in consumables:

@@ -1,7 +1,6 @@
 import pytest
 import io
 
-from melbalabs.summarize_consumes.main import death_count
 
 from melbalabs.summarize_consumes.main import parse_line
 from melbalabs.summarize_consumes.main import create_app
@@ -136,8 +135,8 @@ def test_dies_line(app):
     lines = lines.splitlines(keepends=True)
     for line in lines:
         parse_line(app, line)
-    assert death_count['Nilia'] == 1
-    assert death_count['Blackwing Mage'] == 1
+    assert app.death_count['Nilia'] == 1
+    assert app.death_count['Blackwing Mage'] == 1
 
 def test_healpot_line(app):
     lines = """
@@ -428,3 +427,25 @@ def test_nef_corrupted_healing(app):
     for line in lines:
         parse_line(app, line)
     assert len(app.nef_corrupted_healing.log) == 5
+
+def test_gluth(app):
+    lines = """
+
+9/21 22:59:44.495  Gluth 's Decimate hits Mikkasa for 5266.
+9/21 22:59:44.495  Gluth 's Decimate hits Psykhe for 6887.
+9/21 22:59:44.495  Gluth 's Decimate hits Shumy for 5358.
+
+9/21 22:59:52.517  Hrin casts Tranquilizing Shot on Gluth.
+9/21 23:00:03.082  Smahingbolt casts Tranquilizing Shot on Gluth.
+9/21 23:00:03.673  Berserkss casts Tranquilizing Shot on Gluth.
+9/21 23:00:12.698  Hrin casts Tranquilizing Shot on Gluth.
+9/21 23:00:22.440  Yis casts Tranquilizing Shot on Gluth.
+
+9/21 22:58:39.978  Gluth gains Frenzy (1).
+
+9/21 23:00:42.334  Gluth 's Frenzy is removed.
+    """
+    lines = lines.splitlines(keepends=True)
+    for line in lines:
+        parse_line(app, line)
+    assert len(app.gluth.log) == 10
