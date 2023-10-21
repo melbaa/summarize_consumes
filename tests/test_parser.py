@@ -2,7 +2,6 @@ import pytest
 import io
 
 from melbalabs.summarize_consumes.main import death_count
-from melbalabs.summarize_consumes.main import pet_detect
 
 from melbalabs.summarize_consumes.main import parse_line
 from melbalabs.summarize_consumes.main import create_app
@@ -243,6 +242,7 @@ def test_hits_consumable_line(app):
 
 def test_consolidated_line(app):
     lines = """
+10/11 20:40:42.226  CONSOLIDATED: PET: 11.10.23 20:40:36&Arzetlam&Deathknight Understudy
 5/4 21:54:18.739  CONSOLIDATED: ZONE_INFO: 04.05.23 21:39:44&Naxxramas&3421{LOOT: 04.05.23 21:51:55&Doombabe receives item: |cffffffff|Hitem:6265:0:0:0|h[Soul Shard]|h|rx1.{PET: 04.05.23 21:51:55&Doombabe&Khuujhom
 5/5 14:43:00.154  CONSOLIDATED: LOOT: 05.05.23 14:41:24&Melbaxd receives loot: |cff9d9d9d|Hitem:18223:0:0:0|h[Serrated Petal]|h|rx1.{LOOT: 05.05.23 14:41:26&Melbaxd receives loot: |cffffffff|Hitem:22529:0:0:0|h[Savage Frond]|h|rx4.{LOOT: 05.05.23 14:41:26&Melbaxd receives loot: |cff9d9d9d|Hitem:18224:0:0:0|h[Lasher Root]|h|rx1.{LOOT: 05.05.23 14:41:27&Melbaxd receives loot: |cff9d9d9d|Hitem:18222:0:0:0|h[Thorny Vine]|h|rx1.
 5/24 14:24:11.633  CONSOLIDATED: LOOT: 24.05.23 14:21:19&Melbaxd receives loot: |cffffffff|Hitem:2450:0:0:0|h[Briarthorn]|h|rx1.{LOOT: 24.05.23 14:21:19&Melbaxd receives loot: |cffffffff|Hitem:4608:0:0:0|h[Raw Black Truffle]|h|rx1.{LOOT: 24.05.23 14:21:21&Melbaxd receives loot: |cff9d9d9d|Hitem:18223:0:0:0|h[Serrated Petal]|h|rx1.{LOOT: 24.05.23 14:21:21&Melbaxd receives loot: |cffffffff|Hitem:10286:0:0:0|h[Heart of the Wild]|h|rx1.
@@ -254,17 +254,16 @@ def test_consolidated_line(app):
 5/24 21:45:15.542  CONSOLIDATED: PET: 24.05.23 21:43:17&Doombabe&Khuujhom{LOOT: 24.05.23 21:43:53&Lod receives loot: |cff1eff00|Hitem:14489:0:0:0|h[Pattern: Frostweave Pants]|h|rx1.{LOOT: 24.05.23 21:43:53&Lod receives loot: |cffffffff|Hitem:15754:0:0:0|h[Pattern: Warbear Woolies]|h|rx1.
 5/24 22:06:52.097  CONSOLIDATED: PET: 24.05.23 22:03:04&Doombabe&Khuujhom
 5/24 22:41:47.934  CONSOLIDATED: LOOT: 24.05.23 22:40:17&Doombabe receives item: |cffffffff|Hitem:6265:0:0:0|h[Soul Shard]|h|rx1.{PET: 24.05.23 22:40:17&Doombabe&Khuujhom{LOOT: 24.05.23 22:40:36&Waken receives item: |cffffffff|Hitem:21177:0:0:0|h[Symbol of Kings]|h|rx20.{LOOT: 24.05.23 22:40:36&Waken receives item: |cffffffff|Hitem:21177:0:0:0|h[Symbol of Kings]|h|rx20.{LOOT: 24.05.23 22:40:37&Waken receives item: |cffffffff|Hitem:21177:0:0:0|h[Symbol of Kings]|h|rx20.
-10/11 20:40:42.226  CONSOLIDATED: PET: 11.10.23 20:40:36&Arzetlam&Deathknight Understudy
 10/11 20:40:42.226  CONSOLIDATED: PET: 11.10.23 20:40:36&Arzetlam&Deathknight Understudy{LOOT: 24.05.23 21:14:39&Doombabe receives item: |cffffffff|Hitem:6265:0:0:0|h[Soul Shard]|h|rx1.
     """
     lines = lines.splitlines(keepends=True)
     match = 0
     for line in lines:
         match += parse_line(app, line)
-    assert pet_detect['Khuujhom'] == 'Doombabe'
+    assert app.pet_detect['Khuujhom'] == 'Doombabe'
     assert app.player_detect['Doombabe'] == 'pet: Khuujhom'
 
-    assert pet_detect['Deathknight Understudy'] == 'Arzetlam'
+    assert app.pet_detect['Deathknight Understudy'] == 'Arzetlam'
     assert app.player_detect['Arzetlam'] == 'pet: Deathknight Understudy'
     assert match == 13
 
@@ -396,3 +395,36 @@ def test_beamchain(app):
     assert output.getvalue() == "\n\nC'Thun Chain Log (2+)\n\n   9/8 23:07:23.048  Eye of C'Thun 's Eye Beam was resisted by Getterfour.\n   9/8 23:07:23.048  Eye of C'Thun 's Eye Beam was resisted by Getterfour.\n\n\n4HM Zeliek Chain Log (4+)\n\n   9/20 22:51:04.622  Sir Zeliek 's Holy Wrath is absorbed by Exeggute.\n   9/20 22:51:04.622  Sir Zeliek 's Holy Wrath is absorbed by Exeggute.\n   9/20 22:51:04.622  Sir Zeliek 's Holy Wrath is absorbed by Exeggute.\n   9/20 22:51:04.622  Sir Zeliek 's Holy Wrath is absorbed by Exeggute.\n"
 
 
+def test_suffers_line(app):
+    lines = """
+10/20 20:04:05.389  Anubisath Sentinel suffers 60 Nature damage from Jaekta 's Potent Venom.
+10/20 20:04:05.389  Anubisath Sentinel suffers 287 Shadow damage from Rossol 's Shadow Word: Pain.
+10/20 20:04:05.389  Anubisath Sentinel suffers 260 Shadow damage from Dregoth 's Corruption.
+
+4/19 20:50:05.344  Echetawa suffers 90 Fire damage from Death Talon Hatcher 's Growing Flames. (40 absorbed)
+4/19 20:50:07.253  Alotofdamage suffers 30 Fire damage from Death Talon Hatcher 's Growing Flames. (100 absorbed)
+4/19 20:50:07.267  Axehole suffers 44 Fire damage from Death Talon Hatcher 's Growing Flames. (73 absorbed)
+
+10/20 20:04:30.879  Ridea suffers 15 Fire damage from Ridea 's Fireball. (5 resisted)
+10/20 20:06:25.658  Shrimpshark suffers 89 Fire damage from Shrimpshark 's Ignite. (89 resisted)
+10/20 20:06:36.007  Ridea suffers 15 Fire damage from Ridea 's Fireball. (5 resisted)
+    """
+    lines = lines.splitlines(keepends=True)
+    match = 0
+    for line in lines:
+        match += parse_line(app, line)
+    assert match == 9
+
+
+def test_nef_corrupted_healing(app):
+    lines = """
+10/14 22:02:40.403  Psykhe absorbs Jarnp 's Corrupted Healing.
+10/14 22:02:41.443  Psykhe absorbs Jarnp 's Corrupted Healing.
+10/14 22:02:42.457  Psykhe suffers 315 Shadow damage from Jarnp 's Corrupted Healing.
+10/14 22:02:43.366  Psykhe suffers 315 Shadow damage from Jarnp 's Corrupted Healing.
+5/6 22:14:32.515  Arzetlam 's Corrupted Healing is absorbed by Jaekta.
+    """
+    lines = lines.splitlines(keepends=True)
+    for line in lines:
+        parse_line(app, line)
+    assert len(app.nef_corrupted_healing.log) == 5

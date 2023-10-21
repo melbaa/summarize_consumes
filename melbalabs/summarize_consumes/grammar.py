@@ -20,9 +20,13 @@ _line: gains_line
     | resist_line
     | fails_line
     | afflicted_line
-    | absorbed_line
+    | is_absorbed_line
+    | absorbs_line
     | removed_line
+    | suffers_line
 
+
+suffers_line: MULTIWORD " suffers " INT _SPELL_DAMAGE " from " MULTIWORD " 's " MULTIWORD "." (" (" INT " resisted)")? (" (" INT " absorbed)")?
 
 removed_line: MULTIWORD " 's " MULTIWORD " is removed."
 
@@ -31,7 +35,8 @@ dies_line: MULTIWORD " dies."
 parry_line: MULTIWORD " 's " MULTIWORD " was parried by " MULTIWORD "."
 resist_line: MULTIWORD " 's " MULTIWORD " was resisted by " MULTIWORD "."
 fails_line: MULTIWORD " 's " MULTIWORD " fails. " MULTIWORD " is immune."
-absorbed_line: MULTIWORD " 's " MULTIWORD " is absorbed by " MULTIWORD "."
+is_absorbed_line: MULTIWORD " 's " MULTIWORD " is absorbed by " MULTIWORD "."
+absorbs_line: MULTIWORD " absorbs " MULTIWORD " 's " MULTIWORD "."
 tea_with_sugar_line: MULTIWORD " 's Tea with Sugar heals " MULTIWORD " for " INT "."
 healpot_line: MULTIWORD " 's Healing Potion " HEALPOT_CRIT? "heals " MULTIWORD " for " INT "."
 
@@ -46,7 +51,7 @@ timestamp: INT "/" INT " " INT ":" INT ":" INT "." INT
 casts_line: MULTIWORD " casts " MULTIWORD (" on " MULTIWORD)? "."
 begins_to_cast_line: MULTIWORD " begins to cast " MULTIWORD "."
 
-consolidated_line: MULTIWORD ": " (_consolidated_case "{"?)+
+consolidated_line: _CONSOLIDATED (_consolidated_case "{"?)+
 combatant_info_line: _COMBATANT_INFO_TOKEN /.+/
 hits_line: MULTIWORD " 's " MULTIWORD " " ("hits"|"crits") " " MULTIWORD " for " INT _SPELL_DAMAGE? "." (" (" INT " resisted)")? (" (" INT " absorbed)")?
 
@@ -61,11 +66,12 @@ consolidated_loot: "LOOT: " _CONSOLIDATED_TIMESTAMP /[^\{\n]+/
 consolidated_zone: "ZONE_INFO: " _CONSOLIDATED_TIMESTAMP /[^\{\n]+/
 
 
-# higher prio terminals
+# higher prio terminals for disambiguation. keywords
 _COMBATANT_INFO_TOKEN.2: "COMBATANT_INFO: "
+_CONSOLIDATED.2: "CONSOLIDATED: "
 
 
-_SPELL_DAMAGE: " " ("Fire"|"Frost"|"Holy"|"Arcane"|"Nature"|"Shadow") " damage"
+_SPELL_DAMAGE: " " ("Fire"|"Frost"|"Holy"|"Arcane"|"Nature"|"Shadow"|"Physical") " damage"
 _CONSOLIDATED_TIMESTAMP: INT "." INT "." INT " " INT ":" INT ":" INT "&"
 
 MANARUNE_CONSUMABLE: "Demonic Rune"
@@ -75,15 +81,17 @@ RAGE_CONSUMABLE: "Mighty Rage"
     | "Great Rage"
     | "Rage"
 
-WORD: UCASE_LETTER (LETTER | DIGIT | CONNECTING_APOSTROPHE)*
-MULTIWORD: WORD ((SPACE | DASH) CONNECTING_WORD)* TRAILING_SPACE?
+WORD: UCASE_LETTER (LETTER | DIGIT | CONNECTING_APOSTROPHE | CONNECTING_COLON)*
+MULTIWORD: WORD ((SPACE | DASH | UNDERSCORE) CONNECTING_WORD)* TRAILING_SPACE?
 CONNECTING_APOSTROPHE: /(?<! )'/  # allow it only inside a word
+CONNECTING_COLON: /(?<! ):/
 CONNECTING_WORD: "by"|"of"|"the"|WORD
 
 _TS_SEP: SPACE SPACE
 SPACE: " "
 TRAILING_SPACE: /(?<! ) (?= )/  # space only if followed by another space and not preceded by another space
 DASH: "-"
+UNDERSCORE: "_"
 
 # https://github.com/lark-parser/lark/blob/master/lark/grammars/common.lark
 %import common.INT

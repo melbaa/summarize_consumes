@@ -66,11 +66,18 @@ def create_app(expert_log_unparsed_lines):
     # player - buff
     app.player_detect = collections.defaultdict(str)
 
+    # pet -> owner
+    app.pet_detect = dict()
+
     app.hits_consumable = HitsConsumable(player=app.player, last_hit_cache=app.last_hit_cache)
 
+    # bwl
+    app.nef_corrupted_healing = NefCorruptedHealing()
+    # aq
     app.huhuran = Huhuran()
     app.cthun_chain = BeamChain(logname="C'Thun Chain Log (2+)", beamname="Eye of C'Thun 's Eye Beam", chainsize=2)
-
+    # naxx
+    app.gluth = Gluth()
     app.fourhm_chain = BeamChain(logname="4HM Zeliek Chain Log (4+)", beamname="Sir Zeliek 's Holy Wrath", chainsize=4)
     app.kt_frostblast = KTFrostblast()
     app.kt_frostbolt = KTFrostbolt()
@@ -90,7 +97,7 @@ def parse_ts2unixtime(timestamp):
     minute = int(minute)
     sec = int(sec)
     ms = int(ms)
-    timestamp = dt(year=current_year, month=month, day=day, hour=hour, minute=minute, second=sec, tzinfo=datetime.timezone.utc)
+    timestamp = dt(year=CURRENT_YEAR, month=month, day=day, hour=hour, minute=minute, second=sec, tzinfo=datetime.timezone.utc)
     unixtime = timestamp.timestamp()  # seconds
     return unixtime
 
@@ -287,30 +294,6 @@ def healpot_lookup(amount):
 
 
 
-class NefCorruptedHealing:
-
-    """
-10/14 22:02:40.403  Psykhe absorbs Jarnp 's Corrupted Healing.
-10/14 22:02:41.443  Psykhe absorbs Jarnp 's Corrupted Healing.
-10/14 22:02:42.457  Psykhe suffers 315 Shadow damage from Jarnp 's Corrupted Healing.
-10/14 22:02:43.366  Psykhe suffers 315 Shadow damage from Jarnp 's Corrupted Healing.
-5/6 22:14:32.515  Arzetlam 's Corrupted Healing is absorbed by Jaekta.
-    """
-    def __init__(self):
-        logname = 'Nefarian Priest Corrupted Healing'
-        needles = [
-            r"(\w+) absorbs (\w+) 's Corrupted Healing.",
-            r"(\w+) suffers \d+ Shadow damage from (\w+) 's Corrupted Healing.",
-            r"(\w+) 's Corrupted Healing is absorbed by (\w+).",
-        ]
-        self.parser = LogParser(logname, needles)
-
-    def parse(self, line):
-        return self.parser.parse(line)
-
-    def print(self, output):
-        return self.parser.print(output)
-
 
 
 
@@ -444,6 +427,20 @@ class Huhuran:
     def print(self, output):
         print_collected_log(self.logname, self.log, output)
 
+class NefCorruptedHealing:
+    def __init__(self):
+        self.logname = 'Nefarian Priest Corrupted Healing'
+        self.log = []
+
+        needles = [
+            r"(\w+) suffers \d+ Shadow damage from (\w+) 's Corrupted Healing.",
+        ]
+
+    def add(self, line):
+        self.log.append(line)
+    def print(self, output):
+        print_collected_log(self.logname, self.log, output)
+
 
 
 class BeamChain:
@@ -475,7 +472,6 @@ class BeamChain:
         if self.current_batch:
             self.batches.append(self.current_batch)
             self.current_batch = []
-
 
     def print(self, output):
         if not self.log: return
@@ -547,19 +543,16 @@ class NullLogger:
         pass
 
 
-current_year = datetime.datetime.now().year
 
 
 
+CURRENT_YEAR = datetime.datetime.now().year
 
-# pet -> owner
-pet_detect = dict()
+
 
 # name -> death count
 death_count = collections.defaultdict(int)
 
-nef_corrupted_healing = NefCorruptedHealing()
-gluth = Gluth()
 
 def parse_line(app, line):
     """
@@ -681,11 +674,11 @@ def parse_line(app, line):
         elif subtree.data == 'combatant_info_line':
             return True
         elif subtree.data == 'consolidated_line':
-            for entry in subtree.children[1:]:
+            for entry in subtree.children:
                 if entry.data == 'consolidated_pet':
                     name = entry.children[0].value
                     petname = entry.children[1].value
-                    pet_detect[petname] = name
+                    app.pet_detect[petname] = name
                     app.player_detect[name] = 'pet: ' + petname
                 else:
                     # parse but ignore the other consolidated entries
@@ -758,10 +751,13 @@ def parse_line(app, line):
                 app.kt_frostblast.add(line)
 
             return True
-        elif subtree.data == 'absorbed_line':
+        elif subtree.data == 'is_absorbed_line':
 
             name = subtree.children[0].value
             spellname = subtree.children[1].value
+
+            if spellname == "Corrupted Healing":
+                app.nef_corrupted_healing.add(line)
 
             if name == "Eye of C'Thun" and spellname == "Eye Beam":
                 app.cthun_chain.add(timestamp, line)
@@ -771,6 +767,14 @@ def parse_line(app, line):
 
             if name == "Kel'Thuzad" and spellname == "Frost Blast":
                 app.kt_frostblast.add(line)
+
+            return True
+        elif subtree.data == 'absorbs_line':
+            targetname = subtree.children[0].value
+            name = subtree.children[1].value
+            spellname = subtree.children[2].value
+            if spellname == 'Corrupted Healing':
+                app.nef_corrupted_healing.add(line)
             return True
         elif subtree.data == 'removed_line':
             name = subtree.children[0].value
@@ -778,6 +782,18 @@ def parse_line(app, line):
 
             if name == 'Princess Huhuran' and spellname == 'Frenzy':
                 app.huhuran.add(line)
+
+            return True
+        elif subtree.data == 'suffers_line':
+            targetname = subtree.children[0]
+            amount = subtree.children[1]
+            name = subtree.children[2]
+            spellname = subtree.children[3]
+
+            if spellname == 'Corrupted Healing':
+                app.nef_corrupted_healing.add(line)
+
+            return True
 
 
 
@@ -802,8 +818,6 @@ def parse_log(app, filename):
 
 
 
-            if nef_corrupted_healing.parse(line):
-                continue
             if gluth.parse(line):
                 continue
 
@@ -831,7 +845,7 @@ def generate_output(app):
 
 
     # remove pets
-    for pet in pet_detect:
+    for pet in app.pet_detect:
         if pet in app.player_detect:
             del app.player_detect[pet]
 
@@ -852,21 +866,21 @@ def generate_output(app):
             print('  ', '<nothing found>', file=output)
 
 
-    gluth.print(output)
-    nef_corrupted_healing.print(output)
     # bwl
+    app.nef_corrupted_healing.print(output)
     # aq
     app.huhuran.print(output)
     app.cthun_chain.print(output)
     # naxx
+    app.gluth.print(output)
     app.fourhm_chain.print(output)
     app.kt_shadowfissure.print(output)
     app.kt_frostbolt.print(output)
     app.kt_frostblast.print(output)
 
     print(f"\n\nPets", file=output)
-    for pet in pet_detect:
-        print('  ', pet, 'owned by', pet_detect[pet], file=output)
+    for pet in app.pet_detect:
+        print('  ', pet, 'owned by', app.pet_detect[pet], file=output)
 
     app.techinfo.print(output)
 
