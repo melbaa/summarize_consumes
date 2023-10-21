@@ -1,4 +1,5 @@
 import pytest
+import io
 
 from melbalabs.summarize_consumes.main import death_count
 from melbalabs.summarize_consumes.main import pet_detect
@@ -367,3 +368,31 @@ def test_huhuran(app):
     for line in lines:
         parse_line(app, line)
     assert len(app.huhuran.log) == 18
+
+def test_beamchain(app):
+    lines = """
+9/8 23:07:23.048  Eye of C'Thun 's Eye Beam was resisted by Getterfour.
+9/8 23:07:23.048  Eye of C'Thun 's Eye Beam was resisted by Getterfour.
+9/8 23:21:11.776  Eye of C'Thun 's Eye Beam is absorbed by Shendelzare.
+9/8 23:23:32.892  Eye of C'Thun 's Eye Beam hits Killanime for 2918 Nature damage.
+
+9/20 22:38:44.757  Sir Zeliek 's Holy Wrath was resisted by Charmia.
+9/20 22:38:44.757  Sir Zeliek 's Holy Wrath was resisted by Charmia.
+9/20 22:51:04.622  Sir Zeliek 's Holy Wrath is absorbed by Exeggute.
+9/20 22:51:04.622  Sir Zeliek 's Holy Wrath is absorbed by Exeggute.
+9/20 22:51:04.622  Sir Zeliek 's Holy Wrath is absorbed by Exeggute.
+9/20 22:51:04.622  Sir Zeliek 's Holy Wrath is absorbed by Exeggute.
+9/20 23:06:17.787  Sir Zeliek 's Holy Wrath hits Obbi for 477 Holy damage.
+    """
+    lines = lines.splitlines(keepends=True)
+    for line in lines:
+        parse_line(app, line)
+    assert len(app.cthun_chain.log) == 4
+    assert len(app.fourhm_chain.log) == 7
+
+    output = io.StringIO()
+    app.cthun_chain.print(output)
+    app.fourhm_chain.print(output)
+    assert output.getvalue() == "\n\nC'Thun Chain Log (2+)\n\n   9/8 23:07:23.048  Eye of C'Thun 's Eye Beam was resisted by Getterfour.\n   9/8 23:07:23.048  Eye of C'Thun 's Eye Beam was resisted by Getterfour.\n\n\n4HM Zeliek Chain Log (4+)\n\n   9/20 22:51:04.622  Sir Zeliek 's Holy Wrath is absorbed by Exeggute.\n   9/20 22:51:04.622  Sir Zeliek 's Holy Wrath is absorbed by Exeggute.\n   9/20 22:51:04.622  Sir Zeliek 's Holy Wrath is absorbed by Exeggute.\n   9/20 22:51:04.622  Sir Zeliek 's Holy Wrath is absorbed by Exeggute.\n"
+
+

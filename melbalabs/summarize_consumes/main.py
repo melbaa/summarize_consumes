@@ -69,10 +69,14 @@ def create_app(expert_log_unparsed_lines):
     app.hits_consumable = HitsConsumable(player=app.player, last_hit_cache=app.last_hit_cache)
 
     app.huhuran = Huhuran()
+    app.cthun_chain = BeamChain(logname="C'Thun Chain Log (2+)", beamname="Eye of C'Thun 's Eye Beam", chainsize=2)
 
+    app.fourhm_chain = BeamChain(logname="4HM Zeliek Chain Log (4+)", beamname="Sir Zeliek 's Holy Wrath", chainsize=4)
     app.kt_frostblast = KTFrostblast()
     app.kt_frostbolt = KTFrostbolt()
     app.kt_shadowfissure = KTShadowfissure()
+
+    app.techinfo = Techinfo()
 
     return app
 
@@ -310,47 +314,6 @@ class NefCorruptedHealing:
 
 
 
-class Huhuran_old:
-    def __init__(self):
-        self.log = []
-        self.found_huhuran = 0
-
-    def print(self, output):
-        if not self.found_huhuran: return
-        if not self.log: return
-
-        print("\n\nPrincess Huhuran Log", file=output)
-        for line in self.log:
-            print('  ', line, end='', file=output)
-
-    def parse(self, line):
-        if 'Death by Peasant' in line:
-            self.log.append(line)
-            return 1
-        if 'Princess Huhuran dies' in line:
-            self.log.append(line)
-            self.found_huhuran = 1
-            return 1
-        if 'Princess Huhuran gains Frenzy' in line:
-            self.log.append(line)
-            self.found_huhuran = 1
-            return 1
-        if "Princess Huhuran 's Frenzy is removed." in line:
-            self.log.append(line)
-            self.found_huhuran = 1
-            return 1
-        if 'casts Tranquilizing Shot on Princess Huhuran' in line:
-            self.log.append(line)
-            self.found_huhuran = 1
-            return 1
-        if 'Princess Huhuran gains Berserk (1).' in line:
-            self.log.append(line)
-            self.found_huhuran = 1
-            return 1
-        if not self.found_huhuran and 'Princess Huhuran' in line:
-            self.found_huhuran = 1
-            return 1
-
 class Gluth:
     def __init__(self):
         self.log = []
@@ -403,70 +366,6 @@ class Gluth:
         if not self.boss_found and 'Gluth' in line:
             self.boss_found = 1
             return 1
-
-
-
-
-class BeamChain:
-    def __init__(self, logname, beamname, chainsize):
-        self.log = []
-        self.last_ts = 0
-        self.logname = logname
-        self.beamname = beamname
-        self.chainsize = chainsize  # report chains bigger than this
-
-    def print(self, output):
-        if not self.log: return
-
-        do_once = False
-
-        batch = []
-        for line in self.log:
-            if line == '\n':
-                if len(batch) > self.chainsize:
-                    if not do_once:
-                        print(f"\n\n{self.logname}", file=output)
-                        do_once = True
-                    for batch_line in batch:
-                        print('  ', batch_line, end='', file=output)
-                batch = []
-                batch.append(line)
-            else:
-                batch.append(line)
-
-        if len(batch) > self.chainsize:
-            for batch_line in batch:
-                print('  ', batch_line, end='', file=output)
-
-
-
-    def parse(self, line):
-        """
-9/8 23:23:30.876  Eye of C'Thun begins to cast Eye Beam.
-9/8 23:23:32.892  Eye of C'Thun 's Eye Beam hits Killanime for 2918 Nature damage.
-9/8 23:21:11.776  Eye of C'Thun 's Eye Beam is absorbed by Shendelzare.
-9/8 23:07:23.048  Eye of C'Thun 's Eye Beam was resisted by Getterfour.
-
-9/20 23:06:17.787  Sir Zeliek 's Holy Wrath hits Obbi for 477 Holy damage.
-9/20 22:51:04.622  Sir Zeliek 's Holy Wrath is absorbed by Exeggute.
-9/20 22:38:44.757  Sir Zeliek 's Holy Wrath was resisted by Charmia.
-        """
-        beamname = self.beamname
-        if beamname in line:
-            needle = rf"(\d+)/(\d+) (\d+):(\d+):(\d+).(\d+)  {beamname} "
-            match = re.search(needle, line)
-            cooldown = 2
-            if match:
-                groups = match.groups()
-                month, day, hour, minute, sec, ms = int(groups[0]), int(groups[1]), int(groups[2]), int(groups[3]), int(groups[4]), int(groups[5])
-                timestamp = dt(year=current_year, month=month, day=day, hour=hour, minute=minute, second=sec, tzinfo=datetime.timezone.utc)
-                unixtime = timestamp.timestamp()
-                delta = unixtime - self.last_ts
-                if delta >= cooldown:
-                    self.log.append('\n')
-                    self.last_ts = unixtime
-                self.log.append(line)
-                return 1
 
 
 class LogParser:
@@ -547,6 +446,58 @@ class Huhuran:
 
 
 
+class BeamChain:
+    def __init__(self, logname, beamname, chainsize):
+        self.log = []  # for debugging/testing
+
+        self.current_batch = []
+        self.batches = []
+
+        self.last_ts = 0
+        self.logname = logname
+        self.beamname = beamname
+        self.chainsize = chainsize  # report chains bigger than this
+
+
+    def add(self, timestamp, line):
+        self.log.append(line)
+
+        cooldown = 2
+        unixtime = parse_ts2unixtime(timestamp)
+        delta = unixtime - self.last_ts
+        if delta >= cooldown:
+            self.commitbatch()
+            self.last_ts = unixtime
+
+        self.current_batch.append(line)
+
+    def commitbatch(self):
+        if self.current_batch:
+            self.batches.append(self.current_batch)
+            self.current_batch = []
+
+
+    def print(self, output):
+        if not self.log: return
+
+        self.commitbatch()
+
+        found_batch = 0
+        print(f"\n\n{self.logname}", file=output)
+
+        for batch in self.batches:
+            if len(batch) < self.chainsize: continue
+
+            found_batch = 1
+
+            print(file=output)
+            for line in batch:
+                print('  ', line, end='', file=output)
+
+        if not found_batch:
+            print('  ', f'<no chains of {self.chainsize} found. well done>', end='', file=output)
+
+
 
 class Techinfo:
     def __init__(self):
@@ -609,9 +560,6 @@ death_count = collections.defaultdict(int)
 
 nef_corrupted_healing = NefCorruptedHealing()
 gluth = Gluth()
-cthun_chain = BeamChain(logname="C'Thun Chain Log (2+)", beamname="Eye of C'Thun 's Eye Beam", chainsize=2)
-fourhm_chain = BeamChain(logname="4HM Zeliek Chain Log (4+)", beamname="Sir Zeliek 's Holy Wrath", chainsize=4)
-techinfo = Techinfo()
 
 def parse_line(app, line):
     """
@@ -752,6 +700,12 @@ def parse_line(app, line):
             if spellname in app.hits_consumable.COOLDOWNS:
                 app.hits_consumable.update(name, spellname, timestamp)
 
+            if name == "Eye of C'Thun" and spellname == "Eye Beam":
+                app.cthun_chain.add(timestamp, line)
+
+            if name == "Sir Zeliek" and spellname == "Holy Wrath":
+                app.fourhm_chain.add(timestamp, line)
+
             if spellname in MELEE_INTERRUPT_SPELLS and targetname == "Kel'Thuzad":
                 app.kt_frostbolt.interrupt(line)
 
@@ -781,6 +735,12 @@ def parse_line(app, line):
             if spellname in app.hits_consumable.COOLDOWNS:
                 app.hits_consumable.update(name, spellname, timestamp)
 
+            if name == "Eye of C'Thun" and spellname == "Eye Beam":
+                app.cthun_chain.add(timestamp, line)
+
+            if name == "Sir Zeliek" and spellname == "Holy Wrath":
+                app.fourhm_chain.add(timestamp, line)
+
             return True
         elif subtree.data == 'fails_line':
             name = subtree.children[0].value
@@ -803,6 +763,12 @@ def parse_line(app, line):
             name = subtree.children[0].value
             spellname = subtree.children[1].value
 
+            if name == "Eye of C'Thun" and spellname == "Eye Beam":
+                app.cthun_chain.add(timestamp, line)
+
+            if name == "Sir Zeliek" and spellname == "Holy Wrath":
+                app.fourhm_chain.add(timestamp, line)
+
             if name == "Kel'Thuzad" and spellname == "Frost Blast":
                 app.kt_frostblast.add(line)
             return True
@@ -822,7 +788,7 @@ def parse_line(app, line):
 
 def parse_log(app, filename):
 
-    techinfo.get_file_size(filename)
+    app.techinfo.get_file_size(filename)
 
     with io.open(filename, encoding='utf8') as f:
         linecount = 0
@@ -838,19 +804,15 @@ def parse_log(app, filename):
 
             if nef_corrupted_healing.parse(line):
                 continue
-            if cthun_chain.parse(line):
-                continue
             if gluth.parse(line):
-                continue
-            if fourhm_chain.parse(line):
                 continue
 
             skiplinecount += 1
 
             app.unparsed_logger.log(line)
 
-        techinfo.get_line_count(linecount)
-        techinfo.get_skipped_line_count(skiplinecount)
+        app.techinfo.get_line_count(linecount)
+        app.techinfo.get_skipped_line_count(skiplinecount)
 
         app.unparsed_logger.flush()
 
@@ -889,11 +851,15 @@ def generate_output(app):
         if not consumables:
             print('  ', '<nothing found>', file=output)
 
-    nef_corrupted_healing.print(output)
-    app.huhuran.print(output)
-    cthun_chain.print(output)
+
     gluth.print(output)
-    fourhm_chain.print(output)
+    nef_corrupted_healing.print(output)
+    # bwl
+    # aq
+    app.huhuran.print(output)
+    app.cthun_chain.print(output)
+    # naxx
+    app.fourhm_chain.print(output)
     app.kt_shadowfissure.print(output)
     app.kt_frostbolt.print(output)
     app.kt_frostblast.print(output)
@@ -902,7 +868,7 @@ def generate_output(app):
     for pet in pet_detect:
         print('  ', pet, 'owned by', pet_detect[pet], file=output)
 
-    techinfo.print(output)
+    app.techinfo.print(output)
 
     print(output.getvalue())
     return output
