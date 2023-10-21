@@ -282,13 +282,32 @@ def test_combatant_info_line(app):
 def test_hits_line(app):
     lines = """
 9/28 22:52:56.103  Srj 's Kick hits Kel'Thuzad for 66.
+4/14 21:49:18.451  Maexxna 's Poison Shock hits Jaekta for 270 Nature damage. (481 resisted) (1176 absorbed)
+4/14 21:49:18.451  Maexxna 's Poison Shock hits Jaekta for 270 Nature damage. (1176 absorbed)
+4/14 21:49:18.451  Maexxna 's Poison Shock hits Jaekta for 270 Nature damage. (481 resisted)
     """
     lines = lines.splitlines(keepends=True)
     match = 0
     for line in lines:
         match += parse_line(app, line)
-    assert match == 1
+    assert match == 4
 
+def test_hits_line2(app):
+    lines = """
+10/15 20:10:30.145  Jaekta hits Core Hound for 1. (glancing) (11 resisted) (189 absorbed)
+10/15 20:10:30.145  Jaekta hits Core Hound for 1. (glancing) (11 resisted)
+10/15 20:10:30.145  Jaekta hits Core Hound for 1. (glancing) (189 absorbed)
+10/15 20:10:30.145  Jaekta hits Core Hound for 1. (11 resisted) (189 absorbed)
+10/15 20:10:30.145  Jaekta hits Core Hound for 1. (189 absorbed)
+10/15 20:10:30.145  Jaekta hits Core Hound for 1.
+    """
+    lines = lines.splitlines(keepends=True)
+    match = 0
+    for line in lines:
+        if len(line) > 10:
+            app.parser.parse(line)
+        match += parse_line(app, line)
+    assert match == 6
 
 
 def test_ktfrostbolt(app):

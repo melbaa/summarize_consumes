@@ -638,7 +638,7 @@ def parse_line(app, line):
                     # parse but ignore the other consolidated entries
                     pass
             return True
-        elif subtree.data == 'hits_line':
+        elif subtree.data == 'hits_ability_line':
 
             name = subtree.children[0].value
             spellname = subtree.children[1].value
@@ -665,6 +665,8 @@ def parse_line(app, line):
             if name == "Shadow Fissure" and spellname == "Void Blast":
                 app.kt_shadowfissure.add(line)
 
+            return True
+        elif subtree.data == "hits_autoattack_line":
             return True
         elif subtree.data == 'parry_line':
             name = subtree.children[0].value

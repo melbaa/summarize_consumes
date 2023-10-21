@@ -15,7 +15,6 @@ _line: gains_line
     | casts_line
     | consolidated_line
     | combatant_info_line
-    | hits_line
     | parry_line
     | resist_line
     | fails_line
@@ -24,6 +23,8 @@ _line: gains_line
     | absorbs_line
     | removed_line
     | suffers_line
+    | hits_ability_line
+    | hits_autoattack_line
 
 
 suffers_line: MULTIWORD " suffers " INT _SPELL_DAMAGE " from " MULTIWORD " 's " MULTIWORD "." (" (" INT " resisted)")? (" (" INT " absorbed)")?
@@ -53,11 +54,16 @@ begins_to_cast_line: MULTIWORD " begins to cast " MULTIWORD "."
 
 consolidated_line: _CONSOLIDATED (_consolidated_case "{"?)+
 combatant_info_line: _COMBATANT_INFO_TOKEN /.+/
-hits_line: MULTIWORD " 's " MULTIWORD " " ("hits"|"crits") " " MULTIWORD " for " INT _SPELL_DAMAGE? "." (" (" INT " resisted)")? (" (" INT " absorbed)")?
+hits_ability_line: _hits_ability_line_prefix (" (" resisted_suffix)? (" (" absorbed_suffix)?
+_hits_ability_line_prefix: MULTIWORD " 's " MULTIWORD " " ("hits"|"crits") " " MULTIWORD " for " INT _SPELL_DAMAGE? "."
+hits_autoattack_line: MULTIWORD " " ("hits"|"crits") " " MULTIWORD " for " INT "." glancing_suffix? (" (" resisted_suffix)? (" (" absorbed_suffix)?
 
 
 
 
+glancing_suffix: (" (glancing)")
+resisted_suffix: (INT " resisted)")
+absorbed_suffix: (INT " absorbed)")
 _consolidated_case: consolidated_pet
     | consolidated_loot
     | consolidated_zone
