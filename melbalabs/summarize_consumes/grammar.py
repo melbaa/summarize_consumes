@@ -27,7 +27,8 @@ _line: gains_line
     | hits_autoattack_line
 
 
-suffers_line: MULTIWORD " suffers " INT _SPELL_DAMAGE " from " MULTIWORD " 's " MULTIWORD "." (" (" INT " resisted)")? (" (" INT " absorbed)")?
+suffers_line: MULTIWORD " suffers " INT _SPELL_DAMAGE " from " MULTIWORD " 's " MULTIWORD "." (" (" resisted_suffix)?  (" (" absorbed_suffix)?
+
 
 removed_line: MULTIWORD " 's " MULTIWORD " is removed."
 

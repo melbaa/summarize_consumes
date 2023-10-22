@@ -1,4 +1,5 @@
 import argparse
+import json
 import collections
 import datetime
 import io
@@ -63,8 +64,8 @@ def create_app(expert_log_unparsed_lines):
     # player - consumable - unix_timestamp
     app.last_hit_cache = collections.defaultdict(lambda: collections.defaultdict(float))
 
-    # player - buff
-    app.player_detect = collections.defaultdict(str)
+    # player - set of reasons this is considered a player
+    app.player_detect = collections.defaultdict(set)
 
     # pet -> owner
     app.pet_detect = dict()
@@ -73,6 +74,9 @@ def create_app(expert_log_unparsed_lines):
     app.death_count = collections.defaultdict(int)
 
     app.hits_consumable = HitsConsumable(player=app.player, last_hit_cache=app.last_hit_cache)
+
+    app.pricedb = PriceDB('prices.json')
+    app.print_consumables = PrintConsumables(player=app.player, pricedb=app.pricedb, death_count=app.death_count)
 
     # bwl
     app.nef_corrupted_healing = NefCorruptedHealing()
@@ -163,6 +167,69 @@ RENAME_CONSUMABLE = {
     'Infallible Mind': 'Infallible Mind (Cerebral Cortex Compound)',
     'Crystal Protection': 'Crystal Protection (Crystal Basilisk Spine)',
 }
+
+CONSUMABLE_COMPONENTS = {
+    'Rage of Ages (ROIDS)': [
+        ('Scorpok Pincer', 1),
+        ('Blasted Boar Lung', 2),
+        ('Snickerfang Jowl', 3),
+    ],
+    'Strike of the Scorpok': [
+        ('Blasted Boar Lung', 1),
+        ('Vulture Gizzard', 2),
+        ('Scorpok Pincer', 3),
+    ],
+    'Lung Juice Cocktail': [
+        ('Basilisk Brain', 1),
+        ('Scorpok Pincer', 2),
+        ('Blasted Boar Lung', 3),
+    ],
+    "Brilliant Mana Oil": [
+        ('Purple Lotus', 3),
+        ('Large Brilliant Shard', 2),
+    ],
+    "Spirit of Zanza": [
+        ('Zulian Coin', 3),
+    ],
+}
+
+NAME2ITEMID = {
+    "Flask of the Titans": 13510,
+    "Flask of Supreme Power": 13512,
+    'Flask of Distilled Wisdom': 13511,
+    'Elixir of Fortitude': 3825,
+    'Bogling Root': 5206,
+    '??? Elixir of the Sages ???': 13447,
+    'Elixir of Shadow Power': 9264,
+    'Elixir of Greater Firepower': 21546,
+    'Elixir of Firepower': 6373,
+    'Elixir of Greater Agility': 9187,
+    'Elixir of Superior Defense': 13445,
+    'Free Action Potion': 5634,
+    'Elixir of Frost Power': 17708,
+    'Greater Arcane Elixir': 13454,
+    'Thistle Tea': 7676,
+    'Elemental Sharpening Stone': 18262,
+    'Elixir of the Mongoose': 13452,
+    'Winterfall Firewater': 12820,
+    'Greater Stoneshield': 13455,
+    'Elixir of Greater Agility': 9187,
+    'Scorpok Pincer': 8393,
+    'Blasted Boar Lung': 8392,
+    'Snickerfang Jowl': 8391,
+    'Basilisk Brain': 8394,
+    'Vulture Gizzard': 8396,
+    'Large Brilliant Shard': 14344,
+    'Purple Lotus': 8831,
+    'Mana Potion - Greater': 6149,
+    'Mana Potion - Superior': 13443,
+    'Mana Potion - Major': 13444,
+    'Restorative Potion': 9030,
+    'Healing Potion - Major': 13446,
+    'Elixir of the Giants': 9206,
+    'Zulian Coin': 19698,
+}
+ITEMID2NAME = { value: key for key, value in NAME2ITEMID.items() }
 
 
 BEGINS_TO_CAST_CONSUMABLE = {
@@ -494,7 +561,18 @@ class NullLogger:
     def flush(self):
         pass
 
+class PriceDB:
+    def __init__(self, filename):
+        with open(filename) as f:
+            incoming = json.load(f)
+            self.last_update = incoming['last_update']
+            self.data = dict()
+            for key, val in incoming['data'].items():
+                key = int(key)
+                self.data[key] = val
 
+    def lookup(self, itemid):
+        return self.data.get(itemid)
 
 
 
@@ -525,7 +603,7 @@ def parse_line(app, line):
                 app.player[name][consumable] += 1
 
             if spellname in BUFF_SPELL:
-                app.player_detect[name] = spellname
+                app.player_detect[name].add('buff: ' + spellname)
 
             if name == 'Princess Huhuran' and spellname in {'Frenzy', 'Berserk'}:
                 app.huhuran.add(line)
@@ -633,7 +711,7 @@ def parse_line(app, line):
                     name = entry.children[0].value
                     petname = entry.children[1].value
                     app.pet_detect[petname] = name
-                    app.player_detect[name] = 'pet: ' + petname
+                    app.player_detect[name].add('pet: ' + petname)
                 else:
                     # parse but ignore the other consolidated entries
                     pass
@@ -789,6 +867,70 @@ def parse_log(app, filename):
 
         app.unparsed_logger.flush()
 
+class PrintConsumables:
+    def __init__(self, player, pricedb, death_count):
+        self.player = player
+        self.pricedb = pricedb
+        self.death_count = death_count
+
+    def gold_string(self, price):
+        copper = price % 100
+        price = price // 100
+        silver = price % 100
+        price = price // 100
+        gold = price
+        s = ''
+
+        first = True
+        for amount, suffix in zip([gold, silver, copper], "gsc"):
+            if amount:
+                if not first: s+= ' '
+                else: first = False
+                s += f'{amount}{suffix}'
+        return s
+
+
+    def format_gold(self, consumable, count):
+        total_price = 0
+
+        components = CONSUMABLE_COMPONENTS.get(consumable)
+        if not components:
+            components = [(consumable, 1)]
+
+        for component in components:
+            consumable, multi = component
+
+            itemid = NAME2ITEMID.get(consumable)
+            if not itemid: continue
+            price = self.pricedb.lookup(itemid)
+            if not price: continue
+            total_price += (price * multi * count)
+
+        if not total_price: return '', 0
+        return self.gold_string(total_price), total_price
+
+    def print(self, output):
+        names = sorted(self.player.keys())
+        for name in names:
+            print(name, f'deaths:{self.death_count[name]}', file=output)
+            cons = self.player[name]
+            consumables = sorted(cons.keys())
+            total_price = 0
+            for consumable in consumables:
+                count = cons[consumable]
+                gold, price = self.format_gold(consumable, count)
+                if gold:
+                    gold = f'  ({gold})'
+                total_price += price
+                print('  ', consumable, count, gold, file=output)
+            if not consumables:
+                print('  ', '<nothing found>', file=output)
+            elif total_price:
+                print(file=output)
+                print('  ', 'total spent:', self.gold_string(total_price), file=output)
+
+
+
 
 def generate_output(app):
 
@@ -813,17 +955,7 @@ def generate_output(app):
         app.player[name]
 
 
-    names = sorted(app.player.keys())
-    for name in names:
-        print(name, f'deaths:{app.death_count[name]}', file=output)
-        cons = app.player[name]
-        consumables = sorted(cons.keys())
-        for consumable in consumables:
-            count = cons[consumable]
-            print('  ', consumable, count, file=output)
-        if not consumables:
-            print('  ', '<nothing found>', file=output)
-
+    app.print_consumables.print(output)
 
     # bwl
     app.nef_corrupted_healing.print(output)

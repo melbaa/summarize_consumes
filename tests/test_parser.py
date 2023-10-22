@@ -4,6 +4,8 @@ import io
 
 from melbalabs.summarize_consumes.main import parse_line
 from melbalabs.summarize_consumes.main import create_app
+from melbalabs.summarize_consumes.main import NAME2ITEMID
+
 from melbalabs.summarize_consumes.grammar import grammar
 
 
@@ -260,10 +262,10 @@ def test_consolidated_line(app):
     for line in lines:
         match += parse_line(app, line)
     assert app.pet_detect['Khuujhom'] == 'Doombabe'
-    assert app.player_detect['Doombabe'] == 'pet: Khuujhom'
+    assert app.player_detect['Doombabe'] == {'pet: Khuujhom'}
 
     assert app.pet_detect['Deathknight Understudy'] == 'Arzetlam'
-    assert app.player_detect['Arzetlam'] == 'pet: Deathknight Understudy'
+    assert app.player_detect['Arzetlam'] == {'pet: Deathknight Understudy'}
     assert match == 13
 
 def test_combatant_info_line(app):
@@ -468,3 +470,15 @@ def test_gluth(app):
     for line in lines:
         parse_line(app, line)
     assert len(app.gluth.log) == 10
+
+def test_consumable_report(app):
+    app.player['Psykhe']['Flask of the Titans'] = 3
+    app.player['Psykhe']['Elixir of the Mongoose'] = 3
+    app.player['Psykhe']['Rage of Ages (ROIDS)'] = 3
+
+    output = io.StringIO()
+    app.pricedb.data[NAME2ITEMID['Flask of the Titans']] = 3000000
+    app.pricedb.data[NAME2ITEMID['Elixir of the Mongoose']] = 30000
+    app.print_consumables.print(output)
+    assert output.getvalue() == 'Psykhe deaths:0\n   Elixir of the Mongoose 3   (9g)\n   Flask of the Titans 3   (900g)\n   Rage of Ages (ROIDS) 3   (10g 72s 5c)\n\n   total spent: 919g 72s 5c\n'
+
