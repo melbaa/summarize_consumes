@@ -563,10 +563,15 @@ class NullLogger:
 
 class PriceDB:
     def __init__(self, filename):
+        self.data = dict()
+        self.last_update = 0
+
+        if not os.path.exists(filename):
+            logging.warning(f'price data not available. {filename} not found')
+            return
         with open(filename) as f:
             incoming = json.load(f)
             self.last_update = incoming['last_update']
-            self.data = dict()
             for key, val in incoming['data'].items():
                 key = int(key)
                 self.data[key] = val
