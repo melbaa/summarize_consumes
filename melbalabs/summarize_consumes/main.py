@@ -254,6 +254,8 @@ NAME2ITEMID = {
     'Potion of Quickness': 61181,
     "Medivh's Merlot Blue Label": 61175,
     'Elixir of Greater Nature Power': 50237,
+    'Elixir of Greater Intellect': 9179,
+    'Rejuvenation Potion - Major': 18253,
 }
 ITEMID2NAME = { value: key for key, value in NAME2ITEMID.items() }
 
@@ -673,6 +675,14 @@ def parse_line(app, line):
                 amount = amount / 1.5
             consumable = healpot_lookup(amount)
             app.player[name][consumable] += 1
+            return True
+        elif subtree.data == 'rejuvpot_line':
+            name = subtree.children[0].value
+            amount = int(subtree.children[-1].value)
+            if amount > 500:
+                app.player[name]['Rejuvenation Potion - Major'] += 1
+            else:
+                app.player[name]['Rejuvenation Potion - Minor'] += 1
             return True
         elif subtree.data == 'manapot_line':
             name = subtree.children[0].value

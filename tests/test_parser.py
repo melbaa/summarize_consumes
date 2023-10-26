@@ -485,3 +485,23 @@ def test_consumable_report(app):
     app.print_consumables.print(output)
     assert output.getvalue() == 'Psykhe deaths:0\n   Elixir of the Mongoose 3   (9g)\n   Flask of the Titans 3   (900g)\n   Rage of Ages (ROIDS) 3   (42c)\n\n   total spent: 909g 42c\n'
 
+
+def test_rejuv_pot(app):
+    lines = """
+4/14 21:05:17.903  Sebben gains 1676 Mana from Sebben 's Rejuvenation Potion.
+4/14 21:05:17.903  Sebben 's Rejuvenation Potion heals Sebben for 1480.
+4/14 22:19:20.209  Sebben gains 1558 Mana from Sebben 's Rejuvenation Potion.
+4/14 22:19:20.209  Sebben 's Rejuvenation Potion heals Sebben for 1584.
+4/14 22:19:22.130  Arzetlam gains 1568 Mana from Arzetlam 's Rejuvenation Potion.
+4/14 22:19:22.130  Arzetlam 's Rejuvenation Potion heals Arzetlam for 1482.
+4/14 23:19:29.030  Sebben gains 1548 Mana from Sebben 's Rejuvenation Potion.
+4/14 23:19:29.030  Sebben 's Rejuvenation Potion heals Sebben for 1497.
+4/14 23:19:29.030  Psykhe 's Rejuvenation Potion heals Psykhe for 497.
+    """
+    lines = lines.splitlines(keepends=True)
+    for line in lines:
+        parse_line(app, line)
+    assert app.player['Sebben']['Rejuvenation Potion - Major'] == 3
+    assert app.player['Arzetlam']['Rejuvenation Potion - Major'] == 1
+    assert app.player['Psykhe']['Rejuvenation Potion - Major'] == 0
+    assert app.player['Psykhe']['Rejuvenation Potion - Minor'] == 1

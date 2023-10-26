@@ -9,6 +9,7 @@ _line: gains_line
     | rage_consumable_line
     | dies_line
     | healpot_line
+    | rejuvpot_line
     | manapot_line
     | manarune_line
     | begins_to_cast_line
@@ -41,6 +42,7 @@ is_absorbed_line: MULTIWORD " 's " MULTIWORD " is absorbed by " MULTIWORD "."
 absorbs_line: MULTIWORD " absorbs " MULTIWORD " 's " MULTIWORD "."
 tea_with_sugar_line: MULTIWORD " 's Tea with Sugar heals " MULTIWORD " for " INT "."
 healpot_line: MULTIWORD " 's Healing Potion " HEALPOT_CRIT? "heals " MULTIWORD " for " INT "."
+rejuvpot_line: MULTIWORD " 's Rejuvenation Potion " HEALPOT_CRIT? "heals " MULTIWORD " for " INT "."
 
 gains_line: MULTIWORD " gains " MULTIWORD " (1)."
 rage_consumable_line: MULTIWORD " gains " INT " Rage from " MULTIWORD " 's " RAGE_CONSUMABLE "."
