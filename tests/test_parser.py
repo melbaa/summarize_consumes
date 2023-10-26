@@ -479,6 +479,9 @@ def test_consumable_report(app):
     output = io.StringIO()
     app.pricedb.data[NAME2ITEMID['Flask of the Titans']] = 3000000
     app.pricedb.data[NAME2ITEMID['Elixir of the Mongoose']] = 30000
+    app.pricedb.data[NAME2ITEMID['Scorpok Pincer']] = 1
+    app.pricedb.data[NAME2ITEMID['Blasted Boar Lung']] = 2
+    app.pricedb.data[NAME2ITEMID['Snickerfang Jowl']] = 3
     app.print_consumables.print(output)
-    assert output.getvalue() == 'Psykhe deaths:0\n   Elixir of the Mongoose 3   (9g)\n   Flask of the Titans 3   (900g)\n   Rage of Ages (ROIDS) 3   (10g 72s 5c)\n\n   total spent: 919g 72s 5c\n'
+    assert output.getvalue() == 'Psykhe deaths:0\n   Elixir of the Mongoose 3   (9g)\n   Flask of the Titans 3   (900g)\n   Rage of Ages (ROIDS) 3   (42c)\n\n   total spent: 909g 42c\n'
 
