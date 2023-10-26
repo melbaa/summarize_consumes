@@ -184,11 +184,18 @@ CONSUMABLE_COMPONENTS = {
         ('Scorpok Pincer', 2),
         ('Blasted Boar Lung', 3),
     ],
+    'Infallible Mind (Cerebral Cortex Compound)': [
+        ('Basilisk Brain', 10),
+        ('Vulture Gizzard', 2),
+    ],
     "Brilliant Mana Oil": [
         ('Purple Lotus', 3),
         ('Large Brilliant Shard', 2),
     ],
     "Spirit of Zanza": [
+        ('Zulian Coin', 3),
+    ],
+    "Swiftness of Zanza": [
         ('Zulian Coin', 3),
     ],
 }
@@ -228,6 +235,25 @@ NAME2ITEMID = {
     'Healing Potion - Major': 13446,
     'Elixir of the Giants': 9206,
     'Zulian Coin': 19698,
+    "Rumsey Rum Black Label": 21151,
+    'Consecrated Sharpening Stone': 23122,
+    'Invulnerability': 3387,
+    'Dragonbreath Chili': 12217,
+    'Dreamtonic': 61423,
+    'Goblin Sapper Charge': 10646,
+    "Medivh's Merlot": 61174,
+    'Shadow Protection': 13459,
+    'Dreamshard Elixir': 61224,
+    'Lesser Mana Oil': 20747,
+    'Brilliant Mana Oil': 20748,
+    'Mighty Rage Potion': 13442,
+    'Dense Dynamite': 18641,
+    'Brilliant Wizard Oil': 20749,
+    'Blessed Wizard Oil': 23123,
+    'Thorium Grenade': 15993,
+    'Potion of Quickness': 61181,
+    "Medivh's Merlot Blue Label": 61175,
+    'Elixir of Greater Nature Power': 50237,
 }
 ITEMID2NAME = { value: key for key, value in NAME2ITEMID.items() }
 
@@ -277,6 +303,7 @@ GAINS_CONSUMABLE = {
     "Sheen of Zanza",
     "Rage of Ages",
     "Invulnerability",
+    "Potion of Quickness",
     "Noggenfogger Elixir",
     "Shadow Power",
     "Stoneshield",
@@ -305,6 +332,7 @@ GAINS_CONSUMABLE = {
     "Dreamtonic",
     "Dreamshard Elixir",
     "Medivh's Merlot",
+    "Medivh's Merlot Blue Label",
     # ambiguous
     "Increased Stamina",
     "Increased Intellect",
@@ -946,6 +974,7 @@ def generate_output(app):
     - Jujus and many foods are not in the combat log, so they can't be easily counted.
     - Dragonbreath chili and goblin sappers have only "on hit" messages, so their usage is estimated based on timestamps and cooldowns.
     - Mageblood and some other mana consumes are "mana regeneration" in the combat log, can't tell them apart.
+    - Lesser and greater protection potions don't have unique names, can't tell them apart.
 
     """, file=output)
 
