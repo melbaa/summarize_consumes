@@ -438,7 +438,7 @@ class KTFrostbolt:
     def begins_to_cast(self, line):
         self.log.append('\n')
         self.log.append(line)
-    def interrupt(self, line):
+    def add(self, line):
         self.log.append(line)
     def parry(self, line):
         line = "*** honorable mention *** " + line
@@ -778,7 +778,10 @@ def parse_line(app, line):
                 app.fourhm_chain.add(timestamp, line)
 
             if spellname in MELEE_INTERRUPT_SPELLS and targetname == "Kel'Thuzad":
-                app.kt_frostbolt.interrupt(line)
+                app.kt_frostbolt.add(line)
+
+            if name == "Kel'Thuzad" and spellname == "Frostbolt" and int(subtree.children[3].value) >= 4000:
+                app.kt_frostbolt.add(line)
 
             if name == "Kel'Thuzad" and spellname == "Frost Blast":
                 app.kt_frostblast.add(line)
