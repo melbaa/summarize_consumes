@@ -358,6 +358,12 @@ GAINS_CONSUMABLE = {
 }
 
 
+MANARUNE_CONSUMABLE = {
+    "Demonic Rune",
+    "Dark Rune",
+}
+
+
 MELEE_INTERRUPT_SPELLS = {
     'Kick',
     'Pummel',
@@ -390,6 +396,22 @@ def healpot_lookup(amount):
     if 69 <= amount <= 91:
         return 'Healing Potion - Minor'
     return 'Healing Potion - unknown'
+
+def manapot_lookup(mana):
+    consumable = 'Restore Mana (mana potion?)'
+    if 1350 <= mana <= 2250:
+        consumable = 'Mana Potion - Major'
+    elif 900 <= mana <= 1500:
+        consumable = 'Mana Potion - Superior'
+    elif 700 <= mana <= 900:
+        consumable = 'Mana Potion - Greater'
+    elif 455 <= mana <= 585:
+        consumable = 'Mana Potion - 455 to 585'
+    elif 280 <= mana <= 360:
+        consumable = 'Mana Potion - Lesser'
+    elif 140 <= mana <= 180:
+        consumable = 'Mana Potion - Minor'
+    return consumable
 
 
 
@@ -684,28 +706,16 @@ def parse_line(app, line):
             else:
                 app.player[name]['Rejuvenation Potion - Minor'] += 1
             return True
-        elif subtree.data == 'manapot_line':
-            name = subtree.children[0].value
-            mana = int(subtree.children[1].value)
-            consumable = 'Restore Mana (mana potion?)'
-            if 1350 <= mana <= 2250:
-                consumable = 'Mana Potion - Major'
-            elif 900 <= mana <= 1500:
-                consumable = 'Mana Potion - Superior'
-            elif 700 <= mana <= 900:
-                consumable = 'Mana Potion - Greater'
-            elif 455 <= mana <= 585:
-                consumable = 'Mana Potion - 455 to 585'
-            elif 280 <= mana <= 360:
-                consumable = 'Mana Potion - Lesser'
-            elif 140 <= mana <= 180:
-                consumable = 'Mana Potion - Minor'
-            app.player[name][consumable] += 1
-            return True
-        elif subtree.data == 'manarune_line':
+        elif subtree.data == 'gains_mana_line':
             name = subtree.children[0].value
             consumable = subtree.children[-1].value
-            app.player[name][consumable] += 1
+            if consumable in MANARUNE_CONSUMABLE:
+                app.player[name][consumable] += 1
+            elif consumable == 'Restore Mana':
+                mana = int(subtree.children[1].value)
+                consumable = manapot_lookup(mana)
+                app.player[name][consumable] += 1
+
             return True
         elif subtree.data == 'begins_to_cast_line':
             name = subtree.children[0].value
@@ -882,6 +892,8 @@ def parse_line(app, line):
             if spellname == 'Corrupted Healing':
                 app.nef_corrupted_healing.add(line)
 
+            return True
+        elif subtree.data == 'fades_line':
             return True
 
 

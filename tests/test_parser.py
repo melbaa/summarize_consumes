@@ -508,3 +508,23 @@ def test_rejuv_pot(app):
     assert app.player['Arzetlam']['Rejuvenation Potion - Major'] == 1
     assert app.player['Psykhe']['Rejuvenation Potion - Major'] == 0
     assert app.player['Psykhe']['Rejuvenation Potion - Minor'] == 1
+
+def test_fades_line(app):
+    lines = """
+10/28 20:00:57.846  Weakened Soul fades from Bananaheal.
+10/28 20:01:41.041  Spirit of Zandalar fades from Shrimpshark.
+10/28 20:01:53.689  Stun fades from Everglow.
+10/28 20:02:03.456  Rallying Cry of the Dragonslayer fades from Mangokiwi.
+10/28 20:02:05.192  Arcane Intellect fades from Teldelar.
+10/28 20:02:05.192  Arcane Intellect fades from Daenshoo.
+10/28 20:02:13.806  Mark of the Wild fades from Charmia.
+10/28 20:02:13.961  Mark of the Wild fades from Psykhe.
+10/28 20:02:13.961  Mark of the Wild fades from Jaekta.
+10/28 20:02:32.827  Rallying Cry of the Dragonslayer fades from Sunor.
+    """
+    lines = lines.splitlines(keepends=True)
+    match = 0
+    for line in lines:
+        match += parse_line(app, line)
+    assert match == 10
+

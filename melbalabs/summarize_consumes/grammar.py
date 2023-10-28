@@ -10,8 +10,7 @@ _line: gains_line
     | dies_line
     | healpot_line
     | rejuvpot_line
-    | manapot_line
-    | manarune_line
+    | gains_mana_line
     | begins_to_cast_line
     | casts_line
     | consolidated_line
@@ -26,10 +25,13 @@ _line: gains_line
     | suffers_line
     | hits_ability_line
     | hits_autoattack_line
+    | fades_line
+
 
 
 suffers_line: MULTIWORD " suffers " INT _SPELL_DAMAGE " from " MULTIWORD " 's " MULTIWORD "." (" (" resisted_suffix)?  (" (" absorbed_suffix)?
 
+fades_line: MULTIWORD " fades from " MULTIWORD "."
 
 removed_line: MULTIWORD " 's " MULTIWORD " is removed."
 
@@ -47,8 +49,7 @@ rejuvpot_line: MULTIWORD " 's Rejuvenation Potion " HEALPOT_CRIT? "heals " MULTI
 gains_line: MULTIWORD " gains " MULTIWORD " (1)."
 rage_consumable_line: MULTIWORD " gains " INT " Rage from " MULTIWORD " 's " RAGE_CONSUMABLE "."
 
-manapot_line: MULTIWORD " gains " INT " Mana from " MULTIWORD " 's Restore Mana."
-manarune_line: MULTIWORD " gains " INT " Mana from " MULTIWORD " 's " MANARUNE_CONSUMABLE "."
+gains_mana_line: MULTIWORD " gains " INT " Mana from " MULTIWORD " 's " MULTIWORD "."
 
 afflicted_line: MULTIWORD " is afflicted by " MULTIWORD " (1)."
 timestamp: INT "/" INT " " INT ":" INT ":" INT "." INT
@@ -83,8 +84,6 @@ _CONSOLIDATED.2: "CONSOLIDATED: "
 _SPELL_DAMAGE: " " ("Fire"|"Frost"|"Holy"|"Arcane"|"Nature"|"Shadow"|"Physical") " damage"
 _CONSOLIDATED_TIMESTAMP: INT "." INT "." INT " " INT ":" INT ":" INT "&"
 
-MANARUNE_CONSUMABLE: "Demonic Rune"
-    | "Dark Rune"
 HEALPOT_CRIT: "critically "
 RAGE_CONSUMABLE: "Mighty Rage"
     | "Great Rage"
