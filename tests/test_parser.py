@@ -85,12 +85,13 @@ def test_rage_consumable_line(app):
 def test_tea_with_sugar_line(app):
     lines = """
 4/21 21:01:38.861  Psykhe 's Tea with Sugar heals Psykhe for 1613.
+4/21 21:01:38.861  Psykhe 's Tea with Sugar critically heals Psykhe for 1613.
 4/21 21:22:41.023  Shumy gains 1209 Mana from Shumy 's Tea with Sugar.
     """
     lines = lines.splitlines(keepends=True)
     for line in lines:
         parse_line(app, line)
-    assert app.player['Psykhe']['Tea with Sugar'] == 1
+    assert app.player['Psykhe']['Tea with Sugar'] == 2
     assert app.player['Shumy']['Tea with Sugar'] == 0
 
 def test_gains_consumable_line(app):
@@ -528,3 +529,14 @@ def test_fades_line(app):
         match += parse_line(app, line)
     assert match == 10
 
+
+def test_slain_line(app):
+    lines = """
+10/28 20:12:40.079  Blackwing Mage is slain by Gorkagoth!
+10/28 20:12:41.886  Blackwing Mage is slain by Charmia!
+    """
+    lines = lines.splitlines(keepends=True)
+    match = 0
+    for line in lines:
+        match += parse_line(app, line)
+    assert match == 2

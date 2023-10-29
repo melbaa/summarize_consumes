@@ -5,11 +5,8 @@ grammar = r"""
 start: timestamp "  " _line NEWLINE
 
 _line: gains_line
-    | tea_with_sugar_line
     | rage_consumable_line
     | dies_line
-    | healpot_line
-    | rejuvpot_line
     | gains_mana_line
     | begins_to_cast_line
     | casts_line
@@ -26,8 +23,11 @@ _line: gains_line
     | hits_ability_line
     | hits_autoattack_line
     | fades_line
+    | slain_line
+    | heals_line
 
 
+slain_line: MULTIWORD " is slain by " MULTIWORD "!"
 
 suffers_line: MULTIWORD " suffers " INT _SPELL_DAMAGE " from " MULTIWORD " 's " MULTIWORD "." (" (" resisted_suffix)?  (" (" absorbed_suffix)?
 
@@ -43,9 +43,7 @@ fails_line: MULTIWORD " 's " MULTIWORD " fails. " MULTIWORD " is immune."
 is_absorbed_line: MULTIWORD " 's " MULTIWORD " is absorbed by " MULTIWORD "."
 absorbs_line: MULTIWORD " absorbs " MULTIWORD " 's " MULTIWORD "."
 
-tea_with_sugar_line: MULTIWORD " 's Tea with Sugar heals " MULTIWORD " for " INT "."
-healpot_line: MULTIWORD " 's Healing Potion " HEALPOT_CRIT? "heals " MULTIWORD " for " INT "."
-rejuvpot_line: MULTIWORD " 's Rejuvenation Potion " HEALPOT_CRIT? "heals " MULTIWORD " for " INT "."
+heals_line: MULTIWORD " 's " MULTIWORD HEAL_CRIT? " heals " MULTIWORD " for " INT "."
 
 gains_line: MULTIWORD " gains " MULTIWORD " (" INT ")."
 rage_consumable_line: MULTIWORD " gains " INT " Rage from " MULTIWORD " 's " RAGE_CONSUMABLE "."
@@ -85,7 +83,7 @@ _CONSOLIDATED.2: "CONSOLIDATED: "
 _SPELL_DAMAGE: " " ("Fire"|"Frost"|"Holy"|"Arcane"|"Nature"|"Shadow"|"Physical") " damage"
 _CONSOLIDATED_TIMESTAMP: INT "." INT "." INT " " INT ":" INT ":" INT "&"
 
-HEALPOT_CRIT: "critically "
+HEAL_CRIT: " critically"
 RAGE_CONSUMABLE: "Mighty Rage"
     | "Great Rage"
     | "Rage"
@@ -94,7 +92,7 @@ WORD: UCASE_LETTER (LETTER | DIGIT | CONNECTING_APOSTROPHE | CONNECTING_COLON)*
 MULTIWORD: WORD ((SPACE | DASH | UNDERSCORE) CONNECTING_WORD)* TRAILING_SPACE?
 CONNECTING_APOSTROPHE: /(?<! )'/  # allow it only inside a word
 CONNECTING_COLON: /(?<! ):/
-CONNECTING_WORD: "by"|"of"|"the"|WORD
+CONNECTING_WORD: "with"|"by"|"of"|"the"|WORD
 
 _TS_SEP: SPACE SPACE
 SPACE: " "

@@ -668,10 +668,6 @@ def parse_line(app, line):
                 app.gluth.add(line)
 
             return True
-        elif subtree.data == 'tea_with_sugar_line':
-            name = subtree.children[0].value
-            app.player[name]['Tea with Sugar'] += 1
-            return True
         elif subtree.data == 'rage_consumable_line':
             name = subtree.children[0].value
             consumable = subtree.children[3].value
@@ -689,23 +685,27 @@ def parse_line(app, line):
                 app.gluth.add(line)
 
             return True
-        elif subtree.data == 'healpot_line':
+        elif subtree.data == 'heals_line':
             name = subtree.children[0].value
-            amount = int(subtree.children[-1].value)
-            is_crit = subtree.children[1].type == 'HEALPOT_CRIT'
-            if is_crit:
-                amount = amount / 1.5
-            consumable = healpot_lookup(amount)
-            app.player[name][consumable] += 1
+            spellname = subtree.children[1].value
+            if spellname == 'Tea with Sugar':
+                app.player[name]['Tea with Sugar'] += 1
+            elif spellname == 'Healing Potion':
+                is_crit = subtree.children[2].type == 'HEAL_CRIT'
+                amount = int(subtree.children[-1].value)
+                if is_crit:
+                    amount = amount / 1.5
+                consumable = healpot_lookup(amount)
+                app.player[name][consumable] += 1
+            elif spellname == 'Rejuvenation Potion':
+                amount = int(subtree.children[-1].value)
+                if amount > 500:
+                    app.player[name]['Rejuvenation Potion - Major'] += 1
+                else:
+                    app.player[name]['Rejuvenation Potion - Minor'] += 1
+
             return True
-        elif subtree.data == 'rejuvpot_line':
-            name = subtree.children[0].value
-            amount = int(subtree.children[-1].value)
-            if amount > 500:
-                app.player[name]['Rejuvenation Potion - Major'] += 1
-            else:
-                app.player[name]['Rejuvenation Potion - Minor'] += 1
-            return True
+
         elif subtree.data == 'gains_mana_line':
             name = subtree.children[0].value
             consumable = subtree.children[-1].value
@@ -894,6 +894,8 @@ def parse_line(app, line):
 
             return True
         elif subtree.data == 'fades_line':
+            return True
+        elif subtree.data == 'slain_line':
             return True
 
 
