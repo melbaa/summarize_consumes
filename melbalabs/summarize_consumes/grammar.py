@@ -42,16 +42,17 @@ resist_line: MULTIWORD " 's " MULTIWORD " was resisted by " MULTIWORD "."
 fails_line: MULTIWORD " 's " MULTIWORD " fails. " MULTIWORD " is immune."
 is_absorbed_line: MULTIWORD " 's " MULTIWORD " is absorbed by " MULTIWORD "."
 absorbs_line: MULTIWORD " absorbs " MULTIWORD " 's " MULTIWORD "."
+
 tea_with_sugar_line: MULTIWORD " 's Tea with Sugar heals " MULTIWORD " for " INT "."
 healpot_line: MULTIWORD " 's Healing Potion " HEALPOT_CRIT? "heals " MULTIWORD " for " INT "."
 rejuvpot_line: MULTIWORD " 's Rejuvenation Potion " HEALPOT_CRIT? "heals " MULTIWORD " for " INT "."
 
-gains_line: MULTIWORD " gains " MULTIWORD " (1)."
+gains_line: MULTIWORD " gains " MULTIWORD " (" INT ")."
 rage_consumable_line: MULTIWORD " gains " INT " Rage from " MULTIWORD " 's " RAGE_CONSUMABLE "."
 
 gains_mana_line: MULTIWORD " gains " INT " Mana from " MULTIWORD " 's " MULTIWORD "."
 
-afflicted_line: MULTIWORD " is afflicted by " MULTIWORD " (1)."
+afflicted_line: MULTIWORD " is afflicted by " MULTIWORD " (" INT ")."
 timestamp: INT "/" INT " " INT ":" INT ":" INT "." INT
 casts_line: MULTIWORD " casts " MULTIWORD (" on " MULTIWORD)? "."
 begins_to_cast_line: MULTIWORD " begins to cast " MULTIWORD "."
