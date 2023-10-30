@@ -259,6 +259,13 @@ NAME2ITEMID = {
 }
 ITEMID2NAME = { value: key for key, value in NAME2ITEMID.items() }
 
+RAGE_CONSUMABLE = {
+    "Mighty Rage",
+    "Great Rage",
+    "Rage",
+}
+
+
 
 BEGINS_TO_CAST_CONSUMABLE = {
     "Brilliant Mana Oil",
@@ -668,11 +675,14 @@ def parse_line(app, line):
                 app.gluth.add(line)
 
             return True
-        elif subtree.data == 'rage_consumable_line':
+        elif subtree.data == 'gains_rage_line':
             name = subtree.children[0].value
             consumable = subtree.children[3].value
-            consumable += ' Potion'
-            app.player[name][consumable] += 1
+            if consumable in RAGE_CONSUMABLE:
+                consumable += ' Potion'
+                app.player[name][consumable] += 1
+            return True
+        elif subtree.data == 'gains_energy_line':
             return True
 
         elif subtree.data == 'dies_line':

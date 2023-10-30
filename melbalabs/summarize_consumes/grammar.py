@@ -5,9 +5,10 @@ grammar = r"""
 start: timestamp "  " _line NEWLINE
 
 _line: gains_line
-    | rage_consumable_line
-    | dies_line
+    | gains_rage_line
     | gains_mana_line
+    | gains_energy_line
+    | dies_line
     | begins_to_cast_line
     | casts_line
     | consolidated_line
@@ -32,8 +33,6 @@ _line: gains_line
 
 creates_line: MULTIWORD " creates " MULTIWORD "."
 
-slain_line: MULTIWORD " is slain by " MULTIWORD "!"
-
 suffers_line: MULTIWORD " suffers " INT _SPELL_DAMAGE " from " MULTIWORD " 's " MULTIWORD "." (" (" resisted_suffix)?  (" (" absorbed_suffix)?
 
 fades_line: MULTIWORD " fades from " MULTIWORD "."
@@ -42,6 +41,7 @@ removed_line: MULTIWORD " 's " MULTIWORD " is removed."
 
 dies_line: MULTIWORD " dies."
 is_killed_line: MULTIWORD " is killed by " MULTIWORD "."
+slain_line: MULTIWORD " is slain by " MULTIWORD "!"
 
 parry_line: MULTIWORD " 's " MULTIWORD " was parried by " MULTIWORD "."
 resist_line: MULTIWORD " 's " MULTIWORD " was resisted by " MULTIWORD "."
@@ -52,9 +52,9 @@ absorbs_line: MULTIWORD " absorbs " MULTIWORD " 's " MULTIWORD "."
 heals_line: MULTIWORD " 's " MULTIWORD HEAL_CRIT? " heals " MULTIWORD " for " INT "."
 
 gains_line: MULTIWORD " gains " MULTIWORD " (" INT ")."
-rage_consumable_line: MULTIWORD " gains " INT " Rage from " MULTIWORD " 's " RAGE_CONSUMABLE "."
-
+gains_rage_line: MULTIWORD " gains " INT " Rage from " MULTIWORD " 's " MULTIWORD "."
 gains_mana_line: MULTIWORD " gains " INT " Mana from " MULTIWORD " 's " MULTIWORD "."
+gains_energy_line: MULTIWORD " gains " INT " Energy from " MULTIWORD " 's " MULTIWORD "."
 
 afflicted_line: MULTIWORD " is afflicted by " MULTIWORD " (" INT ")."
 timestamp: INT "/" INT " " INT ":" INT ":" INT "." INT
@@ -90,9 +90,6 @@ _SPELL_DAMAGE: " " ("Fire"|"Frost"|"Holy"|"Arcane"|"Nature"|"Shadow"|"Physical")
 _CONSOLIDATED_TIMESTAMP: INT "." INT "." INT " " INT ":" INT ":" INT "&"
 
 HEAL_CRIT: " critically"
-RAGE_CONSUMABLE: "Mighty Rage"
-    | "Great Rage"
-    | "Rage"
 
 WORD: UCASE_LETTER (LETTER | DIGIT | CONNECTING_APOSTROPHE | CONNECTING_COLON)*
 MULTIWORD: WORD ((SPACE | DASH | UNDERSCORE) CONNECTING_WORD)* TRAILING_SPACE?

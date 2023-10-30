@@ -563,3 +563,18 @@ def test_is_killed_line(app):
         match += parse_line(app, line)
     assert match == 2
 
+def test_gains_energy_line(app):
+    lines = """
+10/29 19:44:41.898  Syjlas gains 12 Energy from Syjlas 's Quel'dorei Meditation.
+10/29 19:44:42.941  Syjlas gains 12 Energy from Syjlas 's Quel'dorei Meditation.
+10/29 19:44:43.965  Syjlas gains 12 Energy from Syjlas 's Quel'dorei Meditation.
+10/29 19:44:44.933  Syjlas gains 12 Energy from Syjlas 's Quel'dorei Meditation.
+10/29 19:44:45.926  Syjlas gains 12 Energy from Syjlas 's Quel'dorei Meditation.
+    """
+    lines = lines.splitlines(keepends=True)
+    match = 0
+    for line in lines:
+        match += parse_line(app, line)
+    assert match == 5
+
+
