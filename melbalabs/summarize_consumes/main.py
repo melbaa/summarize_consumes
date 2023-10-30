@@ -684,7 +684,8 @@ def parse_line(app, line):
             return True
         elif subtree.data == 'gains_energy_line':
             return True
-
+        elif subtree.data == 'gains_health_line':
+            return True
         elif subtree.data == 'dies_line':
             name = subtree.children[0].value
             app.death_count[name] += 1

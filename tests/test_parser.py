@@ -578,3 +578,36 @@ def test_gains_energy_line(app):
     assert match == 5
 
 
+def test_gains_health_line(app):
+    lines = """
+10/29 20:01:52.120  Jaekta gains 114 health from Niviri 's Regrowth.
+10/29 20:01:52.660  Jaekta gains 491 health from Niviri 's Rejuvenation.
+
+    """
+    lines = lines.splitlines(keepends=True)
+    match = 0
+    for line in lines:
+        match += parse_line(app, line)
+    assert match == 2
+
+def test_blocked_autoattack(app):
+    lines = """
+10/29 21:03:46.392  Jaekta hits Lava Surger for 203. (10 resisted) (31 blocked)
+    """
+    lines = lines.splitlines(keepends=True)
+    match = 0
+    for line in lines:
+        match += parse_line(app, line)
+    assert match == 1
+
+def test_blocked_ability(app):
+    lines = """
+4/5 21:04:07.515  Smahingbolt 's Arcane Shot hits Blackwing Taskmaster for 125 Arcane damage. (41 resisted) (31 blocked)
+4/5 22:13:38.659  Smahingbolt 's Arcane Shot hits Chromaggus for 13 Arcane damage. (12 resisted) (31 blocked)
+    """
+    lines = lines.splitlines(keepends=True)
+    match = 0
+    for line in lines:
+        match += parse_line(app, line)
+    assert match == 2
+

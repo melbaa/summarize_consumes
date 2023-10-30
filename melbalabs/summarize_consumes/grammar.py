@@ -8,6 +8,7 @@ _line: gains_line
     | gains_rage_line
     | gains_mana_line
     | gains_energy_line
+    | gains_health_line
     | dies_line
     | begins_to_cast_line
     | casts_line
@@ -55,6 +56,7 @@ gains_line: MULTIWORD " gains " MULTIWORD " (" INT ")."
 gains_rage_line: MULTIWORD " gains " INT " Rage from " MULTIWORD " 's " MULTIWORD "."
 gains_mana_line: MULTIWORD " gains " INT " Mana from " MULTIWORD " 's " MULTIWORD "."
 gains_energy_line: MULTIWORD " gains " INT " Energy from " MULTIWORD " 's " MULTIWORD "."
+gains_health_line: MULTIWORD " gains " INT " health from " MULTIWORD " 's " MULTIWORD "."
 
 afflicted_line: MULTIWORD " is afflicted by " MULTIWORD " (" INT ")."
 timestamp: INT "/" INT " " INT ":" INT ":" INT "." INT
@@ -63,9 +65,9 @@ begins_to_cast_line: MULTIWORD " begins to cast " MULTIWORD "."
 
 consolidated_line: _CONSOLIDATED (_consolidated_case "{"?)+
 combatant_info_line: _COMBATANT_INFO_TOKEN /.+/
-hits_ability_line: _hits_ability_line_prefix (" (" resisted_suffix)? (" (" absorbed_suffix)?
+hits_ability_line: _hits_ability_line_prefix (" (" resisted_suffix)? (" (" blocked_suffix)? (" (" absorbed_suffix)?
 _hits_ability_line_prefix: MULTIWORD " 's " MULTIWORD " " ("hits"|"crits") " " MULTIWORD " for " INT _SPELL_DAMAGE? "."
-hits_autoattack_line: MULTIWORD " " ("hits"|"crits") " " MULTIWORD " for " INT "." glancing_suffix? (" (" resisted_suffix)? (" (" absorbed_suffix)?
+hits_autoattack_line: MULTIWORD " " ("hits"|"crits") " " MULTIWORD " for " INT "." glancing_suffix? (" (" resisted_suffix)? (" (" blocked_suffix)?  (" (" absorbed_suffix)?
 
 
 
@@ -73,6 +75,7 @@ hits_autoattack_line: MULTIWORD " " ("hits"|"crits") " " MULTIWORD " for " INT "
 glancing_suffix: (" (glancing)")
 resisted_suffix: (INT " resisted)")
 absorbed_suffix: (INT " absorbed)")
+blocked_suffix: (INT " blocked)")
 _consolidated_case: consolidated_pet
     | consolidated_loot
     | consolidated_zone
