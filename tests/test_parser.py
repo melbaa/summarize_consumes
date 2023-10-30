@@ -611,3 +611,15 @@ def test_blocked_ability(app):
         match += parse_line(app, line)
     assert match == 2
 
+
+def test_paren_word(app):
+    lines = """
+10/29 20:19:24.006  Firelord is afflicted by Faerie Fire (Feral) (1).
+    """
+    lines = lines.splitlines(keepends=True)
+    match = 0
+    for line in lines:
+        match += parse_line(app, line)
+    assert match == 1
+
+
