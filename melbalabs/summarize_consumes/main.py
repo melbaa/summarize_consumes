@@ -897,6 +897,10 @@ def parse_line(app, line):
             return True
         elif subtree.data == 'slain_line':
             return True
+        elif subtree.data == 'creates_line':
+            return True
+        elif subtree.data == 'is_killed_line':
+            return True
 
 
 

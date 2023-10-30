@@ -25,7 +25,12 @@ _line: gains_line
     | fades_line
     | slain_line
     | heals_line
+    | creates_line
+    | is_killed_line
 
+
+
+creates_line: MULTIWORD " creates " MULTIWORD "."
 
 slain_line: MULTIWORD " is slain by " MULTIWORD "!"
 
@@ -36,6 +41,7 @@ fades_line: MULTIWORD " fades from " MULTIWORD "."
 removed_line: MULTIWORD " 's " MULTIWORD " is removed."
 
 dies_line: MULTIWORD " dies."
+is_killed_line: MULTIWORD " is killed by " MULTIWORD "."
 
 parry_line: MULTIWORD " 's " MULTIWORD " was parried by " MULTIWORD "."
 resist_line: MULTIWORD " 's " MULTIWORD " was resisted by " MULTIWORD "."

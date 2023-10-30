@@ -540,3 +540,26 @@ def test_slain_line(app):
     for line in lines:
         match += parse_line(app, line)
     assert match == 2
+
+def test_creates_line(app):
+    lines = """
+10/29 19:44:43.785  Tovenares creates Conjured Sparkling Water.
+10/29 19:44:54.085  Tovenares creates Mana Ruby.
+    """
+    lines = lines.splitlines(keepends=True)
+    match = 0
+    for line in lines:
+        match += parse_line(app, line)
+    assert match == 2
+
+def test_is_killed_line(app):
+    lines = """
+4/28 14:28:45.871  Gurubashi Bat Rider is killed by Unstable Concoction.
+4/28 15:04:48.311  Lenato is killed by Divine Intervention.
+    """
+    lines = lines.splitlines(keepends=True)
+    match = 0
+    for line in lines:
+        match += parse_line(app, line)
+    assert match == 2
+
