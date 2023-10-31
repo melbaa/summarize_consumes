@@ -813,7 +813,7 @@ def parse_line(app, line):
             return True
         elif subtree.data == "hits_autoattack_line":
             return True
-        elif subtree.data == 'parry_line':
+        elif subtree.data == 'parry_ability_line':
             name = subtree.children[0].value
             spellname = subtree.children[1].value
             targetname = subtree.children[2].value
@@ -821,6 +821,8 @@ def parse_line(app, line):
             if spellname in MELEE_INTERRUPT_SPELLS and targetname == "Kel'Thuzad":
                 app.kt_frostbolt.parry(line)
 
+            return True
+        elif subtree.data == 'parry_line':
             return True
 
         elif subtree.data == 'resist_line':
@@ -921,6 +923,10 @@ def parse_line(app, line):
         elif subtree.data == 'gains_extra_attacks_line':
             return True
         elif subtree.data == 'dodges_line':
+            return True
+        elif subtree.data == 'reflects_damage_line':
+            return True
+        elif subtree.data == 'misses_line':
             return True
 
 

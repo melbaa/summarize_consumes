@@ -662,7 +662,39 @@ def test_dodges_line(app):
         match += parse_line(app, line)
     assert match == 3
 
+def test_reflects_line(app):
+    lines = """
+10/29 20:01:38.278  Palapus reflects 35 Holy damage to Molten Giant.
+10/29 20:01:38.278  Palapus reflects 3 Arcane damage to Molten Giant.
+    """
+    lines = lines.splitlines(keepends=True)
+    match = 0
+    for line in lines:
+        match += parse_line(app, line)
+    assert match == 2
 
 
+
+def test_misses_line(app):
+    lines = """
+10/29 20:23:04.371  Pieshka misses Ancient Core Hound.
+    """
+    lines = lines.splitlines(keepends=True)
+    match = 0
+    for line in lines:
+        match += parse_line(app, line)
+    assert match == 1
+
+
+def test_parry_lines(app):
+    lines = """
+9/28 22:50:24.408  Melevolence 's Pummel was parried by Kel'Thuzad.
+10/29 20:01:41.199  Jaekta attacks. Molten Giant parries.
+    """
+    lines = lines.splitlines(keepends=True)
+    match = 0
+    for line in lines:
+        match += parse_line(app, line)
+    assert match == 2
 
 

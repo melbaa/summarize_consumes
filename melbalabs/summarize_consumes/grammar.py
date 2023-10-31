@@ -15,7 +15,9 @@ _line: gains_line
     | casts_line
     | consolidated_line
     | combatant_info_line
+    | parry_ability_line
     | parry_line
+    | misses_line
     | resist_line
     | fails_line
     | afflicted_line
@@ -34,8 +36,10 @@ _line: gains_line
     | performs_on_line
     | performs_line
     | begins_to_perform_line
+    | reflects_damage_line
 
 
+reflects_damage_line: MULTIWORD " reflects " INT _SPELL_DAMAGE " to " MULTIWORD "."
 
 creates_line: MULTIWORD " creates " MULTIWORD "."
 
@@ -49,8 +53,10 @@ dies_line: MULTIWORD " dies."
 is_killed_line: MULTIWORD " is killed by " MULTIWORD "."
 slain_line: MULTIWORD " is slain by " MULTIWORD "!"
 
-parry_line: MULTIWORD " 's " MULTIWORD " was parried by " MULTIWORD "."
+parry_ability_line: MULTIWORD " 's " MULTIWORD " was parried by " MULTIWORD "."
+parry_line: MULTIWORD " attacks. " MULTIWORD " parries."
 dodges_line: MULTIWORD " attacks. " MULTIWORD " dodges."
+misses_line: MULTIWORD " misses " MULTIWORD "."
 resist_line: MULTIWORD " 's " MULTIWORD " was resisted by " MULTIWORD "."
 fails_line: MULTIWORD " 's " MULTIWORD " fails. " MULTIWORD " is immune."
 is_absorbed_line: MULTIWORD " 's " MULTIWORD " is absorbed by " MULTIWORD "."
