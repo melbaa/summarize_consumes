@@ -28,6 +28,7 @@ _line: gains_line
     | hits_ability_line
     | hits_autoattack_line
     | dodges_line
+    | dodge_ability_line
     | fades_line
     | slain_line
     | heals_line
@@ -37,7 +38,10 @@ _line: gains_line
     | performs_line
     | begins_to_perform_line
     | reflects_damage_line
+    | falls_line
 
+
+falls_line: MULTIWORD " falls and loses " INT " health."
 
 reflects_damage_line: MULTIWORD " reflects " INT _SPELL_DAMAGE " to " MULTIWORD "."
 
@@ -56,6 +60,7 @@ slain_line: MULTIWORD " is slain by " MULTIWORD "!"
 parry_ability_line: MULTIWORD " 's " MULTIWORD " was parried by " MULTIWORD "."
 parry_line: MULTIWORD " attacks. " MULTIWORD " parries."
 dodges_line: MULTIWORD " attacks. " MULTIWORD " dodges."
+dodge_ability_line: MULTIWORD " 's " MULTIWORD " was dodged by " MULTIWORD "."
 misses_line: MULTIWORD " misses " MULTIWORD "."
 resist_line: MULTIWORD " 's " MULTIWORD " was resisted by " MULTIWORD "."
 fails_line: MULTIWORD " 's " MULTIWORD " fails. " MULTIWORD " is immune."

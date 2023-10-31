@@ -655,12 +655,14 @@ def test_dodges_line(app):
 10/29 21:09:28.777  Greater Feral Spirit attacks. Ragnaros dodges.
 10/29 21:09:29.839  Spookshow attacks. Ragnaros dodges.
 10/29 21:09:34.996  Pieshka attacks. Ragnaros dodges.
+10/29 20:01:50.732  Bloxie 's Crusader Strike was dodged by Molten Giant.
+10/29 20:01:52.660  Bloxie 's Holy Strike was dodged by Molten Giant.
     """
     lines = lines.splitlines(keepends=True)
     match = 0
     for line in lines:
         match += parse_line(app, line)
-    assert match == 3
+    assert match == 5
 
 def test_reflects_line(app):
     lines = """
@@ -696,5 +698,19 @@ def test_parry_lines(app):
     for line in lines:
         match += parse_line(app, line)
     assert match == 2
+
+def test_falls_line(app):
+    lines = """
+10/29 20:02:07.266  Everglow falls and loses 1300 health.
+10/29 20:02:07.266  Psykhe falls and loses 1176 health.
+10/29 20:02:07.735  Sunor falls and loses 727 health.
+    """
+    lines = lines.splitlines(keepends=True)
+    match = 0
+    for line in lines:
+        match += parse_line(app, line)
+    assert match == 3
+
+
 
 

@@ -924,9 +924,13 @@ def parse_line(app, line):
             return True
         elif subtree.data == 'dodges_line':
             return True
+        elif subtree.data == 'dodge_ability_line':
+            return True
         elif subtree.data == 'reflects_damage_line':
             return True
         elif subtree.data == 'misses_line':
+            return True
+        elif subtree.data == 'falls_line':
             return True
 
 
