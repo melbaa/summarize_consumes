@@ -912,6 +912,16 @@ def parse_line(app, line):
             return True
         elif subtree.data == 'is_killed_line':
             return True
+        elif subtree.data == 'performs_on_line':
+            return True
+        elif subtree.data == 'performs_line':
+            return True
+        elif subtree.data == 'begins_to_perform_line':
+            return True
+        elif subtree.data == 'gains_extra_attacks_line':
+            return True
+        elif subtree.data == 'dodges_line':
+            return True
 
 
 

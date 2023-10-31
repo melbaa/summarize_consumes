@@ -9,6 +9,7 @@ _line: gains_line
     | gains_mana_line
     | gains_energy_line
     | gains_health_line
+    | gains_extra_attacks_line
     | dies_line
     | begins_to_cast_line
     | casts_line
@@ -24,11 +25,15 @@ _line: gains_line
     | suffers_line
     | hits_ability_line
     | hits_autoattack_line
+    | dodges_line
     | fades_line
     | slain_line
     | heals_line
     | creates_line
     | is_killed_line
+    | performs_on_line
+    | performs_line
+    | begins_to_perform_line
 
 
 
@@ -45,6 +50,7 @@ is_killed_line: MULTIWORD " is killed by " MULTIWORD "."
 slain_line: MULTIWORD " is slain by " MULTIWORD "!"
 
 parry_line: MULTIWORD " 's " MULTIWORD " was parried by " MULTIWORD "."
+dodges_line: MULTIWORD " attacks. " MULTIWORD " dodges."
 resist_line: MULTIWORD " 's " MULTIWORD " was resisted by " MULTIWORD "."
 fails_line: MULTIWORD " 's " MULTIWORD " fails. " MULTIWORD " is immune."
 is_absorbed_line: MULTIWORD " 's " MULTIWORD " is absorbed by " MULTIWORD "."
@@ -57,11 +63,15 @@ gains_rage_line: MULTIWORD " gains " INT " Rage from " MULTIWORD " 's " MULTIWOR
 gains_mana_line: MULTIWORD " gains " INT " Mana from " MULTIWORD " 's " MULTIWORD "."
 gains_energy_line: MULTIWORD " gains " INT " Energy from " MULTIWORD " 's " MULTIWORD "."
 gains_health_line: MULTIWORD " gains " INT " health from " MULTIWORD " 's " MULTIWORD "."
+gains_extra_attacks_line: MULTIWORD " gains " INT " extra attacks through " MULTIWORD "."
 
 afflicted_line: MULTIWORD " is afflicted by " MULTIWORD " (" INT ")."
 timestamp: INT "/" INT " " INT ":" INT ":" INT "." INT
 casts_line: MULTIWORD " casts " MULTIWORD (" on " MULTIWORD)? "."
 begins_to_cast_line: MULTIWORD " begins to cast " MULTIWORD "."
+performs_on_line: MULTIWORD " performs " MULTIWORD " on " MULTIWORD "."
+performs_line: MULTIWORD " performs " MULTIWORD "."
+begins_to_perform_line: MULTIWORD " begins to perform " MULTIWORD "."
 
 consolidated_line: _CONSOLIDATED (_consolidated_case "{"?)+
 combatant_info_line: _COMBATANT_INFO_TOKEN /.+/
@@ -99,7 +109,7 @@ PAREN_WORD: "(" WORD ")"
 MULTIWORD: WORD ((SPACE | DASH | UNDERSCORE) CONNECTING_WORD)* TRAILING_SPACE?
 CONNECTING_APOSTROPHE: /(?<! )'/  # allow it only inside a word
 CONNECTING_COLON: /(?<! ):/
-CONNECTING_WORD: "with"|"by"|"of"|"the"|PAREN_WORD|WORD
+CONNECTING_WORD: "and"|"with"|"by"|"of"|"the"|PAREN_WORD|WORD
 
 _TS_SEP: SPACE SPACE
 SPACE: " "

@@ -623,3 +623,46 @@ def test_paren_word(app):
     assert match == 1
 
 
+def test_performs_line(app):
+    lines = """
+10/29 20:04:42.682  Bloxie performs Hand of Reckoning on Lava Annihilator.
+10/29 20:04:42.682  Psykhe performs Taunt on Lava Annihilator.
+10/29 20:01:54.889  Chan begins to perform Auto Shot.
+10/29 20:01:55.004  Inris begins to perform Auto Shot.
+10/29 19:59:28.113  Inris performs Call Pet.
+10/29 20:01:22.446  Smahingbolt performs Call Pet.
+    """
+    lines = lines.splitlines(keepends=True)
+    match = 0
+    for line in lines:
+        match += parse_line(app, line)
+    assert match == 6
+
+def test_gains_extra_attacks_line(app):
+    lines = """
+10/29 20:01:39.421  Srj gains 1 extra attacks through Sword Specialization.
+10/29 20:01:39.675  Jaekta gains 1 extra attacks through Windfury Totem.
+10/29 20:01:40.292  Windfurytotm gains 2 extra attacks through Windfury Weapon.
+    """
+    lines = lines.splitlines(keepends=True)
+    match = 0
+    for line in lines:
+        match += parse_line(app, line)
+    assert match == 3
+
+def test_dodges_line(app):
+    lines = """
+10/29 21:09:28.777  Greater Feral Spirit attacks. Ragnaros dodges.
+10/29 21:09:29.839  Spookshow attacks. Ragnaros dodges.
+10/29 21:09:34.996  Pieshka attacks. Ragnaros dodges.
+    """
+    lines = lines.splitlines(keepends=True)
+    match = 0
+    for line in lines:
+        match += parse_line(app, line)
+    assert match == 3
+
+
+
+
+
