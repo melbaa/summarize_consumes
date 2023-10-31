@@ -841,13 +841,15 @@ def parse_line(app, line):
                 app.fourhm_chain.add(timestamp, line)
 
             return True
-        elif subtree.data == 'fails_line':
+        elif subtree.data == 'immune_ability_line':
             name = subtree.children[0].value
             spellname = subtree.children[1].value
 
             if spellname in app.hits_consumable.COOLDOWNS:
                 app.hits_consumable.update(name, spellname, timestamp)
 
+            return True
+        elif subtree.data == 'immune_line':
             return True
         elif subtree.data == 'afflicted_line':
             targetname = subtree.children[0].value
@@ -930,7 +932,11 @@ def parse_line(app, line):
             return True
         elif subtree.data == 'misses_line':
             return True
+        elif subtree.data == 'misses_ability_line':
+            return True
         elif subtree.data == 'falls_line':
+            return True
+        elif subtree.data == 'none_line':
             return True
 
 

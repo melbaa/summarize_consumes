@@ -303,6 +303,7 @@ def test_hits_line2(app):
 10/15 20:10:30.145  Jaekta hits Core Hound for 1. (11 resisted) (189 absorbed)
 10/15 20:10:30.145  Jaekta hits Core Hound for 1. (189 absorbed)
 10/15 20:10:30.145  Jaekta hits Core Hound for 1.
+4/15 15:15:08.612  Kurinnaxx hits Psykhe for 1452. (crushing) (144 absorbed)
     """
     lines = lines.splitlines(keepends=True)
     match = 0
@@ -310,7 +311,7 @@ def test_hits_line2(app):
         if len(line) > 10:
             app.parser.parse(line)
         match += parse_line(app, line)
-    assert match == 6
+    assert match == 7
 
 
 def test_ktfrostbolt(app):
@@ -680,12 +681,13 @@ def test_reflects_line(app):
 def test_misses_line(app):
     lines = """
 10/29 20:23:04.371  Pieshka misses Ancient Core Hound.
+10/29 21:10:44.948  Bloxie 's Crusader Strike missed Ragnaros.
     """
     lines = lines.splitlines(keepends=True)
     match = 0
     for line in lines:
         match += parse_line(app, line)
-    assert match == 1
+    assert match == 2
 
 
 def test_parry_lines(app):
@@ -711,6 +713,29 @@ def test_falls_line(app):
         match += parse_line(app, line)
     assert match == 3
 
+def test_none_line(app):
+    lines = """
+10/29 20:13:04.841  NONE
+10/29 20:13:04.841  NONE
+10/29 20:13:05.007  NONE
+10/29 20:13:05.007  NONE
+    """
+    lines = lines.splitlines(keepends=True)
+    match = 0
+    for line in lines:
+        match += parse_line(app, line)
+    assert match == 4
 
 
 
+def test_immune_line(app):
+    lines = """
+10/29 20:46:59.833  Jaekta attacks but Lava Elemental is immune.
+10/29 20:46:59.833  Windfurytotm attacks but Lava Elemental is immune.
+10/29 20:46:59.908  Bloxie attacks but Lava Elemental is immune.
+    """
+    lines = lines.splitlines(keepends=True)
+    match = 0
+    for line in lines:
+        match += parse_line(app, line)
+    assert match == 3
