@@ -26,6 +26,7 @@ _line: gains_line
     | is_absorbed_line
     | absorbs_line
     | removed_line
+    | none_line
     | suffers_line
     | hits_ability_line
     | hits_autoattack_line
@@ -41,11 +42,16 @@ _line: gains_line
     | begins_to_perform_line
     | reflects_damage_line
     | falls_line
-    | none_line
+    | lava_line
+    | slays_line
+
+
+slays_line: MULTIWORD " slays " MULTIWORD "!"
 
 none_line: "NONE"
 
 falls_line: MULTIWORD " falls and loses " INT " health."
+lava_line: MULTIWORD " loses " INT " health for swimming in lava." (" (" resisted_suffix)?  (" (" absorbed_suffix)?
 
 reflects_damage_line: MULTIWORD " reflects " INT _SPELL_DAMAGE " to " MULTIWORD "."
 
@@ -66,7 +72,7 @@ parry_line: MULTIWORD " attacks. " MULTIWORD " parries."
 dodges_line: MULTIWORD " attacks. " MULTIWORD " dodges."
 dodge_ability_line: MULTIWORD " 's " MULTIWORD " was dodged by " MULTIWORD "."
 misses_line: MULTIWORD " misses " MULTIWORD "."
-misses_ability_line: MULTIWORD " 's " MULTIWORD " missed " MULTIWORD "."
+misses_ability_line: MULTIWORD " 's " MULTIWORD (" missed "|" misses ") MULTIWORD "."
 resist_line: MULTIWORD " 's " MULTIWORD " was resisted by " MULTIWORD "."
 immune_ability_line: MULTIWORD " 's " MULTIWORD " fails. " MULTIWORD " is immune."
 immune_line: MULTIWORD " attacks but " MULTIWORD " is immune."
@@ -92,7 +98,7 @@ begins_to_perform_line: MULTIWORD " begins to perform " MULTIWORD "."
 
 consolidated_line: _CONSOLIDATED (_consolidated_case "{"?)+
 combatant_info_line: _COMBATANT_INFO_TOKEN /.+/
-hits_ability_line: _hits_ability_line_prefix (" (" resisted_suffix)? (" (" blocked_suffix)? (" (" absorbed_suffix)?
+hits_ability_line: _hits_ability_line_prefix (" (" vulnerability_suffix)? (" (" resisted_suffix)? (" (" blocked_suffix)? (" (" absorbed_suffix)?
 _hits_ability_line_prefix: MULTIWORD " 's " MULTIWORD " " ("hits"|"crits") " " MULTIWORD " for " INT _SPELL_DAMAGE? "."
 hits_autoattack_line: MULTIWORD " " ("hits"|"crits") " " MULTIWORD " for " INT "." glancing_suffix? crushing_suffix? (" (" resisted_suffix)? (" (" blocked_suffix)?  (" (" absorbed_suffix)?
 
@@ -103,6 +109,7 @@ glancing_suffix: (" (glancing)")
 resisted_suffix: (INT " resisted)")
 absorbed_suffix: (INT " absorbed)")
 blocked_suffix: (INT " blocked)")
+vulnerability_suffix: "+" INT " vulnerability bonus)"
 crushing_suffix: (" (crushing)")
 _consolidated_case: consolidated_pet
     | consolidated_loot

@@ -938,6 +938,10 @@ def parse_line(app, line):
             return True
         elif subtree.data == 'none_line':
             return True
+        elif subtree.data == 'lava_line':
+            return True
+        elif subtree.data == 'slays_line':
+            return True
 
 
 

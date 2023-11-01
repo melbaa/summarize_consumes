@@ -288,12 +288,13 @@ def test_hits_line(app):
 4/14 21:49:18.451  Maexxna 's Poison Shock hits Jaekta for 270 Nature damage. (481 resisted) (1176 absorbed)
 4/14 21:49:18.451  Maexxna 's Poison Shock hits Jaekta for 270 Nature damage. (1176 absorbed)
 4/14 21:49:18.451  Maexxna 's Poison Shock hits Jaekta for 270 Nature damage. (481 resisted)
+4/30 20:58:34.369  Tlw 's Frostbolt hits Flameguard for 1867 Frost damage. (+742 vulnerability bonus)
     """
     lines = lines.splitlines(keepends=True)
     match = 0
     for line in lines:
         match += parse_line(app, line)
-    assert match == 4
+    assert match == 5
 
 def test_hits_line2(app):
     lines = """
@@ -676,19 +677,17 @@ def test_reflects_line(app):
         match += parse_line(app, line)
     assert match == 2
 
-
-
 def test_misses_line(app):
     lines = """
 10/29 20:23:04.371  Pieshka misses Ancient Core Hound.
 10/29 21:10:44.948  Bloxie 's Crusader Strike missed Ragnaros.
+10/29 20:08:41.392  Core Hound 's Serrated Bite misses Psykhe.
     """
     lines = lines.splitlines(keepends=True)
     match = 0
     for line in lines:
         match += parse_line(app, line)
-    assert match == 2
-
+    assert match == 3
 
 def test_parry_lines(app):
     lines = """
@@ -739,3 +738,27 @@ def test_immune_line(app):
     for line in lines:
         match += parse_line(app, line)
     assert match == 3
+
+def test_lava_line(app):
+    lines = """
+10/29 21:05:53.353  Pieshka loses 579 health for swimming in lava.
+10/29 21:05:53.467  Umbriela loses 90 health for swimming in lava. (287 resisted) (198 absorbed)
+10/29 21:05:54.431  Umbriela loses 413 health for swimming in lava. (137 resisted)
+10/29 21:05:56.723  Umbriela loses 569 health for swimming in lava.
+    """
+    lines = lines.splitlines(keepends=True)
+    match = 0
+    for line in lines:
+        match += parse_line(app, line)
+    assert match == 4
+
+def test_slays_line(app):
+    lines = """
+10/29 20:20:31.006  Psykhe slays Gehennas!
+10/29 20:22:11.290  Psykhe slays Molten Destroyer!
+    """
+    lines = lines.splitlines(keepends=True)
+    match = 0
+    for line in lines:
+        match += parse_line(app, line)
+    assert match == 2
