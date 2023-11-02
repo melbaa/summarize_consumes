@@ -482,6 +482,7 @@ def test_consumable_report(app):
     app.player['Psykhe']['Elixir of the Mongoose'] = 3
     app.player['Psykhe']['Rage of Ages (ROIDS)'] = 3
     app.player['Psykhe']['Wizard Oil'] = 1
+    app.player['Psykhe']['Brilliant Wizard Oil'] = 1
 
     output = io.StringIO()
     app.pricedb.data[NAME2ITEMID['Flask of the Titans']] = 3000000
@@ -490,8 +491,9 @@ def test_consumable_report(app):
     app.pricedb.data[NAME2ITEMID['Blasted Boar Lung']] = 2
     app.pricedb.data[NAME2ITEMID['Snickerfang Jowl']] = 3
     app.pricedb.data[NAME2ITEMID['Wizard Oil']] = 5
+    app.pricedb.data[NAME2ITEMID['Brilliant Wizard Oil']] = 50
     app.print_consumables.print(output)
-    assert output.getvalue() == 'Psykhe deaths:0\n   Elixir of the Mongoose 3   (9g)\n   Flask of the Titans 3   (900g)\n   Rage of Ages (ROIDS) 3   (42c)\n   Wizard Oil 1   (1c)\n\n   total spent: 909g 43c\n'
+    assert output.getvalue() == 'Psykhe deaths:0\n   Brilliant Wizard Oil 1   (10c)\n   Elixir of the Mongoose 3   (9g)\n   Flask of the Titans 3   (900g)\n   Rage of Ages (ROIDS) 3   (42c)\n   Wizard Oil 1   (1c)\n\n   total spent: 909g 53c\n'
 
 
 def test_rejuv_pot(app):

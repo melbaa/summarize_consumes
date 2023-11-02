@@ -1011,9 +1011,9 @@ class PrintConsumables:
             components = [(consumable, 1)]
 
         for component in components:
-            consumable, multi = component
+            consumable_component_name, multi = component
 
-            itemid = NAME2ITEMID.get(consumable)
+            itemid = NAME2ITEMID.get(consumable_component_name)
             if not itemid: continue
             price = self.pricedb.lookup(itemid)
             if not price: continue
@@ -1107,28 +1107,50 @@ def get_user_input():
     return args
 
 
+class IxioUploader:
+    def upload(self, output):
+        data = output.getvalue().encode('utf8')
+
+        username, password = 'summarize_consumes', 'summarize_consumes'
+        auth = requests.auth.HTTPBasicAuth(username, password)
+        response = requests.post(
+            url='http://ix.io',
+            files={'f:1': data},
+            auth=auth,
+            timeout=30,
+        )
+        print(response.text)
+        if 'already exists' in response.text:
+            return None
+        if 'down for DDOS' in response.text:
+            return None
+        if response.status_code != 200:
+            return None
+        url = response.text.strip().split('\n')[-1]
+        return url
+
+class BpasteUploader:
+    def upload(self, output):
+        data = output.getvalue().encode('utf8')
+        response = requests.post(
+            url='https://bpaste.net/curl',
+            data={'raw': data},
+            timeout=30,
+        )
+        if response.status_code != 200:
+            return None
+        lines = response.text.splitlines()
+        for line in lines:
+            if 'Raw URL' in line:
+                url = line.split()[-1]
+                return url
+
+
 def upload_pastebin(output):
-    data = output.getvalue()
-
-    username, password = 'summarize_consumes', 'summarize_consumes'
-    auth = requests.auth.HTTPBasicAuth(username, password)
-    data = output.getvalue().encode('utf8')
-    response = requests.post(
-        url='http://ix.io',
-        files={'f:1': data},
-        auth=auth,
-        timeout=30,
-    )
-
-    print(response.text)
-    if 'already exists' in response.text:
-        print("didn't get a new url")
-        import pdb;pdb.set_trace()
-        raise RuntimeError('no url')
-
-    url = response.text.strip().split('\n')[-1]
+    url = BpasteUploader().upload(output)
+    if url: return url
+    url = IxioUploader().upload(output)
     return url
-
 
 def open_browser(url):
     print(f'opening browser with {url}')
@@ -1154,6 +1176,9 @@ def main():
     url = upload_pastebin(output)
 
     if not args.open_browser: return
+    if not url:
+        print("didn't get a pastebin url")
+        return
     open_browser(url)
 
 
