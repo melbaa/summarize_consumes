@@ -249,6 +249,7 @@ NAME2ITEMID = {
     'Mighty Rage Potion': 13442,
     'Dense Dynamite': 18641,
     'Brilliant Wizard Oil': 20749,
+    'Wizard Oil': 20750,
     'Blessed Wizard Oil': 23123,
     'Thorium Grenade': 15993,
     'Potion of Quickness': 61181,
@@ -258,6 +259,13 @@ NAME2ITEMID = {
     'Rejuvenation Potion - Major': 18253,
 }
 ITEMID2NAME = { value: key for key, value in NAME2ITEMID.items() }
+
+CONSUMABLE_CHARGES = {
+    "Brilliant Mana Oil" : 5,
+    "Lesser Mana Oil" : 5,
+    "Brilliant Wizard Oil" : 5,
+    "Wizard Oil" : 5,
+}
 
 RAGE_CONSUMABLE = {
     "Mighty Rage",
@@ -1011,6 +1019,7 @@ class PrintConsumables:
             if not price: continue
             total_price += (price * multi * count)
 
+        total_price //= CONSUMABLE_CHARGES.get(consumable, 1)
         if not total_price: return '', 0
         return self.gold_string(total_price), total_price
 
@@ -1047,6 +1056,7 @@ def generate_output(app):
     - Dragonbreath chili and goblin sappers have only "on hit" messages, so their usage is estimated based on timestamps and cooldowns.
     - Mageblood and some other mana consumes are "mana regeneration" in the combat log, can't tell them apart.
     - Lesser and greater protection potions don't have unique names, can't tell them apart.
+    - Nordanaar Herbal Tea casts the same spell as Tea with Sugar, can't tell them apart.
 
     """, file=output)
 
