@@ -379,10 +379,11 @@ MANARUNE_CONSUMABLE = {
 }
 
 
-MELEE_INTERRUPT_SPELLS = {
+INTERRUPT_SPELLS = {
     'Kick',
     'Pummel',
     'Shield Bash',
+    'Earth Shock',
 }
 
 BUFF_SPELL = {
@@ -806,7 +807,7 @@ def parse_line(app, line):
             if name == "Sir Zeliek" and spellname == "Holy Wrath":
                 app.fourhm_chain.add(timestamp, line)
 
-            if spellname in MELEE_INTERRUPT_SPELLS and targetname == "Kel'Thuzad":
+            if spellname in INTERRUPT_SPELLS and targetname == "Kel'Thuzad":
                 app.kt_frostbolt.add(line)
 
             if name == "Kel'Thuzad" and spellname == "Frostbolt" and int(subtree.children[3].value) >= 4000:
@@ -826,7 +827,7 @@ def parse_line(app, line):
             spellname = subtree.children[1].value
             targetname = subtree.children[2].value
 
-            if spellname in MELEE_INTERRUPT_SPELLS and targetname == "Kel'Thuzad":
+            if spellname in INTERRUPT_SPELLS and targetname == "Kel'Thuzad":
                 app.kt_frostbolt.parry(line)
 
             return True
@@ -847,6 +848,9 @@ def parse_line(app, line):
 
             if name == "Sir Zeliek" and spellname == "Holy Wrath":
                 app.fourhm_chain.add(timestamp, line)
+
+            if spellname in INTERRUPT_SPELLS and targetname == "Kel'Thuzad":
+                app.kt_frostbolt.parry(line)
 
             return True
         elif subtree.data == 'immune_ability_line':

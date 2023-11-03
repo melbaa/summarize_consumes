@@ -326,13 +326,16 @@ def test_ktfrostbolt(app):
 9/28 22:52:51.129  Psykhe 's Shield Bash hits Kel'Thuzad for 33.
 10/26 21:41:39.007  Kel'Thuzad 's Frostbolt hits Jaekta for 4379 Frost damage. (3063 absorbed)
 10/26 21:41:39.007  Kel'Thuzad 's Frostbolt hits Jaekta for 3000 Frost damage.
+11/2 22:53:38.470  Windfurytotm 's Earth Shock crits Kel'Thuzad for 385 Nature damage.
+11/2 22:53:47.930  Windfurytotm 's Earth Shock hits Kel'Thuzad for 255 Nature damage.
+11/2 22:53:55.048  Windfurytotm 's Earth Shock was resisted by Kel'Thuzad.
     """
     lines = lines.splitlines(keepends=True)
     for line in lines:
         parse_line(app, line)
     # 2 synthetic newlines
     # ignore the small frostbolt
-    assert len(app.kt_frostbolt.log) == 10
+    assert len(app.kt_frostbolt.log) == 13
 
 
 def test_kt_frostblast(app):
