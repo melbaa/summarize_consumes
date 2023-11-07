@@ -81,6 +81,7 @@ def create_app(expert_log_unparsed_lines):
     # bwl
     app.nef_corrupted_healing = NefCorruptedHealing()
     # aq
+    app.viscidus = Viscidus()
     app.huhuran = Huhuran()
     app.cthun_chain = BeamChain(logname="C'Thun Chain Log (2+)", beamname="Eye of C'Thun 's Eye Beam", chainsize=2)
     # naxx
@@ -512,6 +513,32 @@ class KTGuardian:
     def print(self, output):
         print_collected_log(self.logname, self.log, output)
 
+class Viscidus:
+    def __init__(self):
+        self.logname = 'Viscidus Frost Hits Log'
+        # player - frost spell - count
+        self.counts = collections.defaultdict(lambda: collections.defaultdict(int))
+        self.totals = collections.defaultdict(int)
+        self._found = False
+    def add(self, player, spell):
+        self.counts[player][spell] += 1
+        self.totals[player] += 1
+    def found(self):
+        self._found = True
+    def print(self, output):
+        if not self._found: return
+        print(f"\n\n{self.logname}", file=output)
+        players = [(total, player) for player, total in self.totals.items()]
+        players.sort(reverse=True)
+        print("  ", "Total hits", sum(total for total, player in players), file=output)
+        print(file=output)
+        for total, player in players:
+            print("  ", player, total, file=output)
+            spells = [(total, spell) for spell, total in self.counts[player].items()]
+            spells.sort(reverse=True)
+            for total, spell in spells:
+                print("    ", spell, total, file=output)
+
 class Huhuran:
     def __init__(self):
         self.logname = 'Princess Huhuran Log'
@@ -808,6 +835,12 @@ def parse_line(app, line):
             if spellname in app.hits_consumable.COOLDOWNS:
                 app.hits_consumable.update(name, spellname, timestamp)
 
+            if targetname == 'Viscidus':
+                app.viscidus.found()
+                spell_damage_type = subtree.children[4]
+                if spell_damage_type and spell_damage_type.children[0].value == 'Frost':
+                    app.viscidus.add(name, spellname)
+
             if name == "Eye of C'Thun" and spellname == "Eye Beam":
                 app.cthun_chain.add(timestamp, line)
 
@@ -928,12 +961,14 @@ def parse_line(app, line):
             return True
         elif subtree.data == 'suffers_line':
             targetname = subtree.children[0]
-            amount = subtree.children[1]
-            name = subtree.children[2]
-            spellname = subtree.children[3]
+            # amount = subtree.children[1]
+            # spell_damage_type = subtree.children[2].children[0].value
+            # name = subtree.children[3]
+            spellname = subtree.children[4]
 
             if spellname == 'Corrupted Healing':
                 app.nef_corrupted_healing.add(line)
+
 
             return True
         elif subtree.data == 'fades_line':
@@ -1102,6 +1137,7 @@ def generate_output(app):
     # bwl
     app.nef_corrupted_healing.print(output)
     # aq
+    app.viscidus.print(output)
     app.huhuran.print(output)
     app.cthun_chain.print(output)
     # naxx

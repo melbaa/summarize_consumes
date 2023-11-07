@@ -53,11 +53,11 @@ none_line: "NONE"
 falls_line: MULTIWORD " falls and loses " INT " health."
 lava_line: MULTIWORD " loses " INT " health for swimming in lava." (" (" resisted_suffix)?  (" (" absorbed_suffix)?
 
-reflects_damage_line: MULTIWORD " reflects " INT _SPELL_DAMAGE " to " MULTIWORD "."
+reflects_damage_line: MULTIWORD " reflects " INT spell_damage_type " to " MULTIWORD "."
 
 creates_line: MULTIWORD " creates " MULTIWORD "."
 
-suffers_line: MULTIWORD " suffers " INT _SPELL_DAMAGE " from " MULTIWORD " 's " MULTIWORD "." (" (" resisted_suffix)?  (" (" absorbed_suffix)?
+suffers_line: MULTIWORD " suffers " INT spell_damage_type " from " MULTIWORD " 's " MULTIWORD "." (" (" resisted_suffix)?  (" (" absorbed_suffix)?
 
 fades_line: MULTIWORD " fades from " MULTIWORD "."
 
@@ -99,7 +99,7 @@ begins_to_perform_line: MULTIWORD " begins to perform " MULTIWORD "."
 consolidated_line: _CONSOLIDATED (_consolidated_case "{"?)+
 combatant_info_line: _COMBATANT_INFO_TOKEN /.+/
 hits_ability_line: _hits_ability_line_prefix (" (" vulnerability_suffix)? (" (" resisted_suffix)? (" (" blocked_suffix)? (" (" absorbed_suffix)?
-_hits_ability_line_prefix: MULTIWORD " 's " MULTIWORD " " ("hits"|"crits") " " MULTIWORD " for " INT _SPELL_DAMAGE? "."
+_hits_ability_line_prefix: MULTIWORD " 's " MULTIWORD " " ("hits"|"crits") " " MULTIWORD " for " INT [spell_damage_type] "."
 hits_autoattack_line: MULTIWORD " " ("hits"|"crits") " " MULTIWORD " for " INT "." glancing_suffix? crushing_suffix? (" (" resisted_suffix)? (" (" blocked_suffix)?  (" (" absorbed_suffix)?
 
 
@@ -124,7 +124,8 @@ _COMBATANT_INFO_TOKEN.2: "COMBATANT_INFO: "
 _CONSOLIDATED.2: "CONSOLIDATED: "
 
 
-_SPELL_DAMAGE: " " ("Fire"|"Frost"|"Holy"|"Arcane"|"Nature"|"Shadow"|"Physical") " damage"
+spell_damage_type: " " /Fire|Frost|Holy|Arcane|Nature|Shadow|Physical/ " damage"
+
 _CONSOLIDATED_TIMESTAMP: INT "." INT "." INT " " INT ":" INT ":" INT "&"
 
 HEAL_CRIT: " critically"

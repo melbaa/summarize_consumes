@@ -67,6 +67,28 @@ DOT: "."
     assert res3.children[1] == '.'
 
 
+def test_lark_optional(app):
+    lines = """a
+a b
+"""
+    from lark import Lark
+    parser = Lark(r"""
+
+start: a [b]
+a: "a"
+b: "b"
+%import common.WS
+%ignore WS
+""")
+    lines = lines.splitlines(keepends=True)
+    res1 = parser.parse(lines[0])
+    assert res1.children[0].data == 'a'
+    assert res1.children[1] is None
+    assert res1.children[1] == None
+
+    res2 = parser.parse(lines[1])
+    assert res2.children[1].data == 'b'
+
 
 
 def test_rage_consumable_line(app):
@@ -786,3 +808,22 @@ def test_kt_guardian_log(app):
         parse_line(app, line)
     assert len(app.kt_guardian.log) == 6
 
+def test_viscidus(app):
+    lines = """
+4/13 22:19:02.731  Srj 's Frostbolt hits Viscidus for 16 Frost damage.
+4/13 22:19:02.968  Bbr 's Shoot hits Viscidus for 33 Frost damage. (11 resisted)
+4/13 22:19:03.158  Chillz 's Frostbolt hits Viscidus for 55 Frost damage.
+4/13 22:19:03.511  Alexjed 's Frostbolt hits Viscidus for 57 Frost damage.
+4/13 22:19:03.511  Alexjed 's Shoot hits Viscidus for 57 Frost damage.
+4/13 22:19:03.511  Alexjed 's Frostbolt hits Viscidus for 57 Frost damage.
+4/13 22:19:03.511  Alexjed 's Bloodthirst hits Viscidus for 57.
+    """
+    lines = lines.splitlines(keepends=True)
+    for line in lines:
+        parse_line(app, line)
+    assert app.viscidus.counts['Alexjed']['Frostbolt'] == 2
+    assert app.viscidus.counts['Alexjed']['Shoot'] == 1
+    assert app.viscidus.totals['Alexjed'] == 3
+    output = io.StringIO()
+    app.viscidus.print(output)
+    assert output.getvalue() == '\n\nViscidus Frost Hits Log\n   Total hits 6\n\n   Alexjed 3\n     Frostbolt 2\n     Shoot 1\n   Srj 1\n     Frostbolt 1\n   Chillz 1\n     Frostbolt 1\n   Bbr 1\n     Shoot 1\n'
