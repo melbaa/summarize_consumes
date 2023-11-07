@@ -89,6 +89,7 @@ def create_app(expert_log_unparsed_lines):
     app.kt_frostblast = KTFrostblast()
     app.kt_frostbolt = KTFrostbolt()
     app.kt_shadowfissure = KTShadowfissure()
+    app.kt_guardian = KTGuardian()
 
     app.techinfo = Techinfo()
 
@@ -502,6 +503,15 @@ class KTShadowfissure:
     def print(self, output):
         print_collected_log(self.logname, self.log, output)
 
+class KTGuardian:
+    def __init__(self):
+        self.logname = 'KT Guardian of Icecrown Log'
+        self.log = []
+    def add(self, line):
+        self.log.append(line)
+    def print(self, output):
+        print_collected_log(self.logname, self.log, output)
+
 class Huhuran:
     def __init__(self):
         self.logname = 'Princess Huhuran Log'
@@ -821,6 +831,9 @@ def parse_line(app, line):
 
             return True
         elif subtree.data == "hits_autoattack_line":
+            name = subtree.children[0].value
+            if name == 'Guardian of Icecrown':
+                app.kt_guardian.add(line)
             return True
         elif subtree.data == 'parry_ability_line':
             name = subtree.children[0].value
@@ -873,6 +886,9 @@ def parse_line(app, line):
             if spellname == "Frost Blast":
                 app.kt_frostblast.add(line)
 
+            if targetname == 'Guardian of Icecrown':
+                app.kt_guardian.add(line)
+
             return True
         elif subtree.data == 'is_absorbed_line':
 
@@ -921,6 +937,12 @@ def parse_line(app, line):
 
             return True
         elif subtree.data == 'fades_line':
+            spellname = subtree.children[0].value
+            targetname = subtree.children[1].value
+
+            if targetname == 'Guardian of Icecrown':
+                app.kt_guardian.add(line)
+
             return True
         elif subtree.data == 'slain_line':
             return True
@@ -1088,6 +1110,7 @@ def generate_output(app):
     app.kt_shadowfissure.print(output)
     app.kt_frostbolt.print(output)
     app.kt_frostblast.print(output)
+    # app.kt_guardian.print(output)
 
     print(f"\n\nPets", file=output)
     for pet in app.pet_detect:
@@ -1138,7 +1161,7 @@ class BpasteUploader:
         data = output.getvalue().encode('utf8')
         response = requests.post(
             url='https://bpaste.net/curl',
-            data={'raw': data},
+            data={'raw': data, 'expiry': '1month'},
             timeout=30,
         )
         if response.status_code != 200:

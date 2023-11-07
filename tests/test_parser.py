@@ -769,3 +769,20 @@ def test_slays_line(app):
     for line in lines:
         match += parse_line(app, line)
     assert match == 2
+
+def test_kt_guardian_log(app):
+    lines = """
+11/2 22:17:13.362  Guardian of Icecrown is afflicted by Shackle Undead (1).
+11/2 22:17:25.523  Shackle Undead fades from Guardian of Icecrown.
+11/2 22:17:26.252  Guardian of Icecrown is afflicted by Turn Undead (1).
+11/2 22:17:46.214  Turn Undead fades from Guardian of Icecrown.
+
+11/2 22:17:49.752  Guardian of Icecrown hits Shumy for 2200.
+11/2 22:18:02.277  Guardian of Icecrown crits Geniesham for 9184.
+
+    """
+    lines = lines.splitlines(keepends=True)
+    for line in lines:
+        parse_line(app, line)
+    assert len(app.kt_guardian.log) == 6
+
