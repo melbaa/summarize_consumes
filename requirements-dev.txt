@@ -1,1 +1,4 @@
 pytest
+invoke
+colorama; platform_system=='Windows'
+# nox

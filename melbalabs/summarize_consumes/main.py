@@ -1118,7 +1118,7 @@ def generate_output(app):
     - Lesser and greater protection potions don't have unique names, can't tell them apart.
     - Nordanaar Herbal Tea casts the same spell as Tea with Sugar, can't tell them apart.
 
-    """, file=output)
+""", file=output)
 
 
     # remove pets
@@ -1153,15 +1153,24 @@ def generate_output(app):
 
     app.techinfo.print(output)
 
-    print(output.getvalue())
     return output
 
+def write_output(output, write_summary):
+    if write_summary:
+        filename = 'summary.txt'
+        with open(filename, 'wb') as f:
+            f.write(output.getvalue().encode('utf8'))
+            print('writing summary to', filename)
+    else:
+        print(output.getvalue())
 
 def get_user_input():
     parser = argparse.ArgumentParser()
     parser.add_argument('logpath', help='path to WoWCombatLog.txt')
     parser.add_argument('--pastebin', action='store_true', help='upload result to a pastebin and return the url')
     parser.add_argument('--open-browser', action='store_true', help='used with --pastebin. open the pastebin url with your browser')
+
+    parser.add_argument('--write-summary', action='store_true', help='writes output to summary.txt instead of the console')
 
     parser.add_argument('--expert-log-unparsed-lines', action='store_true', help='create an unparsed.txt with everything that was not parsed')
     args = parser.parse_args()
@@ -1233,6 +1242,7 @@ def main():
     parse_log(app, filename=args.logpath)
 
     output = generate_output(app)
+    write_output(output, write_summary=args.write_summary)
 
     if not args.pastebin: return
     url = upload_pastebin(output)
