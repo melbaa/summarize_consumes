@@ -12,9 +12,6 @@ import functools
 import logging
 from datetime import datetime as dt
 
-import zipfile
-
-
 import requests
 import humanize
 import lark
@@ -537,7 +534,7 @@ class Viscidus:
             spells = [(total, spell) for spell, total in self.counts[player].items()]
             spells.sort(reverse=True)
             for total, spell in spells:
-                print("    ", spell, total, file=output)
+                print("  ", "  ", spell, total, file=output)
 
 class Huhuran:
     def __init__(self):
@@ -1112,7 +1109,9 @@ def generate_output(app):
     output = io.StringIO()
 
     print("""Notes:
-    - The report is generated using the combat log.
+    - The report is generated using the combat log, which is far from perfect.
+    - Use the report as evidence something DID happen and keep in mind the data is not exhaustive. In other words the report DOES NOT cover everything.
+    - Some events are missing because the person logging wasn't in the instance yet or was too far away. This means inferring something DID NOT happen may be hard or impossible and requires extra care.
     - Jujus and many foods are not in the combat log, so they can't be easily counted.
     - Dragonbreath chili and goblin sappers have only "on hit" messages, so their usage is estimated based on timestamps and cooldowns.
     - Mageblood and some other mana consumes are "mana regeneration" in the combat log, can't tell them apart.

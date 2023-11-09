@@ -826,4 +826,4 @@ def test_viscidus(app):
     assert app.viscidus.totals['Alexjed'] == 3
     output = io.StringIO()
     app.viscidus.print(output)
-    assert output.getvalue() == '\n\nViscidus Frost Hits Log\n   Total hits 6\n\n   Alexjed 3\n     Frostbolt 2\n     Shoot 1\n   Srj 1\n     Frostbolt 1\n   Chillz 1\n     Frostbolt 1\n   Bbr 1\n     Shoot 1\n'
+    assert output.getvalue() == '\n\nViscidus Frost Hits Log\n   Total hits 6\n\n   Alexjed 3\n      Frostbolt 2\n      Shoot 1\n   Srj 1\n      Frostbolt 1\n   Chillz 1\n      Frostbolt 1\n   Bbr 1\n      Shoot 1\n'
