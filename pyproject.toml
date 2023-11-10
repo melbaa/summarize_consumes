@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "melbalabs_summarize_consumes"
+version = "2023.11.11"
+authors = [
+    {name = "melba"},
+]
+
+[project.urls]
+Homepage = "https://github.com/melbaa/summarize_consumes"
+Repository = "https://github.com/melbaa/summarize_consumes"
+
+[project.scripts]
+summarize_consumes = "melbalabs.summarize_consumes.main:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]

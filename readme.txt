@@ -11,13 +11,13 @@ Check out the examples directory for summaries of various raids.
 usage: summarize_consumes.exe [-h] [--pastebin] [--open-browser] logpath
 
 positional arguments:
-  logpath         path to WoWCombatLog.txt
+  logpath               path to WoWCombatLog.txt
 
 options:
-  -h, --help      show this help message and exit
-  --pastebin      upload result to a pastebin and return the url
-  --open-browser  used with --pastebin. open the pastebin url with your browser
-
+  -h, --help            show this help message and exit
+  --pastebin            upload result to a pastebin and return the url
+  --open-browser        used with --pastebin. open the pastebin url with your browser
+  --write-summary       writes output to summary.txt instead of the console
 
 
 

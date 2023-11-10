@@ -3,8 +3,12 @@ from pathlib import Path
 
 from invoke import Collection, task
 
-from colorama import just_fix_windows_console
-just_fix_windows_console()
+try:
+    from colorama import just_fix_windows_console
+    just_fix_windows_console()
+except ModuleNotFoundError:
+    pass
+
 
 @task
 def unparsed(c):
