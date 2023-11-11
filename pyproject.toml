@@ -4,10 +4,10 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "melbalabs_summarize_consumes"
-version = "2023.11.11"
 authors = [
     {name = "melba"},
 ]
+dynamic = ["version"]
 
 [project.urls]
 Homepage = "https://github.com/melbaa/summarize_consumes"
@@ -18,3 +18,27 @@ summarize_consumes = "melbalabs.summarize_consumes.main:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
+
+[tool.setuptools.dynamic]
+version = {attr = "melbalabs.summarize_consumes.package.VERSION"}
+
+[tool.bumpver]
+current_version = "2023.1018"
+version_pattern = "YYYY.BUILD"
+commit_message = "bump version {old_version} -> {new_version}"
+tag_message = "{new_version}"
+tag_scope = "default"
+pre_commit_hook = ""
+post_commit_hook = ""
+commit = false
+tag = false
+push = false
+
+[tool.bumpver.file_patterns]
+"pyproject.toml" = [
+    'current_version = "{version}"',
+]
+"src/melbalabs/summarize_consumes/package.py" = [
+    'VERSION = "{version}"',
+]
+

@@ -10,6 +10,7 @@ import time
 import webbrowser
 import functools
 import logging
+import importlib
 from datetime import datetime as dt
 
 import requests
@@ -18,6 +19,7 @@ import lark
 
 
 from melbalabs.summarize_consumes import grammar
+import melbalabs.summarize_consumes.package as package
 
 
 LarkError = lark.LarkError
@@ -622,6 +624,7 @@ class Techinfo:
         self.logsize = 0
         self.linecount = 0
         self.skiplinecount = 0
+        self.package_version = package.VERSION
 
     def get_file_size(self, filename):
         self.logsize = os.path.getsize(filename)
@@ -632,10 +635,12 @@ class Techinfo:
     def get_skipped_line_count(self, count):
         self.skiplinecount = count
 
-    def print(self, output):
-        time_end = time.time()
+    def print(self, output, time_end=None):
+        if time_end is None:
+            time_end = time.time()
         time_delta = time_end - self.time_start
         print("\n\nTech", file=output)
+        print('  ', f'project version {self.package_version}', file=output)
         print('  ', f'log size {humanize.naturalsize(self.logsize)}', file=output)
         print('  ', f'log lines {self.linecount}', file=output)
         print('  ', f'skipped log lines {self.skiplinecount} ({(self.skiplinecount / self.linecount) * 100:.2f}%)', file=output)

@@ -14,8 +14,6 @@ def app():
     return create_app(expert_log_unparsed_lines=True)
 
 
-
-
 @pytest.mark.skip('not using basic lexer; grammar too ambiguous for it')
 def test_lark_basic_lexer():
     from lark import Lark
@@ -827,3 +825,22 @@ def test_viscidus(app):
     output = io.StringIO()
     app.viscidus.print(output)
     assert output.getvalue() == '\n\nViscidus Frost Hits Log\n   Total hits 6\n\n   Alexjed 3\n      Frostbolt 2\n      Shoot 1\n   Srj 1\n      Frostbolt 1\n   Chillz 1\n      Frostbolt 1\n   Bbr 1\n      Shoot 1\n'
+
+def test_techinfo(app):
+    lines = """
+4/13 22:19:02.731  Srj 's Frostbolt hits Viscidus for 16 Frost damage.
+4/13 22:19:02.968  Bbr 's Shoot hits Viscidus for 33 Frost damage. (11 resisted)
+4/13 22:19:03.158  Chillz 's Frostbolt hits Viscidus for 55 Frost damage.
+4/13 22:19:03.511  Alexjed 's Frostbolt hits Viscidus for 57 Frost damage.
+4/13 22:19:03.511  Alexjed 's Shoot hits Viscidus for 57 Frost damage.
+4/13 22:19:03.511  Alexjed 's Frostbolt hits Viscidus for 57 Frost damage.
+4/13 22:19:03.511  Alexjed 's Bloodthirst hits Viscidus for 57.
+    """
+    lines = lines.splitlines(keepends=True)
+    for line in lines:
+        parse_line(app, line)
+        app.techinfo.linecount += 1
+    output = io.StringIO()
+    app.techinfo.package_version = 'whatever'
+    app.techinfo.print(output, time_end=app.techinfo.time_start + 5)
+    assert output.getvalue() == '\n\nTech\n   project version whatever\n   log size 0 Bytes\n   log lines 9\n   skipped log lines 0 (0.00%)\n   processed in 5.00 seconds. 1.80 log lines/sec\n'

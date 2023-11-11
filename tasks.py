@@ -37,4 +37,9 @@ def examples(c):
         output_file = cwd / 'examples' / f'summary-{filename}'
         c.run(f'mv summary.txt {output_file}')
 
-
+@task
+def commit(c, message):
+    cmd = 'bumpver update --no-fetch'
+    c.run(cmd)
+    c.run(f'git add pyproject.toml src/melbalabs/summarize_consumes/package.py')
+    c.run(f'git commit -m {message}')
