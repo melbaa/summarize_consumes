@@ -23,7 +23,7 @@ where = ["src"]
 version = {attr = "melbalabs.summarize_consumes.package.VERSION"}
 
 [tool.bumpver]
-current_version = "2023.1018"
+current_version = "2023.1021"
 version_pattern = "YYYY.BUILD"
 commit_message = "bump version {old_version} -> {new_version}"
 tag_message = "{new_version}"

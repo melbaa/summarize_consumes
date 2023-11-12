@@ -79,6 +79,7 @@ def create_app(expert_log_unparsed_lines):
 
     # bwl
     app.nef_corrupted_healing = NefCorruptedHealing()
+    app.nef_wild_polymorph = NefWildPolymorph()
     # aq
     app.viscidus = Viscidus()
     app.huhuran = Huhuran()
@@ -556,6 +557,16 @@ class NefCorruptedHealing:
     def print(self, output):
         print_collected_log(self.logname, self.log, output)
 
+class NefWildPolymorph:
+    def __init__(self):
+        self.logname = 'Nefarian Wild Polymorph (mage call)'
+        self.log = []
+    def add(self, line):
+        self.log.append(line)
+    def print(self, output):
+        print_collected_log(self.logname, self.log, output)
+
+
 class Gluth:
     def __init__(self):
         self.logname = 'Gluth Log'
@@ -800,8 +811,8 @@ def parse_line(app, line):
                     consumable = RENAME_CONSUMABLE[consumable]
                 app.player[name][consumable] += 1
 
-            if name == "Kel'Thuzad" and spellname == "Shadow Fissure":
-                app.kt_shadowfissure.add(line)
+            if spellname == 'Wild Polymorph':
+                app.nef_wild_polymorph.add(line)
 
             if spellname == 'Death by Peasant':
                 app.huhuran.add(line)
@@ -813,6 +824,9 @@ def parse_line(app, line):
                     app.huhuran.add(line)
                 if spellname == 'Tranquilizing Shot' and targetname == 'Gluth':
                     app.gluth.add(line)
+
+            if name == "Kel'Thuzad" and spellname == "Shadow Fissure":
+                app.kt_shadowfissure.add(line)
 
             return True
         elif subtree.data == 'combatant_info_line':
@@ -971,7 +985,6 @@ def parse_line(app, line):
             if spellname == 'Corrupted Healing':
                 app.nef_corrupted_healing.add(line)
 
-
             return True
         elif subtree.data == 'fades_line':
             spellname = subtree.children[0].value
@@ -1012,6 +1025,14 @@ def parse_line(app, line):
         elif subtree.data == 'lava_line':
             return True
         elif subtree.data == 'slays_line':
+            return True
+        elif subtree.data == 'was_evaded_line':
+            name = subtree.children[0].value
+            spellname = subtree.children[1].value
+            targetname = subtree.children[2].value
+
+            if spellname == 'Wild Polymorph':
+                app.nef_wild_polymorph.add(line)
             return True
 
 
@@ -1140,6 +1161,7 @@ def generate_output(app):
 
     # bwl
     app.nef_corrupted_healing.print(output)
+    app.nef_wild_polymorph.print(output)
     # aq
     app.viscidus.print(output)
     app.huhuran.print(output)

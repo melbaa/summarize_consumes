@@ -844,3 +844,36 @@ def test_techinfo(app):
     app.techinfo.package_version = 'whatever'
     app.techinfo.print(output, time_end=app.techinfo.time_start + 5)
     assert output.getvalue() == '\n\nTech\n   project version whatever\n   log size 0 Bytes\n   log lines 9\n   skipped log lines 0 (0.00%)\n   processed in 5.00 seconds. 1.80 log lines/sec\n'
+
+def test_was_evaded_line(app):
+    lines = """
+11/11 22:47:45.054  Syjlas 's Wild Polymorph was evaded by Teldelar.
+11/11 22:47:50.083  Ridea 's Wild Polymorph was evaded by Aphorodite.
+11/11 22:47:55.100  Syjlas 's Wild Polymorph was evaded by Platedps.
+    """
+    lines = lines.splitlines(keepends=True)
+    match = 0
+    for line in lines:
+        match += parse_line(app, line)
+    assert match == 3
+
+def test_wild_polymorph(app):
+    lines = """
+11/11 22:47:45.054  Syjlas 's Wild Polymorph was evaded by Teldelar.
+11/11 22:47:50.083  Ridea 's Wild Polymorph was evaded by Aphorodite.
+11/11 22:47:55.100  Syjlas 's Wild Polymorph was evaded by Platedps.
+11/11 22:48:05.162  Coldbeer casts Wild Polymorph on Coldbeer.
+11/11 22:48:05.162  Coldbeer casts Wild Polymorph on Coldbeer.
+11/11 22:48:05.162  Psykhe casts Wild Polymorph on Psykhe.
+    """
+
+    """
+11/11 22:48:05.162  Psykhe is afflicted by Wild Polymorph (1).
+11/11 22:48:05.194  Coldbeer is afflicted by Wild Polymorph (1).
+11/11 22:48:07.996  Psykhe 's Wild Polymorph is removed.
+11/11 22:47:55.740  Wild Polymorph fades from Srj.
+    """
+    lines = lines.splitlines(keepends=True)
+    for line in lines:
+        parse_line(app, line)
+    assert len(app.nef_wild_polymorph.log) == 6

@@ -25,6 +25,7 @@ _line: gains_line
     | afflicted_line
     | is_absorbed_line
     | absorbs_line
+    | was_evaded_line
     | removed_line
     | none_line
     | suffers_line
@@ -78,6 +79,7 @@ immune_ability_line: MULTIWORD " 's " MULTIWORD " fails. " MULTIWORD " is immune
 immune_line: MULTIWORD " attacks but " MULTIWORD " is immune."
 is_absorbed_line: MULTIWORD " 's " MULTIWORD " is absorbed by " MULTIWORD "."
 absorbs_line: MULTIWORD " absorbs " MULTIWORD " 's " MULTIWORD "."
+was_evaded_line: MULTIWORD " 's " MULTIWORD " was evaded by " MULTIWORD "."
 
 heals_line: MULTIWORD " 's " MULTIWORD HEAL_CRIT? " heals " MULTIWORD " for " INT "."
 

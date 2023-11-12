@@ -1,0 +1,387 @@
+Notes:
+    - The report is generated using the combat log, which is far from perfect.
+    - Use the report as evidence something DID happen and keep in mind the data is not exhaustive. In other words the report DOES NOT cover everything.
+    - Some events are missing because the person logging wasn't in the instance yet or was too far away. This means inferring something DID NOT happen may be hard or impossible and requires extra care.
+    - Jujus and many foods are not in the combat log, so they can't be easily counted.
+    - Dragonbreath chili and goblin sappers have only "on hit" messages, so their usage is estimated based on timestamps and cooldowns.
+    - Mageblood and some other mana consumes are "mana regeneration" in the combat log, can't tell them apart.
+    - Lesser and greater protection potions don't have unique names, can't tell them apart.
+    - Nordanaar Herbal Tea casts the same spell as Tea with Sugar, can't tell them apart.
+
+
+Airin deaths:3
+   Elixir of Greater Intellect 1   (86s 89c)
+   Lesser Mana Oil 2   (55s 77c)
+   Mana Potion - Major 1   (1g 69s 26c)
+
+   total spent: 3g 11s 92c
+Aphorodite deaths:2
+   Elixir of Greater Agility 4   (1g 87s 84c)
+   Mana Potion - Major 1   (1g 69s 26c)
+
+   total spent: 3g 57s 10c
+Arzetlam deaths:0
+   Tea with Sugar 1 
+Berserkss deaths:0
+   Elixir of Greater Agility 1   (46s 96c)
+   Elixir of the Mongoose 1   (5g 90s 87c)
+   Spirit of Zanza 1   (2g 23s 44c)
+
+   total spent: 8g 61s 27c
+Bloxie deaths:3
+   Free Action Potion 2   (3g 52s 18c)
+   Greater Stoneshield 1   (3g 86s 98c)
+   Tea with Sugar 2 
+
+   total spent: 7g 39s 16c
+Chan deaths:0
+   Increased Stamina 1 
+   Tea with Sugar 3 
+Charmia deaths:2
+   Elixir of Fortitude 2   (2g 14s 36c)
+   Elixir of the Giants 1   (1g 33s 88c)
+   Elixir of the Mongoose 3   (17g 72s 61c)
+   Free Action Potion 2   (3g 52s 18c)
+   Spirit of Zanza 2   (4g 46s 88c)
+
+   total spent: 29g 19s 91c
+Coldbeer deaths:0
+   Increased Stamina 2 
+   Mana Potion - Superior 1   (78s 52c)
+
+   total spent: 78s 52c
+Daenshoo deaths:1
+   <nothing found>
+Druindy deaths:4
+   Healing Potion - Major 1   (43s 82c)
+
+   total spent: 43s 82c
+Dyrachyo deaths:2
+   Elixir of Fortitude 1   (1g 7s 18c)
+   Elixir of the Mongoose 1   (5g 90s 87c)
+   Fire Protection 3 
+   Free Action Potion 3   (5g 28s 27c)
+   Gift of Arthas 1 
+   Invulnerability 3   (4g 36s 11c)
+   Mighty Rage Potion 8   (29g 34s 16c)
+   Rage of Ages (ROIDS) 1   (5g 55s 45c)
+   Spirit of Zanza 1   (2g 23s 44c)
+   Winterfall Firewater 2   (1g 66s 90c)
+
+   total spent: 55g 42s 38c
+Everglow deaths:4
+   Elixir of the Mongoose 2   (11g 81s 74c)
+   Fire Protection 1 
+   Free Action Potion 4   (7g 4s 36c)
+   Goblin Sapper Charge 1   (1g 71s 59c)
+   Increased Stamina 3 
+   Spirit of Zanza 2   (4g 46s 88c)
+   Winterfall Firewater 4   (3g 33s 80c)
+
+   total spent: 28g 38s 37c
+Few deaths:5
+   Dense Sharpening Stone 2 
+   Elixir of Fortitude 3   (3g 21s 54c)
+   Elixir of Greater Agility 2   (93s 92c)
+   Elixir of the Giants 3   (4g 1s 64c)
+   Elixir of the Mongoose 2   (11g 81s 74c)
+   Fire Protection 2 
+   Healing Potion - Major 2   (87s 64c)
+   Rumsey Rum Black Label 2   (1g 49s 28c)
+   Shadow Protection 1   (4g 19s 6c)
+   Winterfall Firewater 5   (4g 17s 25c)
+
+   total spent: 30g 72s 7c
+Fflur deaths:0
+   <nothing found>
+Gack deaths:1
+   <nothing found>
+Geniesham deaths:1
+   <nothing found>
+Illasei deaths:1
+   Elixir of the Mongoose 1   (5g 90s 87c)
+   Healing Potion - Major 1   (43s 82c)
+   Spirit of Zanza 1   (2g 23s 44c)
+   Strike of the Scorpok 1   (5g 95s 55c)
+   Winterfall Firewater 3   (2g 50s 35c)
+
+   total spent: 17g 4s 3c
+Lyahsunsworn deaths:1
+   <nothing found>
+Mezmeris deaths:3
+   <nothing found>
+Nightleaf deaths:6
+   <nothing found>
+Pieshka deaths:4
+   Fire Protection 1 
+Platedps deaths:1
+   Elixir of the Mongoose 1   (5g 90s 87c)
+   Fire Protection 1 
+   Healing Potion - Major 2   (87s 64c)
+
+   total spent: 6g 78s 51c
+Psykhe deaths:2
+   Elixir of the Mongoose 3   (17g 72s 61c)
+   Flask of the Titans 1   (69g 77s 75c)
+   Free Action Potion 2   (3g 52s 18c)
+   Greater Stoneshield 2   (7g 73s 96c)
+   Rumsey Rum Black Label 1   (74s 64c)
+   Spirit of Zanza 2   (4g 46s 88c)
+
+   total spent: 103g 98s 2c
+Redzeus deaths:3
+   <nothing found>
+Ridea deaths:2
+   <nothing found>
+Roshane deaths:3
+   Healing Potion - Major 1   (43s 82c)
+   Mana Potion - Major 1   (1g 69s 26c)
+
+   total spent: 2g 13s 8c
+Shrimpshark deaths:2
+   Brilliant Wizard Oil 1   (1g 83s 45c)
+   Dreamshard Elixir 2   (4g 79s 48c)
+   Dreamtonic 2   (3g 99s 98c)
+   Elixir of Fortitude 1   (1g 7s 18c)
+   Elixir of Frost Power 2   (1g 80s)
+   Fire Protection 3 
+   Greater Arcane Elixir 2   (5g 28s 54c)
+   Increased Intellect 3 
+   Invulnerability 2   (2g 90s 74c)
+   Mana Potion - Major 1   (1g 69s 26c)
+   Tea with Sugar 10 
+
+   total spent: 23g 38s 63c
+Shuly deaths:1
+   Mana Potion - Major 1   (1g 69s 26c)
+   Tea with Sugar 1 
+
+   total spent: 1g 69s 26c
+Srj deaths:4
+   Elixir of the Mongoose 4   (23g 63s 48c)
+   Fire Protection 2 
+   Free Action Potion 1   (1g 76s 9c)
+   Invulnerability 1   (1g 45s 37c)
+   Potion of Quickness 2   (5g 49s 92c)
+   Winterfall Firewater 5   (4g 17s 25c)
+
+   total spent: 36g 52s 11c
+Stormsnake deaths:0
+   <nothing found>
+Subarach deaths:4
+   <nothing found>
+Sunor deaths:2
+   Mana Potion - Major 6   (10g 15s 56c)
+   Tea with Sugar 12 
+
+   total spent: 10g 15s 56c
+Syjlas deaths:1
+   Fire Protection 2 
+   Healing Potion - Major 3   (1g 31s 46c)
+   Wizard Oil 2   (64s 66c)
+
+   total spent: 1g 96s 12c
+Teldelar deaths:2
+   <nothing found>
+Umbriela deaths:2
+   Mana Potion - Major 3   (5g 7s 78c)
+
+   total spent: 5g 7s 78c
+Windfurytotm deaths:0
+   Healing Potion - Major 1   (43s 82c)
+   Invulnerability 1   (1g 45s 37c)
+   Mana Potion - Superior 2   (1g 57s 4c)
+   Tea with Sugar 4 
+
+   total spent: 3g 46s 23c
+Yis deaths:3
+   Elixir of the Mongoose 1   (5g 90s 87c)
+   Healing Potion - Major 2   (87s 64c)
+   Tea with Sugar 2 
+
+   total spent: 6g 78s 51c
+
+
+Nefarian Priest Corrupted Healing
+   11/11 22:50:31.337  Psykhe suffers 331 Shadow damage from Airin 's Corrupted Healing.
+   11/11 22:50:32.366  Psykhe suffers 331 Shadow damage from Airin 's Corrupted Healing.
+   11/11 22:50:33.327  Psykhe suffers 331 Shadow damage from Airin 's Corrupted Healing.
+   11/11 22:50:34.375  Psykhe suffers 331 Shadow damage from Airin 's Corrupted Healing.
+   11/11 22:50:35.356  Psykhe suffers 331 Shadow damage from Airin 's Corrupted Healing.
+   11/11 22:50:36.323  Psykhe absorbs Airin 's Corrupted Healing.
+   11/11 22:50:37.367  Psykhe absorbs Airin 's Corrupted Healing.
+   11/11 22:50:38.365  Psykhe absorbs Airin 's Corrupted Healing.
+   11/11 22:50:39.317  Psykhe absorbs Airin 's Corrupted Healing.
+   11/11 22:50:40.373  Psykhe suffers 250 Shadow damage from Airin 's Corrupted Healing. (20 absorbed)
+   11/11 22:50:41.364  Psykhe suffers 270 Shadow damage from Airin 's Corrupted Healing.
+   11/11 22:50:42.291  Sunor suffers 169 Shadow damage from Sunor 's Corrupted Healing. (1017 absorbed)
+   11/11 22:50:42.357  Psykhe suffers 270 Shadow damage from Airin 's Corrupted Healing.
+   11/11 22:50:43.328  Sunor suffers 1186 Shadow damage from Sunor 's Corrupted Healing.
+   11/11 22:50:43.332  Psykhe suffers 270 Shadow damage from Airin 's Corrupted Healing.
+   11/11 22:50:44.362  Sunor suffers 2351 Shadow damage from Sunor 's Corrupted Healing.
+   11/11 22:50:44.365  Psykhe suffers 270 Shadow damage from Airin 's Corrupted Healing.
+   11/11 22:50:45.384  Psykhe suffers 270 Shadow damage from Airin 's Corrupted Healing.
+   11/11 22:50:46.385  Psykhe suffers 270 Shadow damage from Airin 's Corrupted Healing.
+   11/11 22:50:47.324  Psykhe suffers 270 Shadow damage from Airin 's Corrupted Healing.
+   11/11 22:50:48.333  Psykhe suffers 270 Shadow damage from Airin 's Corrupted Healing.
+   11/11 22:50:49.385  Psykhe suffers 270 Shadow damage from Airin 's Corrupted Healing.
+   11/11 22:50:50.405  Psykhe suffers 270 Shadow damage from Airin 's Corrupted Healing.
+   11/11 22:50:51.333  Psykhe suffers 270 Shadow damage from Airin 's Corrupted Healing.
+   11/11 22:50:52.354  Psykhe suffers 270 Shadow damage from Airin 's Corrupted Healing.
+   11/11 22:50:53.369  Psykhe suffers 270 Shadow damage from Airin 's Corrupted Healing.
+   11/11 22:50:54.337  Psykhe suffers 270 Shadow damage from Airin 's Corrupted Healing.
+   11/11 22:50:55.382  Psykhe suffers 270 Shadow damage from Airin 's Corrupted Healing.
+   11/11 22:50:56.442  Psykhe suffers 270 Shadow damage from Airin 's Corrupted Healing.
+   11/11 22:50:56.510  Daenshoo suffers 312 Shadow damage from Airin 's Corrupted Healing.
+   11/11 22:50:56.510  Airin suffers 236 Shadow damage from Airin 's Corrupted Healing. (78 resisted)
+   11/11 22:50:56.510  Druindy suffers 225 Shadow damage from Airin 's Corrupted Healing. (75 resisted)
+   11/11 22:50:56.521  Airin 's Corrupted Healing is absorbed by Umbriela.
+   11/11 22:50:57.385  Psykhe suffers 270 Shadow damage from Airin 's Corrupted Healing.
+   11/11 22:50:57.459  Airin suffers 608 Shadow damage from Airin 's Corrupted Healing.
+   11/11 22:50:57.459  Druindy suffers 634 Shadow damage from Airin 's Corrupted Healing.
+   11/11 22:50:57.473  Airin 's Corrupted Healing is absorbed by Umbriela.
+   11/11 22:50:57.555  Daenshoo suffers 312 Shadow damage from Airin 's Corrupted Healing.
+   11/11 22:50:58.354  Psykhe absorbs Airin 's Corrupted Healing.
+   11/11 22:50:58.443  Airin suffers 608 Shadow damage from Airin 's Corrupted Healing.
+   11/11 22:50:58.443  Druindy suffers 634 Shadow damage from Airin 's Corrupted Healing.
+   11/11 22:50:58.443  Umbriela suffers 632 Shadow damage from Airin 's Corrupted Healing. (18 absorbed)
+   11/11 22:50:58.572  Daenshoo suffers 312 Shadow damage from Airin 's Corrupted Healing.
+   11/11 22:50:59.345  Psykhe absorbs Airin 's Corrupted Healing.
+   11/11 22:50:59.483  Airin suffers 909 Shadow damage from Airin 's Corrupted Healing.
+   11/11 22:50:59.483  Druindy suffers 990 Shadow damage from Airin 's Corrupted Healing.
+   11/11 22:50:59.489  Umbriela suffers 915 Shadow damage from Airin 's Corrupted Healing.
+   11/11 22:50:59.561  Daenshoo suffers 312 Shadow damage from Airin 's Corrupted Healing.
+   11/11 22:51:00.345  Psykhe absorbs Airin 's Corrupted Healing.
+   11/11 22:51:00.493  Airin suffers 1160 Shadow damage from Airin 's Corrupted Healing.
+   11/11 22:51:00.493  Druindy suffers 990 Shadow damage from Airin 's Corrupted Healing.
+   11/11 22:51:00.493  Umbriela suffers 915 Shadow damage from Airin 's Corrupted Healing.
+   11/11 22:51:00.601  Daenshoo suffers 312 Shadow damage from Airin 's Corrupted Healing.
+   11/11 22:51:01.456  Airin suffers 1160 Shadow damage from Airin 's Corrupted Healing.
+   11/11 22:51:01.458  Druindy suffers 990 Shadow damage from Airin 's Corrupted Healing.
+   11/11 22:51:01.458  Umbriela suffers 915 Shadow damage from Airin 's Corrupted Healing.
+   11/11 22:51:01.518  Daenshoo suffers 312 Shadow damage from Airin 's Corrupted Healing.
+   11/11 22:51:02.523  Airin suffers 1160 Shadow damage from Airin 's Corrupted Healing.
+   11/11 22:51:02.523  Druindy suffers 990 Shadow damage from Airin 's Corrupted Healing.
+   11/11 22:51:02.523  Umbriela suffers 915 Shadow damage from Airin 's Corrupted Healing.
+   11/11 22:51:02.593  Daenshoo suffers 312 Shadow damage from Airin 's Corrupted Healing.
+   11/11 22:51:03.488  Airin suffers 1160 Shadow damage from Airin 's Corrupted Healing.
+   11/11 22:51:03.488  Airin 's Corrupted Healing is absorbed by Druindy.
+   11/11 22:51:03.488  Airin 's Corrupted Healing is absorbed by Umbriela.
+   11/11 22:51:03.554  Airin 's Corrupted Healing is absorbed by Daenshoo.
+   11/11 22:51:04.493  Airin 's Corrupted Healing is absorbed by Druindy.
+   11/11 22:51:04.493  Airin 's Corrupted Healing is absorbed by Umbriela.
+   11/11 22:51:04.523  Airin 's Corrupted Healing is absorbed by Daenshoo.
+   11/11 22:51:05.494  Airin 's Corrupted Healing is absorbed by Druindy.
+   11/11 22:51:05.494  Airin 's Corrupted Healing is absorbed by Umbriela.
+   11/11 22:51:05.562  Airin 's Corrupted Healing is absorbed by Daenshoo.
+   11/11 22:51:06.504  Airin 's Corrupted Healing is absorbed by Druindy.
+   11/11 22:51:06.504  Airin 's Corrupted Healing is absorbed by Umbriela.
+   11/11 22:51:06.577  Airin 's Corrupted Healing is absorbed by Daenshoo.
+   11/11 22:51:07.468  Airin 's Corrupted Healing is absorbed by Druindy.
+   11/11 22:51:07.468  Airin 's Corrupted Healing is absorbed by Umbriela.
+   11/11 22:51:07.587  Airin 's Corrupted Healing is absorbed by Daenshoo.
+   11/11 22:51:08.455  Airin 's Corrupted Healing is absorbed by Druindy.
+   11/11 22:51:08.455  Airin 's Corrupted Healing is absorbed by Umbriela.
+   11/11 22:51:08.515  Airin 's Corrupted Healing is absorbed by Daenshoo.
+   11/11 22:51:09.457  Airin 's Corrupted Healing is absorbed by Druindy.
+   11/11 22:51:09.457  Airin 's Corrupted Healing is absorbed by Umbriela.
+   11/11 22:51:09.512  Airin 's Corrupted Healing is absorbed by Daenshoo.
+   11/11 22:51:10.537  Airin 's Corrupted Healing is absorbed by Druindy.
+   11/11 22:51:10.537  Airin 's Corrupted Healing is absorbed by Umbriela.
+   11/11 22:51:10.596  Airin 's Corrupted Healing is absorbed by Daenshoo.
+   11/11 22:51:11.492  Airin 's Corrupted Healing is absorbed by Druindy.
+   11/11 22:51:11.508  Airin 's Corrupted Healing is absorbed by Umbriela.
+   11/11 22:51:11.577  Airin 's Corrupted Healing is absorbed by Daenshoo.
+   11/11 22:51:12.464  Airin 's Corrupted Healing is absorbed by Druindy.
+   11/11 22:51:12.464  Airin 's Corrupted Healing is absorbed by Umbriela.
+   11/11 22:51:12.541  Airin 's Corrupted Healing is absorbed by Daenshoo.
+   11/11 22:51:13.495  Druindy suffers 990 Shadow damage from Airin 's Corrupted Healing.
+   11/11 22:51:13.495  Umbriela suffers 915 Shadow damage from Airin 's Corrupted Healing.
+   11/11 22:51:13.573  Daenshoo suffers 312 Shadow damage from Airin 's Corrupted Healing.
+   11/11 22:51:14.469  Druindy suffers 990 Shadow damage from Airin 's Corrupted Healing.
+   11/11 22:51:14.469  Umbriela suffers 915 Shadow damage from Airin 's Corrupted Healing.
+   11/11 22:51:14.509  Daenshoo suffers 312 Shadow damage from Airin 's Corrupted Healing.
+   11/11 22:51:15.465  Druindy suffers 990 Shadow damage from Airin 's Corrupted Healing.
+   11/11 22:51:15.465  Umbriela suffers 915 Shadow damage from Airin 's Corrupted Healing.
+   11/11 22:51:15.567  Daenshoo suffers 312 Shadow damage from Airin 's Corrupted Healing.
+   11/11 22:51:16.417  Druindy suffers 743 Shadow damage from Airin 's Corrupted Healing. (247 resisted)
+   11/11 22:51:16.430  Umbriela suffers 915 Shadow damage from Airin 's Corrupted Healing.
+   11/11 22:51:16.568  Daenshoo suffers 312 Shadow damage from Airin 's Corrupted Healing.
+   11/11 22:51:17.505  Druindy suffers 990 Shadow damage from Airin 's Corrupted Healing.
+   11/11 22:51:17.520  Umbriela suffers 915 Shadow damage from Airin 's Corrupted Healing.
+   11/11 22:51:17.591  Daenshoo suffers 312 Shadow damage from Airin 's Corrupted Healing.
+   11/11 22:51:18.515  Druindy suffers 990 Shadow damage from Airin 's Corrupted Healing.
+   11/11 22:51:18.539  Daenshoo suffers 312 Shadow damage from Airin 's Corrupted Healing.
+   11/11 22:51:19.460  Druindy suffers 990 Shadow damage from Airin 's Corrupted Healing.
+   11/11 22:51:19.543  Daenshoo suffers 312 Shadow damage from Airin 's Corrupted Healing.
+   11/11 22:51:20.458  Druindy suffers 990 Shadow damage from Airin 's Corrupted Healing.
+   11/11 22:51:20.549  Daenshoo suffers 312 Shadow damage from Airin 's Corrupted Healing.
+   11/11 22:51:21.505  Druindy suffers 990 Shadow damage from Airin 's Corrupted Healing.
+   11/11 22:51:21.604  Daenshoo suffers 312 Shadow damage from Airin 's Corrupted Healing.
+   11/11 22:51:22.459  Druindy suffers 990 Shadow damage from Airin 's Corrupted Healing.
+   11/11 22:51:22.598  Daenshoo suffers 312 Shadow damage from Airin 's Corrupted Healing.
+   11/11 22:51:23.468  Druindy suffers 990 Shadow damage from Airin 's Corrupted Healing.
+   11/11 22:51:23.539  Daenshoo suffers 312 Shadow damage from Airin 's Corrupted Healing.
+   11/11 22:51:24.493  Druindy suffers 990 Shadow damage from Airin 's Corrupted Healing.
+   11/11 22:51:24.626  Daenshoo suffers 312 Shadow damage from Airin 's Corrupted Healing.
+   11/11 22:51:25.499  Druindy suffers 990 Shadow damage from Airin 's Corrupted Healing.
+   11/11 22:51:25.579  Daenshoo suffers 312 Shadow damage from Airin 's Corrupted Healing.
+   11/11 22:51:26.460  Druindy suffers 990 Shadow damage from Airin 's Corrupted Healing.
+
+
+Nefarian Wild Polymorph (mage call)
+   11/11 22:47:40.023  Coldbeer 's Wild Polymorph was evaded by Mezmeris.
+   11/11 22:47:40.023  Coldbeer casts Wild Polymorph on Coldbeer.
+   11/11 22:47:40.023  Geniesham casts Wild Polymorph on Geniesham.
+   11/11 22:47:40.023  Ridea 's Wild Polymorph was evaded by Geniesham.
+   11/11 22:47:40.023  Windfurytotm casts Wild Polymorph on Windfurytotm.
+   11/11 22:47:40.023  Subarach casts Wild Polymorph on Subarach.
+   11/11 22:47:40.023  Roshane 's Wild Polymorph was evaded by Windfurytotm.
+   11/11 22:47:40.023  Redzeus 's Wild Polymorph was evaded by Coldbeer.
+   11/11 22:47:40.023  Mezmeris casts Wild Polymorph on Mezmeris.
+   11/11 22:47:40.023  Mezmeris 's Wild Polymorph was evaded by Subarach.
+   11/11 22:47:45.054  Ridea 's Wild Polymorph was evaded by Roshane.
+   11/11 22:47:45.054  Teldelar casts Wild Polymorph on Teldelar.
+   11/11 22:47:45.054  Roshane casts Wild Polymorph on Roshane.
+   11/11 22:47:45.054  Roshane casts Wild Polymorph on Roshane.
+   11/11 22:47:45.054  Redzeus casts Wild Polymorph on Redzeus.
+   11/11 22:47:45.054  Redzeus 's Wild Polymorph was evaded by Roshane.
+   11/11 22:47:45.054  Redzeus casts Wild Polymorph on Redzeus.
+   11/11 22:47:45.054  Syjlas 's Wild Polymorph was evaded by Teldelar.
+   11/11 22:47:50.083  Lyahsunsworn casts Wild Polymorph on Lyahsunsworn.
+   11/11 22:47:50.083  Ridea 's Wild Polymorph was evaded by Aphorodite.
+   11/11 22:47:50.083  Ridea casts Wild Polymorph on Ridea.
+   11/11 22:47:50.083  Subarach casts Wild Polymorph on Subarach.
+   11/11 22:47:50.083  Aphorodite casts Wild Polymorph on Aphorodite.
+   11/11 22:47:50.083  Aphorodite casts Wild Polymorph on Aphorodite.
+   11/11 22:47:55.100  Platedps casts Wild Polymorph on Platedps.
+   11/11 22:47:55.100  Syjlas 's Wild Polymorph was evaded by Platedps.
+   11/11 22:47:55.100  Srj casts Wild Polymorph on Srj.
+   11/11 22:48:00.114  Pieshka casts Wild Polymorph on Pieshka.
+   11/11 22:48:00.114  Gack casts Wild Polymorph on Gack.
+   11/11 22:48:00.114  Syjlas 's Wild Polymorph was evaded by Gack.
+   11/11 22:48:00.114  Srj casts Wild Polymorph on Srj.
+   11/11 22:48:05.162  Coldbeer casts Wild Polymorph on Coldbeer.
+   11/11 22:48:05.162  Coldbeer casts Wild Polymorph on Coldbeer.
+   11/11 22:48:05.162  Psykhe casts Wild Polymorph on Psykhe.
+   11/11 22:48:05.162  Mezmeris casts Wild Polymorph on Mezmeris.
+   11/11 22:48:05.162  Mezmeris casts Wild Polymorph on Mezmeris.
+   11/11 22:48:05.162  Mezmeris casts Wild Polymorph on Mezmeris.
+   11/11 22:48:05.162  Syjlas 's Wild Polymorph was evaded by Psykhe.
+
+
+Pets
+   Scarshield Spellbinder owned by Arzetlam
+   Zahthea owned by Shuly
+   Razorgore the Untamed owned by Illasei
+   Kotick owned by Chan
+   BATMAN owned by Berserkss
+   Rat owned by Yis
+
+
+Tech
+   project version 2023.1018
+   log size 16.7 MB
+   log lines 218793
+   skipped log lines 334 (0.15%)
+   processed in 30.52 seconds. 7169.91 log lines/sec
