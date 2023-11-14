@@ -1,4 +1,5 @@
 pytest
 invoke
 colorama; platform_system=='Windows'
+pip-tools
 # nox

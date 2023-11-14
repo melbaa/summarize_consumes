@@ -43,3 +43,12 @@ def commit(c, message):
     c.run(cmd)
     c.run(f'git add pyproject.toml src/melbalabs/summarize_consumes/package.py')
     c.run(f'git commit -m "{message}"')
+
+@task
+def gendeps(c):
+    filenames = os.listdir('deps')
+    cwd = Path('.')
+    for filename in filenames:
+        path = cwd / 'deps' / filename
+        cmd = f'pip-compile --no-header --annotation-style line --no-strip-extras {path}'
+        c.run(cmd)

@@ -7,7 +7,7 @@ name = "melbalabs_summarize_consumes"
 authors = [
     {name = "melba"},
 ]
-dynamic = ["version"]
+dynamic = ["version", "dependencies", "optional-dependencies"]
 
 [project.urls]
 Homepage = "https://github.com/melbaa/summarize_consumes"
@@ -21,6 +21,9 @@ where = ["src"]
 
 [tool.setuptools.dynamic]
 version = {attr = "melbalabs.summarize_consumes.package.VERSION"}
+dependencies = {file = ["deps/requirements.txt"]}
+optional-dependencies.dev = {file = ["deps/requirements-dev.txt"]}
+optional-dependencies.release = {file = ["deps/requirements-release.txt"]}
 
 [tool.bumpver]
 current_version = "2023.1021"

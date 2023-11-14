@@ -867,6 +867,7 @@ def test_wild_polymorph(app):
 11/11 22:48:05.162  Psykhe casts Wild Polymorph on Psykhe.
     """
 
+    # too spammy
     """
 11/11 22:48:05.162  Psykhe is afflicted by Wild Polymorph (1).
 11/11 22:48:05.194  Coldbeer is afflicted by Wild Polymorph (1).
@@ -877,3 +878,13 @@ def test_wild_polymorph(app):
     for line in lines:
         parse_line(app, line)
     assert len(app.nef_wild_polymorph.log) == 6
+
+
+
+def test_block_lines(app):
+    lines = """
+11/11 22:31:01.754  Dyrachyo 's Hamstring was blocked by Chromaggus.
+11/11 22:31:21.990  Chromaggus attacks. Psykhe blocks.
+11/11 22:31:31.273  Dyrachyo 's Hamstring was blocked by Chromaggus.
+11/11 22:31:43.889  Dyrachyo 's Hamstring was blocked by Chromaggus.
+    """
