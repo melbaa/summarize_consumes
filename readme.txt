@@ -54,8 +54,7 @@ This is only needed if you don't want to use the binary from the Releases sectio
 To create a virtualenv with the project in the current directory
 python -m venv venv
 
-Install dependencies
-.\venv\Scripts\pip.exe install -r .\requirements.txt
+Install the project and its dependencies
 .\venv\Scripts\pip.exe install .
 
 Create a summary

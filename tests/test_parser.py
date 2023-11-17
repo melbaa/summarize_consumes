@@ -11,7 +11,8 @@ from melbalabs.summarize_consumes.grammar import grammar
 
 @pytest.fixture
 def app():
-    return create_app(expert_log_unparsed_lines=True)
+    time_start = 1700264355.3831115
+    return create_app(time_start=time_start, expert_log_unparsed_lines=True)
 
 
 @pytest.mark.skip('not using basic lexer; grammar too ambiguous for it')
@@ -842,8 +843,9 @@ def test_techinfo(app):
         app.techinfo.linecount += 1
     output = io.StringIO()
     app.techinfo.package_version = 'whatever'
+    app.techinfo.prices_last_update = app.techinfo.time_start + 3600
     app.techinfo.print(output, time_end=app.techinfo.time_start + 5)
-    assert output.getvalue() == '\n\nTech\n   project version whatever\n   log size 0 Bytes\n   log lines 9\n   skipped log lines 0 (0.00%)\n   processed in 5.00 seconds. 1.80 log lines/sec\n'
+    assert output.getvalue() == '\n\nTech\n   project version whatever\n   prices timestamp 2023-11-18T00:39:15.383111 (an hour ago)\n   log size 0 Bytes\n   log lines 9\n   skipped log lines 0 (0.00%)\n   processed in 5.00 seconds. 1.80 log lines/sec\n'
 
 def test_was_evaded_line(app):
     lines = """

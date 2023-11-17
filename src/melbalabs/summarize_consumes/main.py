@@ -10,7 +10,6 @@ import time
 import webbrowser
 import functools
 import logging
-import importlib
 from datetime import datetime as dt
 
 import requests
@@ -39,7 +38,7 @@ def create_parser(grammar: str, debug):
     )
 
 
-def create_app(expert_log_unparsed_lines):
+def create_app(time_start, expert_log_unparsed_lines):
 
     app = App()
 
@@ -92,7 +91,7 @@ def create_app(expert_log_unparsed_lines):
     app.kt_shadowfissure = KTShadowfissure()
     app.kt_guardian = KTGuardian()
 
-    app.techinfo = Techinfo()
+    app.techinfo = Techinfo(time_start=time_start, prices_last_update=app.pricedb.last_update)
 
     return app
 
@@ -630,21 +629,29 @@ class BeamChain:
 
 
 class Techinfo:
-    def __init__(self):
-        self.time_start = time.time()
+    def __init__(self, time_start, prices_last_update):
+        self.time_start = time_start
         self.logsize = 0
         self.linecount = 0
         self.skiplinecount = 0
         self.package_version = package.VERSION
+        self.prices_last_update = prices_last_update
 
-    def get_file_size(self, filename):
+    def set_file_size(self, filename):
         self.logsize = os.path.getsize(filename)
 
-    def get_line_count(self, count):
+    def set_line_count(self, count):
         self.linecount = count
 
-    def get_skipped_line_count(self, count):
+    def set_skipped_line_count(self, count):
         self.skiplinecount = count
+
+    def format_price_timestamp(self):
+        if self.prices_last_update == 0:
+            return 'not available'
+        dt = datetime.datetime.utcfromtimestamp(self.prices_last_update)
+        delta = self.time_start - self.prices_last_update
+        return f'{dt.isoformat()} ({humanize.naturaltime(delta)})'
 
     def print(self, output, time_end=None):
         if time_end is None:
@@ -652,6 +659,7 @@ class Techinfo:
         time_delta = time_end - self.time_start
         print("\n\nTech", file=output)
         print('  ', f'project version {self.package_version}', file=output)
+        print('  ', f'prices timestamp {self.format_price_timestamp()}', file=output)
         print('  ', f'log size {humanize.naturalsize(self.logsize)}', file=output)
         print('  ', f'log lines {self.linecount}', file=output)
         print('  ', f'skipped log lines {self.skiplinecount} ({(self.skiplinecount / self.linecount) * 100:.2f}%)', file=output)
@@ -1044,7 +1052,7 @@ def parse_line(app, line):
 
 def parse_log(app, filename):
 
-    app.techinfo.get_file_size(filename)
+    app.techinfo.set_file_size(filename)
 
     with io.open(filename, encoding='utf8') as f:
         linecount = 0
@@ -1059,8 +1067,8 @@ def parse_log(app, filename):
 
             app.unparsed_logger.log(line)
 
-        app.techinfo.get_line_count(linecount)
-        app.techinfo.get_skipped_line_count(skiplinecount)
+        app.techinfo.set_line_count(linecount)
+        app.techinfo.set_skipped_line_count(skiplinecount)
 
         app.unparsed_logger.flush()
 
@@ -1262,7 +1270,9 @@ def main():
 
     args = get_user_input()
 
+    time_start = time.time()
     app = create_app(
+        time_start=time_start,
         expert_log_unparsed_lines=args.expert_log_unparsed_lines,
     )
 
