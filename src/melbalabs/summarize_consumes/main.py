@@ -167,6 +167,8 @@ RENAME_CONSUMABLE = {
     'Greater Intellect': 'Elixir of Greater Intellect',
     'Infallible Mind': 'Infallible Mind (Cerebral Cortex Compound)',
     'Crystal Protection': 'Crystal Protection (Crystal Basilisk Spine)',
+    'Invisibility': 'Invisibility Potion',
+    'Lesser Invisibility': 'Lesser Invisibility Potion',
 }
 
 CONSUMABLE_COMPONENTS = {
@@ -258,6 +260,11 @@ NAME2ITEMID = {
     'Elixir of Greater Nature Power': 50237,
     'Elixir of Greater Intellect': 9179,
     'Rejuvenation Potion - Major': 18253,
+    'Invisibility Potion': 9172,
+    'Lesser Invisibility Potion': 3823,
+    'Powerful Anti-Venom': 19440,
+    'Strong Anti-Venom': 6453,
+    'Anti-Venom': 6452,
 }
 ITEMID2NAME = { value: key for key, value in NAME2ITEMID.items() }
 
@@ -300,6 +307,7 @@ BEGINS_TO_CAST_CONSUMABLE = {
 CASTS_CONSUMABLE = {
     "Powerful Anti-Venom",
     "Strong Anti-Venom",
+    "Anti-Venom",
     "Cure Ailments",
     "Advanced Target Dummy",
 }
@@ -352,6 +360,8 @@ GAINS_CONSUMABLE = {
     "Medivh's Merlot",
     "Medivh's Merlot Blue Label",
     # ambiguous
+    "Invisibility",
+    "Lesser Invisibility",
     "Increased Stamina",
     "Increased Intellect",
     "Mana Regeneration",
