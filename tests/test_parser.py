@@ -661,12 +661,14 @@ def test_performs_line(app):
 10/29 20:01:55.004  Inris begins to perform Auto Shot.
 10/29 19:59:28.113  Inris performs Call Pet.
 10/29 20:01:22.446  Smahingbolt performs Call Pet.
+11/17 22:02:43.381  Raibagz performs Powerful Smelling Salts on Illasei.
     """
     lines = lines.splitlines(keepends=True)
     match = 0
     for line in lines:
         match += parse_line(app, line)
-    assert match == 6
+    assert match == 7
+    assert app.player['Raibagz']['Powerful Smelling Salts'] == 1
 
 def test_gains_extra_attacks_line(app):
     lines = """

@@ -201,6 +201,11 @@ CONSUMABLE_COMPONENTS = {
     "Swiftness of Zanza": [
         ('Zulian Coin', 3),
     ],
+    "Powerful Smelling Salts": [
+        ('Deeprock Salt', 4),
+        ('Essence of Fire', 2),
+        ('Larval Acid', 1),
+    ],
 }
 
 NAME2ITEMID = {
@@ -265,6 +270,9 @@ NAME2ITEMID = {
     'Powerful Anti-Venom': 19440,
     'Strong Anti-Venom': 6453,
     'Anti-Venom': 6452,
+    'Deeprock Salt': 8150,
+    'Essence of Fire': 7078,
+    'Larval Acid': 18512,
 }
 ITEMID2NAME = { value: key for key, value in NAME2ITEMID.items() }
 
@@ -383,6 +391,9 @@ GAINS_CONSUMABLE = {
     "Holy Protection ",
 }
 
+PERFORMS_ON_CONSUMABLE = {
+    "Powerful Smelling Salts",
+}
 
 MANARUNE_CONSUMABLE = {
     "Demonic Rune",
@@ -1019,6 +1030,16 @@ def parse_line(app, line):
         elif subtree.data == 'is_killed_line':
             return True
         elif subtree.data == 'performs_on_line':
+            name = subtree.children[0].value
+            spellname = subtree.children[1].value
+            targetname = subtree.children[2].value
+
+            if spellname in PERFORMS_ON_CONSUMABLE:
+                consumable = spellname
+                if consumable in RENAME_CONSUMABLE:
+                    consumable = RENAME_CONSUMABLE[consumable]
+                app.player[name][consumable] += 1
+
             return True
         elif subtree.data == 'performs_line':
             return True
