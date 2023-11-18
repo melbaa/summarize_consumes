@@ -41,6 +41,11 @@ def examples(c):
 def commit(c, message):
     cmd = 'bumpver update --no-fetch'
     c.run(cmd)
+
+    # bumpver still buggy
+    c.run('dos2unix pyproject.toml')
+    c.run('dos2unix src/melbalabs/summarize_consumes/package.py')
+
     c.run(f'git add pyproject.toml src/melbalabs/summarize_consumes/package.py')
     c.run(f'git commit -m "{message}"')
 
@@ -48,7 +53,15 @@ def commit(c, message):
 def gendeps(c):
     filenames = os.listdir('deps')
     cwd = Path('.')
-    for filename in filenames:
-        path = cwd / 'deps' / filename
-        cmd = f'pip-compile --no-header --annotation-style line --no-strip-extras {path}'
-        c.run(cmd)
+
+    path = cwd / 'deps' / 'requirements.in'
+    cmd = f'pip-compile --no-header --annotation-style line --no-strip-extras {path}'
+    c.run(cmd)
+
+    path_dev = cwd / 'deps' / 'requirements-dev.in'
+    cmd = f'pip-compile --no-header --annotation-style line --no-strip-extras -c {path} {path_dev}'
+    c.run(cmd)
+
+    path_release = cwd / 'deps' / 'requirements-release.in'
+    cmd = f'pip-compile --no-header --annotation-style line --no-strip-extras -c {path} -c {path_dev} {path_release}'
+    c.run(cmd)
