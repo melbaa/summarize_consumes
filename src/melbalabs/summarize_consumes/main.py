@@ -66,7 +66,7 @@ def create_app(time_start, expert_log_unparsed_lines):
     app.player_detect = collections.defaultdict(set)
 
     # pet -> owner
-    app.pet_detect = dict()
+    app.pet_handler = PetHandler()
 
     # name -> death count
     app.death_count = collections.defaultdict(int)
@@ -731,6 +731,22 @@ class PriceDB:
     def lookup(self, itemid):
         return self.data.get(itemid)
 
+class PetHandler:
+    def __init__(self):
+        # owner -> set of pets
+        self.store = collections.defaultdict(set)
+    def add(self, owner, pet):
+        self.store[owner].add(pet)
+    def get_all_pets(self):
+        for owner, petset in self.store.items():
+            for pet in petset:
+                yield pet
+    def print(self, output):
+        if not len(self.store): return
+        print(f"\n\nPets", file=output)
+        for owner, petset in self.store.items():
+            for pet in sorted(petset):
+                print('  ', pet, 'owned by', owner, file=output)
 
 
 CURRENT_YEAR = datetime.datetime.now().year
@@ -870,7 +886,7 @@ def parse_line(app, line):
                 if entry.data == 'consolidated_pet':
                     name = entry.children[0].value
                     petname = entry.children[1].value
-                    app.pet_detect[petname] = name
+                    app.pet_handler.add(name, petname)
                     app.player_detect[name].add('pet: ' + petname)
                 else:
                     # parse but ignore the other consolidated entries
@@ -1191,8 +1207,8 @@ def generate_output(app):
 """, file=output)
 
 
-    # remove pets
-    for pet in app.pet_detect:
+    # remove pets from players
+    for pet in app.pet_handler.get_all_pets():
         if pet in app.player_detect:
             del app.player_detect[pet]
 
@@ -1218,10 +1234,7 @@ def generate_output(app):
     app.kt_frostblast.print(output)
     # app.kt_guardian.print(output)
 
-    print(f"\n\nPets", file=output)
-    for pet in app.pet_detect:
-        print('  ', pet, 'owned by', app.pet_detect[pet], file=output)
-
+    app.pet_handler.print(output)
     app.techinfo.print(output)
 
     return output

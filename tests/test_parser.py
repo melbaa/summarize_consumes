@@ -271,11 +271,11 @@ def test_consolidated_line(app):
 5/24 14:24:11.633  CONSOLIDATED: LOOT: 24.05.23 14:21:19&Melbaxd receives loot: |cffffffff|Hitem:2450:0:0:0|h[Briarthorn]|h|rx1.{LOOT: 24.05.23 14:21:19&Melbaxd receives loot: |cffffffff|Hitem:4608:0:0:0|h[Raw Black Truffle]|h|rx1.{LOOT: 24.05.23 14:21:21&Melbaxd receives loot: |cff9d9d9d|Hitem:18223:0:0:0|h[Serrated Petal]|h|rx1.{LOOT: 24.05.23 14:21:21&Melbaxd receives loot: |cffffffff|Hitem:10286:0:0:0|h[Heart of the Wild]|h|rx1.
 5/24 14:26:30.002  CONSOLIDATED: LOOT: 24.05.23 14:21:29&Melbaxd receives loot: |cffffffff|Hitem:4608:0:0:0|h[Raw Black Truffle]|h|rx1.{LOOT: 24.05.23 14:21:29&Melbaxd receives loot: |cffffffff|Hitem:13464:0:0:0|h[Golden Sansam]|h|rx1.{LOOT: 24.05.23 14:21:30&Melbaxd receives loot: |cffffffff|Hitem:3821:0:0:0|h[Goldthorn]|h|rx1.{LOOT: 24.05.23 14:21:30&Melbaxd receives loot: |cff9d9d9d|Hitem:18223:0:0:0|h[Serrated Petal]|h|rx1.
 5/24 14:56:44.779  CONSOLIDATED: LOOT: 24.05.23 14:53:10&Melbaxd receives loot: |cff9d9d9d|Hitem:18222:0:0:0|h[Thorny Vine]|h|rx1.{LOOT: 24.05.23 14:53:12&Melbaxd receives loot: |cff9d9d9d|Hitem:18223:0:0:0|h[Serrated Petal]|h|rx1.{LOOT: 24.05.23 14:53:12&Melbaxd receives loot: |cffffffff|Hitem:4608:0:0:0|h[Raw Black Truffle]|h|rx1.{LOOT: 24.05.23 14:53:12&Melbaxd receives loot: |cffffffff|Hitem:10286:0:0:0|h[Heart of the Wild]|h|rx1.
-5/24 20:08:13.217  CONSOLIDATED: LOOT: 24.05.23 20:01:36&Waken receives item: |cffffffff|Hitem:83004:0:0:0|h[Conjured Mana Orange]|h|rx20.{LOOT: 24.05.23 20:01:37&Waken receives item: |cffffffff|Hitem:83004:0:0:0|h[Conjured Mana Orange]|h|rx20.{LOOT: 24.05.23 20:01:45&Waken receives item: |cffffffff|Hitem:9421:0:0:0|h[Major Healthstone]|h|rx1.{LOOT: 24.05.23 20:02:05&Doombabe receives item: |cffffffff|Hitem:9421:0:0:0|h[Major Healthstone]|h|rx1.{PET: 24.05.23 20:02:15&Doombabe&Khuujhom
+5/24 20:08:13.217  CONSOLIDATED: LOOT: 24.05.23 20:01:36&Waken receives item: |cffffffff|Hitem:83004:0:0:0|h[Conjured Mana Orange]|h|rx20.{LOOT: 24.05.23 20:01:37&Waken receives item: |cffffffff|Hitem:83004:0:0:0|h[Conjured Mana Orange]|h|rx20.{LOOT: 24.05.23 20:01:45&Waken receives item: |cffffffff|Hitem:9421:0:0:0|h[Major Healthstone]|h|rx1.{LOOT: 24.05.23 20:02:05&Doombabe receives item: |cffffffff|Hitem:9421:0:0:0|h[Major Healthstone]|h|rx1.{PET: 24.05.23 20:02:15&Doombabe&Khuujhomv2
 5/24 20:42:15.976  CONSOLIDATED: LOOT: 24.05.23 20:36:53&Need Roll - 45 for |cffffffff|Hitem:14047:0:0:0|h[Runecloth]|h|r by Waken{LOOT: 24.05.23 20:36:59&Doombabe receives item: |cffffffff|Hitem:6265:0:0:0|h[Soul Shard]|h|rx1.{PET: 24.05.23 20:36:59&Doombabe&Khuujhom{LOOT: 24.05.23 20:40:31&Psykhe receives item: |cffffffff|Hitem:9421:0:0:0|h[Major Healthstone]|h|rx1.{LOOT: 24.05.23 20:41:22&Smahingbolt receives loot: |cffffffff|Hitem:22708:0:0:0|h[Fate of Ramaladni]|h|rx1.
 5/24 21:18:14.223  CONSOLIDATED: LOOT: 24.05.23 21:14:39&Doombabe receives item: |cffffffff|Hitem:6265:0:0:0|h[Soul Shard]|h|rx1.{PET: 24.05.23 21:14:39&Doombabe&Khuujhom
 5/24 21:45:15.542  CONSOLIDATED: PET: 24.05.23 21:43:17&Doombabe&Khuujhom{LOOT: 24.05.23 21:43:53&Lod receives loot: |cff1eff00|Hitem:14489:0:0:0|h[Pattern: Frostweave Pants]|h|rx1.{LOOT: 24.05.23 21:43:53&Lod receives loot: |cffffffff|Hitem:15754:0:0:0|h[Pattern: Warbear Woolies]|h|rx1.
-5/24 22:06:52.097  CONSOLIDATED: PET: 24.05.23 22:03:04&Doombabe&Khuujhom
+5/24 22:06:52.097  CONSOLIDATED: PET: 24.05.23 22:03:04&Doombabe&Khuujhomv3
 5/24 22:41:47.934  CONSOLIDATED: LOOT: 24.05.23 22:40:17&Doombabe receives item: |cffffffff|Hitem:6265:0:0:0|h[Soul Shard]|h|rx1.{PET: 24.05.23 22:40:17&Doombabe&Khuujhom{LOOT: 24.05.23 22:40:36&Waken receives item: |cffffffff|Hitem:21177:0:0:0|h[Symbol of Kings]|h|rx20.{LOOT: 24.05.23 22:40:36&Waken receives item: |cffffffff|Hitem:21177:0:0:0|h[Symbol of Kings]|h|rx20.{LOOT: 24.05.23 22:40:37&Waken receives item: |cffffffff|Hitem:21177:0:0:0|h[Symbol of Kings]|h|rx20.
 10/11 20:40:42.226  CONSOLIDATED: PET: 11.10.23 20:40:36&Arzetlam&Deathknight Understudy{LOOT: 24.05.23 21:14:39&Doombabe receives item: |cffffffff|Hitem:6265:0:0:0|h[Soul Shard]|h|rx1.
     """
@@ -283,12 +283,18 @@ def test_consolidated_line(app):
     match = 0
     for line in lines:
         match += parse_line(app, line)
-    assert app.pet_detect['Khuujhom'] == 'Doombabe'
-    assert app.player_detect['Doombabe'] == {'pet: Khuujhom'}
+    assert app.pet_handler.store['Doombabe'] == {'Khuujhom', 'Khuujhomv2', 'Khuujhomv3'}
+    assert app.player_detect['Doombabe'] == {'pet: Khuujhom', 'pet: Khuujhomv2', 'pet: Khuujhomv3'}
 
-    assert app.pet_detect['Deathknight Understudy'] == 'Arzetlam'
+    assert app.pet_handler.store['Arzetlam'] == {'Deathknight Understudy'}
     assert app.player_detect['Arzetlam'] == {'pet: Deathknight Understudy'}
     assert match == 13
+
+    assert set(app.pet_handler.get_all_pets()) == {'Deathknight Understudy', 'Khuujhom', 'Khuujhomv2', 'Khuujhomv3'}
+
+    output = io.StringIO()
+    app.pet_handler.print(output)
+    assert output.getvalue() == '\n\nPets\n   Deathknight Understudy owned by Arzetlam\n   Khuujhom owned by Doombabe\n   Khuujhomv2 owned by Doombabe\n   Khuujhomv3 owned by Doombabe\n'
 
 def test_combatant_info_line(app):
     lines = """
