@@ -674,6 +674,11 @@ class Techinfo:
         delta = self.time_start - self.prices_last_update
         return f'{dt.isoformat()} ({humanize.naturaltime(delta)})'
 
+    def format_skipped_percent(self):
+        if self.linecount == 0:
+            return ''
+        return f'({(self.skiplinecount / self.linecount) * 100:.2f}%)'
+
     def print(self, output, time_end=None):
         if time_end is None:
             time_end = time.time()
@@ -683,7 +688,7 @@ class Techinfo:
         print('  ', f'prices timestamp {self.format_price_timestamp()}', file=output)
         print('  ', f'log size {humanize.naturalsize(self.logsize)}', file=output)
         print('  ', f'log lines {self.linecount}', file=output)
-        print('  ', f'skipped log lines {self.skiplinecount} ({(self.skiplinecount / self.linecount) * 100:.2f}%)', file=output)
+        print('  ', f'skipped log lines {self.skiplinecount} {self.format_skipped_percent()}', file=output)
         print('  ', f'processed in {time_delta:.2f} seconds. {self.linecount / time_delta:.2f} log lines/sec', file=output)
 
 
