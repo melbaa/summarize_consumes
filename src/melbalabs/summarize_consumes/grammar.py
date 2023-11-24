@@ -48,6 +48,7 @@ _line: gains_line
     | falls_line
     | lava_line
     | slays_line
+    | pet_begins_eating_line
 
 
 slays_line: MULTIWORD " slays " MULTIWORD "!"
@@ -71,6 +72,7 @@ dies_line: MULTIWORD " dies."
 is_killed_line: MULTIWORD " is killed by " MULTIWORD "."
 slain_line: MULTIWORD " is slain by " MULTIWORD "!"
 
+pet_begins_eating_line: MULTIWORD " pet begins eating a " MULTIWORD "."
 block_ability_line: MULTIWORD " 's " MULTIWORD " was blocked by " MULTIWORD "."
 block_line: MULTIWORD " attacks. " MULTIWORD " blocks."
 parry_ability_line: MULTIWORD " 's " MULTIWORD " was parried by " MULTIWORD "."

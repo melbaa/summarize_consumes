@@ -916,3 +916,13 @@ def test_absorbs_lines(app):
         match += parse_line(app, line)
     assert match == 5
 
+def test_pet_begins_eating(app):
+    lines = """
+11/22 23:02:29.919  Chan's pet begins eating a Roasted Quail.
+11/22 23:02:46.728  Berserkss's pet begins eating a Conjured Mana Orange.
+    """
+    lines = lines.splitlines(keepends=True)
+    match = 0
+    for line in lines:
+        match += parse_line(app, line)
+    assert match == 2

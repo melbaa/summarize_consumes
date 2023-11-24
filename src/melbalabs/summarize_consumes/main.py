@@ -1020,7 +1020,8 @@ def parse_line(app, line):
             return True
         elif subtree.data == 'absorbs_all_line':
             return True
-
+        elif subtree.data == 'pet_begins_eating_line':
+            return True
         elif subtree.data == 'removed_line':
             name = subtree.children[0].value
             spellname = subtree.children[1].value
