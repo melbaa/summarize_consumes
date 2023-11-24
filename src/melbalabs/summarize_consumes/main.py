@@ -993,7 +993,7 @@ def parse_line(app, line):
                 app.kt_guardian.add(line)
 
             return True
-        elif subtree.data == 'is_absorbed_line':
+        elif subtree.data == 'is_absorbed_ability_line':
 
             name = subtree.children[0].value
             spellname = subtree.children[1].value
@@ -1011,13 +1011,16 @@ def parse_line(app, line):
                 app.kt_frostblast.add(line)
 
             return True
-        elif subtree.data == 'absorbs_line':
+        elif subtree.data == 'absorbs_ability_line':
             targetname = subtree.children[0].value
             name = subtree.children[1].value
             spellname = subtree.children[2].value
             if spellname == 'Corrupted Healing':
                 app.nef_corrupted_healing.add(line)
             return True
+        elif subtree.data == 'absorbs_all_line':
+            return True
+
         elif subtree.data == 'removed_line':
             name = subtree.children[0].value
             spellname = subtree.children[1].value

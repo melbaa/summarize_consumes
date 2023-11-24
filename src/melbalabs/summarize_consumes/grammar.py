@@ -25,8 +25,9 @@ _line: gains_line
     | immune_ability_line
     | immune_line
     | afflicted_line
-    | is_absorbed_line
-    | absorbs_line
+    | is_absorbed_ability_line
+    | absorbs_ability_line
+    | absorbs_all_line
     | was_evaded_line
     | removed_line
     | none_line
@@ -81,8 +82,9 @@ misses_ability_line: MULTIWORD " 's " MULTIWORD (" missed "|" misses ") MULTIWOR
 resist_line: MULTIWORD " 's " MULTIWORD " was resisted by " MULTIWORD "."
 immune_ability_line: MULTIWORD " 's " MULTIWORD " fails. " MULTIWORD " is immune."
 immune_line: MULTIWORD " attacks but " MULTIWORD " is immune."
-is_absorbed_line: MULTIWORD " 's " MULTIWORD " is absorbed by " MULTIWORD "."
-absorbs_line: MULTIWORD " absorbs " MULTIWORD " 's " MULTIWORD "."
+is_absorbed_ability_line: MULTIWORD " 's " MULTIWORD " is absorbed by " MULTIWORD "."
+absorbs_ability_line: MULTIWORD " absorbs " MULTIWORD " 's " MULTIWORD "."
+absorbs_all_line: MULTIWORD " attacks. " MULTIWORD " absorbs all the damage."
 was_evaded_line: MULTIWORD " 's " MULTIWORD " was evaded by " MULTIWORD "."
 
 heals_line: MULTIWORD " 's " MULTIWORD HEAL_CRIT? " heals " MULTIWORD " for " INT "."

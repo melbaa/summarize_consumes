@@ -889,8 +889,6 @@ def test_wild_polymorph(app):
         parse_line(app, line)
     assert len(app.nef_wild_polymorph.log) == 6
 
-
-
 def test_block_lines(app):
     lines = """
 11/11 22:31:01.754  Dyrachyo 's Hamstring was blocked by Chromaggus.
@@ -904,4 +902,17 @@ def test_block_lines(app):
         match += parse_line(app, line)
     assert match == 4
 
+def test_absorbs_lines(app):
+    lines = """
+4/13 20:50:27.792  Vekniss Drone attacks. Chillz absorbs all the damage.
+4/13 20:53:13.759  Fankriss the Unyielding attacks. Tockra absorbs all the damage.
+4/13 20:53:28.221  Vekniss Hatchling attacks. Salammbo absorbs all the damage.
+11/22 23:08:18.114  Zombie Chow attacks. Redzeus absorbs all the damage.
+11/22 22:40:00.824  Mad Scientist attacks. Bloxie absorbs all the damage.
+    """
+    lines = lines.splitlines(keepends=True)
+    match = 0
+    for line in lines:
+        match += parse_line(app, line)
+    assert match == 5
 
