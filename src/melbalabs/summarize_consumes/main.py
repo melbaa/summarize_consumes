@@ -945,6 +945,10 @@ def parse_line(app, line):
             return True
         elif subtree.data == 'parry_line':
             return True
+        elif subtree.data == 'block_line':
+            return True
+        elif subtree.data == 'block_ability_line':
+            return True
 
         elif subtree.data == 'resist_line':
             name = subtree.children[0].value
@@ -1201,7 +1205,7 @@ def generate_output(app):
     - Jujus and many foods are not in the combat log, so they can't be easily counted.
     - Dragonbreath chili and goblin sappers have only "on hit" messages, so their usage is estimated based on timestamps and cooldowns.
     - Mageblood and some other mana consumes are "mana regeneration" in the combat log, can't tell them apart.
-    - Lesser and greater protection potions don't have unique names, can't tell them apart.
+    - Lesser, greater protection potions and frozen runes don't have unique names, can't tell them apart.
     - Nordanaar Herbal Tea casts the same spell as Tea with Sugar, can't tell them apart.
 
 """, file=output)

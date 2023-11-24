@@ -898,3 +898,10 @@ def test_block_lines(app):
 11/11 22:31:31.273  Dyrachyo 's Hamstring was blocked by Chromaggus.
 11/11 22:31:43.889  Dyrachyo 's Hamstring was blocked by Chromaggus.
     """
+    lines = lines.splitlines(keepends=True)
+    match = 0
+    for line in lines:
+        match += parse_line(app, line)
+    assert match == 4
+
+

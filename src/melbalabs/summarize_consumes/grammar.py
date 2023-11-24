@@ -15,6 +15,8 @@ _line: gains_line
     | casts_line
     | consolidated_line
     | combatant_info_line
+    | block_ability_line
+    | block_line
     | parry_ability_line
     | parry_line
     | misses_line
@@ -68,6 +70,8 @@ dies_line: MULTIWORD " dies."
 is_killed_line: MULTIWORD " is killed by " MULTIWORD "."
 slain_line: MULTIWORD " is slain by " MULTIWORD "!"
 
+block_ability_line: MULTIWORD " 's " MULTIWORD " was blocked by " MULTIWORD "."
+block_line: MULTIWORD " attacks. " MULTIWORD " blocks."
 parry_ability_line: MULTIWORD " 's " MULTIWORD " was parried by " MULTIWORD "."
 parry_line: MULTIWORD " attacks. " MULTIWORD " parries."
 dodges_line: MULTIWORD " attacks. " MULTIWORD " dodges."
