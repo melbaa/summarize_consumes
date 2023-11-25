@@ -926,3 +926,14 @@ def test_pet_begins_eating(app):
     for line in lines:
         match += parse_line(app, line)
     assert match == 2
+
+
+def test_lay_on_hands(app):
+    lines = """
+11/22 21:59:35.972  Bloxie 's Lay on Hands heals Bloxie for 3805.
+    """
+    lines = lines.splitlines(keepends=True)
+    match = 0
+    for line in lines:
+        match += parse_line(app, line)
+    assert match == 1
