@@ -937,3 +937,17 @@ def test_lay_on_hands(app):
     for line in lines:
         match += parse_line(app, line)
     assert match == 1
+
+def test_gains_happiness(app):
+    lines = """
+11/22 23:02:48.712  BATMAN gains 35 Happiness from Berserkss 's Feed Pet Effect.
+11/22 23:02:49.843  Kotick gains 35 Happiness from Chan 's Feed Pet Effect.
+    """
+    lines = lines.splitlines(keepends=True)
+    match = 0
+    for line in lines:
+        match += parse_line(app, line)
+    assert match == 2
+    assert app.pet_handler.store['Berserkss'] == {'BATMAN'}
+    assert app.pet_handler.store['Chan'] == {'Kotick'}
+

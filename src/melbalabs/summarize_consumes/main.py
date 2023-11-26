@@ -65,7 +65,6 @@ def create_app(time_start, expert_log_unparsed_lines):
     # player - set of reasons this is considered a player
     app.player_detect = collections.defaultdict(set)
 
-    # pet -> owner
     app.pet_handler = PetHandler()
 
     # name -> death count
@@ -1021,6 +1020,12 @@ def parse_line(app, line):
         elif subtree.data == 'absorbs_all_line':
             return True
         elif subtree.data == 'pet_begins_eating_line':
+            return True
+        elif subtree.data == 'gains_happiness_line':
+            petname = subtree.children[0].value
+            amount = subtree.children[1].value
+            name = subtree.children[2].value
+            app.pet_handler.add(name, petname)
             return True
         elif subtree.data == 'removed_line':
             name = subtree.children[0].value
