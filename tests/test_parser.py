@@ -951,3 +951,17 @@ def test_gains_happiness(app):
     assert app.pet_handler.store['Berserkss'] == {'BATMAN'}
     assert app.pet_handler.store['Chan'] == {'Kotick'}
 
+def test_is_immune_ability(app):
+    lines = """
+11/22 21:58:53.272  Noth the Plaguebringer is immune to Psykhe 's Goblin Sapper Charge.
+11/22 21:58:53.425  Noth the Plaguebringer is immune to Shrimpshark 's Ignite.
+11/22 21:58:53.425  Noth the Plaguebringer is immune to Shrimpshark 's Fireball.
+    """
+    lines = lines.splitlines(keepends=True)
+    match = 0
+    for line in lines:
+        match += parse_line(app, line)
+    assert match == 3
+    assert app.player['Psykhe']["Goblin Sapper Charge"] == 1
+
+

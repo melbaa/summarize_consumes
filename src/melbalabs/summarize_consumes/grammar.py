@@ -24,6 +24,7 @@ _line: gains_line
     | resist_line
     | immune_ability_line
     | immune_line
+    | is_immune_ability_line
     | afflicted_line
     | is_absorbed_ability_line
     | absorbs_ability_line
@@ -86,6 +87,7 @@ misses_ability_line: MULTIWORD " 's " MULTIWORD (" missed "|" misses ") MULTIWOR
 resist_line: MULTIWORD " 's " MULTIWORD " was resisted by " MULTIWORD "."
 immune_ability_line: MULTIWORD " 's " MULTIWORD " fails. " MULTIWORD " is immune."
 immune_line: MULTIWORD " attacks but " MULTIWORD " is immune."
+is_immune_ability_line: MULTIWORD " is immune to " MULTIWORD " 's " MULTIWORD "."
 is_absorbed_ability_line: MULTIWORD " 's " MULTIWORD " is absorbed by " MULTIWORD "."
 absorbs_ability_line: MULTIWORD " absorbs " MULTIWORD " 's " MULTIWORD "."
 absorbs_all_line: MULTIWORD " attacks. " MULTIWORD " absorbs all the damage."

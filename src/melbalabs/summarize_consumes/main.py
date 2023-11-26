@@ -976,6 +976,14 @@ def parse_line(app, line):
                 app.hits_consumable.update(name, spellname, timestamp)
 
             return True
+        elif subtree.data == 'is_immune_ability_line':
+            targetname = subtree.children[0].value
+            name = subtree.children[1].value
+            spellname = subtree.children[2].value
+            if spellname in app.hits_consumable.COOLDOWNS:
+                app.hits_consumable.update(name, spellname, timestamp)
+            return True
+
         elif subtree.data == 'immune_line':
             return True
         elif subtree.data == 'afflicted_line':
