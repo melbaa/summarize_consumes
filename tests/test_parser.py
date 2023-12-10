@@ -968,6 +968,12 @@ def test_cooldown_count(app):
     lines = """
 12/9 20:30:59.644  Martl gains Recklessness (1).
 12/9 20:31:07.869  Pitbound is afflicted by Death Wish (1).
+12/9 20:27:58.135  Yakub casts Windfury Totem.
+12/9 21:13:22.342  Yakub casts Mana Tide Totem.
+12/9 21:05:57.811  Abstractz gains Elemental Mastery (1).
+12/9 21:23:30.466  Zdraxus gains Inner Focus (1).
+12/9 21:29:36.759  Shreked gains Combustion (1).
+12/9 21:56:30.071  Ergofobia casts Grace of Air Totem.
     """
     lines = lines.splitlines(keepends=True)
     for line in lines:

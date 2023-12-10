@@ -1,6 +1,8 @@
 The project generates a summary of a raid combat log.
+
 The summary includes
 * consumables (as much as the combat log allows). If prices.json is available, the summary will also include price data.
+* cooldowns used
 * details about some boss fights
 ** nefarian corrupted healing
 ** nefarian wild polymorphs
@@ -12,6 +14,7 @@ The summary includes
 ** kt frostbolts
 ** kt frostblasts
 * pets found
+
 It is assumed that the combat log was generated while the AdvancedVanillaCombatLog addon is active.
 
 Check out the examples directory for summaries of various raids.

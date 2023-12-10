@@ -409,10 +409,28 @@ INTERRUPT_SPELLS = {
     'Earth Shock',
 }
 
-CDSPELLS = {
+
+CDSPELLS_AFFLICTED = {
     'Death Wish',
-    'Recklessness',
 }
+CDSPELLS_GAINS = {
+    'Recklessness',
+    'Elemental Mastery',
+    'Inner Focus',
+    'Combustion',
+}
+CDSPELLS_CASTS = {
+    'Windfury Totem',
+    'Mana Tide Totem',
+    'Grace of Air Totem',
+    'Tranquil Air Totem',
+}
+CDSPELL_CLASS = [
+    ['Warrior', ['Death Wish', 'Recklessness']],
+    ['Mage', ['Combustion']],
+    ['Shaman', ['Windfury Totem', 'Mana Tide Totem', 'Grace of Air Totem', 'Tranquil Air Totem', 'Elemental Mastery']],
+    ['Priest', ['Inner Focus']],
+]
 
 
 BUFF_SPELL = {
@@ -766,14 +784,18 @@ class CooldownCount:
         pass
     def print(self, output):
         print("\n\nCooldown Usage", file=output)
-        for spell in sorted(CDSPELLS):
-            if spell not in self.counts: continue
-
-            print("  ", spell, file=output)
-            players = [(total, player) for player, total in self.counts[spell].items()]
-            players.sort(reverse=True)
-            for total, player in players:
-                print("  ", "  ", player, total, file=output)
+        for cls, spells in CDSPELL_CLASS:
+            cls_printed = False
+            for spell in spells:
+                if spell not in self.counts: continue
+                if not cls_printed:
+                    print("  ", cls, file=output)
+                    cls_printed = True
+                print("  ", "  ", spell, file=output)
+                players = [(total, player) for player, total in self.counts[spell].items()]
+                players.sort(reverse=True)
+                for total, player in players:
+                    print("  ", "  ", "  ", player, total, file=output)
 
 
 
@@ -806,7 +828,7 @@ def parse_line(app, line):
             if spellname in BUFF_SPELL:
                 app.player_detect[name].add('buff: ' + spellname)
 
-            if spellname in CDSPELLS:
+            if spellname in CDSPELLS_GAINS:
                 app.cooldown_count.add(name, spellname)
 
             if name == 'Princess Huhuran' and spellname in {'Frenzy', 'Berserk'}:
@@ -891,6 +913,9 @@ def parse_line(app, line):
                 if consumable in RENAME_CONSUMABLE:
                     consumable = RENAME_CONSUMABLE[consumable]
                 app.player[name][consumable] += 1
+
+            if spellname in CDSPELLS_CASTS:
+                app.cooldown_count.add(name, spellname)
 
             if spellname == 'Wild Polymorph':
                 app.nef_wild_polymorph.add(line)
@@ -1022,7 +1047,7 @@ def parse_line(app, line):
             targetname = subtree.children[0].value
             spellname = subtree.children[1].value
 
-            if spellname in CDSPELLS:
+            if spellname in CDSPELLS_AFFLICTED:
                 app.cooldown_count.add(targetname, spellname)
 
             if spellname == 'Decimate':
