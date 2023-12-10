@@ -427,6 +427,8 @@ CDSPELLS_CASTS = {
     'Strength of Earth Totem',
     'Mana Spring Totem',
     'Searing Totem',
+    'Fire Nova Totem',
+    'Magma Totem',
 }
 CDSPELL_CLASS = [
     ['Warrior', ['Death Wish', 'Recklessness']],
@@ -439,6 +441,8 @@ CDSPELL_CLASS = [
         'Strength of Earth Totem',
         'Mana Spring Totem',
         'Searing Totem',
+        'Fire Nova Totem',
+        'Magma Totem',
     ]],
     ['Priest', ['Inner Focus']],
 ]

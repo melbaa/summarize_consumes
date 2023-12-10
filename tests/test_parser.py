@@ -978,6 +978,8 @@ def test_cooldown_count(app):
 12/9 21:59:54.001  Cracklinoats casts Strength of Earth Totem.
 12/9 21:59:54.558  Abstractz casts Mana Spring Totem.
 12/9 20:30:54.673  Cracklinoats casts Searing Totem.
+12/9 20:28:46.953  Cracklinoats casts Fire Nova Totem.
+12/9 20:31:34.588  Cracklinoats casts Magma Totem.
     """
     lines = lines.splitlines(keepends=True)
     for line in lines:
@@ -996,4 +998,6 @@ def test_cooldown_count(app):
     assert app.cooldown_count.counts['Strength of Earth Totem']['Cracklinoats'] == 1
     assert app.cooldown_count.counts['Mana Spring Totem']['Abstractz'] == 1
     assert app.cooldown_count.counts['Searing Totem']['Cracklinoats'] == 1
+    assert app.cooldown_count.counts['Fire Nova Totem']['Cracklinoats'] == 1
+    assert app.cooldown_count.counts['Magma Totem']['Cracklinoats'] == 1
     # assert output.getvalue() == '\n\nCooldown Usage\n   Death Wish\n      Pitbound 1\n   Recklessness\n      Martl 1\n'
