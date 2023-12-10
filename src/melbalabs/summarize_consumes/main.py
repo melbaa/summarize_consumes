@@ -59,6 +59,8 @@ def create_app(time_start, expert_log_unparsed_lines):
     # player - consumable - count
     app.player = collections.defaultdict(lambda: collections.defaultdict(int))
 
+    app.cooldown_count = CooldownCount()
+
     # player - consumable - unix_timestamp
     app.last_hit_cache = collections.defaultdict(lambda: collections.defaultdict(float))
 
@@ -407,6 +409,12 @@ INTERRUPT_SPELLS = {
     'Earth Shock',
 }
 
+CDSPELLS = {
+    'Death Wish',
+    'Recklessness',
+}
+
+
 BUFF_SPELL = {
     "Greater Blessing of Wisdom",
     "Greater Blessing of Salvation",
@@ -747,6 +755,27 @@ class PetHandler:
             for pet in sorted(petset):
                 print('  ', pet, 'owned by', owner, file=output)
 
+class CooldownCount:
+    def __init__(self):
+        # player - spell - count
+        self.counts = collections.defaultdict(lambda: collections.defaultdict(int))
+    def add(self, player, spell):
+        self.counts[spell][player] += 1
+
+    def format_spell(self, spellname):
+        pass
+    def print(self, output):
+        print("\n\nCooldown Usage", file=output)
+        for spell in sorted(CDSPELLS):
+            if spell not in self.counts: continue
+
+            print("  ", spell, file=output)
+            players = [(total, player) for player, total in self.counts[spell].items()]
+            players.sort(reverse=True)
+            for total, player in players:
+                print("  ", "  ", player, total, file=output)
+
+
 
 CURRENT_YEAR = datetime.datetime.now().year
 
@@ -776,6 +805,9 @@ def parse_line(app, line):
 
             if spellname in BUFF_SPELL:
                 app.player_detect[name].add('buff: ' + spellname)
+
+            if spellname in CDSPELLS:
+                app.cooldown_count.add(name, spellname)
 
             if name == 'Princess Huhuran' and spellname in {'Frenzy', 'Berserk'}:
                 app.huhuran.add(line)
@@ -989,6 +1021,9 @@ def parse_line(app, line):
         elif subtree.data == 'afflicted_line':
             targetname = subtree.children[0].value
             spellname = subtree.children[1].value
+
+            if spellname in CDSPELLS:
+                app.cooldown_count.add(targetname, spellname)
 
             if spellname == 'Decimate':
                 app.gluth.add(line)
@@ -1239,6 +1274,8 @@ def generate_output(app):
 
 
     app.print_consumables.print(output)
+
+    app.cooldown_count.print(output)
 
     # bwl
     app.nef_corrupted_healing.print(output)

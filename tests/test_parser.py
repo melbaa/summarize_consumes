@@ -964,4 +964,14 @@ def test_is_immune_ability(app):
     assert match == 3
     assert app.player['Psykhe']["Goblin Sapper Charge"] == 1
 
-
+def test_cooldown_count(app):
+    lines = """
+12/9 20:30:59.644  Martl gains Recklessness (1).
+12/9 20:31:07.869  Pitbound is afflicted by Death Wish (1).
+    """
+    lines = lines.splitlines(keepends=True)
+    for line in lines:
+        parse_line(app, line)
+    output = io.StringIO()
+    app.cooldown_count.print(output)
+    assert output.getvalue() == '\n\nCooldown Usage\n   Death Wish\n      Pitbound 1\n   Recklessness\n      Martl 1\n'
