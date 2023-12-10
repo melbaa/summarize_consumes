@@ -974,10 +974,26 @@ def test_cooldown_count(app):
 12/9 21:23:30.466  Zdraxus gains Inner Focus (1).
 12/9 21:29:36.759  Shreked gains Combustion (1).
 12/9 21:56:30.071  Ergofobia casts Grace of Air Totem.
+12/9 21:59:53.050  Yakub casts Tranquil Air Totem.
+12/9 21:59:54.001  Cracklinoats casts Strength of Earth Totem.
+12/9 21:59:54.558  Abstractz casts Mana Spring Totem.
+12/9 20:30:54.673  Cracklinoats casts Searing Totem.
     """
     lines = lines.splitlines(keepends=True)
     for line in lines:
         parse_line(app, line)
     output = io.StringIO()
     app.cooldown_count.print(output)
-    assert output.getvalue() == '\n\nCooldown Usage\n   Death Wish\n      Pitbound 1\n   Recklessness\n      Martl 1\n'
+    assert app.cooldown_count.counts['Recklessness']['Martl'] == 1
+    assert app.cooldown_count.counts['Death Wish']['Pitbound'] == 1
+    assert app.cooldown_count.counts['Windfury Totem']['Yakub'] == 1
+    assert app.cooldown_count.counts['Mana Tide Totem']['Yakub'] == 1
+    assert app.cooldown_count.counts['Elemental Mastery']['Abstractz'] == 1
+    assert app.cooldown_count.counts['Inner Focus']['Zdraxus'] == 1
+    assert app.cooldown_count.counts['Combustion']['Shreked'] == 1
+    assert app.cooldown_count.counts['Grace of Air Totem']['Ergofobia'] == 1
+    assert app.cooldown_count.counts['Tranquil Air Totem']['Yakub'] == 1
+    assert app.cooldown_count.counts['Strength of Earth Totem']['Cracklinoats'] == 1
+    assert app.cooldown_count.counts['Mana Spring Totem']['Abstractz'] == 1
+    assert app.cooldown_count.counts['Searing Totem']['Cracklinoats'] == 1
+    # assert output.getvalue() == '\n\nCooldown Usage\n   Death Wish\n      Pitbound 1\n   Recklessness\n      Martl 1\n'

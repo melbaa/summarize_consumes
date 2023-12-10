@@ -424,11 +424,22 @@ CDSPELLS_CASTS = {
     'Mana Tide Totem',
     'Grace of Air Totem',
     'Tranquil Air Totem',
+    'Strength of Earth Totem',
+    'Mana Spring Totem',
+    'Searing Totem',
 }
 CDSPELL_CLASS = [
     ['Warrior', ['Death Wish', 'Recklessness']],
     ['Mage', ['Combustion']],
-    ['Shaman', ['Windfury Totem', 'Mana Tide Totem', 'Grace of Air Totem', 'Tranquil Air Totem', 'Elemental Mastery']],
+    ['Shaman', [
+        'Windfury Totem',
+        'Mana Tide Totem',
+        'Grace of Air Totem',
+        'Tranquil Air Totem',
+        'Strength of Earth Totem',
+        'Mana Spring Totem',
+        'Searing Totem',
+    ]],
     ['Priest', ['Inner Focus']],
 ]
 
@@ -775,7 +786,7 @@ class PetHandler:
 
 class CooldownCount:
     def __init__(self):
-        # player - spell - count
+        # spell - player - count
         self.counts = collections.defaultdict(lambda: collections.defaultdict(int))
     def add(self, player, spell):
         self.counts[spell][player] += 1
