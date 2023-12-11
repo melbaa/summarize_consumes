@@ -696,6 +696,9 @@ class Techinfo:
         self.linecount = 0
         self.skiplinecount = 0
         self.package_version = package.VERSION
+        urlname, url = package.PROJECT_URL.split(',', maxsplit=1)
+        assert urlname == 'Homepage'
+        self.project_homepage = url
         self.prices_last_update = prices_last_update
 
     def set_file_size(self, filename):
@@ -725,6 +728,7 @@ class Techinfo:
         time_delta = time_end - self.time_start
         print("\n\nTech", file=output)
         print('  ', f'project version {self.package_version}', file=output)
+        print('  ', f'project homepage {self.project_homepage}', file=output)
         print('  ', f'prices timestamp {self.format_price_timestamp()}', file=output)
         print('  ', f'log size {humanize.naturalsize(self.logsize)}', file=output)
         print('  ', f'log lines {self.linecount}', file=output)

@@ -853,7 +853,7 @@ def test_techinfo(app):
     app.techinfo.package_version = 'whatever'
     app.techinfo.prices_last_update = app.techinfo.time_start + 3600
     app.techinfo.print(output, time_end=app.techinfo.time_start + 5)
-    assert output.getvalue() == '\n\nTech\n   project version whatever\n   prices timestamp 2023-11-18T00:39:15.383111 (an hour ago)\n   log size 0 Bytes\n   log lines 9\n   skipped log lines 0 (0.00%)\n   processed in 5.00 seconds. 1.80 log lines/sec\n'
+    assert output.getvalue() == '\n\nTech\n   project version whatever\n   project homepage  https://github.com/melbaa/summarize_consumes\n   prices timestamp 2023-11-18T00:39:15.383111 (an hour ago)\n   log size 0 Bytes\n   log lines 9\n   skipped log lines 0 (0.00%)\n   processed in 5.00 seconds. 1.80 log lines/sec\n'
 
 def test_was_evaded_line(app):
     lines = """
@@ -1001,3 +1001,4 @@ def test_cooldown_count(app):
     assert app.cooldown_count.counts['Fire Nova Totem']['Cracklinoats'] == 1
     assert app.cooldown_count.counts['Magma Totem']['Cracklinoats'] == 1
     # assert output.getvalue() == '\n\nCooldown Usage\n   Death Wish\n      Pitbound 1\n   Recklessness\n      Martl 1\n'
+
