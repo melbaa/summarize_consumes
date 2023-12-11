@@ -59,7 +59,10 @@ def create_app(time_start, expert_log_unparsed_lines):
     # player - consumable - count
     app.player = collections.defaultdict(lambda: collections.defaultdict(int))
 
-    app.cooldown_count = CooldownCount()
+    app.class_detection = ClassDetection()
+
+    app.spell_count = SpellCount()
+    app.cooldown_summary = CooldownSummary(spell_count=app.spell_count)
 
     # player - consumable - unix_timestamp
     app.last_hit_cache = collections.defaultdict(lambda: collections.defaultdict(float))
@@ -410,26 +413,8 @@ INTERRUPT_SPELLS = {
 }
 
 
-CDSPELLS_AFFLICTED = {
-    'Death Wish',
-}
-CDSPELLS_GAINS = {
-    'Recklessness',
-    'Elemental Mastery',
-    'Inner Focus',
-    'Combustion',
-}
-CDSPELLS_CASTS = {
-    'Windfury Totem',
-    'Mana Tide Totem',
-    'Grace of Air Totem',
-    'Tranquil Air Totem',
-    'Strength of Earth Totem',
-    'Mana Spring Totem',
-    'Searing Totem',
-    'Fire Nova Totem',
-    'Magma Totem',
-}
+
+
 CDSPELL_CLASS = [
     ['Warrior', ['Death Wish', 'Recklessness']],
     ['Mage', ['Combustion']],
@@ -445,6 +430,7 @@ CDSPELL_CLASS = [
         'Magma Totem',
     ]],
     ['Priest', ['Inner Focus']],
+    ['Rogue', ['Adrenaline Rush', 'Blade Flurry']],
 ]
 
 
@@ -698,7 +684,7 @@ class Techinfo:
         self.package_version = package.VERSION
         urlname, url = package.PROJECT_URL.split(',', maxsplit=1)
         assert urlname == 'Homepage'
-        self.project_homepage = url
+        self.project_homepage = url.strip()
         self.prices_last_update = prices_last_update
 
     def set_file_size(self, filename):
@@ -792,17 +778,13 @@ class PetHandler:
             for pet in sorted(petset):
                 print('  ', pet, 'owned by', owner, file=output)
 
-class CooldownCount:
-    def __init__(self):
+class CooldownSummary:
+    def __init__(self, spell_count):
         # spell - player - count
-        self.counts = collections.defaultdict(lambda: collections.defaultdict(int))
-    def add(self, player, spell):
-        self.counts[spell][player] += 1
+        self.counts = spell_count.counts
 
-    def format_spell(self, spellname):
-        pass
     def print(self, output):
-        print("\n\nCooldown Usage", file=output)
+        print("\n\nCooldown Summary", file=output)
         for cls, spells in CDSPELL_CLASS:
             cls_printed = False
             for spell in spells:
@@ -815,6 +797,165 @@ class CooldownCount:
                 players.sort(reverse=True)
                 for total, player in players:
                     print("  ", "  ", "  ", player, total, file=output)
+
+
+
+# count unique casts, the player using their spell. not the lingering buff/debuff procs
+# eg count a totem being dropped, not the buff procs it gives after that
+LINE2SPELLCAST = {
+    'afflicted_line': {
+        'Death Wish',
+    },
+    'gains_line': {
+        'Recklessness',
+        'Elemental Mastery',
+        'Inner Focus',
+        'Combustion',
+        'Adrenaline Rush',  # careful with hunters
+        'Blade Flurry',
+        'Earthstrike',
+    },
+    'casts_line': {
+        'Windfury Totem',
+        'Mana Tide Totem',
+        'Grace of Air Totem',
+        'Tranquil Air Totem',
+        'Strength of Earth Totem',
+        'Mana Spring Totem',
+        'Searing Totem',
+        'Fire Nova Totem',
+        'Magma Totem',
+    },
+}
+class SpellCount:
+    def __init__(self):
+        # spell - name - count
+        self.counts = collections.defaultdict(lambda: collections.defaultdict(int))
+    def add(self, line_type, name, spell):
+        if not line_type in LINE2SPELLCAST: return
+        if not spell in LINE2SPELLCAST[line_type]: return
+        self.counts[spell][name] += 1
+
+class PrintConsumables:
+    def __init__(self, player, pricedb, death_count):
+        self.player = player
+        self.pricedb = pricedb
+        self.death_count = death_count
+
+    def gold_string(self, price):
+        copper = price % 100
+        price = price // 100
+        silver = price % 100
+        price = price // 100
+        gold = price
+        s = ''
+
+        first = True
+        for amount, suffix in zip([gold, silver, copper], "gsc"):
+            if amount:
+                if not first: s+= ' '
+                else: first = False
+                s += f'{amount}{suffix}'
+        return s
+
+
+    def format_gold(self, consumable, count):
+        total_price = 0
+
+        components = CONSUMABLE_COMPONENTS.get(consumable)
+        if not components:
+            components = [(consumable, 1)]
+
+        for component in components:
+            consumable_component_name, multi = component
+
+            itemid = NAME2ITEMID.get(consumable_component_name)
+            if not itemid: continue
+            price = self.pricedb.lookup(itemid)
+            if not price: continue
+            total_price += (price * multi * count)
+
+        total_price //= CONSUMABLE_CHARGES.get(consumable, 1)
+        if not total_price: return '', 0
+        return self.gold_string(total_price), total_price
+
+    def print(self, output):
+        names = sorted(self.player.keys())
+        for name in names:
+            print(name, f'deaths:{self.death_count[name]}', file=output)
+            cons = self.player[name]
+            consumables = sorted(cons.keys())
+            total_price = 0
+            for consumable in consumables:
+                count = cons[consumable]
+                gold, price = self.format_gold(consumable, count)
+                if gold:
+                    gold = f'  ({gold})'
+                total_price += price
+                print('  ', consumable, count, gold, file=output)
+            if not consumables:
+                print('  ', '<nothing found>', file=output)
+            elif total_price:
+                print(file=output)
+                print('  ', 'total spent:', self.gold_string(total_price), file=output)
+
+
+# line type -> spell -> class
+# shouldn't need to be an exhaustive list, only the most common
+# unique spells, no ambiguity
+UNIQUE_LINE2SPELL2CLASS = {
+    'afflicted_line': {
+        'Death Wish': 'warrior',
+    },
+    'gains_line': {
+        'Recklessness': 'warrior',
+        'Bloodrage': 'warrior',
+        'Sweeping Strikes': 'warrior',
+
+        'Combustion': 'mage',
+
+        'Adrenaline Rush': 'rogue',
+        'Blade Flurry': 'rogue',
+    },
+    'hits_ability_line': {
+        'Cleave': 'warrior',
+        'Whirlwind': 'warrior',
+        'Bloodthirst': 'warrior',
+        'Heroic Strike': 'warrior',
+
+        'Scorch': 'mage',
+    },
+}
+class ClassDetection:
+    def __init__(self):
+        # name -> class
+        self.store = collections.defaultdict(str)
+    def remove_unknown(self, knowns):
+        for name in list(self.store):
+            if name not in knowns:
+                del self.store[name]
+    def detect(self, line_type, name, spell):
+        if line_type not in UNIQUE_LINE2SPELL2CLASS:
+            return
+        spell2class = UNIQUE_LINE2SPELL2CLASS[line_type]
+        if spell not in spell2class:
+            return
+        cls = spell2class[spell]
+
+        if name not in self.store:
+            self.store[name] = cls
+            return
+
+        # if name in self.store and cls != self.store[name]:
+        #     logging.warning(f'{cls} != {self.store[name]} for {name}')
+        #     return
+    def print(self, output):
+        print(f"\n\nClass Detection", file=output)
+        for name in sorted(self.store):
+            print('  ', name, self.store[name], file=output)
+
+
+
 
 
 
@@ -838,6 +979,9 @@ def parse_line(app, line):
             name = subtree.children[0].value
             spellname = subtree.children[1].value
 
+            app.class_detection.detect(line_type=subtree.data, name=name, spell=spellname)
+            app.spell_count.add(line_type=subtree.data, name=name, spell=spellname)
+
             if spellname in GAINS_CONSUMABLE:
                 consumable = spellname
                 if consumable in RENAME_CONSUMABLE:
@@ -846,9 +990,6 @@ def parse_line(app, line):
 
             if spellname in BUFF_SPELL:
                 app.player_detect[name].add('buff: ' + spellname)
-
-            if spellname in CDSPELLS_GAINS:
-                app.cooldown_count.add(name, spellname)
 
             if name == 'Princess Huhuran' and spellname in {'Frenzy', 'Berserk'}:
                 app.huhuran.add(line)
@@ -933,8 +1074,8 @@ def parse_line(app, line):
                     consumable = RENAME_CONSUMABLE[consumable]
                 app.player[name][consumable] += 1
 
-            if spellname in CDSPELLS_CASTS:
-                app.cooldown_count.add(name, spellname)
+            app.class_detection.detect(line_type=subtree.data, name=name, spell=spellname)
+            app.spell_count.add(line_type=subtree.data, name=name, spell=spellname)
 
             if spellname == 'Wild Polymorph':
                 app.nef_wild_polymorph.add(line)
@@ -972,6 +1113,9 @@ def parse_line(app, line):
             name = subtree.children[0].value
             spellname = subtree.children[1].value
             targetname = subtree.children[2].value
+
+            app.class_detection.detect(line_type=subtree.data, name=name, spell=spellname)
+            app.spell_count.add(line_type=subtree.data, name=name, spell=spellname)
 
             if spellname in app.hits_consumable.COOLDOWNS:
                 app.hits_consumable.update(name, spellname, timestamp)
@@ -1066,12 +1210,11 @@ def parse_line(app, line):
             targetname = subtree.children[0].value
             spellname = subtree.children[1].value
 
-            if spellname in CDSPELLS_AFFLICTED:
-                app.cooldown_count.add(targetname, spellname)
+            app.class_detection.detect(line_type=subtree.data, name=targetname, spell=spellname)
+            app.spell_count.add(line_type=subtree.data, name=targetname, spell=spellname)
 
             if spellname == 'Decimate':
                 app.gluth.add(line)
-
             if spellname == "Frost Blast":
                 app.kt_frostblast.add(line)
 
@@ -1224,72 +1367,6 @@ def parse_log(app, filename):
 
         app.unparsed_logger.flush()
 
-class PrintConsumables:
-    def __init__(self, player, pricedb, death_count):
-        self.player = player
-        self.pricedb = pricedb
-        self.death_count = death_count
-
-    def gold_string(self, price):
-        copper = price % 100
-        price = price // 100
-        silver = price % 100
-        price = price // 100
-        gold = price
-        s = ''
-
-        first = True
-        for amount, suffix in zip([gold, silver, copper], "gsc"):
-            if amount:
-                if not first: s+= ' '
-                else: first = False
-                s += f'{amount}{suffix}'
-        return s
-
-
-    def format_gold(self, consumable, count):
-        total_price = 0
-
-        components = CONSUMABLE_COMPONENTS.get(consumable)
-        if not components:
-            components = [(consumable, 1)]
-
-        for component in components:
-            consumable_component_name, multi = component
-
-            itemid = NAME2ITEMID.get(consumable_component_name)
-            if not itemid: continue
-            price = self.pricedb.lookup(itemid)
-            if not price: continue
-            total_price += (price * multi * count)
-
-        total_price //= CONSUMABLE_CHARGES.get(consumable, 1)
-        if not total_price: return '', 0
-        return self.gold_string(total_price), total_price
-
-    def print(self, output):
-        names = sorted(self.player.keys())
-        for name in names:
-            print(name, f'deaths:{self.death_count[name]}', file=output)
-            cons = self.player[name]
-            consumables = sorted(cons.keys())
-            total_price = 0
-            for consumable in consumables:
-                count = cons[consumable]
-                gold, price = self.format_gold(consumable, count)
-                if gold:
-                    gold = f'  ({gold})'
-                total_price += price
-                print('  ', consumable, count, gold, file=output)
-            if not consumables:
-                print('  ', '<nothing found>', file=output)
-            elif total_price:
-                print(file=output)
-                print('  ', 'total spent:', self.gold_string(total_price), file=output)
-
-
-
-
 def generate_output(app):
 
     output = io.StringIO()
@@ -1316,10 +1393,13 @@ def generate_output(app):
     for name in app.player_detect:
         app.player[name]
 
+    # remove unknowns from class detection
+    app.class_detection.remove_unknown(set(app.player))
+
 
     app.print_consumables.print(output)
 
-    app.cooldown_count.print(output)
+    app.cooldown_summary.print(output)
 
     # bwl
     app.nef_corrupted_healing.print(output)
@@ -1337,6 +1417,7 @@ def generate_output(app):
     # app.kt_guardian.print(output)
 
     app.pet_handler.print(output)
+    app.class_detection.print(output)
     app.techinfo.print(output)
 
     return output

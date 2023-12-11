@@ -853,7 +853,8 @@ def test_techinfo(app):
     app.techinfo.package_version = 'whatever'
     app.techinfo.prices_last_update = app.techinfo.time_start + 3600
     app.techinfo.print(output, time_end=app.techinfo.time_start + 5)
-    assert output.getvalue() == '\n\nTech\n   project version whatever\n   project homepage  https://github.com/melbaa/summarize_consumes\n   prices timestamp 2023-11-18T00:39:15.383111 (an hour ago)\n   log size 0 Bytes\n   log lines 9\n   skipped log lines 0 (0.00%)\n   processed in 5.00 seconds. 1.80 log lines/sec\n'
+    assert output.getvalue() == '\n\nTech\n   project version whatever\n   project homepage https://github.com/melbaa/summarize_consumes\n   prices timestamp 2023-11-18T00:39:15.383111 (an hour ago)\n   log size 0 Bytes\n   log lines 9\n   skipped log lines 0 (0.00%)\n   processed in 5.00 seconds. 1.80 log lines/sec\n'
+
 
 def test_was_evaded_line(app):
     lines = """
@@ -964,11 +965,12 @@ def test_is_immune_ability(app):
     assert match == 3
     assert app.player['Psykhe']["Goblin Sapper Charge"] == 1
 
-def test_cooldown_count(app):
+def test_cooldown_summary(app):
     lines = """
 12/9 20:30:59.644  Martl gains Recklessness (1).
 12/9 20:31:07.869  Pitbound is afflicted by Death Wish (1).
 12/9 20:27:58.135  Yakub casts Windfury Totem.
+12/9 20:52:47.806  Littlelnnos gains Windfury Totem (1).
 12/9 21:13:22.342  Yakub casts Mana Tide Totem.
 12/9 21:05:57.811  Abstractz gains Elemental Mastery (1).
 12/9 21:23:30.466  Zdraxus gains Inner Focus (1).
@@ -980,25 +982,70 @@ def test_cooldown_count(app):
 12/9 20:30:54.673  Cracklinoats casts Searing Totem.
 12/9 20:28:46.953  Cracklinoats casts Fire Nova Totem.
 12/9 20:31:34.588  Cracklinoats casts Magma Totem.
+4/12 22:29:58.586  Mikkasa gains Earthstrike (1).
+4/26 22:08:18.753  Inshadow gains Adrenaline Rush (1).
+12/10 20:43:12.458  Minoas gains 50 Mana from Minoas 's Adrenaline Rush.
+12/10 20:46:40.244  Twinsin gains Blade Flurry (1).
+12/10 20:46:40.329  Twinsin 's Blade Flurry hits Vekniss Guardian for 208.
     """
     lines = lines.splitlines(keepends=True)
     for line in lines:
         parse_line(app, line)
     output = io.StringIO()
-    app.cooldown_count.print(output)
-    assert app.cooldown_count.counts['Recklessness']['Martl'] == 1
-    assert app.cooldown_count.counts['Death Wish']['Pitbound'] == 1
-    assert app.cooldown_count.counts['Windfury Totem']['Yakub'] == 1
-    assert app.cooldown_count.counts['Mana Tide Totem']['Yakub'] == 1
-    assert app.cooldown_count.counts['Elemental Mastery']['Abstractz'] == 1
-    assert app.cooldown_count.counts['Inner Focus']['Zdraxus'] == 1
-    assert app.cooldown_count.counts['Combustion']['Shreked'] == 1
-    assert app.cooldown_count.counts['Grace of Air Totem']['Ergofobia'] == 1
-    assert app.cooldown_count.counts['Tranquil Air Totem']['Yakub'] == 1
-    assert app.cooldown_count.counts['Strength of Earth Totem']['Cracklinoats'] == 1
-    assert app.cooldown_count.counts['Mana Spring Totem']['Abstractz'] == 1
-    assert app.cooldown_count.counts['Searing Totem']['Cracklinoats'] == 1
-    assert app.cooldown_count.counts['Fire Nova Totem']['Cracklinoats'] == 1
-    assert app.cooldown_count.counts['Magma Totem']['Cracklinoats'] == 1
+    app.cooldown_summary.print(output)
+    assert app.spell_count.counts['Recklessness']['Martl'] == 1
+    assert app.spell_count.counts['Death Wish']['Pitbound'] == 1
+    assert app.spell_count.counts['Windfury Totem']['Yakub'] == 1
+    assert app.spell_count.counts['Windfury Totem']['Littlelnnos'] == 0  # don't count procs
+    assert app.spell_count.counts['Mana Tide Totem']['Yakub'] == 1
+    assert app.spell_count.counts['Elemental Mastery']['Abstractz'] == 1
+    assert app.spell_count.counts['Inner Focus']['Zdraxus'] == 1
+    assert app.spell_count.counts['Combustion']['Shreked'] == 1
+    assert app.spell_count.counts['Grace of Air Totem']['Ergofobia'] == 1
+    assert app.spell_count.counts['Tranquil Air Totem']['Yakub'] == 1
+    assert app.spell_count.counts['Strength of Earth Totem']['Cracklinoats'] == 1
+    assert app.spell_count.counts['Mana Spring Totem']['Abstractz'] == 1
+    assert app.spell_count.counts['Searing Totem']['Cracklinoats'] == 1
+    assert app.spell_count.counts['Fire Nova Totem']['Cracklinoats'] == 1
+    assert app.spell_count.counts['Magma Totem']['Cracklinoats'] == 1
+    assert app.spell_count.counts['Earthstrike']['Mikkasa'] == 1
+    assert app.spell_count.counts['Adrenaline Rush']['Inshadow'] == 1
+    assert app.spell_count.counts['Adrenaline Rush']['Minoas'] == 0  # don't count procs
+    assert app.spell_count.counts['Blade Flurry']['Twinsin'] == 1
     # assert output.getvalue() == '\n\nCooldown Usage\n   Death Wish\n      Pitbound 1\n   Recklessness\n      Martl 1\n'
+
+def test_class_detection(app):
+    lines = """
+12/9 20:41:19.088  Deathstruck 's Bloodthirst hits Naxxramas Follower for 947.
+12/9 20:55:24.125  Squirreled 's Heroic Strike crits Bony Construct for 505.
+12/9 20:56:22.705  Martl is afflicted by Death Wish (1).
+12/9 20:49:06.733  Littlelnnos gains Recklessness (1).
+12/9 20:49:15.353  Drapes gains Bloodrage (1).
+12/9 20:51:52.401  Wwtest 's Whirlwind crits Deathknight for 1456.
+12/9 20:51:52.401  Cleavetest 's Whirlwind crits Deathknight for 1456.
+4/24 23:24:39.171  Psykhe gains Sweeping Strikes (1).
+12/9 21:29:36.759  Shreked gains Combustion (1).
+12/9 20:52:47.684  Zedog 's Scorch hits Shade of Naxxramas for 797 Fire damage.
+4/26 22:08:18.753  Inshadow gains Adrenaline Rush (1).
+4/26 22:08:18.753  Bftest gains Blade Flurry (1).
+    """
+    lines = lines.splitlines(keepends=True)
+    for line in lines:
+        parse_line(app, line)
+    assert app.class_detection.store == {
+        'Deathstruck': 'warrior',
+        'Squirreled': 'warrior',
+        'Martl': 'warrior',
+        'Littlelnnos': 'warrior',
+        'Wwtest': 'warrior',
+        'Drapes': 'warrior',
+        'Cleavetest': 'warrior',
+        'Psykhe': 'warrior',
+
+        'Shreked': 'mage',
+        'Zedog': 'mage',
+
+        'Inshadow': 'rogue',
+        'Bftest': 'rogue',
+    }
 

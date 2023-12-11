@@ -14,6 +14,7 @@ The summary includes
 ** kt frostbolts
 ** kt frostblasts
 * pets found
+* classes detected
 
 It is assumed that the combat log was generated while the AdvancedVanillaCombatLog addon is active.
 
