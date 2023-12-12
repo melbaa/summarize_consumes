@@ -51,6 +51,7 @@ _line: gains_line
     | slays_line
     | pet_begins_eating_line
     | gains_happiness_line
+    | is_dismissed_line
 
 
 slays_line: MULTIWORD " slays " MULTIWORD "!"
@@ -74,6 +75,7 @@ dies_line: MULTIWORD " dies."
 is_killed_line: MULTIWORD " is killed by " MULTIWORD "."
 slain_line: MULTIWORD " is slain by " MULTIWORD "!"
 
+is_dismissed_line: MULTIWORD " 's " MULTIWORD " is dismissed."
 gains_happiness_line: MULTIWORD " gains " INT " Happiness from " MULTIWORD " 's Feed Pet Effect."
 pet_begins_eating_line: MULTIWORD " pet begins eating a " MULTIWORD "."
 block_ability_line: MULTIWORD " 's " MULTIWORD " was blocked by " MULTIWORD "."

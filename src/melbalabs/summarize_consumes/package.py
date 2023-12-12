@@ -1,6 +1,6 @@
 import importlib.metadata
 
-VERSION = "2023.1033"
+VERSION = "2023.1034"
 PROJECT_NAME = __package__
 PROJECT_METADATA = importlib.metadata.metadata(PROJECT_NAME)
 PROJECT_URL = PROJECT_METADATA['Project-URL']

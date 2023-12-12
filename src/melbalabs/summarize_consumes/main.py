@@ -59,10 +59,10 @@ def create_app(time_start, expert_log_unparsed_lines):
     # player - consumable - count
     app.player = collections.defaultdict(lambda: collections.defaultdict(int))
 
-    app.class_detection = ClassDetection()
+    app.class_detection = ClassDetection(player=app.player)
 
     app.spell_count = SpellCount()
-    app.cooldown_summary = CooldownSummary(spell_count=app.spell_count)
+    app.cooldown_summary = CooldownSummary(spell_count=app.spell_count, class_detection=app.class_detection)
 
     # player - consumable - unix_timestamp
     app.last_hit_cache = collections.defaultdict(lambda: collections.defaultdict(float))
@@ -416,9 +416,18 @@ INTERRUPT_SPELLS = {
 
 
 CDSPELL_CLASS = [
-    ['Warrior', ['Death Wish', 'Recklessness']],
-    ['Mage', ['Combustion']],
-    ['Shaman', [
+    ['warrior', [
+        'Death Wish',
+        'Recklessness',
+        'Kiss of the Spider',
+        "Slayer's Crest",
+        'Jom Gabbar',
+        'Badge of the Swarmguard',
+        'Earthstrike',
+    ]],
+    ['mage', ['Combustion', 'Scorch']],
+    ['shaman', [
+        "Nature's Swiftness",
         'Windfury Totem',
         'Mana Tide Totem',
         'Grace of Air Totem',
@@ -429,8 +438,17 @@ CDSPELL_CLASS = [
         'Fire Nova Totem',
         'Magma Totem',
     ]],
-    ['Priest', ['Inner Focus']],
-    ['Rogue', ['Adrenaline Rush', 'Blade Flurry']],
+    ['druid', ["Nature's Swiftness"]],
+    ['priest', ['Inner Focus']],
+    ['rogue', [
+        'Adrenaline Rush',
+        'Blade Flurry',
+        'Kiss of the Spider',
+        "Slayer's Crest",
+        'Jom Gabbar',
+        'Badge of the Swarmguard',
+        'Earthstrike',
+    ]],
 ]
 
 
@@ -779,9 +797,10 @@ class PetHandler:
                 print('  ', pet, 'owned by', owner, file=output)
 
 class CooldownSummary:
-    def __init__(self, spell_count):
+    def __init__(self, spell_count, class_detection):
         # spell - player - count
         self.counts = spell_count.counts
+        self.class_detection = class_detection
 
     def print(self, output):
         print("\n\nCooldown Summary", file=output)
@@ -789,12 +808,19 @@ class CooldownSummary:
             cls_printed = False
             for spell in spells:
                 if spell not in self.counts: continue
+
+                players = []
+                for player, total in self.counts[spell].items():
+                    if not self.class_detection.is_class(cls=cls, name=player): continue
+                    players.append((total, player))
+                players.sort(reverse=True)
+
+                if not players: continue
+
                 if not cls_printed:
-                    print("  ", cls, file=output)
+                    print("  ", cls.capitalize(), file=output)
                     cls_printed = True
                 print("  ", "  ", spell, file=output)
-                players = [(total, player) for player, total in self.counts[spell].items()]
-                players.sort(reverse=True)
                 for total, player in players:
                     print("  ", "  ", "  ", player, total, file=output)
 
@@ -812,8 +838,14 @@ LINE2SPELLCAST = {
         'Inner Focus',
         'Combustion',
         'Adrenaline Rush',  # careful with hunters
+        'Cold Blood',
         'Blade Flurry',
+        "Nature's Swiftness",  # sham and druid
         'Earthstrike',
+        'Kiss of the Spider',
+        "Slayer's Crest",
+        'Jom Gabbar',
+        'Badge of the Swarmguard',
     },
     'casts_line': {
         'Windfury Totem',
@@ -826,6 +858,10 @@ LINE2SPELLCAST = {
         'Fire Nova Totem',
         'Magma Totem',
     },
+    'hits_ability_line': {
+        'Sinister Strike',
+        'Scorch',
+    }
 }
 class SpellCount:
     def __init__(self):
@@ -916,6 +952,8 @@ UNIQUE_LINE2SPELL2CLASS = {
 
         'Adrenaline Rush': 'rogue',
         'Blade Flurry': 'rogue',
+        'Cold Blood': 'rogue',
+        'Slice and Dice': 'rogue',
     },
     'hits_ability_line': {
         'Cleave': 'warrior',
@@ -923,17 +961,63 @@ UNIQUE_LINE2SPELL2CLASS = {
         'Bloodthirst': 'warrior',
         'Heroic Strike': 'warrior',
 
+        'Sinister Strike': 'rogue',
+
+   },
+    'begins_to_cast_line': {
+        'Shadow Bolt': 'warlock',
+
+        'Rejuvenation': 'druid',
+        'Regrowth': 'druid',
+        'Wrath': 'druid',
+
+        'Fireball': 'mage',
         'Scorch': 'mage',
+
+        'Chain Heal': 'shaman',
+        'Lesser Healing Wave': 'shaman',
+
+        'Mind Blast': 'priest',
+        'Smite': 'priest',
+        'Flash Heal': 'priest',
+        'Greater Heal': 'priest',
+
+        'Multi-Shot': 'hunter',
+
+        'Flash of Light': 'paladin',
+        'Holy Light': 'paladin',
+    },
+    'begins_to_perform_line': {
+        'Auto Shot': 'hunter',
+        'Trueshot': 'hunter',
+    },
+    'casts_line': {
+        'Windfury Totem': 'shaman',
+        'Mana Tide Totem': 'shaman',
+        'Grace of Air Totem': 'shaman',
+        'Tranquil Air Totem': 'shaman',
+        'Strength of Earth Totem': 'shaman',
+        'Mana Spring Totem': 'shaman',
+        'Searing Totem': 'shaman',
+        'Fire Nova Totem': 'shaman',
+        'Magma Totem': 'shaman',
     },
 }
 class ClassDetection:
-    def __init__(self):
+    def __init__(self, player):
         # name -> class
-        self.store = collections.defaultdict(str)
-    def remove_unknown(self, knowns):
+        self.store = dict()
+
+        self.player = player
+    def remove_unknown(self):
+        knowns = set(self.player)
         for name in list(self.store):
             if name not in knowns:
                 del self.store[name]
+    def is_class(self, cls, name):
+        if name not in self.store:
+            return False
+        return cls == self.store[name]
     def detect(self, line_type, name, spell):
         if line_type not in UNIQUE_LINE2SPELL2CLASS:
             return
@@ -951,8 +1035,9 @@ class ClassDetection:
         #     return
     def print(self, output):
         print(f"\n\nClass Detection", file=output)
-        for name in sorted(self.store):
-            print('  ', name, self.store[name], file=output)
+        for name in sorted(self.player):
+            cls = self.store.get(name, 'unknown')
+            print('  ', name, cls, file=output)
 
 
 
@@ -1053,6 +1138,8 @@ def parse_line(app, line):
         elif subtree.data == 'begins_to_cast_line':
             name = subtree.children[0].value
             spellname = subtree.children[-1].value
+
+            app.class_detection.detect(line_type=subtree.data, name=name, spell=spellname)
 
             if spellname in BEGINS_TO_CAST_CONSUMABLE:
                 consumable = spellname
@@ -1251,6 +1338,11 @@ def parse_line(app, line):
             return True
         elif subtree.data == 'pet_begins_eating_line':
             return True
+        elif subtree.data == 'is_dismissed_line':
+            name = subtree.children[0].value
+            petname = subtree.children[1].value
+            app.pet_handler.add(name, petname)
+            return True
         elif subtree.data == 'gains_happiness_line':
             petname = subtree.children[0].value
             amount = subtree.children[1].value
@@ -1308,6 +1400,9 @@ def parse_line(app, line):
         elif subtree.data == 'performs_line':
             return True
         elif subtree.data == 'begins_to_perform_line':
+            name = subtree.children[0].value
+            spellname = subtree.children[-1].value
+            app.class_detection.detect(line_type=subtree.data, name=name, spell=spellname)
             return True
         elif subtree.data == 'gains_extra_attacks_line':
             return True
@@ -1394,7 +1489,7 @@ def generate_output(app):
         app.player[name]
 
     # remove unknowns from class detection
-    app.class_detection.remove_unknown(set(app.player))
+    app.class_detection.remove_unknown()
 
 
     app.print_consumables.print(output)

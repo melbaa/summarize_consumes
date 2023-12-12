@@ -952,6 +952,22 @@ def test_gains_happiness(app):
     assert app.pet_handler.store['Berserkss'] == {'BATMAN'}
     assert app.pet_handler.store['Chan'] == {'Kotick'}
 
+def test_is_dismissed(app):
+    lines = """
+12/10 21:15:33.219  Pitsharp 's Wolf is dismissed.
+12/10 21:40:45.575  Minoas 's Thunder is dismissed.
+    """
+    lines = lines.splitlines(keepends=True)
+    match = 0
+    for line in lines:
+        match += parse_line(app, line)
+    assert match == 2
+    assert app.pet_handler.store['Pitsharp'] == {'Wolf'}
+    assert app.pet_handler.store['Minoas'] == {'Thunder'}
+
+
+
+
 def test_is_immune_ability(app):
     lines = """
 11/22 21:58:53.272  Noth the Plaguebringer is immune to Psykhe 's Goblin Sapper Charge.
@@ -982,11 +998,20 @@ def test_cooldown_summary(app):
 12/9 20:30:54.673  Cracklinoats casts Searing Totem.
 12/9 20:28:46.953  Cracklinoats casts Fire Nova Totem.
 12/9 20:31:34.588  Cracklinoats casts Magma Totem.
+4/26 22:08:18.753  Mikkasa gains Adrenaline Rush (1).
 4/12 22:29:58.586  Mikkasa gains Earthstrike (1).
 4/26 22:08:18.753  Inshadow gains Adrenaline Rush (1).
 12/10 20:43:12.458  Minoas gains 50 Mana from Minoas 's Adrenaline Rush.
 12/10 20:46:40.244  Twinsin gains Blade Flurry (1).
 12/10 20:46:40.329  Twinsin 's Blade Flurry hits Vekniss Guardian for 208.
+4/5 21:56:55.500  Raimme gains Cold Blood (1).
+12/10 20:32:40.396  Emeryn 's Sinister Strike hits Anubisath Sentinel for 440.
+12/9 20:52:47.684  Zedog 's Scorch hits Shade of Naxxramas for 797 Fire damage.
+12/10 21:49:16.659  Yakub gains Nature's Swiftness (1).
+12/10 21:02:37.923  Vallcow gains Kiss of the Spider (1).
+12/10 21:02:37.923  Vallcow gains Slayer's Crest (1).
+5/10 20:44:14.660  Srj gains Jom Gabbar (6).
+12/10 20:30:06.459  Deathstruck gains Badge of the Swarmguard (1).
     """
     lines = lines.splitlines(keepends=True)
     for line in lines:
@@ -1012,7 +1037,16 @@ def test_cooldown_summary(app):
     assert app.spell_count.counts['Adrenaline Rush']['Inshadow'] == 1
     assert app.spell_count.counts['Adrenaline Rush']['Minoas'] == 0  # don't count procs
     assert app.spell_count.counts['Blade Flurry']['Twinsin'] == 1
+    assert app.spell_count.counts['Cold Blood']['Raimme'] == 1
+    assert app.spell_count.counts['Sinister Strike']['Emeryn'] == 1
+    assert app.spell_count.counts['Scorch']['Zedog'] == 1
+    assert app.spell_count.counts["Nature's Swiftness"]['Yakub'] == 1
+    assert app.spell_count.counts['Kiss of the Spider']['Vallcow'] == 1
+    assert app.spell_count.counts["Slayer's Crest"]['Vallcow'] == 1
+    assert app.spell_count.counts['Jom Gabbar']['Srj'] == 1
+    assert app.spell_count.counts['Badge of the Swarmguard']['Deathstruck'] == 1
     # assert output.getvalue() == '\n\nCooldown Usage\n   Death Wish\n      Pitbound 1\n   Recklessness\n      Martl 1\n'
+    pass
 
 def test_class_detection(app):
     lines = """
@@ -1025,9 +1059,23 @@ def test_class_detection(app):
 12/9 20:51:52.401  Cleavetest 's Whirlwind crits Deathknight for 1456.
 4/24 23:24:39.171  Psykhe gains Sweeping Strikes (1).
 12/9 21:29:36.759  Shreked gains Combustion (1).
-12/9 20:52:47.684  Zedog 's Scorch hits Shade of Naxxramas for 797 Fire damage.
 4/26 22:08:18.753  Inshadow gains Adrenaline Rush (1).
 4/26 22:08:18.753  Bftest gains Blade Flurry (1).
+4/5 21:56:55.500  Raimme gains Cold Blood (1).
+12/10 20:32:40.396  Emeryn 's Sinister Strike hits Anubisath Sentinel for 440.
+4/12 20:31:36.618  Inshadow gains Slice and Dice (1).
+12/9 20:27:58.135  Yakub casts Windfury Totem.
+12/10 20:43:20.218  Azot begins to cast Shadow Bolt.
+12/10 20:43:28.125  Almouty begins to cast Regrowth.
+12/10 20:39:24.251  Seidhkona begins to cast Chain Heal.
+12/10 20:39:24.251  Fireballtest begins to cast Fireball.
+12/9 20:52:47.684  Scorchtest begins to cast Scorch.
+12/9 20:52:47.684  Mindblasttest begins to cast Mind Blast.
+12/10 21:52:50.462  Babystone begins to cast Multi-Shot.
+12/10 21:55:31.112  BabystoneAS begins to perform Auto Shot.
+12/10 21:55:31.917  BabystoneTS begins to perform Trueshot.
+12/10 21:40:07.933  JocasteHL begins to cast Holy Light.
+12/10 21:49:10.538  JocasteFL begins to cast Flash of Light.
     """
     lines = lines.splitlines(keepends=True)
     for line in lines:
@@ -1043,9 +1091,29 @@ def test_class_detection(app):
         'Psykhe': 'warrior',
 
         'Shreked': 'mage',
-        'Zedog': 'mage',
+        'Scorchtest': 'mage',
+        'Fireballtest': 'mage',
 
         'Inshadow': 'rogue',
         'Bftest': 'rogue',
+        'Raimme': 'rogue',
+        'Emeryn': 'rogue',
+        'Inshadow': 'rogue',
+
+        'Yakub': 'shaman',
+        'Seidhkona': 'shaman',
+
+        'Azot': 'warlock',
+
+        'Almouty': 'druid',
+
+        'Mindblasttest': 'priest',
+
+        'Babystone': 'hunter',
+        'BabystoneAS': 'hunter',
+        'BabystoneTS': 'hunter',
+
+        'JocasteHL': 'paladin',
+        'JocasteFL': 'paladin',
     }
 
