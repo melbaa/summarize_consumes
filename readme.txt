@@ -2,7 +2,7 @@ The project generates a summary of a raid combat log.
 
 The summary includes
 * consumables (as much as the combat log allows). If prices.json is available, the summary will also include price data.
-* cooldowns used
+* cooldowns and trinkets used
 * details about some boss fights
 ** nefarian corrupted healing
 ** nefarian wild polymorphs
