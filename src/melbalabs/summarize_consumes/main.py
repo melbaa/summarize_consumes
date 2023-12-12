@@ -419,11 +419,6 @@ CDSPELL_CLASS = [
     ['warrior', [
         'Death Wish',
         'Recklessness',
-        'Kiss of the Spider',
-        "Slayer's Crest",
-        'Jom Gabbar',
-        'Badge of the Swarmguard',
-        'Earthstrike',
     ]],
     ['mage', ['Combustion', 'Scorch']],
     ['shaman', [
@@ -440,16 +435,39 @@ CDSPELL_CLASS = [
     ]],
     ['druid', ["Nature's Swiftness"]],
     ['priest', ['Inner Focus']],
+    ['paladin', ['Divine Favor']],
     ['rogue', [
         'Adrenaline Rush',
         'Blade Flurry',
-        'Kiss of the Spider',
-        "Slayer's Crest",
-        'Jom Gabbar',
-        'Badge of the Swarmguard',
-        'Earthstrike',
+
     ]],
 ]
+
+TRINKET_SPELL = [
+    'Kiss of the Spider',
+    "Slayer's Crest",
+    'Jom Gabbar',
+    'Badge of the Swarmguard',
+    'Earthstrike',
+    'Essence of Sapphiron',
+    'Ephemeral Power',
+    'Unstable Power',
+    'Mind Quickening',
+    'Nature Aligned',
+]
+for trinketspell in TRINKET_SPELL:
+    for clsorder in CDSPELL_CLASS:
+        clstrinket = clsorder[1]
+        clstrinket.append(trinketspell)
+RENAME_TRINKET_SPELL = {
+    'Unstable Power': 'Zandalarian Hero Charm',
+    'Ephemeral Power': 'Talisman of Ephemeral Power',
+    'Essence of Sapphiron': 'The Restrained Essence of Sapphiron',
+    'Mind Quickening': 'Mind Quickening Gem',
+    'Nature Aligned': 'Natural Alignment Crystal',
+}
+
+
 
 
 BUFF_SPELL = {
@@ -820,6 +838,8 @@ class CooldownSummary:
                 if not cls_printed:
                     print("  ", cls.capitalize(), file=output)
                     cls_printed = True
+                if spell in RENAME_TRINKET_SPELL:
+                    spell = RENAME_TRINKET_SPELL[spell]
                 print("  ", "  ", spell, file=output)
                 for total, player in players:
                     print("  ", "  ", "  ", player, total, file=output)
@@ -846,6 +866,12 @@ LINE2SPELLCAST = {
         "Slayer's Crest",
         'Jom Gabbar',
         'Badge of the Swarmguard',
+        'Essence of Sapphiron',
+        'Ephemeral Power',
+        'Unstable Power',
+        'Mind Quickening',
+        'Nature Aligned',
+        'Divine Favor',
     },
     'casts_line': {
         'Windfury Totem',
@@ -954,6 +980,8 @@ UNIQUE_LINE2SPELL2CLASS = {
         'Blade Flurry': 'rogue',
         'Cold Blood': 'rogue',
         'Slice and Dice': 'rogue',
+
+        'Divine Favor': 'paladin',
     },
     'hits_ability_line': {
         'Cleave': 'warrior',

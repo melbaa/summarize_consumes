@@ -1012,12 +1012,20 @@ def test_cooldown_summary(app):
 12/10 21:02:37.923  Vallcow gains Slayer's Crest (1).
 5/10 20:44:14.660  Srj gains Jom Gabbar (6).
 12/10 20:30:06.459  Deathstruck gains Badge of the Swarmguard (1).
+12/9 23:58:01.420  Cheesebreath gains Essence of Sapphiron (1).
+12/9 20:29:22.511  Abstractz gains Ephemeral Power (1).
+12/9 23:56:32.451  Ancst gains Unstable Power (12).
+12/9 23:23:11.500  Aquatic gains Mind Quickening (1).
+12/9 22:15:45.841  Abstractz gains Nature Aligned (1).
+12/9 23:56:40.182  Interlani gains Divine Favor (1).
     """
     lines = lines.splitlines(keepends=True)
     for line in lines:
         parse_line(app, line)
     output = io.StringIO()
     app.cooldown_summary.print(output)
+
+    assert app.spell_count.counts['Divine Favor']['Interlani'] == 1
     assert app.spell_count.counts['Recklessness']['Martl'] == 1
     assert app.spell_count.counts['Death Wish']['Pitbound'] == 1
     assert app.spell_count.counts['Windfury Totem']['Yakub'] == 1
@@ -1045,6 +1053,13 @@ def test_cooldown_summary(app):
     assert app.spell_count.counts["Slayer's Crest"]['Vallcow'] == 1
     assert app.spell_count.counts['Jom Gabbar']['Srj'] == 1
     assert app.spell_count.counts['Badge of the Swarmguard']['Deathstruck'] == 1
+    assert app.spell_count.counts['Essence of Sapphiron']['Cheesebreath'] == 1
+    assert app.spell_count.counts['Ephemeral Power']['Abstractz'] == 1
+    assert app.spell_count.counts['Unstable Power']['Ancst'] == 1
+    assert app.spell_count.counts['Mind Quickening']['Aquatic'] == 1
+    assert app.spell_count.counts['Nature Aligned']['Abstractz'] == 1
+
+
     # assert output.getvalue() == '\n\nCooldown Usage\n   Death Wish\n      Pitbound 1\n   Recklessness\n      Martl 1\n'
     pass
 
@@ -1076,6 +1091,7 @@ def test_class_detection(app):
 12/10 21:55:31.917  BabystoneTS begins to perform Trueshot.
 12/10 21:40:07.933  JocasteHL begins to cast Holy Light.
 12/10 21:49:10.538  JocasteFL begins to cast Flash of Light.
+12/9 23:56:40.182  Interlani gains Divine Favor (1).
     """
     lines = lines.splitlines(keepends=True)
     for line in lines:
@@ -1115,5 +1131,6 @@ def test_class_detection(app):
 
         'JocasteHL': 'paladin',
         'JocasteFL': 'paladin',
+        'Interlani': 'paladin',
     }
 
