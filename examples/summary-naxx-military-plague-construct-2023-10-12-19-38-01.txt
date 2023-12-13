@@ -184,6 +184,7 @@ Everran deaths:9
    Mana Potion - Major 3   (5g 38s 44c)
    Nature Protection 2 
    Shadow Protection 2   (13g 67s 52c)
+   Stratholme Holy Water 25 
    Winterfall Firewater 5   (5g 57s 75c)
 
    total spent: 208g 36s 2c
@@ -466,6 +467,7 @@ Sunor deaths:7
    Nature Protection 2 
    Rumsey Rum Black Label 1   (75s 75c)
    Spirit of Zanza 4   (9g 96c)
+   Stratholme Holy Water 1 
    Tea with Sugar 12 
 
    total spent: 114g 91s 41c
@@ -815,10 +817,10 @@ Class Detection
 
 
 Tech
-   project version 2023.1034
+   project version 2023.1036
    project homepage https://github.com/melbaa/summarize_consumes
-   prices timestamp 2023-12-10T13:50:04.581842 (a day ago)
+   prices timestamp 2023-12-10T13:50:04.581842 (2 days ago)
    log size 34.9 MB
    log lines 467300
    skipped log lines 218 (0.05%)
-   processed in 68.16 seconds. 6856.32 log lines/sec
+   processed in 70.95 seconds. 6586.77 log lines/sec

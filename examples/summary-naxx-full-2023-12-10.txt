@@ -28,6 +28,7 @@ Abstractz deaths:6
    Nature Protection 1 
    Shadow Protection 1   (6g 83s 76c)
    Spirit of Zanza 3   (6g 75s 72c)
+   Stratholme Holy Water 4 
    Swiftness of Zanza 2   (4g 50s 48c)
    Tea with Sugar 26 
 
@@ -193,6 +194,7 @@ Deathstruck deaths:6
    Rage of Ages (ROIDS) 7   (57g 29s 1c)
    Shadow Protection 2   (13g 67s 52c)
    Spirit of Zanza 7   (15g 76s 68c)
+   Stratholme Holy Water 4 
    Winterfall Firewater 8   (8g 92s 40c)
 
    total spent: 321g 65s 46c
@@ -251,6 +253,7 @@ Drapes deaths:6
    Rumsey Rum Black Label 2   (1g 51s 50c)
    Shadow Protection 2   (13g 67s 52c)
    Spirit of Zanza 2   (4g 50s 48c)
+   Stratholme Holy Water 9 
    Swiftness of Zanza 1   (2g 25s 24c)
    Tea with Sugar 1 
    Winterfall Firewater 7   (7g 80s 85c)
@@ -313,6 +316,7 @@ Littlelnnos deaths:4
    Consecrated Sharpening Stone 1   (5g 99s 98c)
    Dense Dynamite 1   (48s 84c)
    Dragonbreath Chili 1   (1g 31c)
+   Elemental Sharpening Stone 1   (9g 47s 97c)
    Elixir of Fortitude 4   (3g 26s 96c)
    Elixir of the Mongoose 4   (30g 40s 16c)
    Fire Protection 3 
@@ -327,9 +331,10 @@ Littlelnnos deaths:4
    Rumsey Rum Black Label 5   (3g 78s 75c)
    Shadow Protection 1   (6g 83s 76c)
    Spirit of Zanza 4   (9g 96c)
+   Stratholme Holy Water 2 
    Winterfall Firewater 4   (4g 46s 20c)
 
-   total spent: 152g 67s 84c
+   total spent: 162g 15s 81c
 Loatheb deaths:1
    Gift of Arthas 1 
 Maexxna deaths:1
@@ -379,6 +384,7 @@ Mombat deaths:7
    Mana Potion - Major 1   (1g 79s 48c)
    Shadow Protection 1   (6g 83s 76c)
    Spirit of Zanza 8   (18g 1s 92c)
+   Stratholme Holy Water 5 
    Tea with Sugar 16 
    Winterfall Firewater 6   (6g 69s 30c)
 
@@ -406,6 +412,7 @@ Pitbound deaths:2
    Rumsey Rum Black Label 7   (5g 30s 25c)
    Shadow Protection 2   (13g 67s 52c)
    Spirit of Zanza 3   (6g 75s 72c)
+   Stratholme Holy Water 5 
    Winterfall Firewater 2   (2g 23s 10c)
 
    total spent: 174g 54s 95c
@@ -476,6 +483,7 @@ Sanwen deaths:3
    Mana Potion - Superior 1   (72s 98c)
    Mana Regeneration (food or mageblood) 1 
    Medivh's Merlot Blue Label 3   (4g 31s 94c)
+   Stratholme Holy Water 1 
    Tea with Sugar 12 
 
    total spent: 79g 25s 41c
@@ -538,6 +546,7 @@ Squirreled deaths:3
    Consecrated Sharpening Stone 3   (17g 99s 94c)
    Dense Dynamite 1   (48s 84c)
    Dense Sharpening Stone 1 
+   Elixir of Brute Force 2   (9g)
    Elixir of Fortitude 3   (2g 45s 22c)
    Elixir of Superior Defense 2   (7g 80s 92c)
    Elixir of the Giants 3   (5g 5s 56c)
@@ -554,11 +563,12 @@ Squirreled deaths:3
    Mighty Rage Potion 1   (3g 99s 88c)
    Shadow Protection 1   (6g 83s 76c)
    Spirit of Zanza 3   (6g 75s 72c)
+   Stratholme Holy Water 6 
    Strike of the Scorpok 3   (17g 61s 42c)
    Tea with Sugar 6 
    Winterfall Firewater 5   (5g 57s 75c)
 
-   total spent: 303g 76s 35c
+   total spent: 312g 76s 35c
 Starraven deaths:6
    Blessed Wizard Oil 3   (10g 99s 95c)
    Brilliant Wizard Oil 1   (1g 77s 83c)
@@ -620,6 +630,7 @@ Sunwelp deaths:5
    Rumsey Rum Black Label 4   (3g 3s)
    Shadow Protection 2   (13g 67s 52c)
    Spirit of Zanza 5   (11g 26s 20c)
+   Stratholme Holy Water 6 
    Tea with Sugar 22 
 
    total spent: 289g 10s 76c
@@ -666,6 +677,7 @@ Titicacal deaths:4
 Vallcow deaths:4
    Consecrated Sharpening Stone 2   (11g 99s 96c)
    Dense Dynamite 2   (97s 68c)
+   Elemental Sharpening Stone 1   (9g 47s 97c)
    Elixir of Fortitude 6   (4g 90s 44c)
    Elixir of Superior Defense 6   (23g 42s 76c)
    Elixir of the Mongoose 7   (53g 20s 28c)
@@ -686,7 +698,7 @@ Vallcow deaths:4
    Spirit of Zanza 7   (15g 76s 68c)
    Winterfall Firewater 8   (8g 92s 40c)
 
-   total spent: 331g 15s 36c
+   total spent: 340g 63s 33c
 Valurian deaths:3
    Brilliant Mana Oil 3   (4g 5s 27c)
    Invulnerability 3   (3g 89s 52c)
@@ -737,6 +749,7 @@ Zedog deaths:3
    Invulnerability 3   (3g 89s 52c)
    Shadow Protection 2   (13g 67s 52c)
    Spirit of Zanza 5   (11g 26s 20c)
+   Stratholme Holy Water 1 
    Tea with Sugar 3 
 
    total spent: 148g 13s 90c
@@ -1125,7 +1138,7 @@ Class Detection
    Martl warrior
    Melriel warrior
    Mombat paladin
-   Necropolis Acolyte unknown
+   Necropolis Acolyte mage
    Noth the Plaguebringer unknown
    Pitbound warrior
    Plagued Ghoul warrior
@@ -1161,10 +1174,10 @@ Class Detection
 
 
 Tech
-   project version 2023.1034
+   project version 2023.1036
    project homepage https://github.com/melbaa/summarize_consumes
-   prices timestamp 2023-12-10T13:50:04.581842 (a day ago)
+   prices timestamp 2023-12-10T13:50:04.581842 (2 days ago)
    log size 45.1 MB
    log lines 615266
-   skipped log lines 12600 (2.05%)
-   processed in 80.48 seconds. 7645.23 log lines/sec
+   skipped log lines 12598 (2.05%)
+   processed in 89.48 seconds. 6875.93 log lines/sec

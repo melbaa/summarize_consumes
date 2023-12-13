@@ -152,7 +152,7 @@ PAREN_WORD: "(" WORD ")"
 MULTIWORD: WORD ((SPACE | DASH | UNDERSCORE) CONNECTING_WORD)* TRAILING_SPACE?
 CONNECTING_APOSTROPHE: /(?<! )'/  # allow it only inside a word
 CONNECTING_COLON: /(?<! ):/
-CONNECTING_WORD: "and"|"with"|"by"|"of"|"the"|PAREN_WORD|WORD|/(?<=Lay )on(?= Hands)/
+CONNECTING_WORD: "and"|"with"|"by"|"of"|"the"|DASH|PAREN_WORD|WORD|/(?<=Lay )on(?= Hands)/
 
 _TS_SEP: SPACE SPACE
 SPACE: " "

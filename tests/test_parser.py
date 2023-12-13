@@ -124,6 +124,7 @@ def test_gains_consumable_line(app):
 10/11 23:37:59.079  Psykhe gains Shadow Protection (1).
 10/11 20:44:17.813  Axe gains Gift of Arthas (1).
 10/11 20:44:17.813  Unholy Axe gains Gift of Arthas (1).
+12/6 20:51:27.752  Squirreled gains Elixir of Brute Force (1).
     """
     lines = lines.splitlines(keepends=True)
     for line in lines:
@@ -135,6 +136,8 @@ def test_gains_consumable_line(app):
     assert app.player['Psykhe']['Shadow Protection'] == 1
     assert app.player['Axe']['Gift of Arthas'] == 1
     assert app.player['Unholy Axe']['Gift of Arthas'] == 1
+    assert app.player['Squirreled']['Elixir of Brute Force'] == 1
+
 
 def test_buff_line(app):
     lines = """
@@ -219,6 +222,7 @@ def test_begins_to_cast_line(app):
 4/12 20:36:33.440  Kreeg's Stout Beatdown fades from Bruceweed.
 4/12 21:03:59.459  Bruceweed begins to cast Kreeg's Stout Beatdown.
 4/12 21:04:00.483  Bruceweed is afflicted by Kreeg's Stout Beatdown (1).
+7/1 20:10:19.518  Exeggute begins to cast Sharpen Weapon - Critical.
     """
     lines = lines.splitlines(keepends=True)
     for line in lines:
@@ -226,10 +230,12 @@ def test_begins_to_cast_line(app):
     assert app.player['Hammerlammy']['Consecrated Sharpening Stone'] == 1
     assert app.player['Nethrion']['Consecrated Sharpening Stone'] == 2
     assert app.player['Bruceweed']["Kreeg's Stout Beatdown"] == 3
+    assert app.player['Exeggute']['Elemental Sharpening Stone'] == 1
 
 def test_casts_consumable_line(app):
     lines = """
 6/28 22:16:50.836  Faradin casts Advanced Target Dummy.
+6/28 22:16:50.836  FaradinMW casts Masterwork Target Dummy.
 4/14 21:16:25.160  Psykhe casts Strong Anti-Venom on Psykhe.
 4/14 21:15:01.099  Psykhe casts Powerful Anti-Venom on Psykhe.
 4/13 22:19:00.971  Doombabe casts Cure Ailments on Doombabe.
@@ -240,6 +246,7 @@ def test_casts_consumable_line(app):
     for line in lines:
         parse_line(app, line)
     assert app.player['Faradin']["Advanced Target Dummy"] == 1
+    assert app.player['FaradinMW']["Masterwork Target Dummy"] == 1
     assert app.player['Psykhe']["Powerful Anti-Venom"] == 1
     assert app.player['Doombabe']["Jungle Remedy"] == 2
 
@@ -253,6 +260,12 @@ def test_hits_consumable_line(app):
 4/19 20:54:19.933  Abstractz 's Goblin Sapper Charge crits Corrupted Bronze Whelp for 949 Fire damage.
 4/19 20:54:19.933  Abstractz 's Goblin Sapper Charge crits Corrupted Green Whelp for 864 Fire damage.
 4/19 20:54:19.933  Abstractz 's Goblin Sapper Charge hits Corrupted Bronze Whelp for 717 Fire damage.
+4/5 22:42:14.885  Ionize 's Stratholme Holy Water hits Bone Construct for 717 Holy damage.
+4/5 22:42:14.885  Ionize 's Stratholme Holy Water hits Bone Construct for 821 Holy damage.
+4/5 22:43:14.885  Ionize 's Stratholme Holy Water hits Bone Construct for 806 Holy damage.
+4/5 22:42:16.307  Samain 's Stratholme Holy Water hits Bone Construct for 474 Holy damage.
+4/5 22:42:16.307  Samain 's Stratholme Holy Water hits Bone Construct for 455 Holy damage.
+4/5 22:42:16.307  Samain 's Stratholme Holy Water hits Bone Construct for 550 Holy damage.
     """
     lines = lines.splitlines(keepends=True)
     match = 0
@@ -261,7 +274,9 @@ def test_hits_consumable_line(app):
     assert app.player['Getterfour']["Dragonbreath Chili"] == 2
     assert app.player['Srj']["Dragonbreath Chili"] == 1
     assert app.player['Abstractz']["Goblin Sapper Charge"] == 1
-    assert match == 8
+    assert app.player['Ionize']['Stratholme Holy Water'] == 2
+    assert app.player['Samain']['Stratholme Holy Water'] == 1
+    assert match == 14
 
 def test_consolidated_line(app):
     lines = """
@@ -1092,6 +1107,11 @@ def test_class_detection(app):
 12/10 21:40:07.933  JocasteHL begins to cast Holy Light.
 12/10 21:49:10.538  JocasteFL begins to cast Flash of Light.
 12/9 23:56:40.182  Interlani gains Divine Favor (1).
+12/12 22:18:48.934  Nesma begins to cast Heal.
+12/12 22:18:48.934  Prayer begins to cast Prayer of Healing.
+12/12 22:18:48.934  Polytest begins to cast Polymorph.
+12/12 21:56:56.122  Arcex 's Arcane Explosion hits Lava Annihilator for 282 Arcane damage.
+12/12 21:56:46.208  Firebl 's Fire Blast hits Lava Annihilator for 434 Fire damage. (144 resisted)
     """
     lines = lines.splitlines(keepends=True)
     for line in lines:
@@ -1109,6 +1129,9 @@ def test_class_detection(app):
         'Shreked': 'mage',
         'Scorchtest': 'mage',
         'Fireballtest': 'mage',
+        'Polytest': 'mage',
+        'Arcex': 'mage',
+        'Firebl': 'mage',
 
         'Inshadow': 'rogue',
         'Bftest': 'rogue',
@@ -1124,6 +1147,8 @@ def test_class_detection(app):
         'Almouty': 'druid',
 
         'Mindblasttest': 'priest',
+        'Nesma': 'priest',
+        'Prayer': 'priest',
 
         'Babystone': 'hunter',
         'BabystoneAS': 'hunter',

@@ -120,6 +120,7 @@ class HitsConsumable:
     COOLDOWNS = {
         'Dragonbreath Chili': 10 * 60,
         'Goblin Sapper Charge': 5 * 60,
+        'Stratholme Holy Water': 1 * 60,
     }
 
     def __init__(self, player, last_hit_cache):
@@ -230,6 +231,7 @@ NAME2ITEMID = {
     'Thistle Tea': 7676,
     'Elemental Sharpening Stone': 18262,
     'Elixir of the Mongoose': 13452,
+    'Elixir of Brute Force': 13453,
     'Winterfall Firewater': 12820,
     'Greater Stoneshield': 13455,
     'Elixir of Greater Agility': 9187,
@@ -322,6 +324,7 @@ CASTS_CONSUMABLE = {
     "Anti-Venom",
     "Cure Ailments",
     "Advanced Target Dummy",
+    "Masterwork Target Dummy",
 }
 
 
@@ -333,6 +336,7 @@ GAINS_CONSUMABLE = {
     "Elixir of the Sages",
     "Elixir of Resistance",
     "Elixir of Greater Nature Power",
+    "Elixir of Brute Force",
     "Flask of the Titans",
     "Supreme Power",
     "Distilled Wisdom",
@@ -991,6 +995,9 @@ UNIQUE_LINE2SPELL2CLASS = {
 
         'Sinister Strike': 'rogue',
 
+        'Arcane Explosion': 'mage',
+        'Fire Blast': 'mage',
+
    },
     'begins_to_cast_line': {
         'Shadow Bolt': 'warlock',
@@ -999,16 +1006,21 @@ UNIQUE_LINE2SPELL2CLASS = {
         'Regrowth': 'druid',
         'Wrath': 'druid',
 
+        # frostbolt not unique enough probably
         'Fireball': 'mage',
         'Scorch': 'mage',
+        'Polymorph': 'mage',
+
 
         'Chain Heal': 'shaman',
         'Lesser Healing Wave': 'shaman',
 
         'Mind Blast': 'priest',
         'Smite': 'priest',
+        'Heal': 'priest',
         'Flash Heal': 'priest',
         'Greater Heal': 'priest',
+        'Prayer of Healing': 'priest',
 
         'Multi-Shot': 'hunter',
 

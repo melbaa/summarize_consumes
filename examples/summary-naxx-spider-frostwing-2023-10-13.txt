@@ -167,6 +167,7 @@ Everran deaths:0
    Goblin Sapper Charge 3   (5g 11s 44c)
    Greater Arcane Elixir 1   (2g 74s 88c)
    Mana Potion - Major 1   (1g 79s 48c)
+   Stratholme Holy Water 1 
    Winterfall Firewater 1   (1g 11s 55c)
 
    total spent: 81g 43s 87c
@@ -1060,10 +1061,10 @@ Class Detection
 
 
 Tech
-   project version 2023.1034
+   project version 2023.1036
    project homepage https://github.com/melbaa/summarize_consumes
-   prices timestamp 2023-12-10T13:50:04.581842 (a day ago)
+   prices timestamp 2023-12-10T13:50:04.581842 (2 days ago)
    log size 22.6 MB
    log lines 299509
    skipped log lines 676 (0.23%)
-   processed in 41.65 seconds. 7191.80 log lines/sec
+   processed in 44.78 seconds. 6688.35 log lines/sec
