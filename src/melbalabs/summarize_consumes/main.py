@@ -37,6 +37,18 @@ def create_parser(grammar: str, debug):
         strict=True,
     )
 
+@functools.cache
+def dl_price_data():
+    try:
+        url = 'http://melbalabs.com/static/twowprices.json'
+        resp = requests.get(url, timeout=30)
+        resp.raise_for_status()
+        data = resp.json()
+        return data
+    except requests.exceptions.RequestException as e:
+        logging.warning('web prices not available')
+        return None
+
 
 def create_app(time_start, expert_log_unparsed_lines):
 
@@ -794,18 +806,31 @@ class PriceDB:
         self.data = dict()
         self.last_update = 0
 
+        webprices = dl_price_data()
+        if webprices is not None:
+            incoming = webprices
+            self.load_incoming(incoming)
+            return
+
         if not os.path.exists(filename):
             logging.warning(f'price data not available. {filename} not found')
             return
+        logging.info('loading local price data from {filename}')
         with open(filename) as f:
             incoming = json.load(f)
-            self.last_update = incoming['last_update']
-            for key, val in incoming['data'].items():
-                key = int(key)
-                self.data[key] = val
+            self.load_incoming(incoming)
 
     def lookup(self, itemid):
         return self.data.get(itemid)
+
+    def load_incoming(self, incoming):
+        self.last_update = incoming['last_update']
+        for key, val in incoming['data'].items():
+            key = int(key)
+            self.data[key] = val
+
+
+
 
 class PetHandler:
     def __init__(self):

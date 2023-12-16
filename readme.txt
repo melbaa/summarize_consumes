@@ -18,7 +18,9 @@ The summary includes
 
 It is assumed that the combat log was generated while the AdvancedVanillaCombatLog addon is active.
 
-Check out the examples directory for summaries of various raids.
+Check out the examples directory (https://github.com/melbaa/summarize_consumes/tree/master/examples) for summaries of various raids.
+
+Price data via https://www.wowauctions.net/
 
 
 
