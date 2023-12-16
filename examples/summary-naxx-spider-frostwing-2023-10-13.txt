@@ -606,6 +606,7 @@ Cooldown Summary
       Zandalarian Hero Charm
          Lyahsunsworn 48
          Faradin 6
+         Bloxie 2
    Rogue
       Adrenaline Rush
          Srj 11
@@ -1018,7 +1019,7 @@ Class Detection
    Alpra warrior
    Arzetlam priest
    Berserkss hunter
-   Bloxie unknown
+   Bloxie paladin
    Bruceweed mage
    Charmia druid
    Daenae priest
@@ -1061,10 +1062,10 @@ Class Detection
 
 
 Tech
-   project version 2023.1036
+   project version 2023.1038
    project homepage https://github.com/melbaa/summarize_consumes
-   prices timestamp 2023-12-10T13:50:04.581842 (2 days ago)
+   prices timestamp 2023-12-10T13:50:04.581842 (5 days ago)
    log size 22.6 MB
    log lines 299509
    skipped log lines 676 (0.23%)
-   processed in 44.78 seconds. 6688.35 log lines/sec
+   processed in 49.30 seconds. 6075.65 log lines/sec

@@ -1112,11 +1112,38 @@ def test_class_detection(app):
 12/12 22:18:48.934  Polytest begins to cast Polymorph.
 12/12 21:56:56.122  Arcex 's Arcane Explosion hits Lava Annihilator for 282 Arcane damage.
 12/12 21:56:46.208  Firebl 's Fire Blast hits Lava Annihilator for 434 Fire damage. (144 resisted)
+12/13 14:01:35.451  Ergofibia gains 562 health from Valurian 's Rejuvenation.
+12/13 14:17:28.365  Starfiretest 's Starfire crits Garr for 732 Arcane damage. (2196 resisted)
+12/13 14:17:47.718  Wrathtest 's Wrath crits Firesworn for 1234 Nature damage. (411 resisted)
+12/13 14:18:02.662  Moonfiretest 's Moonfire hits Firesworn for 1492 Arcane damage.
+12/14 01:29:16.485  Antihum 's Shadow Bolt crits Balnazzar for 1701 Shadow damage.
+12/13 14:20:37.927  BudwiserFL 's Flash of Light heals Melriel for 583.
+12/13 14:20:41.781  BudwiserHL 's Holy Light heals Pitbound for 2166.
+12/14 01:27:54.282  NimpheraFH 's Flash Heal heals Didja for 1074.
+12/14 01:28:58.237  NimpheraGH 's Greater Heal critically heals Didja for 3525.
+12/14 01:28:02.673  NimpheraPH 's Prayer of Healing critically heals Krrom for 1564.
+12/14 01:28:02.673  NimpheraPH 's Heal critically heals Krrom for 1564.
+10/15 01:12:23.486  Bever 's Mind Blast hits Thuzadin Necromancer for 704 Shadow damage.
+10/15 14:21:11.639  SimplezzMS 's Multi-Shot hits Scarlet Monk for 225.
+10/15 14:20:58.028  SimplezzAS 's Arcane Shot hits Scarlet Diviner for 83 Arcane damage.
     """
     lines = lines.splitlines(keepends=True)
     for line in lines:
         parse_line(app, line)
     assert app.class_detection.store == {
+
+        'SimplezzMS': 'hunter',
+        'SimplezzAS': 'hunter',
+
+        'Bever': 'priest',
+        'NimpheraFH': 'priest',
+        'NimpheraGH': 'priest',
+        'NimpheraPH': 'priest',
+        'NimpheraPH': 'priest',
+
+        'BudwiserFL': 'paladin',
+        'BudwiserHL': 'paladin',
+
         'Deathstruck': 'warrior',
         'Squirreled': 'warrior',
         'Martl': 'warrior',
@@ -1145,6 +1172,10 @@ def test_class_detection(app):
         'Azot': 'warlock',
 
         'Almouty': 'druid',
+        'Valurian': 'druid',
+        'Starfiretest': 'druid',
+        'Moonfiretest': 'druid',
+        'Wrathtest': 'druid',
 
         'Mindblasttest': 'priest',
         'Nesma': 'priest',
@@ -1157,5 +1188,7 @@ def test_class_detection(app):
         'JocasteHL': 'paladin',
         'JocasteFL': 'paladin',
         'Interlani': 'paladin',
+
+        'Antihum': 'warlock',
     }
 

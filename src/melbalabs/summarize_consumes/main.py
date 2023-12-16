@@ -458,6 +458,7 @@ TRINKET_SPELL = [
     'Unstable Power',
     'Mind Quickening',
     'Nature Aligned',
+    'Death by Peasant',
 ]
 for trinketspell in TRINKET_SPELL:
     for clsorder in CDSPELL_CLASS:
@@ -469,6 +470,7 @@ RENAME_TRINKET_SPELL = {
     'Essence of Sapphiron': 'The Restrained Essence of Sapphiron',
     'Mind Quickening': 'Mind Quickening Gem',
     'Nature Aligned': 'Natural Alignment Crystal',
+    'Death by Peasant': 'Barov Peasant Caller',
 }
 
 
@@ -629,9 +631,13 @@ class Huhuran:
     def __init__(self):
         self.logname = 'Princess Huhuran Log'
         self.log = []
+        self._found = False
+    def found(self):
+        self._found = True
     def add(self, line):
         self.log.append(line)
     def print(self, output):
+        if not self._found: return
         print_collected_log(self.logname, self.log, output)
 
 class NefCorruptedHealing:
@@ -987,6 +993,15 @@ UNIQUE_LINE2SPELL2CLASS = {
 
         'Divine Favor': 'paladin',
     },
+    'heals_line': {
+        'Flash of Light': 'paladin',
+        'Holy Light': 'paladin',
+
+        'Heal': 'priest',
+        'Flash Heal': 'priest',
+        'Greater Heal': 'priest',
+        'Prayer of Healing': 'priest',
+    },
     'hits_ability_line': {
         'Cleave': 'warrior',
         'Whirlwind': 'warrior',
@@ -998,7 +1013,22 @@ UNIQUE_LINE2SPELL2CLASS = {
         'Arcane Explosion': 'mage',
         'Fire Blast': 'mage',
 
+        'Starfire': 'druid',
+        'Moonfire': 'druid',
+        'Wrath': 'druid',
+
+        'Shadow Bolt': 'warlock',
+
+        'Mind Blast': 'priest',
+
+        'Arcane Shot': 'hunter',
+        'Multi-Shot': 'hunter',
+
    },
+    'gains_health_line': {
+        'Rejuvenation': 'druid',
+        'Regrowth': 'druid',
+    },
     'begins_to_cast_line': {
         'Shadow Bolt': 'warlock',
 
@@ -1006,7 +1036,7 @@ UNIQUE_LINE2SPELL2CLASS = {
         'Regrowth': 'druid',
         'Wrath': 'druid',
 
-        # frostbolt not unique enough probably
+        # frostbolt not unique enough probably, eg frost oils
         'Fireball': 'mage',
         'Scorch': 'mage',
         'Polymorph': 'mage',
@@ -1132,6 +1162,10 @@ def parse_line(app, line):
         elif subtree.data == 'gains_energy_line':
             return True
         elif subtree.data == 'gains_health_line':
+            name = subtree.children[2].value
+            spellname = subtree.children[3].value
+
+            app.class_detection.detect(line_type=subtree.data, name=name, spell=spellname)
             return True
         elif subtree.data == 'dies_line':
             name = subtree.children[0].value
@@ -1146,6 +1180,9 @@ def parse_line(app, line):
         elif subtree.data == 'heals_line':
             name = subtree.children[0].value
             spellname = subtree.children[1].value
+
+            app.class_detection.detect(line_type=subtree.data, name=name, spell=spellname)
+
             if spellname == 'Tea with Sugar':
                 app.player[name]['Tea with Sugar'] += 1
             elif spellname == 'Healing Potion':
@@ -1252,6 +1289,9 @@ def parse_line(app, line):
                 spell_damage_type = subtree.children[4]
                 if spell_damage_type and spell_damage_type.children[0].value == 'Frost':
                     app.viscidus.add(name, spellname)
+
+            if targetname == 'Princess Huhuran':
+                app.huhuran.found()
 
             if name == "Eye of C'Thun" and spellname == "Eye Beam":
                 app.cthun_chain.add(timestamp, line)

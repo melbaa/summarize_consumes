@@ -910,10 +910,6 @@ Cooldown Summary
          Atriana 18
 
 
-Princess Huhuran Log
-   12/9 22:40:47.399  Zedog casts Death by Peasant.
-
-
 Gluth Log
    12/9 22:52:53.309  Gluth gains Frenzy (1).
    12/9 22:52:54.332  Gluth 's Frenzy is removed.
@@ -1126,7 +1122,7 @@ Class Detection
    Drapes warrior
    Ergofobia shaman
    Gluth unknown
-   Gothik the Harvester unknown
+   Gothik the Harvester warlock
    Grand Widow Faerlina unknown
    Heigan the Unclean unknown
    Interlani paladin
@@ -1174,10 +1170,10 @@ Class Detection
 
 
 Tech
-   project version 2023.1036
+   project version 2023.1038
    project homepage https://github.com/melbaa/summarize_consumes
-   prices timestamp 2023-12-10T13:50:04.581842 (2 days ago)
+   prices timestamp 2023-12-10T13:50:04.581842 (5 days ago)
    log size 45.1 MB
    log lines 615266
    skipped log lines 12598 (2.05%)
-   processed in 89.48 seconds. 6875.93 log lines/sec
+   processed in 94.19 seconds. 6532.03 log lines/sec

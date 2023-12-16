@@ -535,6 +535,7 @@ Cooldown Summary
       Inner Focus
          Sunor 25
          Daenae 13
+         Melbaxd 5
       Talisman of Ephemeral Power
          Sunor 35
       Zandalarian Hero Charm
@@ -705,7 +706,7 @@ Class Detection
    Loyola paladin
    Lyahsunsworn paladin
    Maryhuff warrior
-   Melbaxd unknown
+   Melbaxd priest
    Melevolence warrior
    Niviri druid
    Nmsj mage
@@ -727,10 +728,10 @@ Class Detection
 
 
 Tech
-   project version 2023.1036
+   project version 2023.1038
    project homepage https://github.com/melbaa/summarize_consumes
-   prices timestamp 2023-12-10T13:50:04.581842 (2 days ago)
+   prices timestamp 2023-12-10T13:50:04.581842 (5 days ago)
    log size 22.0 MB
    log lines 292920
    skipped log lines 770 (0.26%)
-   processed in 46.67 seconds. 6276.26 log lines/sec
+   processed in 40.25 seconds. 7277.99 log lines/sec
