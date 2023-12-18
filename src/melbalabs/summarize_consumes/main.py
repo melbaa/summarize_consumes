@@ -151,7 +151,13 @@ class HitsConsumable:
             raise RuntimeError('fixme')
 
 
-
+RENAME_SPELL = {
+    ('hits_ability_line', 'Holy Shock'): 'Holy Shock (dmg)',
+    ('heals_line', 'Holy Shock'): 'Holy Shock (heal)',
+}
+def rename_spell(spell, line_type):
+    rename = RENAME_SPELL.get((line_type, spell))
+    return rename or spell
 
 RENAME_CONSUMABLE = {
     'Supreme Power': 'Flask of Supreme Power',
@@ -451,7 +457,7 @@ CDSPELL_CLASS = [
     ]],
     ['druid', ["Nature's Swiftness"]],
     ['priest', ['Inner Focus']],
-    ['paladin', ['Divine Favor']],
+    ['paladin', ['Divine Favor', 'Holy Shock (heal)', 'Holy Shock (dmg)']],
     ['rogue', [
         'Adrenaline Rush',
         'Blade Flurry',
@@ -908,6 +914,9 @@ LINE2SPELLCAST = {
         'Nature Aligned',
         'Divine Favor',
     },
+    'heals_line': {
+        'Holy Shock (heal)',
+    },
     'casts_line': {
         'Windfury Totem',
         'Mana Tide Totem',
@@ -922,6 +931,7 @@ LINE2SPELLCAST = {
     'hits_ability_line': {
         'Sinister Strike',
         'Scorch',
+        'Holy Shock (dmg)',
     }
 }
 class SpellCount:
@@ -1021,6 +1031,7 @@ UNIQUE_LINE2SPELL2CLASS = {
     'heals_line': {
         'Flash of Light': 'paladin',
         'Holy Light': 'paladin',
+        'Holy Shock (heal)': 'paladin',
 
         'Heal': 'priest',
         'Flash Heal': 'priest',
@@ -1048,6 +1059,8 @@ UNIQUE_LINE2SPELL2CLASS = {
 
         'Arcane Shot': 'hunter',
         'Multi-Shot': 'hunter',
+
+        'Holy Shock (dmg)': 'paladin',
 
    },
     'gains_health_line': {
@@ -1206,7 +1219,10 @@ def parse_line(app, line):
             name = subtree.children[0].value
             spellname = subtree.children[1].value
 
+            spellname = rename_spell(spellname, line_type=subtree.data)
+
             app.class_detection.detect(line_type=subtree.data, name=name, spell=spellname)
+            app.spell_count.add(line_type=subtree.data, name=name, spell=spellname)
 
             if spellname == 'Tea with Sugar':
                 app.player[name]['Tea with Sugar'] += 1
@@ -1302,6 +1318,8 @@ def parse_line(app, line):
             name = subtree.children[0].value
             spellname = subtree.children[1].value
             targetname = subtree.children[2].value
+
+            spellname = rename_spell(spellname, line_type=subtree.data)
 
             app.class_detection.detect(line_type=subtree.data, name=name, spell=spellname)
             app.spell_count.add(line_type=subtree.data, name=name, spell=spellname)

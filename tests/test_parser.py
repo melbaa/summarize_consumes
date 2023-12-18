@@ -998,6 +998,8 @@ def test_is_immune_ability(app):
 
 def test_cooldown_summary(app):
     lines = """
+12/16 23:52:55.087  Interlani 's Holy Shock critically heals Aquatic for 1843.
+12/16 22:04:31.502  Sempeternal 's Holy Shock hits Noth the Plaguebringer for 724 Holy damage.
 12/9 20:30:59.644  Martl gains Recklessness (1).
 12/9 20:31:07.869  Pitbound is afflicted by Death Wish (1).
 12/9 20:27:58.135  Yakub casts Windfury Totem.
@@ -1073,6 +1075,8 @@ def test_cooldown_summary(app):
     assert app.spell_count.counts['Unstable Power']['Ancst'] == 1
     assert app.spell_count.counts['Mind Quickening']['Aquatic'] == 1
     assert app.spell_count.counts['Nature Aligned']['Abstractz'] == 1
+    assert app.spell_count.counts['Holy Shock (heal)']['Interlani'] == 1
+    assert app.spell_count.counts['Holy Shock (dmg)']['Sempeternal'] == 1
 
 
     # assert output.getvalue() == '\n\nCooldown Usage\n   Death Wish\n      Pitbound 1\n   Recklessness\n      Martl 1\n'

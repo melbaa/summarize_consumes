@@ -1,7 +1,8 @@
 The project generates a summary of a raid combat log.
 
 The summary includes
-* consumables (as much as the combat log allows). If prices.json is available, the summary will also include price data.
+* consumables (as much as the combat log allows)
+* consumable prices if data is available. First an attempt is made to download prices from the web. If that fails, prices are read from the local prices.json
 * cooldowns and trinkets used
 * details about some boss fights
 ** nefarian corrupted healing
@@ -16,7 +17,7 @@ The summary includes
 * pets found
 * classes detected
 
-It is assumed that the combat log was generated while the AdvancedVanillaCombatLog addon is active.
+It is assumed that the combat log was generated while the AdvancedVanillaCombatLog addon (https://github.com/YamaYAML/LegacyPlayersV4/tree/main/Addons/AdvancedVanillaCombatLog) is active.
 
 Check out the examples directory (https://github.com/melbaa/summarize_consumes/tree/master/examples) for summaries of various raids.
 
