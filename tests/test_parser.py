@@ -1035,6 +1035,11 @@ def test_cooldown_summary(app):
 12/9 23:23:11.500  Aquatic gains Mind Quickening (1).
 12/9 22:15:45.841  Abstractz gains Nature Aligned (1).
 12/9 23:56:40.182  Interlani gains Divine Favor (1).
+12/20 21:51:49.168  Abstractz gains Berserking (1).
+12/2 22:30:23.354  Suigetsu gains Stoneform (1).
+5/6 17:58:06.436  Tsedeq 's Desperate Prayer heals Tsedeq for 1997.
+4/17 21:35:06.138  Nilia gains Will of the Forsaken (1).
+4/22 15:02:22.715  Yamka begins to perform War Stomp.
     """
     lines = lines.splitlines(keepends=True)
     for line in lines:
@@ -1042,6 +1047,11 @@ def test_cooldown_summary(app):
     output = io.StringIO()
     app.cooldown_summary.print(output)
 
+    assert app.spell_count.counts['War Stomp']['Yamka'] == 1
+    assert app.spell_count.counts['Will of the Forsaken']['Nilia'] == 1
+    assert app.spell_count.counts['Desperate Prayer']['Tsedeq'] == 1
+    assert app.spell_count.counts['Stoneform']['Suigetsu'] == 1
+    assert app.spell_count.counts['Berserking']['Abstractz'] == 1
     assert app.spell_count.counts['Divine Favor']['Interlani'] == 1
     assert app.spell_count.counts['Recklessness']['Martl'] == 1
     assert app.spell_count.counts['Death Wish']['Pitbound'] == 1

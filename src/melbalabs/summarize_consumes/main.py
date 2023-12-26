@@ -3,6 +3,7 @@ import json
 import collections
 import datetime
 import io
+import itertools
 import os
 import re
 import sys
@@ -465,6 +466,14 @@ CDSPELL_CLASS = [
     ]],
 ]
 
+
+RACIAL_SPELL = [
+    'Berserking',
+    'Stoneform',
+    'Desperate Prayer',
+    'Will of the Forsaken',
+    'War Stomp',
+]
 TRINKET_SPELL = [
     'Kiss of the Spider',
     "Slayer's Crest",
@@ -478,10 +487,6 @@ TRINKET_SPELL = [
     'Nature Aligned',
     'Death by Peasant',
 ]
-for trinketspell in TRINKET_SPELL:
-    for clsorder in CDSPELL_CLASS:
-        clstrinket = clsorder[1]
-        clstrinket.append(trinketspell)
 RENAME_TRINKET_SPELL = {
     'Unstable Power': 'Zandalarian Hero Charm',
     'Ephemeral Power': 'Talisman of Ephemeral Power',
@@ -490,6 +495,12 @@ RENAME_TRINKET_SPELL = {
     'Nature Aligned': 'Natural Alignment Crystal',
     'Death by Peasant': 'Barov Peasant Caller',
 }
+for spell in itertools.chain(TRINKET_SPELL, RACIAL_SPELL):
+    for clsorder in CDSPELL_CLASS:
+        spells = clsorder[1]
+        spells.append(spell)
+
+
 
 
 
@@ -894,6 +905,7 @@ LINE2SPELLCAST = {
         'Death Wish',
     },
     'gains_line': {
+        'Will of the Forsaken',
         'Recklessness',
         'Elemental Mastery',
         'Inner Focus',
@@ -913,9 +925,12 @@ LINE2SPELLCAST = {
         'Mind Quickening',
         'Nature Aligned',
         'Divine Favor',
+        'Berserking',
+        'Stoneform',
     },
     'heals_line': {
         'Holy Shock (heal)',
+        'Desperate Prayer',
     },
     'casts_line': {
         'Windfury Totem',
@@ -932,7 +947,10 @@ LINE2SPELLCAST = {
         'Sinister Strike',
         'Scorch',
         'Holy Shock (dmg)',
-    }
+    },
+    'begins_to_perform_line': {
+        'War Stomp',
+    },
 }
 class SpellCount:
     def __init__(self):
@@ -1526,6 +1544,7 @@ def parse_line(app, line):
             name = subtree.children[0].value
             spellname = subtree.children[-1].value
             app.class_detection.detect(line_type=subtree.data, name=name, spell=spellname)
+            app.spell_count.add(line_type=subtree.data, name=name, spell=spellname)
             return True
         elif subtree.data == 'gains_extra_attacks_line':
             return True
