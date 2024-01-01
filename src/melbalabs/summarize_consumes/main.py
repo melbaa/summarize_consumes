@@ -455,10 +455,11 @@ CDSPELL_CLASS = [
         'Searing Totem',
         'Fire Nova Totem',
         'Magma Totem',
+        'Ancestral Spirit',
     ]],
-    ['druid', ["Nature's Swiftness"]],
-    ['priest', ['Inner Focus']],
-    ['paladin', ['Divine Favor', 'Holy Shock (heal)', 'Holy Shock (dmg)']],
+    ['druid', ["Nature's Swiftness", "Rebirth",]],
+    ['priest', ['Inner Focus', 'Resurrection',]],
+    ['paladin', ['Divine Favor', 'Holy Shock (heal)', 'Holy Shock (dmg)', 'Redemption']],
     ['rogue', [
         'Adrenaline Rush',
         'Blade Flurry',
@@ -942,6 +943,10 @@ LINE2SPELLCAST = {
         'Searing Totem',
         'Fire Nova Totem',
         'Magma Totem',
+        'Ancestral Spirit',
+        'Redemption',
+        'Resurrection',
+        'Rebirth',
     },
     'hits_ability_line': {
         'Sinister Strike',
@@ -1127,6 +1132,12 @@ UNIQUE_LINE2SPELL2CLASS = {
         'Searing Totem': 'shaman',
         'Fire Nova Totem': 'shaman',
         'Magma Totem': 'shaman',
+        'Ancestral Spirit': 'shaman',
+
+        'Redemption': 'paladin',
+        'Resurrection': 'priest',
+        'Rebirth': 'druid',
+
     },
 }
 class ClassDetection:

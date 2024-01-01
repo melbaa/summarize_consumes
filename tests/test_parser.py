@@ -1040,6 +1040,10 @@ def test_cooldown_summary(app):
 5/6 17:58:06.436  Tsedeq 's Desperate Prayer heals Tsedeq for 1997.
 4/17 21:35:06.138  Nilia gains Will of the Forsaken (1).
 4/22 15:02:22.715  Yamka begins to perform War Stomp.
+12/30 21:27:16.339  Cheshirkot casts Rebirth on Psykhe.
+12/30 21:35:26.564  Interlani casts Redemption on Psykhe.
+4/5 20:49:16.851  Melbaxd casts Resurrection on Psykhe.
+4/5 21:49:34.881  Ionize casts Ancestral Spirit on Psykhe.
     """
     lines = lines.splitlines(keepends=True)
     for line in lines:
@@ -1047,6 +1051,10 @@ def test_cooldown_summary(app):
     output = io.StringIO()
     app.cooldown_summary.print(output)
 
+    assert app.spell_count.counts['Ancestral Spirit']['Ionize'] == 1
+    assert app.spell_count.counts['Resurrection']['Melbaxd'] == 1
+    assert app.spell_count.counts['Redemption']['Interlani'] == 1
+    assert app.spell_count.counts['Rebirth']['Cheshirkot'] == 1
     assert app.spell_count.counts['War Stomp']['Yamka'] == 1
     assert app.spell_count.counts['Will of the Forsaken']['Nilia'] == 1
     assert app.spell_count.counts['Desperate Prayer']['Tsedeq'] == 1
