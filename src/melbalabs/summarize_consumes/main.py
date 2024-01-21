@@ -481,6 +481,7 @@ TRINKET_SPELL = [
     'Jom Gabbar',
     'Badge of the Swarmguard',
     'Earthstrike',
+    'Diamond Flask',
     'Essence of Sapphiron',
     'Ephemeral Power',
     'Unstable Power',
@@ -916,6 +917,7 @@ LINE2SPELLCAST = {
         'Blade Flurry',
         "Nature's Swiftness",  # sham and druid
         'Earthstrike',
+        'Diamond Flask',
         'Kiss of the Spider',
         "Slayer's Crest",
         'Jom Gabbar',

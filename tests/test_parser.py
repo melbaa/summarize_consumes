@@ -15,6 +15,7 @@ def app():
     return create_app(time_start=time_start, expert_log_unparsed_lines=True)
 
 
+
 @pytest.mark.skip('not using basic lexer; grammar too ambiguous for it')
 def test_lark_basic_lexer():
     from lark import Lark
@@ -1044,6 +1045,7 @@ def test_cooldown_summary(app):
 12/30 21:35:26.564  Interlani casts Redemption on Psykhe.
 4/5 20:49:16.851  Melbaxd casts Resurrection on Psykhe.
 4/5 21:49:34.881  Ionize casts Ancestral Spirit on Psykhe.
+1/21 20:51:36.386  Ler gains Diamond Flask (1).
     """
     lines = lines.splitlines(keepends=True)
     for line in lines:
@@ -1051,6 +1053,7 @@ def test_cooldown_summary(app):
     output = io.StringIO()
     app.cooldown_summary.print(output)
 
+    assert app.spell_count.counts['Diamond Flask']['Ler'] == 1
     assert app.spell_count.counts['Ancestral Spirit']['Ionize'] == 1
     assert app.spell_count.counts['Resurrection']['Melbaxd'] == 1
     assert app.spell_count.counts['Redemption']['Interlani'] == 1
