@@ -230,6 +230,9 @@ CONSUMABLE_COMPONENTS = {
         ('Essence of Fire', 2),
         ('Larval Acid', 1),
     ],
+    "Tea with Sugar": [
+        ('Small Dream Shard', 1/5),
+    ],
 }
 
 NAME2ITEMID = {
@@ -266,6 +269,7 @@ NAME2ITEMID = {
     'Mana Potion - Major': 13444,
     'Restorative Potion': 9030,
     'Healing Potion - Major': 13446,
+    'Healing Potion - Superior': 3928,
     'Elixir of the Giants': 9206,
     'Zulian Coin': 19698,
     "Rumsey Rum Black Label": 21151,
@@ -298,6 +302,8 @@ NAME2ITEMID = {
     'Deeprock Salt': 8150,
     'Essence of Fire': 7078,
     'Larval Acid': 18512,
+    'Dark Rune': 20520,
+    'Small Dream Shard': 61198,
 }
 ITEMID2NAME = { value: key for key, value in NAME2ITEMID.items() }
 
@@ -1005,7 +1011,7 @@ class PrintConsumables:
             if not itemid: continue
             price = self.pricedb.lookup(itemid)
             if not price: continue
-            total_price += (price * multi * count)
+            total_price += int(price * multi * count)
 
         total_price //= CONSUMABLE_CHARGES.get(consumable, 1)
         if not total_price: return '', 0

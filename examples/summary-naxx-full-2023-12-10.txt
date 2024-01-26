@@ -10,267 +10,267 @@ Notes:
 
 
 Abstractz deaths:6
-   Blessed Wizard Oil 2   (8g 40s)
-   Brilliant Wizard Oil 1   (1g 64s 76c)
-   Dreamshard Elixir 7   (12g 59s 2c)
-   Dreamtonic 8   (16g)
-   Elixir of Fortitude 1   (89s 79c)
-   Elixir of Greater Nature Power 7   (13g 32s 80c)
-   Flask of Supreme Power 2   (129g 21s 74c)
+   Blessed Wizard Oil 2   (12g 78s 68c)
+   Brilliant Wizard Oil 1   (71s 5c)
+   Dreamshard Elixir 7   (11g 24s 62c)
+   Dreamtonic 8   (7g 10s 88c)
+   Elixir of Fortitude 1   (1g 47s 86c)
+   Elixir of Greater Nature Power 7   (10g 70s 86c)
+   Flask of Supreme Power 2   (168g 83s 56c)
    Frost Protection 1 
-   Goblin Sapper Charge 5   (10g 87s 95c)
-   Greater Arcane Elixir 7   (22g 38s 32c)
+   Goblin Sapper Charge 5   (10g 33s 10c)
+   Greater Arcane Elixir 7   (23g 86s 72c)
    Increased Intellect 10 
-   Infallible Mind (Cerebral Cortex Compound) 7   (59g 77s 2c)
-   Invulnerability 13   (20g 47s 76c)
-   Mana Potion - Major 25   (49g 19s)
-   Medivh's Merlot Blue Label 9   (29g 90s 70c)
+   Infallible Mind (Cerebral Cortex Compound) 7   (70g 44s 38c)
+   Invulnerability 13   (24g 27s 36c)
+   Mana Potion - Major 25   (53g 27s 50c)
+   Medivh's Merlot Blue Label 9   (19g 70s 55c)
    Nature Protection 1 
-   Shadow Protection 1   (7g 19s 16c)
-   Spirit of Zanza 3   (6g 86s 34c)
+   Shadow Protection 1   (6g 81s 75c)
+   Spirit of Zanza 3   (6g 61s 41c)
    Stratholme Holy Water 4 
-   Swiftness of Zanza 2   (4g 57s 56c)
+   Swiftness of Zanza 2   (4g 40s 94c)
    Tea with Sugar 26 
 
-   total spent: 393g 31s 92c
+   total spent: 432g 61s 22c
 Almouty deaths:5
-   Brilliant Mana Oil 5   (6g 13s 41c)
-   Flask of Distilled Wisdom 1   (57g 19s 64c)
+   Brilliant Mana Oil 5   (6g 40s 74c)
+   Flask of Distilled Wisdom 1   (72g 88s 24c)
    Frost Protection 1 
-   Mana Potion - Major 12   (23g 61s 12c)
+   Mana Potion - Major 12   (25g 57s 20c)
    Mana Regeneration (food or mageblood) 5 
-   Shadow Protection 1   (7g 19s 16c)
-   Spirit of Zanza 3   (6g 86s 34c)
+   Shadow Protection 1   (6g 81s 75c)
+   Spirit of Zanza 3   (6g 61s 41c)
    Tea with Sugar 18 
 
-   total spent: 100g 99s 67c
+   total spent: 118g 29s 34c
 Ancst deaths:1
-   Brilliant Wizard Oil 1   (1g 64s 76c)
-   Dreamshard Elixir 2   (3g 59s 72c)
-   Dreamtonic 2   (4g)
-   Elixir of Shadow Power 1   (1g 74s 17c)
-   Goblin Sapper Charge 4   (8g 70s 36c)
-   Greater Arcane Elixir 2   (6g 39s 52c)
-   Mana Potion - Major 2   (3g 93s 52c)
-   Mana Potion - Superior 1   (87s 1c)
-   Rumsey Rum Black Label 1   (69s 52c)
+   Brilliant Wizard Oil 1   (71s 5c)
+   Dreamshard Elixir 2   (3g 21s 32c)
+   Dreamtonic 2   (1g 77s 72c)
+   Elixir of Shadow Power 1   (3g 16s 42c)
+   Goblin Sapper Charge 4   (8g 26s 48c)
+   Greater Arcane Elixir 2   (6g 81s 92c)
+   Mana Potion - Major 2   (4g 26s 20c)
+   Mana Potion - Superior 1   (1g 8s 1c)
+   Rumsey Rum Black Label 1   (93s 26c)
    Tea with Sugar 2 
 
-   total spent: 31g 58s 58c
+   total spent: 30g 22s 38c
 Anub'Rekhan deaths:1
    Gift of Arthas 1 
 Aquatic deaths:5
-   Brilliant Wizard Oil 5   (8g 23s 81c)
-   Elixir of Greater Firepower 7   (22g 51s 6c)
+   Brilliant Wizard Oil 5   (3g 55s 29c)
+   Elixir of Greater Firepower 7   (29g 9s 62c)
    Fire Protection 2 
-   Flask of Supreme Power 1   (64g 60s 87c)
+   Flask of Supreme Power 1   (84g 41s 78c)
    Frost Protection 5 
-   Greater Arcane Elixir 5   (15g 98s 80c)
-   Invulnerability 2   (3g 15s 4c)
-   Mana Potion - Major 3   (5g 90s 28c)
+   Greater Arcane Elixir 5   (17g 4s 80c)
+   Invulnerability 2   (3g 73s 44c)
+   Mana Potion - Major 3   (6g 39s 30c)
    Mana Regeneration (food or mageblood) 5 
    Nature Protection 1 
-   Shadow Protection 2   (14g 38s 32c)
+   Shadow Protection 2   (13g 63s 50c)
 
-   total spent: 134g 78s 18c
+   total spent: 157g 87s 73c
 Atriana deaths:3
-   Elixir of Fortitude 2   (1g 79s 58c)
-   Elixir of the Mongoose 3   (21g 86s 52c)
-   Free Action Potion 3   (6g 35s 10c)
+   Elixir of Fortitude 2   (2g 95s 72c)
+   Elixir of the Mongoose 3   (29g 33s 91c)
+   Free Action Potion 3   (7g 20c)
    Frost Protection 2 
-   Healing Potion - Major 1   (54s 59c)
-   Shadow Protection 2   (14g 38s 32c)
-   Spirit of Zanza 1   (2g 28s 78c)
+   Healing Potion - Major 1   (47s 25c)
+   Shadow Protection 2   (13g 63s 50c)
+   Spirit of Zanza 1   (2g 20s 47c)
    Tea with Sugar 1 
-   Winterfall Firewater 1   (93s 45c)
+   Winterfall Firewater 1   (1g 19s 97c)
 
-   total spent: 48g 16s 34c
+   total spent: 56g 81s 2c
 Azot deaths:4
-   Blessed Wizard Oil 3   (12g 60s)
-   Dreamshard Elixir 4   (7g 19s 44c)
-   Elixir of Fortitude 3   (2g 69s 37c)
-   Elixir of Shadow Power 6   (10g 45s 2c)
+   Blessed Wizard Oil 3   (19g 18s 2c)
+   Dreamshard Elixir 4   (6g 42s 64c)
+   Elixir of Fortitude 3   (4g 43s 58c)
+   Elixir of Shadow Power 6   (18g 98s 52c)
    Fire Protection 1 
-   Flask of Supreme Power 1   (64g 60s 87c)
+   Flask of Supreme Power 1   (84g 41s 78c)
    Frost Protection 4 
-   Greater Arcane Elixir 5   (15g 98s 80c)
-   Healing Potion - Major 2   (1g 9s 18c)
-   Invulnerability 3   (4g 72s 56c)
-   Mana Potion - Greater 3   (39s 87c)
-   Mana Potion - Major 1   (1g 96s 76c)
-   Mana Potion - Superior 3   (2g 61s 3c)
-   Medivh's Merlot Blue Label 1   (3g 32s 30c)
+   Greater Arcane Elixir 5   (17g 4s 80c)
+   Healing Potion - Major 2   (94s 50c)
+   Invulnerability 3   (5g 60s 16c)
+   Mana Potion - Greater 3   (32s 16c)
+   Mana Potion - Major 1   (2g 13s 10c)
+   Mana Potion - Superior 3   (3g 24s 3c)
+   Medivh's Merlot Blue Label 1   (2g 18s 95c)
    Nature Protection 3 
-   Shadow Protection 2   (14g 38s 32c)
+   Shadow Protection 2   (13g 63s 50c)
 
-   total spent: 142g 3s 52c
+   total spent: 178g 55s 74c
 Baalfyr deaths:1
    Agility 2 
-   Dense Dynamite 3   (1g 91s 61c)
-   Elixir of the Giants 2   (3g 16s 58c)
-   Invulnerability 1   (1g 57s 52c)
+   Dense Dynamite 3   (1g 93s 2c)
+   Elixir of the Giants 2   (5g 49s 96c)
+   Invulnerability 1   (1g 86s 72c)
    Iron Grenade 5 
 
-   total spent: 6g 65s 71c
+   total spent: 9g 29s 70c
 Babystone deaths:3
-   Consecrated Sharpening Stone 6   (28g 39s 56c)
-   Dense Dynamite 4   (2g 55s 48c)
-   Elixir of the Mongoose 4   (29g 15s 36c)
+   Consecrated Sharpening Stone 6   (40g 44s 12c)
+   Dense Dynamite 4   (2g 57s 36c)
+   Elixir of the Mongoose 4   (39g 11s 88c)
    Frost Protection 1 
-   Goblin Sapper Charge 1   (2g 17s 59c)
-   Healing Potion - Major 1   (54s 59c)
-   Shadow Protection 3   (21g 57s 48c)
-   Spirit of Zanza 4   (9g 15s 12c)
-   Strike of the Scorpok 4   (22g 60s 8c)
+   Goblin Sapper Charge 1   (2g 6s 62c)
+   Healing Potion - Major 1   (47s 25c)
+   Shadow Protection 3   (20g 45s 25c)
+   Spirit of Zanza 4   (8g 81s 88c)
+   Strike of the Scorpok 4   (37g 61s 84c)
    Tea with Sugar 2 
 
-   total spent: 116g 15s 26c
+   total spent: 151g 56s 20c
 Bobsterr deaths:2
-   Brilliant Wizard Oil 6   (9g 88s 57c)
-   Dreamshard Elixir 5   (8g 99s 30c)
-   Dreamtonic 1   (2g)
-   Elixir of Fortitude 4   (3g 59s 16c)
-   Elixir of Shadow Power 1   (1g 74s 17c)
-   Elixir of the Giants 1   (1g 58s 29c)
-   Elixir of the Mongoose 1   (7g 28s 84c)
+   Brilliant Wizard Oil 6   (4g 26s 34c)
+   Dreamshard Elixir 5   (8g 3s 30c)
+   Dreamtonic 1   (88s 86c)
+   Elixir of Fortitude 4   (5g 91s 44c)
+   Elixir of Shadow Power 1   (3g 16s 42c)
+   Elixir of the Giants 1   (2g 74s 98c)
+   Elixir of the Mongoose 1   (9g 77s 97c)
    Fire Protection 3 
    Frost Protection 2 
-   Greater Arcane Elixir 1   (3g 19s 76c)
+   Greater Arcane Elixir 1   (3g 40s 96c)
    Increased Stamina 8 
-   Infallible Mind (Cerebral Cortex Compound) 5   (42g 69s 30c)
-   Mana Potion - Major 5   (9g 83s 80c)
-   Mana Potion - Superior 2   (1g 74s 2c)
-   Medivh's Merlot Blue Label 9   (29g 90s 70c)
-   Shadow Protection 4   (28g 76s 64c)
-   Spirit of Zanza 1   (2g 28s 78c)
-   Swiftness of Zanza 4   (9g 15s 12c)
+   Infallible Mind (Cerebral Cortex Compound) 5   (50g 31s 70c)
+   Mana Potion - Major 5   (10g 65s 50c)
+   Mana Potion - Superior 2   (2g 16s 2c)
+   Medivh's Merlot Blue Label 9   (19g 70s 55c)
+   Shadow Protection 4   (27g 27s)
+   Spirit of Zanza 1   (2g 20s 47c)
+   Swiftness of Zanza 4   (8g 81s 88c)
    Tea with Sugar 9 
-   Winterfall Firewater 1   (93s 45c)
+   Winterfall Firewater 1   (1g 19s 97c)
 
-   total spent: 163g 59s 90c
+   total spent: 160g 53s 36c
 Celebrity deaths:1
    <nothing found>
 Cheesebreath deaths:4
    Demonic Rune 2 
-   Dreamshard Elixir 1   (1g 79s 86c)
-   Elixir of Fortitude 3   (2g 69s 37c)
+   Dreamshard Elixir 1   (1g 60s 66c)
+   Elixir of Fortitude 3   (4g 43s 58c)
    Fire Protection 2 
-   Greater Arcane Elixir 4   (12g 79s 4c)
-   Mana Potion - Major 16   (31g 48s 16c)
-   Medivh's Merlot Blue Label 2   (6g 64s 60c)
-   Rumsey Rum Black Label 1   (69s 52c)
-   Shadow Protection 3   (21g 57s 48c)
-   Spirit of Zanza 2   (4g 57s 56c)
+   Greater Arcane Elixir 4   (13g 63s 84c)
+   Mana Potion - Major 16   (34g 9s 60c)
+   Medivh's Merlot Blue Label 2   (4g 37s 90c)
+   Rumsey Rum Black Label 1   (93s 26c)
+   Shadow Protection 3   (20g 45s 25c)
+   Spirit of Zanza 2   (4g 40s 94c)
 
-   total spent: 82g 25s 59c
+   total spent: 83g 95s 3c
 Cracklinoats deaths:6
-   Elixir of the Mongoose 7   (51g 1s 88c)
+   Elixir of the Mongoose 7   (68g 45s 79c)
    Fire Protection 1 
    Frost Protection 4 
-   Healing Potion - Major 1   (54s 59c)
-   Shadow Protection 2   (14g 38s 32c)
-   Winterfall Firewater 11   (10g 27s 95c)
+   Healing Potion - Major 1   (47s 25c)
+   Shadow Protection 2   (13g 63s 50c)
+   Winterfall Firewater 11   (13g 19s 67c)
 
-   total spent: 76g 22s 74c
+   total spent: 95g 76s 21c
 Deathstruck deaths:6
-   Consecrated Sharpening Stone 2   (9g 46s 52c)
-   Dense Dynamite 1   (63s 87c)
-   Dragonbreath Chili 1   (2g 39s 47c)
-   Elixir of Fortitude 2   (1g 79s 58c)
-   Elixir of Superior Defense 2   (5g 43s 88c)
-   Elixir of the Mongoose 7   (51g 1s 88c)
+   Consecrated Sharpening Stone 2   (13g 48s 4c)
+   Dense Dynamite 1   (64s 34c)
+   Dragonbreath Chili 1   (1g 59s 36c)
+   Elixir of Fortitude 2   (2g 95s 72c)
+   Elixir of Superior Defense 2   (6g 19s 32c)
+   Elixir of the Mongoose 7   (68g 45s 79c)
    Fire Protection 1 
-   Flask of the Titans 1   (81g 40s 9c)
-   Free Action Potion 4   (8g 46s 80c)
+   Flask of the Titans 1   (107g 30s 51c)
+   Free Action Potion 4   (9g 33s 60c)
    Frost Protection 4 
    Gift of Arthas 2 
-   Goblin Sapper Charge 2   (4g 35s 18c)
-   Healing Potion - Major 1   (54s 59c)
+   Goblin Sapper Charge 2   (4g 13s 24c)
+   Healing Potion - Major 1   (47s 25c)
    Increased Stamina 1 
-   Invulnerability 1   (1g 57s 52c)
-   Medivh's Merlot 2   (7g 71s 58c)
-   Mighty Rage Potion 10   (35g 45s 40c)
+   Invulnerability 1   (1g 86s 72c)
+   Medivh's Merlot 2   (8g 98s 58c)
+   Mighty Rage Potion 10   (47g 48s 20c)
    Nature Protection 2 
-   Rage of Ages (ROIDS) 7   (24g 36s 28c)
-   Shadow Protection 2   (14g 38s 32c)
-   Spirit of Zanza 7   (16g 1s 46c)
+   Rage of Ages (ROIDS) 7   (38g 85s)
+   Shadow Protection 2   (13g 63s 50c)
+   Spirit of Zanza 7   (15g 43s 29c)
    Stratholme Holy Water 4 
-   Winterfall Firewater 8   (7g 47s 60c)
+   Winterfall Firewater 8   (9g 59s 76c)
 
-   total spent: 272g 50s 2c
+   total spent: 350g 42s 22c
 Deemonk deaths:5
    Demonic Rune 7 
-   Dragonbreath Chili 13   (31g 13s 11c)
-   Dreamtonic 10   (20g)
-   Elixir of the Mongoose 6   (43g 73s 4c)
-   Free Action Potion 2   (4g 23s 40c)
+   Dragonbreath Chili 13   (20g 71s 68c)
+   Dreamtonic 10   (8g 88s 60c)
+   Elixir of the Mongoose 6   (58g 67s 82c)
+   Free Action Potion 2   (4g 66s 80c)
    Frost Protection 1 
-   Greater Arcane Elixir 7   (22g 38s 32c)
-   Mana Potion - Major 1   (1g 96s 76c)
-   Mana Potion - Superior 4   (3g 48s 4c)
-   Shadow Protection 1   (7g 19s 16c)
-   Spirit of Zanza 5   (11g 43s 90c)
+   Greater Arcane Elixir 7   (23g 86s 72c)
+   Mana Potion - Major 1   (2g 13s 10c)
+   Mana Potion - Superior 4   (4g 32s 4c)
+   Shadow Protection 1   (6g 81s 75c)
+   Spirit of Zanza 5   (11g 2s 35c)
    Tea with Sugar 3 
-   Winterfall Firewater 8   (7g 47s 60c)
+   Winterfall Firewater 8   (9g 59s 76c)
 
-   total spent: 153g 3s 33c
+   total spent: 150g 70s 62c
 Dhallya deaths:4
    Agility 1 
-   Consecrated Sharpening Stone 6   (28g 39s 56c)
-   Dense Dynamite 11   (7g 2s 57c)
-   Elixir of the Mongoose 2   (14g 57s 68c)
+   Consecrated Sharpening Stone 6   (40g 44s 12c)
+   Dense Dynamite 11   (7g 7s 74c)
+   Elixir of the Mongoose 2   (19g 55s 94c)
    Fire Protection 5 
    Frost Protection 4 
-   Healing Potion - Major 1   (54s 59c)
-   Invulnerability 1   (1g 57s 52c)
-   Mana Potion - Superior 1   (87s 1c)
+   Healing Potion - Major 1   (47s 25c)
+   Invulnerability 1   (1g 86s 72c)
+   Mana Potion - Superior 1   (1g 8s 1c)
    Nature Protection 1 
-   Shadow Protection 2   (14g 38s 32c)
-   Spirit of Zanza 2   (4g 57s 56c)
+   Shadow Protection 2   (13g 63s 50c)
+   Spirit of Zanza 2   (4g 40s 94c)
    Strength 1 
-   Strike of the Scorpok 2   (11g 30s 4c)
+   Strike of the Scorpok 2   (18g 80s 92c)
    Tea with Sugar 1 
 
-   total spent: 83g 24s 85c
+   total spent: 107g 35s 14c
 Drapes deaths:6
    Arcane Protection 1 
-   Consecrated Sharpening Stone 1   (4g 73s 26c)
-   Dense Dynamite 4   (2g 55s 48c)
+   Consecrated Sharpening Stone 1   (6g 74s 2c)
+   Dense Dynamite 4   (2g 57s 36c)
    Dense Weighstone 2 
-   Elixir of Superior Defense 2   (5g 43s 88c)
-   Elixir of the Mongoose 6   (43g 73s 4c)
-   Flask of the Titans 1   (81g 40s 9c)
-   Free Action Potion 3   (6g 35s 10c)
+   Elixir of Superior Defense 2   (6g 19s 32c)
+   Elixir of the Mongoose 6   (58g 67s 82c)
+   Flask of the Titans 1   (107g 30s 51c)
+   Free Action Potion 3   (7g 20c)
    Frost Protection 6 
-   Goblin Sapper Charge 6   (13g 5s 54c)
-   Greater Stoneshield 3   (11g 37s 90c)
-   Healing Potion - Major 1   (54s 59c)
+   Goblin Sapper Charge 6   (12g 39s 72c)
+   Greater Stoneshield 3   (13g 79s 94c)
+   Healing Potion - Major 1   (47s 25c)
    Increased Stamina 2 
-   Invulnerability 2   (3g 15s 4c)
-   Mighty Rage Potion 4   (14g 18s 16c)
+   Invulnerability 2   (3g 73s 44c)
+   Mighty Rage Potion 4   (18g 99s 28c)
    Nature Protection 4 
-   Rage of Ages (ROIDS) 5   (17g 40s 20c)
-   Rumsey Rum Black Label 2   (1g 39s 4c)
-   Shadow Protection 2   (14g 38s 32c)
-   Spirit of Zanza 2   (4g 57s 56c)
+   Rage of Ages (ROIDS) 5   (27g 75s)
+   Rumsey Rum Black Label 2   (1g 86s 52c)
+   Shadow Protection 2   (13g 63s 50c)
+   Spirit of Zanza 2   (4g 40s 94c)
    Stratholme Holy Water 9 
-   Swiftness of Zanza 1   (2g 28s 78c)
+   Swiftness of Zanza 1   (2g 20s 47c)
    Tea with Sugar 1 
-   Winterfall Firewater 7   (6g 54s 15c)
+   Winterfall Firewater 7   (8g 39s 79c)
 
-   total spent: 233g 10s 13c
+   total spent: 296g 15s 8c
 Ergofobia deaths:7
-   Brilliant Mana Oil 3   (3g 68s 4c)
+   Brilliant Mana Oil 3   (3g 84s 44c)
    Fire Protection 1 
-   Flask of Distilled Wisdom 1   (57g 19s 64c)
+   Flask of Distilled Wisdom 1   (72g 88s 24c)
    Frost Protection 3 
-   Mana Potion - Greater 12   (1g 59s 48c)
-   Mana Potion - Major 4   (7g 87s 4c)
-   Shadow Protection 2   (14g 38s 32c)
-   Spirit of Zanza 5   (11g 43s 90c)
+   Mana Potion - Greater 12   (1g 28s 64c)
+   Mana Potion - Major 4   (8g 52s 40c)
+   Shadow Protection 2   (13g 63s 50c)
+   Spirit of Zanza 5   (11g 2s 35c)
    Tea with Sugar 6 
 
-   total spent: 96g 16s 42c
+   total spent: 111g 19s 57c
 Gluth deaths:1
    Gift of Arthas 1 
 Gothik the Harvester deaths:1
@@ -280,193 +280,193 @@ Grand Widow Faerlina deaths:1
 Heigan the Unclean deaths:1
    Gift of Arthas 2 
 Interlani deaths:2
-   Brilliant Wizard Oil 7   (11g 53s 33c)
-   Dreamshard Elixir 4   (7g 19s 44c)
-   Elixir of Fortitude 3   (2g 69s 37c)
+   Brilliant Wizard Oil 7   (4g 97s 40c)
+   Dreamshard Elixir 4   (6g 42s 64c)
+   Elixir of Fortitude 3   (4g 43s 58c)
    Fire Protection 1 
    Frost Protection 2 
    Increased Intellect 8 
    Increased Stamina 3 
-   Infallible Mind (Cerebral Cortex Compound) 4   (34g 15s 44c)
-   Mana Potion - Major 3   (5g 90s 28c)
+   Infallible Mind (Cerebral Cortex Compound) 4   (40g 25s 36c)
+   Mana Potion - Major 3   (6g 39s 30c)
    Mana Regeneration (food or mageblood) 2 
-   Medivh's Merlot Blue Label 7   (23g 26s 10c)
+   Medivh's Merlot Blue Label 7   (15g 32s 65c)
    Nature Protection 2 
-   Rumsey Rum Black Label 4   (2g 78s 8c)
-   Shadow Protection 2   (14g 38s 32c)
-   Spirit of Zanza 3   (6g 86s 34c)
+   Rumsey Rum Black Label 4   (3g 73s 4c)
+   Shadow Protection 2   (13g 63s 50c)
+   Spirit of Zanza 3   (6g 61s 41c)
    Tea with Sugar 8 
 
-   total spent: 108g 76s 70c
+   total spent: 101g 78s 88c
 Jocaste deaths:5
-   Brilliant Wizard Oil 4   (6g 59s 4c)
-   Elixir of Fortitude 3   (2g 69s 37c)
-   Flask of Distilled Wisdom 1   (57g 19s 64c)
+   Brilliant Wizard Oil 4   (2g 84s 23c)
+   Elixir of Fortitude 3   (4g 43s 58c)
+   Flask of Distilled Wisdom 1   (72g 88s 24c)
    Frost Protection 2 
    Increased Stamina 4 
    Nature Protection 1 
-   Shadow Protection 1   (7g 19s 16c)
+   Shadow Protection 1   (6g 81s 75c)
    Tea with Sugar 2 
 
-   total spent: 73g 67s 21c
+   total spent: 86g 97s 80c
 Kel'Thuzad deaths:1
    Gift of Arthas 1 
 Littlelnnos deaths:4
-   Bogling Root 6 
-   Consecrated Sharpening Stone 1   (4g 73s 26c)
-   Dense Dynamite 1   (63s 87c)
-   Dragonbreath Chili 1   (2g 39s 47c)
-   Elemental Sharpening Stone 1   (7g 85s 81c)
-   Elixir of Fortitude 4   (3g 59s 16c)
-   Elixir of the Mongoose 4   (29g 15s 36c)
+   Bogling Root 6   (6g 6s 6c)
+   Consecrated Sharpening Stone 1   (6g 74s 2c)
+   Dense Dynamite 1   (64s 34c)
+   Dragonbreath Chili 1   (1g 59s 36c)
+   Elemental Sharpening Stone 1   (9g 9s 98c)
+   Elixir of Fortitude 4   (5g 91s 44c)
+   Elixir of the Mongoose 4   (39g 11s 88c)
    Fire Protection 3 
-   Free Action Potion 2   (4g 23s 40c)
+   Free Action Potion 2   (4g 66s 80c)
    Frost Protection 4 
-   Goblin Sapper Charge 8   (17g 40s 72c)
+   Goblin Sapper Charge 8   (16g 52s 96c)
    Great Rage Potion 3 
-   Healing Potion - Major 4   (2g 18s 36c)
-   Mighty Rage Potion 7   (24g 81s 78c)
+   Healing Potion - Major 4   (1g 89s)
+   Mighty Rage Potion 7   (33g 23s 74c)
    Nature Protection 3 
-   Rage of Ages (ROIDS) 4   (13g 92s 16c)
-   Rumsey Rum Black Label 5   (3g 47s 60c)
-   Shadow Protection 1   (7g 19s 16c)
-   Spirit of Zanza 4   (9g 15s 12c)
+   Rage of Ages (ROIDS) 4   (22g 20s)
+   Rumsey Rum Black Label 5   (4g 66s 30c)
+   Shadow Protection 1   (6g 81s 75c)
+   Spirit of Zanza 4   (8g 81s 88c)
    Stratholme Holy Water 2 
-   Winterfall Firewater 4   (3g 73s 80c)
+   Winterfall Firewater 4   (4g 79s 88c)
 
-   total spent: 134g 49s 3c
+   total spent: 172g 79s 39c
 Loatheb deaths:1
    Gift of Arthas 1 
 Maexxna deaths:1
    Gift of Arthas 1 
 Martl deaths:4
-   Consecrated Sharpening Stone 2   (9g 46s 52c)
-   Elixir of the Mongoose 5   (36g 44s 20c)
-   Flask of the Titans 1   (81g 40s 9c)
-   Free Action Potion 2   (4g 23s 40c)
+   Consecrated Sharpening Stone 2   (13g 48s 4c)
+   Elixir of the Mongoose 5   (48g 89s 85c)
+   Flask of the Titans 1   (107g 30s 51c)
+   Free Action Potion 2   (4g 66s 80c)
    Frost Protection 2 
    Great Rage Potion 7 
-   Invulnerability 1   (1g 57s 52c)
-   Mighty Rage Potion 13   (46g 9s 2c)
+   Invulnerability 1   (1g 86s 72c)
+   Mighty Rage Potion 13   (61g 72s 66c)
    Nature Protection 1 
-   Rage of Ages (ROIDS) 4   (13g 92s 16c)
-   Spirit of Zanza 3   (6g 86s 34c)
-   Winterfall Firewater 8   (7g 47s 60c)
+   Rage of Ages (ROIDS) 4   (22g 20s)
+   Spirit of Zanza 3   (6g 61s 41c)
+   Winterfall Firewater 8   (9g 59s 76c)
 
-   total spent: 207g 46s 85c
+   total spent: 276g 35s 75c
 Melriel deaths:3
-   Consecrated Sharpening Stone 2   (9g 46s 52c)
-   Dense Dynamite 6   (3g 83s 22c)
+   Consecrated Sharpening Stone 2   (13g 48s 4c)
+   Dense Dynamite 6   (3g 86s 4c)
    Dense Sharpening Stone 1 
-   Elixir of the Mongoose 5   (36g 44s 20c)
-   Flask of the Titans 1   (81g 40s 9c)
-   Free Action Potion 3   (6g 35s 10c)
+   Elixir of the Mongoose 5   (48g 89s 85c)
+   Flask of the Titans 1   (107g 30s 51c)
+   Free Action Potion 3   (7g 20c)
    Frost Protection 2 
-   Goblin Sapper Charge 4   (8g 70s 36c)
+   Goblin Sapper Charge 4   (8g 26s 48c)
    Increased Stamina 2 
-   Invulnerability 2   (3g 15s 4c)
-   Mighty Rage Potion 4   (14g 18s 16c)
-   Shadow Protection 1   (7g 19s 16c)
-   Spirit of Zanza 3   (6g 86s 34c)
-   Winterfall Firewater 6   (5g 60s 70c)
+   Invulnerability 2   (3g 73s 44c)
+   Mighty Rage Potion 4   (18g 99s 28c)
+   Shadow Protection 1   (6g 81s 75c)
+   Spirit of Zanza 3   (6g 61s 41c)
+   Winterfall Firewater 6   (7g 19s 82c)
 
-   total spent: 183g 18s 89c
+   total spent: 232g 16s 82c
 Mombat deaths:7
-   Dragonbreath Chili 1   (2g 39s 47c)
-   Dreamshard Elixir 8   (14g 38s 88c)
-   Dreamtonic 6   (12g)
-   Elixir of Fortitude 6   (5g 38s 74c)
-   Elixir of the Giants 7   (11g 8s 3c)
-   Elixir of the Mongoose 7   (51g 1s 88c)
-   Flask of Supreme Power 2   (129g 21s 74c)
+   Dragonbreath Chili 1   (1g 59s 36c)
+   Dreamshard Elixir 8   (12g 85s 28c)
+   Dreamtonic 6   (5g 33s 16c)
+   Elixir of Fortitude 6   (8g 87s 16c)
+   Elixir of the Giants 7   (19g 24s 86c)
+   Elixir of the Mongoose 7   (68g 45s 79c)
+   Flask of Supreme Power 2   (168g 83s 56c)
    Frost Protection 4 
-   Greater Arcane Elixir 8   (25g 58s 8c)
-   Mana Potion - Major 1   (1g 96s 76c)
-   Shadow Protection 1   (7g 19s 16c)
-   Spirit of Zanza 8   (18g 30s 24c)
+   Greater Arcane Elixir 8   (27g 27s 68c)
+   Mana Potion - Major 1   (2g 13s 10c)
+   Shadow Protection 1   (6g 81s 75c)
+   Spirit of Zanza 8   (17g 63s 76c)
    Stratholme Holy Water 5 
    Tea with Sugar 16 
-   Winterfall Firewater 6   (5g 60s 70c)
+   Winterfall Firewater 6   (7g 19s 82c)
 
-   total spent: 284g 13s 68c
+   total spent: 346g 25s 28c
 Necropolis Acolyte deaths:12
    Gift of Arthas 1 
 Noth the Plaguebringer deaths:1
    Gift of Arthas 1 
 Pitbound deaths:2
-   Consecrated Sharpening Stone 3   (14g 19s 78c)
-   Dense Dynamite 6   (3g 83s 22c)
-   Elixir of Greater Agility 5   (2g 79s 95c)
-   Elixir of Superior Defense 1   (2g 71s 94c)
-   Elixir of the Mongoose 1   (7g 28s 84c)
+   Consecrated Sharpening Stone 3   (20g 22s 6c)
+   Dense Dynamite 6   (3g 86s 4c)
+   Elixir of Greater Agility 5   (3g 88s 45c)
+   Elixir of Superior Defense 1   (3g 9s 66c)
+   Elixir of the Mongoose 1   (9g 77s 97c)
    Fire Protection 2 
-   Flask of the Titans 1   (81g 40s 9c)
-   Free Action Potion 3   (6g 35s 10c)
+   Flask of the Titans 1   (107g 30s 51c)
+   Free Action Potion 3   (7g 20c)
    Frost Protection 1 
    Gift of Arthas 1 
-   Greater Stoneshield 2   (7g 58s 60c)
+   Greater Stoneshield 2   (9g 19s 96c)
    Increased Stamina 3 
-   Invulnerability 2   (3g 15s 4c)
-   Mighty Rage Potion 1   (3g 54s 54c)
+   Invulnerability 2   (3g 73s 44c)
+   Mighty Rage Potion 1   (4g 74s 82c)
    Nature Protection 1 
-   Rumsey Rum Black Label 7   (4g 86s 64c)
-   Shadow Protection 2   (14g 38s 32c)
-   Spirit of Zanza 3   (6g 86s 34c)
+   Rumsey Rum Black Label 7   (6g 52s 82c)
+   Shadow Protection 2   (13g 63s 50c)
+   Spirit of Zanza 3   (6g 61s 41c)
    Stratholme Holy Water 5 
-   Winterfall Firewater 2   (1g 86s 90c)
+   Winterfall Firewater 2   (2g 39s 94c)
 
-   total spent: 160g 85s 30c
+   total spent: 202g 78c
 Plagued Ghoul deaths:11
    Gift of Arthas 1 
 Plaguejak deaths:4
-   ??? Elixir of the Sages ??? 1   (4g 47s 71c)
-   Blessed Wizard Oil 3   (12g 60s)
-   Brilliant Wizard Oil 1   (1g 64s 76c)
-   Dreamshard Elixir 4   (7g 19s 44c)
-   Dreamtonic 6   (12g)
-   Elixir of Shadow Power 4   (6g 96s 68c)
-   Flask of Supreme Power 1   (64g 60s 87c)
+   ??? Elixir of the Sages ??? 1   (6g 14s 81c)
+   Blessed Wizard Oil 3   (19g 18s 2c)
+   Brilliant Wizard Oil 1   (71s 5c)
+   Dreamshard Elixir 4   (6g 42s 64c)
+   Dreamtonic 6   (5g 33s 16c)
+   Elixir of Shadow Power 4   (12g 65s 68c)
+   Flask of Supreme Power 1   (84g 41s 78c)
    Frost Protection 3 
-   Greater Arcane Elixir 3   (9g 59s 28c)
+   Greater Arcane Elixir 3   (10g 22s 88c)
    Increased Stamina 2 
-   Invulnerability 6   (9g 45s 12c)
-   Mana Potion - Major 2   (3g 93s 52c)
-   Medivh's Merlot Blue Label 4   (13g 29s 20c)
+   Invulnerability 6   (11g 20s 32c)
+   Mana Potion - Major 2   (4g 26s 20c)
+   Medivh's Merlot Blue Label 4   (8g 75s 80c)
    Nature Protection 2 
-   Rumsey Rum Black Label 2   (1g 39s 4c)
-   Shadow Protection 4   (28g 76s 64c)
-   Spirit of Zanza 1   (2g 28s 78c)
-   Swiftness of Zanza 1   (2g 28s 78c)
+   Rumsey Rum Black Label 2   (1g 86s 52c)
+   Shadow Protection 4   (27g 27s)
+   Spirit of Zanza 1   (2g 20s 47c)
+   Swiftness of Zanza 1   (2g 20s 47c)
    Tea with Sugar 5 
 
-   total spent: 180g 49s 82c
+   total spent: 202g 86s 80c
 Psykhe deaths:4
-   Elixir of the Mongoose 6   (43g 73s 4c)
-   Free Action Potion 2   (4g 23s 40c)
+   Elixir of the Mongoose 6   (58g 67s 82c)
+   Free Action Potion 2   (4g 66s 80c)
    Frost Protection 5 
-   Goblin Sapper Charge 2   (4g 35s 18c)
-   Healing Potion - Major 2   (1g 9s 18c)
-   Invulnerability 1   (1g 57s 52c)
-   Rage of Ages (ROIDS) 5   (17g 40s 20c)
-   Shadow Protection 3   (21g 57s 48c)
-   Spirit of Zanza 2   (4g 57s 56c)
+   Goblin Sapper Charge 2   (4g 13s 24c)
+   Healing Potion - Major 2   (94s 50c)
+   Invulnerability 1   (1g 86s 72c)
+   Rage of Ages (ROIDS) 5   (27g 75s)
+   Shadow Protection 3   (20g 45s 25c)
+   Spirit of Zanza 2   (4g 40s 94c)
    Tea with Sugar 1 
-   Winterfall Firewater 3   (2g 80s 35c)
+   Winterfall Firewater 3   (3g 59s 91c)
 
-   total spent: 101g 33s 91c
+   total spent: 126g 50s 18c
 Ratthew deaths:2
-   Mana Potion - Major 1   (1g 96s 76c)
+   Mana Potion - Major 1   (2g 13s 10c)
    Tea with Sugar 5 
 
-   total spent: 1g 96s 76c
+   total spent: 2g 13s 10c
 Ryx deaths:2
-   Brilliant Wizard Oil 2   (3g 29s 52c)
-   Dreamtonic 2   (4g)
-   Elixir of Greater Firepower 2   (6g 43s 16c)
-   Greater Arcane Elixir 1   (3g 19s 76c)
-   Mana Potion - Greater 1   (13s 29c)
+   Brilliant Wizard Oil 2   (1g 42s 11c)
+   Dreamtonic 2   (1g 77s 72c)
+   Elixir of Greater Firepower 2   (8g 31s 32c)
+   Greater Arcane Elixir 1   (3g 40s 96c)
+   Mana Potion - Greater 1   (10s 72c)
 
-   total spent: 17g 5s 73c
+   total spent: 15g 2s 83c
 Sanctum Dragonkin deaths:8
    Gift of Arthas 1 
 Sanctum Scalebane deaths:7
@@ -474,285 +474,285 @@ Sanctum Scalebane deaths:7
 Sanctum Supressor deaths:5
    Gift of Arthas 1 
 Sanwen deaths:3
-   Brilliant Mana Oil 3   (3g 68s 4c)
-   Flask of Distilled Wisdom 1   (57g 19s 64c)
+   Brilliant Mana Oil 3   (3g 84s 44c)
+   Flask of Distilled Wisdom 1   (72g 88s 24c)
    Increased Intellect 6 
    Increased Stamina 2 
-   Invulnerability 1   (1g 57s 52c)
-   Mana Potion - Major 5   (9g 83s 80c)
-   Mana Potion - Superior 1   (87s 1c)
+   Invulnerability 1   (1g 86s 72c)
+   Mana Potion - Major 5   (10g 65s 50c)
+   Mana Potion - Superior 1   (1g 8s 1c)
    Mana Regeneration (food or mageblood) 1 
-   Medivh's Merlot Blue Label 3   (9g 96s 90c)
+   Medivh's Merlot Blue Label 3   (6g 56s 85c)
    Stratholme Holy Water 1 
    Tea with Sugar 12 
 
-   total spent: 83g 12s 91c
+   total spent: 96g 89s 76c
 Sapphiron deaths:1
    Gift of Arthas 1 
 Seidhkona deaths:4
-   Brilliant Mana Oil 5   (6g 13s 41c)
-   Dreamshard Elixir 6   (10g 79s 16c)
+   Brilliant Mana Oil 5   (6g 40s 74c)
+   Dreamshard Elixir 6   (9g 63s 96c)
    Fire Protection 1 
-   Flask of Distilled Wisdom 1   (57g 19s 64c)
+   Flask of Distilled Wisdom 1   (72g 88s 24c)
    Frost Protection 2 
-   Mana Potion - Major 9   (17g 70s 84c)
+   Mana Potion - Major 9   (19g 17s 90c)
    Mana Regeneration (food or mageblood) 8 
-   Medivh's Merlot Blue Label 1   (3g 32s 30c)
+   Medivh's Merlot Blue Label 1   (2g 18s 95c)
    Nature Protection 1 
-   Rumsey Rum Black Label 1   (69s 52c)
-   Shadow Protection 2   (14g 38s 32c)
-   Spirit of Zanza 2   (4g 57s 56c)
+   Rumsey Rum Black Label 1   (93s 26c)
+   Shadow Protection 2   (13g 63s 50c)
+   Spirit of Zanza 2   (4g 40s 94c)
    Tea with Sugar 3 
 
-   total spent: 114g 80s 75c
+   total spent: 129g 27s 49c
 Sewage Slime deaths:20
    Gift of Arthas 1 
 Shadowheals deaths:5
-   Brilliant Mana Oil 3   (3g 68s 4c)
-   Flask of Distilled Wisdom 1   (57g 19s 64c)
+   Brilliant Mana Oil 3   (3g 84s 44c)
+   Flask of Distilled Wisdom 1   (72g 88s 24c)
    Frost Protection 2 
    Increased Stamina 1 
-   Mana Potion - Major 1   (1g 96s 76c)
+   Mana Potion - Major 1   (2g 13s 10c)
    Mana Regeneration (food or mageblood) 1 
-   Shadow Protection 4   (28g 76s 64c)
+   Shadow Protection 4   (27g 27s)
 
-   total spent: 91g 61s 8c
+   total spent: 106g 12s 78c
 Shreked deaths:5
    Arcane Elixir 7 
-   Blessed Wizard Oil 3   (12g 60s)
-   Dreamshard Elixir 4   (7g 19s 44c)
-   Elixir of Fortitude 4   (3g 59s 16c)
-   Elixir of Greater Firepower 7   (22g 51s 6c)
+   Blessed Wizard Oil 3   (19g 18s 2c)
+   Dreamshard Elixir 4   (6g 42s 64c)
+   Elixir of Fortitude 4   (5g 91s 44c)
+   Elixir of Greater Firepower 7   (29g 9s 62c)
    Fire Protection 3 
-   Flask of Supreme Power 1   (64g 60s 87c)
+   Flask of Supreme Power 1   (84g 41s 78c)
    Frost Protection 2 
-   Healing Potion - Major 1   (54s 59c)
+   Healing Potion - Major 1   (47s 25c)
    Increased Intellect 7 
-   Invulnerability 5   (7g 87s 60c)
+   Invulnerability 5   (9g 33s 60c)
    Iron Grenade 5 
-   Mana Potion - Major 1   (1g 96s 76c)
-   Medivh's Merlot 1   (3g 85s 79c)
+   Mana Potion - Major 1   (2g 13s 10c)
+   Medivh's Merlot 1   (4g 49s 29c)
    Nature Protection 2 
-   Rumsey Rum Black Label 6   (4g 17s 12c)
-   Shadow Protection 2   (14g 38s 32c)
-   Spirit of Zanza 4   (9g 15s 12c)
+   Rumsey Rum Black Label 6   (5g 59s 56c)
+   Shadow Protection 2   (13g 63s 50c)
+   Spirit of Zanza 4   (8g 81s 88c)
    Tea with Sugar 4 
-   Wizard Oil 3   (1g 40s 97c)
+   Wizard Oil 3   (59s 97c)
 
-   total spent: 153g 86s 80c
+   total spent: 190g 11s 65c
 Spirit of Naxxramas deaths:2
    Gift of Arthas 1 
 Squirreled deaths:3
-   Consecrated Sharpening Stone 3   (14g 19s 78c)
-   Dense Dynamite 1   (63s 87c)
+   Consecrated Sharpening Stone 3   (20g 22s 6c)
+   Dense Dynamite 1   (64s 34c)
    Dense Sharpening Stone 1 
-   Elixir of Brute Force 2   (6g)
-   Elixir of Fortitude 3   (2g 69s 37c)
-   Elixir of Superior Defense 2   (5g 43s 88c)
-   Elixir of the Giants 3   (4g 74s 87c)
-   Elixir of the Mongoose 3   (21g 86s 52c)
+   Elixir of Brute Force 2   (5g 99s 94c)
+   Elixir of Fortitude 3   (4g 43s 58c)
+   Elixir of Superior Defense 2   (6g 19s 32c)
+   Elixir of the Giants 3   (8g 24s 94c)
+   Elixir of the Mongoose 3   (29g 33s 91c)
    Fire Protection 2 
-   Flask of the Titans 1   (81g 40s 9c)
-   Free Action Potion 3   (6g 35s 10c)
+   Flask of the Titans 1   (107g 30s 51c)
+   Free Action Potion 3   (7g 20c)
    Gift of Arthas 5 
-   Goblin Sapper Charge 3   (6g 52s 77c)
-   Greater Stoneshield 15   (56g 89s 50c)
+   Goblin Sapper Charge 3   (6g 19s 86c)
+   Greater Stoneshield 15   (68g 99s 70c)
    Increased Stamina 4 
-   Invulnerability 1   (1g 57s 52c)
-   Medivh's Merlot 4   (15g 43s 16c)
-   Mighty Rage Potion 1   (3g 54s 54c)
-   Shadow Protection 1   (7g 19s 16c)
-   Spirit of Zanza 3   (6g 86s 34c)
+   Invulnerability 1   (1g 86s 72c)
+   Medivh's Merlot 4   (17g 97s 16c)
+   Mighty Rage Potion 1   (4g 74s 82c)
+   Shadow Protection 1   (6g 81s 75c)
+   Spirit of Zanza 3   (6g 61s 41c)
    Stratholme Holy Water 6 
-   Strike of the Scorpok 3   (16g 95s 6c)
+   Strike of the Scorpok 3   (28g 21s 38c)
    Tea with Sugar 6 
-   Winterfall Firewater 5   (4g 67s 25c)
+   Winterfall Firewater 5   (5g 99s 85c)
 
-   total spent: 262g 98s 78c
+   total spent: 336g 81s 45c
 Starraven deaths:6
-   Blessed Wizard Oil 3   (12g 60s)
-   Brilliant Wizard Oil 1   (1g 64s 76c)
-   Dreamshard Elixir 8   (14g 38s 88c)
-   Dreamtonic 6   (12g)
+   Blessed Wizard Oil 3   (19g 18s 2c)
+   Brilliant Wizard Oil 1   (71s 5c)
+   Dreamshard Elixir 8   (12g 85s 28c)
+   Dreamtonic 6   (5g 33s 16c)
    Fire Protection 3 
-   Flask of Supreme Power 1   (64g 60s 87c)
-   Goblin Sapper Charge 6   (13g 5s 54c)
-   Greater Arcane Elixir 6   (19g 18s 56c)
+   Flask of Supreme Power 1   (84g 41s 78c)
+   Goblin Sapper Charge 6   (12g 39s 72c)
+   Greater Arcane Elixir 6   (20g 45s 76c)
    Healing Potion - Superior 4 
-   Mana Potion - Major 2   (3g 93s 52c)
-   Mana Potion - Superior 2   (1g 74s 2c)
-   Potion of Quickness 5   (25g 38s 85c)
-   Shadow Protection 3   (21g 57s 48c)
-   Spirit of Zanza 5   (11g 43s 90c)
+   Mana Potion - Major 2   (4g 26s 20c)
+   Mana Potion - Superior 2   (2g 16s 2c)
+   Potion of Quickness 5   (34g 94s 60c)
+   Shadow Protection 3   (20g 45s 25c)
+   Spirit of Zanza 5   (11g 2s 35c)
    Tea with Sugar 9 
 
-   total spent: 201g 56s 38c
+   total spent: 228g 19s 19c
 Stitched Spewer deaths:7
    Gift of Arthas 1 
 Stoneskin Gargoyle deaths:8
    Gift of Arthas 1 
 Suigetsu deaths:3
-   Brilliant Mana Oil 6   (7g 36s 9c)
+   Brilliant Mana Oil 6   (7g 68s 88c)
    Fire Protection 2 
-   Flask of Distilled Wisdom 1   (57g 19s 64c)
+   Flask of Distilled Wisdom 1   (72g 88s 24c)
    Frost Protection 1 
    Increased Stamina 4 
-   Invulnerability 4   (6g 30s 8c)
-   Mana Potion - Major 15   (29g 51s 40c)
-   Shadow Protection 5   (35g 95s 80c)
-   Spirit of Zanza 3   (6g 86s 34c)
+   Invulnerability 4   (7g 46s 88c)
+   Mana Potion - Major 15   (31g 96s 50c)
+   Shadow Protection 5   (34g 8s 75c)
+   Spirit of Zanza 3   (6g 61s 41c)
    Tea with Sugar 11 
 
-   total spent: 143g 19s 35c
+   total spent: 160g 70s 66c
 Sunwelp deaths:5
-   Blessed Wizard Oil 3   (12g 60s)
-   Brilliant Wizard Oil 3   (4g 94s 28c)
+   Blessed Wizard Oil 3   (19g 18s 2c)
+   Brilliant Wizard Oil 3   (2g 13s 17c)
    Demonic Rune 3 
-   Dreamshard Elixir 5   (8g 99s 30c)
-   Dreamtonic 6   (12g)
-   Elixir of Fortitude 6   (5g 38s 74c)
-   Elixir of Greater Firepower 7   (22g 51s 6c)
-   Elixir of Superior Defense 4   (10g 87s 76c)
+   Dreamshard Elixir 5   (8g 3s 30c)
+   Dreamtonic 6   (5g 33s 16c)
+   Elixir of Fortitude 6   (8g 87s 16c)
+   Elixir of Greater Firepower 7   (29g 9s 62c)
+   Elixir of Superior Defense 4   (12g 38s 64c)
    Fire Protection 2 
-   Flask of Supreme Power 1   (64g 60s 87c)
+   Flask of Supreme Power 1   (84g 41s 78c)
    Frost Protection 2 
-   Goblin Sapper Charge 11   (23g 93s 49c)
-   Greater Arcane Elixir 5   (15g 98s 80c)
-   Healing Potion - Major 1   (54s 59c)
+   Goblin Sapper Charge 11   (22g 72s 82c)
+   Greater Arcane Elixir 5   (17g 4s 80c)
+   Healing Potion - Major 1   (47s 25c)
    Increased Intellect 13 
-   Infallible Mind (Cerebral Cortex Compound) 5   (42g 69s 30c)
-   Invulnerability 3   (4g 72s 56c)
-   Mana Potion - Major 10   (19g 67s 60c)
-   Medivh's Merlot Blue Label 6   (19g 93s 80c)
+   Infallible Mind (Cerebral Cortex Compound) 5   (50g 31s 70c)
+   Invulnerability 3   (5g 60s 16c)
+   Mana Potion - Major 10   (21g 31s)
+   Medivh's Merlot Blue Label 6   (13g 13s 70c)
    Nature Protection 1 
    Noggenfogger Elixir 5 
-   Potion of Quickness 4   (20g 31s 8c)
-   Rumsey Rum Black Label 4   (2g 78s 8c)
-   Shadow Protection 2   (14g 38s 32c)
-   Spirit of Zanza 5   (11g 43s 90c)
+   Potion of Quickness 4   (27g 95s 68c)
+   Rumsey Rum Black Label 4   (3g 73s 4c)
+   Shadow Protection 2   (13g 63s 50c)
+   Spirit of Zanza 5   (11g 2s 35c)
    Stratholme Holy Water 6 
    Tea with Sugar 22 
 
-   total spent: 318g 33s 53c
+   total spent: 356g 40s 85c
 Supal deaths:4
-   Dense Dynamite 7   (4g 47s 9c)
-   Elixir of Fortitude 7   (6g 28s 53c)
-   Elixir of Superior Defense 7   (19g 3s 58c)
-   Elixir of the Mongoose 7   (51g 1s 88c)
-   Flask of the Titans 1   (81g 40s 9c)
-   Free Action Potion 3   (6g 35s 10c)
+   Dense Dynamite 7   (4g 50s 38c)
+   Elixir of Fortitude 7   (10g 35s 2c)
+   Elixir of Superior Defense 7   (21g 67s 62c)
+   Elixir of the Mongoose 7   (68g 45s 79c)
+   Flask of the Titans 1   (107g 30s 51c)
+   Free Action Potion 3   (7g 20c)
    Frost Protection 6 
    Gift of Arthas 6 
-   Goblin Sapper Charge 7   (15g 23s 13c)
-   Healing Potion - Major 1   (54s 59c)
-   Mana Potion - Major 6   (11g 80s 56c)
+   Goblin Sapper Charge 7   (14g 46s 34c)
+   Healing Potion - Major 1   (47s 25c)
+   Mana Potion - Major 6   (12g 78s 60c)
    Nature Protection 2 
-   Rumsey Rum Black Label 8   (5g 56s 16c)
-   Shadow Protection 3   (21g 57s 48c)
-   Spirit of Zanza 7   (16g 1s 46c)
-   Swiftness of Zanza 1   (2g 28s 78c)
+   Rumsey Rum Black Label 8   (7g 46s 8c)
+   Shadow Protection 3   (20g 45s 25c)
+   Spirit of Zanza 7   (15g 43s 29c)
+   Swiftness of Zanza 1   (2g 20s 47c)
    Tea with Sugar 25 
-   Winterfall Firewater 6   (5g 60s 70c)
+   Winterfall Firewater 6   (7g 19s 82c)
 
-   total spent: 247g 19s 13c
+   total spent: 299g 76s 62c
 Thaddius deaths:1
    Gift of Arthas 1 
 Thane Korth'azz deaths:2
    Gift of Arthas 1 
 Titicacal deaths:4
-   Brilliant Wizard Oil 6   (9g 88s 57c)
-   Dreamshard Elixir 5   (8g 99s 30c)
-   Elixir of Fortitude 5   (4g 48s 95c)
-   Elixir of Shadow Power 7   (12g 19s 19c)
+   Brilliant Wizard Oil 6   (4g 26s 34c)
+   Dreamshard Elixir 5   (8g 3s 30c)
+   Elixir of Fortitude 5   (7g 39s 30c)
+   Elixir of Shadow Power 7   (22g 14s 94c)
    Fire Protection 1 
-   Flask of Supreme Power 1   (64g 60s 87c)
+   Flask of Supreme Power 1   (84g 41s 78c)
    Frost Protection 3 
-   Goblin Sapper Charge 9   (19g 58s 31c)
-   Greater Arcane Elixir 5   (15g 98s 80c)
-   Healing Potion - Major 2   (1g 9s 18c)
+   Goblin Sapper Charge 9   (18g 59s 58c)
+   Greater Arcane Elixir 5   (17g 4s 80c)
+   Healing Potion - Major 2   (94s 50c)
    Noggenfogger Elixir 6 
-   Shadow Protection 3   (21g 57s 48c)
+   Shadow Protection 3   (20g 45s 25c)
 
-   total spent: 158g 40s 65c
+   total spent: 183g 29s 79c
 Vallcow deaths:4
-   Consecrated Sharpening Stone 2   (9g 46s 52c)
-   Dense Dynamite 2   (1g 27s 74c)
-   Elemental Sharpening Stone 1   (7g 85s 81c)
-   Elixir of Fortitude 6   (5g 38s 74c)
-   Elixir of Superior Defense 6   (16g 31s 64c)
-   Elixir of the Mongoose 7   (51g 1s 88c)
+   Consecrated Sharpening Stone 2   (13g 48s 4c)
+   Dense Dynamite 2   (1g 28s 68c)
+   Elemental Sharpening Stone 1   (9g 9s 98c)
+   Elixir of Fortitude 6   (8g 87s 16c)
+   Elixir of Superior Defense 6   (18g 57s 96c)
+   Elixir of the Mongoose 7   (68g 45s 79c)
    Fire Protection 2 
-   Flask of the Titans 1   (81g 40s 9c)
-   Free Action Potion 4   (8g 46s 80c)
+   Flask of the Titans 1   (107g 30s 51c)
+   Free Action Potion 4   (9g 33s 60c)
    Frost Protection 1 
    Gift of Arthas 6 
-   Goblin Sapper Charge 7   (15g 23s 13c)
-   Greater Stoneshield 5   (18g 96s 50c)
-   Healing Potion - Major 1   (54s 59c)
+   Goblin Sapper Charge 7   (14g 46s 34c)
+   Greater Stoneshield 5   (22g 99s 90c)
+   Healing Potion - Major 1   (47s 25c)
    Increased Stamina 8 
-   Invulnerability 3   (4g 72s 56c)
-   Medivh's Merlot 5   (19g 28s 95c)
-   Mighty Rage Potion 7   (24g 81s 78c)
-   Rumsey Rum Black Label 7   (4g 86s 64c)
-   Shadow Protection 2   (14g 38s 32c)
-   Spirit of Zanza 7   (16g 1s 46c)
-   Winterfall Firewater 8   (7g 47s 60c)
+   Invulnerability 3   (5g 60s 16c)
+   Medivh's Merlot 5   (22g 46s 45c)
+   Mighty Rage Potion 7   (33g 23s 74c)
+   Rumsey Rum Black Label 7   (6g 52s 82c)
+   Shadow Protection 2   (13g 63s 50c)
+   Spirit of Zanza 7   (15g 43s 29c)
+   Winterfall Firewater 8   (9g 59s 76c)
 
-   total spent: 307g 50s 75c
+   total spent: 380g 84s 93c
 Valurian deaths:3
-   Brilliant Mana Oil 3   (3g 68s 4c)
-   Invulnerability 3   (4g 72s 56c)
-   Mana Potion - Major 8   (15g 74s 8c)
+   Brilliant Mana Oil 3   (3g 84s 44c)
+   Invulnerability 3   (5g 60s 16c)
+   Mana Potion - Major 8   (17g 4s 80c)
    Mana Regeneration (food or mageblood) 4 
-   Rumsey Rum Black Label 1   (69s 52c)
-   Shadow Protection 1   (7g 19s 16c)
-   Spirit of Zanza 3   (6g 86s 34c)
+   Rumsey Rum Black Label 1   (93s 26c)
+   Shadow Protection 1   (6g 81s 75c)
+   Spirit of Zanza 3   (6g 61s 41c)
    Tea with Sugar 8 
-   Thorium Grenade 5   (2g 49s 85c)
+   Thorium Grenade 5   (3g)
 
-   total spent: 41g 39s 55c
+   total spent: 43g 85s 82c
 Yakub deaths:5
    Arcane Protection 1 
-   Brilliant Mana Oil 6   (7g 36s 9c)
-   Elixir of Fortitude 4   (3g 59s 16c)
+   Brilliant Mana Oil 6   (7g 68s 88c)
+   Elixir of Fortitude 4   (5g 91s 44c)
    Fire Protection 1 
-   Flask of Distilled Wisdom 1   (57g 19s 64c)
+   Flask of Distilled Wisdom 1   (72g 88s 24c)
    Frost Protection 1 
-   Mana Potion - Major 19   (37g 38s 44c)
+   Mana Potion - Major 19   (40g 48s 90c)
    Mana Regeneration (food or mageblood) 9 
    Noggenfogger Elixir 3 
-   Shadow Protection 2   (14g 38s 32c)
-   Spirit of Zanza 3   (6g 86s 34c)
+   Shadow Protection 2   (13g 63s 50c)
+   Spirit of Zanza 3   (6g 61s 41c)
    Tea with Sugar 28 
 
-   total spent: 126g 77s 99c
+   total spent: 147g 22s 37c
 Zdraxus deaths:5
    Arcane Elixir 1 
    Gordok Green Grog 4 
    Healing Potion - Superior 1 
-   Spirit of Zanza 3   (6g 86s 34c)
+   Spirit of Zanza 3   (6g 61s 41c)
    Tea with Sugar 1 
 
-   total spent: 6g 86s 34c
+   total spent: 6g 61s 41c
 Zedog deaths:3
-   Blessed Wizard Oil 2   (8g 40s)
-   Brilliant Wizard Oil 1   (1g 64s 76c)
-   Dense Dynamite 4   (2g 55s 48c)
-   Dreamshard Elixir 5   (8g 99s 30c)
-   Dreamtonic 4   (8g)
-   Elixir of Fortitude 4   (3g 59s 16c)
-   Elixir of Greater Firepower 4   (12g 86s 32c)
-   Flask of Supreme Power 1   (64g 60s 87c)
+   Blessed Wizard Oil 2   (12g 78s 68c)
+   Brilliant Wizard Oil 1   (71s 5c)
+   Dense Dynamite 4   (2g 57s 36c)
+   Dreamshard Elixir 5   (8g 3s 30c)
+   Dreamtonic 4   (3g 55s 44c)
+   Elixir of Fortitude 4   (5g 91s 44c)
+   Elixir of Greater Firepower 4   (16g 62s 64c)
+   Flask of Supreme Power 1   (84g 41s 78c)
    Frost Protection 1 
-   Goblin Sapper Charge 2   (4g 35s 18c)
-   Greater Arcane Elixir 5   (15g 98s 80c)
-   Invulnerability 3   (4g 72s 56c)
-   Shadow Protection 2   (14g 38s 32c)
-   Spirit of Zanza 5   (11g 43s 90c)
+   Goblin Sapper Charge 2   (4g 13s 24c)
+   Greater Arcane Elixir 5   (17g 4s 80c)
+   Invulnerability 3   (5g 60s 16c)
+   Shadow Protection 2   (13g 63s 50c)
+   Spirit of Zanza 5   (11g 2s 35c)
    Stratholme Holy Water 1 
    Tea with Sugar 3 
 
-   total spent: 161g 54s 65c
+   total spent: 186g 5s 74c
 
 
 Cooldown Summary
@@ -1218,10 +1218,10 @@ Class Detection
 
 
 Tech
-   project version 2024.1044
+   project version 2024.1045
    project homepage https://github.com/melbaa/summarize_consumes
-   prices timestamp 2023-12-31T00:00:01.730443 (a day ago)
+   prices timestamp 2024-01-26T00:00:01.966154 (18 hours ago)
    log size 45.1 MB
    log lines 615266
    skipped log lines 12598 (2.05%)
-   processed in 70.66 seconds. 8707.43 log lines/sec
+   processed in 83.66 seconds. 7354.02 log lines/sec

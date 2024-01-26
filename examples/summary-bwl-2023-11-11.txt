@@ -10,89 +10,89 @@ Notes:
 
 
 Airin deaths:3
-   Elixir of Greater Intellect 1   (39s 99c)
-   Lesser Mana Oil 2   (65s 99c)
-   Mana Potion - Major 1   (1g 96s 76c)
+   Elixir of Greater Intellect 1   (52s 66c)
+   Lesser Mana Oil 2   (79s 99c)
+   Mana Potion - Major 1   (2g 13s 10c)
 
-   total spent: 3g 2s 74c
+   total spent: 3g 45s 75c
 Aphorodite deaths:2
-   Elixir of Greater Agility 4   (2g 23s 96c)
-   Mana Potion - Major 1   (1g 96s 76c)
+   Elixir of Greater Agility 4   (3g 10s 76c)
+   Mana Potion - Major 1   (2g 13s 10c)
 
-   total spent: 4g 20s 72c
+   total spent: 5g 23s 86c
 Arzetlam deaths:0
    Tea with Sugar 1 
 Berserkss deaths:0
-   Elixir of Greater Agility 1   (55s 99c)
-   Elixir of the Mongoose 1   (7g 28s 84c)
-   Spirit of Zanza 1   (2g 28s 78c)
+   Elixir of Greater Agility 1   (77s 69c)
+   Elixir of the Mongoose 1   (9g 77s 97c)
+   Spirit of Zanza 1   (2g 20s 47c)
 
-   total spent: 10g 13s 61c
+   total spent: 12g 76s 13c
 Bloxie deaths:3
-   Free Action Potion 2   (4g 23s 40c)
-   Greater Stoneshield 1   (3g 79s 30c)
+   Free Action Potion 2   (4g 66s 80c)
+   Greater Stoneshield 1   (4g 59s 98c)
    Stratholme Holy Water 1 
    Tea with Sugar 2 
 
-   total spent: 8g 2s 70c
+   total spent: 9g 26s 78c
 Chan deaths:0
    Increased Stamina 1 
    Tea with Sugar 3 
 Charmia deaths:2
-   Elixir of Fortitude 2   (1g 79s 58c)
-   Elixir of the Giants 1   (1g 58s 29c)
-   Elixir of the Mongoose 3   (21g 86s 52c)
-   Free Action Potion 2   (4g 23s 40c)
-   Spirit of Zanza 2   (4g 57s 56c)
+   Elixir of Fortitude 2   (2g 95s 72c)
+   Elixir of the Giants 1   (2g 74s 98c)
+   Elixir of the Mongoose 3   (29g 33s 91c)
+   Free Action Potion 2   (4g 66s 80c)
+   Spirit of Zanza 2   (4g 40s 94c)
 
-   total spent: 34g 5s 35c
+   total spent: 44g 12s 35c
 Coldbeer deaths:0
    Increased Stamina 2 
-   Mana Potion - Superior 1   (87s 1c)
+   Mana Potion - Superior 1   (1g 8s 1c)
 
-   total spent: 87s 1c
+   total spent: 1g 8s 1c
 Daenshoo deaths:1
    <nothing found>
 Druindy deaths:4
-   Healing Potion - Major 1   (54s 59c)
+   Healing Potion - Major 1   (47s 25c)
 
-   total spent: 54s 59c
+   total spent: 47s 25c
 Dyrachyo deaths:2
-   Elixir of Fortitude 1   (89s 79c)
-   Elixir of the Mongoose 1   (7g 28s 84c)
+   Elixir of Fortitude 1   (1g 47s 86c)
+   Elixir of the Mongoose 1   (9g 77s 97c)
    Fire Protection 3 
-   Free Action Potion 3   (6g 35s 10c)
+   Free Action Potion 3   (7g 20c)
    Gift of Arthas 1 
-   Invulnerability 3   (4g 72s 56c)
-   Mighty Rage Potion 8   (28g 36s 32c)
-   Rage of Ages (ROIDS) 1   (3g 48s 4c)
-   Spirit of Zanza 1   (2g 28s 78c)
-   Winterfall Firewater 2   (1g 86s 90c)
+   Invulnerability 3   (5g 60s 16c)
+   Mighty Rage Potion 8   (37g 98s 56c)
+   Rage of Ages (ROIDS) 1   (5g 55s)
+   Spirit of Zanza 1   (2g 20s 47c)
+   Winterfall Firewater 2   (2g 39s 94c)
 
-   total spent: 55g 26s 33c
+   total spent: 72g 16c
 Everglow deaths:4
-   Elixir of the Mongoose 2   (14g 57s 68c)
+   Elixir of the Mongoose 2   (19g 55s 94c)
    Fire Protection 1 
-   Free Action Potion 4   (8g 46s 80c)
-   Goblin Sapper Charge 1   (2g 17s 59c)
+   Free Action Potion 4   (9g 33s 60c)
+   Goblin Sapper Charge 1   (2g 6s 62c)
    Increased Stamina 3 
-   Spirit of Zanza 2   (4g 57s 56c)
-   Winterfall Firewater 4   (3g 73s 80c)
+   Spirit of Zanza 2   (4g 40s 94c)
+   Winterfall Firewater 4   (4g 79s 88c)
 
-   total spent: 33g 53s 43c
+   total spent: 40g 16s 98c
 Few deaths:5
    Dense Sharpening Stone 2 
-   Elixir of Fortitude 3   (2g 69s 37c)
-   Elixir of Greater Agility 2   (1g 11s 98c)
-   Elixir of the Giants 3   (4g 74s 87c)
-   Elixir of the Mongoose 2   (14g 57s 68c)
+   Elixir of Fortitude 3   (4g 43s 58c)
+   Elixir of Greater Agility 2   (1g 55s 38c)
+   Elixir of the Giants 3   (8g 24s 94c)
+   Elixir of the Mongoose 2   (19g 55s 94c)
    Fire Protection 2 
-   Healing Potion - Major 2   (1g 9s 18c)
-   Rumsey Rum Black Label 2   (1g 39s 4c)
-   Shadow Protection 1   (7g 19s 16c)
-   Winterfall Firewater 5   (4g 67s 25c)
+   Healing Potion - Major 2   (94s 50c)
+   Rumsey Rum Black Label 2   (1g 86s 52c)
+   Shadow Protection 1   (6g 81s 75c)
+   Winterfall Firewater 5   (5g 99s 85c)
 
-   total spent: 37g 48s 53c
+   total spent: 49g 42s 46c
 Fflur deaths:0
    <nothing found>
 Gack deaths:1
@@ -100,13 +100,13 @@ Gack deaths:1
 Geniesham deaths:1
    <nothing found>
 Illasei deaths:1
-   Elixir of the Mongoose 1   (7g 28s 84c)
-   Healing Potion - Major 1   (54s 59c)
-   Spirit of Zanza 1   (2g 28s 78c)
-   Strike of the Scorpok 1   (5g 65s 2c)
-   Winterfall Firewater 3   (2g 80s 35c)
+   Elixir of the Mongoose 1   (9g 77s 97c)
+   Healing Potion - Major 1   (47s 25c)
+   Spirit of Zanza 1   (2g 20s 47c)
+   Strike of the Scorpok 1   (9g 40s 46c)
+   Winterfall Firewater 3   (3g 59s 91c)
 
-   total spent: 18g 57s 58c
+   total spent: 25g 46s 6c
 Lyahsunsworn deaths:1
    <nothing found>
 Mezmeris deaths:3
@@ -116,91 +116,91 @@ Nightleaf deaths:6
 Pieshka deaths:4
    Fire Protection 1 
 Platedps deaths:1
-   Elixir of the Mongoose 1   (7g 28s 84c)
+   Elixir of the Mongoose 1   (9g 77s 97c)
    Fire Protection 1 
-   Healing Potion - Major 2   (1g 9s 18c)
+   Healing Potion - Major 2   (94s 50c)
 
-   total spent: 8g 38s 2c
+   total spent: 10g 72s 47c
 Psykhe deaths:2
-   Elixir of the Mongoose 3   (21g 86s 52c)
-   Flask of the Titans 1   (81g 40s 9c)
-   Free Action Potion 2   (4g 23s 40c)
-   Greater Stoneshield 2   (7g 58s 60c)
-   Rumsey Rum Black Label 1   (69s 52c)
-   Spirit of Zanza 2   (4g 57s 56c)
+   Elixir of the Mongoose 3   (29g 33s 91c)
+   Flask of the Titans 1   (107g 30s 51c)
+   Free Action Potion 2   (4g 66s 80c)
+   Greater Stoneshield 2   (9g 19s 96c)
+   Rumsey Rum Black Label 1   (93s 26c)
+   Spirit of Zanza 2   (4g 40s 94c)
 
-   total spent: 120g 35s 69c
+   total spent: 155g 85s 38c
 Redzeus deaths:3
    <nothing found>
 Ridea deaths:2
    <nothing found>
 Roshane deaths:3
-   Healing Potion - Major 1   (54s 59c)
-   Mana Potion - Major 1   (1g 96s 76c)
+   Healing Potion - Major 1   (47s 25c)
+   Mana Potion - Major 1   (2g 13s 10c)
 
-   total spent: 2g 51s 35c
+   total spent: 2g 60s 35c
 Shrimpshark deaths:2
-   Brilliant Wizard Oil 1   (1g 64s 76c)
-   Dreamshard Elixir 2   (3g 59s 72c)
-   Dreamtonic 2   (4g)
-   Elixir of Fortitude 1   (89s 79c)
-   Elixir of Frost Power 2   (69s 88c)
+   Brilliant Wizard Oil 1   (71s 5c)
+   Dreamshard Elixir 2   (3g 21s 32c)
+   Dreamtonic 2   (1g 77s 72c)
+   Elixir of Fortitude 1   (1g 47s 86c)
+   Elixir of Frost Power 2   (97s 26c)
    Fire Protection 3 
-   Greater Arcane Elixir 2   (6g 39s 52c)
+   Greater Arcane Elixir 2   (6g 81s 92c)
    Increased Intellect 3 
-   Invulnerability 2   (3g 15s 4c)
-   Mana Potion - Major 1   (1g 96s 76c)
+   Invulnerability 2   (3g 73s 44c)
+   Mana Potion - Major 1   (2g 13s 10c)
    Tea with Sugar 10 
 
-   total spent: 22g 35s 47c
+   total spent: 20g 83s 67c
 Shuly deaths:1
-   Mana Potion - Major 1   (1g 96s 76c)
+   Mana Potion - Major 1   (2g 13s 10c)
    Tea with Sugar 1 
 
-   total spent: 1g 96s 76c
+   total spent: 2g 13s 10c
 Srj deaths:4
-   Elixir of the Mongoose 4   (29g 15s 36c)
+   Elixir of the Mongoose 4   (39g 11s 88c)
    Fire Protection 2 
-   Free Action Potion 1   (2g 11s 70c)
-   Invulnerability 1   (1g 57s 52c)
-   Potion of Quickness 2   (10g 15s 54c)
-   Winterfall Firewater 5   (4g 67s 25c)
+   Free Action Potion 1   (2g 33s 40c)
+   Invulnerability 1   (1g 86s 72c)
+   Potion of Quickness 2   (13g 97s 84c)
+   Winterfall Firewater 5   (5g 99s 85c)
 
-   total spent: 47g 67s 37c
+   total spent: 63g 29s 69c
 Stormsnake deaths:0
    <nothing found>
 Subarach deaths:4
    <nothing found>
 Sunor deaths:2
-   Mana Potion - Major 6   (11g 80s 56c)
+   Mana Potion - Major 6   (12g 78s 60c)
    Tea with Sugar 12 
 
-   total spent: 11g 80s 56c
+   total spent: 12g 78s 60c
 Syjlas deaths:1
    Fire Protection 2 
-   Healing Potion - Major 3   (1g 63s 77c)
-   Wizard Oil 2   (93s 98c)
+   Healing Potion - Major 3   (1g 41s 75c)
+   Wizard Oil 2   (39s 98c)
 
-   total spent: 2g 57s 75c
+   total spent: 1g 81s 73c
 Teldelar deaths:2
    <nothing found>
 Umbriela deaths:2
-   Mana Potion - Major 3   (5g 90s 28c)
+   Mana Potion - Major 3   (6g 39s 30c)
 
-   total spent: 5g 90s 28c
+   total spent: 6g 39s 30c
 Windfurytotm deaths:0
-   Healing Potion - Major 1   (54s 59c)
-   Invulnerability 1   (1g 57s 52c)
-   Mana Potion - Superior 2   (1g 74s 2c)
+   Healing Potion - Major 1   (47s 25c)
+   Invulnerability 1   (1g 86s 72c)
+   Mana Potion - Superior 2   (2g 16s 2c)
    Tea with Sugar 4 
 
-   total spent: 3g 86s 13c
+   total spent: 4g 49s 99c
 Yis deaths:3
-   Elixir of the Mongoose 1   (7g 28s 84c)
-   Healing Potion - Major 2   (1g 9s 18c)
+   Elixir of the Mongoose 1   (9g 77s 97c)
+   Healing Potion - Major 2   (94s 50c)
    Tea with Sugar 2 
 
-   total spent: 8g 38s 2c
+   total spent: 10g 72s 47c
 
 
 Cooldown Summary
@@ -220,6 +220,8 @@ Cooldown Summary
          Everglow 1
       Kiss of the Spider
          Dyrachyo 26
+      Diamond Flask
+         Pieshka 11
       Berserking
          Psykhe 16
       Will of the Forsaken
@@ -551,10 +553,10 @@ Class Detection
 
 
 Tech
-   project version 2024.1044
+   project version 2024.1045
    project homepage https://github.com/melbaa/summarize_consumes
-   prices timestamp 2023-12-31T00:00:01.730443 (a day ago)
+   prices timestamp 2024-01-26T00:00:01.966154 (18 hours ago)
    log size 16.7 MB
    log lines 218793
    skipped log lines 41 (0.02%)
-   processed in 28.01 seconds. 7811.81 log lines/sec
+   processed in 29.82 seconds. 7336.44 log lines/sec
