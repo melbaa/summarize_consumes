@@ -1521,14 +1521,17 @@ def parse_line(app, line):
 
             return True
         elif subtree.data == 'suffers_line':
-            targetname = subtree.children[0]
-            # amount = subtree.children[1]
-            # spell_damage_type = subtree.children[2].children[0].value
-            # name = subtree.children[3]
-            spellname = subtree.children[4]
 
-            if spellname == 'Corrupted Healing':
-                app.nef_corrupted_healing.add(line)
+            targetname = subtree.children[0]
+            if subtree.children[2].data == 'suffers_line_source':
+                # name = subtree.children[2].children[2]
+                spellname = subtree.children[2].children[2]
+
+                if spellname == 'Corrupted Healing':
+                    app.nef_corrupted_healing.add(line)
+            else:
+                # nosource
+                pass
 
             return True
         elif subtree.data == 'fades_line':

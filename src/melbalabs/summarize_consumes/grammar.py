@@ -65,7 +65,9 @@ reflects_damage_line: MULTIWORD " reflects " INT spell_damage_type " to " MULTIW
 
 creates_line: MULTIWORD " creates " MULTIWORD "."
 
-suffers_line: MULTIWORD " suffers " INT spell_damage_type " from " MULTIWORD " 's " MULTIWORD "." (" (" vulnerability_suffix)? (" (" resisted_suffix)?  (" (" absorbed_suffix)?
+suffers_line_nosource: " points of fire damage"
+suffers_line_source: spell_damage_type " from " MULTIWORD " 's " MULTIWORD
+suffers_line: MULTIWORD " suffers " INT (suffers_line_nosource | suffers_line_source) "." (" (" vulnerability_suffix)? (" (" resisted_suffix)?  (" (" absorbed_suffix)?
 
 fades_line: MULTIWORD " fades from " MULTIWORD "."
 

@@ -498,12 +498,14 @@ def test_suffers_line(app):
 10/20 20:06:36.007  Ridea suffers 15 Fire damage from Ridea 's Fireball. (5 resisted)
 
 1/26 22:08:01.231  Flamewaker Elite suffers 405 Shadow damage from Meowxs 's Mind Flay. (+145 vulnerability bonus)
+
+1/26 22:07:16.185  Moryak suffers 0 points of fire damage. (368 resisted) (369 absorbed)
     """
     lines = lines.splitlines(keepends=True)
     match = 0
     for line in lines:
         match += parse_line(app, line)
-    assert match == 10
+    assert match == 11
 
 
 def test_nef_corrupted_healing(app):
