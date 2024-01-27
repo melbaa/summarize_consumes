@@ -233,6 +233,24 @@ def test_begins_to_cast_line(app):
     assert app.player['Bruceweed']["Kreeg's Stout Beatdown"] == 3
     assert app.player['Exeggute']['Elemental Sharpening Stone'] == 1
 
+def test_casts_melt_weapon(app):
+    lines = """
+1/26 22:16:02.922  Ragnaros casts Melt Weapon on Pezeweng: Fang of the Faceless damaged.
+1/26 22:16:03.657  Ragnaros casts Melt Weapon on Feloxiaroni: Spear of the Endless Hunt damaged.
+1/26 22:16:04.714  Ragnaros casts Melt Weapon on Variusz: Fist of the Forgotten Order damaged.
+1/26 22:16:05.006  Ragnaros casts Melt Weapon on Drakmar: Blessed Qiraji War Axe damaged.
+1/26 22:16:05.224  Ragnaros casts Melt Weapon on Feloxiaroni: Spear of the Endless Hunt damaged.
+1/26 22:16:05.435  Ragnaros casts Melt Weapon on Wezepeng: Vis'kag the Bloodletter damaged.
+1/26 22:16:05.691  Ragnaros casts Melt Weapon on Nephram: Misplaced Servo Arm damaged.
+    """
+    lines = lines.splitlines(keepends=True)
+    match = 0
+    for line in lines:
+        match += parse_line(app, line)
+    assert match == 7
+
+
+
 def test_casts_consumable_line(app):
     lines = """
 6/28 22:16:50.836  Faradin casts Advanced Target Dummy.

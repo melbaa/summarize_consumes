@@ -106,7 +106,7 @@ gains_extra_attacks_line: MULTIWORD " gains " INT " extra attacks through " MULT
 
 afflicted_line: MULTIWORD " is afflicted by " MULTIWORD " (" INT ")."
 timestamp: INT "/" INT " " INT ":" INT ":" INT "." INT
-casts_line: MULTIWORD " casts " MULTIWORD (" on " MULTIWORD)? "."
+casts_line: MULTIWORD " casts " MULTIWORD (" on " MULTIWORD)? " damaged"? "."
 begins_to_cast_line: MULTIWORD " begins to cast " MULTIWORD "."
 performs_on_line: MULTIWORD " performs " MULTIWORD " on " MULTIWORD "."
 performs_line: MULTIWORD " performs " MULTIWORD "."
