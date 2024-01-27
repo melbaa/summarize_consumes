@@ -1415,6 +1415,8 @@ def parse_line(app, line):
             return True
         elif subtree.data == 'block_ability_line':
             return True
+        elif subtree.data == 'interrupts_line':
+            return True
 
         elif subtree.data == 'resist_line':
             name = subtree.children[0].value

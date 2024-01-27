@@ -29,6 +29,7 @@ _line: gains_line
     | is_absorbed_ability_line
     | absorbs_ability_line
     | absorbs_all_line
+    | interrupts_line
     | was_evaded_line
     | removed_line
     | none_line
@@ -53,6 +54,8 @@ _line: gains_line
     | gains_happiness_line
     | is_dismissed_line
 
+
+interrupts_line: MULTIWORD " interrupts " MULTIWORD " 's " MULTIWORD "."
 
 slays_line: MULTIWORD " slays " MULTIWORD "!"
 

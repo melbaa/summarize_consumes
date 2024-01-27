@@ -944,6 +944,17 @@ def test_block_lines(app):
         match += parse_line(app, line)
     assert match == 4
 
+def test_interrupts_line(app):
+    lines = """
+1/26 21:46:12.930  Shazzrah interrupts Minidance 's Shadow Bolt.
+    """
+    lines = lines.splitlines(keepends=True)
+    match = 0
+    for line in lines:
+        match += parse_line(app, line)
+    assert match == 1
+
+
 def test_absorbs_lines(app):
     lines = """
 4/13 20:50:27.792  Vekniss Drone attacks. Chillz absorbs all the damage.
