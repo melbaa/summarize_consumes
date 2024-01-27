@@ -65,7 +65,7 @@ reflects_damage_line: MULTIWORD " reflects " INT spell_damage_type " to " MULTIW
 
 creates_line: MULTIWORD " creates " MULTIWORD "."
 
-suffers_line: MULTIWORD " suffers " INT spell_damage_type " from " MULTIWORD " 's " MULTIWORD "." (" (" resisted_suffix)?  (" (" absorbed_suffix)?
+suffers_line: MULTIWORD " suffers " INT spell_damage_type " from " MULTIWORD " 's " MULTIWORD "." (" (" vulnerability_suffix)? (" (" resisted_suffix)?  (" (" absorbed_suffix)?
 
 fades_line: MULTIWORD " fades from " MULTIWORD "."
 
@@ -147,7 +147,7 @@ _CONSOLIDATED_TIMESTAMP: INT "." INT "." INT " " INT ":" INT ":" INT "&"
 
 HEAL_CRIT: " critically"
 
-WORD: UCASE_LETTER (LETTER | DIGIT | CONNECTING_APOSTROPHE | CONNECTING_COLON)*
+WORD: UCASE_LETTER (LETTER | DIGIT | CONNECTING_APOSTROPHE | CONNECTING_COLON | COMMA)*
 PAREN_WORD: "(" WORD ")"
 MULTIWORD: WORD ((SPACE | DASH | UNDERSCORE) CONNECTING_WORD)* TRAILING_SPACE?
 CONNECTING_APOSTROPHE: /(?<! )'/  # allow it only inside a word
@@ -159,6 +159,7 @@ SPACE: " "
 TRAILING_SPACE: /(?<! ) (?= )/  # space only if followed by another space and not preceded by another space
 DASH: "-"
 UNDERSCORE: "_"
+COMMA: ","
 
 # https://github.com/lark-parser/lark/blob/master/lark/grammars/common.lark
 %import common.INT

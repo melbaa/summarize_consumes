@@ -236,18 +236,15 @@ def test_begins_to_cast_line(app):
 def test_casts_melt_weapon(app):
     lines = """
 1/26 22:16:02.922  Ragnaros casts Melt Weapon on Pezeweng: Fang of the Faceless damaged.
-1/26 22:16:03.657  Ragnaros casts Melt Weapon on Feloxiaroni: Spear of the Endless Hunt damaged.
-1/26 22:16:04.714  Ragnaros casts Melt Weapon on Variusz: Fist of the Forgotten Order damaged.
-1/26 22:16:05.006  Ragnaros casts Melt Weapon on Drakmar: Blessed Qiraji War Axe damaged.
 1/26 22:16:05.224  Ragnaros casts Melt Weapon on Feloxiaroni: Spear of the Endless Hunt damaged.
 1/26 22:16:05.435  Ragnaros casts Melt Weapon on Wezepeng: Vis'kag the Bloodletter damaged.
-1/26 22:16:05.691  Ragnaros casts Melt Weapon on Nephram: Misplaced Servo Arm damaged.
+1/26 22:16:06.461  Ragnaros casts Melt Weapon on Psykhe: Iblis, Blade of the Fallen Seraph damaged.
     """
     lines = lines.splitlines(keepends=True)
     match = 0
     for line in lines:
         match += parse_line(app, line)
-    assert match == 7
+    assert match == 4
 
 
 
@@ -499,12 +496,14 @@ def test_suffers_line(app):
 10/20 20:04:30.879  Ridea suffers 15 Fire damage from Ridea 's Fireball. (5 resisted)
 10/20 20:06:25.658  Shrimpshark suffers 89 Fire damage from Shrimpshark 's Ignite. (89 resisted)
 10/20 20:06:36.007  Ridea suffers 15 Fire damage from Ridea 's Fireball. (5 resisted)
+
+1/26 22:08:01.231  Flamewaker Elite suffers 405 Shadow damage from Meowxs 's Mind Flay. (+145 vulnerability bonus)
     """
     lines = lines.splitlines(keepends=True)
     match = 0
     for line in lines:
         match += parse_line(app, line)
-    assert match == 9
+    assert match == 10
 
 
 def test_nef_corrupted_healing(app):
