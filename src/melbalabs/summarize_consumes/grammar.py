@@ -30,6 +30,7 @@ _line: gains_line
     | absorbs_ability_line
     | absorbs_all_line
     | interrupts_line
+    | fails_to_dispel_line
     | was_evaded_line
     | removed_line
     | none_line
@@ -55,6 +56,8 @@ _line: gains_line
     | gains_happiness_line
     | is_dismissed_line
 
+
+fails_to_dispel_line: MULTIWORD " fails to dispel " MULTIWORD " 's " MULTIWORD "."
 
 is_reflected_back_line: MULTIWORD " 's " MULTIWORD " is reflected back by " MULTIWORD "."
 

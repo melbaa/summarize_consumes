@@ -765,6 +765,16 @@ def test_is_reflected_back_line(app):
         match += parse_line(app, line)
     assert match == 2
 
+def test_fails_to_dispel_line(app):
+    lines = """
+1/26 21:35:06.364  Garr fails to dispel Variusz 's Seal of Command.
+    """
+    lines = lines.splitlines(keepends=True)
+    match = 0
+    for line in lines:
+        match += parse_line(app, line)
+    assert match == 1
+
 def test_misses_line(app):
     lines = """
 10/29 20:23:04.371  Pieshka misses Ancient Core Hound.

@@ -1499,6 +1499,8 @@ def parse_line(app, line):
             return True
         elif subtree.data == 'absorbs_all_line':
             return True
+        elif subtree.data == 'fails_to_dispel_line':
+            return True
         elif subtree.data == 'pet_begins_eating_line':
             return True
         elif subtree.data == 'is_dismissed_line':
