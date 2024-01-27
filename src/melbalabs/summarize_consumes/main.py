@@ -1418,6 +1418,7 @@ def parse_line(app, line):
         elif subtree.data == 'interrupts_line':
             return True
 
+
         elif subtree.data == 'resist_line':
             name = subtree.children[0].value
             spellname = subtree.children[1].value
@@ -1577,6 +1578,8 @@ def parse_line(app, line):
         elif subtree.data == 'dodge_ability_line':
             return True
         elif subtree.data == 'reflects_damage_line':
+            return True
+        elif subtree.data == 'is_reflected_back_line':
             return True
         elif subtree.data == 'misses_line':
             return True

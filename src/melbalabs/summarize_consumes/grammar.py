@@ -47,6 +47,7 @@ _line: gains_line
     | performs_line
     | begins_to_perform_line
     | reflects_damage_line
+    | is_reflected_back_line
     | falls_line
     | lava_line
     | slays_line
@@ -54,6 +55,8 @@ _line: gains_line
     | gains_happiness_line
     | is_dismissed_line
 
+
+is_reflected_back_line: MULTIWORD " 's " MULTIWORD " is reflected back by " MULTIWORD "."
 
 interrupts_line: MULTIWORD " interrupts " MULTIWORD " 's " MULTIWORD "."
 

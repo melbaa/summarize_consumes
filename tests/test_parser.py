@@ -754,6 +754,17 @@ def test_reflects_line(app):
         match += parse_line(app, line)
     assert match == 2
 
+def test_is_reflected_back_line(app):
+    lines = """
+1/26 22:07:07.457  Meowxs 's Vampiric Embrace is reflected back by Flamewaker Elite.
+1/26 22:07:08.679  Goscha 's Frostbolt is reflected back by Flamewaker Healer.
+    """
+    lines = lines.splitlines(keepends=True)
+    match = 0
+    for line in lines:
+        match += parse_line(app, line)
+    assert match == 2
+
 def test_misses_line(app):
     lines = """
 10/29 20:23:04.371  Pieshka misses Ancient Core Hound.
