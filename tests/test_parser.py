@@ -158,13 +158,14 @@ def test_dies_line(app):
     lines = """
 4/5 20:11:49.164  Nilia dies.
 4/5 20:11:49.653  Blackwing Mage dies.
-4/5 20:11:52.882  Blackwing Legionnaire dies.
+1/26 21:42:20.979  Field Repair Bot 75B dies.
     """
     lines = lines.splitlines(keepends=True)
     for line in lines:
         parse_line(app, line)
     assert app.death_count['Nilia'] == 1
     assert app.death_count['Blackwing Mage'] == 1
+    assert app.death_count['Field Repair Bot 75B'] == 1
 
 def test_healpot_line(app):
     lines = """
