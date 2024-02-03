@@ -566,6 +566,10 @@ def test_consumable_report(app):
     app.print_consumables.print(output)
     assert output.getvalue() == 'Psykhe deaths:0\n   Brilliant Wizard Oil 1   (10c)\n   Dark Rune 1   (4c)\n   Elixir of the Mongoose 3   (9g)\n   Flask of the Titans 3   (900g)\n   Rage of Ages (ROIDS) 3   (42c)\n   Tea with Sugar 1   (2c)\n   Wizard Oil 1   (1c)\n\n   total spent: 909g 59c\n'
 
+    output = io.StringIO()
+    app.print_consumable_totals_csv.print(output)
+    assert output.getvalue() == 'Psykhe,9090059,0\r\n'
+
 
 def test_rejuv_pot(app):
     lines = """

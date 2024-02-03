@@ -1,6 +1,7 @@
 import argparse
 import json
 import collections
+import csv
 import datetime
 import io
 import itertools
@@ -92,6 +93,8 @@ def create_app(time_start, expert_log_unparsed_lines):
 
     app.pricedb = PriceDB('prices.json')
     app.print_consumables = PrintConsumables(player=app.player, pricedb=app.pricedb, death_count=app.death_count)
+
+    app.print_consumable_totals_csv = PrintConsumableTotalsCsv(player=app.player, pricedb=app.pricedb, death_count=app.death_count)
 
     # bwl
     app.nef_corrupted_healing = NefCorruptedHealing()
@@ -855,6 +858,25 @@ class PriceDB:
             self.data[key] = val
 
 
+def get_consumable_price(pricedb, consumable):
+    total_price = 0
+
+    components = CONSUMABLE_COMPONENTS.get(consumable)
+    if not components:
+        components = [(consumable, 1)]
+
+    for component in components:
+        consumable_component_name, multi = component
+
+        itemid = NAME2ITEMID.get(consumable_component_name)
+        if not itemid: continue
+        price = pricedb.lookup(itemid)
+        if not price: continue
+        total_price += int(price * multi)
+
+    total_price /= CONSUMABLE_CHARGES.get(consumable, 1)
+    return total_price
+
 
 
 class PetHandler:
@@ -996,24 +1018,10 @@ class PrintConsumables:
                 s += f'{amount}{suffix}'
         return s
 
-
     def format_gold(self, consumable, count):
-        total_price = 0
-
-        components = CONSUMABLE_COMPONENTS.get(consumable)
-        if not components:
-            components = [(consumable, 1)]
-
-        for component in components:
-            consumable_component_name, multi = component
-
-            itemid = NAME2ITEMID.get(consumable_component_name)
-            if not itemid: continue
-            price = self.pricedb.lookup(itemid)
-            if not price: continue
-            total_price += int(price * multi * count)
-
-        total_price //= CONSUMABLE_CHARGES.get(consumable, 1)
+        total_price = get_consumable_price(self.pricedb, consumable)
+        total_price *= count
+        total_price = int(total_price)
         if not total_price: return '', 0
         return self.gold_string(total_price), total_price
 
@@ -1036,6 +1044,26 @@ class PrintConsumables:
             elif total_price:
                 print(file=output)
                 print('  ', 'total spent:', self.gold_string(total_price), file=output)
+
+class PrintConsumableTotalsCsv:
+    def __init__(self, player, pricedb, death_count):
+        self.player = player
+        self.pricedb = pricedb
+        self.death_count = death_count
+
+    def print(self, output):
+        writer = csv.writer(output)
+        names = sorted(self.player.keys())
+        for name in names:
+            total_price = 0
+            for consumable in self.player[name]:
+                price = get_consumable_price(self.pricedb, consumable)
+                consumable_count = self.player[name][consumable]
+                total_price += price * consumable_count
+            deaths = self.death_count[name]
+            writer.writerow([name, int(total_price), deaths])
+
+
 
 
 # line type -> spell -> class
@@ -1662,7 +1690,6 @@ def generate_output(app):
     # remove unknowns from class detection
     app.class_detection.remove_unknown()
 
-
     app.print_consumables.print(output)
 
     app.cooldown_summary.print(output)
@@ -1688,7 +1715,9 @@ def generate_output(app):
 
     return output
 
-def write_output(output, write_summary):
+def write_output(
+    output, write_summary,
+    ):
     if write_summary:
         filename = 'summary.txt'
         with open(filename, 'wb') as f:
@@ -1704,6 +1733,7 @@ def get_user_input():
     parser.add_argument('--open-browser', action='store_true', help='used with --pastebin. open the pastebin url with your browser')
 
     parser.add_argument('--write-summary', action='store_true', help='writes output to summary.txt instead of the console')
+    parser.add_argument('--write-consumable-totals-csv', action='store_true', help='also writes consumable-totals.csv')
 
     parser.add_argument('--expert-log-unparsed-lines', action='store_true', help='create an unparsed.txt with everything that was not parsed')
     args = parser.parse_args()
@@ -1778,6 +1808,18 @@ def main():
 
     output = generate_output(app)
     write_output(output, write_summary=args.write_summary)
+
+    if args.write_consumable_totals_csv:
+        def feature():
+            output = io.StringIO()
+            app.print_consumable_totals_csv.print(output)
+
+            filename = 'consumable-totals.csv'
+            with open(filename, 'wb') as f:
+                f.write(output.getvalue().encode('utf8'))
+                print('writing consumable totals to', filename)
+        feature()
+
 
     if not args.pastebin: return
     url = upload_pastebin(output)

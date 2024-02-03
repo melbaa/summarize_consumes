@@ -8,8 +8,9 @@ The summary includes
 ** nefarian corrupted healing
 ** nefarian wild polymorphs
 ** viscidus frost hits
-** huhuran, cthun chains
-** gluth
+** huhuran frenzy/berserk/tranq shots/peasant callers
+** cthun chains
+** gluth frenzy/tranq shots/decimate
 ** four horsemen chains
 ** kt shadow fissures
 ** kt frostbolts
@@ -35,6 +36,8 @@ options:
   --pastebin            upload result to a pastebin and return the url
   --open-browser        used with --pastebin. open the pastebin url with your browser
   --write-summary       writes output to summary.txt instead of the console
+  --write-consumable-totals-csv
+                        also writes consumable-totals.csv
 
 
 
