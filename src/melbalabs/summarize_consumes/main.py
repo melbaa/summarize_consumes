@@ -1733,7 +1733,7 @@ def get_user_input():
     parser.add_argument('--open-browser', action='store_true', help='used with --pastebin. open the pastebin url with your browser')
 
     parser.add_argument('--write-summary', action='store_true', help='writes output to summary.txt instead of the console')
-    parser.add_argument('--write-consumable-totals-csv', action='store_true', help='also writes consumable-totals.csv')
+    parser.add_argument('--write-consumable-totals-csv', action='store_true', help='also writes consumable-totals.csv (name, copper, deaths)')
 
     parser.add_argument('--expert-log-unparsed-lines', action='store_true', help='create an unparsed.txt with everything that was not parsed')
     args = parser.parse_args()

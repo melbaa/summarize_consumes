@@ -37,7 +37,7 @@ options:
   --open-browser        used with --pastebin. open the pastebin url with your browser
   --write-summary       writes output to summary.txt instead of the console
   --write-consumable-totals-csv
-                        also writes consumable-totals.csv
+                        also writes consumable-totals.csv (name, copper, deaths)
 
 
 

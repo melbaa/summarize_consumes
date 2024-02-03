@@ -32,10 +32,12 @@ def examples(c):
     cwd = Path('.')
     for filename in filenames:
         input_file = cwd / 'testdata' / filename
-        cmd = f"python -m melbalabs.summarize_consumes.main {input_file} --write-summary"
+        cmd = f"python -m melbalabs.summarize_consumes.main {input_file} --write-summary --write-consumable-totals-csv"
         c.run(cmd)
         output_file = cwd / 'examples' / f'summary-{filename}'
         c.run(f'mv summary.txt {output_file}')
+        csv_output_file = cwd / 'examples' / f'consumable-totals-{filename}.csv'
+        c.run(f'mv consumable-totals.csv {csv_output_file}')
 
 @task
 def commit(c, message):
