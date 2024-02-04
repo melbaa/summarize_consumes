@@ -55,7 +55,9 @@ _line: gains_line
     | pet_begins_eating_line
     | gains_happiness_line
     | is_dismissed_line
+    | causes_damage_line
 
+causes_damage_line: MULTIWORD " 's " MULTIWORD " causes " MULTIWORD " " INT " damage."
 
 fails_to_dispel_line: MULTIWORD " fails to dispel " MULTIWORD " 's " MULTIWORD "."
 

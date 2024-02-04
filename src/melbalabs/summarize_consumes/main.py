@@ -450,6 +450,7 @@ INTERRUPT_SPELLS = {
 CDSPELL_CLASS = [
     ['warrior', [
         'Death Wish',
+        'Shield Wall',
         'Recklessness',
     ]],
     ['mage', ['Combustion', 'Scorch']],
@@ -937,6 +938,7 @@ LINE2SPELLCAST = {
     'gains_line': {
         'Will of the Forsaken',
         'Recklessness',
+        'Shield Wall',
         'Elemental Mastery',
         'Inner Focus',
         'Combustion',
@@ -1075,6 +1077,7 @@ UNIQUE_LINE2SPELL2CLASS = {
     },
     'gains_line': {
         'Recklessness': 'warrior',
+        'Shield Wall': 'warrior',
         'Bloodrage': 'warrior',
         'Sweeping Strikes': 'warrior',
 
@@ -1608,6 +1611,8 @@ def parse_line(app, line):
         elif subtree.data == 'dodge_ability_line':
             return True
         elif subtree.data == 'reflects_damage_line':
+            return True
+        elif subtree.data == 'causes_damage_line':
             return True
         elif subtree.data == 'is_reflected_back_line':
             return True

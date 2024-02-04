@@ -922,6 +922,17 @@ def test_techinfo(app):
     assert output.getvalue() == '\n\nTech\n   project version whatever\n   project homepage https://github.com/melbaa/summarize_consumes\n   prices timestamp 2023-11-18T00:39:15.383111 (an hour ago)\n   log size 0 Bytes\n   log lines 9\n   skipped log lines 0 (0.00%)\n   processed in 5.00 seconds. 1.80 log lines/sec\n'
 
 
+def test_causes_damage_line(app):
+    lines = """
+2/3 22:40:48.259  Kel'Thuzad 's Spirit Link causes Cracklinoats 27 damage.
+2/3 22:40:48.259  Kel'Thuzad 's Spirit Link causes Martl 27 damage.
+    """
+    lines = lines.splitlines(keepends=True)
+    match = 0
+    for line in lines:
+        match += parse_line(app, line)
+    assert match == 2
+
 def test_was_evaded_line(app):
     lines = """
 11/11 22:47:45.054  Syjlas 's Wild Polymorph was evaded by Teldelar.
@@ -1063,6 +1074,7 @@ def test_cooldown_summary(app):
 12/16 23:52:55.087  Interlani 's Holy Shock critically heals Aquatic for 1843.
 12/16 22:04:31.502  Sempeternal 's Holy Shock hits Noth the Plaguebringer for 724 Holy damage.
 12/9 20:30:59.644  Martl gains Recklessness (1).
+12/9 20:30:59.644  Martl gains Shield Wall (1).
 12/9 20:31:07.869  Pitbound is afflicted by Death Wish (1).
 12/9 20:27:58.135  Yakub casts Windfury Totem.
 12/9 20:52:47.806  Littlelnnos gains Windfury Totem (1).
@@ -1126,6 +1138,7 @@ def test_cooldown_summary(app):
     assert app.spell_count.counts['Berserking']['Abstractz'] == 1
     assert app.spell_count.counts['Divine Favor']['Interlani'] == 1
     assert app.spell_count.counts['Recklessness']['Martl'] == 1
+    assert app.spell_count.counts['Shield Wall']['Martl'] == 1
     assert app.spell_count.counts['Death Wish']['Pitbound'] == 1
     assert app.spell_count.counts['Windfury Totem']['Yakub'] == 1
     assert app.spell_count.counts['Windfury Totem']['Littlelnnos'] == 0  # don't count procs
