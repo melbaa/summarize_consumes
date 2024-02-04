@@ -933,6 +933,7 @@ def test_causes_damage_line(app):
         match += parse_line(app, line)
     assert match == 2
 
+
 def test_was_evaded_line(app):
     lines = """
 11/11 22:47:45.054  Syjlas 's Wild Polymorph was evaded by Teldelar.
@@ -1119,6 +1120,7 @@ def test_cooldown_summary(app):
 4/5 20:49:16.851  Melbaxd casts Resurrection on Psykhe.
 4/5 21:49:34.881  Ionize casts Ancestral Spirit on Psykhe.
 1/21 20:51:36.386  Ler gains Diamond Flask (1).
+2/3 22:14:13.049  Squirreled gains 30 Rage from Squirreled 's Blood Fury.
     """
     lines = lines.splitlines(keepends=True)
     for line in lines:
@@ -1126,6 +1128,7 @@ def test_cooldown_summary(app):
     output = io.StringIO()
     app.cooldown_summary.print(output)
 
+    assert app.spell_count.counts["Gri'lek's Charm of Might"]['Squirreled'] == 1
     assert app.spell_count.counts['Diamond Flask']['Ler'] == 1
     assert app.spell_count.counts['Ancestral Spirit']['Ionize'] == 1
     assert app.spell_count.counts['Resurrection']['Melbaxd'] == 1

@@ -158,6 +158,7 @@ class HitsConsumable:
 RENAME_SPELL = {
     ('hits_ability_line', 'Holy Shock'): 'Holy Shock (dmg)',
     ('heals_line', 'Holy Shock'): 'Holy Shock (heal)',
+    ('gains_rage_line', 'Blood Fury'): "Gri'lek's Charm of Might",
 }
 def rename_spell(spell, line_type):
     rename = RENAME_SPELL.get((line_type, spell))
@@ -492,6 +493,7 @@ TRINKET_SPELL = [
     'Badge of the Swarmguard',
     'Earthstrike',
     'Diamond Flask',
+    "Gri'lek's Charm of Might",
     'Essence of Sapphiron',
     'Ephemeral Power',
     'Unstable Power',
@@ -961,6 +963,9 @@ LINE2SPELLCAST = {
         'Berserking',
         'Stoneform',
     },
+    'gains_rage_line': {
+        "Gri'lek's Charm of Might",
+    },
     'heals_line': {
         'Holy Shock (heal)',
         'Desperate Prayer',
@@ -1260,8 +1265,13 @@ def parse_line(app, line):
             return True
         elif subtree.data == 'gains_rage_line':
             name = subtree.children[0].value
-            consumable = subtree.children[3].value
-            if consumable in RAGE_CONSUMABLE:
+            spellname = subtree.children[3].value
+
+            spellname = rename_spell(spellname, line_type=subtree.data)
+            app.spell_count.add(line_type=subtree.data, name=name, spell=spellname)
+
+            if spellname in RAGE_CONSUMABLE:
+                consumable = spellname
                 consumable += ' Potion'
                 app.player[name][consumable] += 1
             return True
