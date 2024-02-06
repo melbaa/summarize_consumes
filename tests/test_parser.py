@@ -1121,6 +1121,8 @@ def test_cooldown_summary(app):
 4/5 21:49:34.881  Ionize casts Ancestral Spirit on Psykhe.
 1/21 20:51:36.386  Ler gains Diamond Flask (1).
 2/3 22:14:13.049  Squirreled gains 30 Rage from Squirreled 's Blood Fury.
+2/4 21:34:01.268  Nerilen gains Power Infusion (1).
+2/4 21:34:27.252  Murto gains Bloodlust (1).
     """
     lines = lines.splitlines(keepends=True)
     for line in lines:
@@ -1128,6 +1130,8 @@ def test_cooldown_summary(app):
     output = io.StringIO()
     app.cooldown_summary.print(output)
 
+    assert app.spell_count.counts["Bloodlust"]['Murto'] == 1
+    assert app.spell_count.counts["Power Infusion"]['Nerilen'] == 1
     assert app.spell_count.counts["Gri'lek's Charm of Might"]['Squirreled'] == 1
     assert app.spell_count.counts['Diamond Flask']['Ler'] == 1
     assert app.spell_count.counts['Ancestral Spirit']['Ionize'] == 1
@@ -1294,3 +1298,33 @@ def test_class_detection(app):
         'Antihum': 'warlock',
     }
 
+
+def test_proc_count(app):
+
+    lines = """
+2/4 20:34:07.096  Psykhe gains Flurry (1).
+2/4 20:34:07.129  Shrekedjr gains Enrage (1).
+2/4 20:28:50.892  Hiperthreat gains 1 extra attacks through Windfury Totem.
+2/4 20:29:00.159  Rila gains 1 extra attacks through Hand of Justice.
+2/4 20:29:22.215  Cracklinoats gains 2 extra attacks through Windfury Weapon.
+2/4 20:37:22.423  Clapya gains Elemental Devastation (1).
+2/4 20:37:43.276  Clapya gains Stormcaller's Wrath (1).
+2/4 20:40:59.742  Supal gains Spell Blasting (1).
+2/4 20:42:25.033  Abstractz gains Clearcasting (2).
+2/4 20:46:00.878  Pikachurin gains Vengeance (1).
+2/4 20:48:08.252  Starraven gains Nature's Grace (1).
+    """
+    lines = lines.splitlines(keepends=True)
+    for line in lines:
+        parse_line(app, line)
+    assert app.proc_count.counts["Nature's Grace"]['Starraven'] == 1
+    assert app.proc_count.counts['Vengeance']['Pikachurin'] == 1
+    assert app.proc_count.counts['Clearcasting']['Abstractz'] == 1
+    assert app.proc_count.counts['Spell Blasting']['Supal'] == 1
+    assert app.proc_count.counts["Stormcaller's Wrath"]['Clapya'] == 1
+    assert app.proc_count.counts['Elemental Devastation']['Clapya'] == 1
+    assert app.proc_count.counts['Flurry']['Psykhe'] == 1
+    assert app.proc_count.counts['Enrage']['Shrekedjr'] == 1
+
+    assert app.proc_count.counts_extra_attacks['Hand of Justice']['Rila'] == 1
+    assert app.proc_count.counts_extra_attacks['Windfury Weapon']['Cracklinoats'] == 2

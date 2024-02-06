@@ -78,6 +78,9 @@ def create_app(time_start, expert_log_unparsed_lines):
     app.spell_count = SpellCount()
     app.cooldown_summary = CooldownSummary(spell_count=app.spell_count, class_detection=app.class_detection)
 
+    app.proc_count = ProcCount()
+    app.proc_summary = ProcSummary(proc_count=app.proc_count, player=app.player)
+
     # player - consumable - unix_timestamp
     app.last_hit_cache = collections.defaultdict(lambda: collections.defaultdict(float))
 
@@ -479,6 +482,10 @@ CDSPELL_CLASS = [
 ]
 
 
+RECEIVE_BUFF_SPELL = {
+    'Power Infusion',
+    'Bloodlust',
+}
 RACIAL_SPELL = [
     'Berserking',
     'Stoneform',
@@ -509,11 +516,10 @@ RENAME_TRINKET_SPELL = {
     'Nature Aligned': 'Natural Alignment Crystal',
     'Death by Peasant': 'Barov Peasant Caller',
 }
-for spell in itertools.chain(TRINKET_SPELL, RACIAL_SPELL):
+for spell in itertools.chain(TRINKET_SPELL, RACIAL_SPELL, RECEIVE_BUFF_SPELL):
     for clsorder in CDSPELL_CLASS:
         spells = clsorder[1]
         spells.append(spell)
-
 
 
 
@@ -912,22 +918,60 @@ class CooldownSummary:
             for spell in spells:
                 if spell not in self.counts: continue
 
-                players = []
-                for player, total in self.counts[spell].items():
-                    if not self.class_detection.is_class(cls=cls, name=player): continue
-                    players.append((total, player))
-                players.sort(reverse=True)
+                data = []
+                for name, total in self.counts[spell].items():
+                    if not self.class_detection.is_class(cls=cls, name=name): continue
+                    data.append((total, name))
+                data.sort(reverse=True)
 
-                if not players: continue
+                if not data: continue
 
                 if not cls_printed:
                     print("  ", cls.capitalize(), file=output)
                     cls_printed = True
                 if spell in RENAME_TRINKET_SPELL:
                     spell = RENAME_TRINKET_SPELL[spell]
+                if spell in RECEIVE_BUFF_SPELL:
+                    spell += ' (received)'
                 print("  ", "  ", spell, file=output)
-                for total, player in players:
-                    print("  ", "  ", "  ", player, total, file=output)
+                for total, name in data:
+                    print("  ", "  ", "  ", name, total, file=output)
+
+class ProcSummary:
+    def __init__(self, proc_count, player):
+        # spell - player - count
+        self.counts = proc_count.counts
+        self.counts_extra_attacks = proc_count.counts_extra_attacks
+        self.player = player
+    def print(self, output):
+        print("\n\nProc Summary", file=output)
+        for proc in sorted(self.counts):
+            data = []
+            for name in sorted(self.counts[proc]):
+                total = self.counts[proc][name]
+                if name not in self.player: continue
+                data.append((total, name))
+            data.sort(reverse=True)
+
+            if not data: continue
+            print("  ", proc, file=output)
+            for total, name in data:
+                print("  ", "  ", name, total, file=output)
+
+        # extra attacks
+        print("  ", 'Extra Attacks', file=output)
+        for source in sorted(self.counts_extra_attacks):
+            data = []
+            for name in sorted(self.counts_extra_attacks[source]):
+                total = self.counts_extra_attacks[source][name]
+                if name not in self.player: continue
+                data.append((total, name))
+            data.sort(reverse=True)
+
+            if not data: continue
+            print("  ", "  ", source, file=output)
+            for total, name in data:
+                print("  ", "  ", "  ", name, total, file=output)
 
 
 
@@ -962,6 +1006,9 @@ LINE2SPELLCAST = {
         'Divine Favor',
         'Berserking',
         'Stoneform',
+        # buffs received
+        'Power Infusion',
+        'Bloodlust',
     },
     'gains_rage_line': {
         "Gri'lek's Charm of Might",
@@ -1002,6 +1049,36 @@ class SpellCount:
         if not line_type in LINE2SPELLCAST: return
         if not spell in LINE2SPELLCAST[line_type]: return
         self.counts[spell][name] += 1
+
+
+
+LINE2PROC = {
+    'gains_line': {
+        'Enrage',
+        'Flurry',
+        'Elemental Devastation',
+        "Stormcaller's Wrath",
+        'Spell Blasting',
+        'Clearcasting',
+        'Vengeance',
+        "Nature's Grace",
+    },
+}
+class ProcCount:
+    def __init__(self, ):
+        # effect - name - count
+        self.counts = collections.defaultdict(lambda: collections.defaultdict(int))
+
+        # source - name - count
+        self.counts_extra_attacks = collections.defaultdict(lambda: collections.defaultdict(int))
+    def add(self, line_type, name, spell):
+        if not line_type in LINE2PROC: return
+        if not spell in LINE2PROC[line_type]: return
+        self.counts[spell][name] += 1
+    def add_extra_attacks(self, howmany, source, name):
+        self.counts_extra_attacks[source][name] += howmany
+
+
 
 class PrintConsumables:
     def __init__(self, player, pricedb, death_count):
@@ -1247,6 +1324,7 @@ def parse_line(app, line):
 
             app.class_detection.detect(line_type=subtree.data, name=name, spell=spellname)
             app.spell_count.add(line_type=subtree.data, name=name, spell=spellname)
+            app.proc_count.add(line_type=subtree.data, name=name, spell=spellname)
 
             if spellname in GAINS_CONSUMABLE:
                 consumable = spellname
@@ -1615,6 +1693,10 @@ def parse_line(app, line):
             app.spell_count.add(line_type=subtree.data, name=name, spell=spellname)
             return True
         elif subtree.data == 'gains_extra_attacks_line':
+            name = subtree.children[0].value
+            howmany = int(subtree.children[1].value)
+            source = subtree.children[2].value
+            app.proc_count.add_extra_attacks(howmany=howmany, name=name, source=source)
             return True
         elif subtree.data == 'dodges_line':
             return True
@@ -1708,6 +1790,7 @@ def generate_output(app):
     app.print_consumables.print(output)
 
     app.cooldown_summary.print(output)
+    app.proc_summary.print(output)
 
     # bwl
     app.nef_corrupted_healing.print(output)
