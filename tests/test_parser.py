@@ -1106,7 +1106,7 @@ def test_cooldown_summary(app):
 12/10 20:30:06.459  Deathstruck gains Badge of the Swarmguard (1).
 12/9 23:58:01.420  Cheesebreath gains Essence of Sapphiron (1).
 12/9 20:29:22.511  Abstractz gains Ephemeral Power (1).
-12/9 23:56:32.451  Ancst gains Unstable Power (12).
+12/9 23:56:32.451  Ancst gains Unstable Power (1).
 12/9 23:23:11.500  Aquatic gains Mind Quickening (1).
 12/9 22:15:45.841  Abstractz gains Nature Aligned (1).
 12/9 23:56:40.182  Interlani gains Divine Favor (1).
@@ -1183,6 +1183,34 @@ def test_cooldown_summary(app):
 
     # assert output.getvalue() == '\n\nCooldown Usage\n   Death Wish\n      Pitbound 1\n   Recklessness\n      Martl 1\n'
     pass
+
+def test_spellcount_stackcount(app):
+    lines = """
+2/25 12:38:15.072  Ganbatte gains Combustion (1).
+2/25 12:38:15.144  Ganbatte gains Combustion (2).
+2/25 12:38:16.740  Ganbatte gains Combustion (3).
+2/25 12:38:20.680  Ganbatte gains Combustion (4).
+2/25 12:38:30.521  Combustion fades from Ganbatte.
+2/25 12:38:50.909  Pgulaff gains Combustion (1).
+2/25 12:38:51.206  Pgulaff gains Combustion (2).
+2/25 12:38:52.271  Aquatic gains Combustion (1).
+2/25 12:38:53.240  Aquatic gains Combustion (2).
+2/25 12:30:55.173  Unstable Power fades from Ganbatte.
+2/25 12:31:38.837  Nerilen gains Unstable Power (1).
+2/25 12:31:38.846  Nerilen gains Unstable Power (12).
+2/25 12:31:58.809  Unstable Power fades from Nerilen.
+2/25 12:32:26.785  Almouty gains Unstable Power (1).
+2/25 12:32:26.789  Almouty gains Unstable Power (12).
+    """
+    lines = lines.splitlines(keepends=True)
+    for line in lines:
+        parse_line(app, line)
+    output = io.StringIO()
+    app.cooldown_summary.print(output)
+
+    assert app.spell_count.counts["Combustion"]['Ganbatte'] == 1
+    assert app.spell_count.counts["Unstable Power"]['Nerilen'] == 1
+
 
 def test_class_detection(app):
     lines = """

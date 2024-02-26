@@ -1049,6 +1049,10 @@ class SpellCount:
         if not line_type in LINE2SPELLCAST: return
         if not spell in LINE2SPELLCAST[line_type]: return
         self.counts[spell][name] += 1
+    def add_stackcount(self, line_type, name, spell, stackcount):
+        if spell in {'Combustion', 'Unstable Power'} and line_type == 'gains_line' and stackcount != 1:
+            return
+        self.add(line_type=line_type, name=name, spell=spell)
 
 
 
@@ -1321,9 +1325,10 @@ def parse_line(app, line):
         if subtree.data == 'gains_line':
             name = subtree.children[0].value
             spellname = subtree.children[1].value
+            stackcount = int(subtree.children[2].value)
 
             app.class_detection.detect(line_type=subtree.data, name=name, spell=spellname)
-            app.spell_count.add(line_type=subtree.data, name=name, spell=spellname)
+            app.spell_count.add_stackcount(line_type=subtree.data, name=name, spell=spellname, stackcount=stackcount)
             app.proc_count.add(line_type=subtree.data, name=name, spell=spellname)
 
             if spellname in GAINS_CONSUMABLE:
