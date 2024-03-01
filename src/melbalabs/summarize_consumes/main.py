@@ -291,6 +291,7 @@ NAME2ITEMID = {
     'Lesser Mana Oil': 20747,
     'Brilliant Mana Oil': 20748,
     'Mighty Rage Potion': 13442,
+    'Great Rage Potion': 5633,
     'Dense Dynamite': 18641,
     'Brilliant Wizard Oil': 20749,
     'Wizard Oil': 20750,
