@@ -1356,3 +1356,16 @@ def test_proc_count(app):
 
     assert app.proc_count.counts_extra_attacks['Hand of Justice']['Rila'] == 1
     assert app.proc_count.counts_extra_attacks['Windfury Weapon']['Cracklinoats'] == 2
+
+
+def test_annihilator(app):
+    lines = """
+3/23 20:30:22.046  Anub'Rekhan gains Armor Shatter (2).
+3/23 21:03:32.631  Armor Shatter fades from Instructor Razuvious.
+3/23 21:30:48.616  Vallcow 's Armor Shatter was resisted by Noth the Plaguebringer.
+3/23 22:13:17.915  Feugen is afflicted by Armor Shatter (2).
+    """
+    lines = lines.splitlines(keepends=True)
+    for line in lines:
+        parse_line(app, line)
+    assert len(app.annihilator.log) == 4

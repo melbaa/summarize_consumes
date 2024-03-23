@@ -99,6 +99,8 @@ def create_app(time_start, expert_log_unparsed_lines):
 
     app.print_consumable_totals_csv = PrintConsumableTotalsCsv(player=app.player, pricedb=app.pricedb, death_count=app.death_count)
 
+    app.annihilator = Annihilator()
+
     # bwl
     app.nef_corrupted_healing = NefCorruptedHealing()
     app.nef_wild_polymorph = NefWildPolymorph()
@@ -606,6 +608,24 @@ def print_collected_log(section_name, log_list, output):
     for line in log_list:
         print('  ', line, end='', file=output)
     return
+
+def print_collected_log_always(section_name, log_list, output):
+    print(f"\n\n{section_name}", file=output)
+    for line in log_list:
+        print('  ', line, end='', file=output)
+    if not log_list:
+        print('  ', '<nothing found>', end='', file=output)
+    return
+
+class Annihilator:
+    def __init__(self):
+        self.logname = 'Annihilator Log'
+        self.log = []
+    def add(self, line):
+        self.log.append(line)
+    def print(self, output):
+        print_collected_log_always(self.logname, self.log, output)
+
 
 
 
@@ -1341,6 +1361,9 @@ def parse_line(app, line):
             if spellname in BUFF_SPELL:
                 app.player_detect[name].add('buff: ' + spellname)
 
+            if spellname == 'Armor Shatter':
+                app.annihilator.add(line)
+
             if name == 'Princess Huhuran' and spellname in {'Frenzy', 'Berserk'}:
                 app.huhuran.add(line)
             if name == 'Gluth' and spellname == 'Frenzy':
@@ -1553,6 +1576,9 @@ def parse_line(app, line):
             if spellname in app.hits_consumable.COOLDOWNS:
                 app.hits_consumable.update(name, spellname, timestamp)
 
+            if spellname == 'Armor Shatter':
+                app.annihilator.add(line)
+
             if name == "Eye of C'Thun" and spellname == "Eye Beam":
                 app.cthun_chain.add(timestamp, line)
 
@@ -1588,6 +1614,8 @@ def parse_line(app, line):
             app.class_detection.detect(line_type=subtree.data, name=targetname, spell=spellname)
             app.spell_count.add(line_type=subtree.data, name=targetname, spell=spellname)
 
+            if spellname == 'Armor Shatter':
+                app.annihilator.add(line)
             if spellname == 'Decimate':
                 app.gluth.add(line)
             if spellname == "Frost Blast":
@@ -1668,6 +1696,8 @@ def parse_line(app, line):
             spellname = subtree.children[0].value
             targetname = subtree.children[1].value
 
+            if spellname == 'Armor Shatter':
+                app.annihilator.add(line)
             if targetname == 'Guardian of Icecrown':
                 app.kt_guardian.add(line)
 
@@ -1797,6 +1827,8 @@ def generate_output(app):
 
     app.cooldown_summary.print(output)
     app.proc_summary.print(output)
+
+    app.annihilator.print(output)
 
     # bwl
     app.nef_corrupted_healing.print(output)
