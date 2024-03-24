@@ -1102,6 +1102,7 @@ def test_cooldown_summary(app):
 12/10 21:49:16.659  Yakub gains Nature's Swiftness (1).
 12/10 21:02:37.923  Vallcow gains Kiss of the Spider (1).
 12/10 21:02:37.923  Vallcow gains Slayer's Crest (1).
+5/10 20:44:14.660  Srj gains Jom Gabbar (1).
 5/10 20:44:14.660  Srj gains Jom Gabbar (6).
 12/10 20:30:06.459  Deathstruck gains Badge of the Swarmguard (1).
 12/9 23:58:01.420  Cheesebreath gains Essence of Sapphiron (1).

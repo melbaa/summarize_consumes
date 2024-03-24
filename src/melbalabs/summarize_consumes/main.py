@@ -1081,7 +1081,7 @@ class SpellCount:
         if not spell in LINE2SPELLCAST[line_type]: return
         self.counts[spell][name] += 1
     def add_stackcount(self, line_type, name, spell, stackcount):
-        if spell in {'Combustion', 'Unstable Power'} and line_type == 'gains_line' and stackcount != 1:
+        if spell in {'Combustion', 'Unstable Power', 'Jom Gabbar'} and line_type == 'gains_line' and stackcount != 1:
             return
         self.add(line_type=line_type, name=name, spell=spell)
 
