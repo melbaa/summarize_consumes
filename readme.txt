@@ -4,6 +4,8 @@ The summary includes
 * consumables (as much as the combat log allows)
 * consumable prices if data is available. First an attempt is made to download prices from the web. If that fails, prices are read from the local prices.json
 * cooldowns, resurrects, racial abilities and trinkets used
+* annihilator log
+* flame buffet (dragonling) log
 * details about some boss fights
 ** nefarian corrupted healing
 ** nefarian wild polymorphs

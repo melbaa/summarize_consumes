@@ -1369,3 +1369,65 @@ def test_annihilator(app):
     for line in lines:
         parse_line(app, line)
     assert len(app.annihilator.log) == 4
+
+def test_flamebuffet(app):
+    lines = """
+3/23 20:29:28.820  Anub'Rekhan gains Flame Buffet (1).
+3/23 20:29:29.418  Crypt Guard gains Flame Buffet (1).
+3/23 20:29:49.085  Arcanite Dragonling begins to cast Flame Buffet.
+3/23 20:29:49.678  Arcanite Dragonling begins to cast Flame Buffet.
+3/23 20:29:51.322  Arcanite Dragonling 's Flame Buffet hits Anub'Rekhan for 261 Fire damage.
+3/23 20:29:51.322  Anub'Rekhan gains Flame Buffet (2).
+3/23 20:30:14.649  Flame Buffet fades from Crypt Guard.
+3/23 20:47:20.674  Arcanite Dragonling begins to cast Flame Buffet.
+3/23 20:47:21.438  Arcanite Dragonling begins to cast Flame Buffet.
+3/23 20:47:21.438  Arcanite Dragonling begins to cast Flame Buffet.
+3/23 20:47:22.885  Arcanite Dragonling 's Flame Buffet hits Maexxna for 151 Fire damage.
+3/23 20:47:22.885  Maexxna gains Flame Buffet (1).
+3/23 20:47:23.710  Arcanite Dragonling 's Flame Buffet hits Maexxna for 227 Fire damage.
+3/23 20:47:23.710  Arcanite Dragonling 's Flame Buffet hits Maexxna for 304 Fire damage.
+3/23 20:47:23.710  Maexxna gains Flame Buffet (3).
+3/23 20:47:25.342  Arcanite Dragonling begins to cast Flame Buffet.
+3/23 20:47:26.636  Arcanite Dragonling begins to cast Flame Buffet.
+3/23 20:47:27.592  Arcanite Dragonling 's Flame Buffet hits Maexxna for 380 Fire damage.
+3/23 20:47:27.604  Maexxna gains Flame Buffet (4).
+3/23 20:47:28.912  Arcanite Dragonling 's Flame Buffet was resisted by Maexxna.
+3/23 20:47:43.179  Arcanite Dragonling begins to cast Flame Buffet.
+3/23 20:47:43.984  Arcanite Dragonling begins to cast Flame Buffet.
+3/23 20:47:43.984  Arcanite Dragonling begins to cast Flame Buffet.
+3/23 20:47:45.428  Arcanite Dragonling 's Flame Buffet hits Maexxna for 523 Fire damage.
+3/23 20:47:45.428  Maexxna gains Flame Buffet (5).
+3/23 20:47:46.209  Arcanite Dragonling 's Flame Buffet crits Maexxna for 784 Fire damage.
+3/23 20:47:46.209  Arcanite Dragonling 's Flame Buffet hits Maexxna for 523 Fire damage.
+3/23 20:47:47.881  Arcanite Dragonling begins to cast Flame Buffet.
+3/23 20:47:49.200  Arcanite Dragonling begins to cast Flame Buffet.
+3/23 20:47:50.131  Arcanite Dragonling 's Flame Buffet hits Maexxna for 522 Fire damage.
+3/23 20:47:51.389  Arcanite Dragonling 's Flame Buffet was resisted by Maexxna.
+3/23 21:39:59.631  Arcanite Dragonling begins to cast Flame Buffet.
+3/23 21:40:01.855  Arcanite Dragonling 's Flame Buffet hits Loatheb for 139 Fire damage.
+3/23 21:40:01.899  Loatheb gains Flame Buffet (1).
+3/23 21:40:22.147  Arcanite Dragonling begins to cast Flame Buffet.
+3/23 21:40:24.389  Arcanite Dragonling 's Flame Buffet hits Loatheb for 260 Fire damage.
+3/23 21:40:24.484  Loatheb gains Flame Buffet (2).
+3/23 21:41:09.454  Flame Buffet fades from Loatheb.
+3/23 21:57:09.032  Arcanite Dragonling begins to cast Flame Buffet.
+3/23 21:57:10.350  Arcanite Dragonling begins to cast Flame Buffet.
+3/23 21:57:10.350  Arcanite Dragonling begins to cast Flame Buffet.
+3/23 21:57:11.216  Arcanite Dragonling 's Flame Buffet hits Patchwerk for 136 Fire damage.
+3/23 21:57:11.216  Patchwerk gains Flame Buffet (1).
+3/23 21:57:11.664  Arcanite Dragonling begins to cast Flame Buffet.
+3/23 21:57:12.575  Arcanite Dragonling 's Flame Buffet hits Patchwerk for 236 Fire damage.
+3/23 21:57:12.575  Arcanite Dragonling 's Flame Buffet hits Patchwerk for 316 Fire damage.
+3/23 21:57:12.575  Patchwerk gains Flame Buffet (3).
+3/23 21:57:13.174  Arcanite Dragonling begins to cast Flame Buffet.
+3/23 21:57:13.811  Arcanite Dragonling 's Flame Buffet hits Patchwerk for 398 Fire damage.
+3/23 21:57:13.811  Patchwerk gains Flame Buffet (4).
+3/23 21:57:15.420  Arcanite Dragonling 's Flame Buffet hits Patchwerk for 476 Fire damage.
+3/23 21:57:15.420  Patchwerk gains Flame Buffet (5).
+    """
+    lines = lines.splitlines(keepends=True)
+    for line in lines:
+        parse_line(app, line)
+    assert len(app.flamebuffet.log) == 13
+
+

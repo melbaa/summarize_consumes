@@ -100,6 +100,7 @@ def create_app(time_start, expert_log_unparsed_lines):
     app.print_consumable_totals_csv = PrintConsumableTotalsCsv(player=app.player, pricedb=app.pricedb, death_count=app.death_count)
 
     app.annihilator = Annihilator()
+    app.flamebuffet = FlameBuffet()
 
     # bwl
     app.nef_corrupted_healing = NefCorruptedHealing()
@@ -400,7 +401,7 @@ GAINS_CONSUMABLE = {
     "Blessed Sunfruit",
     "Gordok Green Grog",
     "Frost Power",
-    "Gift of Arthas",
+    "Gift of Arthas",  # also a debuff
     "100 Energy",  # Restore Energy aka Thistle Tea
     "Restoration",
     "Crystal Ward",
@@ -620,6 +621,15 @@ def print_collected_log_always(section_name, log_list, output):
 class Annihilator:
     def __init__(self):
         self.logname = 'Annihilator Log'
+        self.log = []
+    def add(self, line):
+        self.log.append(line)
+    def print(self, output):
+        print_collected_log_always(self.logname, self.log, output)
+
+class FlameBuffet:
+    def __init__(self):
+        self.logname = 'Flame Buffet (dragonling) Log'
         self.log = []
     def add(self, line):
         self.log.append(line)
@@ -1363,6 +1373,8 @@ def parse_line(app, line):
 
             if spellname == 'Armor Shatter':
                 app.annihilator.add(line)
+            if spellname == 'Flame Buffet':
+                app.flamebuffet.add(line)
 
             if name == 'Princess Huhuran' and spellname in {'Frenzy', 'Berserk'}:
                 app.huhuran.add(line)
@@ -1829,6 +1841,7 @@ def generate_output(app):
     app.proc_summary.print(output)
 
     app.annihilator.print(output)
+    app.flamebuffet.print(output)
 
     # bwl
     app.nef_corrupted_healing.print(output)
