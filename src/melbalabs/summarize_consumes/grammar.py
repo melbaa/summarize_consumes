@@ -25,6 +25,7 @@ _line: gains_line
     | immune_ability_line
     | immune_line
     | is_immune_ability_line
+    | is_destroyed_line
     | afflicted_line
     | is_absorbed_ability_line
     | absorbs_ability_line
@@ -55,6 +56,7 @@ _line: gains_line
     | pet_begins_eating_line
     | gains_happiness_line
     | is_dismissed_line
+    | is_dismissed_line2
     | causes_damage_line
 
 causes_damage_line: MULTIWORD " 's " MULTIWORD " causes " MULTIWORD " " INT " damage."
@@ -62,6 +64,8 @@ causes_damage_line: MULTIWORD " 's " MULTIWORD " causes " MULTIWORD " " INT " da
 fails_to_dispel_line: MULTIWORD " fails to dispel " MULTIWORD " 's " MULTIWORD "."
 
 is_reflected_back_line: MULTIWORD " 's " MULTIWORD " is reflected back by " MULTIWORD "."
+
+is_destroyed_line: MULTIWORD " is destroyed."
 
 interrupts_line: MULTIWORD " interrupts " MULTIWORD " 's " MULTIWORD "."
 
@@ -89,6 +93,7 @@ is_killed_line: MULTIWORD " is killed by " MULTIWORD "."
 slain_line: MULTIWORD " is slain by " MULTIWORD "!"
 
 is_dismissed_line: MULTIWORD " 's " MULTIWORD " is dismissed."
+is_dismissed_line2: MULTIWORD " is dismissed."
 gains_happiness_line: MULTIWORD " gains " INT " Happiness from " MULTIWORD " 's Feed Pet Effect."
 pet_begins_eating_line: MULTIWORD " pet begins eating a " MULTIWORD "."
 block_ability_line: MULTIWORD " 's " MULTIWORD " was blocked by " MULTIWORD "."
@@ -165,7 +170,7 @@ PAREN_WORD: "(" WORD ")"
 MULTIWORD: WORD ((SPACE | DASH | UNDERSCORE) CONNECTING_WORD)* TRAILING_SPACE?
 CONNECTING_APOSTROPHE: /(?<! )'/  # allow it only inside a word
 CONNECTING_COLON: /(?<! ):/
-CONNECTING_WORD: "and"|"with"|"by"|"of"|"the"|"75B"|DASH|PAREN_WORD|WORD|/(?<=Lay )on(?= Hands)/
+CONNECTING_WORD: "and"|"with"|"by"|"of"|"to"|"the"|"75B"|"numbing"|"an"|DASH|PAREN_WORD|WORD|/(?<=Lay )on(?= Hands)/
 
 _TS_SEP: SPACE SPACE
 SPACE: " "

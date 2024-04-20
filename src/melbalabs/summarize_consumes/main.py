@@ -1637,6 +1637,8 @@ def parse_line(app, line):
                 app.kt_guardian.add(line)
 
             return True
+        elif subtree.data == 'is_destroyed_line':
+            return True
         elif subtree.data == 'is_absorbed_ability_line':
 
             name = subtree.children[0].value
@@ -1671,6 +1673,12 @@ def parse_line(app, line):
         elif subtree.data == 'is_dismissed_line':
             name = subtree.children[0].value
             petname = subtree.children[1].value
+            app.pet_handler.add(name, petname)
+            return True
+        elif subtree.data == 'is_dismissed_line2':
+            name, petname = subtree.children[0].value.split(' ')
+            if name[-2:] == "'s":
+                name = name[:-2]
             app.pet_handler.add(name, petname)
             return True
         elif subtree.data == 'gains_happiness_line':

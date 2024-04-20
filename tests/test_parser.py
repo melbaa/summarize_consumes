@@ -240,12 +240,13 @@ def test_casts_melt_weapon(app):
 1/26 22:16:05.224  Ragnaros casts Melt Weapon on Feloxiaroni: Spear of the Endless Hunt damaged.
 1/26 22:16:05.435  Ragnaros casts Melt Weapon on Wezepeng: Vis'kag the Bloodletter damaged.
 1/26 22:16:06.461  Ragnaros casts Melt Weapon on Psykhe: Iblis, Blade of the Fallen Seraph damaged.
+4/19 21:55:29.304  Ragnaros casts Melt Weapon on Ingar: Remnants of an Old God damaged.
     """
     lines = lines.splitlines(keepends=True)
     match = 0
     for line in lines:
         match += parse_line(app, line)
-    assert match == 4
+    assert match == 5
 
 
 
@@ -703,6 +704,28 @@ def test_paren_word(app):
         match += parse_line(app, line)
     assert match == 1
 
+def test_dashed_word(app):
+    lines = """
+4/14 21:02:23.229  Interlani is afflicted by Mind-numbing Poison (1).
+    """
+    lines = lines.splitlines(keepends=True)
+
+    match = 0
+    for line in lines:
+        match += parse_line(app, line)
+    assert match == 1
+
+def test_is_destroyed_line(app):
+    lines = """
+4/19 21:21:30.746  Battle Chicken is destroyed.
+4/20 16:35:21.543  Magma Totem IV is destroyed.
+    """
+    lines = lines.splitlines(keepends=True)
+
+    match = 0
+    for line in lines:
+        match += parse_line(app, line)
+    assert match == 2
 
 def test_performs_line(app):
     lines = """
@@ -1043,6 +1066,7 @@ def test_gains_happiness(app):
 
 def test_is_dismissed(app):
     lines = """
+4/19 20:54:23.504  Leyzara's Azrael is dismissed.
 12/10 21:15:33.219  Pitsharp 's Wolf is dismissed.
 12/10 21:40:45.575  Minoas 's Thunder is dismissed.
     """
@@ -1050,9 +1074,10 @@ def test_is_dismissed(app):
     match = 0
     for line in lines:
         match += parse_line(app, line)
-    assert match == 2
+    assert match == 3
     assert app.pet_handler.store['Pitsharp'] == {'Wolf'}
     assert app.pet_handler.store['Minoas'] == {'Thunder'}
+    assert app.pet_handler.store['Leyzara'] == {'Azrael'}
 
 
 
