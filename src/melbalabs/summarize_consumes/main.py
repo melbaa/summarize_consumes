@@ -401,7 +401,7 @@ GAINS_CONSUMABLE = {
     "Blessed Sunfruit",
     "Gordok Green Grog",
     "Frost Power",
-    "Gift of Arthas",  # also a debuff
+    # "Gift of Arthas",  # both players and NPCs gain it, really annoying
     "100 Energy",  # Restore Energy aka Thistle Tea
     "Restoration",
     "Crystal Ward",
@@ -1827,6 +1827,7 @@ def generate_output(app):
     - Mageblood and some other mana consumes are "mana regeneration" in the combat log, can't tell them apart.
     - Lesser, greater protection potions and frozen runes don't have unique names, can't tell them apart.
     - Nordanaar Herbal Tea casts the same spell as Tea with Sugar, can't tell them apart.
+    - Gift of Arthas looks like a buff on both players and NPCs, which messes up player detection, so it's not tracked.
 
 """, file=output)
 
