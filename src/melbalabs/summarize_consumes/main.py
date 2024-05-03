@@ -1916,6 +1916,8 @@ class IxioUploader:
             return None
         if 'down for DDOS' in response.text:
             return None
+        if 'ix.io is taking a break' in response.text:
+            return None
         if response.status_code != 200:
             return None
         url = response.text.strip().split('\n')[-1]
@@ -1930,6 +1932,7 @@ class BpasteUploader:
             timeout=30,
         )
         if response.status_code != 200:
+            print(response.text)
             return None
         lines = response.text.splitlines()
         for line in lines:
