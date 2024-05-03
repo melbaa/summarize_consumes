@@ -40,7 +40,8 @@ options:
   --write-summary       writes output to summary.txt instead of the console
   --write-consumable-totals-csv
                         also writes consumable-totals.csv (name, copper, deaths)
-
+  --compare-players PLAYER1 PLAYER2
+                        compare 2 players, output the difference in compare-players.txt
 
 
 

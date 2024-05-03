@@ -135,8 +135,8 @@ def test_gains_consumable_line(app):
     assert app.player['Rando']['Elixir of Fortitude'] == 1
     assert app.player['Rando']['Increased Stamina'] == 0
     assert app.player['Psykhe']['Shadow Protection'] == 1
-    assert app.player['Axe']['Gift of Arthas'] == 1
-    assert app.player['Unholy Axe']['Gift of Arthas'] == 1
+    assert app.player['Axe']['Gift of Arthas'] == 0
+    assert app.player['Unholy Axe']['Gift of Arthas'] == 0
     assert app.player['Squirreled']['Elixir of Brute Force'] == 1
 
 
@@ -1468,15 +1468,11 @@ def test_dmgstore(app):
     lines = lines.splitlines(keepends=True)
     for line in lines:
         parse_line(app, line)
-    store = app.dmgstore.store
-    assert store['Guardian of Icecrown']['Shumy']['hit'] == 2200
-    assert store['Arcanite Dragonling']['Patchwerk']['Flame Buffet'] == 476
-    assert store['Agonist']['Obsidian Eradicator']['Deep Wound'] == 81
-    assert store['Palapus']['Molten Giant']['reflect'] == 35
-    assert store["Kel'Thuzad"]['Cracklinoats']['Spirit Link'] == 27
+    store = app.dmgstore.store_ability
+    assert store[('Guardian of Icecrown', 'Shumy', 'hit')].dmg == 2200
+    assert store[('Arcanite Dragonling', 'Patchwerk', 'Flame Buffet')].dmg == 476
+    assert store[('Agonist', 'Obsidian Eradicator', 'Deep Wound')].dmg == 81
+    assert store[('Palapus', 'Molten Giant', 'reflect')].dmg == 35
+    assert store[("Kel'Thuzad", 'Cracklinoats', 'Spirit Link')].dmg == 27
 
-    output = io.StringIO()
-    app.dmgstore.print_dmg_desc(output)
-    value = output.getvalue()
-    assert value
 

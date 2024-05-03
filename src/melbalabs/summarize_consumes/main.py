@@ -117,7 +117,7 @@ def create_app(time_start, expert_log_unparsed_lines):
     app.kt_shadowfissure = KTShadowfissure()
     app.kt_guardian = KTGuardian()
 
-    app.dmgstore = Dmgstore(app.player)
+    app.dmgstore = Dmgstore2(player=app.player, class_detection=app.class_detection, abilitycost=ABILITYCOST)
 
     app.techinfo = Techinfo(time_start=time_start, prices_last_update=app.pricedb.last_update)
 
@@ -542,6 +542,16 @@ BUFF_SPELL = {
     "Prayer of Shadow Protection",
 }
 
+ABILITYCOST = {
+    'Bloodthirst': 30,
+    'Hamstring': 10,
+    'Heroic Strike': 15,
+    'Whirlwind': 25,
+    'Cleave': 20,
+    'Execute': 15,
+    'Slam': 15,
+}
+
 
 
 def healpot_lookup(amount):
@@ -801,20 +811,37 @@ class BeamChain:
         if not found_batch:
             print('  ', f'<no chains of {self.chainsize} found. well done>', end='', file=output)
 
+
+class DmgstoreEntry:
+    def __init__(self):
+        self.dmg = 0
+        self.cost = 0
+        self.hits = 0
+
 class Dmgstore:
-    def __init__(self, player):
+    def __init__(self, player, class_detection):
         self.logname = 'Damage Done'
         self.player = player
+        self.class_detection = class_detection
 
         self.store = collections.defaultdict(
             lambda: collections.defaultdict(
                 lambda: collections.defaultdict(
-                    int)))
+                    DmgstoreEntry)))
+
+
+
     def add(self, source, target, ability, amount):
-        self.store[source][target][ability] += amount
+        entry = self.store[source][target][ability]
+
+        entry.dmg += amount
+
+        cost = self.abilitycost.get(ability, 0)
+        entry.cost += cost
+
+        entry.hits += 1
 
     def print_dmg_desc(self, output):
-
 
         # remove known npc
         for source in list(self.store):
@@ -834,7 +861,9 @@ class Dmgstore:
                 target_total = 0
                 abilities = self.store[source][target]
                 for ability in abilities:
-                    dmg = abilities[ability]
+                    entry = abilities[ability]
+
+                    dmg = entry.dmg
                     source_total += dmg
                     target_total += dmg
 
@@ -871,35 +900,168 @@ class Dmgstore:
         source_target_ability_totals = collections.defaultdict(list)
         for source in self.store:
             source_total = 0
+            source_cost = 0
+            source_hits = 0
             targets = self.store[source]
             for target in targets:
                 target_total = 0
+                target_cost = 0
+                target_hits = 0
                 abilities = self.store[source][target]
                 for ability in abilities:
-                    dmg = abilities[ability]
+                    entry = abilities[ability]
+
+                    dmg = entry.dmg
                     source_total += dmg
                     target_total += dmg
 
-                    source_target_ability_totals[(source, target)].append((ability, dmg))
+                    cost = entry.cost
+                    target_cost += cost
+                    source_cost += cost
 
-                source_target_totals[source].append((target, target_total))
+                    hits = entry.hits
+                    source_hits += hits
+                    target_hits += hits
 
-            source_totals.append((source, source_total))
+                    source_target_ability_totals[(source, target)].append((ability, dmg, cost, hits))
+
+                source_target_totals[source].append((target, target_total, target_cost, target_hits))
+
+            source_totals.append((source, source_total, source_cost, source_hits))
 
 
         source_totals.sort()
-        for source, dmg in source_totals:
-            print('  ', f'{source}  {dmg}', file=output)
+        for source, dmg, cost, hits in source_totals:
+            print('  ', f'{source}  dmg:{dmg}  cost:{cost}  hits:{hits}', file=output)
 
             source_target_totals[source].sort()
-            for target, dmg in source_target_totals[source]:
+            for target, dmg, cost, hits in source_target_totals[source]:
                 print(file=output)  # new target empty line
-                print('  ', '  ', f'{target}  {dmg}', file=output)
+                print('  ', '  ', f'{target}  dmg:{dmg}  cost:{cost}  hits:{hits}', file=output)
                 print(file=output)  # new target empty line
 
                 source_target_ability_totals[(source, target)].sort()
-                for ability, dmg in source_target_ability_totals[(source, target)]:
-                    print('  ', '  ', '  ', f'{target} {ability}  {dmg}', file=output)
+                for ability, dmg, cost, hits in source_target_ability_totals[(source, target)]:
+                    print('  ', '  ', '  ', f'{target} {ability}  dmg:{dmg}  cost:{cost}  hits:{hits}', file=output)
+
+
+    def print_compare_players(self, player1, player2, output):
+        p1 = self.store[player1]
+        p2 = self.store[player2]
+
+        t1 = list(p1.keys())
+        t2 = list(p2.keys())
+
+        t1.sort()
+        t2.sort()
+
+        i1 = 0
+        i2 = 0
+        while i1 < len(t1) and i2 < len(t2):
+            target1 = t1[i1]
+            target2 = t2[i2]
+            if t1[i1] == t2[i2]:
+                blockdata = self.compare_targets(target1, target2, p1, p2, player1, player2)
+                i1 += 1
+                i2 += 1
+            elif t1[i1] < t2[i2]:
+                blockdata = self.compare_targets(target1, 'nothing', p1, p2, player1, player2)
+                i1 += 1
+            else:
+                blockdata = self.compare_targets('nothing', target2, p1, p2, player1, player2)
+                i2 += 1
+
+        while i1 < len(t1):
+            target1 = t1[i1]
+            blockdata = self.compare_targets(target1, 'nothing', p1, p2, player1, player2)
+            i1 += 1
+
+        while i2 < len(t2):
+            target2 = t2[i2]
+            blockdata = self.compare_targets('nothing', target2, p1, p2, player1, player2)
+            i2 += 1
+
+
+    def compare_targets(self, target1, target2, p1, p2, player1, player2):
+        pass
+
+class Dmgstore2:
+    def __init__(self, player, class_detection, abilitycost):
+        self.logname = 'Damage Done'
+        self.player = player
+        self.class_detection = class_detection
+        self.abilitycost = abilitycost
+
+        self.store_ability = collections.defaultdict(DmgstoreEntry)
+        self.store_target = collections.defaultdict(DmgstoreEntry)
+        self.store_source = collections.defaultdict(DmgstoreEntry)
+
+
+    def add(self, source, target, ability, amount):
+        cost = self.abilitycost.get(ability, 0)
+
+        entry = self.store_ability[(source, target, ability)]
+        entry.dmg += amount
+        entry.cost += cost
+        entry.hits += 1
+
+        entry = self.store_target[(source, target)]
+        entry.dmg += amount
+        entry.cost += cost
+        entry.hits += 1
+
+        entry = self.store_source[source]
+        entry.dmg += amount
+        entry.cost += cost
+        entry.hits += 1
+
+
+    def print_compare_players(self, player1, player2, output):
+
+        # fill blanks
+
+        for source, target, ability in sorted(self.store_ability):
+            if source == player1:
+                self.store_ability[(player2, target, ability)]
+                self.store_target[(player2, target)]
+            elif source == player2:
+                self.store_ability[(player1, target, ability)]
+                self.store_target[(player1, target)]
+
+        self.store_source[player1]
+        self.store_source[player2]
+
+        # extract data to report on
+        p1 = dict()
+        p2 = dict()
+
+        for source, target, ability in sorted(self.store_ability):
+            if source == player1:
+                p1[(target, ability)] = self.store_ability[(player1, target, ability)]
+            elif source == player2:
+                p2[(target, ability)] = self.store_ability[(player2, target, ability)]
+
+        print(f'output for {player1} - {player2}', file=output)
+        print(file=output)
+
+        seen_target = set()
+        for target, ability in p1:
+            e1 = p1[(target, ability)]
+            e2 = p2[(target, ability)]
+
+
+            if target not in seen_target:
+                seen_target.add(target)
+                print(file=output)
+                et1 = self.store_target[(player1, target)]
+                et2 = self.store_target[(player2, target)]
+                txt = f'{target}   dmg:{et1.dmg - et2.dmg} cost:{et1.cost - et2.cost} hits:{et1.hits - et2.hits}'
+                print(txt, file=output)
+            txt = f'{ability}   dmg:{e1.dmg - e2.dmg} cost:{e1.cost - e2.cost} hits:{e1.hits - e2.hits}'
+            print(txt, file=output)
+
+
+
 
 
 class Techinfo:
@@ -1808,11 +1970,11 @@ def parse_line(app, line):
             return True
         elif subtree.data == 'suffers_line':
 
-            targetname = subtree.children[0]
+            targetname = subtree.children[0].value
             amount = int(subtree.children[1])
             if subtree.children[2].data == 'suffers_line_source':
-                name = subtree.children[2].children[1]
-                spellname = subtree.children[2].children[2]
+                name = subtree.children[2].children[1].value
+                spellname = subtree.children[2].children[2].value
 
                 if spellname == 'Corrupted Healing':
                     app.nef_corrupted_healing.add(line)
@@ -1969,7 +2131,7 @@ def generate_output(app):
     app.cooldown_summary.print(output)
     app.proc_summary.print(output)
 
-    app.dmgstore.print_alphabetic(output)
+    # app.dmgstore.print_alphabetic(output)
 
     app.annihilator.print(output)
     app.flamebuffet.print(output)
@@ -2015,6 +2177,7 @@ def get_user_input():
     parser.add_argument('--write-summary', action='store_true', help='writes output to summary.txt instead of the console')
     parser.add_argument('--write-consumable-totals-csv', action='store_true', help='also writes consumable-totals.csv (name, copper, deaths)')
 
+    parser.add_argument('--compare-players', nargs=2, metavar=('PLAYER1', 'PLAYER2'), required=False, help='compare 2 players, output the difference in compare-players.txt')
     parser.add_argument('--expert-log-unparsed-lines', action='store_true', help='create an unparsed.txt with everything that was not parsed')
     args = parser.parse_args()
 
@@ -2101,6 +2264,21 @@ def main():
             with open(filename, 'wb') as f:
                 f.write(output.getvalue().encode('utf8'))
                 print('writing consumable totals to', filename)
+        feature()
+
+    if args.compare_players:
+        def feature():
+            player1, player2 = args.compare_players
+            player1 = player1.capitalize()
+            player2 = player2.capitalize()
+
+            output = io.StringIO()
+            app.dmgstore.print_compare_players(player1=player1, player2=player2, output=output)
+
+            filename = 'compare-players.txt'
+            with open(filename, 'wb') as f:
+                print('writing comparison of players to', filename)
+                f.write(output.getvalue().encode('utf8'))
         feature()
 
 
