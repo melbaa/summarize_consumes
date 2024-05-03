@@ -1028,8 +1028,8 @@ class Dmgstore2:
                 self.store_ability[(player1, target, ability)]
                 self.store_target[(player1, target)]
 
-        self.store_source[player1]
-        self.store_source[player2]
+        es1 = self.store_source[player1]
+        es2 = self.store_source[player2]
 
         # extract data to report on
         p1 = dict()
@@ -1042,6 +1042,9 @@ class Dmgstore2:
                 p2[(target, ability)] = self.store_ability[(player2, target, ability)]
 
         print(f'output for {player1} - {player2}', file=output)
+        print(file=output)
+
+        print(f'total  dmg:{es1.dmg - es2.dmg} cost:{es1.cost - es2.cost} hits:{es1.hits - es2.hits}', file=output)
         print(file=output)
 
         seen_target = set()
