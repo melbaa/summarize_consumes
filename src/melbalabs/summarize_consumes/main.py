@@ -117,6 +117,8 @@ def create_app(time_start, expert_log_unparsed_lines):
     app.kt_shadowfissure = KTShadowfissure()
     app.kt_guardian = KTGuardian()
 
+    app.dmgstore = Dmgstore(app.player)
+
     app.techinfo = Techinfo(time_start=time_start, prices_last_update=app.pricedb.last_update)
 
     return app
@@ -799,6 +801,105 @@ class BeamChain:
         if not found_batch:
             print('  ', f'<no chains of {self.chainsize} found. well done>', end='', file=output)
 
+class Dmgstore:
+    def __init__(self, player):
+        self.logname = 'Damage Done'
+        self.player = player
+
+        self.store = collections.defaultdict(
+            lambda: collections.defaultdict(
+                lambda: collections.defaultdict(
+                    int)))
+    def add(self, source, target, ability, amount):
+        self.store[source][target][ability] += amount
+
+    def print_dmg_desc(self, output):
+
+
+        # remove known npc
+        for source in list(self.store):
+            if source not in self.player:
+                del self.store[source]
+
+        print(f"\n\n{self.logname}", file=output)
+
+        # we need totals for each level
+        source_totals = []
+        source_target_totals = collections.defaultdict(list)
+        source_target_ability_totals = collections.defaultdict(list)
+        for source in self.store:
+            source_total = 0
+            targets = self.store[source]
+            for target in targets:
+                target_total = 0
+                abilities = self.store[source][target]
+                for ability in abilities:
+                    dmg = abilities[ability]
+                    source_total += dmg
+                    target_total += dmg
+
+                    source_target_ability_totals[(source, target)].append((ability, dmg))
+
+                source_target_totals[source].append((target, target_total))
+
+            source_totals.append((source, source_total))
+
+
+        source_totals.sort()
+        for source, dmg in source_totals:
+            print('  ', f'{source}  {dmg}', file=output)
+
+            source_target_totals[source].sort()
+            for target, dmg in source_target_totals[source]:
+                print('  ', '  ', f'{target}  {dmg}', file=output)
+
+                source_target_ability_totals[(source, target)].sort()
+                for ability, dmg in source_target_ability_totals[(source, target)]:
+                    print('  ', '  ', '  ', f'{ability}  {dmg}', file=output)
+
+    def print_alphabetic(self, output):
+        # remove known npc
+        for source in list(self.store):
+            if source not in self.player:
+                del self.store[source]
+
+        print(f"\n\n{self.logname}", file=output)
+
+        # we need totals for each level
+        source_totals = []
+        source_target_totals = collections.defaultdict(list)
+        source_target_ability_totals = collections.defaultdict(list)
+        for source in self.store:
+            source_total = 0
+            targets = self.store[source]
+            for target in targets:
+                target_total = 0
+                abilities = self.store[source][target]
+                for ability in abilities:
+                    dmg = abilities[ability]
+                    source_total += dmg
+                    target_total += dmg
+
+                    source_target_ability_totals[(source, target)].append((ability, dmg))
+
+                source_target_totals[source].append((target, target_total))
+
+            source_totals.append((source, source_total))
+
+
+        source_totals.sort()
+        for source, dmg in source_totals:
+            print('  ', f'{source}  {dmg}', file=output)
+
+            source_target_totals[source].sort()
+            for target, dmg in source_target_totals[source]:
+                print(file=output)  # new target empty line
+                print('  ', '  ', f'{target}  {dmg}', file=output)
+                print(file=output)  # new target empty line
+
+                source_target_ability_totals[(source, target)].sort()
+                for ability, dmg in source_target_ability_totals[(source, target)]:
+                    print('  ', '  ', '  ', f'{target} {ability}  {dmg}', file=output)
 
 
 class Techinfo:
@@ -1515,6 +1616,7 @@ def parse_line(app, line):
             name = subtree.children[0].value
             spellname = subtree.children[1].value
             targetname = subtree.children[2].value
+            amount = int(subtree.children[3].value)
 
             spellname = rename_spell(spellname, line_type=subtree.data)
 
@@ -1554,11 +1656,17 @@ def parse_line(app, line):
             if name == "Shadow Fissure" and spellname == "Void Blast":
                 app.kt_shadowfissure.add(line)
 
+            app.dmgstore.add(name, targetname, spellname, amount)
+
             return True
         elif subtree.data == "hits_autoattack_line":
             name = subtree.children[0].value
+            target = subtree.children[1].value
+            amount = int(subtree.children[2].value)
+
             if name == 'Guardian of Icecrown':
                 app.kt_guardian.add(line)
+            app.dmgstore.add(name, target, 'hit', amount)
             return True
         elif subtree.data == 'parry_ability_line':
             name = subtree.children[0].value
@@ -1701,12 +1809,15 @@ def parse_line(app, line):
         elif subtree.data == 'suffers_line':
 
             targetname = subtree.children[0]
+            amount = int(subtree.children[1])
             if subtree.children[2].data == 'suffers_line_source':
-                # name = subtree.children[2].children[2]
+                name = subtree.children[2].children[1]
                 spellname = subtree.children[2].children[2]
 
                 if spellname == 'Corrupted Healing':
                     app.nef_corrupted_healing.add(line)
+
+                app.dmgstore.add(name, targetname, spellname, amount)
             else:
                 # nosource
                 pass
@@ -1759,8 +1870,17 @@ def parse_line(app, line):
         elif subtree.data == 'dodge_ability_line':
             return True
         elif subtree.data == 'reflects_damage_line':
+            name = subtree.children[0].value
+            amount = int(subtree.children[1].value)
+            target = subtree.children[3].value
+            app.dmgstore.add(name, target, 'reflect', amount)
             return True
         elif subtree.data == 'causes_damage_line':
+            name = subtree.children[0].value
+            spellname = subtree.children[1].value
+            target = subtree.children[2].value
+            amount = int(subtree.children[3].value)
+            app.dmgstore.add(name, target, spellname, amount)
             return True
         elif subtree.data == 'is_reflected_back_line':
             return True
@@ -1848,6 +1968,8 @@ def generate_output(app):
 
     app.cooldown_summary.print(output)
     app.proc_summary.print(output)
+
+    app.dmgstore.print_alphabetic(output)
 
     app.annihilator.print(output)
     app.flamebuffet.print(output)

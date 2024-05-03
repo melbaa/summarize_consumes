@@ -1457,3 +1457,26 @@ def test_flamebuffet(app):
     assert len(app.flamebuffet.log) == 13
 
 
+def test_dmgstore(app):
+    lines = """
+11/2 22:17:49.752  Guardian of Icecrown hits Shumy for 2200.
+3/23 21:57:15.420  Arcanite Dragonling 's Flame Buffet hits Patchwerk for 476 Fire damage.
+4/21 20:28:26.317  Obsidian Eradicator suffers 81 Physical damage from Agonist 's Deep Wound.
+10/29 20:01:38.278  Palapus reflects 35 Holy damage to Molten Giant.
+2/3 22:40:48.259  Kel'Thuzad 's Spirit Link causes Cracklinoats 27 damage.
+    """
+    lines = lines.splitlines(keepends=True)
+    for line in lines:
+        parse_line(app, line)
+    store = app.dmgstore.store
+    assert store['Guardian of Icecrown']['Shumy']['hit'] == 2200
+    assert store['Arcanite Dragonling']['Patchwerk']['Flame Buffet'] == 476
+    assert store['Agonist']['Obsidian Eradicator']['Deep Wound'] == 81
+    assert store['Palapus']['Molten Giant']['reflect'] == 35
+    assert store["Kel'Thuzad"]['Cracklinoats']['Spirit Link'] == 27
+
+    output = io.StringIO()
+    app.dmgstore.print_dmg_desc(output)
+    value = output.getvalue()
+    assert value
+
