@@ -1676,7 +1676,7 @@ def parse_line(app, line):
             app.pet_handler.add(name, petname)
             return True
         elif subtree.data == 'is_dismissed_line2':
-            name, petname = subtree.children[0].value.split(' ')
+            name, petname = subtree.children[0].value.split(' ', 1)
             if name[-2:] == "'s":
                 name = name[:-2]
             app.pet_handler.add(name, petname)
