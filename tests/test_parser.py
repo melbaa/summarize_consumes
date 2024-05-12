@@ -1149,6 +1149,9 @@ def test_cooldown_summary(app):
 2/3 22:14:13.049  Squirreled gains 30 Rage from Squirreled 's Blood Fury.
 2/4 21:34:01.268  Nerilen gains Power Infusion (1).
 2/4 21:34:27.252  Murto gains Bloodlust (1).
+5/11 22:36:02.857  Interlani gains The Eye of the Dead (1).
+5/11 21:54:34.982  Bobsterr gains Healing of the Ages (1).
+10/14 20:46:04.424  Daenshoo 's Swiftmend heals Getterfour for 1913.
     """
     lines = lines.splitlines(keepends=True)
     for line in lines:
@@ -1156,6 +1159,9 @@ def test_cooldown_summary(app):
     output = io.StringIO()
     app.cooldown_summary.print(output)
 
+    assert app.spell_count.counts['Swiftmend']['Daenshoo'] == 1
+    assert app.spell_count.counts['Healing of the Ages']['Bobsterr'] == 1
+    assert app.spell_count.counts['The Eye of the Dead']['Interlani'] == 1
     assert app.spell_count.counts["Bloodlust"]['Murto'] == 1
     assert app.spell_count.counts["Power Infusion"]['Nerilen'] == 1
     assert app.spell_count.counts["Gri'lek's Charm of Might"]['Squirreled'] == 1

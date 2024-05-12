@@ -140,7 +140,6 @@ def parse_ts2unixtime(timestamp):
 
 class HitsConsumable:
 
-
     COOLDOWNS = {
         'Dragonbreath Chili': 10 * 60,
         'Goblin Sapper Charge': 5 * 60,
@@ -477,7 +476,7 @@ CDSPELL_CLASS = [
         'Magma Totem',
         'Ancestral Spirit',
     ]],
-    ['druid', ["Nature's Swiftness", "Rebirth",]],
+    ['druid', ["Nature's Swiftness", "Rebirth", "Swiftmend"]],
     ['priest', ['Inner Focus', 'Resurrection',]],
     ['paladin', ['Divine Favor', 'Holy Shock (heal)', 'Holy Shock (dmg)', 'Redemption']],
     ['rogue', [
@@ -507,6 +506,8 @@ TRINKET_SPELL = [
     'Earthstrike',
     'Diamond Flask',
     "Gri'lek's Charm of Might",
+    'The Eye of the Dead',
+    'Healing of the Ages',
     'Essence of Sapphiron',
     'Ephemeral Power',
     'Unstable Power',
@@ -521,6 +522,7 @@ RENAME_TRINKET_SPELL = {
     'Mind Quickening': 'Mind Quickening Gem',
     'Nature Aligned': 'Natural Alignment Crystal',
     'Death by Peasant': 'Barov Peasant Caller',
+    'Healing of the Ages': 'Hibernation Crystal',
 }
 for spell in itertools.chain(TRINKET_SPELL, RACIAL_SPELL, RECEIVE_BUFF_SPELL):
     for clsorder in CDSPELL_CLASS:
@@ -1289,6 +1291,8 @@ LINE2SPELLCAST = {
         'Cold Blood',
         'Blade Flurry',
         "Nature's Swiftness",  # sham and druid
+        'The Eye of the Dead',
+        'Healing of the Ages',
         'Earthstrike',
         'Diamond Flask',
         'Kiss of the Spider',
@@ -1313,6 +1317,7 @@ LINE2SPELLCAST = {
     'heals_line': {
         'Holy Shock (heal)',
         'Desperate Prayer',
+        'Swiftmend',
     },
     'casts_line': {
         'Windfury Totem',

@@ -52,6 +52,10 @@ def commit(c, message):
     c.run(f'git commit -m "{message}"')
 
 @task
+def tar(c):
+    c.run('tar --exclude __pycache__ -czvf src.tgz src')
+
+@task
 def gendeps(c):
     filenames = os.listdir('deps')
     cwd = Path('.')
