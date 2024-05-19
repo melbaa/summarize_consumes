@@ -4,5 +4,7 @@ humanize==4.8.0           # via -r deps\requirements.in
 idna==3.4                 # via requests
 interegular==0.3.2        # via lark
 lark[interegular]==1.1.8  # via -r deps\requirements.in
+plotly==5.22.0
 requests==2.31.0          # via -r deps\requirements.in
+typing_extensions==4.11.0
 urllib3==2.1.0            # via requests
