@@ -9,18 +9,18 @@ import json
 import logging
 import os
 import re
-import requests
 import time
 import webbrowser
 from datetime import datetime as dt
 from pathlib import Path
-from typing_extensions import Self
 from uuid import uuid4
 
 import humanize
 import lark
+import requests
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
+from typing_extensions import Self
 
 from melbalabs.summarize_consumes import grammar
 import melbalabs.summarize_consumes.package as package
