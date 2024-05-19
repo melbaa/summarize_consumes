@@ -564,6 +564,7 @@ def test_consumable_report(app):
     app.pricedb.data[NAME2ITEMID['Brilliant Wizard Oil']] = 50
     app.pricedb.data[NAME2ITEMID['Dark Rune']] = 4
     app.pricedb.data[NAME2ITEMID['Small Dream Shard']] = 10
+    app.consumables_accumulator.calculate()
     app.print_consumables.print(output)
     assert output.getvalue() == 'Psykhe deaths:0\n   Brilliant Wizard Oil 1   (10c)\n   Dark Rune 1   (4c)\n   Elixir of the Mongoose 3   (9g)\n   Flask of the Titans 3   (900g)\n   Rage of Ages (ROIDS) 3   (42c)\n   Tea with Sugar 1   (2c)\n   Wizard Oil 1   (1c)\n\n   total spent: 909g 59c\n'
 
@@ -1480,5 +1481,3 @@ def test_dmgstore(app):
     assert store[('Agonist', 'Obsidian Eradicator', 'Deep Wound')].dmg == 81
     assert store[('Palapus', 'Molten Giant', 'reflect')].dmg == 35
     assert store[("Kel'Thuzad", 'Cracklinoats', 'Spirit Link')].dmg == 27
-
-
