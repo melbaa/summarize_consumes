@@ -1,9 +1,6 @@
 import pytest
 
-
-from melbalabs.summarize_consumes.main import (
-    Currency,
-)
+from melbalabs.summarize_consumes.main import Currency
 
 
 def test_currency():
