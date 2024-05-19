@@ -19,13 +19,16 @@ from uuid import uuid4
 
 import humanize
 import lark
-
+import plotly.graph_objects as go
+from plotly.subplots import make_subplots
 
 from melbalabs.summarize_consumes import grammar
 import melbalabs.summarize_consumes.package as package
 
 
 LarkError = lark.LarkError
+CURRENT_YEAR = datetime.datetime.now().year
+
 
 class App:
     pass
@@ -123,6 +126,8 @@ def create_app(time_start, expert_log_unparsed_lines):
 
     app.techinfo = Techinfo(time_start=time_start, prices_last_update=app.pricedb.last_update)
 
+    app.infographic = Infographic(accumulator=app.consumables_accumulator, class_detection=app.class_detection)
+
     return app
 
 
@@ -138,6 +143,20 @@ def parse_ts2unixtime(timestamp):
     timestamp = dt(year=CURRENT_YEAR, month=month, day=day, hour=hour, minute=minute, second=sec, tzinfo=datetime.timezone.utc)
     unixtime = timestamp.timestamp()  # seconds
     return unixtime
+
+
+def check_existing_file(file: Path, delete: bool = False) -> None:
+    """Check if file exist and deletes it when forced to.
+
+    - file (Path): File location
+    - delete (bool | None, optional (False)): delete file if True
+    """
+
+    if file.exists() and file.is_file():
+        if delete or False:
+            file.unlink()
+        return True
+    return False
 
 
 class HitsConsumable:
@@ -1653,12 +1672,104 @@ class ClassDetection:
             print('  ', name, cls, file=output)
 
 
+class Infographic:
+    BACKGROUND_COLOR = '#282B2C'
+    CLASS_COLOURS = {
+        'druid': '#FF7D0A',
+        'hunter': '#ABD473',
+        'mage': '#69CCF0',
+        'paladin': '#F58CBA',
+        'priest': '#FFFFFF',
+        'rogue': '#FFF569',
+        'shaman': '#0070DE',
+        'warlock': '#9482C9',
+        'warrior': '#C79C6E',
+        'unknown': '#660099',
+    }
+    DEFAULT_FILENAME = 'infographic'
 
+    def __init__(self,
+                 accumulator: ConsumablesAccumulator,
+                 class_detection: ClassDetection=None,
+                 title: str='',
+    ):
+        self.accumulator = accumulator
+        self.detected_classes = class_detection.store if class_detection else {}
+        self.title = title
 
+    def generate(self, output_file: Path=None) -> None:
+        data = collections.OrderedDict(sorted(self.accumulator.data.items(),
+                                              key=lambda pair: -pair[1]['total_spent']))
 
+        names = list(data)
+        colors = [self.CLASS_COLOURS[self.detected_classes.get(name, 'unknown')]
+                  for name in names]
+        bar_values = [v['total_spent'] for v in data.values()]
 
-CURRENT_YEAR = datetime.datetime.now().year
+        width = 3
+        height = len(data) // width + 2
+        specs = [[{'type': 'xy', 'colspan': width}] + [None] * (width - 1)]
+        specs.extend([[{'type': 'domain'}] * width] * (height - 1))
 
+        bar_chart_height = 400
+        pie_chart_height = 500
+
+        fig = make_subplots(
+            rows=height,
+            cols=width,
+            row_heights=[bar_chart_height] + [pie_chart_height] * (height - 1),
+            subplot_titles=[None] + list(data),
+            specs=specs)
+
+        fig.add_trace(go.Bar(x=names,
+                             y=bar_values,
+                             marker=dict(color=colors),
+                             name='Gold spent',
+                             showlegend=False,
+                             text=[v.to_string(short=True) for v in bar_values],
+                             textposition='outside'),
+                      row=1,
+                      col=1)
+
+        for pos, name in enumerate(names):
+            item_costs = [cost_data['price'] for cost_data in data[name]['items'].values()]
+            item_texts = [f"x{item_data['count']}, {cost.to_string(short=True)}g"
+                          for (item_data, cost)
+                          in zip(data[name]['items'].values(), item_costs)]
+            fig.add_trace(
+                go.Pie(labels=list(data[name]['items'].keys()),
+                       values=item_costs,
+                       text=item_texts,
+                       showlegend=False,
+                       textposition='inside',
+                       textinfo='label+percent+text',
+                       name=name),
+                row=(pos // width) + 2,
+                col=(pos % width) + 1)
+
+        fig.update_layout(title=self.title,
+                          template='plotly_dark',
+                          plot_bgcolor=self.BACKGROUND_COLOR,
+                          paper_bgcolor=self.BACKGROUND_COLOR,
+                          title_x=0.5,
+                          height=bar_chart_height + (pie_chart_height * height - 1))
+
+        bg_script = f'document.body.style.backgroundColor = "{self.BACKGROUND_COLOR}"; '
+        output = fig.to_html(post_script=[bg_script])
+
+        filename = output_file or self.DEFAULT_FILENAME
+        filepath = Path(filename).with_suffix('.html')
+
+        if check_existing_file(filepath):
+            while check_existing_file(
+                filepath := filepath.with_stem(f'{filename}_{str(uuid4())[-4:]}')
+            ):
+                pass
+
+        with open(filepath, 'w', encoding='utf-8') as f:
+            f.write(output)
+
+        print(f'Infographic saved to: {filepath}')
 
 
 def parse_line(app, line):
@@ -2240,6 +2351,9 @@ def get_user_input():
 
     parser.add_argument('--compare-players', nargs=2, metavar=('PLAYER1', 'PLAYER2'), required=False, help='compare 2 players, output the difference in compare-players.txt')
     parser.add_argument('--expert-log-unparsed-lines', action='store_true', help='create an unparsed.txt with everything that was not parsed')
+
+    parser.add_argument('--visualize', action='store_true', required=False, help='Generate visual infographic')
+
     args = parser.parse_args()
 
     return args
@@ -2342,6 +2456,8 @@ def main():
                 f.write(output.getvalue().encode('utf8'))
         feature()
 
+    if args.visualize:
+        app.infographic.generate(output_file=Path(args.logpath).stem)
 
     if not args.pastebin: return
     url = upload_pastebin(output)
