@@ -18,7 +18,7 @@ from uuid import uuid4
 import humanize
 import lark
 import requests
-import plotly.graph_objects as go
+from plotly import graph_objects as go
 from plotly.subplots import make_subplots
 from typing_extensions import Self
 
