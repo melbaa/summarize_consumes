@@ -1,3 +1,5 @@
-requests
 humanize
 lark[interegular]
+plotly
+requests
+typing_extensions
