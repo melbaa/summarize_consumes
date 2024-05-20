@@ -1,6 +1,7 @@
 import argparse
 import collections
 import csv
+import dataclasses
 import datetime
 import functools
 import io
@@ -13,6 +14,8 @@ import time
 import webbrowser
 from datetime import datetime as dt
 from pathlib import Path
+from typing import Dict
+from typing import List
 from uuid import uuid4
 
 import humanize
@@ -1438,14 +1441,37 @@ class Currency(int):
         return s
 
 
-class ConsumablesAccumulator:
-    def __init__(self, player, pricedb, death_count) -> Self:
-        self.player = player
-        self.pricedb = pricedb
-        self.death_count = death_count
-        self.data = {}
+@dataclasses.dataclass
+class ConsumableStore:
+    item_name: str
+    amount: int = 0
+    price: Currency = Currency(0)
 
-    def get_consumable_price(self, consumable):
+    @property
+    def total_price(self) -> Currency:
+        return self.price * self.amount
+
+
+@dataclasses.dataclass
+class ConsumablesEntry:
+    name: str
+    deaths: int = 0
+    consumables: List[ConsumableStore] = dataclasses.field(default_factory=list)
+    total_spent: Currency = Currency(0)
+
+    def add_consumable(self, consumable: ConsumableStore) -> None:
+        self.consumables.append(consumable)
+        self.total_spent += consumable.total_price
+
+
+@dataclasses.dataclass
+class ConsumablesAccumulator:
+    player: collections.defaultdict
+    pricedb: PriceDB
+    death_count: Dict[str, int]
+    data: List[ConsumablesEntry] = dataclasses.field(default_factory=list)
+
+    def get_consumable_price(self, consumable: str) -> Currency:
         total_price = Currency(0)
 
         components = CONSUMABLE_COMPONENTS.get(consumable)
@@ -1454,7 +1480,6 @@ class ConsumablesAccumulator:
 
         for component in components:
             consumable_component_name, multi = component
-
             itemid = NAME2ITEMID.get(consumable_component_name)
             if not itemid: continue
             price = self.pricedb.lookup(itemid)
@@ -1464,54 +1489,34 @@ class ConsumablesAccumulator:
         total_price /= CONSUMABLE_CHARGES.get(consumable, 1)
         return total_price
 
-    def calculate(self):
-        self.data = collections.defaultdict(lambda: {
-            'deaths': 0,
-            'total_spent': Currency(0),
-            'items': collections.OrderedDict(),
-        })
-
+    def calculate(self) -> None:
         for name in sorted(self.player.keys()):
             consumables = sorted(self.player[name])
-            self.data[name]['deaths'] = self.death_count[name]
+            player_entry = ConsumablesEntry(name, deaths=self.death_count[name])
             for consumable in sorted(consumables):
-                count = self.player[name][consumable]
-                price = self.get_consumable_price(consumable) * count
-                self.data[name]['total_spent'] += price
-                self.data[name]['items'][consumable] = {'price': price, 'count': count}
+                player_entry.add_consumable(ConsumableStore(
+                    consumable,
+                    amount=self.player[name][consumable],
+                    price=self.get_consumable_price(consumable),
+                ))
+            self.data.append(player_entry)
 
 
 class PrintConsumables:
     def __init__(self, accumulator: ConsumablesAccumulator):
         self.accumulator = accumulator
 
-    def gold_string(self, price):
-        copper = price % 100
-        price = price // 100
-        silver = price % 100
-        price = price // 100
-        gold = price
-        s = ''
-
-        first = True
-        for amount, suffix in zip([gold, silver, copper], "gsc"):
-            if amount:
-                if not first: s+= ' '
-                else: first = False
-                s += f'{amount}{suffix}'
-        return s
-
     def print(self, output):
-        for name, player_data in self.accumulator.data.items():
-            print(name, f'deaths:{player_data["deaths"]}', file=output)
-            for consumable, consumable_info in player_data['items'].items():
-                spent = f'  ({consumable_info["price"].to_string()})' if consumable_info['price'] else ''
-                print('  ', consumable, consumable_info['count'], spent, file=output)
-            if not player_data['items']:
+        for player in self.accumulator.data:
+            print(player.name, f'deaths:{player.deaths}', file=output)
+            for cons in player.consumables:
+                spent = f'  ({cons.total_price.to_string()})' if cons.price else ''
+                print('  ', cons.item_name, cons.amount, spent, file=output)
+            if not player.consumables:
                 print('  ', '<nothing found>', file=output)
-            elif player_data['total_spent']:
+            elif player.total_spent:
                 print(file=output)
-                print('  ', 'total spent:', self.gold_string(player_data['total_spent']), file=output)
+                print('  ', 'total spent:', player.total_spent.to_string(), file=output)
 
 
 class PrintConsumableTotalsCsv:
@@ -1520,8 +1525,8 @@ class PrintConsumableTotalsCsv:
 
     def print(self, output):
         writer = csv.writer(output)
-        for name, player_data in self.accumulator.data.items():
-            writer.writerow([name, player_data['total_spent'], player_data['deaths']])
+        for player in self.accumulator.data:
+            writer.writerow([player.name, player.total_spent, player.deaths])
 
 
 # line type -> spell -> class
