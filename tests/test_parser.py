@@ -3,17 +3,9 @@ import io
 
 
 from melbalabs.summarize_consumes.main import parse_line
-from melbalabs.summarize_consumes.main import create_app
 from melbalabs.summarize_consumes.main import NAME2ITEMID
 
 from melbalabs.summarize_consumes.grammar import grammar
-
-
-@pytest.fixture
-def app():
-    time_start = 1700264355.3831115
-    return create_app(time_start=time_start, expert_log_unparsed_lines=True)
-
 
 
 @pytest.mark.skip('not using basic lexer; grammar too ambiguous for it')
