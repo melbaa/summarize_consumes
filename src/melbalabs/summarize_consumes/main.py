@@ -1703,19 +1703,16 @@ class Infographic:
         self.title = title
 
     def generate(self, output_file: Path=None) -> None:
-        data = collections.OrderedDict(sorted(self.accumulator.data.items(),
-                                              key=lambda pair: -pair[1]['total_spent']))
-
-        names = list(data)
+        players = sorted(self.accumulator.data, key=lambda entry: -entry.total_spent)
+        names = [e.name for e in players]
         colors = [self.CLASS_COLOURS[self.detected_classes.get(name, 'unknown')]
                   for name in names]
-        bar_values = [v['total_spent'] for v in data.values()]
+        bar_values = [p.total_spent for p in players]
 
         width = 3
-        height = len(data) // width + 2
+        height = len(players) // width + 2
         specs = [[{'type': 'xy', 'colspan': width}] + [None] * (width - 1)]
         specs.extend([[{'type': 'domain'}] * width] * (height - 1))
-
         bar_chart_height = 400
         pie_chart_height = 500
 
@@ -1723,7 +1720,7 @@ class Infographic:
             rows=height,
             cols=width,
             row_heights=[bar_chart_height] + [pie_chart_height] * (height - 1),
-            subplot_titles=[None] + list(data),
+            subplot_titles=[None] + names,
             specs=specs)
 
         fig.add_trace(go.Bar(x=names,
@@ -1736,19 +1733,19 @@ class Infographic:
                       row=1,
                       col=1)
 
-        for pos, name in enumerate(names):
-            item_costs = [cost_data['price'] for cost_data in data[name]['items'].values()]
-            item_texts = [f"x{item_data['count']}, {cost.to_string(short=True)}g"
-                          for (item_data, cost)
-                          in zip(data[name]['items'].values(), item_costs)]
+        for pos, player in enumerate(players):
+            item_costs = [items.total_price for items in player.consumables]
+            item_texts = [f'x{items.amount}, {items.total_price.to_string(short=True)}'
+                          for items in player.consumables]
+
             fig.add_trace(
-                go.Pie(labels=list(data[name]['items'].keys()),
+                go.Pie(labels=[c.item_name for c in player.consumables],
                        values=item_costs,
                        text=item_texts,
                        showlegend=False,
                        textposition='inside',
                        textinfo='label+percent+text',
-                       name=name),
+                       name=player.name),
                 row=(pos // width) + 2,
                 col=(pos % width) + 1)
 
