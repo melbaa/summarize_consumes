@@ -1466,7 +1466,7 @@ class ConsumablesEntry:
 
 @dataclasses.dataclass
 class ConsumablesAccumulator:
-    player: collections.defaultdict
+    player: Dict
     pricedb: PriceDB
     death_count: Dict[str, int]
     data: List[ConsumablesEntry] = dataclasses.field(default_factory=list)
