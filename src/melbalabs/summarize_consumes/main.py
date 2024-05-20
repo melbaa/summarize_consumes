@@ -1,29 +1,37 @@
 import argparse
-import json
 import collections
 import csv
+import dataclasses
 import datetime
+import functools
 import io
 import itertools
+import json
+import logging
 import os
 import re
-import sys
 import time
 import webbrowser
-import functools
-import logging
 from datetime import datetime as dt
+from pathlib import Path
+from typing import Dict
+from typing import List
+from uuid import uuid4
 
-import requests
 import humanize
 import lark
-
+import requests
+from plotly import graph_objects as go
+from plotly.subplots import make_subplots
+from typing_extensions import Self
 
 from melbalabs.summarize_consumes import grammar
 import melbalabs.summarize_consumes.package as package
 
 
 LarkError = lark.LarkError
+CURRENT_YEAR = datetime.datetime.now().year
+
 
 class App:
     pass
@@ -95,9 +103,9 @@ def create_app(time_start, expert_log_unparsed_lines):
     app.hits_consumable = HitsConsumable(player=app.player, last_hit_cache=app.last_hit_cache)
 
     app.pricedb = PriceDB('prices.json')
-    app.print_consumables = PrintConsumables(player=app.player, pricedb=app.pricedb, death_count=app.death_count)
-
-    app.print_consumable_totals_csv = PrintConsumableTotalsCsv(player=app.player, pricedb=app.pricedb, death_count=app.death_count)
+    app.consumables_accumulator = ConsumablesAccumulator(player=app.player, pricedb=app.pricedb, death_count=app.death_count)
+    app.print_consumables = PrintConsumables(accumulator=app.consumables_accumulator)
+    app.print_consumable_totals_csv = PrintConsumableTotalsCsv(accumulator=app.consumables_accumulator)
 
     app.annihilator = Annihilator()
     app.flamebuffet = FlameBuffet()
@@ -121,6 +129,8 @@ def create_app(time_start, expert_log_unparsed_lines):
 
     app.techinfo = Techinfo(time_start=time_start, prices_last_update=app.pricedb.last_update)
 
+    app.infographic = Infographic(accumulator=app.consumables_accumulator, class_detection=app.class_detection)
+
     return app
 
 
@@ -136,6 +146,20 @@ def parse_ts2unixtime(timestamp):
     timestamp = dt(year=CURRENT_YEAR, month=month, day=day, hour=hour, minute=minute, second=sec, tzinfo=datetime.timezone.utc)
     unixtime = timestamp.timestamp()  # seconds
     return unixtime
+
+
+def check_existing_file(file: Path, delete: bool = False) -> None:
+    """Check if file exist and deletes it when forced to.
+
+    - file (Path): File location
+    - delete (bool | None, optional (False)): delete file if True
+    """
+
+    if file.exists() and file.is_file():
+        if delete or False:
+            file.unlink()
+        return True
+    return False
 
 
 class HitsConsumable:
@@ -1166,27 +1190,6 @@ class PriceDB:
             self.data[key] = val
 
 
-def get_consumable_price(pricedb, consumable):
-    total_price = 0
-
-    components = CONSUMABLE_COMPONENTS.get(consumable)
-    if not components:
-        components = [(consumable, 1)]
-
-    for component in components:
-        consumable_component_name, multi = component
-
-        itemid = NAME2ITEMID.get(consumable_component_name)
-        if not itemid: continue
-        price = pricedb.lookup(itemid)
-        if not price: continue
-        total_price += int(price * multi)
-
-    total_price /= CONSUMABLE_CHARGES.get(consumable, 1)
-    return total_price
-
-
-
 class PetHandler:
     def __init__(self):
         # owner -> set of pets
@@ -1385,75 +1388,145 @@ class ProcCount:
         self.counts_extra_attacks[source][name] += howmany
 
 
+class Currency(int):
+    string_pattern = r'((?P<gold>\d+)g)?\s?((?P<silver>\d+)s)?\s?((?P<copper>\d+)c)?'
 
-class PrintConsumables:
-    def __init__(self, player, pricedb, death_count):
-        self.player = player
-        self.pricedb = pricedb
-        self.death_count = death_count
+    def __new__(cls, value, *args, **kwargs) -> Self:
+        if isinstance(value, str):
+            return cls.from_string(value)
+        return super().__new__(cls, value, *args, **kwargs)
 
-    def gold_string(self, price):
-        copper = price % 100
-        price = price // 100
-        silver = price % 100
-        price = price // 100
-        gold = price
+    def __add__(self, other) -> Self:
+        return Currency(super().__add__(other))
+
+    def __sub__(self, other) -> Self:
+        return Currency(super().__sub__(other))
+
+    def __mul__(self, other) -> Self:
+        return Currency(super().__mul__(other))
+
+    def __truediv__(self, other) -> Self:
+        return Currency(super().__truediv__(other))
+
+    def __mod__(self, other) -> Self:
+        return Currency(super().__mod__(other))
+
+    @classmethod
+    def from_string(cls, s: str) -> Self:
+        m = re.search(cls.string_pattern, s)
+        if not any(m.groupdict().values()):
+            raise ValueError(f"Invalid currency string format: {s}")
+        return cls(sum([int(m.group('gold') or 0) * 10000,
+                        int(m.group('silver') or 0) * 100,
+                        int(m.group('copper') or 0)]))
+
+    def to_string(self, short: bool=False) -> str:
+        if short:
+            return f"{int(self) / 10000.0:.1f}g"
+
+        value = int(self)
+        copper = value % 100
+        value = value // 100
+        silver = value % 100
+        value = value // 100
+        gold = value
         s = ''
 
         first = True
-        for amount, suffix in zip([gold, silver, copper], "gsc"):
+        for amount, suffix in zip([gold, silver, copper], 'gsc'):
             if amount:
                 if not first: s+= ' '
                 else: first = False
                 s += f'{amount}{suffix}'
         return s
 
-    def format_gold(self, consumable, count):
-        total_price = get_consumable_price(self.pricedb, consumable)
-        total_price *= count
-        total_price = int(total_price)
-        if not total_price: return '', 0
-        return self.gold_string(total_price), total_price
+
+@dataclasses.dataclass
+class ConsumableStore:
+    item_name: str
+    amount: int = 0
+    price: Currency = Currency(0)
+
+    @property
+    def total_price(self) -> Currency:
+        return self.price * self.amount
+
+
+@dataclasses.dataclass
+class ConsumablesEntry:
+    name: str
+    deaths: int = 0
+    consumables: List[ConsumableStore] = dataclasses.field(default_factory=list)
+    total_spent: Currency = Currency(0)
+
+    def add_consumable(self, consumable: ConsumableStore) -> None:
+        self.consumables.append(consumable)
+        self.total_spent += consumable.total_price
+
+
+@dataclasses.dataclass
+class ConsumablesAccumulator:
+    player: Dict
+    pricedb: PriceDB
+    death_count: Dict[str, int]
+    data: List[ConsumablesEntry] = dataclasses.field(default_factory=list)
+
+    def get_consumable_price(self, consumable: str) -> Currency:
+        total_price = Currency(0)
+
+        components = CONSUMABLE_COMPONENTS.get(consumable)
+        if not components:
+            components = [(consumable, 1)]
+
+        for component in components:
+            consumable_component_name, multi = component
+            itemid = NAME2ITEMID.get(consumable_component_name)
+            if not itemid: continue
+            price = self.pricedb.lookup(itemid)
+            if not price: continue
+            total_price += int(price * multi)
+
+        total_price /= CONSUMABLE_CHARGES.get(consumable, 1)
+        return total_price
+
+    def calculate(self) -> None:
+        for name in sorted(self.player.keys()):
+            consumables = sorted(self.player[name])
+            player_entry = ConsumablesEntry(name, deaths=self.death_count[name])
+            for consumable in sorted(consumables):
+                player_entry.add_consumable(ConsumableStore(
+                    consumable,
+                    amount=self.player[name][consumable],
+                    price=self.get_consumable_price(consumable),
+                ))
+            self.data.append(player_entry)
+
+
+class PrintConsumables:
+    def __init__(self, accumulator: ConsumablesAccumulator):
+        self.accumulator = accumulator
 
     def print(self, output):
-        names = sorted(self.player.keys())
-        for name in names:
-            print(name, f'deaths:{self.death_count[name]}', file=output)
-            cons = self.player[name]
-            consumables = sorted(cons.keys())
-            total_price = 0
-            for consumable in consumables:
-                count = cons[consumable]
-                gold, price = self.format_gold(consumable, count)
-                if gold:
-                    gold = f'  ({gold})'
-                total_price += price
-                print('  ', consumable, count, gold, file=output)
-            if not consumables:
+        for player in self.accumulator.data:
+            print(player.name, f'deaths:{player.deaths}', file=output)
+            for cons in player.consumables:
+                spent = f'  ({cons.total_price.to_string()})' if cons.price else ''
+                print('  ', cons.item_name, cons.amount, spent, file=output)
+            if not player.consumables:
                 print('  ', '<nothing found>', file=output)
-            elif total_price:
+            elif player.total_spent:
                 print(file=output)
-                print('  ', 'total spent:', self.gold_string(total_price), file=output)
+                print('  ', 'total spent:', player.total_spent.to_string(), file=output)
+
 
 class PrintConsumableTotalsCsv:
-    def __init__(self, player, pricedb, death_count):
-        self.player = player
-        self.pricedb = pricedb
-        self.death_count = death_count
+    def __init__(self, accumulator: ConsumablesAccumulator):
+        self.accumulator = accumulator
 
     def print(self, output):
         writer = csv.writer(output)
-        names = sorted(self.player.keys())
-        for name in names:
-            total_price = 0
-            for consumable in self.player[name]:
-                price = get_consumable_price(self.pricedb, consumable)
-                consumable_count = self.player[name][consumable]
-                total_price += price * consumable_count
-            deaths = self.death_count[name]
-            writer.writerow([name, int(total_price), deaths])
-
-
+        for player in self.accumulator.data:
+            writer.writerow([player.name, player.total_spent, player.deaths])
 
 
 # line type -> spell -> class
@@ -1604,12 +1677,101 @@ class ClassDetection:
             print('  ', name, cls, file=output)
 
 
+class Infographic:
+    BACKGROUND_COLOR = '#282B2C'
+    CLASS_COLOURS = {
+        'druid': '#FF7D0A',
+        'hunter': '#ABD473',
+        'mage': '#69CCF0',
+        'paladin': '#F58CBA',
+        'priest': '#FFFFFF',
+        'rogue': '#FFF569',
+        'shaman': '#0070DE',
+        'warlock': '#9482C9',
+        'warrior': '#C79C6E',
+        'unknown': '#660099',
+    }
+    DEFAULT_FILENAME = 'infographic'
 
+    def __init__(self,
+                 accumulator: ConsumablesAccumulator,
+                 class_detection: ClassDetection=None,
+                 title: str='',
+    ):
+        self.accumulator = accumulator
+        self.detected_classes = class_detection.store if class_detection else {}
+        self.title = title
 
+    def generate(self, output_file: Path=None) -> None:
+        players = sorted(self.accumulator.data, key=lambda entry: -entry.total_spent)
+        names = [e.name for e in players]
+        colors = [self.CLASS_COLOURS[self.detected_classes.get(name, 'unknown')]
+                  for name in names]
+        bar_values = [p.total_spent for p in players]
 
+        width = 3
+        height = len(players) // width + 2
+        specs = [[{'type': 'xy', 'colspan': width}] + [None] * (width - 1)]
+        specs.extend([[{'type': 'domain'}] * width] * (height - 1))
+        bar_chart_height = 400
+        pie_chart_height = 500
 
-CURRENT_YEAR = datetime.datetime.now().year
+        fig = make_subplots(
+            rows=height,
+            cols=width,
+            row_heights=[bar_chart_height] + [pie_chart_height] * (height - 1),
+            subplot_titles=[None] + names,
+            specs=specs)
 
+        fig.add_trace(go.Bar(x=names,
+                             y=bar_values,
+                             marker=dict(color=colors),
+                             name='Gold spent',
+                             showlegend=False,
+                             text=[v.to_string(short=True) for v in bar_values],
+                             textposition='outside'),
+                      row=1,
+                      col=1)
+
+        for pos, player in enumerate(players):
+            item_costs = [items.total_price for items in player.consumables]
+            item_texts = [f'x{items.amount}, {items.total_price.to_string(short=True)}'
+                          for items in player.consumables]
+
+            fig.add_trace(
+                go.Pie(labels=[c.item_name for c in player.consumables],
+                       values=item_costs,
+                       text=item_texts,
+                       showlegend=False,
+                       textposition='inside',
+                       textinfo='label+percent+text',
+                       name=player.name),
+                row=(pos // width) + 2,
+                col=(pos % width) + 1)
+
+        fig.update_layout(title=self.title,
+                          template='plotly_dark',
+                          plot_bgcolor=self.BACKGROUND_COLOR,
+                          paper_bgcolor=self.BACKGROUND_COLOR,
+                          title_x=0.5,
+                          height=bar_chart_height + (pie_chart_height * height - 1))
+
+        bg_script = f'document.body.style.backgroundColor = "{self.BACKGROUND_COLOR}"; '
+        output = fig.to_html(post_script=[bg_script])
+
+        filename = output_file or self.DEFAULT_FILENAME
+        filepath = Path(filename).with_suffix('.html')
+
+        if check_existing_file(filepath):
+            while check_existing_file(
+                filepath := filepath.with_stem(f'{filename}_{str(uuid4())[-4:]}')
+            ):
+                pass
+
+        with open(filepath, 'w', encoding='utf-8') as f:
+            f.write(output)
+
+        print(f'Infographic saved to: {filepath}')
 
 
 def parse_line(app, line):
@@ -2134,6 +2296,10 @@ def generate_output(app):
     # remove unknowns from class detection
     app.class_detection.remove_unknown()
 
+    # calculate consumables
+    app.consumables_accumulator.calculate()
+
+
     app.print_consumables.print(output)
 
     app.cooldown_summary.print(output)
@@ -2187,6 +2353,9 @@ def get_user_input():
 
     parser.add_argument('--compare-players', nargs=2, metavar=('PLAYER1', 'PLAYER2'), required=False, help='compare 2 players, output the difference in compare-players.txt')
     parser.add_argument('--expert-log-unparsed-lines', action='store_true', help='create an unparsed.txt with everything that was not parsed')
+
+    parser.add_argument('--visualize', action='store_true', required=False, help='Generate visual infographic')
+
     args = parser.parse_args()
 
     return args
@@ -2289,6 +2458,8 @@ def main():
                 f.write(output.getvalue().encode('utf8'))
         feature()
 
+    if args.visualize:
+        app.infographic.generate(output_file=Path(args.logpath).stem)
 
     if not args.pastebin: return
     url = upload_pastebin(output)
