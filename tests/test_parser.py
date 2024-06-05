@@ -1145,6 +1145,7 @@ def test_cooldown_summary(app):
 5/11 22:36:02.857  Interlani gains The Eye of the Dead (1).
 5/11 21:54:34.982  Bobsterr gains Healing of the Ages (1).
 10/14 20:46:04.424  Daenshoo 's Swiftmend heals Getterfour for 1913.
+6/5 14:38:24.792  Thrunk casts Blood Fury on Thrunk.
     """
     lines = lines.splitlines(keepends=True)
     for line in lines:
@@ -1152,6 +1153,7 @@ def test_cooldown_summary(app):
     output = io.StringIO()
     app.cooldown_summary.print(output)
 
+    assert app.spell_count.counts['Blood Fury']['Thrunk'] == 1
     assert app.spell_count.counts['Swiftmend']['Daenshoo'] == 1
     assert app.spell_count.counts['Healing of the Ages']['Bobsterr'] == 1
     assert app.spell_count.counts['The Eye of the Dead']['Interlani'] == 1
