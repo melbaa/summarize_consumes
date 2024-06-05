@@ -483,7 +483,6 @@ INTERRUPT_SPELLS = {
 CDSPELL_CLASS = [
     ['warrior', [
         'Death Wish',
-        'Blood Fury',
         'Shield Wall',
         'Recklessness',
     ]],
@@ -517,6 +516,7 @@ RECEIVE_BUFF_SPELL = {
     'Bloodlust',
 }
 RACIAL_SPELL = [
+    'Blood Fury',
     'Berserking',
     'Stoneform',
     'Desperate Prayer',
