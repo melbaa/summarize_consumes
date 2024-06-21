@@ -58,6 +58,9 @@ _line: gains_line
     | is_dismissed_line
     | is_dismissed_line2
     | causes_damage_line
+    | equipped_durability_loss
+
+equipped_durability_loss: MULTIWORD " 's equipped items suffer a 10% durability loss." 
 
 causes_damage_line: MULTIWORD " 's " MULTIWORD " causes " MULTIWORD " " INT " damage."
 

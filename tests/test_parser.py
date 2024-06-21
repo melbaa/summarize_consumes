@@ -1475,3 +1475,13 @@ def test_dmgstore(app):
     assert store[('Agonist', 'Obsidian Eradicator', 'Deep Wound')].dmg == 81
     assert store[('Palapus', 'Molten Giant', 'reflect')].dmg == 35
     assert store[("Kel'Thuzad", 'Cracklinoats', 'Spirit Link')].dmg == 27
+
+def test_durloss(app):
+    lines = """
+5/19 21:24:56.215  Psykhe 's equipped items suffer a 10% durability loss.
+    """
+    lines = lines.splitlines(keepends=True)
+    match = 0
+    for line in lines:
+        match += parse_line(app, line)
+    assert match == 1

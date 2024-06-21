@@ -1,7 +1,7 @@
 import os
 from pathlib import Path
 
-from invoke import Collection, task
+from invoke import task
 
 try:
     from colorama import just_fix_windows_console
@@ -22,7 +22,7 @@ def pytest(c):
 
 @task
 def excludes(c):
-    cmd = "grep -v -f .\excludes.txt ..\..\..\Logs\WoWCombatLog.txt"
+    cmd = r"grep -v -f .\excludes.txt ..\..\..\Logs\WoWCombatLog.txt"
     c.run(cmd)
 
 @task
@@ -57,7 +57,6 @@ def tar(c):
 
 @task
 def gendeps(c):
-    filenames = os.listdir('deps')
     cwd = Path('.')
 
     path = cwd / 'deps' / 'requirements.in'

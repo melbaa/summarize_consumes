@@ -506,8 +506,9 @@ CDSPELL_CLASS = [
     ['rogue', [
         'Adrenaline Rush',
         'Blade Flurry',
-
     ]],
+    ['warlock', []],
+    ['hunter', []],
 ]
 
 
@@ -2237,6 +2238,8 @@ def parse_line(app, line):
 
             if spellname == 'Wild Polymorph':
                 app.nef_wild_polymorph.add(line)
+            return True
+        elif subtree.data == 'equipped_durability_loss':
             return True
 
 
