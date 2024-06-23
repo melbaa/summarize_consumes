@@ -741,13 +741,14 @@ def test_gains_extra_attacks_line(app):
     lines = """
 10/29 20:01:39.421  Srj gains 1 extra attacks through Sword Specialization.
 10/29 20:01:39.675  Jaekta gains 1 extra attacks through Windfury Totem.
+10/29 20:01:39.675  Jaekta gains 1 extra attack through Windfury Totem.
 10/29 20:01:40.292  Windfurytotm gains 2 extra attacks through Windfury Weapon.
     """
     lines = lines.splitlines(keepends=True)
     match = 0
     for line in lines:
         match += parse_line(app, line)
-    assert match == 3
+    assert match == 4
 
 def test_dodges_line(app):
     lines = """

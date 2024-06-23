@@ -60,7 +60,7 @@ _line: gains_line
     | causes_damage_line
     | equipped_durability_loss
 
-equipped_durability_loss: MULTIWORD " 's equipped items suffer a 10% durability loss." 
+equipped_durability_loss: MULTIWORD " 's equipped items suffer a 10% durability loss."
 
 causes_damage_line: MULTIWORD " 's " MULTIWORD " causes " MULTIWORD " " INT " damage."
 
@@ -123,7 +123,7 @@ gains_rage_line: MULTIWORD " gains " INT " Rage from " MULTIWORD " 's " MULTIWOR
 gains_mana_line: MULTIWORD " gains " INT " Mana from " MULTIWORD " 's " MULTIWORD "."
 gains_energy_line: MULTIWORD " gains " INT " Energy from " MULTIWORD " 's " MULTIWORD "."
 gains_health_line: MULTIWORD " gains " INT " health from " MULTIWORD " 's " MULTIWORD "."
-gains_extra_attacks_line: MULTIWORD " gains " INT " extra attacks through " MULTIWORD "."
+gains_extra_attacks_line: MULTIWORD " gains " INT " extra attack" "s"? " through " MULTIWORD "."
 
 afflicted_line: MULTIWORD " is afflicted by " MULTIWORD " (" INT ")."
 timestamp: INT "/" INT " " INT ":" INT ":" INT "." INT
