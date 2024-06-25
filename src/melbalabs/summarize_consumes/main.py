@@ -1092,6 +1092,36 @@ class Dmgstore2:
             print(txt, file=output)
 
 
+    def print_damage(self, output):
+        # first find dmg totals
+        # then abilities
+        dmgtotals = collections.defaultdict(int)
+        abilitytotals = collections.defaultdict(lambda: collections.defaultdict(int))
+        for (source, target, ability), entry in self.store_ability.items():
+            if source not in self.player: continue
+            if source == target: continue  # no selfdmg
+            dmgtotals[source] += entry.dmg
+
+            abilitytotals[source][ability] += entry.dmg
+
+        sortdmgtotals = []
+        for source, dmg in dmgtotals.items():
+            sortdmgtotals.append((dmg, source))
+
+        sortdmgtotals.sort(reverse=True)
+        for dmg, source in sortdmgtotals:
+            print(f'{source}  {dmg}', file=output)
+
+            sortabilitytotals = []
+            for ability in abilitytotals[source]:
+                dmg = abilitytotals[source][ability]
+                sortabilitytotals.append((dmg, ability))
+
+            sortabilitytotals.sort(reverse=True)
+            for dmg2, ability in sortabilitytotals:
+                print(f'  {ability}  {dmg2}', file=output)
+
+
 
 
 
@@ -2355,6 +2385,7 @@ def get_user_input():
 
     parser.add_argument('--write-summary', action='store_true', help='writes output to summary.txt instead of the console')
     parser.add_argument('--write-consumable-totals-csv', action='store_true', help='also writes consumable-totals.csv (name, copper, deaths)')
+    parser.add_argument('--write-damage-output', action='store_true', help='writes output to damage-output.txt')
 
     parser.add_argument('--compare-players', nargs=2, metavar=('PLAYER1', 'PLAYER2'), required=False, help='compare 2 players, output the difference in compare-players.txt')
     parser.add_argument('--expert-log-unparsed-lines', action='store_true', help='create an unparsed.txt with everything that was not parsed')
@@ -2460,6 +2491,16 @@ def main():
             filename = 'compare-players.txt'
             with open(filename, 'wb') as f:
                 print('writing comparison of players to', filename)
+                f.write(output.getvalue().encode('utf8'))
+        feature()
+
+    if args.write_damage_output:
+        def feature():
+            output = io.StringIO()
+            app.dmgstore.print_damage(output)
+            filename = 'damage-output.txt'
+            with open(filename, 'wb') as f:
+                print('writing damage output to', filename)
                 f.write(output.getvalue().encode('utf8'))
         feature()
 
