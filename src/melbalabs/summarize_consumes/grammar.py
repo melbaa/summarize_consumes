@@ -137,7 +137,7 @@ consolidated_line: _CONSOLIDATED (_consolidated_case "{"?)+
 combatant_info_line: _COMBATANT_INFO_TOKEN /.+/
 
 hits_ability_line: _hits_ability_line_prefix (" (" vulnerability_suffix)? (" (" resisted_suffix)? (" (" blocked_suffix)? (" (" absorbed_suffix)?
-_hits_ability_line_prefix: MULTIWORD " 's " MULTIWORD " " ("hits"|"crits") " " MULTIWORD " for " INT [spell_damage_type] "."
+_hits_ability_line_prefix: MULTIWORD " 's " MULTIWORD " " ("hits"|"crits") " " MULTIWORD " for " INT [spell_damage_type] "." glancing_suffix?
 hits_autoattack_line: MULTIWORD " " ("hits"|"crits") " " MULTIWORD " for " INT [spell_damage_type] "." glancing_suffix? crushing_suffix? (" (" resisted_suffix)? (" (" blocked_suffix)?  (" (" absorbed_suffix)?
 
 
@@ -170,13 +170,14 @@ HEAL_CRIT: " critically"
 
 WORD: UCASE_LETTER (LETTER | DIGIT | CONNECTING_APOSTROPHE | CONNECTING_COLON | COMMA)*
 PAREN_WORD: "(" WORD ")"
-MULTIWORD: WORD ((SPACE | DASH | UNDERSCORE) CONNECTING_WORD)* TRAILING_SPACE?
+MULTIWORD: WORD ((SPACE | DASH | UNDERSCORE) CONNECTING_WORD)* SELF_DAMAGE? TRAILING_SPACE?
 CONNECTING_APOSTROPHE: /(?<! )'/  # allow it only inside a word
 CONNECTING_COLON: /(?<! ):/
 CONNECTING_WORD: "and"|"with"|"by"|"of"|"to"|"the"|"75B"|"numbing"|"an"|DASH|PAREN_WORD|WORD|/(?<=Lay )on(?= Hands)/
 
 _TS_SEP: SPACE SPACE
 SPACE: " "
+SELF_DAMAGE: " (self damage)"
 TRAILING_SPACE: /(?<! ) (?= )/  # space only if followed by another space and not preceded by another space
 DASH: "-"
 UNDERSCORE: "_"

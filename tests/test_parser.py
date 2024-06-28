@@ -494,12 +494,14 @@ def test_suffers_line(app):
 1/26 22:08:01.231  Flamewaker Elite suffers 405 Shadow damage from Meowxs 's Mind Flay. (+145 vulnerability bonus)
 
 1/26 22:07:16.185  Moryak suffers 0 points of fire damage. (368 resisted) (369 absorbed)
+
+6/27 20:21:39.048  Vvalter suffers 100 Nature damage from Vvalter (self damage) 's Slime.
     """
     lines = lines.splitlines(keepends=True)
     match = 0
     for line in lines:
         match += parse_line(app, line)
-    assert match == 11
+    assert match == 12
 
 
 def test_nef_corrupted_healing(app):
@@ -685,6 +687,7 @@ def test_blocked_ability(app):
     for line in lines:
         match += parse_line(app, line)
     assert match == 2
+
 
 
 def test_paren_word(app):
