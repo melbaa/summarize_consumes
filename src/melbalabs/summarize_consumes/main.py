@@ -408,6 +408,7 @@ GAINS_CONSUMABLE = {
     "Invulnerability",
     "Potion of Quickness",
     "Noggenfogger Elixir",
+    "Fire-toasted Bun",
     "Shadow Power",
     "Stoneshield",
     "Health II",

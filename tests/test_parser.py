@@ -118,10 +118,12 @@ def test_gains_consumable_line(app):
 10/11 20:44:17.813  Axe gains Gift of Arthas (1).
 10/11 20:44:17.813  Unholy Axe gains Gift of Arthas (1).
 12/6 20:51:27.752  Squirreled gains Elixir of Brute Force (1).
+6/29 22:01:40.488  Kuroiyuusha gains Fire-toasted Bun (1).
     """
     lines = lines.splitlines(keepends=True)
     for line in lines:
         parse_line(app, line)
+    assert app.player['Kuroiyuusha']['Fire-toasted Bun'] == 1
     assert app.player['Rando']['Greater Arcane Elixir'] == 1
     assert app.player['Rando']['Arcane Elixir'] == 1
     assert app.player['Rando']['Elixir of Fortitude'] == 1
