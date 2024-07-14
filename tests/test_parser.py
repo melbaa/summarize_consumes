@@ -201,6 +201,18 @@ def test_manarune_line(app):
     assert app.player['Ionize']['Dark Rune'] == 1
     assert app.player['Badmanaz']['Demonic Rune'] == 1
 
+def test_drains_mana_line(app):
+    lines = """
+7/14 20:33:44.437  Titicacal 's Drain Mana drains 139 Mana from Obsidian Eradicator. Titicacal gains 139 Mana.
+    """
+    lines = lines.splitlines(keepends=True)
+    match = 0
+    for line in lines:
+        match += parse_line(app, line)
+    assert match == 1
+
+
+
 def test_begins_to_cast_line(app):
     lines = """
 10/15 20:25:14.239  Dregoth begins to cast Shadow Bolt.

@@ -1917,6 +1917,8 @@ def parse_line(app, line):
                 app.player[name][consumable] += 1
 
             return True
+        elif subtree.data == 'drains_mana_line':
+            return True
         elif subtree.data == 'begins_to_cast_line':
             name = subtree.children[0].value
             spellname = subtree.children[-1].value

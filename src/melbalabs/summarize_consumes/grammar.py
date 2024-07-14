@@ -7,6 +7,7 @@ start: timestamp "  " _line NEWLINE
 _line: gains_line
     | gains_rage_line
     | gains_mana_line
+    | drains_mana_line
     | gains_energy_line
     | gains_health_line
     | gains_extra_attacks_line
@@ -121,6 +122,7 @@ heals_line: MULTIWORD " 's " MULTIWORD HEAL_CRIT? " heals " MULTIWORD " for " IN
 gains_line: MULTIWORD " gains " MULTIWORD " (" INT ")."
 gains_rage_line: MULTIWORD " gains " INT " Rage from " MULTIWORD " 's " MULTIWORD "."
 gains_mana_line: MULTIWORD " gains " INT " Mana from " MULTIWORD " 's " MULTIWORD "."
+drains_mana_line: MULTIWORD " 's " MULTIWORD " drains " INT " Mana from " MULTIWORD ". " MULTIWORD " gains " INT " Mana."
 gains_energy_line: MULTIWORD " gains " INT " Energy from " MULTIWORD " 's " MULTIWORD "."
 gains_health_line: MULTIWORD " gains " INT " health from " MULTIWORD " 's " MULTIWORD "."
 gains_extra_attacks_line: MULTIWORD " gains " INT " extra attack" "s"? " through " MULTIWORD "."
