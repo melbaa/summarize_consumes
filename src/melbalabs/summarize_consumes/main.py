@@ -1183,6 +1183,7 @@ class UnparsedLogger:
         print(line, end='', file=self.buffer)
 
     def flush(self):
+        print('writing unparsed to', self.filename)
         with open(self.filename, 'wb') as f:
             f.write(self.buffer.getvalue().encode('utf8'))
 
@@ -1918,6 +1919,8 @@ def parse_line(app, line):
 
             return True
         elif subtree.data == 'drains_mana_line':
+            return True
+        elif subtree.data == 'drains_mana_line2':
             return True
         elif subtree.data == 'begins_to_cast_line':
             name = subtree.children[0].value

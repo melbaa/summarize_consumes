@@ -8,6 +8,7 @@ _line: gains_line
     | gains_rage_line
     | gains_mana_line
     | drains_mana_line
+    | drains_mana_line2
     | gains_energy_line
     | gains_health_line
     | gains_extra_attacks_line
@@ -123,12 +124,12 @@ gains_line: MULTIWORD " gains " MULTIWORD " (" INT ")."
 gains_rage_line: MULTIWORD " gains " INT " Rage from " MULTIWORD " 's " MULTIWORD "."
 gains_mana_line: MULTIWORD " gains " INT " Mana from " MULTIWORD " 's " MULTIWORD "."
 drains_mana_line: MULTIWORD " 's " MULTIWORD " drains " INT " Mana from " MULTIWORD ". " MULTIWORD " gains " INT " Mana."
+drains_mana_line2: MULTIWORD " 's " MULTIWORD " drains " INT " Mana from " MULTIWORD "."
 gains_energy_line: MULTIWORD " gains " INT " Energy from " MULTIWORD " 's " MULTIWORD "."
 gains_health_line: MULTIWORD " gains " INT " health from " MULTIWORD " 's " MULTIWORD "."
 gains_extra_attacks_line: MULTIWORD " gains " INT " extra attack" "s"? " through " MULTIWORD "."
 
 afflicted_line: MULTIWORD " is afflicted by " MULTIWORD " (" INT ")."
-timestamp: INT "/" INT " " INT ":" INT ":" INT "." INT
 casts_line: MULTIWORD " casts " MULTIWORD (" on " MULTIWORD)? " damaged"? "."
 begins_to_cast_line: MULTIWORD " begins to cast " MULTIWORD "."
 performs_on_line: MULTIWORD " performs " MULTIWORD " on " MULTIWORD "."
@@ -143,7 +144,7 @@ _hits_ability_line_prefix: MULTIWORD " 's " MULTIWORD " " ("hits"|"crits") " " M
 hits_autoattack_line: MULTIWORD " " ("hits"|"crits") " " MULTIWORD " for " INT [spell_damage_type] "." glancing_suffix? crushing_suffix? (" (" resisted_suffix)? (" (" blocked_suffix)?  (" (" absorbed_suffix)?
 
 
-
+timestamp: INT "/" INT " " INT ":" INT ":" INT "." INT
 
 glancing_suffix: (" (glancing)")
 resisted_suffix: (INT " resisted)")

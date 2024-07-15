@@ -204,12 +204,13 @@ def test_manarune_line(app):
 def test_drains_mana_line(app):
     lines = """
 7/14 20:33:44.437  Titicacal 's Drain Mana drains 139 Mana from Obsidian Eradicator. Titicacal gains 139 Mana.
+7/14 00:00:03.782  Solnius 's Sanctum Mind Decay drains 135 Mana from Interlan.
     """
     lines = lines.splitlines(keepends=True)
     match = 0
     for line in lines:
         match += parse_line(app, line)
-    assert match == 1
+    assert match == 2
 
 
 

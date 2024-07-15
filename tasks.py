@@ -16,6 +16,13 @@ def unparsed(c):
     c.run(cmd)
 
 @task
+def damage(c):
+    cmd = "python -m melbalabs.summarize_consumes.main ..\..\..\Logs\WoWCombatLog.txt --expert-log-unparsed-lines --write-summary --write-damage-output"
+    c.run(cmd)
+
+
+
+@task
 def pytest(c):
     cmd = "pytest -vs --cache-clear --pdb --color=yes"
     c.run(cmd)
