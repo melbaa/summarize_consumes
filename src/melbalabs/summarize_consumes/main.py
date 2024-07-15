@@ -408,6 +408,7 @@ GAINS_CONSUMABLE = {
     "Rage of Ages",
     "Invulnerability",
     "Potion of Quickness",
+    "Lucidity Potion",
     "Noggenfogger Elixir",
     "Fire-toasted Bun",
     "Shadow Power",
