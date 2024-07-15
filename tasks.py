@@ -17,7 +17,7 @@ def unparsed(c):
 
 @task
 def damage(c):
-    cmd = "python -m melbalabs.summarize_consumes.main ..\..\..\Logs\WoWCombatLog.txt --expert-log-unparsed-lines --write-summary --write-damage-output"
+    cmd = "python -m melbalabs.summarize_consumes.main ..\..\..\Logs\WoWCombatLog.txt --expert-log-unparsed-lines --write-summary --write-damage-output --write-healing-output"
     c.run(cmd)
 
 

@@ -29,7 +29,8 @@ Price data via https://www.wowauctions.net/
 
 ```
 usage: main.py [-h] [--pastebin] [--open-browser] [--write-summary] [--write-consumable-totals-csv]
-               [--compare-players PLAYER1 PLAYER2]  [--write-damage-output] [--expert-log-unparsed-lines] [--visualize]
+               [--compare-players PLAYER1 PLAYER2]  [--write-damage-output] [--write-healing-output]
+               [--expert-log-unparsed-lines] [--visualize]
                logpath
 
 positional arguments:
@@ -44,6 +45,8 @@ options:
                         also writes consumable-totals.csv (name, copper, deaths)
   --write-damage-output
                         writes output to damage-output.txt
+  --write-heailng-output
+                        writes output to healing-output.txt
   --compare-players PLAYER1 PLAYER2
                         compare 2 players, output the difference in compare-players.txt
   --expert-log-unparsed-lines

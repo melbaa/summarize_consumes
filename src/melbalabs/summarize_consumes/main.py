@@ -125,7 +125,8 @@ def create_app(time_start, expert_log_unparsed_lines):
     app.kt_shadowfissure = KTShadowfissure()
     app.kt_guardian = KTGuardian()
 
-    app.dmgstore = Dmgstore2(player=app.player, class_detection=app.class_detection, abilitycost=ABILITYCOST)
+    app.dmgstore = Dmgstore2(player=app.player, class_detection=app.class_detection, abilitycost=ABILITYCOST, logname='Damage Done')
+    app.healstore = Dmgstore2(player=app.player, class_detection=app.class_detection, abilitycost=dict(), logname='Healing and Overhealing Done')
 
     app.techinfo = Techinfo(time_start=time_start, prices_last_update=app.pricedb.last_update)
 
@@ -1015,8 +1016,8 @@ class Dmgstore:
         pass
 
 class Dmgstore2:
-    def __init__(self, player, class_detection, abilitycost):
-        self.logname = 'Damage Done'
+    def __init__(self, player, class_detection, abilitycost, logname):
+        self.logname = logname
         self.player = player
         self.class_detection = class_detection
         self.abilitycost = abilitycost
@@ -1093,14 +1094,14 @@ class Dmgstore2:
             print(txt, file=output)
 
 
-    def print_damage(self, output):
+    def print_damage(self, output, allow_selfdmg):
         # first find dmg totals
         # then abilities
         dmgtotals = collections.defaultdict(int)
         abilitytotals = collections.defaultdict(lambda: collections.defaultdict(int))
         for (source, target, ability), entry in self.store_ability.items():
             if source not in self.player: continue
-            if source == target: continue  # no selfdmg
+            if not allow_selfdmg and source == target: continue  # no selfdmg
             dmgtotals[source] += entry.dmg
 
             abilitytotals[source][ability] += entry.dmg
@@ -1865,10 +1866,14 @@ def parse_line(app, line):
         elif subtree.data == 'gains_energy_line':
             return True
         elif subtree.data == 'gains_health_line':
+            targetname = subtree.children[0].value
+            amount = int(subtree.children[1].value)
             name = subtree.children[2].value
             spellname = subtree.children[3].value
 
             app.class_detection.detect(line_type=subtree.data, name=name, spell=spellname)
+
+            app.healstore.add(name, targetname, spellname, amount)
             return True
         elif subtree.data == 'dies_line':
             name = subtree.children[0].value
@@ -1881,8 +1886,17 @@ def parse_line(app, line):
 
             return True
         elif subtree.data == 'heals_line':
+            is_crit = subtree.children[2].type == 'HEAL_CRIT'
+
             name = subtree.children[0].value
             spellname = subtree.children[1].value
+
+            if is_crit:
+                targetname = subtree.children[3].value
+                amount = int(subtree.children[4].value)
+            else:
+                targetname = subtree.children[2].value
+                amount = int(subtree.children[3].value)
 
             spellname = rename_spell(spellname, line_type=subtree.data)
 
@@ -1892,19 +1906,18 @@ def parse_line(app, line):
             if spellname == 'Tea with Sugar':
                 app.player[name]['Tea with Sugar'] += 1
             elif spellname == 'Healing Potion':
-                is_crit = subtree.children[2].type == 'HEAL_CRIT'
-                amount = int(subtree.children[-1].value)
                 if is_crit:
-                    amount = amount / 1.5
-                consumable = healpot_lookup(amount)
+                    consumable = healpot_lookup(amount/1.5)
+                else:
+                    consumable = healpot_lookup(amount)
                 app.player[name][consumable] += 1
             elif spellname == 'Rejuvenation Potion':
-                amount = int(subtree.children[-1].value)
                 if amount > 500:
                     app.player[name]['Rejuvenation Potion - Major'] += 1
                 else:
                     app.player[name]['Rejuvenation Potion - Minor'] += 1
 
+            app.healstore.add(name, targetname, spellname, amount)
             return True
 
         elif subtree.data == 'gains_mana_line':
@@ -2392,6 +2405,7 @@ def get_user_input():
     parser.add_argument('--write-summary', action='store_true', help='writes output to summary.txt instead of the console')
     parser.add_argument('--write-consumable-totals-csv', action='store_true', help='also writes consumable-totals.csv (name, copper, deaths)')
     parser.add_argument('--write-damage-output', action='store_true', help='writes output to damage-output.txt')
+    parser.add_argument('--write-healing-output', action='store_true', help='writes output to healing-output.txt')
 
     parser.add_argument('--compare-players', nargs=2, metavar=('PLAYER1', 'PLAYER2'), required=False, help='compare 2 players, output the difference in compare-players.txt')
     parser.add_argument('--expert-log-unparsed-lines', action='store_true', help='create an unparsed.txt with everything that was not parsed')
@@ -2503,10 +2517,20 @@ def main():
     if args.write_damage_output:
         def feature():
             output = io.StringIO()
-            app.dmgstore.print_damage(output)
+            app.dmgstore.print_damage(output=output, allow_selfdmg=False)
             filename = 'damage-output.txt'
             with open(filename, 'wb') as f:
                 print('writing damage output to', filename)
+                f.write(output.getvalue().encode('utf8'))
+        feature()
+
+    if args.write_healing_output:
+        def feature():
+            output = io.StringIO()
+            app.healstore.print_damage(output=output, allow_selfdmg=True)
+            filename = 'healing-output.txt'
+            with open(filename, 'wb') as f:
+                print('writing healing output to', filename)
                 f.write(output.getvalue().encode('utf8'))
         feature()
 
