@@ -48,9 +48,13 @@ def create_parser(grammar: str, debug):
     )
 
 @functools.cache
-def dl_price_data():
+def dl_price_data(prices_server):
     try:
-        url = 'http://melbalabs.com/static/twowprices.json'
+        URLS = {
+            'nord' : 'http://melbalabs.com/static/twowprices.json',
+            'telabim': 'http://melbalabs.com/static/twowprices-telabim.json',
+        }
+        url = URLS[prices_server]
         resp = requests.get(url, timeout=30)
         resp.raise_for_status()
         data = resp.json()
@@ -60,7 +64,7 @@ def dl_price_data():
         return None
 
 
-def create_app(time_start, expert_log_unparsed_lines):
+def create_app(time_start, expert_log_unparsed_lines, prices_server):
 
     app = App()
 
@@ -102,7 +106,7 @@ def create_app(time_start, expert_log_unparsed_lines):
 
     app.hits_consumable = HitsConsumable(player=app.player, last_hit_cache=app.last_hit_cache)
 
-    app.pricedb = PriceDB('prices.json')
+    app.pricedb = PriceDB('prices.json', prices_server=prices_server)
     app.consumables_accumulator = ConsumablesAccumulator(player=app.player, pricedb=app.pricedb, death_count=app.death_count)
     app.print_consumables = PrintConsumables(accumulator=app.consumables_accumulator)
     app.print_consumable_totals_csv = PrintConsumableTotalsCsv(accumulator=app.consumables_accumulator)
@@ -292,6 +296,7 @@ NAME2ITEMID = {
     'Elixir of Brute Force': 13453,
     'Winterfall Firewater': 12820,
     'Greater Stoneshield': 13455,
+    'Lucidity Potion': 61225,
     'Elixir of Greater Agility': 9187,
     'Scorpok Pincer': 8393,
     'Blasted Boar Lung': 8392,
@@ -1198,11 +1203,12 @@ class NullLogger:
         pass
 
 class PriceDB:
-    def __init__(self, filename):
+    def __init__(self, filename, prices_server):
         self.data = dict()
         self.last_update = 0
+        self.prices_server = prices_server
 
-        webprices = dl_price_data()
+        webprices = dl_price_data(prices_server=prices_server)
         if webprices is not None:
             incoming = webprices
             self.load_incoming(incoming)
@@ -2408,6 +2414,8 @@ def get_user_input():
     parser.add_argument('--write-damage-output', action='store_true', help='writes output to damage-output.txt')
     parser.add_argument('--write-healing-output', action='store_true', help='writes output to healing-output.txt')
 
+    parser.add_argument('--prices-server', choices=['nord', 'telabim'], default='nord', help='specify which server price data to use')
+
     parser.add_argument('--compare-players', nargs=2, metavar=('PLAYER1', 'PLAYER2'), required=False, help='compare 2 players, output the difference in compare-players.txt')
     parser.add_argument('--expert-log-unparsed-lines', action='store_true', help='create an unparsed.txt with everything that was not parsed')
 
@@ -2482,6 +2490,7 @@ def main():
     app = create_app(
         time_start=time_start,
         expert_log_unparsed_lines=args.expert_log_unparsed_lines,
+        prices_server=args.prices_server,
     )
 
     parse_log(app, filename=args.logpath)

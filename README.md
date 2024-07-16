@@ -30,7 +30,7 @@ Price data via https://www.wowauctions.net/
 ```
 usage: main.py [-h] [--pastebin] [--open-browser] [--write-summary] [--write-consumable-totals-csv]
                [--compare-players PLAYER1 PLAYER2]  [--write-damage-output] [--write-healing-output]
-               [--expert-log-unparsed-lines] [--visualize]
+               [--prices-server {nord,telabim}] [--expert-log-unparsed-lines] [--visualize]
                logpath
 
 positional arguments:
@@ -47,6 +47,8 @@ options:
                         writes output to damage-output.txt
   --write-heailng-output
                         writes output to healing-output.txt
+  --prices-server {nord,telabim}
+                        specify which server price data to use
   --compare-players PLAYER1 PLAYER2
                         compare 2 players, output the difference in compare-players.txt
   --expert-log-unparsed-lines
