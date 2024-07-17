@@ -106,7 +106,11 @@ def create_app(time_start, expert_log_unparsed_lines, prices_server):
 
     app.hits_consumable = HitsConsumable(player=app.player, last_hit_cache=app.last_hit_cache)
 
-    app.pricedb = PriceDB('prices.json', prices_server=prices_server)
+    price_providers = [
+        WebPriceProvider(prices_server=prices_server),
+        LocalPriceProvider('prices.json'),
+    ]
+    app.pricedb = PriceDB(price_providers=price_providers)
     app.consumables_accumulator = ConsumablesAccumulator(player=app.player, pricedb=app.pricedb, death_count=app.death_count)
     app.print_consumables = PrintConsumables(accumulator=app.consumables_accumulator)
     app.print_consumable_totals_csv = PrintConsumableTotalsCsv(accumulator=app.consumables_accumulator)
@@ -132,7 +136,7 @@ def create_app(time_start, expert_log_unparsed_lines, prices_server):
     app.dmgstore = Dmgstore2(player=app.player, class_detection=app.class_detection, abilitycost=ABILITYCOST, logname='Damage Done')
     app.healstore = Dmgstore2(player=app.player, class_detection=app.class_detection, abilitycost=dict(), logname='Healing and Overhealing Done')
 
-    app.techinfo = Techinfo(time_start=time_start, prices_last_update=app.pricedb.last_update)
+    app.techinfo = Techinfo(time_start=time_start, prices_last_update=app.pricedb.last_update, prices_server=prices_server)
 
     app.infographic = Infographic(accumulator=app.consumables_accumulator, class_detection=app.class_detection)
 
@@ -1134,7 +1138,7 @@ class Dmgstore2:
 
 
 class Techinfo:
-    def __init__(self, time_start, prices_last_update):
+    def __init__(self, time_start, prices_last_update, prices_server):
         self.time_start = time_start
         self.logsize = 0
         self.linecount = 0
@@ -1144,6 +1148,7 @@ class Techinfo:
         assert urlname == 'Homepage'
         self.project_homepage = url.strip()
         self.prices_last_update = prices_last_update
+        self.prices_server = prices_server
 
     def set_file_size(self, filename):
         self.logsize = os.path.getsize(filename)
@@ -1173,6 +1178,7 @@ class Techinfo:
         print("\n\nTech", file=output)
         print('  ', f'project version {self.package_version}', file=output)
         print('  ', f'project homepage {self.project_homepage}', file=output)
+        print('  ', f'prices server {self.prices_server}', file=output)
         print('  ', f'prices timestamp {self.format_price_timestamp()}', file=output)
         print('  ', f'log size {humanize.naturalsize(self.logsize)}', file=output)
         print('  ', f'log lines {self.linecount}', file=output)
@@ -1202,25 +1208,42 @@ class NullLogger:
     def flush(self):
         pass
 
-class PriceDB:
-    def __init__(self, filename, prices_server):
-        self.data = dict()
-        self.last_update = 0
+
+class LocalPriceProvider:
+    def __init__(self, filename):
+        self.filename = filename
+
+    def load(self):
+        filename = self.filename
+        if not os.path.exists(filename):
+            logging.warning(f'local prices not available. {filename} not found')
+            return
+        logging.info('loading local prices from {filename}')
+        with open(filename) as f:
+            prices = json.load(f)
+            return prices
+
+class WebPriceProvider:
+    def __init__(self, prices_server):
         self.prices_server = prices_server
 
-        webprices = dl_price_data(prices_server=prices_server)
-        if webprices is not None:
-            incoming = webprices
-            self.load_incoming(incoming)
-            return
+    def load(self):
+        logging.info('loading web prices')
+        prices = dl_price_data(prices_server=self.prices_server)
+        return prices
 
-        if not os.path.exists(filename):
-            logging.warning(f'price data not available. {filename} not found')
+
+
+class PriceDB:
+    def __init__(self, price_providers):
+        self.data = dict()
+        self.last_update = 0
+
+        for provider in price_providers:
+            prices = provider.load()
+            if not prices: continue
+            self.load_incoming(prices)
             return
-        logging.info('loading local price data from {filename}')
-        with open(filename) as f:
-            incoming = json.load(f)
-            self.load_incoming(incoming)
 
     def lookup(self, itemid):
         return self.data.get(itemid)
