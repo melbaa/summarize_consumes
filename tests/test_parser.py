@@ -1308,6 +1308,8 @@ def test_class_detection(app):
 10/15 01:12:23.486  Bever 's Mind Blast hits Thuzadin Necromancer for 704 Shadow damage.
 10/15 14:21:11.639  SimplezzMS 's Multi-Shot hits Scarlet Monk for 225.
 10/15 14:20:58.028  SimplezzAS 's Arcane Shot hits Scarlet Diviner for 83 Arcane damage.
+7/20 22:12:05.921  XelyaSOC gains Seal of Command (1).
+7/20 20:32:42.954  XelyaSOR gains Seal of Righteousness (1).
     """
     lines = lines.splitlines(keepends=True)
     for line in lines:
@@ -1325,6 +1327,8 @@ def test_class_detection(app):
 
         'BudwiserFL': 'paladin',
         'BudwiserHL': 'paladin',
+        'XelyaSOC': 'paladin',
+        'XelyaSOR': 'paladin',
 
         'Deathstruck': 'warrior',
         'Squirreled': 'warrior',

@@ -1616,6 +1616,8 @@ UNIQUE_LINE2SPELL2CLASS = {
         'Slice and Dice': 'rogue',
 
         'Divine Favor': 'paladin',
+        'Seal of Command': 'paladin',
+        'Seal of Righteousness': 'paladin',
     },
     'heals_line': {
         'Flash of Light': 'paladin',
