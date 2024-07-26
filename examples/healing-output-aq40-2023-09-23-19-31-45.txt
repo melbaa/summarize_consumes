@@ -1,0 +1,272 @@
+Teldelar  1803282
+  Healing Touch  1336472
+  Regrowth  213722
+  Rejuvenation  173327
+  Swiftmend  66276
+  Major Healthstone  4800
+  Tea with Sugar  4219
+  Tranquility  3216
+  Frenzied Regeneration  1169
+  Judgement of Light  81
+Daenshoo  1254133
+  Healing Touch  781730
+  Rejuvenation  354972
+  Swiftmend  106493
+  Regrowth  4878
+  Tea with Sugar  4313
+  Major Healthstone  1200
+  Judgement of Light  547
+Melbaxd  1199099
+  Flash Heal  832637
+  Renew  278678
+  Holy Nova  85918
+  Heal  1866
+Lyahsunsworn  1109612
+  Flash of Light  959717
+  Holy Light  102984
+  Holy Shock (heal)  45023
+  Judgement of Light  1418
+  Seal of Light  470
+Niviri  1073597
+  Healing Touch  796421
+  Rejuvenation  136903
+  Regrowth  98307
+  Swiftmend  38849
+  Tea with Sugar  3036
+  Judgement of Light  81
+Daenae  958001
+  Heal  361968
+  Greater Heal  318882
+  Prayer of Healing  157968
+  Renew  105456
+  Flash Heal  6546
+  Tea with Sugar  5300
+  Major Healthstone  1800
+  Judgement of Light  81
+Bloxie  777309
+  Flash of Light  541564
+  Holy Light  180180
+  Holy Shock (heal)  32978
+  Lay on Hands  10682
+  Tea with Sugar  5202
+  Judgement of Light  2897
+  Healing Potion  2606
+  Major Healthstone  1200
+Palkensen  753284
+  Chain Heal  340267
+  Lesser Healing Wave  293470
+  Healing Wave  109109
+  Earth Shield  6595
+  Major Healthstone  3600
+  Judgement of Light  243
+Faradin  500980
+  Holy Light  410340
+  Flash of Light  77904
+  Lay on Hands  8896
+  Tea with Sugar  3192
+  Judgement of Light  648
+Sunor  340646
+  Holy Nova  197758
+  Flash Heal  68792
+  Vampiric Embrace  33418
+  Renew  19927
+  Tea with Sugar  17775
+  Major Healthstone  2400
+  Pain Spike  515
+  Judgement of Light  61
+Bigjelly  150067
+  Chain Heal  107167
+  Healing Wave  22086
+  Lesser Healing Wave  19372
+  Judgement of Light  1442
+Getterfour  137475
+  Drain Life  95047
+  Judgement of Light  14763
+  Lay on Hands  10922
+  Major Healthstone  8400
+  Holy Light  8343
+Charmia  111828
+  Frenzied Regeneration  50031
+  Rejuvenation  35677
+  Regrowth  16899
+  Judgement of Light  4869
+  Healing Touch  3152
+  Major Healthstone  1200
+Psykhe  87198
+  Bloodthirst  49078
+  Holy Strength  25065
+  Judgement of Light  9263
+  Gift of Life  2595
+  Diamond Flask  1197
+Shumy  67382
+  Healing Wave  50564
+  Chain Heal  8664
+  Lesser Healing Wave  6777
+  Earth Shield  1053
+  Judgement of Light  324
+Loyola  51256
+  Holy Strength  19454
+  Holy Light  16554
+  Lay on Hands  5721
+  Judgement of Light  5496
+  Major Healthstone  2400
+  Flash of Light  1255
+  Seal of Light  376
+Melevolence  45570
+  Bloodthirst  15520
+  Judgement of Light  10915
+  Holy Strength  7598
+  Healing Potion  4937
+  Major Healthstone  3600
+  First Aid  3000
+Maryhuff  45213
+  Judgement of Light  15471
+  Bloodthirst  12200
+  Holy Strength  7243
+  Healing Potion  4599
+  Major Healthstone  4200
+  First Aid  1500
+Illasei  43905
+  Judgement of Light  18208
+  Holy Strength  10416
+  Heroism  5650
+  Major Healthstone  5400
+  First Aid  3000
+  Healing Potion  1231
+Jaekta  43549
+  Bloodthirst  12950
+  Judgement of Light  11252
+  Major Healthstone  8760
+  Holy Strength  5685
+  Gift of Life  4902
+Dyrachyo  42064
+  Bloodthirst  16640
+  Holy Strength  10778
+  Judgement of Light  9046
+  Major Healthstone  3600
+  First Aid  2000
+Killanime  38993
+  Invigorate  16177
+  Judgement of Light  14966
+  First Aid  4250
+  Major Healthstone  3600
+Rhudaur  38753
+  Bloodthirst  11980
+  Judgement of Light  10935
+  Holy Strength  5452
+  Major Healthstone  4800
+  First Aid  3750
+  Tea with Sugar  1575
+  Diamond Flask  261
+Iniri  38008
+  Judgement of Light  15697
+  Invigorate  12996
+  Holy Strength  4423
+  Major Healthstone  3600
+  Healing Potion  1292
+Obbi  36072
+  Judgement of Light  13354
+  Bloodthirst  8618
+  Healing Potion  5913
+  Major Healthstone  4800
+  Holy Strength  3387
+Everglow  35963
+  Bloodthirst  11000
+  Holy Strength  7832
+  Judgement of Light  6841
+  First Aid  4000
+  Major Healthstone  3600
+  Healing Potion  2540
+  Diamond Flask  150
+Seryah  34237
+  Judgement of Light  11033
+  Bloodthirst  10760
+  Holy Strength  7113
+  Major Healthstone  4800
+  Diamond Flask  531
+Xanadun  30295
+  Death Coil  12451
+  Major Healthstone  7800
+  First Aid  5500
+  Healing Potion  3080
+  Tea with Sugar  1292
+  Drain Life  172
+Brocula  29210
+  Judgement of Light  17725
+  Major Healthstone  9000
+  Healing Potion  1509
+  Holy Strength  806
+  First Aid  170
+Isimona  25841
+  Fel Stamina  9011
+  Tea with Sugar  5977
+  Healing Potion  4759
+  Death Coil  4476
+  Major Healthstone  1200
+  Drain Life  276
+  Judgement of Light  142
+Tockra  24162
+  Bloodthirst  7100
+  Judgement of Light  6734
+  Holy Strength  5202
+  Major Healthstone  3600
+  Whipper Root Tuber  1526
+Bubasita  22365
+  Judgement of Light  11138
+  Bloodthirst  5380
+  Major Healthstone  4200
+  Healing Potion  1397
+  First Aid  250
+Dregoth  20023
+  Major Healthstone  10320
+  Death Coil  4409
+  Tea with Sugar  3294
+  First Aid  2000
+Seath  18217
+  First Aid  8750
+  Major Healthstone  7800
+  Healing Potion  1667
+Chan  15285
+  Healing Potion  4913
+  Judgement of Light  3027
+  Major Healthstone  3000
+  First Aid  1750
+  Tea with Sugar  1370
+  Mend Pet  1225
+Shrimpshark  14626
+  Tea with Sugar  10431
+  Healing Potion  2373
+  Major Healthstone  1200
+  First Aid  500
+  Judgement of Light  122
+Smahingbolt  11839
+  Major Healthstone  6600
+  First Aid  2750
+  Judgement of Light  1380
+  Healing Potion  1109
+Yis  11124
+  Judgement of Light  4630
+  Healing Potion  3794
+  First Aid  1500
+  Major Healthstone  1200
+Hrin  10874
+  Judgement of Light  5525
+  Major Healthstone  2400
+  Healing Potion  1730
+  Tea with Sugar  1219
+Bruceweed  7665
+  Tea with Sugar  4156
+  Major Healthstone  1200
+  Healing Potion  1187
+  First Aid  1000
+  Judgement of Light  122
+Nmsj  7016
+  Healing Potion  5816
+  Major Healthstone  1200
+Berserkss  4643
+  Major Healthstone  2400
+  Healing Potion  1816
+  Judgement of Light  427
+Thorshifter  1261
+  Major Healthstone  1200
+  Judgement of Light  61

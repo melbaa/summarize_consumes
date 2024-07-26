@@ -1,0 +1,279 @@
+Yakub  4495041
+  Chain Heal  3990615
+  Lesser Healing Wave  392342
+  Healing Wave  69457
+  Tea with Sugar  41427
+  Major Healthstone  1200
+Interlani  3107699
+  Flash of Light  2499527
+  Holy Light  361125
+  Holy Shock (heal)  217116
+  Tea with Sugar  12879
+  Lay on Hands  6511
+  Seal of Light  3478
+  Cleanse  3250
+  Judgement of Light  2613
+  Major Healthstone  1200
+Sanwen  3035007
+  Greater Heal  1120321
+  Renew  748676
+  Flash Heal  725020
+  Prayer of Healing  247316
+  Vampiric Embrace  99106
+  Holy Nova  44624
+  Heal  31915
+  Tea with Sugar  17236
+  Pain Spike  793
+Bobsterr  2601230
+  Flash of Light  1800264
+  Holy Light  572749
+  Holy Shock (heal)  179212
+  Drain Life  22076
+  Tea with Sugar  12869
+  Judgement of Light  5207
+  Life Steal  4571
+  Lay on Hands  4282
+Suigetsu  2466801
+  Flash Heal  856996
+  Greater Heal  826887
+  Vampiric Embrace  313629
+  Renew  225947
+  Prayer of Healing  192165
+  Tea with Sugar  15745
+  Holy Nova  13439
+  Desperate Prayer  12408
+  Heal  4378
+  Oracular Heal  4007
+  Major Healthstone  1200
+Almouty  2385815
+  Rejuvenation  1073090
+  Regrowth  862528
+  Healing Touch  339083
+  Swiftmend  81174
+  Tea with Sugar  27940
+  First Aid  2000
+Jocaste  2254225
+  Flash of Light  2129544
+  Holy Light  84366
+  Cleanse  18200
+  Holy Shock (heal)  13909
+  Judgement of Light  2938
+  Tea with Sugar  2868
+  Major Healthstone  2400
+Valurian  1909927
+  Healing Touch  949069
+  Rejuvenation  760988
+  Swiftmend  97911
+  Regrowth  88888
+  Tea with Sugar  12760
+  First Aid  250
+  Judgement of Light  61
+Zdraxus  1902202
+  Vampiric Embrace  1836654
+  Prayer of Healing  25746
+  Flash Heal  25646
+  Renew  8750
+  Pain Spike  3304
+  Tea with Sugar  1333
+  Healing Potion  769
+Ergofobia  1766096
+  Chain Heal  1311204
+  Lesser Healing Wave  258835
+  Healing Wave  184518
+  Tea with Sugar  9306
+  Earth Shield  1402
+  First Aid  750
+  Judgement of Light  81
+Seidhkona  1640988
+  Chain Heal  1388504
+  Lesser Healing Wave  211705
+  Healing Wave  36154
+  Tea with Sugar  3945
+  First Aid  680
+Shadowheals  940055
+  Flash Heal  632865
+  Renew  167186
+  Greater Heal  51154
+  Heal  49739
+  Prayer of Healing  20618
+  Devouring Plague  8781
+  Vampiric Embrace  7577
+  Major Healthstone  1200
+  Shadow Mend  935
+Mombat  253602
+  Drain Life  121248
+  Life Steal  33978
+  Judgement of Light  29115
+  Tea with Sugar  23517
+  Flash of Light  22725
+  Holy Light  20519
+  First Aid  2500
+Ancst  216183
+  Vampiric Embrace  207709
+  Devouring Plague  4251
+  Tea with Sugar  3607
+  Pain Spike  616
+Deemonk  122245
+  Drain Life  58195
+  Judgement of Light  15539
+  Holy Light  15345
+  Flash of Light  13005
+  Holy Strength  7724
+  Major Healthstone  6600
+  Tea with Sugar  4491
+  Seal of Light  846
+  First Aid  500
+Littlelnnos  113550
+  Judgement of Light  40831
+  Bloodthirst  40750
+  Holy Strength  15813
+  Major Healthstone  5400
+  First Aid  5000
+  Healing Potion  4747
+  Drain Life  1009
+Drapes  107591
+  Bloodthirst  40790
+  Judgement of Light  30973
+  Holy Strength  23457
+  Major Healthstone  6000
+  Healing Potion  2535
+  First Aid  2500
+  Tea with Sugar  1336
+Deathstruck  106449
+  Judgement of Light  41009
+  Bloodthirst  36555
+  Holy Strength  24097
+  Major Healthstone  3600
+  Healing Potion  1188
+Psykhe  104461
+  Bloodthirst  38000
+  Judgement of Light  35692
+  Holy Strength  22689
+  First Aid  3000
+  Healing Potion  2232
+  Tea with Sugar  1648
+  Major Healthstone  1200
+Martl  103711
+  Bloodthirst  47830
+  Judgement of Light  29836
+  Holy Strength  24845
+  Major Healthstone  1200
+Squirreled  98430
+  Bloodthirst  39198
+  Judgement of Light  29285
+  Holy Strength  12527
+  Tea with Sugar  8260
+  Major Healthstone  5400
+  Gift of Life  3010
+  First Aid  750
+Vallcow  97134
+  Bloodthirst  44156
+  Judgement of Light  30294
+  Major Healthstone  9600
+  Holy Strength  9573
+  First Aid  2000
+  Healing Potion  1511
+Melriel  89923
+  Bloodthirst  36340
+  Judgement of Light  35316
+  Holy Strength  17067
+  Major Healthstone  1200
+Supal  89312
+  Tea with Sugar  34492
+  Judgement of Light  20698
+  Holy Strength  11739
+  Lay on Hands  7451
+  Drain Life  5885
+  Holy Light  4203
+  Life Steal  3704
+  Healing Potion  1140
+Cracklinoats  78965
+  Lesser Healing Wave  25423
+  Earth Shield  14100
+  Judgement of Light  13934
+  Holy Strength  11612
+  Major Healthstone  7200
+  Chain Heal  3639
+  Healing Wave  1761
+  Healing Potion  1296
+Pitbound  68318
+  Bloodthirst  31235
+  Judgement of Light  23968
+  Holy Strength  11915
+  Major Healthstone  1200
+Plaguejak  68140
+  Vampirism  31646
+  Death Coil  24732
+  Tea with Sugar  6912
+  Major Healthstone  3600
+  First Aid  1250
+Cheesebreath  65054
+  Regrowth  45113
+  Rejuvenation  13212
+  Tranquility  3729
+  Major Healthstone  3000
+Azot  61684
+  Vampirism  32488
+  Death Coil  17157
+  Major Healthstone  5280
+  First Aid  3250
+  Healing Potion  3047
+  Drain Life  462
+Abstractz  51864
+  Tea with Sugar  36335
+  Earth Shield  11351
+  Lesser Healing Wave  4056
+  Judgement of Light  122
+Atriana  49878
+  Judgement of Light  25651
+  Invigorate  19060
+  Healing Potion  2277
+  Tea with Sugar  1690
+  Major Healthstone  1200
+Titicacal  36708
+  Vampirism  27873
+  Healing Potion  3343
+  First Aid  3000
+  Major Healthstone  1800
+  Death Coil  692
+Sunwelp  36350
+  Tea with Sugar  32678
+  First Aid  2000
+  Healing Potion  1672
+Starraven  34571
+  Tea with Sugar  13719
+  Regrowth  8127
+  Rejuvenation  5166
+  Healing Touch  4363
+  Healing Potion  3196
+Shreked  13158
+  Tea with Sugar  6193
+  First Aid  2750
+  Major Healthstone  2400
+  Healing Potion  1815
+Baalfyr  11619
+  Bloodthirst  7580
+  Holy Strength  3917
+  Judgement of Light  122
+Zedog  10546
+  Tea with Sugar  4146
+  First Aid  4000
+  Major Healthstone  2400
+Ratthew  8036
+  Tea with Sugar  7853
+  Judgement of Light  183
+Dhallya  6693
+  Tea with Sugar  2109
+  First Aid  2000
+  Healing Potion  1323
+  Major Healthstone  1200
+  Judgement of Light  61
+Babystone  4860
+  Tea with Sugar  2155
+  Healing Potion  1705
+  First Aid  1000
+Aquatic  2750
+  First Aid  2750
+Celebrity  2744
+  Vampirism  1820
+  Death Coil  924

@@ -1,0 +1,272 @@
+Teldelar  1740466
+  Healing Touch  1247319
+  Regrowth  212847
+  Rejuvenation  182755
+  Swiftmend  83835
+  Tea with Sugar  11080
+  Major Healthstone  1200
+  Frenzied Regeneration  851
+  Tranquility  579
+Druindy  1705925
+  Healing Touch  1513598
+  Rejuvenation  140837
+  Regrowth  30595
+  Swiftmend  14368
+  Tea with Sugar  5327
+  Major Healthstone  1200
+Daenae  1355681
+  Greater Heal  475664
+  Heal  424088
+  Prayer of Healing  310132
+  Renew  120325
+  Flash Heal  15596
+  Tea with Sugar  5684
+  Holy Nova  2992
+  Major Healthstone  1200
+Niviri  1354611
+  Healing Touch  709831
+  Regrowth  430695
+  Rejuvenation  172311
+  Swiftmend  30526
+  Tea with Sugar  8004
+  Rejuvenation Potion  3244
+Shumy  1329860
+  Healing Wave  680589
+  Chain Heal  475547
+  Lesser Healing Wave  154874
+  Earth Shield  15198
+  Tea with Sugar  3652
+Daenshoo  1323446
+  Healing Touch  855579
+  Rejuvenation  319747
+  Swiftmend  125399
+  Regrowth  15705
+  Major Healthstone  4200
+  Tea with Sugar  2816
+Jarnp  1262184
+  Flash Heal  666760
+  Greater Heal  312295
+  Renew  240549
+  Holy Nova  18845
+  Prayer of Healing  16189
+  Major Healthstone  7200
+  Devouring Plague  346
+Lyahsunsworn  1246533
+  Flash of Light  1035628
+  Holy Light  171037
+  Holy Shock (heal)  38815
+  Judgement of Light  1053
+Arzetlam  1086295
+  Greater Heal  407652
+  Flash Heal  334602
+  Renew  288091
+  Prayer of Healing  43150
+  Tea with Sugar  11779
+  Devouring Plague  1021
+Sunor  945899
+  Vampiric Embrace  623126
+  Holy Nova  178181
+  Flash Heal  83199
+  Greater Heal  27312
+  Tea with Sugar  18103
+  Renew  14745
+  Pain Spike  1233
+Windfurytotm  772993
+  Chain Heal  481495
+  Healing Wave  181114
+  Lesser Healing Wave  87862
+  Tea with Sugar  17588
+  Earth Shield  3255
+  Healing Potion  1679
+Rossol  694853
+  Vampiric Embrace  664260
+  Devouring Plague  19532
+  Pain Spike  3922
+  Major Healthstone  3000
+  Flash Heal  2180
+  Renew  1959
+Faradin  624790
+  Holy Light  486239
+  Flash of Light  128256
+  Judgement of Light  4510
+  Lay on Hands  1652
+  Healing Potion  1586
+  Holy Strength  1253
+  Major Healthstone  1200
+  Seal of Light  94
+Loyola  128942
+  Holy Light  82627
+  Holy Strength  17282
+  Flash of Light  15795
+  Lay on Hands  5581
+  Judgement of Light  4057
+  Major Healthstone  3600
+Charmia  91275
+  Frenzied Regeneration  40597
+  Regrowth  22632
+  Judgement of Light  14844
+  Rejuvenation  8214
+  Healing Touch  4988
+Bloxie  72643
+  Flash of Light  19841
+  Holy Light  11814
+  Tea with Sugar  11100
+  Lay on Hands  8501
+  Judgement of Light  8435
+  First Aid  6000
+  Holy Strength  5584
+  Healing Potion  1199
+  Seal of Light  169
+Getterfour  69414
+  Judgement of Light  30321
+  Holy Light  14055
+  Flash of Light  10317
+  Major Healthstone  4800
+  First Aid  3750
+  Tea with Sugar  3286
+  Healing Potion  2885
+Rhudaur  64149
+  Bloodthirst  20115
+  Judgement of Light  11662
+  First Aid  8750
+  Holy Strength  8130
+  Major Healthstone  7500
+  Tea with Sugar  6296
+  Healing Potion  1696
+Killanime  62441
+  Invigorate  20549
+  Judgement of Light  18094
+  Holy Strength  10648
+  First Aid  7750
+  Major Healthstone  5400
+Melevolence  58313
+  Bloodthirst  20155
+  Judgement of Light  14318
+  Holy Strength  7034
+  Major Healthstone  6600
+  First Aid  5000
+  Healing Potion  4981
+  Diamond Flask  225
+Srj  56405
+  Judgement of Light  20226
+  Invigorate  19668
+  Holy Strength  10260
+  First Aid  2500
+  Major Healthstone  2400
+  Healing Potion  1351
+Dyrachyo  55115
+  Bloodthirst  19915
+  Holy Strength  13535
+  Judgement of Light  10307
+  Major Healthstone  8400
+  Healing Potion  1708
+  First Aid  1250
+Falcula  51112
+  Siphon Life  31675
+  Major Healthstone  13800
+  Drain Life  3625
+  First Aid  1250
+  Death Coil  762
+Paris  46101
+  Holy Strength  18103
+  Judgement of Light  8482
+  Lay on Hands  7981
+  Holy Light  6897
+  Healing Potion  3438
+  Major Healthstone  1200
+Maryhuff  43294
+  Judgement of Light  16838
+  Bloodthirst  14095
+  Holy Strength  9161
+  First Aid  2000
+  Major Healthstone  1200
+Psykhe  42117
+  Judgement of Light  17938
+  Bloodthirst  15850
+  Holy Strength  6579
+  First Aid  1750
+Illasei  41743
+  Judgement of Light  11350
+  Heroism  9171
+  Holy Strength  8522
+  Major Healthstone  7200
+  First Aid  5500
+Jaekta  38484
+  Bloodthirst  10482
+  Judgement of Light  8927
+  Major Healthstone  8640
+  Holy Strength  5311
+  First Aid  3250
+  Gift of Life  1874
+Everglow  38063
+  Bloodthirst  14446
+  Judgement of Light  7233
+  Holy Strength  7065
+  Major Healthstone  3840
+  First Aid  2750
+  Gift of Life  1343
+  Blood Craze  1323
+  Diamond Flask  63
+Dregoth  34983
+  Major Healthstone  15480
+  Death Coil  9441
+  Tea with Sugar  4558
+  First Aid  3250
+  Healing Potion  2254
+Obbi  32125
+  Judgement of Light  12859
+  Bloodthirst  8200
+  Holy Strength  4683
+  Major Healthstone  3000
+  Healing Potion  2940
+  Night Dragon's Breath  443
+Bruceweed  29018
+  Tea with Sugar  17692
+  First Aid  8500
+  Healing Potion  2826
+Xanadun  24033
+  Death Coil  12911
+  Major Healthstone  6600
+  First Aid  4000
+  Drain Life  522
+Smahingbolt  23741
+  First Aid  11250
+  Tea with Sugar  5965
+  Major Healthstone  4200
+  Healing Potion  2326
+Tlw  23323
+  Tea with Sugar  11973
+  First Aid  7750
+  Major Healthstone  3600
+Alpra  22844
+  Judgement of Light  9840
+  Gift of Life  8804
+  Major Healthstone  4200
+Everran  22667
+  Drain Life  17672
+  Holy Light  3574
+  Judgement of Light  1421
+Seath  20913
+  First Aid  8250
+  Major Healthstone  7200
+  Healing Potion  3497
+  Whipper Root Tuber  1966
+Yis  16755
+  First Aid  5000
+  Healing Potion  4822
+  Major Healthstone  3600
+  Tea with Sugar  3333
+Berserkss  13830
+  Major Healthstone  5400
+  First Aid  5000
+  Mend Pet  3430
+Iniri  13435
+  Invigorate  6037
+  Judgement of Light  4421
+  Holy Strength  1777
+  Major Healthstone  1200
+Shrimpshark  10044
+  Healing Potion  2930
+  Tea with Sugar  2714
+  Major Healthstone  2400
+  First Aid  2000

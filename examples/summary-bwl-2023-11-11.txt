@@ -11,92 +11,92 @@ Notes:
 
 
 Airin deaths:3
-   Elixir of Greater Intellect 1   (86s 97c)
-   Lesser Mana Oil 2   (40s)
-   Mana Potion - Major 1   (1g 91s 53c)
+   Elixir of Greater Intellect 1   (84s 76c)
+   Lesser Mana Oil 2   (1g 20s)
+   Mana Potion - Major 1   (1g 98s 88c)
 
-   total spent: 3g 18s 50c
+   total spent: 4g 3s 64c
 Aphorodite deaths:2
-   Elixir of Greater Agility 4   (2g 76c)
-   Mana Potion - Major 1   (1g 91s 53c)
+   Elixir of Greater Agility 4   (1g 15s 12c)
+   Mana Potion - Major 1   (1g 98s 88c)
 
-   total spent: 3g 92s 29c
+   total spent: 3g 14s
 Arzetlam deaths:0
-   Tea with Sugar 1   (21s 77c)
+   Tea with Sugar 1   (23s 66c)
 
-   total spent: 21s 77c
+   total spent: 23s 66c
 Berserkss deaths:0
-   Elixir of Greater Agility 1   (50s 19c)
-   Elixir of the Mongoose 1   (2g 88s 26c)
-   Spirit of Zanza 1   (2g 52s 21c)
+   Elixir of Greater Agility 1   (28s 78c)
+   Elixir of the Mongoose 1   (2g 16s 41c)
+   Spirit of Zanza 1   (2g 69s 40c)
 
-   total spent: 5g 90s 66c
+   total spent: 5g 14s 59c
 Bloxie deaths:3
-   Free Action Potion 2   (5g 54s 32c)
-   Greater Stoneshield 1   (3g 89s 89c)
+   Free Action Potion 2   (3g 87s 64c)
+   Greater Stoneshield 1   (4g 48s 89c)
    Stratholme Holy Water 1 
-   Tea with Sugar 2   (43s 54c)
+   Tea with Sugar 2   (47s 32c)
 
-   total spent: 9g 87s 75c
+   total spent: 8g 83s 85c
 Chan deaths:0
    Increased Stamina 1 
-   Tea with Sugar 3   (65s 31c)
+   Tea with Sugar 3   (70s 98c)
 
-   total spent: 65s 31c
+   total spent: 70s 98c
 Charmia deaths:2
-   Elixir of Fortitude 2   (2g 47s)
-   Elixir of the Giants 1   (1g 21s 66c)
-   Elixir of the Mongoose 3   (8g 64s 78c)
-   Free Action Potion 2   (5g 54s 32c)
-   Spirit of Zanza 2   (5g 4s 42c)
+   Elixir of Fortitude 2   (1g 87s 50c)
+   Elixir of the Giants 1   (1g 48s 94c)
+   Elixir of the Mongoose 3   (6g 49s 23c)
+   Free Action Potion 2   (3g 87s 64c)
+   Spirit of Zanza 2   (5g 38s 80c)
 
-   total spent: 22g 92s 18c
+   total spent: 19g 12s 11c
 Coldbeer deaths:0
    Increased Stamina 2 
-   Mana Potion - Superior 1   (64s 59c)
+   Mana Potion - Superior 1   (91s 51c)
 
-   total spent: 64s 59c
+   total spent: 91s 51c
 Daenshoo deaths:1
    <nothing found>
 Druindy deaths:4
-   Healing Potion - Major 1   (55s 16c)
+   Healing Potion - Major 1   (55s 67c)
 
-   total spent: 55s 16c
+   total spent: 55s 67c
 Dyrachyo deaths:2
-   Elixir of Fortitude 1   (1g 23s 50c)
-   Elixir of the Mongoose 1   (2g 88s 26c)
+   Elixir of Fortitude 1   (93s 75c)
+   Elixir of the Mongoose 1   (2g 16s 41c)
    Fire Protection 3 
-   Free Action Potion 3   (8g 31s 48c)
-   Invulnerability 3   (7g 43s 43c)
-   Mighty Rage Potion 8   (27g 99s 20c)
-   Rage of Ages (ROIDS) 1   (3g 53s 14c)
-   Spirit of Zanza 1   (2g 52s 21c)
-   Winterfall Firewater 2   (4g 6s 16c)
+   Free Action Potion 3   (5g 81s 46c)
+   Invulnerability 3   (7g 11s 42c)
+   Mighty Rage Potion 8   (26g 59s 92c)
+   Rage of Ages (ROIDS) 1   (3g 36s 4c)
+   Spirit of Zanza 1   (2g 69s 40c)
+   Winterfall Firewater 2   (3g 83s 94c)
 
-   total spent: 57g 97s 38c
+   total spent: 52g 52s 34c
 Everglow deaths:4
-   Elixir of the Mongoose 2   (5g 76s 52c)
+   Elixir of the Mongoose 2   (4g 32s 82c)
    Fire Protection 1 
-   Free Action Potion 4   (11g 8s 64c)
-   Goblin Sapper Charge 1   (2g 58s 17c)
+   Free Action Potion 4   (7g 75s 28c)
+   Goblin Sapper Charge 1   (2g 55s 4c)
    Increased Stamina 3 
-   Spirit of Zanza 2   (5g 4s 42c)
-   Winterfall Firewater 4   (8g 12s 32c)
+   Spirit of Zanza 2   (5g 38s 80c)
+   Winterfall Firewater 4   (7g 67s 88c)
 
-   total spent: 32g 60s 7c
+   total spent: 27g 69s 82c
 Few deaths:5
    Dense Sharpening Stone 2 
-   Elixir of Fortitude 3   (3g 70s 50c)
-   Elixir of Greater Agility 2   (1g 38c)
-   Elixir of the Giants 3   (3g 64s 98c)
-   Elixir of the Mongoose 2   (5g 76s 52c)
+   Elixir of Fortitude 3   (2g 81s 25c)
+   Elixir of Greater Agility 2   (57s 56c)
+   Elixir of the Giants 3   (4g 46s 82c)
+   Elixir of the Mongoose 2   (4g 32s 82c)
    Fire Protection 2 
-   Healing Potion - Major 2   (1g 10s 32c)
-   Rumsey Rum Black Label 2   (1g 28s 92c)
-   Shadow Protection 1   (7g 75s 63c)
-   Winterfall Firewater 5   (10g 15s 40c)
+   Healing Potion - Major 2   (1g 11s 34c)
+   Rumsey Rum Black Label 2   (1g 44s 64c)
+   Shadow Protection 1   (7g 7s 76c)
+   Winterfall Firewater 5   (9g 59s 85c)
 
-   total spent: 34g 42s 65c
+   total spent: 31g 42s 4c
 Fflur deaths:0
    <nothing found>
 Gack deaths:1
@@ -104,13 +104,13 @@ Gack deaths:1
 Geniesham deaths:1
    <nothing found>
 Illasei deaths:1
-   Elixir of the Mongoose 1   (2g 88s 26c)
-   Healing Potion - Major 1   (55s 16c)
-   Spirit of Zanza 1   (2g 52s 21c)
-   Strike of the Scorpok 1   (4g 10s 2c)
-   Winterfall Firewater 3   (6g 9s 24c)
+   Elixir of the Mongoose 1   (2g 16s 41c)
+   Healing Potion - Major 1   (55s 67c)
+   Spirit of Zanza 1   (2g 69s 40c)
+   Strike of the Scorpok 1   (3g 79s 65c)
+   Winterfall Firewater 3   (5g 75s 91c)
 
-   total spent: 16g 14s 89c
+   total spent: 14g 97s 4c
 Lyahsunsworn deaths:1
    <nothing found>
 Mezmeris deaths:3
@@ -120,91 +120,91 @@ Nightleaf deaths:6
 Pieshka deaths:4
    Fire Protection 1 
 Platedps deaths:1
-   Elixir of the Mongoose 1   (2g 88s 26c)
+   Elixir of the Mongoose 1   (2g 16s 41c)
    Fire Protection 1 
-   Healing Potion - Major 2   (1g 10s 32c)
+   Healing Potion - Major 2   (1g 11s 34c)
 
-   total spent: 3g 98s 58c
+   total spent: 3g 27s 75c
 Psykhe deaths:2
-   Elixir of the Mongoose 3   (8g 64s 78c)
-   Flask of the Titans 1   (92g 30s 6c)
-   Free Action Potion 2   (5g 54s 32c)
-   Greater Stoneshield 2   (7g 79s 78c)
-   Rumsey Rum Black Label 1   (64s 46c)
-   Spirit of Zanza 2   (5g 4s 42c)
+   Elixir of the Mongoose 3   (6g 49s 23c)
+   Flask of the Titans 1   (88g 98s 75c)
+   Free Action Potion 2   (3g 87s 64c)
+   Greater Stoneshield 2   (8g 97s 78c)
+   Rumsey Rum Black Label 1   (72s 32c)
+   Spirit of Zanza 2   (5g 38s 80c)
 
-   total spent: 119g 97s 82c
+   total spent: 114g 44s 52c
 Redzeus deaths:3
    <nothing found>
 Ridea deaths:2
    <nothing found>
 Roshane deaths:3
-   Healing Potion - Major 1   (55s 16c)
-   Mana Potion - Major 1   (1g 91s 53c)
+   Healing Potion - Major 1   (55s 67c)
+   Mana Potion - Major 1   (1g 98s 88c)
 
-   total spent: 2g 46s 69c
+   total spent: 2g 54s 55c
 Shrimpshark deaths:2
-   Brilliant Wizard Oil 1   (1g 29s 65c)
-   Dreamshard Elixir 2   (4g 57s 98c)
-   Dreamtonic 2   (2g 61s 54c)
-   Elixir of Fortitude 1   (1g 23s 50c)
-   Elixir of Frost Power 2   (1g 13s 98c)
+   Brilliant Wizard Oil 1   (1g 98s 77c)
+   Dreamshard Elixir 2   (4g 35s 38c)
+   Dreamtonic 2   (2g 48s 58c)
+   Elixir of Fortitude 1   (93s 75c)
+   Elixir of Frost Power 2   (1g 58s 40c)
    Fire Protection 3 
-   Greater Arcane Elixir 2   (6g 24s 86c)
+   Greater Arcane Elixir 2   (6g 20s 6c)
    Increased Intellect 3 
-   Invulnerability 2   (4g 95s 62c)
-   Mana Potion - Major 1   (1g 91s 53c)
-   Tea with Sugar 10   (2g 17s 70c)
+   Invulnerability 2   (4g 74s 28c)
+   Mana Potion - Major 1   (1g 98s 88c)
+   Tea with Sugar 10   (2g 36s 60c)
 
-   total spent: 26g 16s 36c
+   total spent: 26g 64s 70c
 Shuly deaths:1
-   Mana Potion - Major 1   (1g 91s 53c)
-   Tea with Sugar 1   (21s 77c)
+   Mana Potion - Major 1   (1g 98s 88c)
+   Tea with Sugar 1   (23s 66c)
 
-   total spent: 2g 13s 30c
+   total spent: 2g 22s 54c
 Srj deaths:4
-   Elixir of the Mongoose 4   (11g 53s 4c)
+   Elixir of the Mongoose 4   (8g 65s 64c)
    Fire Protection 2 
-   Free Action Potion 1   (2g 77s 16c)
-   Invulnerability 1   (2g 47s 81c)
-   Potion of Quickness 2   (7g)
-   Winterfall Firewater 5   (10g 15s 40c)
+   Free Action Potion 1   (1g 93s 82c)
+   Invulnerability 1   (2g 37s 14c)
+   Potion of Quickness 2   (5g 67s 64c)
+   Winterfall Firewater 5   (9g 59s 85c)
 
-   total spent: 33g 93s 41c
+   total spent: 28g 24s 9c
 Stormsnake deaths:0
    <nothing found>
 Subarach deaths:4
    <nothing found>
 Sunor deaths:2
-   Mana Potion - Major 6   (11g 49s 18c)
-   Tea with Sugar 12   (2g 61s 24c)
+   Mana Potion - Major 6   (11g 93s 28c)
+   Tea with Sugar 12   (2g 83s 92c)
 
-   total spent: 14g 10s 42c
+   total spent: 14g 77s 20c
 Syjlas deaths:1
    Fire Protection 2 
-   Healing Potion - Major 3   (1g 65s 48c)
-   Wizard Oil 2   (76s 79c)
+   Healing Potion - Major 3   (1g 67s 1c)
+   Wizard Oil 2   (40s)
 
-   total spent: 2g 42s 27c
+   total spent: 2g 7s 1c
 Teldelar deaths:2
    <nothing found>
 Umbriela deaths:2
-   Mana Potion - Major 3   (5g 74s 59c)
+   Mana Potion - Major 3   (5g 96s 64c)
 
-   total spent: 5g 74s 59c
+   total spent: 5g 96s 64c
 Windfurytotm deaths:0
-   Healing Potion - Major 1   (55s 16c)
-   Invulnerability 1   (2g 47s 81c)
-   Mana Potion - Superior 2   (1g 29s 18c)
-   Tea with Sugar 4   (87s 8c)
+   Healing Potion - Major 1   (55s 67c)
+   Invulnerability 1   (2g 37s 14c)
+   Mana Potion - Superior 2   (1g 83s 2c)
+   Tea with Sugar 4   (94s 64c)
 
-   total spent: 5g 19s 23c
+   total spent: 5g 70s 47c
 Yis deaths:3
-   Elixir of the Mongoose 1   (2g 88s 26c)
-   Healing Potion - Major 2   (1g 10s 32c)
-   Tea with Sugar 2   (43s 54c)
+   Elixir of the Mongoose 1   (2g 16s 41c)
+   Healing Potion - Major 2   (1g 11s 34c)
+   Tea with Sugar 2   (47s 32c)
 
-   total spent: 4g 42s 12c
+   total spent: 3g 75s 7c
 
 
 Cooldown Summary
@@ -349,6 +349,17 @@ Cooldown Summary
          Few 1
       Bloodlust (received)
          Srj 1
+   Warlock
+      Talisman of Ephemeral Power
+         Shuly 2
+   Hunter
+      Jom Gabbar
+         Yis 2
+      Earthstrike
+         Yis 8
+      Berserking
+         Yis 9
+         Berserkss 1
 
 
 Proc Summary
@@ -643,10 +654,11 @@ Class Detection
 
 
 Tech
-   project version 2024.1061
+   project version 2024.1075
    project homepage https://github.com/melbaa/summarize_consumes
-   prices timestamp 2024-05-12T00:00:01.882980 (9 hours ago)
+   prices server nord
+   prices timestamp 2024-07-26T00:00:02.089544 (13 hours ago)
    log size 16.7 MB
    log lines 218793
    skipped log lines 6 (0.00%)
-   processed in 30.04 seconds. 7282.92 log lines/sec
+   processed in 34.31 seconds. 6377.53 log lines/sec

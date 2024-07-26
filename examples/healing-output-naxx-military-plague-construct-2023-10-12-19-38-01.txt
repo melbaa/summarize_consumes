@@ -1,0 +1,291 @@
+Teldelar  2897422
+  Healing Touch  2042718
+  Regrowth  390472
+  Rejuvenation  345287
+  Swiftmend  76081
+  Tea with Sugar  18155
+  Frenzied Regeneration  7592
+  Tranquility  6936
+  First Aid  6500
+  Major Healthstone  3600
+  Judgement of Light  81
+Druindy  2512529
+  Healing Touch  2362230
+  Rejuvenation  77933
+  Swiftmend  33138
+  Regrowth  23118
+  Tea with Sugar  4238
+  Tranquility  3176
+  Major Healthstone  3000
+  First Aid  3000
+  Frenzied Regeneration  2696
+Salammbo  2453166
+  Flash Heal  1251114
+  Greater Heal  869150
+  Renew  264782
+  Prayer of Healing  33082
+  Heal  18245
+  Tea with Sugar  14293
+  First Aid  2500
+Daenshoo  2435079
+  Healing Touch  1794707
+  Rejuvenation  483238
+  Swiftmend  136807
+  Tranquility  7820
+  Tea with Sugar  4963
+  First Aid  4000
+  Regrowth  2344
+  Major Healthstone  1200
+Daenae  2286521
+  Greater Heal  732519
+  Heal  693702
+  Prayer of Healing  574757
+  Renew  246542
+  Flash Heal  19130
+  Holy Nova  7645
+  Tea with Sugar  6927
+  First Aid  3250
+  Major Healthstone  1200
+  Healing Potion  849
+Jarnp  2268248
+  Flash Heal  1243320
+  Greater Heal  686811
+  Renew  239535
+  Prayer of Healing  65586
+  Holy Nova  23918
+  Major Healthstone  9000
+  Devouring Plague  78
+Shumy  2197332
+  Chain Heal  1110402
+  Healing Wave  936637
+  Lesser Healing Wave  114756
+  Earth Shield  25386
+  Tea with Sugar  4617
+  First Aid  4000
+  Healing Potion  1534
+Arzetlam  1863169
+  Flash Heal  733038
+  Greater Heal  561025
+  Renew  433477
+  Vampiric Embrace  97679
+  Prayer of Healing  21529
+  Tea with Sugar  9702
+  Devouring Plague  3994
+  Pain Spike  2725
+Lyahsunsworn  1692855
+  Flash of Light  1385562
+  Holy Light  261345
+  Holy Shock (heal)  44935
+  Judgement of Light  1013
+Sunor  1307340
+  Vampiric Embrace  1046594
+  Holy Nova  99660
+  Flash Heal  77591
+  Greater Heal  41104
+  Renew  23758
+  Tea with Sugar  16857
+  Major Healthstone  1200
+  Pain Spike  576
+Rossol  830996
+  Vampiric Embrace  778645
+  Devouring Plague  27296
+  Flash Heal  9735
+  Major Healthstone  7200
+  Renew  6582
+  Pain Spike  1133
+  Judgement of Light  405
+Windfurytotm  573080
+  Chain Heal  342993
+  Lesser Healing Wave  97133
+  Healing Wave  88913
+  Tea with Sugar  25034
+  Judgement of Light  6275
+  Major Healthstone  4200
+  Holy Strength  3224
+  Earth Shield  2919
+  Healing Potion  2389
+Faradin  430678
+  Holy Light  336420
+  Flash of Light  67823
+  Holy Strength  9217
+  Lay on Hands  8701
+  Healing Potion  5791
+  Judgement of Light  2538
+  Seal of Light  188
+Everran  219024
+  Flash of Light  96017
+  Drain Life  54062
+  Holy Light  38685
+  Judgement of Light  23841
+  Major Healthstone  3600
+  First Aid  2000
+  Healing Potion  819
+Bloxie  160544
+  Healing Circle  49417
+  Flash of Light  43571
+  Tea with Sugar  17900
+  Holy Light  13485
+  Judgement of Light  11162
+  Lay on Hands  9241
+  Holy Strength  7934
+  First Aid  5250
+  Healing Potion  1384
+  Major Healthstone  1200
+Charmia  112988
+  Frenzied Regeneration  68326
+  Judgement of Light  16804
+  Regrowth  15088
+  Rejuvenation  5328
+  Major Healthstone  3000
+  Healing Touch  2442
+  First Aid  2000
+Getterfour  106567
+  Judgement of Light  41414
+  Holy Light  24229
+  Flash of Light  18090
+  Tea with Sugar  12117
+  Lay on Hands  5941
+  Major Healthstone  3600
+  Healing Potion  1176
+Srj  102341
+  Invigorate  36911
+  Judgement of Light  29974
+  Holy Strength  17856
+  First Aid  11000
+  Major Healthstone  6600
+Loyola  90343
+  Holy Strength  34333
+  Holy Light  34262
+  Judgement of Light  8229
+  Lay on Hands  5581
+  Flash of Light  4788
+  Major Healthstone  2400
+  First Aid  750
+Killanime  85683
+  Invigorate  29528
+  Judgement of Light  25561
+  Holy Strength  16338
+  First Aid  9000
+  Major Healthstone  3600
+  Healing Potion  1656
+Dyrachyo  77294
+  Bloodthirst  33140
+  Holy Strength  20688
+  Judgement of Light  15666
+  Major Healthstone  7800
+Psykhe  66783
+  Bloodthirst  31052
+  Judgement of Light  18198
+  Holy Strength  10662
+  First Aid  4000
+  Gift of Life  1671
+  Major Healthstone  1200
+Paris  65918
+  Holy Strength  33181
+  Holy Light  14167
+  Judgement of Light  13143
+  Healing Potion  3627
+  Major Healthstone  1800
+Illasei  61949
+  Judgement of Light  25110
+  Holy Strength  16149
+  First Aid  9250
+  Heroism  5515
+  Major Healthstone  4800
+  Healing Potion  1125
+Bubasita  60586
+  Bloodthirst  16790
+  Judgement of Light  12820
+  Holy Strength  10582
+  Healing Potion  10194
+  First Aid  6000
+  Major Healthstone  4200
+Jaekta  59654
+  Judgement of Light  17779
+  Bloodthirst  17010
+  Major Healthstone  10704
+  Holy Strength  8454
+  Gift of Life  3507
+  First Aid  2200
+Maryhuff  57681
+  Bloodthirst  19800
+  Judgement of Light  14707
+  Holy Strength  12553
+  Major Healthstone  6600
+  First Aid  2250
+  Healing Potion  1771
+Iniri  56650
+  Judgement of Light  20447
+  Invigorate  18400
+  Holy Strength  8203
+  First Aid  6000
+  Major Healthstone  3600
+Falcula  45566
+  Siphon Life  35488
+  First Aid  4250
+  Major Healthstone  3600
+  Drain Life  2228
+Dregoth  38891
+  Death Coil  17821
+  Major Healthstone  10080
+  First Aid  5750
+  Tea with Sugar  3079
+  Healing Potion  2161
+Wicks  29817
+  Judgement of Light  10282
+  Rejuvenation  9881
+  Healing Touch  7749
+  Regrowth  1905
+Bruceweed  26797
+  Tea with Sugar  13847
+  First Aid  11750
+  Major Healthstone  1200
+Rhudaur  23566
+  Bloodthirst  11640
+  Holy Strength  5229
+  Major Healthstone  4800
+  Tea with Sugar  1350
+  Judgement of Light  547
+Seath  22067
+  Major Healthstone  10200
+  First Aid  7000
+  Healing Potion  3118
+  Whipper Root Tuber  1749
+Hrin  20779
+  Mend Pet  10780
+  First Aid  3750
+  Healing Potion  3249
+  Major Healthstone  3000
+Mupsi  17083
+  Invigorate  9162
+  First Aid  3750
+  Major Healthstone  2400
+  Tea with Sugar  1224
+  Judgement of Light  547
+Smahingbolt  16800
+  First Aid  12000
+  Major Healthstone  4800
+Berserkss  15428
+  First Aid  7000
+  Major Healthstone  4800
+  Mend Pet  2450
+  Healing Potion  1178
+Yis  15404
+  First Aid  9750
+  Healing Potion  3254
+  Major Healthstone  2400
+Imhungry  14327
+  Invigorate  7110
+  Major Healthstone  6000
+  Judgement of Light  1217
+Tlw  12580
+  First Aid  6000
+  Tea with Sugar  4780
+  Major Healthstone  1800
+Melevolence  4863
+  Bloodthirst  2000
+  Holy Strength  1545
+  Judgement of Light  1318
+Redzeus  3200
+  First Aid  2000
+  Major Healthstone  1200

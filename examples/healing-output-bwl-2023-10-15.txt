@@ -1,0 +1,205 @@
+Teldelar  1465431
+  Healing Touch  1095889
+  Rejuvenation  152760
+  Regrowth  143054
+  Swiftmend  70212
+  Frenzied Regeneration  3516
+Druindy  1277369
+  Healing Touch  1180370
+  Regrowth  48633
+  Rejuvenation  30851
+  Swiftmend  16088
+  Tea with Sugar  1427
+Shumy  1148656
+  Healing Wave  631429
+  Chain Heal  420892
+  Lesser Healing Wave  89998
+  Earth Shield  6337
+Geniesham  1073455
+  Chain Heal  912087
+  Healing Wave  160145
+  Lesser Healing Wave  1223
+Morinethar  1035555
+  Flash of Light  553188
+  Holy Light  457349
+  Holy Shock (heal)  18047
+  Lay on Hands  5771
+  Major Healthstone  1200
+Daenshoo  1004905
+  Healing Touch  755725
+  Rejuvenation  143937
+  Swiftmend  75099
+  Regrowth  30144
+Kazgrun  934145
+  Chain Heal  792009
+  Lesser Healing Wave  129692
+  Healing Wave  11014
+  Earth Shield  1430
+Niviri  838639
+  Regrowth  565104
+  Rejuvenation  228346
+  Swiftmend  43654
+  Tea with Sugar  1535
+Rossol  709902
+  Vampiric Embrace  679510
+  Devouring Plague  16710
+  Oracular Heal  10435
+  Pain Spike  3247
+Melbaxd  559400
+  Flash Heal  371047
+  Renew  124282
+  Holy Nova  60927
+  Heal  3144
+Bananaheal  522421
+  Flash Heal  257529
+  Greater Heal  176052
+  Renew  51703
+  Prayer of Healing  29999
+  Holy Nova  6041
+  Tea with Sugar  1097
+Jarnp  416249
+  Flash Heal  214291
+  Renew  104075
+  Greater Heal  96683
+  Major Healthstone  1200
+Alderheim  290840
+  Flash of Light  251274
+  Holy Shock (heal)  29931
+  Holy Light  9635
+Sunor  247437
+  Holy Nova  193635
+  Flash Heal  37564
+  Tea with Sugar  13057
+  Renew  2681
+  First Aid  500
+Bever  189708
+  Vampiric Embrace  179422
+  Devouring Plague  8557
+  Healing Potion  1729
+Psykhe  98610
+  Bloodthirst  43752
+  Shadow of Ebonroc  25000
+  Holy Strength  23603
+  Judgement of Light  2989
+  Gift of Life  1766
+  First Aid  1500
+Ovski  85812
+  Heal  71052
+  Flash Heal  6828
+  Prayer of Healing  5877
+  Renew  1349
+  Desperate Prayer  706
+Everglow  76807
+  Shadow of Ebonroc  50000
+  Bloodthirst  11120
+  Holy Strength  6225
+  Gift of Life  4933
+  Major Healthstone  2400
+  Judgement of Light  1708
+  Blood Craze  421
+Bloxie  48179
+  Shadow of Ebonroc  25000
+  Holy Strength  7917
+  Holy Light  7693
+  Tea with Sugar  5495
+  Judgement of Light  2074
+Dyrachyo  39290
+  Bloodthirst  23400
+  Holy Strength  13511
+  Judgement of Light  2379
+Ionize  35583
+  Tea with Sugar  12839
+  Earth Shield  8171
+  Chain Heal  5145
+  Healing Wave  5048
+  Lesser Healing Wave  2845
+  Healing Potion  1535
+Maryhuff  30993
+  Bloodthirst  14120
+  Holy Strength  7688
+  Judgement of Light  3294
+  Healing Potion  2539
+  Tea with Sugar  2152
+  Major Healthstone  1200
+Iniri  30304
+  Invigorate  16344
+  Holy Strength  6517
+  Judgement of Light  3843
+  Major Healthstone  3600
+Windfurytotm  27678
+  Tea with Sugar  17156
+  Healing Wave  4516
+  Holy Strength  3769
+  Major Healthstone  1200
+  Judgement of Light  1037
+Montford  23308
+  Bloodthirst  19860
+  Judgement of Light  2644
+  Healing Potion  804
+Nightleaf  22812
+  Regrowth  18579
+  Judgement of Light  3233
+  Rejuvenation  1000
+Bubasita  22501
+  Bloodthirst  12400
+  Holy Strength  7586
+  Judgement of Light  1915
+  Major Healthstone  600
+Illasei  18877
+  Holy Strength  10772
+  Judgement of Light  5246
+  Heroism  1659
+  Major Healthstone  1200
+Edmonnd  13480
+  Bloodthirst  8360
+  Holy Strength  5120
+Bigjelly  12111
+  Chain Heal  6418
+  Lesser Healing Wave  3893
+  Major Healthstone  1800
+Daenshy  12054
+  Frenzied Regeneration  3864
+  Regrowth  3588
+  Judgement of Light  3538
+  Rejuvenation  1064
+Dregoth  11234
+  Major Healthstone  5760
+  Death Coil  5474
+Getterfour  10981
+  Lay on Hands  5431
+  Major Healthstone  2400
+  Holy Light  1674
+  Judgement of Light  915
+  Flash of Light  561
+Xanadun  9043
+  Death Coil  5443
+  Major Healthstone  3600
+Stormsnake  8016
+  Lesser Healing Wave  8016
+Charmia  7387
+  Frenzied Regeneration  6655
+  Judgement of Light  732
+Shrimpshark  3189
+  Healing Potion  1659
+  Tea with Sugar  1530
+Chan  2425
+  Mend Pet  1225
+  Major Healthstone  1200
+Steinberg  2400
+  Major Healthstone  2400
+Smahingbolt  2400
+  Major Healthstone  2400
+Simplezz  2367
+  Mend Pet  1236
+  Healing Potion  1131
+Yis  2287
+  Major Healthstone  1200
+  Tea with Sugar  1087
+Storkie  1988
+  Healing Potion  1095
+  Blood Craze  893
+Tlw  1918
+  Tea with Sugar  1168
+  First Aid  750
+Christella  1847
+  Flash of Light  1847

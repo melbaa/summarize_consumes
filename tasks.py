@@ -39,12 +39,16 @@ def examples(c):
     cwd = Path('.')
     for filename in filenames:
         input_file = cwd / 'testdata' / filename
-        cmd = f"python -m melbalabs.summarize_consumes.main {input_file} --write-summary --write-consumable-totals-csv"
+        cmd = f"python -m melbalabs.summarize_consumes.main {input_file} --write-summary --write-consumable-totals-csv --write-damage-output --write-healing-output"
         c.run(cmd)
         output_file = cwd / 'examples' / f'summary-{filename}'
         c.run(f'mv summary.txt {output_file}')
         csv_output_file = cwd / 'examples' / f'consumable-totals-{filename}.csv'
         c.run(f'mv consumable-totals.csv {csv_output_file}')
+        healing_output_file = cwd / 'examples' / f'healing-output-{filename}'
+        c.run(f'mv healing-output.txt {healing_output_file}')
+        damage_output_file = cwd / 'examples' / f'damage-output-{filename}'
+        c.run(f'mv damage-output.txt {damage_output_file}')
 
 @task
 def commit(c, message):
