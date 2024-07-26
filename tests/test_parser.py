@@ -1167,6 +1167,9 @@ def test_cooldown_summary(app):
 5/11 21:54:34.982  Bobsterr gains Healing of the Ages (1).
 10/14 20:46:04.424  Daenshoo 's Swiftmend heals Getterfour for 1913.
 6/5 14:38:24.792  Thrunk casts Blood Fury on Thrunk.
+6/19 20:30:50.299  Duplo gains Rapid Healing (1).
+6/19 22:10:15.216  Naonak gains Chromatic Infusion (1).
+
     """
     lines = lines.splitlines(keepends=True)
     for line in lines:
@@ -1174,6 +1177,8 @@ def test_cooldown_summary(app):
     output = io.StringIO()
     app.cooldown_summary.print(output)
 
+    assert app.spell_count.counts['Chromatic Infusion']['Naonak'] == 1
+    assert app.spell_count.counts['Rapid Healing']['Duplo'] == 1
     assert app.spell_count.counts['Blood Fury']['Thrunk'] == 1
     assert app.spell_count.counts['Swiftmend']['Daenshoo'] == 1
     assert app.spell_count.counts['Healing of the Ages']['Bobsterr'] == 1
@@ -1304,7 +1309,7 @@ def test_class_detection(app):
 12/14 01:27:54.282  NimpheraFH 's Flash Heal heals Didja for 1074.
 12/14 01:28:58.237  NimpheraGH 's Greater Heal critically heals Didja for 3525.
 12/14 01:28:02.673  NimpheraPH 's Prayer of Healing critically heals Krrom for 1564.
-12/14 01:28:02.673  NimpheraPH 's Heal critically heals Krrom for 1564.
+12/14 01:28:02.673  NimpheraH 's Heal critically heals Krrom for 1564.
 10/15 01:12:23.486  Bever 's Mind Blast hits Thuzadin Necromancer for 704 Shadow damage.
 10/15 14:21:11.639  SimplezzMS 's Multi-Shot hits Scarlet Monk for 225.
 10/15 14:20:58.028  SimplezzAS 's Arcane Shot hits Scarlet Diviner for 83 Arcane damage.
@@ -1318,17 +1323,26 @@ def test_class_detection(app):
 
         'SimplezzMS': 'hunter',
         'SimplezzAS': 'hunter',
+        'Babystone': 'hunter',
+        'BabystoneAS': 'hunter',
+        'BabystoneTS': 'hunter',
 
         'Bever': 'priest',
         'NimpheraFH': 'priest',
         'NimpheraGH': 'priest',
         'NimpheraPH': 'priest',
-        'NimpheraPH': 'priest',
+        'NimpheraH': 'priest',
+        'Mindblasttest': 'priest',
+        'Nesma': 'priest',
+        'Prayer': 'priest',
 
         'BudwiserFL': 'paladin',
         'BudwiserHL': 'paladin',
         'XelyaSOC': 'paladin',
         'XelyaSOR': 'paladin',
+        'JocasteHL': 'paladin',
+        'JocasteFL': 'paladin',
+        'Interlani': 'paladin',
 
         'Deathstruck': 'warrior',
         'Squirreled': 'warrior',
@@ -1356,26 +1370,13 @@ def test_class_detection(app):
         'Seidhkona': 'shaman',
 
         'Azot': 'warlock',
+        'Antihum': 'warlock',
 
         'Almouty': 'druid',
         'Valurian': 'druid',
         'Starfiretest': 'druid',
         'Moonfiretest': 'druid',
         'Wrathtest': 'druid',
-
-        'Mindblasttest': 'priest',
-        'Nesma': 'priest',
-        'Prayer': 'priest',
-
-        'Babystone': 'hunter',
-        'BabystoneAS': 'hunter',
-        'BabystoneTS': 'hunter',
-
-        'JocasteHL': 'paladin',
-        'JocasteFL': 'paladin',
-        'Interlani': 'paladin',
-
-        'Antihum': 'warlock',
     }
 
 

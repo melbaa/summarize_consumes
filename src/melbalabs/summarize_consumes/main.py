@@ -561,6 +561,8 @@ RENAME_TRINKET_SPELL = {
     'Nature Aligned': 'Natural Alignment Crystal',
     'Death by Peasant': 'Barov Peasant Caller',
     'Healing of the Ages': 'Hibernation Crystal',
+    'Rapid Healing': "Hazza'rah's Charm of Healing",
+    'Chromatic Infusion': 'Draconic Infused Emblem',
 }
 for spell in itertools.chain(TRINKET_SPELL, RACIAL_SPELL, RECEIVE_BUFF_SPELL):
     for clsorder in CDSPELL_CLASS:
@@ -1354,6 +1356,8 @@ LINE2SPELLCAST = {
         'Shield Wall',
         'Elemental Mastery',
         'Inner Focus',
+        'Rapid Healing',
+        'Chromatic Infusion',
         'Combustion',
         'Adrenaline Rush',  # careful with hunters
         'Cold Blood',
