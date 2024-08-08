@@ -12,6 +12,7 @@ import os
 import re
 import time
 import webbrowser
+import sys
 from datetime import datetime as dt
 from pathlib import Path
 from typing import Dict
@@ -51,8 +52,8 @@ def create_parser(grammar: str, debug):
 def dl_price_data(prices_server):
     try:
         URLS = {
-            'nord' : 'http://melbalabs.com/static/twowprices.json',
-            'telabim': 'http://melbalabs.com/static/twowprices-telabim.json',
+            'nord' : 'https://melbalabs.com/static/twowprices.json',
+            'telabim': 'https://melbalabs.com/static/twowprices-telabim.json',
         }
         url = URLS[prices_server]
         resp = requests.get(url, timeout=30)
@@ -1177,6 +1178,7 @@ class Techinfo:
         if time_end is None:
             time_end = time.time()
         time_delta = time_end - self.time_start
+        implementation = str(sys.implementation).replace("namespace", "")
         print("\n\nTech", file=output)
         print('  ', f'project version {self.package_version}', file=output)
         print('  ', f'project homepage {self.project_homepage}', file=output)
@@ -1186,6 +1188,10 @@ class Techinfo:
         print('  ', f'log lines {self.linecount}', file=output)
         print('  ', f'skipped log lines {self.skiplinecount} {self.format_skipped_percent()}', file=output)
         print('  ', f'processed in {time_delta:.2f} seconds. {self.linecount / time_delta:.2f} log lines/sec', file=output)
+        print('  ', f'runtime platform {sys.platform}', file=output)
+        print('  ', f'runtime implementation {implementation}', file=output)
+        print('  ', f'runtime version {sys.version}', file=output)
+
 
 
 
