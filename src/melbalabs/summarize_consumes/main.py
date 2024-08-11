@@ -1137,6 +1137,34 @@ class Dmgstore2:
                 print(f'  {ability}  {dmg2}', file=output)
 
 
+    def print_damage_taken(self, output):
+        # by source, ability, target
+
+        by_source = collections.defaultdict(int)
+        by_ability = collections.defaultdict(lambda: collections.defaultdict(int))
+        by_target = collections.defaultdict(lambda: collections.defaultdict(int))
+        for (source, target, ability), entry in self.store_ability.items():
+            if target not in self.player: continue
+
+            dmg = entry.dmg
+            by_source[source] += dmg
+            by_ability[source][ability] += dmg
+            by_target[(source, ability)][target] += dmg
+
+        source_sorted = sorted(by_source, key=lambda k: by_source[k], reverse=True)
+        for source in source_sorted:
+            print(f'{source}  {by_source[source]}', file=output)
+
+            ability_sorted = sorted(by_ability[source], key=lambda k: by_ability[source][k], reverse=True)
+
+            for ability in ability_sorted:
+                print('  ', f'{ability}  {by_ability[source][ability]}', file=output)
+
+                target_sorted = sorted(by_target[(source, ability)], key=lambda k: by_target[(source, ability)][k], reverse=True)
+
+                for target in target_sorted:
+                    print('  ', '  ', f'{target}  {by_target[(source, ability)][target]}', file=output)
+
 
 
 
@@ -1152,6 +1180,10 @@ class Techinfo:
         self.project_homepage = url.strip()
         self.prices_last_update = prices_last_update
         self.prices_server = prices_server
+
+        self.implementation = str(sys.implementation).replace("namespace", "")
+        self.platform = sys.platform
+        self.version = sys.version
 
     def set_file_size(self, filename):
         self.logsize = os.path.getsize(filename)
@@ -1178,7 +1210,6 @@ class Techinfo:
         if time_end is None:
             time_end = time.time()
         time_delta = time_end - self.time_start
-        implementation = str(sys.implementation).replace("namespace", "")
         print("\n\nTech", file=output)
         print('  ', f'project version {self.package_version}', file=output)
         print('  ', f'project homepage {self.project_homepage}', file=output)
@@ -1188,9 +1219,9 @@ class Techinfo:
         print('  ', f'log lines {self.linecount}', file=output)
         print('  ', f'skipped log lines {self.skiplinecount} {self.format_skipped_percent()}', file=output)
         print('  ', f'processed in {time_delta:.2f} seconds. {self.linecount / time_delta:.2f} log lines/sec', file=output)
-        print('  ', f'runtime platform {sys.platform}', file=output)
-        print('  ', f'runtime implementation {implementation}', file=output)
-        print('  ', f'runtime version {sys.version}', file=output)
+        print('  ', f'runtime platform {self.platform}', file=output)
+        print('  ', f'runtime implementation {self.implementation}', file=output)
+        print('  ', f'runtime version {self.version}', file=output)
 
 
 
@@ -2448,6 +2479,7 @@ def get_user_input():
     parser.add_argument('--write-consumable-totals-csv', action='store_true', help='also writes consumable-totals.csv (name, copper, deaths)')
     parser.add_argument('--write-damage-output', action='store_true', help='writes output to damage-output.txt')
     parser.add_argument('--write-healing-output', action='store_true', help='writes output to healing-output.txt')
+    parser.add_argument('--write-damage-taken-output', action='store_true', help='writes output to damage-taken-output.txt')
 
     parser.add_argument('--prices-server', choices=['nord', 'telabim'], default='nord', help='specify which server price data to use')
 
@@ -2576,6 +2608,16 @@ def main():
             filename = 'healing-output.txt'
             with open(filename, 'wb') as f:
                 print('writing healing output to', filename)
+                f.write(output.getvalue().encode('utf8'))
+        feature()
+
+    if args.write_damage_taken_output:
+        def feature():
+            output = io.StringIO()
+            app.dmgstore.print_damage_taken(output=output)
+            filename = 'damage-taken-output.txt'
+            with open(filename, 'wb') as f:
+                print('writing damage taken output to', filename)
                 f.write(output.getvalue().encode('utf8'))
         feature()
 
