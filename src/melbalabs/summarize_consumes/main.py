@@ -1225,7 +1225,6 @@ class Techinfo:
 
 
 
-
 class UnparsedLogger:
     def __init__(self, filename):
         self.filename = filename
