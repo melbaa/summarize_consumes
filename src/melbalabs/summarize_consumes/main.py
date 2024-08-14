@@ -2468,7 +2468,7 @@ def write_output(
     else:
         print(output.getvalue())
 
-def get_user_input():
+def get_user_input(argv):
     parser = argparse.ArgumentParser()
     parser.add_argument('logpath', help='path to WoWCombatLog.txt')
     parser.add_argument('--pastebin', action='store_true', help='upload result to a pastebin and return the url')
@@ -2487,7 +2487,7 @@ def get_user_input():
 
     parser.add_argument('--visualize', action='store_true', required=False, help='Generate visual infographic')
 
-    args = parser.parse_args()
+    args = parser.parse_args(argv)
 
     return args
 
@@ -2520,7 +2520,8 @@ class BpasteUploader:
     def upload(self, output):
         data = output.getvalue().encode('utf8')
         response = requests.post(
-            url='https://bpaste.net/curl',
+            #url='https://bpaste.net/curl',
+            url='https://bpa.st/curl',
             data={'raw': data, 'expiry': '1month'},
             timeout=30,
         )
@@ -2548,9 +2549,9 @@ def open_browser(url):
 
 
 
-def main():
+def main(argv):
 
-    args = get_user_input()
+    args = get_user_input(argv)
 
     time_start = time.time()
     app = create_app(
@@ -2634,4 +2635,4 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    main(sys.argv[1:])

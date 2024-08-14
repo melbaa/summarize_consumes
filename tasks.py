@@ -68,6 +68,7 @@ def tar(c):
 
 @task
 def genpkg(c):
+    Path('dist').rmdir()
     c.run('python -m build')
 
 @task
