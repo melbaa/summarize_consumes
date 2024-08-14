@@ -27,6 +27,9 @@ Check out [the examples directory](https://github.com/melbaa/summarize_consumes/
 Price data via https://www.wowauctions.net/
 
 
+# Usage
+
+## From the command line
 ```
 usage: summarize_consumes.exe [-h] [--pastebin] [--open-browser] [--write-summary] [--write-consumable-totals-csv]
                [--write-damage-output] [--write-healing-output] [--write-damage-taken-output]
@@ -58,6 +61,11 @@ options:
                         create an unparsed.txt with everything that was not parsed
   --visualize           Generate visual infographic
 ```
+
+## Hosted javascript version
+
+On [melbalabs](https://melbalabs.com/summarize_consumes/) you can find a simple version that analyzes the log in your browser.
+
 
 # Installation
 
