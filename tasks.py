@@ -1,4 +1,5 @@
 import os
+import shutil
 from pathlib import Path
 
 from invoke import task
@@ -68,7 +69,7 @@ def tar(c):
 
 @task
 def genpkg(c):
-    Path('dist').rmdir()
+    shutil.rmtree(Path('dist'))
     c.run('python -m build')
 
 @task

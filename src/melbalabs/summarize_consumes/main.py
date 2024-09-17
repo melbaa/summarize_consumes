@@ -184,13 +184,12 @@ class HitsConsumable:
         self.player = player
         self.last_hit_cache = last_hit_cache
 
-    def update(self, name, consumable, timestamp):
+    def update(self, name, consumable, timestamp_unix):
         cooldown = self.COOLDOWNS[consumable]
-        unixtime =  parse_ts2unixtime(timestamp)
-        delta = unixtime - self.last_hit_cache[name][consumable]
+        delta = timestamp_unix - self.last_hit_cache[name][consumable]
         if delta >= cooldown:
             self.player[name][consumable] += 1
-            self.last_hit_cache[name][consumable] = unixtime
+            self.last_hit_cache[name][consumable] = timestamp_unix
         elif delta < 0:
             # probably a new year, will ignore for now
             raise RuntimeError('fixme')
@@ -595,6 +594,11 @@ ABILITYCOST = {
     'Slam': 15,
 }
 
+ABILITYCOOLDOWN = {
+    'Whirlwind': 10,
+    'Cleave': 1,
+}
+
 
 
 def healpot_lookup(amount):
@@ -817,15 +821,14 @@ class BeamChain:
         self.chainsize = chainsize  # report chains bigger than this
 
 
-    def add(self, timestamp, line):
+    def add(self, timestamp_unix, line):
         self.log.append(line)
 
         cooldown = 2
-        unixtime = parse_ts2unixtime(timestamp)
-        delta = unixtime - self.last_ts
+        delta = timestamp_unix - self.last_ts
         if delta >= cooldown:
             self.commitbatch()
-            self.last_ts = unixtime
+            self.last_ts = timestamp_unix
 
         self.current_batch.append(line)
 
@@ -860,6 +863,8 @@ class DmgstoreEntry:
         self.dmg = 0
         self.cost = 0
         self.hits = 0
+        self.uses = 0
+        self.last_ts = 0
 
 class Dmgstore:
     def __init__(self, player, class_detection):
@@ -1892,6 +1897,8 @@ def parse_line(app, line):
         timestamp = tree.children[0]
         subtree = tree.children[1]
 
+        timestamp_unix = parse_ts2unixtime(timestamp)
+
         # inline some parsing to reduce funcalls
         # for same reason not using visitors to traverse the parse tree
         if subtree.data == 'gains_line':
@@ -2080,7 +2087,7 @@ def parse_line(app, line):
             app.spell_count.add(line_type=subtree.data, name=name, spell=spellname)
 
             if spellname in app.hits_consumable.COOLDOWNS:
-                app.hits_consumable.update(name, spellname, timestamp)
+                app.hits_consumable.update(name, spellname, timestamp_unix)
 
             if targetname == 'Viscidus':
                 app.viscidus.found()
@@ -2092,13 +2099,13 @@ def parse_line(app, line):
                 app.huhuran.found()
 
             if name == "Eye of C'Thun" and spellname == "Eye Beam":
-                app.cthun_chain.add(timestamp, line)
+                app.cthun_chain.add(timestamp_unix, line)
 
             if name == 'Gluth' and spellname == 'Decimate':
                 app.gluth.add(line)
 
             if name == "Sir Zeliek" and spellname == "Holy Wrath":
-                app.fourhm_chain.add(timestamp, line)
+                app.fourhm_chain.add(timestamp_unix, line)
 
             if spellname in INTERRUPT_SPELLS and targetname == "Kel'Thuzad":
                 app.kt_frostbolt.add(line)
@@ -2150,16 +2157,16 @@ def parse_line(app, line):
 
 
             if spellname in app.hits_consumable.COOLDOWNS:
-                app.hits_consumable.update(name, spellname, timestamp)
+                app.hits_consumable.update(name, spellname, timestamp_unix)
 
             if spellname == 'Armor Shatter':
                 app.annihilator.add(line)
 
             if name == "Eye of C'Thun" and spellname == "Eye Beam":
-                app.cthun_chain.add(timestamp, line)
+                app.cthun_chain.add(timestamp_unix, line)
 
             if name == "Sir Zeliek" and spellname == "Holy Wrath":
-                app.fourhm_chain.add(timestamp, line)
+                app.fourhm_chain.add(timestamp_unix, line)
 
             if spellname in INTERRUPT_SPELLS and targetname == "Kel'Thuzad":
                 app.kt_frostbolt.parry(line)
@@ -2170,7 +2177,7 @@ def parse_line(app, line):
             spellname = subtree.children[1].value
 
             if spellname in app.hits_consumable.COOLDOWNS:
-                app.hits_consumable.update(name, spellname, timestamp)
+                app.hits_consumable.update(name, spellname, timestamp_unix)
 
             return True
         elif subtree.data == 'is_immune_ability_line':
@@ -2178,7 +2185,7 @@ def parse_line(app, line):
             name = subtree.children[1].value
             spellname = subtree.children[2].value
             if spellname in app.hits_consumable.COOLDOWNS:
-                app.hits_consumable.update(name, spellname, timestamp)
+                app.hits_consumable.update(name, spellname, timestamp_unix)
             return True
 
         elif subtree.data == 'immune_line':
@@ -2212,10 +2219,10 @@ def parse_line(app, line):
                 app.nef_corrupted_healing.add(line)
 
             if name == "Eye of C'Thun" and spellname == "Eye Beam":
-                app.cthun_chain.add(timestamp, line)
+                app.cthun_chain.add(timestamp_unix, line)
 
             if name == "Sir Zeliek" and spellname == "Holy Wrath":
-                app.fourhm_chain.add(timestamp, line)
+                app.fourhm_chain.add(timestamp_unix, line)
 
             if name == "Kel'Thuzad" and spellname == "Frost Blast":
                 app.kt_frostblast.add(line)
