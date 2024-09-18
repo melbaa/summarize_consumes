@@ -140,6 +140,15 @@ def create_app(time_start, expert_log_unparsed_lines, prices_server):
         abilitycost=ABILITYCOST,
         abilitycooldown=ABILITYCOOLDOWN,
         logname='Damage Done',
+        allow_selfdmg=False,
+    )
+    app.dmgtakenstore = Dmgstore2(
+        player=app.player,
+        class_detection=app.class_detection,
+        abilitycost=ABILITYCOST,
+        abilitycooldown=ABILITYCOOLDOWN,
+        logname='Damage Taken',
+        allow_selfdmg=True,
     )
     app.healstore = Dmgstore2(
         player=app.player,
@@ -147,6 +156,7 @@ def create_app(time_start, expert_log_unparsed_lines, prices_server):
         abilitycost=dict(),
         abilitycooldown=dict(),
         logname='Healing and Overhealing Done',
+        allow_selfdmg=True,
     )
 
     app.techinfo = Techinfo(time_start=time_start, prices_last_update=app.pricedb.last_update, prices_server=prices_server)
@@ -1046,22 +1056,28 @@ class Dmgstore:
         pass
 
 class Dmgstore2:
-    def __init__(self, player, class_detection, abilitycost, abilitycooldown, logname):
+    def __init__(self, player, class_detection, abilitycost, abilitycooldown, logname, allow_selfdmg):
         self.logname = logname
         self.player = player
         self.class_detection = class_detection
         self.abilitycost = abilitycost
         self.abilitycooldown = abilitycooldown
+        self.allow_selfdmg = allow_selfdmg
 
         self.store_ability = collections.defaultdict(DmgstoreEntry)
         self.store_target = collections.defaultdict(DmgstoreEntry)
         self.store_source = collections.defaultdict(DmgstoreEntry)
-        self.store_uses = collections.defaultdict(DmgstoreEntry)
+
+        self.store_by_source_ability = collections.defaultdict(
+            lambda: collections.defaultdict(
+                DmgstoreEntry))
 
 
 
 
     def add(self, source, target, ability, amount, timestamp_unix):
+        if not self.allow_selfdmg and source == target:
+            return
         cost = self.abilitycost.get(ability, 0)
         cooldown = self.abilitycooldown.get(ability, 0)
 
@@ -1077,15 +1093,15 @@ class Dmgstore2:
         entry_source.dmg += amount
         entry_source.hits += 1
 
-        ability = self.store_uses[(source, ability)]
-        ability.dmg += amount
-        ability.hits += 1
+        entry_by_source_ability = self.store_by_source_ability[source][ability]
+        entry_by_source_ability.dmg += amount
+        entry_by_source_ability.hits += 1
 
-        delta = timestamp_unix - ability.last_ts
+        delta = timestamp_unix - entry_by_source_ability.last_ts
         if delta >= cooldown:
-            ability.last_ts = timestamp_unix
-            ability.uses += 1
-            ability.cost += cost
+            entry_by_source_ability.last_ts = timestamp_unix
+            entry_by_source_ability.uses += 1
+            entry_by_source_ability.cost += cost
 
             entry_ability.cost += cost
             entry_target.cost += cost
@@ -1130,7 +1146,6 @@ class Dmgstore2:
             e1 = p1[(target, ability)]
             e2 = p2[(target, ability)]
 
-
             if target not in seen_target:
                 seen_target.add(target)
                 print(file=output)
@@ -1142,17 +1157,14 @@ class Dmgstore2:
             print(txt, file=output)
 
 
-    def print_damage(self, output, allow_selfdmg):
+    def print_damage(self, output):
         # first find dmg totals
         # then abilities
         dmgtotals = collections.defaultdict(int)
         abilitytotals = collections.defaultdict(lambda: collections.defaultdict(int))
         for (source, target, ability), entry in self.store_ability.items():
             if source not in self.player: continue
-            if not allow_selfdmg and source == target: continue  # no selfdmg
             dmgtotals[source] += entry.dmg
-
-            abilitytotals[source][ability] += entry.dmg
 
         sortdmgtotals = []
         for source, dmg in dmgtotals.items():
@@ -1163,9 +1175,8 @@ class Dmgstore2:
             print(f'{source}  {dmg}', file=output)
 
             sortabilitytotals = []
-            for ability in abilitytotals[source]:
-                #import pdb;pdb.set_trace()
-                dmg = abilitytotals[source][ability]
+            for ability, entry_by_source_ability in self.store_by_source_ability[source].items():
+                dmg = entry_by_source_ability.dmg
                 sortabilitytotals.append((dmg, ability))
 
             sortabilitytotals.sort(reverse=True)
@@ -2151,6 +2162,7 @@ def parse_line(app, line):
                 app.kt_shadowfissure.add(line)
 
             app.dmgstore.add(name, targetname, spellname, amount, timestamp_unix)
+            app.dmgtakenstore.add(name, targetname, spellname, amount, timestamp_unix)
 
             return True
         elif subtree.data == "hits_autoattack_line":
@@ -2161,6 +2173,7 @@ def parse_line(app, line):
             if name == 'Guardian of Icecrown':
                 app.kt_guardian.add(line)
             app.dmgstore.add(name, target, 'hit', amount, timestamp_unix)
+            app.dmgtakenstore.add(name, target, 'hit', amount, timestamp_unix)
             return True
         elif subtree.data == 'parry_ability_line':
             name = subtree.children[0].value
@@ -2312,6 +2325,7 @@ def parse_line(app, line):
                     app.nef_corrupted_healing.add(line)
 
                 app.dmgstore.add(name, targetname, spellname, amount, timestamp_unix)
+                app.dmgtakenstore.add(name, targetname, spellname, amount, timestamp_unix)
             else:
                 # nosource
                 pass
@@ -2368,6 +2382,7 @@ def parse_line(app, line):
             amount = int(subtree.children[1].value)
             target = subtree.children[3].value
             app.dmgstore.add(name, target, 'reflect', amount, timestamp_unix)
+            app.dmgtakenstore.add(name, target, 'reflect', amount, timestamp_unix)
             return True
         elif subtree.data == 'causes_damage_line':
             name = subtree.children[0].value
@@ -2375,6 +2390,7 @@ def parse_line(app, line):
             target = subtree.children[2].value
             amount = int(subtree.children[3].value)
             app.dmgstore.add(name, target, spellname, amount, timestamp_unix)
+            app.dmgtakenstore.add(name, target, spellname, amount, timestamp_unix)
             return True
         elif subtree.data == 'is_reflected_back_line':
             return True
@@ -2632,7 +2648,7 @@ def main(argv):
     if args.write_damage_output:
         def feature():
             output = io.StringIO()
-            app.dmgstore.print_damage(output=output, allow_selfdmg=False)
+            app.dmgstore.print_damage(output=output)
             filename = 'damage-output.txt'
             with open(filename, 'wb') as f:
                 print('writing damage output to', filename)
@@ -2642,7 +2658,7 @@ def main(argv):
     if args.write_healing_output:
         def feature():
             output = io.StringIO()
-            app.healstore.print_damage(output=output, allow_selfdmg=True)
+            app.healstore.print_damage(output=output)
             filename = 'healing-output.txt'
             with open(filename, 'wb') as f:
                 print('writing healing output to', filename)
@@ -2652,7 +2668,7 @@ def main(argv):
     if args.write_damage_taken_output:
         def feature():
             output = io.StringIO()
-            app.dmgstore.print_damage_taken(output=output)
+            app.dmgtakenstore.print_damage_taken(output=output)
             filename = 'damage-taken-output.txt'
             with open(filename, 'wb') as f:
                 print('writing damage taken output to', filename)
