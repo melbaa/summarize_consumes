@@ -38,6 +38,14 @@ def examples(c):
     print('regenerating examples')
     filenames = os.listdir('testdata')
     cwd = Path('.')
+
+    filename = 'aq40-2024-09-16.txt'
+    input_file = cwd / 'testdata' / filename
+    cmd = f"python -m melbalabs.summarize_consumes.main {input_file} --write-summary --compare-players psykhe zloveleen"
+    c.run(cmd)
+    compare_players_output_file = cwd / 'examples' / f'compare-players-{filename}'
+    c.run(f'mv compare-players.txt {compare_players_output_file}')
+
     for filename in filenames:
         input_file = cwd / 'testdata' / filename
         cmd = f"python -m melbalabs.summarize_consumes.main {input_file} --write-summary --write-consumable-totals-csv --write-damage-output --write-healing-output"
@@ -50,6 +58,7 @@ def examples(c):
         c.run(f'mv healing-output.txt {healing_output_file}')
         damage_output_file = cwd / 'examples' / f'damage-output-{filename}'
         c.run(f'mv damage-output.txt {damage_output_file}')
+
 
 @task
 def commit(c, message):
