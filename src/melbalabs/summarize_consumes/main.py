@@ -134,8 +134,20 @@ def create_app(time_start, expert_log_unparsed_lines, prices_server):
     app.kt_shadowfissure = KTShadowfissure()
     app.kt_guardian = KTGuardian()
 
-    app.dmgstore = Dmgstore2(player=app.player, class_detection=app.class_detection, abilitycost=ABILITYCOST, logname='Damage Done')
-    app.healstore = Dmgstore2(player=app.player, class_detection=app.class_detection, abilitycost=dict(), logname='Healing and Overhealing Done')
+    app.dmgstore = Dmgstore2(
+        player=app.player,
+        class_detection=app.class_detection,
+        abilitycost=ABILITYCOST,
+        abilitycooldown=ABILITYCOOLDOWN,
+        logname='Damage Done',
+    )
+    app.healstore = Dmgstore2(
+        player=app.player,
+        class_detection=app.class_detection,
+        abilitycost=dict(),
+        abilitycooldown=dict(),
+        logname='Healing and Overhealing Done',
+    )
 
     app.techinfo = Techinfo(time_start=time_start, prices_last_update=app.pricedb.last_update, prices_server=prices_server)
 
@@ -1034,34 +1046,52 @@ class Dmgstore:
         pass
 
 class Dmgstore2:
-    def __init__(self, player, class_detection, abilitycost, logname):
+    def __init__(self, player, class_detection, abilitycost, abilitycooldown, logname):
         self.logname = logname
         self.player = player
         self.class_detection = class_detection
         self.abilitycost = abilitycost
+        self.abilitycooldown = abilitycooldown
 
         self.store_ability = collections.defaultdict(DmgstoreEntry)
         self.store_target = collections.defaultdict(DmgstoreEntry)
         self.store_source = collections.defaultdict(DmgstoreEntry)
+        self.store_uses = collections.defaultdict(DmgstoreEntry)
 
 
-    def add(self, source, target, ability, amount):
+
+
+    def add(self, source, target, ability, amount, timestamp_unix):
         cost = self.abilitycost.get(ability, 0)
+        cooldown = self.abilitycooldown.get(ability, 0)
 
-        entry = self.store_ability[(source, target, ability)]
-        entry.dmg += amount
-        entry.cost += cost
-        entry.hits += 1
+        entry_ability = self.store_ability[(source, target, ability)]
+        entry_ability.dmg += amount
+        entry_ability.hits += 1
 
-        entry = self.store_target[(source, target)]
-        entry.dmg += amount
-        entry.cost += cost
-        entry.hits += 1
+        entry_target = self.store_target[(source, target)]
+        entry_target.dmg += amount
+        entry_target.hits += 1
 
-        entry = self.store_source[source]
-        entry.dmg += amount
-        entry.cost += cost
-        entry.hits += 1
+        entry_source = self.store_source[source]
+        entry_source.dmg += amount
+        entry_source.hits += 1
+
+        ability = self.store_uses[(source, ability)]
+        ability.dmg += amount
+        ability.hits += 1
+
+        delta = timestamp_unix - ability.last_ts
+        if delta >= cooldown:
+            ability.last_ts = timestamp_unix
+            ability.uses += 1
+            ability.cost += cost
+
+            entry_ability.cost += cost
+            entry_target.cost += cost
+            entry_source.cost += cost
+
+
 
 
     def print_compare_players(self, player1, player2, output):
@@ -1134,6 +1164,7 @@ class Dmgstore2:
 
             sortabilitytotals = []
             for ability in abilitytotals[source]:
+                #import pdb;pdb.set_trace()
                 dmg = abilitytotals[source][ability]
                 sortabilitytotals.append((dmg, ability))
 
@@ -1952,7 +1983,7 @@ def parse_line(app, line):
 
             app.class_detection.detect(line_type=subtree.data, name=name, spell=spellname)
 
-            app.healstore.add(name, targetname, spellname, amount)
+            app.healstore.add(name, targetname, spellname, amount, timestamp_unix)
             return True
         elif subtree.data == 'dies_line':
             name = subtree.children[0].value
@@ -1996,7 +2027,7 @@ def parse_line(app, line):
                 else:
                     app.player[name]['Rejuvenation Potion - Minor'] += 1
 
-            app.healstore.add(name, targetname, spellname, amount)
+            app.healstore.add(name, targetname, spellname, amount, timestamp_unix)
             return True
 
         elif subtree.data == 'gains_mana_line':
@@ -2119,7 +2150,7 @@ def parse_line(app, line):
             if name == "Shadow Fissure" and spellname == "Void Blast":
                 app.kt_shadowfissure.add(line)
 
-            app.dmgstore.add(name, targetname, spellname, amount)
+            app.dmgstore.add(name, targetname, spellname, amount, timestamp_unix)
 
             return True
         elif subtree.data == "hits_autoattack_line":
@@ -2129,7 +2160,7 @@ def parse_line(app, line):
 
             if name == 'Guardian of Icecrown':
                 app.kt_guardian.add(line)
-            app.dmgstore.add(name, target, 'hit', amount)
+            app.dmgstore.add(name, target, 'hit', amount, timestamp_unix)
             return True
         elif subtree.data == 'parry_ability_line':
             name = subtree.children[0].value
@@ -2280,7 +2311,7 @@ def parse_line(app, line):
                 if spellname == 'Corrupted Healing':
                     app.nef_corrupted_healing.add(line)
 
-                app.dmgstore.add(name, targetname, spellname, amount)
+                app.dmgstore.add(name, targetname, spellname, amount, timestamp_unix)
             else:
                 # nosource
                 pass
@@ -2336,14 +2367,14 @@ def parse_line(app, line):
             name = subtree.children[0].value
             amount = int(subtree.children[1].value)
             target = subtree.children[3].value
-            app.dmgstore.add(name, target, 'reflect', amount)
+            app.dmgstore.add(name, target, 'reflect', amount, timestamp_unix)
             return True
         elif subtree.data == 'causes_damage_line':
             name = subtree.children[0].value
             spellname = subtree.children[1].value
             target = subtree.children[2].value
             amount = int(subtree.children[3].value)
-            app.dmgstore.add(name, target, spellname, amount)
+            app.dmgstore.add(name, target, spellname, amount, timestamp_unix)
             return True
         elif subtree.data == 'is_reflected_back_line':
             return True
