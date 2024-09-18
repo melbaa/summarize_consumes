@@ -1100,9 +1100,13 @@ class Dmgstore2:
         delta = timestamp_unix - entry_by_source_ability.last_ts
         if delta >= cooldown:
             entry_by_source_ability.last_ts = timestamp_unix
-            entry_by_source_ability.uses += 1
-            entry_by_source_ability.cost += cost
 
+            entry_by_source_ability.uses += 1
+            entry_ability.uses += 1
+            entry_target.uses += 1
+            entry_source.uses += 1
+
+            entry_by_source_ability.cost += cost
             entry_ability.cost += cost
             entry_target.cost += cost
             entry_source.cost += cost
@@ -1138,7 +1142,7 @@ class Dmgstore2:
         print(f'output for {player1} - {player2}', file=output)
         print(file=output)
 
-        print(f'total  dmg:{es1.dmg - es2.dmg} cost:{es1.cost - es2.cost} hits:{es1.hits - es2.hits}', file=output)
+        print(f'total  dmg:{es1.dmg - es2.dmg} cost:{es1.cost - es2.cost} uses:{es1.uses - es2.uses} hits:{es1.hits - es2.hits}', file=output)
         print(file=output)
 
         seen_target = set()
@@ -1151,9 +1155,9 @@ class Dmgstore2:
                 print(file=output)
                 et1 = self.store_target[(player1, target)]
                 et2 = self.store_target[(player2, target)]
-                txt = f'{target}   dmg:{et1.dmg - et2.dmg} cost:{et1.cost - et2.cost} hits:{et1.hits - et2.hits}'
+                txt = f'{target}   dmg:{et1.dmg - et2.dmg} cost:{et1.cost - et2.cost} uses:{et1.uses - et2.uses} hits:{et1.hits - et2.hits}'
                 print(txt, file=output)
-            txt = f'{ability}   dmg:{e1.dmg - e2.dmg} cost:{e1.cost - e2.cost} hits:{e1.hits - e2.hits}'
+            txt = f'{ability}   dmg:{e1.dmg - e2.dmg} cost:{e1.cost - e2.cost} uses:{e1.uses - e2.uses} hits:{e1.hits - e2.hits}'
             print(txt, file=output)
 
 
