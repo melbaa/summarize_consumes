@@ -1,0 +1,152 @@
+Yakub  1369160
+  Chain Heal  1238834
+  Lesser Healing Wave  93081
+  Healing Wave  20316
+  Tea with Sugar  16929
+Flowest  887297
+  Chain Heal  662296
+  Lesser Healing Wave  204728
+  Tea with Sugar  20273
+Interlan  838546
+  Chain Heal  681498
+  Healing Wave  105652
+  Lesser Healing Wave  34634
+  Tea with Sugar  16762
+Jocaste  826026
+  Flash of Light  753355
+  Holy Light  60374
+  Holy Shock (heal)  12297
+Pristitute  719918
+  Flash Heal  389977
+  Renew  127202
+  Prayer of Healing  103034
+  Greater Heal  99705
+Ostkastare  576387
+  Lesser Healing Wave  342406
+  Chain Heal  167077
+  Healing Wave  61579
+  Tea with Sugar  5325
+Martlflash  537954
+  Flash of Light  456652
+  Holy Light  55785
+  Holy Shock (heal)  22516
+  Tea with Sugar  3001
+Zdraxus  386248
+  Vampiric Embrace  386009
+  Pain Spike  239
+Sunpriest  291749
+  Vampiric Embrace  247259
+  Flash Heal  16628
+  Devouring Plague  14059
+  Oracular Heal  7503
+  Pain Spike  6300
+Blindie  62470
+  Holy Nova  52698
+  Tea with Sugar  6078
+  Healing Potion  1634
+  Flash Heal  1130
+  Renew  930
+Goldengoose  50434
+  Holy Light  32637
+  Flash of Light  11592
+  Healing Potion  3561
+  Tea with Sugar  1424
+  Judgement of Light  1220
+Lycel  29851
+  Frenzied Regeneration  17453
+  Rejuvenation  8340
+  Regrowth  2557
+  Tea with Sugar  1501
+Cracklinoats  25859
+  Lesser Healing Wave  12357
+  Chain Heal  5557
+  Earth Shield  4054
+  Holy Strength  2793
+  Judgement of Light  1098
+Psykhe  23083
+  Bloodthirst  13320
+  Holy Strength  5066
+  Judgement of Light  4697
+Ratthew  22429
+  Healing Wave  10605
+  Tea with Sugar  8402
+  Holy Strength  2324
+  Judgement of Light  1098
+Zloveleen  21951
+  Bloodthirst  10980
+  Holy Strength  4370
+  Judgement of Light  4270
+  Tea with Sugar  2331
+Magn  21655
+  Bloodthirst  9630
+  Tea with Sugar  5894
+  Judgement of Light  3618
+  Holy Strength  2513
+Vallcow  21419
+  Bloodthirst  9860
+  Judgement of Light  5673
+  Tea with Sugar  4066
+  Holy Strength  1820
+Starraven  20702
+  Tea with Sugar  13019
+  Regrowth  5229
+  Healing Potion  2454
+Sabroso  19354
+  Bloodthirst  11680
+  Holy Strength  4441
+  Judgement of Light  3233
+Pitbound  17622
+  Bloodthirst  10074
+  Holy Strength  5108
+  Judgement of Light  2440
+Catajumbo  16711
+  Chain Heal  8939
+  Healing Potion  4631
+  Holy Strength  1921
+  Judgement of Light  1220
+Adachisakura  15504
+  Vampirism  8131
+  Tea with Sugar  4335
+  Death Coil  2805
+  Drain Life  172
+  Judgement of Light  61
+Clapya  12945
+  Tea with Sugar  6502
+  Lesser Healing Wave  5833
+  Judgement of Light  610
+Medion  12899
+  Vampirism  10019
+  Major Healthstone  2880
+Bobsterr  12413
+  Lay on Hands  5251
+  Holy Light  3746
+  Judgement of Light  3416
+Richardtater  9916
+  Bloodthirst  4920
+  Holy Strength  2617
+  Judgement of Light  2379
+Pyi  7779
+  Healing Touch  3936
+  Judgement of Light  3843
+Mcstabbys  7364
+  Holy Strength  4619
+  Judgement of Light  2745
+Viridissima  4193
+  Tea with Sugar  2754
+  Rejuvenation  1439
+Dirael  3416
+  Judgement of Light  3416
+Kayax  3364
+  Major Healthstone  2640
+  Drain Life  715
+  Death Coil  9
+Murto  2928
+  Judgement of Light  2928
+Dhallya  2928
+  Judgement of Light  2928
+Spankys  2867
+  Judgement of Light  2867
+Immunium  1507
+  Healing Potion  1507
+Shreked  1000
+  First Aid  1000

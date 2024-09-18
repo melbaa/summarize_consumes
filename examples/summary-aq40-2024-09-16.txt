@@ -1,0 +1,835 @@
+Notes:
+    - The report is generated using the combat log, which is far from perfect.
+    - Use the report as evidence something DID happen and keep in mind the data is not exhaustive. In other words the report DOES NOT cover everything.
+    - Some events are missing because the person logging wasn't in the instance yet or was too far away. This means inferring something DID NOT happen may be hard or impossible and requires extra care.
+    - Jujus and many foods are not in the combat log, so they can't be easily counted.
+    - Dragonbreath chili and goblin sappers have only "on hit" messages, so their usage is estimated based on timestamps and cooldowns.
+    - Mageblood and some other mana consumes are "mana regeneration" in the combat log, can't tell them apart.
+    - Lesser, greater protection potions and frozen runes don't have unique names, can't tell them apart.
+    - Nordanaar Herbal Tea casts the same spell as Tea with Sugar, can't tell them apart.
+    - Gift of Arthas looks like a buff on both players and NPCs, which messes up player detection, so it's not tracked.
+
+
+Adachisakura deaths:2
+   Dreamshard Elixir 1   (1g 88s 98c)
+   Dreamtonic 1   (1g 21s 53c)
+   Greater Arcane Elixir 1   (2g 87s 77c)
+   Tea with Sugar 3   (50s 73c)
+
+   total spent: 6g 49s 1c
+Aquatic deaths:0
+   Arcane Protection 1 
+   Brilliant Wizard Oil 2   (4g 58s 50c)
+   Dreamtonic 2   (2g 43s 6c)
+   Elixir of Greater Firepower 2   (4g 30s)
+   Greater Arcane Elixir 1   (2g 87s 77c)
+   Invulnerability 1   (2g 27s 98c)
+   Mana Potion - Major 1   (1g 48s 46c)
+   Nature Protection 1 
+   Spirit of Zanza 1   (2g 69s 55c)
+
+   total spent: 20g 65s 32c
+Banola deaths:4
+   <nothing found>
+Blindie deaths:3
+   Greater Arcane Elixir 1   (2g 87s 77c)
+   Healing Potion - Major 1   (31s 76c)
+   Mana Potion - Major 4   (5g 93s 84c)
+   Nature Protection 1 
+   Spirit of Zanza 1   (2g 69s 55c)
+   Tea with Sugar 4   (67s 64c)
+   Wizard Oil 3   (71s 82c)
+
+   total spent: 13g 22s 38c
+Bobsterr deaths:2
+   Dragonbreath Chili 5   (7g 29s 30c)
+   Dreamshard Elixir 1   (1g 88s 98c)
+   Dreamtonic 2   (2g 43s 6c)
+   Elixir of the Mongoose 1   (1g 86s 11c)
+   Flask of Supreme Power 1   (65g 81s 66c)
+   Frost Oil 1 
+   Greater Arcane Elixir 1   (2g 87s 77c)
+   Increased Stamina 2 
+   Lucidity Potion 1   (1g 64s 84c)
+   Medivh's Merlot Blue Label 3   (5g 68s 38c)
+   Spirit of Zanza 1   (2g 69s 55c)
+   Strike of the Scorpok 1   (2g 85s 1c)
+   Swiftness of Zanza 1   (2g 69s 55c)
+   Winterfall Firewater 2   (3g 24s 70c)
+
+   total spent: 100g 98s 91c
+Catajumbo deaths:3
+   Arcane Protection 1 
+   Healing Potion - Major 3   (95s 28c)
+   Nature Protection 3 
+   Thorium Grenade 2   (1g 41s 42c)
+
+   total spent: 2g 36s 70c
+Clapya deaths:0
+   Brilliant Wizard Oil 2   (4g 58s 50c)
+   Dreamtonic 1   (1g 21s 53c)
+   Goblin Sapper Charge 5   (9g 98s 65c)
+   Invulnerability 1   (2g 27s 98c)
+   Mana Potion - Major 3   (4g 45s 38c)
+   Medivh's Merlot Blue Label 3   (5g 68s 38c)
+   Potion of Quickness 2   (5g 91s 74c)
+   Tea with Sugar 5   (84s 55c)
+
+   total spent: 34g 96s 71c
+Cracklinoats deaths:2
+   Elixir of the Mongoose 1   (1g 86s 11c)
+   Spirit of Zanza 1   (2g 69s 55c)
+   Winterfall Firewater 1   (1g 62s 35c)
+
+   total spent: 6g 18s 1c
+Dhallya deaths:0
+   Goblin Sapper Charge 1   (1g 99s 73c)
+
+   total spent: 1g 99s 73c
+Dirael deaths:0
+   Elixir of the Mongoose 1   (1g 86s 11c)
+   Spirit of Zanza 1   (2g 69s 55c)
+
+   total spent: 4g 55s 66c
+Flowest deaths:0
+   Goblin Sapper Charge 2   (3g 99s 46c)
+   Invulnerability 1   (2g 27s 98c)
+   Mana Potion - Major 2   (2g 96s 92c)
+   Mana Regeneration (food or mageblood) 2 
+   Rumsey Rum Black Label 1   (43s 70c)
+   Tea with Sugar 13   (2g 19s 83c)
+
+   total spent: 11g 87s 89c
+Goldengoose deaths:1
+   Dreamshard Elixir 1   (1g 88s 98c)
+   Elixir of Fortitude 1   (1g 1s 25c)
+   Elixir of Superior Defense 1   (3g 8s 48c)
+   Elixir of the Mongoose 1   (1g 86s 11c)
+   Frost Oil 1 
+   Greater Arcane Elixir 1   (2g 87s 77c)
+   Healing Potion - Major 2   (63s 52c)
+   Increased Stamina 1 
+   Iron Grenade 1 
+   Mana Potion - Major 2   (2g 96s 92c)
+   Nature Protection 1 
+   Noggenfogger Elixir 1 
+   Tea with Sugar 1   (16s 91c)
+
+   total spent: 14g 49s 94c
+Immunium deaths:0
+   Healing Potion - Major 1   (31s 76c)
+
+   total spent: 31s 76c
+Interlan deaths:0
+   Brilliant Mana Oil 2   (3g 88s 66c)
+   Dreamshard Elixir 1   (1g 88s 98c)
+   Elixir of Fortitude 1   (1g 1s 25c)
+   Mana Potion - Major 4   (5g 93s 84c)
+   Mana Regeneration (food or mageblood) 3 
+   Nature Protection 1 
+   Rumsey Rum Black Label 3   (1g 31s 10c)
+   Tea with Sugar 10   (1g 69s 10c)
+
+   total spent: 15g 72s 93c
+Jhuulum deaths:1
+   <nothing found>
+Jocaste deaths:0
+   Brilliant Wizard Oil 2   (4g 58s 50c)
+   Dreamshard Elixir 1   (1g 88s 98c)
+   Increased Stamina 1 
+   Nature Protection 1 
+   Rumsey Rum Black Label 1   (43s 70c)
+
+   total spent: 6g 91s 18c
+Kayax deaths:2
+   Elixir of Shadow Power 2   (6g 87s 92c)
+   Greater Arcane Elixir 1   (2g 87s 77c)
+   Regeneration 1 
+   Wizard Oil 1   (23s 94c)
+
+   total spent: 9g 99s 63c
+Lycel deaths:1
+   Dense Dynamite 3   (2g 9s 61c)
+   Elixir of Fortitude 1   (1g 1s 25c)
+   Elixir of Superior Defense 1   (3g 8s 48c)
+   Elixir of the Mongoose 1   (1g 86s 11c)
+   Increased Stamina 2 
+   Rumsey Rum Black Label 3   (1g 31s 10c)
+   Strike of the Scorpok 1   (2g 85s 1c)
+   Tea with Sugar 1   (16s 91c)
+   Winterfall Firewater 2   (3g 24s 70c)
+
+   total spent: 15g 63s 17c
+Magn deaths:0
+   Dragonbreath Chili 1   (1g 45s 86c)
+   Elixir of Fortitude 1   (1g 1s 25c)
+   Elixir of Superior Defense 1   (3g 8s 48c)
+   Elixir of the Mongoose 1   (1g 86s 11c)
+   Goblin Sapper Charge 2   (3g 99s 46c)
+   Great Rage Potion 6   (2g 51s 94c)
+   Greater Stoneshield 1   (4g 19s 99c)
+   Increased Stamina 1 
+   Mighty Rage Potion 1   (3g 91s 98c)
+   Nature Protection 1 
+   Rumsey Rum Black Label 1   (43s 70c)
+   Strike of the Scorpok 1   (2g 85s 1c)
+   Tea with Sugar 4   (67s 64c)
+   Winterfall Firewater 1   (1g 62s 35c)
+
+   total spent: 27g 63s 77c
+Martlflash deaths:1
+   Mana Potion - Major 1   (1g 48s 46c)
+   Tea with Sugar 2   (33s 82c)
+
+   total spent: 1g 82s 28c
+Mcstabbys deaths:4
+   Elixir of the Mongoose 1   (1g 86s 11c)
+   Frost Oil 1 
+   Goblin Sapper Charge 3   (5g 99s 19c)
+
+   total spent: 7g 85s 30c
+Medion deaths:0
+   Brilliant Wizard Oil 1   (2g 29s 25c)
+   Dreamshard Elixir 1   (1g 88s 98c)
+   Dreamtonic 2   (2g 43s 6c)
+   Elixir of Shadow Power 1   (3g 43s 96c)
+   Greater Arcane Elixir 1   (2g 87s 77c)
+
+   total spent: 12g 93s 2c
+Murto deaths:5
+   Elixir of the Mongoose 1   (1g 86s 11c)
+
+   total spent: 1g 86s 11c
+Ostkastare deaths:3
+   Brilliant Mana Oil 1   (1g 94s 33c)
+   Greater Arcane Elixir 1   (2g 87s 77c)
+   Mana Potion - Major 4   (5g 93s 84c)
+   Tea with Sugar 3   (50s 73c)
+
+   total spent: 11g 26s 67c
+Pitbound deaths:1
+   Dense Sharpening Stone 1 
+   Elixir of the Mongoose 1   (1g 86s 11c)
+   Goblin Sapper Charge 1   (1g 99s 73c)
+   Invulnerability 1   (2g 27s 98c)
+   Mighty Rage Potion 1   (3g 91s 98c)
+   Spirit of Zanza 1   (2g 69s 55c)
+   Winterfall Firewater 3   (4g 87s 5c)
+
+   total spent: 17g 62s 40c
+Pristitute deaths:1
+   Arcane Protection 1 
+   Brilliant Mana Oil 3   (5g 82s 99c)
+   Elixir of Fortitude 1   (1g 1s 25c)
+   Flask of Distilled Wisdom 1   (60g 99s 94c)
+   Infallible Mind (Cerebral Cortex Compound) 1   (7g 26s 88c)
+   Mana Potion - Major 3   (4g 45s 38c)
+   Nature Protection 1 
+   Rumsey Rum Black Label 3   (1g 31s 10c)
+   Spirit of Zanza 1   (2g 69s 55c)
+
+   total spent: 83g 57s 9c
+Psykhe deaths:3
+   Elixir of the Mongoose 1   (1g 86s 11c)
+   Goblin Sapper Charge 3   (5g 99s 19c)
+   Lesser Invisibility Potion 1   (1g 30s 99c)
+   Mighty Rage Potion 4   (15g 67s 92c)
+   Rage of Ages (ROIDS) 1   (2g 29s 36c)
+   Spirit of Zanza 1   (2g 69s 55c)
+   Winterfall Firewater 5   (8g 11s 75c)
+
+   total spent: 37g 94s 87c
+Pyi deaths:4
+   Elixir of the Mongoose 1   (1g 86s 11c)
+
+   total spent: 1g 86s 11c
+Ratthew deaths:4
+   Tea with Sugar 6   (1g 1s 46c)
+
+   total spent: 1g 1s 46c
+Richardtater deaths:4
+   Dense Sharpening Stone 2 
+   Elixir of Greater Agility 1   (25s 28c)
+   Rage of Ages (ROIDS) 1   (2g 29s 36c)
+
+   total spent: 2g 54s 64c
+Sabroso deaths:1
+   Arcane Protection 1 
+   Dense Dynamite 11   (7g 68s 57c)
+   Elemental Sharpening Stone 2   (16g 19s 96c)
+   Elixir of the Mongoose 1   (1g 86s 11c)
+   Frost Oil 2 
+   Invulnerability 1   (2g 27s 98c)
+   Mighty Rage Potion 5   (19g 59s 90c)
+   Nature Protection 4 
+   Rage of Ages (ROIDS) 1   (2g 29s 36c)
+   Spirit of Zanza 1   (2g 69s 55c)
+   Winterfall Firewater 2   (3g 24s 70c)
+
+   total spent: 55g 86s 13c
+Shreked deaths:3
+   Dreamshard Elixir 1   (1g 88s 98c)
+   Elixir of Greater Firepower 1   (2g 15s)
+   Greater Arcane Elixir 1   (2g 87s 77c)
+   Increased Intellect 5 
+   Medivh's Merlot Blue Label 1   (1g 89s 46c)
+   Thorium Grenade 4   (2g 82s 84c)
+   Wizard Oil 2   (47s 88c)
+
+   total spent: 12g 11s 93c
+Spankys deaths:0
+   Agility 1 
+   Elixir of the Mongoose 1   (1g 86s 11c)
+   Goblin Sapper Charge 4   (7g 98s 92c)
+   Spirit of Zanza 1   (2g 69s 55c)
+   Strike of the Scorpok 1   (2g 85s 1c)
+
+   total spent: 15g 39s 59c
+Starraven deaths:1
+   Arcane Protection 1 
+   Brilliant Wizard Oil 2   (4g 58s 50c)
+   Dreamtonic 3   (3g 64s 59c)
+   Flask of Supreme Power 1   (65g 81s 66c)
+   Goblin Sapper Charge 2   (3g 99s 46c)
+   Healing Potion - Superior 3   (15s 51c)
+   Mana Potion - Major 2   (2g 96s 92c)
+   Medivh's Merlot Blue Label 1   (1g 89s 46c)
+   Nature Protection 2 
+   Potion of Quickness 5   (14g 79s 35c)
+   Tea with Sugar 9   (1g 52s 19c)
+
+   total spent: 99g 37s 64c
+Sunpriest deaths:1
+   Arcane Protection 1 
+   Brilliant Wizard Oil 2   (4g 58s 50c)
+   Dreamshard Elixir 1   (1g 88s 98c)
+   Dreamtonic 3   (3g 64s 59c)
+   Elixir of Shadow Power 2   (6g 87s 92c)
+   Increased Intellect 3 
+   Infallible Mind (Cerebral Cortex Compound) 1   (7g 26s 88c)
+   Nature Protection 2 
+   Spirit of Zanza 1   (2g 69s 55c)
+
+   total spent: 26g 96s 42c
+Topgoy deaths:3
+   <nothing found>
+Vallcow deaths:2
+   Goblin Sapper Charge 3   (5g 99s 19c)
+   Great Rage Potion 1   (41s 99c)
+   Invulnerability 1   (2g 27s 98c)
+   Mighty Rage Potion 1   (3g 91s 98c)
+   Rumsey Rum Black Label 1   (43s 70c)
+   Tea with Sugar 3   (50s 73c)
+   Winterfall Firewater 2   (3g 24s 70c)
+
+   total spent: 16g 80s 27c
+Viridissima deaths:2
+   Brilliant Wizard Oil 2   (4g 58s 50c)
+   Dreamshard Elixir 1   (1g 88s 98c)
+   Dreamtonic 2   (2g 43s 6c)
+   Elixir of Greater Nature Power 1   (74s)
+   Greater Arcane Elixir 1   (2g 87s 77c)
+   Mana Potion - Major 1   (1g 48s 46c)
+   Tea with Sugar 2   (33s 82c)
+
+   total spent: 14g 34s 59c
+Xiaofeigunn deaths:4
+   Dreamshard Elixir 1   (1g 88s 98c)
+   Elixir of Greater Firepower 2   (4g 30s)
+   Greater Arcane Elixir 1   (2g 87s 77c)
+   Infallible Mind (Cerebral Cortex Compound) 1   (7g 26s 88c)
+   Nature Protection 1 
+   Potion of Quickness 1   (2g 95s 87c)
+
+   total spent: 19g 29s 50c
+Yakub deaths:0
+   Arcane Protection 1 
+   Brilliant Mana Oil 3   (5g 82s 99c)
+   Dreamshard Elixir 1   (1g 88s 98c)
+   Elixir of Fortitude 1   (1g 1s 25c)
+   Infallible Mind (Cerebral Cortex Compound) 1   (7g 26s 88c)
+   Mana Potion - Major 3   (4g 45s 38c)
+   Mana Regeneration (food or mageblood) 4 
+   Medivh's Merlot Blue Label 4   (7g 57s 84c)
+   Nature Protection 2 
+   Shadow Protection 1   (5g 67c)
+   Swiftness of Zanza 1   (2g 69s 55c)
+   Tea with Sugar 11   (1g 86s 1c)
+
+   total spent: 37g 59s 55c
+Zahyla deaths:5
+   <nothing found>
+Zdraxus deaths:0
+   <nothing found>
+Zhaazhum deaths:0
+   <nothing found>
+Zloveleen deaths:5
+   Elixir of the Mongoose 1   (1g 86s 11c)
+   Great Rage Potion 7   (2g 93s 93c)
+   Rage of Ages (ROIDS) 1   (2g 29s 36c)
+   Tea with Sugar 2   (33s 82c)
+   Winterfall Firewater 4   (6g 49s 40c)
+
+   total spent: 13g 92s 62c
+
+
+Cooldown Summary
+   Warrior
+      Death Wish
+         Psykhe 12
+         Zloveleen 11
+         Sabroso 9
+         Pitbound 6
+         Vallcow 5
+         Richardtater 3
+         Magn 3
+      Recklessness
+         Richardtater 2
+         Psykhe 2
+         Zloveleen 1
+         Vallcow 1
+         Sabroso 1
+         Pitbound 1
+         Magn 1
+      Kiss of the Spider
+         Psykhe 15
+         Pitbound 12
+         Vallcow 8
+      Slayer's Crest
+         Psykhe 11
+      Jom Gabbar
+         Sabroso 2
+      Badge of the Swarmguard
+         Zloveleen 11
+         Psykhe 7
+      Earthstrike
+         Magn 9
+      Berserking
+         Psykhe 12
+         Magn 6
+      Bloodlust (received)
+         Psykhe 5
+         Magn 3
+         Pitbound 2
+   Mage
+      Combustion
+         Shreked 8
+         Xiaofeigunn 6
+         Aquatic 6
+      Scorch
+         Xiaofeigunn 107
+         Aquatic 77
+         Shreked 70
+         Immunium 1
+      Mind Quickening Gem
+         Shreked 7
+         Immunium 7
+         Xiaofeigunn 4
+         Aquatic 3
+   Shaman
+      Nature's Swiftness
+         Interlan 10
+         Ostkastare 9
+      Windfury Totem
+         Ratthew 96
+         Flowest 87
+         Cracklinoats 39
+         Catajumbo 35
+         Yakub 11
+         Clapya 6
+         Ostkastare 4
+         Interlan 4
+      Mana Tide Totem
+         Interlan 4
+         Ostkastare 2
+      Grace of Air Totem
+         Ratthew 77
+         Flowest 55
+         Interlan 41
+         Cracklinoats 1
+      Tranquil Air Totem
+         Clapya 34
+         Yakub 21
+         Ostkastare 14
+      Strength of Earth Totem
+         Interlan 44
+         Ratthew 40
+         Cracklinoats 40
+         Flowest 29
+         Catajumbo 28
+         Yakub 10
+         Clapya 6
+         Ostkastare 4
+      Mana Spring Totem
+         Interlan 43
+         Flowest 33
+         Clapya 31
+         Catajumbo 29
+         Yakub 26
+         Ostkastare 21
+         Ratthew 17
+         Cracklinoats 2
+      Searing Totem
+         Cracklinoats 11
+         Catajumbo 7
+         Ostkastare 5
+         Yakub 1
+      Fire Nova Totem
+         Catajumbo 10
+         Ratthew 7
+         Cracklinoats 6
+         Flowest 2
+         Ostkastare 1
+      Magma Totem
+         Catajumbo 4
+         Ratthew 1
+         Flowest 1
+         Cracklinoats 1
+      Ancestral Spirit
+         Flowest 6
+         Interlan 5
+         Yakub 2
+         Ostkastare 2
+         Catajumbo 2
+         Cracklinoats 1
+         Clapya 1
+      Slayer's Crest
+         Ratthew 8
+      The Eye of the Dead
+         Yakub 13
+      Natural Alignment Crystal
+         Clapya 3
+      Berserking
+         Interlan 9
+         Clapya 9
+         Yakub 8
+      War Stomp
+         Cracklinoats 4
+         Catajumbo 2
+      Bloodlust (received)
+         Ratthew 5
+   Druid
+      Rebirth
+         Starraven 1
+         Pyi 1
+         Lycel 1
+      The Restrained Essence of Sapphiron
+         Starraven 18
+      Zandalarian Hero Charm
+         Viridissima 8
+      War Stomp
+         Lycel 2
+   Priest
+      Inner Focus
+         Zdraxus 10
+         Sunpriest 10
+         Pristitute 7
+         Blindie 3
+      Resurrection
+         Pristitute 3
+         Zdraxus 2
+         Sunpriest 2
+         Blindie 1
+      The Restrained Essence of Sapphiron
+         Zdraxus 10
+      Talisman of Ephemeral Power
+         Sunpriest 21
+      Will of the Forsaken
+         Sunpriest 2
+         Zdraxus 1
+         Blindie 1
+      Bloodlust (received)
+         Zdraxus 1
+      Power Infusion (received)
+         Blindie 5
+   Paladin
+      Divine Favor
+         Jocaste 4
+      Holy Shock (heal)
+         Martlflash 20
+         Jocaste 8
+      Holy Shock (dmg)
+         Martlflash 5
+         Jocaste 1
+      Redemption
+         Jocaste 6
+         Goldengoose 3
+         Martlflash 2
+      The Eye of the Dead
+         Jocaste 3
+      Zandalarian Hero Charm
+         Bobsterr 5
+         Martlflash 1
+   Rogue
+      Adrenaline Rush
+         Mcstabbys 4
+      Blade Flurry
+         Mcstabbys 8
+   Warlock
+      The Restrained Essence of Sapphiron
+         Adachisakura 7
+      Zandalarian Hero Charm
+         Kayax 3
+   Hunter
+      Slayer's Crest
+         Spankys 13
+         Dhallya 4
+      Jom Gabbar
+         Dhallya 1
+      Badge of the Swarmguard
+         Spankys 10
+         Dhallya 1
+      Berserking
+         Spankys 7
+
+
+Proc Summary
+   Clearcasting
+      Clapya 286
+      Ratthew 157
+      Catajumbo 97
+      Lycel 79
+      Starraven 60
+      Xiaofeigunn 42
+      Viridissima 42
+      Pyi 36
+      Aquatic 35
+      Shreked 28
+      Immunium 21
+   Elemental Devastation
+      Clapya 62
+      Catajumbo 7
+   Enrage
+      Pitbound 12
+      Vallcow 10
+      Magn 5
+      Psykhe 4
+      Richardtater 2
+      Zloveleen 1
+      Sabroso 1
+   Flurry
+      Vallcow 202
+      Psykhe 193
+      Pitbound 174
+      Magn 168
+      Sabroso 160
+      Zloveleen 120
+      Richardtater 111
+      Ratthew 74
+      Cracklinoats 65
+      Catajumbo 40
+   Nature's Grace
+      Starraven 127
+      Viridissima 90
+   Spell Blasting
+      Goldengoose 48
+      Bobsterr 47
+   Stormcaller's Wrath
+      Flowest 5
+      Clapya 3
+      Interlan 1
+   Vengeance
+      Goldengoose 68
+      Bobsterr 65
+   Extra Attacks
+      Hand of Justice
+         Sabroso 18
+         Cracklinoats 13
+      Sword Specialization
+         Mcstabbys 57
+      Windfury Totem
+         Bobsterr 173
+         Psykhe 135
+         Vallcow 89
+         Sabroso 89
+         Mcstabbys 87
+         Pitbound 83
+         Magn 83
+         Zloveleen 81
+         Goldengoose 72
+         Richardtater 31
+         Catajumbo 4
+         Cracklinoats 3
+         Ratthew 2
+         Lycel 2
+         Jocaste 2
+         Ostkastare 1
+      Windfury Weapon
+         Ratthew 168
+         Cracklinoats 114
+         Catajumbo 112
+
+
+Annihilator Log
+   <nothing found>
+
+Flame Buffet (dragonling) Log
+   9/15 21:13:55.722  Ouro gains Flame Buffet (1).
+   9/15 21:13:57.271  Ouro gains Flame Buffet (2).
+   9/15 21:13:57.553  Ouro gains Flame Buffet (3).
+
+
+Viscidus Frost Hits Log
+   Total hits 430
+
+   Xiaofeigunn 39
+      Frostbolt 39
+   Adachisakura 39
+      Shoot 39
+   Zdraxus 34
+      Shoot 34
+   Shreked 34
+      Frostbolt 33
+      Cone of Cold 1
+   Kayax 33
+      Shoot 33
+   Blindie 33
+      Shoot 33
+   Aquatic 31
+      Frostbolt 31
+   Ratthew 22
+      Frostbrand Attack 13
+      Frost Shock 9
+   Immunium 22
+      Frostbolt 22
+   Medion 19
+      Shoot 19
+   Clapya 18
+      Frost Shock 11
+      Frostbrand Attack 7
+   Psykhe 16
+      Frostbolt 16
+   Cracklinoats 16
+      Frostbrand Attack 10
+      Frost Shock 6
+   Sabroso 12
+      Frostbolt 9
+      Frost Blast 3
+   Bobsterr 12
+      Frostbolt 12
+   Catajumbo 11
+      Frost Shock 11
+   Magn 10
+      Frostbolt 10
+   Goldengoose 7
+      Frostbolt 7
+   Mcstabbys 6
+      Frostbolt 6
+   Zloveleen 4
+      Frostbolt 4
+   Ostkastare 4
+      Frost Shock 4
+   Vallcow 3
+      Frostbolt 3
+   Spankys 1
+      Frostbolt 1
+   Murto 1
+      Frostbolt 1
+   Flowest 1
+      Frost Shock 1
+   Dirael 1
+      Frost Blast 1
+   Dhallya 1
+      Frostbolt 1
+
+
+Princess Huhuran Log
+   9/15 20:57:23.101  Princess Huhuran gains Frenzy (1).
+   9/15 20:57:25.866  Princess Huhuran 's Frenzy is removed.
+   9/15 20:57:25.866  Murto casts Tranquilizing Shot on Princess Huhuran.
+   9/15 20:57:26.362  Dhallya casts Tranquilizing Shot on Princess Huhuran.
+   9/15 20:57:35.351  Martlflash casts Death by Peasant.
+   9/15 20:57:36.458  Princess Huhuran gains Frenzy (1).
+   9/15 20:57:39.209  Princess Huhuran 's Frenzy is removed.
+   9/15 20:57:39.209  Spankys casts Tranquilizing Shot on Princess Huhuran.
+   9/15 20:57:44.050  Aquatic casts Death by Peasant.
+   9/15 20:57:53.521  Princess Huhuran gains Berserk (1).
+   9/15 20:57:54.534  Goldengoose casts Death by Peasant.
+   9/15 20:58:08.885  Princess Huhuran dies.
+   9/15 21:13:38.453  Martlflash casts Death by Peasant.
+
+
+C'Thun Chain Log (2+)
+
+   9/15 21:23:53.802  Eye of C'Thun 's Eye Beam hits Vallcow for 3355 Nature damage.
+   9/15 21:23:53.802  Eye of C'Thun 's Eye Beam hits Pyi for 4795 Nature damage.
+   9/15 21:23:53.802  Eye of C'Thun 's Eye Beam hits Murto for 6682 Nature damage.
+   9/15 21:23:53.802  Eye of C'Thun 's Eye Beam hits Ostkastare for 10742 Nature damage.
+   9/15 21:23:53.815  Eye of C'Thun 's Eye Beam hits Shreked for 11011 Nature damage. (3670 resisted)
+
+   9/15 21:23:56.850  Eye of C'Thun 's Eye Beam hits Pitbound for 3071 Nature damage.
+   9/15 21:23:56.850  Eye of C'Thun 's Eye Beam hits Richardtater for 5306 Nature damage.
+
+   9/15 21:24:18.143  Eye of C'Thun 's Eye Beam hits Catajumbo for 1243 Nature damage. (1727 absorbed)
+   9/15 21:24:18.143  Eye of C'Thun 's Eye Beam hits Mcstabbys for 3973 Nature damage.
+
+   9/15 21:25:27.211  Eye of C'Thun 's Eye Beam hits Mcstabbys for 2992 Nature damage.
+   9/15 21:25:27.211  Eye of C'Thun 's Eye Beam hits Bobsterr for 4486 Nature damage.
+   9/15 21:25:27.211  Eye of C'Thun 's Eye Beam hits Catajumbo for 6375 Nature damage.
+
+
+Pets
+   Spankys owned by Spankys
+   Murto owned by Murto
+   Raziel owned by Dirael
+
+
+Class Detection
+   Adachisakura warlock
+   Aquatic mage
+   Banola unknown
+   Blindie priest
+   Bobsterr paladin
+   Catajumbo shaman
+   Clapya shaman
+   Cracklinoats shaman
+   Dhallya hunter
+   Dirael hunter
+   Flowest shaman
+   Goldengoose paladin
+   Immunium mage
+   Interlan shaman
+   Jhuulum unknown
+   Jocaste paladin
+   Kayax warlock
+   Lycel druid
+   Magn warrior
+   Martlflash paladin
+   Mcstabbys rogue
+   Medion warlock
+   Murto hunter
+   Ostkastare shaman
+   Pitbound warrior
+   Pristitute priest
+   Psykhe warrior
+   Pyi druid
+   Ratthew shaman
+   Richardtater warrior
+   Sabroso warrior
+   Shreked mage
+   Spankys hunter
+   Starraven druid
+   Sunpriest priest
+   Topgoy unknown
+   Vallcow warrior
+   Viridissima druid
+   Xiaofeigunn mage
+   Yakub shaman
+   Zahyla unknown
+   Zdraxus priest
+   Zhaazhum unknown
+   Zloveleen warrior
+
+
+Tech
+   project version 2024.1078
+   project homepage https://github.com/melbaa/summarize_consumes
+   prices server nord
+   prices timestamp 2024-09-18T00:00:01.918884 (11 hours ago)
+   log size 13.4 MB
+   log lines 178954
+   skipped log lines 11 (0.01%)
+   processed in 27.67 seconds. 6466.65 log lines/sec
+   runtime platform win32
+   runtime implementation (name='cpython', cache_tag='cpython-310', version=sys.version_info(major=3, minor=10, micro=1, releaselevel='final', serial=0), hexversion=50987504)
+   runtime version 3.10.1 (tags/v3.10.1:2cd268a, Dec  6 2021, 19:10:37) [MSC v.1929 64 bit (AMD64)]

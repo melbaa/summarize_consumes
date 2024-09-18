@@ -1,0 +1,411 @@
+Psykhe  1112927
+  hit  413719
+  Heroic Strike  210540
+  Bloodthirst  159081
+  Execute  149128
+  Whirlwind  96081
+  Goblin Sapper Charge  50045
+  Cleave  18117
+  Deep Wound  14013
+  Hamstring  899
+  Revenge  788
+  Frostbolt  293
+  Intercept Stun  163
+  Pummel  60
+Clapya  926717
+  Lightning Bolt  561169
+  Chain Lightning  211776
+  Goblin Sapper Charge  67338
+  Plague Effect  26046
+  Earth Shock  25679
+  Shard of the Fallen Star  8904
+  Flame Shock  8890
+  Frost Shock  6100
+  Fire Shield  4848
+  hit  2948
+  Lightning Shield  1995
+  Frostbrand Attack  1024
+Shreked  900800
+  Fireball  363245
+  Ignite  253543
+  Arcane Explosion  76707
+  Blast Wave  62844
+  Scorch  59526
+  Cone of Cold  31391
+  Fire Blast  29258
+  Frostbolt  9051
+  Pyroblast  5948
+  Flamestrike  4097
+  Thorium Grenade  4018
+  hit  691
+  Shoot  481
+Xiaofeigunn  899277
+  Fireball  309413
+  Ignite  192016
+  Arcane Explosion  135690
+  Blast Wave  109502
+  Scorch  69994
+  Fire Blast  27609
+  Pyroblast  23146
+  Flamestrike  16492
+  Cone of Cold  9842
+  Frostbolt  2861
+  Engulfing Shadows  2712
+Zloveleen  891945
+  hit  314352
+  Bloodthirst  151089
+  Whirlwind  121260
+  Heroic Strike  102223
+  Execute  88902
+  Cleave  56275
+  Slam  27561
+  Deep Wound  21173
+  Overpower  7263
+  Hamstring  1184
+  reflect  420
+  Intercept Stun  198
+  Frostbolt  45
+Starraven  881511
+  Wrath  608808
+  Moonfire  112328
+  Burning Hatred  75942
+  Starfire  28355
+  Hurricane  25066
+  Insect Swarm  14671
+  Goblin Sapper Charge  13697
+  Shard of the Fallen Star  2135
+  hit  419
+  reflect  90
+Spankys  847933
+  Auto Shot  340563
+  Trueshot  233461
+  Multi-Shot  142060
+  Goblin Sapper Charge  53347
+  hit  44733
+  Arcane Shot  10767
+  Lightning Breath  9410
+  Serpent Sting  7636
+  Bite  3478
+  Raptor Strike  1540
+  Wing Clip  805
+  Explosive Trap Effect  119
+  Frostbolt  14
+Sabroso  806345
+  hit  289389
+  Heroic Strike  177598
+  Bloodthirst  123766
+  Whirlwind  81882
+  Execute  71307
+  Dense Dynamite  27002
+  Cleave  22121
+  Deep Wound  10043
+  Hamstring  2615
+  Frost Blast  203
+  Frostbolt  169
+  reflect  90
+  Intercept Stun  85
+  Pummel  75
+Dirael  783824
+  Auto Shot  287671
+  Trueshot  276121
+  Multi-Shot  165629
+  Volley  20184
+  Aimed Shot  10883
+  Arcane Shot  6065
+  hit  5747
+  Raptor Strike  5098
+  Explosive Trap Effect  3079
+  Serpent Sting  1994
+  Wing Clip  1330
+  Frost Blast  23
+Bobsterr  750097
+  hit  156013
+  Seal of Righteousness  133736
+  Holy Strike  113567
+  Thunderfury  112817
+  Consecration  90704
+  Dragonbreath Chili  60821
+  Judgement of Righteousness  48278
+  Shard of the Fallen Star  20887
+  Crusader Strike  9664
+  Lightning Strike  2531
+  Frostbolt  1079
+Medion  732022
+  Shadow Bolt  496494
+  Hellfire Effect  120470
+  Corruption  54225
+  Shadowburn  22732
+  Searing Pain  21724
+  Plague Effect  11332
+  Curse of Doom  2512
+  Shoot  979
+  Immolate  873
+  hit  681
+Aquatic  729903
+  Fireball  317495
+  Arcane Explosion  107747
+  Blast Wave  73628
+  Ignite  72920
+  Scorch  57000
+  Pyroblast  35748
+  Fire Blast  28110
+  Flamestrike  20056
+  Frostbolt  7866
+  Cone of Cold  7384
+  Arcane Missiles  1876
+  hit  73
+Dhallya  668853
+  Auto Shot  289132
+  Trueshot  231247
+  Multi-Shot  124410
+  Goblin Sapper Charge  7624
+  hit  5768
+  Arcane Shot  4179
+  Serpent Sting  2630
+  Aimed Shot  1493
+  Explosive Trap Effect  1006
+  Wing Clip  818
+  Raptor Strike  532
+  Frostbolt  14
+Adachisakura  620766
+  Shadow Bolt  403025
+  Corruption  66942
+  Searing Pain  54823
+  Hellfire Effect  47437
+  Shadowburn  28548
+  Immolate  13713
+  Shoot  3195
+  Death Coil  2805
+  Drain Life  172
+  Drain Soul  67
+  hit  39
+Murto  605931
+  Auto Shot  239920
+  Trueshot  183216
+  Multi-Shot  120912
+  hit  29466
+  Arcane Shot  7883
+  Volley  6924
+  Screech  6747
+  Serpent Sting  5009
+  Raptor Strike  2718
+  Aimed Shot  2255
+  Wing Clip  870
+  Frostbolt  11
+Vallcow  564510
+  hit  259764
+  Heroic Strike  113759
+  Bloodthirst  74163
+  Thunderfury  37931
+  Goblin Sapper Charge  28529
+  Execute  27307
+  Whirlwind  19934
+  Revenge  1271
+  Thunder Clap  1082
+  Hamstring  632
+  Intercept Stun  81
+  Frostbolt  57
+Viridissima  537522
+  Wrath  331375
+  Insect Swarm  63822
+  Moonfire  59596
+  Burning Hatred  49860
+  Hurricane  26175
+  Starfire  6694
+Pitbound  529418
+  hit  227391
+  Heroic Strike  140470
+  Bloodthirst  85154
+  Thunderfury  48373
+  Execute  8134
+  Plague Effect  8081
+  Goblin Sapper Charge  7556
+  Hamstring  1678
+  Revenge  1276
+  Thunder Clap  1121
+  Pummel  110
+  Shield Bash  39
+  Intercept Stun  35
+Sunpriest  519934
+  Mind Flay  155130
+  Shadow Word: Pain  155107
+  Mind Blast  147841
+  Pain Spike  25403
+  Devouring Plague  14059
+  Ez-Thro Dynamite  11507
+  Fire Shield  5874
+  Shoot  4005
+  Touch of Weakness  1008
+Blindie  493291
+  Smite  205840
+  Holy Nova  97913
+  Shadow Word: Pain  59065
+  Holy Fire  47807
+  Burning Hatred  43169
+  Mind Flay  19013
+  Mind Blast  17910
+  Shoot  2059
+  Touch of Weakness  284
+  Reflective Shield  211
+  hit  20
+Ratthew  473915
+  hit  373834
+  Stormstrike  63574
+  Earth Shock  33723
+  Frostbrand Attack  2264
+  Frost Shock  520
+Magn  468373
+  hit  218435
+  Heroic Strike  80337
+  Bloodthirst  69083
+  Thunderfury  39281
+  Goblin Sapper Charge  19906
+  Execute  18156
+  Whirlwind  10329
+  Cleave  8090
+  Revenge  1486
+  Force Reactive Disk  1161
+  Dragonbreath Chili  787
+  Hamstring  703
+  Thunder Clap  272
+  Frostbolt  183
+  Intercept Stun  70
+  Thorium Shield Spike  51
+  Shield Bash  43
+Mcstabbys  464269
+  hit  266796
+  Sinister Strike  120937
+  Goblin Sapper Charge  44924
+  Deadly Poison V  10428
+  Blade Flurry  6572
+  Eviscerate  6332
+  Dream's Herald  6092
+  Backstab  1869
+  Kick  200
+  Frostbolt  119
+Kayax  453809
+  Shadow Bolt  207222
+  Hellfire Effect  175711
+  Corruption  34532
+  Searing Pain  16661
+  Immolate  10012
+  Shadowburn  6180
+  Shoot  2415
+  Drain Life  715
+  Drain Soul  352
+  Death Coil  9
+Zdraxus  440323
+  Mind Flay  167829
+  Shadow Word: Pain  132198
+  Mind Blast  117843
+  Pain Spike  15994
+  Shoot  5983
+  Touch of Weakness  265
+  hit  211
+Lycel  394378
+  hit  119077
+  Shred  117710
+  Maul  71104
+  Ferocious Bite  40345
+  Savage Bite  31605
+  Dense Dynamite  7683
+  Swipe  4076
+  reflect  1689
+  Claw  855
+  Insect Swarm  234
+Immunium  384593
+  Frostbolt  281965
+  Arcane Explosion  64850
+  Cone of Cold  21147
+  Flamestrike  5399
+  Blizzard  3979
+  Frost Nova  3951
+  Fireball  1894
+  Scorch  724
+  Shoot  643
+  hit  41
+Goldengoose  355721
+  Consecration  100780
+  hit  87685
+  Holy Strike  48254
+  Seal of Righteousness  39907
+  Judgement of Righteousness  30633
+  Force Reactive Disk  15951
+  Crusader Strike  10892
+  Holy Shield  9105
+  reflect  6126
+  Lightning Strike  1864
+  Fire Strike  1809
+  Thorium Shield Spike  1270
+  Hammer of Wrath  1091
+  Frostbolt  354
+Cracklinoats  339985
+  hit  270172
+  Stormstrike  55253
+  Flame Shock  8551
+  Frost Shock  4433
+  Frostbrand Attack  1510
+  Earth Shock  66
+Pyi  337402
+  hit  164112
+  Claw  97240
+  Ferocious Bite  50525
+  Hurricane  12045
+  Potent Venom  9953
+  Shred  3217
+  Moonfire  310
+Richardtater  216632
+  hit  121352
+  Cleave  38142
+  Bloodthirst  36485
+  Whirlwind  15129
+  Deep Wound  5297
+  Heroic Strike  139
+  Intercept Stun  88
+Catajumbo  179944
+  hit  114416
+  Flame Shock  22527
+  Earth Shock  20863
+  Stormstrike  19785
+  Thorium Grenade  1209
+  Frost Shock  1144
+Flowest  36873
+  Goblin Sapper Charge  24065
+  Lightning Bolt  5294
+  Frost Shock  2991
+  Earth Shock  2737
+  Flame Shock  1446
+  hit  340
+Martlflash  12003
+  hit  4172
+  Holy Shock (dmg)  2918
+  Consecration  2752
+  Seal of Righteousness  824
+  Holy Strike  797
+  Crusader Strike  288
+  Judgement of Righteousness  252
+Ostkastare  10241
+  Flame Shock  5926
+  hit  1504
+  Lightning Bolt  1229
+  Chain Lightning  1101
+  Frost Shock  333
+  Earth Shock  148
+Interlan  7938
+  Lightning Bolt  5241
+  hit  1135
+  Frost Shock  939
+  Earth Shock  623
+Jocaste  6827
+  Consecration  3482
+  Holy Strike  1171
+  Holy Shock (dmg)  934
+  hit  767
+  Judgement of Righteousness  300
+  Seal of Righteousness  173
+Pristitute  3585
+  Shoot  2183
+  Smite  1402
+Yakub  557
+  hit  470
+  Earth Shock  87
