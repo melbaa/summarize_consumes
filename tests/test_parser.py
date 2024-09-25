@@ -1172,6 +1172,7 @@ def test_cooldown_summary(app):
 6/5 14:38:24.792  Thrunk casts Blood Fury on Thrunk.
 6/19 20:30:50.299  Duplo gains Rapid Healing (1).
 6/19 22:10:15.216  Naonak gains Chromatic Infusion (1).
+12/30 22:24:40.964  Babystone gains Rapid Fire (1).
 
     """
     lines = lines.splitlines(keepends=True)
@@ -1180,6 +1181,7 @@ def test_cooldown_summary(app):
     output = io.StringIO()
     app.cooldown_summary.print(output)
 
+    assert app.spell_count.counts['Rapid Fire']['Babystone'] == 1
     assert app.spell_count.counts['Chromatic Infusion']['Naonak'] == 1
     assert app.spell_count.counts['Rapid Healing']['Duplo'] == 1
     assert app.spell_count.counts['Blood Fury']['Thrunk'] == 1

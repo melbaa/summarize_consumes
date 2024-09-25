@@ -542,7 +542,7 @@ CDSPELL_CLASS = [
         'Blade Flurry',
     ]],
     ['warlock', []],
-    ['hunter', []],
+    ['hunter', ['Rapid Fire']],
 ]
 
 
@@ -1450,6 +1450,7 @@ LINE2SPELLCAST = {
         'Cold Blood',
         'Blade Flurry',
         "Nature's Swiftness",  # sham and druid
+        'Rapid Fire',
         'The Eye of the Dead',
         'Healing of the Ages',
         'Earthstrike',
