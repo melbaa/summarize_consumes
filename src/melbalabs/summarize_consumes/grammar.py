@@ -171,7 +171,7 @@ _CONSOLIDATED_TIMESTAMP: INT "." INT "." INT " " INT ":" INT ":" INT "&"
 
 HEAL_CRIT: " critically"
 
-WORD: UCASE_LETTER (LETTER | DIGIT | CONNECTING_APOSTROPHE | CONNECTING_COLON | COMMA)*
+WORD: UCASE_LETTER (LETTER | DIGIT | CONNECTING_APOSTROPHE | CONNECTING_COLON | COMMA | SLASH)*
 PAREN_WORD: "(" WORD ")"
 MULTIWORD: WORD ((SPACE | DASH | UNDERSCORE) CONNECTING_WORD)* SELF_DAMAGE? TRAILING_SPACE?
 CONNECTING_APOSTROPHE: /(?<! )'/  # allow it only inside a word
@@ -185,6 +185,7 @@ TRAILING_SPACE: /(?<! ) (?= )/  # space only if followed by another space and no
 DASH: "-"
 UNDERSCORE: "_"
 COMMA: ","
+SLASH: "/"
 
 # https://github.com/lark-parser/lark/blob/master/lark/grammars/common.lark
 %import common.INT

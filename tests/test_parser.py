@@ -82,7 +82,6 @@ b: "b"
     assert res2.children[1].data == 'b'
 
 
-
 def test_rage_consumable_line(app):
     lines = """
 4/14 13:55:49.949  Jaekta gains 10 Rage from Jaekta 's Berserker Rage Effect.
@@ -1173,7 +1172,7 @@ def test_cooldown_summary(app):
 6/19 20:30:50.299  Duplo gains Rapid Healing (1).
 6/19 22:10:15.216  Naonak gains Chromatic Infusion (1).
 12/30 22:24:40.964  Babystone gains Rapid Fire (1).
-
+10/20 20:43:17.149  Starraven gains Immune Charm/Fear/Stun (1).
     """
     lines = lines.splitlines(keepends=True)
     for line in lines:
@@ -1181,6 +1180,7 @@ def test_cooldown_summary(app):
     output = io.StringIO()
     app.cooldown_summary.print(output)
 
+    assert app.spell_count.counts['Immune Charm/Fear/Stun']['Starraven'] == 1
     assert app.spell_count.counts['Rapid Fire']['Babystone'] == 1
     assert app.spell_count.counts['Chromatic Infusion']['Naonak'] == 1
     assert app.spell_count.counts['Rapid Healing']['Duplo'] == 1

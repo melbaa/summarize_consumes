@@ -574,6 +574,11 @@ TRINKET_SPELL = [
     'Mind Quickening',
     'Nature Aligned',
     'Death by Peasant',
+    'Immune Charm/Fear/Stun',
+    'Immune Charm/Fear/Polymorph',
+    'Immune Fear/Polymorph/Snare',
+    'Immune Fear/Polymorph/Stun',
+    'Immune Root/Snare/Stun',
 ]
 RENAME_TRINKET_SPELL = {
     'Unstable Power': 'Zandalarian Hero Charm',
@@ -585,6 +590,11 @@ RENAME_TRINKET_SPELL = {
     'Healing of the Ages': 'Hibernation Crystal',
     'Rapid Healing': "Hazza'rah's Charm of Healing",
     'Chromatic Infusion': 'Draconic Infused Emblem',
+    'Immune Charm/Fear/Stun': "Insignia of the Alliance/Horde",
+    'Immune Charm/Fear/Polymorph': "Insignia of the Alliance/Horde",
+    'Immune Fear/Polymorph/Snare': "Insignia of the Alliance/Horde",
+    'Immune Fear/Polymorph/Stun': "Insignia of the Alliance/Horde",
+    'Immune Root/Snare/Stun': "Insignia of the Alliance/Horde",
 }
 for spell in itertools.chain(TRINKET_SPELL, RACIAL_SPELL, RECEIVE_BUFF_SPELL):
     for clsorder in CDSPELL_CLASS:
@@ -1438,6 +1448,11 @@ LINE2SPELLCAST = {
         'Death Wish',
     },
     'gains_line': {
+        'Immune Charm/Fear/Stun',
+        'Immune Charm/Fear/Polymorph',
+        'Immune Fear/Polymorph/Snare',
+        'Immune Fear/Polymorph/Stun',
+        'Immune Root/Snare/Stun',
         'Will of the Forsaken',
         'Recklessness',
         'Shield Wall',
