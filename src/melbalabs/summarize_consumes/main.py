@@ -549,6 +549,7 @@ CDSPELL_CLASS = [
 RECEIVE_BUFF_SPELL = {
     'Power Infusion',
     'Bloodlust',
+    'Chastise Haste',
 }
 RACIAL_SPELL = [
     'Blood Fury',
@@ -627,7 +628,7 @@ ABILITYCOST = {
 }
 
 ABILITYCOOLDOWN = {
-    'Whirlwind': 10,
+    'Whirlwind': 8,
     'Cleave': 1,
 }
 
@@ -1485,6 +1486,7 @@ LINE2SPELLCAST = {
         # buffs received
         'Power Infusion',
         'Bloodlust',
+        'Chastise Haste',
     },
     'gains_rage_line': {
         "Gri'lek's Charm of Might",

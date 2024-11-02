@@ -1173,6 +1173,7 @@ def test_cooldown_summary(app):
 6/19 22:10:15.216  Naonak gains Chromatic Infusion (1).
 12/30 22:24:40.964  Babystone gains Rapid Fire (1).
 10/20 20:43:17.149  Starraven gains Immune Charm/Fear/Stun (1).
+2/4 21:34:27.252  Murto gains Chastise Haste (1).
     """
     lines = lines.splitlines(keepends=True)
     for line in lines:
@@ -1180,6 +1181,7 @@ def test_cooldown_summary(app):
     output = io.StringIO()
     app.cooldown_summary.print(output)
 
+    assert app.spell_count.counts['Chastise Haste']['Murto'] == 1
     assert app.spell_count.counts['Immune Charm/Fear/Stun']['Starraven'] == 1
     assert app.spell_count.counts['Rapid Fire']['Babystone'] == 1
     assert app.spell_count.counts['Chromatic Infusion']['Naonak'] == 1
