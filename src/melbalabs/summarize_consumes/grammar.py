@@ -176,7 +176,10 @@ PAREN_WORD: "(" WORD ")"
 MULTIWORD: WORD ((SPACE | DASH | UNDERSCORE) CONNECTING_WORD)* SELF_DAMAGE? TRAILING_SPACE?
 CONNECTING_APOSTROPHE: /(?<! )'/  # allow it only inside a word
 CONNECTING_COLON: /(?<! ):/
-CONNECTING_WORD: "and"|"with"|"by"|"of"|"to"|"the"|"75B"|"numbing"|"toasted"|"an"|DASH|PAREN_WORD|WORD|/(?<=Lay )on(?= Hands)/
+CONNECTING_WORD: "and"|"with"|"by"|"of"|"to"|"the"|"75B"|"numbing"|"toasted"|"an"|DASH|PAREN_WORD|WORD
+    |/(?<=Lay )on(?= Hands)/
+    |/(?<=Mark )for(?= Death)/
+    |/(?<=Taste )for(?= Blood)/
 
 _TS_SEP: SPACE SPACE
 SPACE: " "

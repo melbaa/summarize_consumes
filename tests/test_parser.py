@@ -107,6 +107,20 @@ def test_tea_with_sugar_line(app):
     assert app.player['Psykhe']['Tea with Sugar'] == 2
     assert app.player['Shumy']['Tea with Sugar'] == 0
 
+def test_gains_line(app):
+    lines = """
+11/3 21:33:37.718  Zugger gains Taste for Blood (1).
+    """
+    lines = lines.splitlines(keepends=True)
+    match = 0
+    for line in lines:
+        match += parse_line(app, line)
+    assert match == 1
+
+
+
+
+
 def test_gains_consumable_line(app):
     lines = """
 4/20 20:29:51.707  Rando gains Greater Arcane Elixir (1).
@@ -352,7 +366,6 @@ def test_combatant_info_line(app):
 
 def test_hits_line(app):
     lines = """
-9/28 22:52:56.103  Srj 's Kick hits Kel'Thuzad for 66.
 4/14 21:49:18.451  Maexxna 's Poison Shock hits Jaekta for 270 Nature damage. (481 resisted) (1176 absorbed)
 4/14 21:49:18.451  Maexxna 's Poison Shock hits Jaekta for 270 Nature damage. (1176 absorbed)
 4/14 21:49:18.451  Maexxna 's Poison Shock hits Jaekta for 270 Nature damage. (481 resisted)
@@ -363,7 +376,7 @@ def test_hits_line(app):
     match = 0
     for line in lines:
         match += parse_line(app, line)
-    assert match == 6
+    assert match == 5
 
 def test_hits_line2(app):
     lines = """
@@ -382,6 +395,17 @@ def test_hits_line2(app):
             app.parser.parse(line)
         match += parse_line(app, line)
     assert match == 7
+
+def test_hits_line3(app):
+    lines = """
+11/3 20:40:02.661  Mcstabbys 's Mark for Death hits Qiraji Brainwasher for 396.
+9/28 22:52:56.103  Srj 's Kick hits Kel'Thuzad for 66.
+    """
+    lines = lines.splitlines(keepends=True)
+    match = 0
+    for line in lines:
+        match += parse_line(app, line)
+    assert match == 2
 
 
 def test_ktfrostbolt(app):
