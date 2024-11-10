@@ -519,6 +519,7 @@ CDSPELL_CLASS = [
         'Death Wish',
         'Shield Wall',
         'Recklessness',
+        'Bloodrage',
     ]],
     ['mage', ['Combustion', 'Scorch']],
     ['shaman', [
@@ -1455,6 +1456,7 @@ LINE2SPELLCAST = {
         'Immune Fear/Polymorph/Stun',
         'Immune Root/Snare/Stun',
         'Will of the Forsaken',
+        'Bloodrage',
         'Recklessness',
         'Shield Wall',
         'Elemental Mastery',
@@ -1961,7 +1963,12 @@ def parse_line(app, line):
         timestamp = tree.children[0]
         subtree = tree.children[1]
 
-        timestamp_unix = parse_ts2unixtime(timestamp)
+        try:
+            timestamp_unix = parse_ts2unixtime(timestamp)
+        except Exception as e:
+            logging.exception(line)
+            raise
+
 
         # inline some parsing to reduce funcalls
         # for same reason not using visitors to traverse the parse tree

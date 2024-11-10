@@ -1198,6 +1198,7 @@ def test_cooldown_summary(app):
 12/30 22:24:40.964  Babystone gains Rapid Fire (1).
 10/20 20:43:17.149  Starraven gains Immune Charm/Fear/Stun (1).
 2/4 21:34:27.252  Murto gains Chastise Haste (1).
+12/9 20:49:15.353  Bloodragetest gains Bloodrage (1).
     """
     lines = lines.splitlines(keepends=True)
     for line in lines:
@@ -1205,6 +1206,8 @@ def test_cooldown_summary(app):
     output = io.StringIO()
     app.cooldown_summary.print(output)
 
+
+    assert app.spell_count.counts['Bloodrage']['Bloodragetest'] == 1
     assert app.spell_count.counts['Chastise Haste']['Murto'] == 1
     assert app.spell_count.counts['Immune Charm/Fear/Stun']['Starraven'] == 1
     assert app.spell_count.counts['Rapid Fire']['Babystone'] == 1
@@ -1302,7 +1305,7 @@ def test_class_detection(app):
 12/9 20:55:24.125  Squirreled 's Heroic Strike crits Bony Construct for 505.
 12/9 20:56:22.705  Martl is afflicted by Death Wish (1).
 12/9 20:49:06.733  Littlelnnos gains Recklessness (1).
-12/9 20:49:15.353  Drapes gains Bloodrage (1).
+12/9 20:49:15.353  Bloodragetest gains Bloodrage (1).
 12/9 20:51:52.401  Wwtest 's Whirlwind crits Deathknight for 1456.
 12/9 20:51:52.401  Cleavetest 's Whirlwind crits Deathknight for 1456.
 4/24 23:24:39.171  Psykhe gains Sweeping Strikes (1).
@@ -1380,9 +1383,9 @@ def test_class_detection(app):
         'Martl': 'warrior',
         'Littlelnnos': 'warrior',
         'Wwtest': 'warrior',
-        'Drapes': 'warrior',
         'Cleavetest': 'warrior',
         'Psykhe': 'warrior',
+        'Bloodragetest': 'warrior',
 
         'Shreked': 'mage',
         'Scorchtest': 'mage',
