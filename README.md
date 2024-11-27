@@ -31,10 +31,12 @@ Price data via https://www.wowauctions.net/
 
 ## From the command line
 ```
-usage: summarize_consumes.exe [-h] [--pastebin] [--open-browser] [--write-summary] [--write-consumable-totals-csv]
-               [--write-damage-output] [--write-healing-output] [--write-damage-taken-output]
-               [--prices-server {nord,telabim}] [--compare-players PLAYER1 PLAYER2]
-               [--expert-log-unparsed-lines] [--visualize]
+usage: summarize_consumes.exe [-h] [--pastebin] [--open-browser]
+               [--write-summary] [--write-consumable-totals-csv]
+               [--write-damage-output] [--write-healing-output]
+               [--write-damage-taken-output] [--prices-server {nord,telabim}]
+               [--compare-players PLAYER1 PLAYER2] [--expert-log-unparsed-lines]
+               [--visualize]
                logpath
 
 positional arguments:

@@ -6,14 +6,14 @@ jobs:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-python@v4
+      - uses: actions/setup-python@v5
         with:
           python-version: '3.10'
       - run: pip install .[dev,release]
       - run: pytest -v
       - run: pyinstaller.exe -F --name summarize_consumes --copy-metadata melbalabs.summarize_consumes .\src\melbalabs\summarize_consumes\main.py
       - run: gci .\dist\
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: summarize_consumes.exe
           path: .\dist\summarize_consumes.exe
@@ -25,13 +25,18 @@ jobs:
           write
       runs-on: windows-latest
       steps:
-      - uses: actions/download-artifact@v3
+      - uses: actions/download-artifact@v4
         with:
           name: summarize_consumes.exe
-      - uses: "marvinpinto/action-automatic-releases@v1.2.1"
+      - run: gh release delete latest --cleanup-tag --yes
+        env:
+          GH_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+          GH_REPO: "${{ github.repository}}"
+      - uses: softprops/action-gh-release@v2.1.0
         with:
-          repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          automatic_release_tag: "latest"
-          prerelease: false
+          name: latest
+          tag_name: latest
+          make_latest: true
+          token: "${{ secrets.GITHUB_TOKEN }}"
           files: |
             summarize_consumes.exe
