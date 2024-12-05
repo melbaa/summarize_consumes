@@ -31,7 +31,7 @@ jobs:
       - run: gh release delete latest --cleanup-tag --yes
         env:
           GH_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
-          GH_REPO: "${{ github.repository}}"
+          GH_REPO: "${{ github.repository }}"
       - uses: softprops/action-gh-release@v2.1.0
         with:
           name: latest

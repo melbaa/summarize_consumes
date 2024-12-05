@@ -99,6 +99,7 @@ def test_tea_with_sugar_line(app):
     lines = """
 4/21 21:01:38.861  Psykhe 's Tea with Sugar heals Psykhe for 1613.
 4/21 21:01:38.861  Psykhe 's Tea with Sugar critically heals Psykhe for 1613.
+12/4 21:20:37.957  Elieena 's Tea heals Elieena for 579.
 4/21 21:22:41.023  Shumy gains 1209 Mana from Shumy 's Tea with Sugar.
     """
     lines = lines.splitlines(keepends=True)
@@ -106,6 +107,7 @@ def test_tea_with_sugar_line(app):
         parse_line(app, line)
     assert app.player['Psykhe']['Tea with Sugar'] == 2
     assert app.player['Shumy']['Tea with Sugar'] == 0
+    assert app.player['Elieena']['Tea with Sugar'] == 1
 
 def test_gains_line(app):
     lines = """

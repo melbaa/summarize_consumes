@@ -220,6 +220,7 @@ class HitsConsumable:
 RENAME_SPELL = {
     ('hits_ability_line', 'Holy Shock'): 'Holy Shock (dmg)',
     ('heals_line', 'Holy Shock'): 'Holy Shock (heal)',
+    ('heals_line', 'Tea'): 'Tea with Sugar',
     ('gains_rage_line', 'Blood Fury'): "Gri'lek's Charm of Might",
 }
 def rename_spell(spell, line_type):
