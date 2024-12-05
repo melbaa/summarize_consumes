@@ -296,7 +296,7 @@ CONSUMABLE_COMPONENTS = {
         ('Essence of Fire', 2),
         ('Larval Acid', 1),
     ],
-    "Tea": [
+    "Tea with Sugar": [
         ('Small Dream Shard', 1/5),
     ],
 }
@@ -2053,8 +2053,8 @@ def parse_line(app, line):
             app.class_detection.detect(line_type=subtree.data, name=name, spell=spellname)
             app.spell_count.add(line_type=subtree.data, name=name, spell=spellname)
 
-            if spellname == 'Tea':
-                app.player[name]['Tea'] += 1
+            if spellname == 'Tea with Sugar':
+                app.player[name]['Tea with Sugar'] += 1
             elif spellname == 'Healing Potion':
                 if is_crit:
                     consumable = healpot_lookup(amount/1.5)
