@@ -65,7 +65,12 @@ def dl_price_data(prices_server):
         return None
 
 
-def create_app(time_start, expert_log_unparsed_lines, prices_server):
+def create_app(
+        time_start,
+        expert_log_unparsed_lines,
+        prices_server,
+        expert_disable_web_prices,
+    ):
 
     app = App()
 
@@ -107,10 +112,11 @@ def create_app(time_start, expert_log_unparsed_lines, prices_server):
 
     app.hits_consumable = HitsConsumable(player=app.player, last_hit_cache=app.last_hit_cache)
 
-    price_providers = [
-        WebPriceProvider(prices_server=prices_server),
-        LocalPriceProvider('prices.json'),
-    ]
+    app.web_price_provider = WebPriceProvider(prices_server=prices_server)
+    price_providers = []
+    if not expert_disable_web_prices:
+        price_providers.append(app.web_price_provider)
+    price_providers.append(LocalPriceProvider('prices.json'))
     app.pricedb = PriceDB(price_providers=price_providers)
     app.consumables_accumulator = ConsumablesAccumulator(player=app.player, pricedb=app.pricedb, death_count=app.death_count)
     app.print_consumables = PrintConsumables(accumulator=app.consumables_accumulator)
@@ -2566,10 +2572,13 @@ def get_user_input(argv):
 
     parser.add_argument('--prices-server', choices=['nord', 'telabim'], default='nord', help='specify which server price data to use')
 
-    parser.add_argument('--compare-players', nargs=2, metavar=('PLAYER1', 'PLAYER2'), required=False, help='compare 2 players, output the difference in compare-players.txt')
-    parser.add_argument('--expert-log-unparsed-lines', action='store_true', help='create an unparsed.txt with everything that was not parsed')
-
     parser.add_argument('--visualize', action='store_true', required=False, help='Generate visual infographic')
+    parser.add_argument('--compare-players', nargs=2, metavar=('PLAYER1', 'PLAYER2'), required=False, help='compare 2 players, output the difference in compare-players.txt')
+
+    parser.add_argument('--expert-log-unparsed-lines', action='store_true', help='create an unparsed.txt with everything that was not parsed')
+    parser.add_argument('--expert-write-web-prices', action='store_true', help='writes output to prices-web.json')
+    parser.add_argument('--expert-disable-web-prices', action='store_true', help="don't download price data")
+
 
     args = parser.parse_args(argv)
 
@@ -2642,6 +2651,7 @@ def main(argv):
         time_start=time_start,
         expert_log_unparsed_lines=args.expert_log_unparsed_lines,
         prices_server=args.prices_server,
+        expert_disable_web_prices=args.expert_disable_web_prices,
     )
 
     parse_log(app, filename=args.logpath)
@@ -2707,6 +2717,15 @@ def main(argv):
 
     if args.visualize:
         app.infographic.generate(output_file=Path(args.logpath).stem)
+
+    if args.expert_write_web_prices:
+        def feature():
+            prices = app.web_price_provider.load()
+            filename = 'prices-web.json'
+            with open(filename, 'w', newline='') as f:
+                print('writing web prices to', filename)
+                json.dump(prices, f, indent=4)
+        feature()
 
     if not args.pastebin: return
     url = upload_pastebin(output)

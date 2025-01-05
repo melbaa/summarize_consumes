@@ -8,7 +8,7 @@ from melbalabs.summarize_consumes.main import NAME2ITEMID
 from melbalabs.summarize_consumes.grammar import grammar
 
 
-@pytest.mark.skip('not using basic lexer; grammar too ambiguous for it')
+@pytest.mark.skip('not using basic lexer; grammar too ambiguous for it')  # pragma: no cover
 def test_lark_basic_lexer():
     from lark import Lark
 
