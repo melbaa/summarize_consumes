@@ -3,4 +3,5 @@ invoke
 colorama; platform_system=='Windows'
 pip-tools
 bumpver
+coverage
 # nox
