@@ -60,7 +60,7 @@ def dl_price_data(prices_server):
         resp.raise_for_status()
         data = resp.json()
         return data
-    except requests.exceptions.RequestException as e:
+    except requests.exceptions.RequestException:
         logging.warning('web prices not available')
         return None
 
@@ -330,7 +330,6 @@ NAME2ITEMID = {
     'Winterfall Firewater': 12820,
     'Greater Stoneshield': 13455,
     'Lucidity Potion': 61225,
-    'Elixir of Greater Agility': 9187,
     'Scorpok Pincer': 8393,
     'Blasted Boar Lung': 8392,
     'Snickerfang Jowl': 8391,
@@ -907,172 +906,6 @@ class DmgstoreEntry:
         self.uses = 0
         self.last_ts = 0
 
-class Dmgstore:
-    def __init__(self, player, class_detection):
-        self.logname = 'Damage Done'
-        self.player = player
-        self.class_detection = class_detection
-
-        self.store = collections.defaultdict(
-            lambda: collections.defaultdict(
-                lambda: collections.defaultdict(
-                    DmgstoreEntry)))
-
-
-
-    def add(self, source, target, ability, amount):
-        entry = self.store[source][target][ability]
-
-        entry.dmg += amount
-
-        cost = self.abilitycost.get(ability, 0)
-        entry.cost += cost
-
-        entry.hits += 1
-
-    def print_dmg_desc(self, output):
-
-        # remove known npc
-        for source in list(self.store):
-            if source not in self.player:
-                del self.store[source]
-
-        print(f"\n\n{self.logname}", file=output)
-
-        # we need totals for each level
-        source_totals = []
-        source_target_totals = collections.defaultdict(list)
-        source_target_ability_totals = collections.defaultdict(list)
-        for source in self.store:
-            source_total = 0
-            targets = self.store[source]
-            for target in targets:
-                target_total = 0
-                abilities = self.store[source][target]
-                for ability in abilities:
-                    entry = abilities[ability]
-
-                    dmg = entry.dmg
-                    source_total += dmg
-                    target_total += dmg
-
-                    source_target_ability_totals[(source, target)].append((ability, dmg))
-
-                source_target_totals[source].append((target, target_total))
-
-            source_totals.append((source, source_total))
-
-
-        source_totals.sort()
-        for source, dmg in source_totals:
-            print('  ', f'{source}  {dmg}', file=output)
-
-            source_target_totals[source].sort()
-            for target, dmg in source_target_totals[source]:
-                print('  ', '  ', f'{target}  {dmg}', file=output)
-
-                source_target_ability_totals[(source, target)].sort()
-                for ability, dmg in source_target_ability_totals[(source, target)]:
-                    print('  ', '  ', '  ', f'{ability}  {dmg}', file=output)
-
-    def print_alphabetic(self, output):
-        # remove known npc
-        for source in list(self.store):
-            if source not in self.player:
-                del self.store[source]
-
-        print(f"\n\n{self.logname}", file=output)
-
-        # we need totals for each level
-        source_totals = []
-        source_target_totals = collections.defaultdict(list)
-        source_target_ability_totals = collections.defaultdict(list)
-        for source in self.store:
-            source_total = 0
-            source_cost = 0
-            source_hits = 0
-            targets = self.store[source]
-            for target in targets:
-                target_total = 0
-                target_cost = 0
-                target_hits = 0
-                abilities = self.store[source][target]
-                for ability in abilities:
-                    entry = abilities[ability]
-
-                    dmg = entry.dmg
-                    source_total += dmg
-                    target_total += dmg
-
-                    cost = entry.cost
-                    target_cost += cost
-                    source_cost += cost
-
-                    hits = entry.hits
-                    source_hits += hits
-                    target_hits += hits
-
-                    source_target_ability_totals[(source, target)].append((ability, dmg, cost, hits))
-
-                source_target_totals[source].append((target, target_total, target_cost, target_hits))
-
-            source_totals.append((source, source_total, source_cost, source_hits))
-
-
-        source_totals.sort()
-        for source, dmg, cost, hits in source_totals:
-            print('  ', f'{source}  dmg:{dmg}  cost:{cost}  hits:{hits}', file=output)
-
-            source_target_totals[source].sort()
-            for target, dmg, cost, hits in source_target_totals[source]:
-                print(file=output)  # new target empty line
-                print('  ', '  ', f'{target}  dmg:{dmg}  cost:{cost}  hits:{hits}', file=output)
-                print(file=output)  # new target empty line
-
-                source_target_ability_totals[(source, target)].sort()
-                for ability, dmg, cost, hits in source_target_ability_totals[(source, target)]:
-                    print('  ', '  ', '  ', f'{target} {ability}  dmg:{dmg}  cost:{cost}  hits:{hits}', file=output)
-
-
-    def print_compare_players(self, player1, player2, output):
-        p1 = self.store[player1]
-        p2 = self.store[player2]
-
-        t1 = list(p1.keys())
-        t2 = list(p2.keys())
-
-        t1.sort()
-        t2.sort()
-
-        i1 = 0
-        i2 = 0
-        while i1 < len(t1) and i2 < len(t2):
-            target1 = t1[i1]
-            target2 = t2[i2]
-            if t1[i1] == t2[i2]:
-                blockdata = self.compare_targets(target1, target2, p1, p2, player1, player2)
-                i1 += 1
-                i2 += 1
-            elif t1[i1] < t2[i2]:
-                blockdata = self.compare_targets(target1, 'nothing', p1, p2, player1, player2)
-                i1 += 1
-            else:
-                blockdata = self.compare_targets('nothing', target2, p1, p2, player1, player2)
-                i2 += 1
-
-        while i1 < len(t1):
-            target1 = t1[i1]
-            blockdata = self.compare_targets(target1, 'nothing', p1, p2, player1, player2)
-            i1 += 1
-
-        while i2 < len(t2):
-            target2 = t2[i2]
-            blockdata = self.compare_targets('nothing', target2, p1, p2, player1, player2)
-            i2 += 1
-
-
-    def compare_targets(self, target1, target2, p1, p2, player1, player2):
-        pass
 
 class Dmgstore2:
     def __init__(self, player, class_detection, abilitycost, abilitycooldown, logname, allow_selfdmg):
@@ -1184,7 +1017,6 @@ class Dmgstore2:
         # first find dmg totals
         # then abilities
         dmgtotals = collections.defaultdict(int)
-        abilitytotals = collections.defaultdict(lambda: collections.defaultdict(int))
         for (source, target, ability), entry in self.store_ability.items():
             if source not in self.player: continue
             dmgtotals[source] += entry.dmg
@@ -1535,8 +1367,8 @@ class SpellCount:
         # spell - name - count
         self.counts = collections.defaultdict(lambda: collections.defaultdict(int))
     def add(self, line_type, name, spell):
-        if not line_type in LINE2SPELLCAST: return
-        if not spell in LINE2SPELLCAST[line_type]: return
+        if line_type not in LINE2SPELLCAST: return
+        if spell not in LINE2SPELLCAST[line_type]: return
         self.counts[spell][name] += 1
     def add_stackcount(self, line_type, name, spell, stackcount):
         if spell in {'Combustion', 'Unstable Power', 'Jom Gabbar'} and line_type == 'gains_line' and stackcount != 1:
@@ -1565,8 +1397,8 @@ class ProcCount:
         # source - name - count
         self.counts_extra_attacks = collections.defaultdict(lambda: collections.defaultdict(int))
     def add(self, line_type, name, spell):
-        if not line_type in LINE2PROC: return
-        if not spell in LINE2PROC[line_type]: return
+        if line_type not in LINE2PROC: return
+        if spell not in LINE2PROC[line_type]: return
         self.counts[spell][name] += 1
     def add_extra_attacks(self, howmany, source, name):
         self.counts_extra_attacks[source][name] += howmany
@@ -1972,7 +1804,7 @@ def parse_line(app, line):
 
         try:
             timestamp_unix = parse_ts2unixtime(timestamp)
-        except Exception as e:
+        except Exception:
             logging.exception(line)
             raise
 
@@ -2455,7 +2287,7 @@ def parse_line(app, line):
 
 
 
-    except LarkError as e:
+    except LarkError:
         # parse errors ignored to try different strategies
         pass
     return False

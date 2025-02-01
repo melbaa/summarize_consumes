@@ -76,7 +76,7 @@ b: "b"
     res1 = parser.parse(lines[0])
     assert res1.children[0].data == 'a'
     assert res1.children[1] is None
-    assert res1.children[1] == None
+    assert res1.children[1] is None
 
     res2 = parser.parse(lines[1])
     assert res2.children[1].data == 'b'
@@ -1400,7 +1400,6 @@ def test_class_detection(app):
         'Bftest': 'rogue',
         'Raimme': 'rogue',
         'Emeryn': 'rogue',
-        'Inshadow': 'rogue',
 
         'Yakub': 'shaman',
         'Seidhkona': 'shaman',

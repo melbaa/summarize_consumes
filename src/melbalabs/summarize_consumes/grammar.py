@@ -1,6 +1,3 @@
-import logging
-
-
 grammar = r"""
 start: timestamp "  " _line NEWLINE
 
@@ -180,6 +177,7 @@ CONNECTING_WORD: "and"|"with"|"by"|"of"|"to"|"the"|"75B"|"numbing"|"toasted"|"an
     |/(?<=Lay )on(?= Hands)/
     |/(?<=Mark )for(?= Death)/
     |/(?<=Taste )for(?= Blood)/
+    |/(?<=Thirst )for(?= Blood)/
 
 _TS_SEP: SPACE SPACE
 SPACE: " "
