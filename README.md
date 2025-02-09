@@ -22,7 +22,7 @@ The summary includes:
 * pets found
 * classes detected
 
-It is assumed that the combat log was generated while the [AdvancedVanillaCombatLog addon](https://github.com/YamaYAML/LegacyPlayersV4/tree/main/Addons/AdvancedVanillaCombatLog) was active.<br>
+It is assumed that the combat log was generated while a logging addon such as [AdvancedVanillaCombatLog](https://github.com/YamaYAML/LegacyPlayersV4/tree/main/Addons/AdvancedVanillaCombatLog) or [SuperWowCombatLogger](https://github.com/pepopo978/SuperWowCombatLogger) was active.<br>
 Check out [the examples directory](https://github.com/melbaa/summarize_consumes/tree/master/examples) for summaries of various raids.<br>
 Price data via https://www.wowauctions.net/
 
