@@ -522,6 +522,7 @@ INTERRUPT_SPELLS = {
 
 CDSPELL_CLASS = [
     ['warrior', [
+        'Sunder Armor',
         'Death Wish',
         'Shield Wall',
         'Recklessness',
@@ -1351,6 +1352,7 @@ LINE2SPELLCAST = {
         'Redemption',
         'Resurrection',
         'Rebirth',
+        'Sunder Armor',  # superwow
         'Blood Fury',  # superwow, spellid 23234
     },
     'hits_ability_line': {
