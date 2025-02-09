@@ -400,6 +400,7 @@ def test_hits_line2(app):
 
 def test_hits_line3(app):
     lines = """
+2/8 11:40:10.559  Rila 's Whirlwind crits Bile Sludge (Sludge Belcher) for 606.
 11/3 20:40:02.661  Mcstabbys 's Mark for Death hits Qiraji Brainwasher for 396.
 9/28 22:52:56.103  Srj 's Kick hits Kel'Thuzad for 66.
     """
@@ -407,7 +408,7 @@ def test_hits_line3(app):
     match = 0
     for line in lines:
         match += parse_line(app, line)
-    assert match == 2
+    assert match == 3
 
 
 def test_ktfrostbolt(app):
