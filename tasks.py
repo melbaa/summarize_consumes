@@ -94,14 +94,14 @@ def genpkg(c):
 def gendeps(c):
     cwd = Path('.')
 
-    path = cwd / 'deps' / 'requirements.in'
-    cmd = f'pip-compile --no-header --annotation-style line --no-strip-extras {path}'
+    path = cwd / 'deps' / 'requirements'
+    cmd = f'pip-compile --no-header --annotation-style line --no-strip-extras {path}.in'
     c.run(cmd)
 
-    path_dev = cwd / 'deps' / 'requirements-dev.in'
-    cmd = f'pip-compile --no-header --annotation-style line --no-strip-extras -c {path} {path_dev}'
+    path_dev = cwd / 'deps' / 'requirements-dev'
+    cmd = f'pip-compile --no-header --annotation-style line --no-strip-extras -c {path}.txt {path_dev}.in'
     c.run(cmd)
 
-    path_release = cwd / 'deps' / 'requirements-release.in'
-    cmd = f'pip-compile --no-header --annotation-style line --no-strip-extras -c {path} -c {path_dev} {path_release}'
+    path_release = cwd / 'deps' / 'requirements-release'
+    cmd = f'pip-compile --no-header --annotation-style line --no-strip-extras -c {path}.txt -c {path_dev}.txt {path_release}.in'
     c.run(cmd)
