@@ -517,6 +517,10 @@ Yis deaths:1
    total spent: 17g 88s 58c
 
 
+Sunder Armor Summary (trash and boss counts)
+   <nothing found. needs superwow>
+
+
 Cooldown Summary
    Warrior
       Death Wish
@@ -1206,14 +1210,14 @@ Class Detection
 
 
 Tech
-   project version 2025.1083
+   project version 2025.1086
    project homepage https://github.com/melbaa/summarize_consumes
    prices server nord
-   prices timestamp 2025-01-05T00:00:01.344841 (23 hours ago)
+   prices timestamp 2025-01-05T00:00:01.344841 (a month ago)
    log size 22.6 MB
    log lines 299509
    skipped log lines 639 (0.21%)
-   processed in 38.85 seconds. 7709.89 log lines/sec
+   processed in 40.28 seconds. 7435.56 log lines/sec
    runtime platform win32
    runtime implementation (name='cpython', cache_tag='cpython-310', version=sys.version_info(major=3, minor=10, micro=1, releaselevel='final', serial=0), hexversion=50987504)
    runtime version 3.10.1 (tags/v3.10.1:2cd268a, Dec  6 2021, 19:10:37) [MSC v.1929 64 bit (AMD64)]

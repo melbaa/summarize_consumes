@@ -1,0 +1,1124 @@
+Notes:
+    - The report is generated using the combat log, which is far from perfect.
+    - Use the report as evidence something DID happen and keep in mind the data is not exhaustive. In other words the report DOES NOT cover everything.
+    - Some events are missing because the person logging wasn't in the instance yet or was too far away. This means inferring something DID NOT happen may be hard or impossible and requires extra care.
+    - Jujus and many foods are not in the combat log, so they can't be easily counted.
+    - Dragonbreath chili and goblin sappers have only "on hit" messages, so their usage is estimated based on timestamps and cooldowns.
+    - Mageblood and some other mana consumes are "mana regeneration" in the combat log, can't tell them apart.
+    - Lesser, greater protection potions and frozen runes don't have unique names, can't tell them apart.
+    - Nordanaar Herbal Tea casts the same spell as Tea with Sugar, can't tell them apart.
+    - Gift of Arthas looks like a buff on both players and NPCs, which messes up player detection, so it's not tracked.
+
+
+Adachisakura deaths:1
+   Blessed Wizard Oil 1   (5g 49s 98c)
+   Brilliant Wizard Oil 1   (1g 93s 98c)
+   Dreamshard Elixir 1   (1g 99s 74c)
+   Dreamtonic 2   (3g 54s 60c)
+   Elixir of Shadow Power 2   (3g 97s 48c)
+   Flask of Supreme Power 1   (49g 89s 72c)
+   Frost Protection 2 
+   Greater Arcane Elixir 1   (2g 52s 17c)
+   Infallible Mind (Cerebral Cortex Compound) 1   (5g 4s 64c)
+   Invulnerability 1   (1g 59s 28c)
+   Mana Potion - Major 7   (12g 10s 37c)
+   Mana Potion - Superior 1   (75s 72c)
+   Noggenfogger Elixir 1 
+   Shadow Protection 1   (4g 89s 74c)
+   Tea with Sugar 11   (3g 3s 49c)
+
+   total spent: 96g 80s 91c
+Aquatic deaths:2
+   Dreamshard Elixir 1   (1g 99s 74c)
+   Dreamtonic 2   (3g 54s 60c)
+   Elixir of Greater Firepower 3   (3g 50s 22c)
+   Fire Protection 1 
+   Flask of Supreme Power 1   (49g 89s 72c)
+   Frost Protection 3 
+   Greater Arcane Elixir 2   (5g 4s 34c)
+   Nature Protection 1 
+   Shadow Protection 1   (4g 89s 74c)
+   Spirit of Zanza 1   (1g 94s 85c)
+   Stratholme Holy Water 2 
+
+   total spent: 70g 83s 21c
+Aveenna deaths:2
+   Brilliant Mana Oil 2   (3g 1s 52c)
+   Flask of Distilled Wisdom 1   (47g 47s 87c)
+   Frost Protection 3 
+   Greater Arcane Elixir 2   (5g 4s 34c)
+   Mana Potion - Major 8   (13g 83s 28c)
+   Nature Protection 1 
+   Spirit of Zanza 1   (1g 94s 85c)
+   Tea with Sugar 16   (4g 41s 44c)
+
+   total spent: 75g 73s 30c
+Bobbywf deaths:3
+   Brilliant Mana Oil 1   (1g 50s 76c)
+   Demonic Rune 1 
+   Elixir of Greater Intellect 2   (1g 9s 98c)
+   Frost Protection 2 
+   Infallible Mind (Cerebral Cortex Compound) 1   (5g 4s 64c)
+   Mana Potion - Major 3   (5g 18s 73c)
+   Mana Potion - Superior 2   (1g 51s 44c)
+   Shadow Protection 1   (4g 89s 74c)
+
+   total spent: 19g 25s 29c
+Bolyarka deaths:5
+   Dragonbreath Chili 9   (13g 66s 38c)
+   Dreamshard Elixir 1   (1g 99s 74c)
+   Dreamtonic 5   (8g 86s 50c)
+   Elixir of Fortitude 1   (62s 31c)
+   Elixir of Greater Firepower 3   (3g 50s 22c)
+   Elixir of the Mongoose 1   (1g 49s 84c)
+   Fire Protection 1 
+   Flask of Supreme Power 1   (49g 89s 72c)
+   Free Action Potion 3   (4g 20s 36c)
+   Frost Protection 2 
+   Greater Arcane Elixir 1   (2g 52s 17c)
+   Mana Potion - Major 6   (10g 37s 46c)
+   Potion of Quickness 2   (5g 18s)
+   Shadow Protection 2   (9g 79s 48c)
+   Tea with Sugar 20   (5g 51s 80c)
+   Winterfall Firewater 7   (7g 24s 71c)
+
+   total spent: 124g 88s 69c
+Cheesebreath deaths:2
+   Greater Arcane Elixir 1   (2g 52s 17c)
+   Mana Potion - Major 6   (10g 37s 46c)
+   Shadow Protection 1   (4g 89s 74c)
+   Spirit of Zanza 1   (1g 94s 85c)
+   Tea with Sugar 6   (1g 65s 54c)
+
+   total spent: 21g 39s 76c
+Clapya deaths:1
+   Blessed Wizard Oil 2   (10g 99s 96c)
+   Dense Dynamite 4   (5g 19s 48c)
+   Dreamshard Elixir 1   (1g 99s 74c)
+   Dreamtonic 3   (5g 31s 90c)
+   Flask of Supreme Power 1   (49g 89s 72c)
+   Frost Protection 2 
+   Goblin Sapper Charge 2   (2g 99s 90c)
+   Greater Arcane Elixir 1   (2g 52s 17c)
+   Infallible Mind (Cerebral Cortex Compound) 1   (5g 4s 64c)
+   Invulnerability 4   (6g 37s 12c)
+   Mana Potion - Major 6   (10g 37s 46c)
+   Stratholme Holy Water 4 
+   Tea with Sugar 11   (3g 3s 49c)
+
+   total spent: 103g 75s 58c
+Clapya (self damage) deaths:0
+   Goblin Sapper Charge 2   (2g 99s 90c)
+
+   total spent: 2g 99s 90c
+Eleae deaths:1
+   Elixir of Fortitude 1   (62s 31c)
+   Elixir of Superior Defense 1   (2g 26s 42c)
+   Elixir of the Mongoose 1   (1g 49s 84c)
+   Flask of the Titans 1   (72g 79s 93c)
+   Free Action Potion 4   (5g 60s 48c)
+   Increased Stamina 2 
+   Invulnerability 1   (1g 59s 28c)
+   Potion of Quickness 1   (2g 59s)
+   Shadow Protection 2   (9g 79s 48c)
+   Tea with Sugar 1   (27s 59c)
+   Winterfall Firewater 2   (2g 7s 6c)
+
+   total spent: 99g 11s 39c
+Interlan deaths:1
+   Brilliant Mana Oil 4   (6g 3s 4c)
+   Dreamshard Elixir 1   (1g 99s 74c)
+   Elixir of Fortitude 1   (62s 31c)
+   Fire Protection 1 
+   Frost Protection 2 
+   Infallible Mind (Cerebral Cortex Compound) 2   (10g 9s 28c)
+   Mana Potion - Major 13   (22g 47s 83c)
+   Mana Regeneration (food or mageblood) 5 
+   Nature Protection 3 
+   Shadow Protection 1   (4g 89s 74c)
+   Spirit of Zanza 1   (1g 94s 85c)
+   Tea with Sugar 27   (7g 44s 93c)
+
+   total spent: 55g 51s 72c
+Jinp deaths:3
+   Elixir of Fortitude 1   (62s 31c)
+   Elixir of the Giants 2   (2g 76s 6c)
+   Elixir of the Mongoose 2   (2g 99s 68c)
+   Free Action Potion 3   (4g 20s 36c)
+   Frost Protection 2 
+   Goblin Sapper Charge 9   (13g 49s 55c)
+   Healing Potion - Major 2   (1g 52s 72c)
+   Invulnerability 2   (3g 18s 56c)
+   Shadow Protection 2   (9g 79s 48c)
+   Spirit of Zanza 1   (1g 94s 85c)
+   Strike of the Scorpok 2   (6g 52s 96c)
+   Winterfall Firewater 6   (6g 21s 18c)
+
+   total spent: 53g 27s 71c
+Jinp (self damage) deaths:0
+   Goblin Sapper Charge 9   (13g 49s 55c)
+
+   total spent: 13g 49s 55c
+Jocaste deaths:1
+   Brilliant Wizard Oil 3   (5g 81s 94c)
+   Dreamshard Elixir 2   (3g 99s 48c)
+   Elixir of Fortitude 2   (1g 24s 62c)
+   Frost Protection 2 
+   Mana Potion - Major 1   (1g 72s 91c)
+   Nature Protection 1 
+   Rumsey Rum Black Label 3   (1g 19s 91c)
+   Shadow Protection 1   (4g 89s 74c)
+   Spirit of Zanza 1   (1g 94s 85c)
+   Tea with Sugar 3   (82s 77c)
+
+   total spent: 21g 66s 22c
+Kayax deaths:5
+   Brilliant Wizard Oil 4   (7g 75s 92c)
+   Dreamtonic 5   (8g 86s 50c)
+   Elixir of Shadow Power 1   (1g 98s 74c)
+   Flask of Supreme Power 1   (49g 89s 72c)
+   Frost Protection 3 
+   Greater Arcane Elixir 1   (2g 52s 17c)
+   Regeneration 1 
+   Shadow Protection 1   (4g 89s 74c)
+   Stratholme Holy Water 1 
+
+   total spent: 75g 92s 79c
+Martl deaths:2
+   Consecrated Sharpening Stone 4   (16g 39s 96c)
+   Dense Dynamite 5   (6g 49s 35c)
+   Elixir of Fortitude 2   (1g 24s 62c)
+   Elixir of the Mongoose 2   (2g 99s 68c)
+   Flask of the Titans 1   (72g 79s 93c)
+   Free Action Potion 3   (4g 20s 36c)
+   Frost Protection 1 
+   Goblin Sapper Charge 2   (2g 99s 90c)
+   Healing Potion - Major 2   (1g 52s 72c)
+   Increased Stamina 1 
+   Invulnerability 1   (1g 59s 28c)
+   Medivh's Merlot 1   (1g 88s 38c)
+   Mighty Rage Potion 6   (25g 6s 86c)
+   Rage of Ages (ROIDS) 2   (4g 23s 82c)
+   Spirit of Zanza 2   (3g 89s 70c)
+   Tea with Sugar 2   (55s 18c)
+   Winterfall Firewater 4   (4g 14s 12c)
+
+   total spent: 150g 3s 86c
+Martl (self damage) deaths:0
+   Goblin Sapper Charge 2   (2g 99s 90c)
+
+   total spent: 2g 99s 90c
+Minoas deaths:2
+   Agility 4 
+   Consecrated Sharpening Stone 2   (8g 19s 98c)
+   Frost Protection 3 
+   Healing Potion - Superior 4   (16s 4c)
+   Tea with Sugar 10   (2g 75s 90c)
+
+   total spent: 11g 11s 92c
+Mosquitowins deaths:1
+   Blessed Wizard Oil 1   (5g 49s 98c)
+   Dreamshard Elixir 1   (1g 99s 74c)
+   Frost Protection 2 
+   Greater Arcane Elixir 1   (2g 52s 17c)
+   Healing Potion - Major 3   (2g 29s 8c)
+   Mana Potion - Major 2   (3g 45s 82c)
+   Nature Protection 4 
+   Rumsey Rum Black Label 3   (1g 19s 91c)
+   Shadow Protection 2   (9g 79s 48c)
+   Wizard Oil 1   (20s)
+
+   total spent: 26g 96s 18c
+Nehelenia deaths:2
+   Blessed Wizard Oil 1   (5g 49s 98c)
+   Brilliant Wizard Oil 1   (1g 93s 98c)
+   Dreamshard Elixir 1   (1g 99s 74c)
+   Dreamtonic 4   (7g 9s 20c)
+   Elixir of Fortitude 2   (1g 24s 62c)
+   Elixir of Greater Firepower 3   (3g 50s 22c)
+   Flask of Supreme Power 1   (49g 89s 72c)
+   Frost Protection 2 
+   Greater Arcane Elixir 1   (2g 52s 17c)
+   Healing Potion - Major 3   (2g 29s 8c)
+   Invulnerability 1   (1g 59s 28c)
+   Mana Potion - Major 2   (3g 45s 82c)
+   Noggenfogger Elixir 1 
+   Regeneration 1 
+   Shadow Protection 1   (4g 89s 74c)
+   Spirit of Zanza 1   (1g 94s 85c)
+   Stratholme Holy Water 2 
+
+   total spent: 87g 88s 40c
+Onetwofree deaths:1
+   Blessed Wizard Oil 2   (10g 99s 96c)
+   Brilliant Wizard Oil 1   (1g 93s 98c)
+   Dreamshard Elixir 1   (1g 99s 74c)
+   Dreamtonic 4   (7g 9s 20c)
+   Elixir of Fortitude 1   (62s 31c)
+   Elixir of Greater Firepower 2   (2g 33s 48c)
+   Elixir of Shadow Power 2   (3g 97s 48c)
+   Flask of Supreme Power 1   (49g 89s 72c)
+   Frost Protection 4 
+   Greater Arcane Elixir 1   (2g 52s 17c)
+   Invulnerability 2   (3g 18s 56c)
+   Nature Protection 1 
+   Shadow Protection 2   (9g 79s 48c)
+   Spirit of Zanza 1   (1g 94s 85c)
+   Stratholme Holy Water 12 
+   Tea with Sugar 5   (1g 37s 95c)
+
+   total spent: 97g 68s 88c
+Petie (Spankys) deaths:2
+   Agility 3 
+   Strength 2 
+Pitbound deaths:1
+   Anti-Venom 2   (9s 98c)
+   Consecrated Sharpening Stone 2   (8g 19s 98c)
+   Dense Dynamite 4   (5g 19s 48c)
+   Elixir of Fortitude 1   (62s 31c)
+   Elixir of Superior Defense 2   (4g 52s 84c)
+   Elixir of the Mongoose 1   (1g 49s 84c)
+   Flask of the Titans 1   (72g 79s 93c)
+   Free Action Potion 3   (4g 20s 36c)
+   Goblin Sapper Charge 1   (1g 49s 95c)
+   Greater Stoneshield 1   (3g 26s 44c)
+   Healing Potion - Major 1   (76s 36c)
+   Increased Stamina 2 
+   Medivh's Merlot 1   (1g 88s 38c)
+   Rage of Ages (ROIDS) 1   (2g 11s 91c)
+   Spirit of Zanza 1   (1g 94s 85c)
+   Winterfall Firewater 3   (3g 10s 59c)
+
+   total spent: 111g 73s 20c
+Pitbound (self damage) deaths:0
+   Goblin Sapper Charge 1   (1g 49s 95c)
+
+   total spent: 1g 49s 95c
+Pristitute deaths:3
+   Brilliant Mana Oil 2   (3g 1s 52c)
+   Dreamshard Elixir 1   (1g 99s 74c)
+   Elixir of Fortitude 2   (1g 24s 62c)
+   Flask of Distilled Wisdom 1   (47g 47s 87c)
+   Frost Protection 2 
+   Healing Potion - Major 1   (76s 36c)
+   Infallible Mind (Cerebral Cortex Compound) 1   (5g 4s 64c)
+   Jungle Remedy 2 
+   Mana Potion - Major 5   (8g 64s 55c)
+   Powerful Anti-Venom 1   (98s 99c)
+   Rumsey Rum Black Label 3   (1g 19s 91c)
+   Shadow Protection 1   (4g 89s 74c)
+   Spirit of Zanza 1   (1g 94s 85c)
+   Tea with Sugar 5   (1g 37s 95c)
+
+   total spent: 78g 60s 74c
+Psykhe deaths:2
+   Consecrated Sharpening Stone 3   (12g 29s 97c)
+   Elemental Sharpening Stone 1   (5g 38s 18c)
+   Elixir of the Mongoose 2   (2g 99s 68c)
+   Free Action Potion 2   (2g 80s 24c)
+   Invulnerability 1   (1g 59s 28c)
+   Jungle Remedy 4 
+   Mighty Rage Potion 4   (16g 71s 24c)
+   Rage of Ages (ROIDS) 2   (4g 23s 82c)
+   Spirit of Zanza 1   (1g 94s 85c)
+   Winterfall Firewater 5   (5g 17s 65c)
+
+   total spent: 53g 14s 91c
+Randgriz deaths:1
+   Brilliant Mana Oil 2   (3g 1s 52c)
+   Dreamshard Elixir 2   (3g 99s 48c)
+   Flask of Distilled Wisdom 1   (47g 47s 87c)
+   Frost Protection 1 
+   Infallible Mind (Cerebral Cortex Compound) 2   (10g 9s 28c)
+   Mana Potion - Major 8   (13g 83s 28c)
+   Nature Protection 1 
+   Shadow Protection 1   (4g 89s 74c)
+   Spirit of Zanza 1   (1g 94s 85c)
+   Tea with Sugar 11   (3g 3s 49c)
+
+   total spent: 88g 29s 51c
+Rila deaths:2
+   Consecrated Sharpening Stone 4   (16g 39s 96c)
+   Dense Dynamite 1   (1g 29s 87c)
+   Elemental Sharpening Stone 2   (10g 76s 36c)
+   Elixir of Fortitude 1   (62s 31c)
+   Elixir of the Mongoose 1   (1g 49s 84c)
+   Free Action Potion 3   (4g 20s 36c)
+   Frost Protection 2 
+   Goblin Sapper Charge 4   (5g 99s 80c)
+   Great Rage Potion 9   (5g 68s 62c)
+   Medivh's Merlot 2   (3g 76s 76c)
+   Mighty Rage Potion 2   (8g 35s 62c)
+   Spirit of Zanza 1   (1g 94s 85c)
+   Stratholme Holy Water 24 
+   Strike of the Scorpok 1   (3g 26s 48c)
+   Tea with Sugar 1   (27s 59c)
+   Winterfall Firewater 5   (5g 17s 65c)
+
+   total spent: 69g 26s 7c
+Rila (self damage) deaths:0
+   Goblin Sapper Charge 4   (5g 99s 80c)
+
+   total spent: 5g 99s 80c
+Ruwusz deaths:2
+   Elixir of the Mongoose 1   (1g 49s 84c)
+   Free Action Potion 2   (2g 80s 24c)
+   Frost Protection 2 
+   Healing Potion - Major 4   (3g 5s 44c)
+   Nature Protection 1 
+   Shadow Protection 1   (4g 89s 74c)
+   Tea with Sugar 2   (55s 18c)
+   Winterfall Firewater 5   (5g 17s 65c)
+
+   total spent: 17g 98s 9c
+Saberslash deaths:1
+   Agility 1 
+   Consecrated Sharpening Stone 3   (12g 29s 97c)
+   Elemental Sharpening Stone 1   (5g 38s 18c)
+   Flask of the Titans 1   (72g 79s 93c)
+   Free Action Potion 3   (4g 20s 36c)
+   Frost Protection 2 
+   Goblin Sapper Charge 7   (10g 49s 65c)
+   Healing Potion - Major 1   (76s 36c)
+   Invulnerability 1   (1g 59s 28c)
+   Mighty Rage Potion 19   (79g 38s 39c)
+   Shadow Protection 1   (4g 89s 74c)
+   Stratholme Holy Water 6 
+   Tea with Sugar 2   (55s 18c)
+   Winterfall Firewater 3   (3g 10s 59c)
+
+   total spent: 195g 47s 63c
+Saberslash (self damage) deaths:0
+   Goblin Sapper Charge 7   (10g 49s 65c)
+
+   total spent: 10g 49s 65c
+Sabroso deaths:0
+   Consecrated Sharpening Stone 4   (16g 39s 96c)
+   Dense Dynamite 19   (24g 67s 53c)
+   Elemental Sharpening Stone 2   (10g 76s 36c)
+   Flask of the Titans 1   (72g 79s 93c)
+   Free Action Potion 3   (4g 20s 36c)
+   Frost Protection 1 
+   Goblin Sapper Charge 12   (17g 99s 40c)
+   Mighty Rage Potion 12   (50g 13s 72c)
+   Shadow Protection 2   (9g 79s 48c)
+   Winterfall Firewater 1   (1g 3s 53c)
+
+   total spent: 207g 80s 27c
+Sabroso (self damage) deaths:0
+   Goblin Sapper Charge 12   (17g 99s 40c)
+
+   total spent: 17g 99s 40c
+Selverslip deaths:3
+   Dreamshard Elixir 2   (3g 99s 48c)
+   Elixir of Fortitude 2   (1g 24s 62c)
+   Flask of Distilled Wisdom 1   (47g 47s 87c)
+   Frost Protection 2 
+   Infallible Mind (Cerebral Cortex Compound) 2   (10g 9s 28c)
+   Mana Potion - Major 14   (24g 20s 74c)
+   Mana Regeneration (food or mageblood) 6 
+   Nature Protection 1 
+   Shadow Protection 1   (4g 89s 74c)
+   Tea with Sugar 8   (2g 20s 72c)
+
+   total spent: 94g 12s 45c
+Shape deaths:1
+   Consecrated Sharpening Stone 2   (8g 19s 98c)
+   Dragonbreath Chili 10   (15g 18s 20c)
+   Dreamtonic 3   (5g 31s 90c)
+   Elixir of Fortitude 2   (1g 24s 62c)
+   Elixir of Greater Firepower 1   (1g 16s 74c)
+   Fire Protection 1 
+   Flask of the Titans 1   (72g 79s 93c)
+   Free Action Potion 3   (4g 20s 36c)
+   Frost Protection 2 
+   Goblin Sapper Charge 8   (11g 99s 60c)
+   Greater Arcane Elixir 1   (2g 52s 17c)
+   Mighty Rage Potion 8   (33g 42s 48c)
+   Nature Protection 1 
+   Shadow Protection 2   (9g 79s 48c)
+   Spirit of Zanza 1   (1g 94s 85c)
+   Tea with Sugar 10   (2g 75s 90c)
+   Winterfall Firewater 3   (3g 10s 59c)
+
+   total spent: 173g 66s 80c
+Shape (self damage) deaths:0
+   Goblin Sapper Charge 8   (11g 99s 60c)
+
+   total spent: 11g 99s 60c
+Shizumo deaths:1
+   Elixir of Greater Intellect 2   (1g 9s 98c)
+   Mana Potion - Greater 15   (66s 45c)
+
+   total spent: 1g 76s 43c
+Snega deaths:2
+   Brilliant Mana Oil 4   (6g 3s 4c)
+   Dreamshard Elixir 2   (3g 99s 48c)
+   Elixir of Fortitude 2   (1g 24s 62c)
+   Fire Protection 1 
+   Flask of Distilled Wisdom 1   (47g 47s 87c)
+   Frost Protection 2 
+   Healing Potion - Major 2   (1g 52s 72c)
+   Infallible Mind (Cerebral Cortex Compound) 2   (10g 9s 28c)
+   Mana Potion - Major 6   (10g 37s 46c)
+   Mana Regeneration (food or mageblood) 7 
+   Rumsey Rum Black Label 2   (79s 94c)
+   Shadow Protection 3   (14g 69s 22c)
+   Spirit of Zanza 1   (1g 94s 85c)
+   Tea with Sugar 17   (4g 69s 3c)
+
+   total spent: 102g 87s 51c
+Spankys deaths:1
+   Elixir of Fortitude 1   (62s 31c)
+   Elixir of the Mongoose 1   (1g 49s 84c)
+   Frost Protection 4 
+   Goblin Sapper Charge 2   (2g 99s 90c)
+   Invulnerability 1   (1g 59s 28c)
+   Potion of Quickness 6   (15g 54s)
+   Rumsey Rum Black Label 3   (1g 19s 91c)
+   Spirit of Zanza 1   (1g 94s 85c)
+   Strike of the Scorpok 1   (3g 26s 48c)
+   Tea with Sugar 2   (55s 18c)
+
+   total spent: 29g 21s 75c
+Spankys (self damage) deaths:0
+   Goblin Sapper Charge 2   (2g 99s 90c)
+
+   total spent: 2g 99s 90c
+Squirreled deaths:3
+   Consecrated Sharpening Stone 4   (16g 39s 96c)
+   Dense Sharpening Stone 2 
+   Elixir of Superior Defense 2   (4g 52s 84c)
+   Elixir of the Mongoose 2   (2g 99s 68c)
+   Fire Protection 2 
+   Flask of the Titans 1   (72g 79s 93c)
+   Free Action Potion 3   (4g 20s 36c)
+   Goblin Sapper Charge 4   (5g 99s 80c)
+   Greater Stoneshield 10   (32g 64s 40c)
+   Healing Potion - Major 1   (76s 36c)
+   Increased Stamina 4 
+   Invulnerability 1   (1g 59s 28c)
+   Medivh's Merlot 2   (3g 76s 76c)
+   Spirit of Zanza 1   (1g 94s 85c)
+   Strike of the Scorpok 2   (6g 52s 96c)
+   Tea with Sugar 10   (2g 75s 90c)
+
+   total spent: 156g 93s 8c
+Squirreled (self damage) deaths:0
+   Goblin Sapper Charge 4   (5g 99s 80c)
+
+   total spent: 5g 99s 80c
+Starr deaths:2
+   Dreamshard Elixir 1   (1g 99s 74c)
+   Elixir of Shadow Power 1   (1g 98s 74c)
+   Mana Potion - Major 2   (3g 45s 82c)
+   Shadow Protection 2   (9g 79s 48c)
+
+   total spent: 17g 23s 78c
+Starraven deaths:1
+   Blessed Wizard Oil 2   (10g 99s 96c)
+   Dreamtonic 4   (7g 9s 20c)
+   Fire Protection 1 
+   Flask of Supreme Power 1   (49g 89s 72c)
+   Frost Protection 3 
+   Goblin Sapper Charge 1   (1g 49s 95c)
+   Healing Potion - Superior 1   (4s 1c)
+   Mana Potion - Major 4   (6g 91s 64c)
+   Mana Potion - Superior 2   (1g 51s 44c)
+   Nature Protection 1 
+   Potion of Quickness 2   (5g 18s)
+   Shadow Protection 1   (4g 89s 74c)
+   Spirit of Zanza 1   (1g 94s 85c)
+   Stratholme Holy Water 1 
+   Tea with Sugar 12   (3g 31s 8c)
+
+   total spent: 93g 29s 59c
+Starraven (self damage) deaths:0
+   Goblin Sapper Charge 1   (1g 49s 95c)
+
+   total spent: 1g 49s 95c
+Suigetsu deaths:2
+   Blessed Wizard Oil 3   (16g 49s 94c)
+   Dreamshard Elixir 2   (3g 99s 48c)
+   Dreamtonic 4   (7g 9s 20c)
+   Elixir of Shadow Power 3   (5g 96s 22c)
+   Flask of Supreme Power 1   (49g 89s 72c)
+   Frost Protection 2 
+   Greater Arcane Elixir 2   (5g 4s 34c)
+   Invulnerability 2   (3g 18s 56c)
+   Mana Potion - Major 6   (10g 37s 46c)
+   Shadow Protection 1   (4g 89s 74c)
+   Spirit of Zanza 1   (1g 94s 85c)
+   Stratholme Holy Water 5 
+   Tea with Sugar 5   (1g 37s 95c)
+
+   total spent: 110g 27s 46c
+Supal deaths:2
+   Dragonbreath Chili 6   (9g 10s 92c)
+   Dreamshard Elixir 1   (1g 99s 74c)
+   Dreamtonic 4   (7g 9s 20c)
+   Elixir of Fortitude 1   (62s 31c)
+   Elixir of Superior Defense 1   (2g 26s 42c)
+   Elixir of the Mongoose 1   (1g 49s 84c)
+   Fire Protection 2 
+   Flask of Supreme Power 1   (49g 89s 72c)
+   Free Action Potion 2   (2g 80s 24c)
+   Frost Protection 2 
+   Greater Arcane Elixir 1   (2g 52s 17c)
+   Increased Stamina 1 
+   Mana Potion - Major 10   (17g 29s 10c)
+   Medivh's Merlot 1   (1g 88s 38c)
+   Nature Protection 1 
+   Shadow Protection 1   (4g 89s 74c)
+   Spirit of Zanza 1   (1g 94s 85c)
+   Tea with Sugar 21   (5g 79s 39c)
+
+   total spent: 109g 62s 2c
+Tinerispew deaths:1
+   Arcane Elixir 4 
+   Fire Protection 1 
+   Frost Protection 2 
+   Increased Stamina 1 
+   Shadow Protection 1   (4g 89s 74c)
+   Wizard Oil 3   (60s)
+
+   total spent: 5g 49s 74c
+Xelya deaths:2
+   Blessed Wizard Oil 2   (10g 99s 96c)
+   Brilliant Wizard Oil 1   (1g 93s 98c)
+   Dense Dynamite 2   (2g 59s 74c)
+   Dragonbreath Chili 3   (4g 55s 46c)
+   Dreamshard Elixir 2   (3g 99s 48c)
+   Dreamtonic 4   (7g 9s 20c)
+   Elixir of Fortitude 2   (1g 24s 62c)
+   Elixir of Superior Defense 2   (4g 52s 84c)
+   Elixir of the Mongoose 2   (2g 99s 68c)
+   Fire Protection 1 
+   Free Action Potion 2   (2g 80s 24c)
+   Frost Protection 2 
+   Goblin Sapper Charge 2   (2g 99s 90c)
+   Greater Arcane Elixir 2   (5g 4s 34c)
+   Greater Stoneshield 2   (6g 52s 88c)
+   Increased Stamina 2 
+   Mana Potion - Major 1   (1g 72s 91c)
+   Rumsey Rum Black Label 3   (1g 19s 91c)
+   Spirit of Zanza 1   (1g 94s 85c)
+   Strike of the Scorpok 2   (6g 52s 96c)
+   Tea with Sugar 10   (2g 75s 90c)
+   Winterfall Firewater 4   (4g 14s 12c)
+
+   total spent: 75g 62s 97c
+Xelya (self damage) deaths:0
+   Goblin Sapper Charge 2   (2g 99s 90c)
+
+   total spent: 2g 99s 90c
+Zloveleen deaths:6
+   Consecrated Sharpening Stone 3   (12g 29s 97c)
+   Elemental Sharpening Stone 1   (5g 38s 18c)
+   Elixir of the Mongoose 1   (1g 49s 84c)
+   Flask of the Titans 1   (72g 79s 93c)
+   Free Action Potion 3   (4g 20s 36c)
+   Frost Protection 2 
+   Healing Potion - Major 2   (1g 52s 72c)
+   Invulnerability 1   (1g 59s 28c)
+   Mighty Rage Potion 9   (37g 60s 29c)
+   Rage of Ages (ROIDS) 1   (2g 11s 91c)
+   Spirit of Zanza 1   (1g 94s 85c)
+   Tea with Sugar 1   (27s 59c)
+   Winterfall Firewater 7   (7g 24s 71c)
+
+   total spent: 148g 49s 63c
+
+
+Sunder Armor Summary (trash and boss counts)
+   Pitbound 291 49
+   Ruwusz 176 28
+   Squirreled 158 187
+   Sabroso 140 37
+   Zloveleen 94 27
+   Martl 75 39
+   Psykhe 64 22
+   Saberslash 54 27
+   Rila 34 15
+
+
+Cooldown Summary
+   Warrior
+      Death Wish
+         Sabroso 23
+         Psykhe 19
+         Rila 16
+         Saberslash 14
+         Martl 14
+         Squirreled 12
+         Pitbound 9
+         Zloveleen 4
+      Shield Wall
+         Zloveleen 1
+         Squirreled 1
+      Recklessness
+         Sabroso 4
+         Ruwusz 4
+         Saberslash 3
+         Rila 3
+         Psykhe 3
+         Pitbound 3
+         Martl 3
+         Zloveleen 2
+      Bloodrage
+         Ruwusz 67
+         Zloveleen 55
+         Saberslash 55
+         Rila 54
+         Squirreled 43
+         Sabroso 40
+         Martl 39
+         Psykhe 36
+         Pitbound 8
+      Kiss of the Spider
+         Saberslash 29
+         Zloveleen 23
+         Squirreled 16
+         Psykhe 12
+         Pitbound 10
+         Martl 3
+      Slayer's Crest
+         Rila 13
+         Martl 13
+         Psykhe 10
+         Sabroso 9
+         Saberslash 6
+      Badge of the Swarmguard
+         Zloveleen 12
+         Psykhe 12
+         Sabroso 7
+         Rila 3
+      Diamond Flask
+         Zloveleen 5
+         Saberslash 1
+      Gri'lek's Charm of Might
+         Squirreled 1
+      Berserking
+         Psykhe 18
+      Chastise Haste (received)
+         Saberslash 39
+   Mage
+      Combustion
+         Nehelenia 15
+         Aquatic 10
+      Scorch
+         Aquatic 215
+         Nehelenia 180
+         Tinerispew 11
+      The Restrained Essence of Sapphiron
+         Nehelenia 17
+         Aquatic 6
+      Mind Quickening Gem
+         Nehelenia 1
+         Mosquitowins 1
+   Shaman
+      Nature's Swiftness
+         Interlan 18
+         Snega 13
+         Bobbywf 10
+         Selverslip 7
+      Windfury Totem
+         Interlan 121
+         Selverslip 115
+         Snega 109
+         Bobbywf 100
+      Tranquil Air Totem
+         Clapya 96
+      Strength of Earth Totem
+         Selverslip 116
+         Snega 109
+         Bobbywf 102
+         Interlan 99
+         Clapya 75
+      Mana Spring Totem
+         Snega 107
+         Bobbywf 104
+         Selverslip 88
+         Interlan 60
+         Clapya 40
+      Ancestral Spirit
+         Clapya 5
+         Interlan 4
+         Snega 2
+         Selverslip 2
+      Zandalarian Hero Charm
+         Bobbywf 9
+         Selverslip 5
+      Natural Alignment Crystal
+         Clapya 5
+         Selverslip 2
+      Berserking
+         Interlan 14
+         Clapya 14
+   Druid
+      Rebirth
+         Starraven 2
+         Shape 2
+         Eleae 1
+      Swiftmend
+         Aveenna 88
+      Slayer's Crest
+         Shape 2
+      The Restrained Essence of Sapphiron
+         Starraven 41
+      War Stomp
+         Shape 3
+   Priest
+      Inner Focus
+         Suigetsu 12
+         Pristitute 9
+         Randgriz 6
+         Starr 3
+      Resurrection
+         Randgriz 3
+         Pristitute 2
+         Suigetsu 1
+      The Eye of the Dead
+         Pristitute 8
+         Randgriz 3
+      Zandalarian Hero Charm
+         Suigetsu 5
+      Stoneform
+         Suigetsu 4
+      Desperate Prayer
+         Starr 3
+   Paladin
+      Holy Shock (heal)
+         Shizumo 81
+         Jocaste 32
+      Redemption
+         Jocaste 6
+         Xelya 3
+         Supal 1
+      The Eye of the Dead
+         Jocaste 6
+      The Restrained Essence of Sapphiron
+         Xelya 7
+   Rogue
+      Adrenaline Rush
+         Jinp 18
+      Blade Flurry
+         Jinp 31
+      Kiss of the Spider
+         Jinp 27
+      Slayer's Crest
+         Jinp 19
+      Badge of the Swarmguard
+         Jinp 1
+   Warlock
+      The Restrained Essence of Sapphiron
+         Adachisakura 1
+      Zandalarian Hero Charm
+         Kayax 2
+   Hunter
+      Rapid Fire
+         Minoas 17
+         Spankys 11
+      Slayer's Crest
+         Spankys 23
+      Jom Gabbar
+         Minoas 5
+         Spankys 1
+      Badge of the Swarmguard
+         Spankys 13
+      Earthstrike
+         Minoas 4
+
+
+Proc Summary
+   Clearcasting
+      Eleae 252
+      Clapya 241
+      Shape 207
+      Mosquitowins 123
+      Starraven 109
+      Tinerispew 91
+      Cheesebreath 77
+      Nehelenia 67
+      Aquatic 61
+   Elemental Devastation
+      Clapya 1
+   Enrage
+      Squirreled 59
+      Rila 54
+      Martl 45
+      Sabroso 38
+      Psykhe 36
+      Saberslash 32
+      Pitbound 19
+      Zloveleen 16
+   Flurry
+      Rila 396
+      Squirreled 388
+      Pitbound 349
+      Sabroso 346
+      Psykhe 331
+      Martl 323
+      Saberslash 321
+      Zloveleen 103
+   Nature's Grace
+      Starraven 239
+      Cheesebreath 130
+   Spell Blasting
+      Supal 111
+      Xelya 68
+   Vengeance
+      Bolyarka 114
+   Extra Attacks
+      Hand of Justice
+         Ruwusz 1
+      Reckoning
+         Xelya 67
+         Supal 57
+      Sword Specialization
+         Ruwusz 66
+         Zloveleen 1
+         Saberslash 1
+      Windfury Totem
+         Eleae 378
+         Shape 361
+         Saberslash 341
+         Sabroso 335
+         Martl 300
+         Psykhe 297
+         Rila 289
+         Pitbound 282
+         Jinp 275
+         Ruwusz 260
+         Squirreled 244
+         Zloveleen 231
+         Supal 181
+         Bolyarka 177
+         Petie (Spankys) 161
+         Xelya 130
+         Selverslip 15
+         Interlan 8
+         Spankys 4
+
+
+Annihilator Log
+   <nothing found>
+
+Flame Buffet (dragonling) Log
+   2/8 10:35:08.194  Anub'Rekhan gains Flame Buffet (1).
+   2/8 10:49:24.332  Maexxna gains Flame Buffet (1).
+   2/8 10:49:28.201  Maexxna gains Flame Buffet (2).
+   2/8 10:49:50.734  Maexxna gains Flame Buffet (3).
+
+
+Gluth Log
+   2/8 11:57:39.251  Gluth gains Frenzy (1).
+   2/8 11:57:42.670  Gluth 's Frenzy is removed.
+   2/8 11:57:42.670  Spankys casts Tranquilizing Shot on Gluth.
+   2/8 11:57:43.361  Minoas casts Tranquilizing Shot on Gluth.
+   2/8 11:57:49.170  Gluth gains Frenzy (1).
+   2/8 11:57:59.114  Gluth gains Frenzy (1).
+   2/8 11:58:04.055  Gluth 's Frenzy is removed.
+   2/8 11:58:04.055  Spankys casts Tranquilizing Shot on Gluth.
+   2/8 11:58:04.128  Minoas casts Tranquilizing Shot on Gluth.
+   2/8 11:58:09.180  Gluth gains Frenzy (1).
+   2/8 11:58:19.172  Gluth gains Frenzy (1).
+   2/8 11:58:24.929  Gluth 's Frenzy is removed.
+   2/8 11:58:24.929  Minoas casts Tranquilizing Shot on Gluth.
+   2/8 11:58:25.877  Spankys casts Tranquilizing Shot on Gluth.
+   2/8 11:58:29.287  Gluth gains Frenzy (1).
+   2/8 11:58:39.378  Gluth gains Frenzy (1).
+   2/8 11:58:39.533  Gluth dies.
+
+
+4HM Zeliek Chain Log (4+)
+
+   2/8 11:13:53.217  Sir Zeliek 's Holy Wrath hits Tinerispew for 557 Holy damage.
+   2/8 11:13:53.217  Sir Zeliek 's Holy Wrath hits Adachisakura for 1208 Holy damage.
+   2/8 11:13:53.217  Sir Zeliek 's Holy Wrath hits Clapya for 2172 Holy damage.
+   2/8 11:13:53.217  Sir Zeliek 's Holy Wrath hits Nehelenia for 4120 Holy damage.
+   2/8 11:13:53.217  Sir Zeliek 's Holy Wrath hits Bobbywf for 8864 Holy damage.
+   2/8 11:13:53.217  Sir Zeliek 's Holy Wrath hits Aquatic for 16928 Holy damage.
+   2/8 11:13:53.244  Sir Zeliek 's Holy Wrath hits Jocaste for 32704 Holy damage.
+   2/8 11:13:53.251  Sir Zeliek 's Holy Wrath hits Cheesebreath for 72960 Holy damage.
+
+
+KT Shadow Fissure Log
+   2/8 12:20:12.530  Kel'Thuzad casts Shadow Fissure.
+   2/8 12:20:15.482  Shadow Fissure 's Void Blast hits Snega for 124627 Shadow damage.
+   2/8 12:20:22.561  Kel'Thuzad casts Shadow Fissure.
+   2/8 12:20:39.659  Kel'Thuzad casts Shadow Fissure.
+   2/8 12:20:42.712  Shadow Fissure 's Void Blast hits Zloveleen for 141453 Shadow damage.
+   2/8 12:20:53.561  Kel'Thuzad casts Shadow Fissure.
+   2/8 12:21:19.533  Kel'Thuzad casts Shadow Fissure.
+   2/8 12:21:48.623  Kel'Thuzad casts Shadow Fissure.
+   2/8 12:22:03.658  Kel'Thuzad casts Shadow Fissure.
+
+
+KT Frostbolt Log
+   
+   2/8 12:20:08.401  Kel'Thuzad begins to cast Frostbolt.
+   2/8 12:20:10.014  Squirreled 's Shield Bash crits Kel'Thuzad for 96.
+   2/8 12:20:10.281  Sabroso 's Pummel crits Kel'Thuzad for 352.
+   2/8 12:20:10.641  Jinp 's Kick crits Kel'Thuzad for 176.
+   2/8 12:20:11.633  Zloveleen 's Pummel hits Kel'Thuzad for 131.
+   
+   2/8 12:20:20.521  Kel'Thuzad begins to cast Frostbolt.
+   2/8 12:20:21.858  Pitbound 's Shield Bash crits Kel'Thuzad for 80.
+   2/8 12:20:24.880  Zloveleen 's Pummel hits Kel'Thuzad for 142.
+   2/8 12:20:29.208  Saberslash 's Pummel hits Kel'Thuzad for 123.
+   2/8 12:20:29.514  Psykhe 's Pummel hits Kel'Thuzad for 139.
+   
+   2/8 12:20:33.540  Kel'Thuzad begins to cast Frostbolt.
+   2/8 12:20:34.517  Jinp 's Kick crits Kel'Thuzad for 176.
+   2/8 12:20:34.630  Pitbound 's Shield Bash hits Kel'Thuzad for 40.
+   2/8 12:20:39.762  Psykhe 's Pummel hits Kel'Thuzad for 128.
+   2/8 12:20:43.017  Saberslash 's Pummel crits Kel'Thuzad for 290.
+   
+   2/8 12:20:46.648  Kel'Thuzad begins to cast Frostbolt.
+   2/8 12:20:48.005  Pitbound 's Shield Bash hits Kel'Thuzad for 40.
+   2/8 12:20:48.401  Sabroso 's Pummel crits Kel'Thuzad for 322.
+   2/8 12:20:54.293  Psykhe 's Pummel crits Kel'Thuzad for 282.
+   2/8 12:20:56.691  Saberslash 's Pummel crits Kel'Thuzad for 339.
+   
+   2/8 12:20:57.796  Kel'Thuzad begins to cast Frostbolt.
+   2/8 12:20:59.406  Sabroso 's Pummel hits Kel'Thuzad for 146.
+   
+   2/8 12:21:13.704  Kel'Thuzad begins to cast Frostbolt.
+   2/8 12:21:14.741  Pitbound 's Shield Bash hits Kel'Thuzad for 37.
+   2/8 12:21:27.829  Zloveleen 's Pummel hits Kel'Thuzad for 109.
+   
+   2/8 12:21:29.819  Kel'Thuzad begins to cast Frostbolt.
+   2/8 12:21:31.729  Sabroso 's Pummel hits Kel'Thuzad for 157.
+   2/8 12:21:31.729  Pitbound 's Shield Bash hits Kel'Thuzad for 40.
+   2/8 12:21:32.307  Jinp 's Kick crits Kel'Thuzad for 176.
+   2/8 12:21:38.086  Zloveleen 's Pummel hits Kel'Thuzad for 109.
+   
+   2/8 12:21:41.915  Kel'Thuzad begins to cast Frostbolt.
+   2/8 12:21:43.114  Jinp 's Kick crits Kel'Thuzad for 169.
+   2/8 12:21:43.114  Sabroso 's Pummel hits Kel'Thuzad for 184.
+   
+   2/8 12:21:56.983  Kel'Thuzad begins to cast Frostbolt.
+   2/8 12:21:58.183  Jinp 's Kick hits Kel'Thuzad for 85.
+
+
+KT Frost Blast Log
+   2/8 12:20:48.659  Tinerispew is afflicted by Frost Blast (1).
+   2/8 12:20:49.608  Kel'Thuzad 's Frost Blast hits Tinerispew for 0 Frost damage. (882 absorbed)
+   2/8 12:20:50.663  Kel'Thuzad 's Frost Blast hits Tinerispew for 0 Frost damage. (882 absorbed)
+   2/8 12:20:51.609  Kel'Thuzad 's Frost Blast hits Tinerispew for 0 Frost damage. (882 absorbed)
+   2/8 12:20:52.686  Kel'Thuzad 's Frost Blast hits Tinerispew for 415 Frost damage. (467 absorbed)
+   2/8 12:20:53.561  Kel'Thuzad 's Frost Blast hits Tinerispew for 882 Frost damage.
+   2/8 12:21:43.550  Martl is afflicted by Frost Blast (1).
+   2/8 12:21:43.561  Supal is afflicted by Frost Blast (1).
+   2/8 12:21:43.561  Saberslash is afflicted by Frost Blast (1).
+   2/8 12:21:43.561  Bolyarka is afflicted by Frost Blast (1).
+   2/8 12:21:43.664  Eleae is afflicted by Frost Blast (1).
+   2/8 12:21:43.664  Sabroso is afflicted by Frost Blast (1).
+   2/8 12:21:43.678  Xelya is afflicted by Frost Blast (1).
+   2/8 12:21:44.610  Kel'Thuzad 's Frost Blast hits Xelya for 1848 Frost damage.
+   2/8 12:21:44.610  Kel'Thuzad 's Frost Blast hits Bolyarka for 1186 Frost damage.
+   2/8 12:21:44.610  Kel'Thuzad 's Frost Blast hits Saberslash for 1649 Frost damage.
+   2/8 12:21:44.610  Kel'Thuzad 's Frost Blast hits Supal for 1044 Frost damage.
+   2/8 12:21:44.610  Kel'Thuzad 's Frost Blast hits Martl for 2198 Frost damage.
+   2/8 12:21:44.610  Kel'Thuzad 's Frost Blast hits Sabroso for 1815 Frost damage.
+   2/8 12:21:44.610  Kel'Thuzad 's Frost Blast hits Eleae for 1376 Frost damage.
+   2/8 12:21:45.607  Kel'Thuzad 's Frost Blast hits Xelya for 1848 Frost damage.
+   2/8 12:21:45.607  Kel'Thuzad 's Frost Blast hits Bolyarka for 1186 Frost damage.
+   2/8 12:21:45.607  Kel'Thuzad 's Frost Blast hits Saberslash for 1649 Frost damage.
+   2/8 12:21:45.607  Kel'Thuzad 's Frost Blast hits Supal for 1044 Frost damage.
+   2/8 12:21:45.607  Kel'Thuzad 's Frost Blast hits Martl for 2198 Frost damage.
+   2/8 12:21:45.607  Kel'Thuzad 's Frost Blast hits Sabroso for 1815 Frost damage.
+   2/8 12:21:45.607  Kel'Thuzad 's Frost Blast hits Eleae for 1376 Frost damage.
+   2/8 12:21:46.536  Kel'Thuzad 's Frost Blast hits Xelya for 1848 Frost damage.
+   2/8 12:21:46.536  Kel'Thuzad 's Frost Blast hits Bolyarka for 1186 Frost damage.
+   2/8 12:21:46.536  Kel'Thuzad 's Frost Blast hits Saberslash for 1649 Frost damage.
+   2/8 12:21:46.536  Kel'Thuzad 's Frost Blast hits Supal for 1050 Frost damage.
+   2/8 12:21:46.536  Kel'Thuzad 's Frost Blast hits Martl for 2198 Frost damage.
+   2/8 12:21:46.551  Kel'Thuzad 's Frost Blast hits Sabroso for 1815 Frost damage.
+   2/8 12:21:46.551  Kel'Thuzad 's Frost Blast hits Eleae for 1376 Frost damage.
+   2/8 12:21:47.580  Kel'Thuzad 's Frost Blast hits Bolyarka for 1186 Frost damage.
+   2/8 12:21:47.580  Kel'Thuzad 's Frost Blast hits Saberslash for 1649 Frost damage.
+   2/8 12:21:47.580  Kel'Thuzad 's Frost Blast hits Supal for 1500 Frost damage.
+   2/8 12:21:47.580  Kel'Thuzad 's Frost Blast hits Martl for 2198 Frost damage.
+   2/8 12:21:47.580  Kel'Thuzad 's Frost Blast hits Sabroso for 1905 Frost damage.
+   2/8 12:21:47.580  Kel'Thuzad 's Frost Blast hits Eleae for 1376 Frost damage.
+   2/8 12:21:48.619  Kel'Thuzad 's Frost Blast hits Bolyarka for 1186 Frost damage.
+   2/8 12:21:48.619  Kel'Thuzad 's Frost Blast hits Saberslash for 1649 Frost damage.
+   2/8 12:21:48.619  Kel'Thuzad 's Frost Blast hits Supal for 1500 Frost damage.
+   2/8 12:21:48.619  Kel'Thuzad 's Frost Blast hits Martl for 2198 Frost damage.
+   2/8 12:21:48.619  Kel'Thuzad 's Frost Blast hits Sabroso for 1905 Frost damage.
+   2/8 12:21:48.619  Kel'Thuzad 's Frost Blast hits Eleae for 1376 Frost damage.
+
+
+Pets
+   Thunder (Minoas) owned by Minoas
+   Petie (Spankys) owned by Spankys
+
+
+Class Detection
+   Adachisakura warlock
+   Aquatic mage
+   Aveenna druid
+   Bobbywf shaman
+   Bolyarka paladin
+   Cheesebreath druid
+   Clapya shaman
+   Clapya (self damage) unknown
+   Eleae druid
+   Interlan shaman
+   Jinp rogue
+   Jinp (self damage) unknown
+   Jocaste paladin
+   Kayax warlock
+   Martl warrior
+   Martl (self damage) unknown
+   Minoas hunter
+   Mosquitowins mage
+   Nehelenia mage
+   Onetwofree warlock
+   Petie (Spankys) unknown
+   Pitbound warrior
+   Pitbound (self damage) unknown
+   Pristitute priest
+   Psykhe warrior
+   Randgriz priest
+   Rila warrior
+   Rila (self damage) unknown
+   Ruwusz warrior
+   Saberslash warrior
+   Saberslash (self damage) unknown
+   Sabroso warrior
+   Sabroso (self damage) unknown
+   Selverslip shaman
+   Shape druid
+   Shape (self damage) unknown
+   Shizumo paladin
+   Snega shaman
+   Spankys hunter
+   Spankys (self damage) unknown
+   Squirreled warrior
+   Squirreled (self damage) unknown
+   Starr priest
+   Starraven druid
+   Starraven (self damage) unknown
+   Suigetsu priest
+   Supal paladin
+   Tinerispew mage
+   Xelya paladin
+   Xelya (self damage) unknown
+   Zloveleen warrior
+
+
+Tech
+   project version 2025.1086
+   project homepage https://github.com/melbaa/summarize_consumes
+   prices server nord
+   prices timestamp 2025-01-05T00:00:01.344841 (a month ago)
+   log size 29.1 MB
+   log lines 413920
+   skipped log lines 630 (0.15%)
+   processed in 61.55 seconds. 6725.03 log lines/sec
+   runtime platform win32
+   runtime implementation (name='cpython', cache_tag='cpython-310', version=sys.version_info(major=3, minor=10, micro=1, releaselevel='final', serial=0), hexversion=50987504)
+   runtime version 3.10.1 (tags/v3.10.1:2cd268a, Dec  6 2021, 19:10:37) [MSC v.1929 64 bit (AMD64)]

@@ -1,0 +1,221 @@
+Interlan  3034832
+  Chain Heal  2567960
+  Healing Wave  417038
+  Lesser Healing Wave  27171
+  Tea with Sugar  20152
+  Judgement of Light  2511
+Aveenna  2759699
+  Regrowth  1846025
+  Rejuvenation  502652
+  Swiftmend  193281
+  Healing Touch  107682
+  Tranquility  97278
+  Tea with Sugar  12781
+Snega  2386471
+  Chain Heal  2136351
+  Healing Wave  120098
+  Lesser Healing Wave  113512
+  Tea with Sugar  13116
+  Healing Potion  3394
+Shizumo  2233909
+  Flash of Light  1924920
+  Holy Shock (heal)  156010
+  Holy Light  144804
+  Cleanse  6150
+  Judgement of Light  2025
+Pristitute  2003768
+  Flash Heal  958727
+  Greater Heal  494413
+  Renew  429344
+  Prayer of Healing  90017
+  Lightwell Renew  21362
+  First Aid  5250
+  Tea with Sugar  3536
+  Healing Potion  1119
+Jocaste  1978246
+  Flash of Light  1834715
+  Holy Shock (heal)  72724
+  Holy Light  44134
+  Mending Light  17525
+  Seal of Light  3478
+  Judgement of Light  3159
+  Tea with Sugar  2511
+Randgriz  1814503
+  Flash Heal  945369
+  Greater Heal  478250
+  Renew  257004
+  Prayer of Healing  125314
+  Tea with Sugar  8566
+Selverslip  1671762
+  Chain Heal  1264916
+  Lesser Healing Wave  297738
+  Healing Wave  101525
+  Tea with Sugar  5720
+  Judgement of Light  1863
+Suigetsu  1515740
+  Vampiric Embrace  1412604
+  Holy Nova  87737
+  Intense Pain  11292
+  Tea with Sugar  3945
+  Judgement of Light  162
+Bobbywf  1495545
+  Chain Heal  1373736
+  Healing Wave  115126
+  Lesser Healing Wave  6683
+Starr  1308081
+  Flash Heal  678216
+  Vampiric Embrace  239668
+  Greater Heal  176857
+  Renew  144723
+  Heal  50358
+  Prayer of Healing  9841
+  Desperate Prayer  8418
+Supal  188890
+  Mending Light  134572
+  Judgement of Light  16341
+  Holy Light  16145
+  Tea with Sugar  14171
+  Lay on Hands  7661
+Martl  164240
+  Blood Drinker  109483
+  Judgement of Light  27459
+  Holy Strength  11595
+  Blood Craze  8766
+  Healing Potion  3806
+  Tea with Sugar  1931
+  Major Healthstone  1200
+Sabroso  151783
+  Blood Drinker  88328
+  Judgement of Light  35923
+  Holy Strength  16988
+  Blood Craze  8294
+  First Aid  2250
+Xelya  133811
+  Mending Light  109755
+  Judgement of Light  9153
+  Tea with Sugar  6324
+  Holy Light  4637
+  Holy Strength  2566
+  Drain Life  1376
+Shape  98749
+  Judgement of Light  39244
+  Tranquility  36410
+  Tea with Sugar  7722
+  Frenzied Regeneration  7580
+  Regrowth  3429
+  Healing Touch  2588
+  Rejuvenation  1776
+Adachisakura  91331
+  Felstone  44417
+  Vampirism  25385
+  Death Coil  12454
+  Tea with Sugar  7075
+  First Aid  2000
+Onetwofree  80478
+  Siphon Life  28381
+  Death Coil  27796
+  Vampirism  14575
+  Drain Life  3648
+  Tea with Sugar  3078
+  First Aid  3000
+Kayax  77209
+  Felstone  28778
+  Siphon Life  22662
+  Vampirism  17016
+  Drain Life  5580
+  Major Healthstone  2400
+  Death Coil  773
+Jinp  75608
+  Judgement of Light  36207
+  Invigorate  25934
+  Holy Strength  8372
+  Healing Potion  3095
+  First Aid  2000
+Bolyarka  65687
+  Mending Light  20355
+  Tea with Sugar  13640
+  Holy Light  12572
+  Judgement of Light  12312
+  Flash of Light  5808
+  First Aid  1000
+Psykhe  63100
+  Judgement of Light  41229
+  Holy Strength  12013
+  Blood Craze  5658
+  First Aid  3000
+  Major Healthstone  1200
+Squirreled  62720
+  Judgement of Light  24404
+  Blood Craze  21414
+  Holy Strength  7795
+  Tea with Sugar  6852
+  Healing Potion  2255
+Saberslash  62650
+  Judgement of Light  38576
+  Holy Strength  14299
+  Blood Craze  7248
+  Tea with Sugar  1336
+  Healing Potion  1173
+  Diamond Flask  18
+Rila  61850
+  Judgement of Light  39432
+  Holy Strength  10226
+  Blood Craze  9955
+  First Aid  1500
+  Tea with Sugar  737
+Cheesebreath  54817
+  Tranquility  32663
+  Regrowth  15779
+  Tea with Sugar  4037
+  Rejuvenation  2338
+Eleae  54333
+  Judgement of Light  33392
+  Frenzied Regeneration  20140
+  Tea with Sugar  801
+Pitbound  50722
+  Judgement of Light  34121
+  Holy Strength  9634
+  Blood Craze  4114
+  Healing Potion  1653
+  Major Healthstone  1200
+Zloveleen  43067
+  Judgement of Light  24644
+  Holy Strength  11022
+  Healing Potion  2847
+  Blood Craze  2570
+  Major Healthstone  1200
+  Tea with Sugar  581
+  Diamond Flask  203
+Clapya  38476
+  Lesser Healing Wave  18924
+  Tea with Sugar  8180
+  Chain Heal  6742
+  Healing Wave  4549
+  Judgement of Light  81
+Ruwusz  37401
+  Judgement of Light  19116
+  Holy Strength  9453
+  Healing Potion  6306
+  Tea with Sugar  1326
+  Major Healthstone  1200
+Starraven  15978
+  Tea with Sugar  9058
+  Rejuvenation  6120
+  Healing Potion  800
+Minoas  12675
+  Tea with Sugar  7492
+  Healing Potion  3233
+  Major Healthstone  1200
+  First Aid  750
+Nehelenia  6697
+  Healing Potion  4947
+  First Aid  1750
+Mosquitowins  6626
+  Healing Potion  3926
+  First Aid  1500
+  Major Healthstone  1200
+Tinerispew  5750
+  First Aid  5750
+Spankys  3793
+  Mend Pet  2450
+  Tea with Sugar  1343

@@ -373,6 +373,10 @@ Zloveleen deaths:5
    total spent: 12g 73s 31c
 
 
+Sunder Armor Summary (trash and boss counts)
+   <nothing found. needs superwow>
+
+
 Cooldown Summary
    Warrior
       Death Wish
@@ -546,10 +550,10 @@ Cooldown Summary
          Sunpriest 2
          Zdraxus 1
          Blindie 1
-      Bloodlust (received)
-         Zdraxus 1
       Power Infusion (received)
          Blindie 5
+      Bloodlust (received)
+         Zdraxus 1
    Paladin
       Divine Favor
          Jocaste 4
@@ -835,14 +839,14 @@ Class Detection
 
 
 Tech
-   project version 2025.1083
+   project version 2025.1086
    project homepage https://github.com/melbaa/summarize_consumes
    prices server nord
-   prices timestamp 2025-01-05T00:00:01.344841 (23 hours ago)
+   prices timestamp 2025-01-05T00:00:01.344841 (a month ago)
    log size 13.4 MB
    log lines 178954
    skipped log lines 11 (0.01%)
-   processed in 25.55 seconds. 7003.61 log lines/sec
+   processed in 27.49 seconds. 6510.89 log lines/sec
    runtime platform win32
    runtime implementation (name='cpython', cache_tag='cpython-310', version=sys.version_info(major=3, minor=10, micro=1, releaselevel='final', serial=0), hexversion=50987504)
    runtime version 3.10.1 (tags/v3.10.1:2cd268a, Dec  6 2021, 19:10:37) [MSC v.1929 64 bit (AMD64)]
