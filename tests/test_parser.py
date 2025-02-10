@@ -1203,6 +1203,7 @@ def test_cooldown_summary(app):
 2/4 21:34:27.252  Murto gains Chastise Haste (1).
 12/9 20:49:15.353  Bloodragetest gains Bloodrage (1).
 2/8 10:33:14.532  Martl casts Sunder Armor on Venom Stalker.
+2/8 10:33:14.532  Martl casts Sunder Armor on Thaddius.
     """
     lines = lines.splitlines(keepends=True)
     for line in lines:
@@ -1211,6 +1212,7 @@ def test_cooldown_summary(app):
     app.cooldown_summary.print(output)
 
 
+    assert app.spell_count.counts['Sunder Armor (boss)']['Martl'] == 1
     assert app.spell_count.counts['Sunder Armor']['Martl'] == 1
     assert app.spell_count.counts['Bloodrage']['Bloodragetest'] == 1
     assert app.spell_count.counts['Chastise Haste']['Murto'] == 1

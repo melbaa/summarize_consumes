@@ -94,7 +94,14 @@ def create_app(
     app.class_detection = ClassDetection(player=app.player)
 
     app.spell_count = SpellCount()
-    app.cooldown_summary = CooldownSummary(spell_count=app.spell_count, class_detection=app.class_detection)
+    app.sunder_armor_summary = SunderArmorSummary(
+        spell_count=app.spell_count,
+        class_detection=app.class_detection,
+    )
+    app.cooldown_summary = CooldownSummary(
+        spell_count=app.spell_count,
+        class_detection=app.class_detection,
+    )
 
     app.proc_count = ProcCount()
     app.proc_summary = ProcSummary(proc_count=app.proc_count, player=app.player)
@@ -522,7 +529,6 @@ INTERRUPT_SPELLS = {
 
 CDSPELL_CLASS = [
     ['warrior', [
-        'Sunder Armor',
         'Death Wish',
         'Shield Wall',
         'Recklessness',
@@ -638,6 +644,30 @@ ABILITYCOST = {
 ABILITYCOOLDOWN = {
     'Whirlwind': 8,
     'Cleave': 1,
+}
+
+KNOWN_BOSS_NAMES = {
+    # naxx
+    "Anub'Rekhan",
+    "Grand Widow Faerlina",
+    "Maexxna",
+    "Noth the Plaguebringer",
+    "Heigan the Unclean",
+    "Loatheb",
+    "Patchwerk",
+    "Grobbulus",
+    "Gluth",
+    "Thaddius",
+    "Feugen",
+    "Stalagg",
+    "Instructor Razuvious",
+    "Gothik the Harvester",
+    "Highlord Mograine",
+    "Lady Blaumeux",
+    "Sir Zeliek",
+    "Thane Korth'azz",
+    "Sapphiron",
+    "Kel'Thuzad",
 }
 
 
@@ -1213,6 +1243,47 @@ class PetHandler:
             for pet in sorted(petset):
                 print('  ', pet, 'owned by', owner, file=output)
 
+
+class SunderArmorSummary:
+    def __init__(self, spell_count, class_detection):
+        self.counts = spell_count.counts
+        self.class_detection = class_detection
+
+    def print(self, output):
+        print("\n\nSunder Armor Summary (trash and boss counts)", file=output)
+        warriors = [
+            name
+            for name, cls in self.class_detection.store.items()
+            if cls == 'warrior'
+        ]
+
+        found_sunder = False
+        entries = []
+        sunder_trash = self.counts.get('Sunder Armor', {})
+        sunder_boss = self.counts.get('Sunder Armor (boss)', {})
+
+        for warrior in warriors:
+            trash = sunder_trash.get(warrior, 0)
+            boss = sunder_boss.get(warrior, 0)
+            entries.append((-trash, -boss, warrior, trash, boss))
+            if trash or boss:
+                found_sunder = True
+
+        if found_sunder:
+            entries.sort()
+
+            for _, _, name, trash, boss in entries:
+                line = f"   {name} {trash}"
+                if boss > 0:
+                    line += f" {boss}"
+                print(line, file=output)
+        elif entries:
+            print('   <nothing found. needs superwow>', file=output)
+        else:
+            print('   <nothing found>', file=output)
+
+
+
 class CooldownSummary:
     def __init__(self, spell_count, class_detection):
         # spell - player - count
@@ -1353,6 +1424,7 @@ LINE2SPELLCAST = {
         'Resurrection',
         'Rebirth',
         'Sunder Armor',  # superwow
+        'Sunder Armor (boss)', # rename, superwow
         'Blood Fury',  # superwow, spellid 23234
     },
     'hits_ability_line': {
@@ -1952,6 +2024,11 @@ def parse_line(app, line):
                     consumable = RENAME_CONSUMABLE[consumable]
                 app.player[name][consumable] += 1
 
+            if spellname == 'Sunder Armor':
+                targetname = subtree.children[2].value
+                if targetname in KNOWN_BOSS_NAMES:
+                    spellname += ' (boss)'
+
             app.class_detection.detect(line_type=subtree.data, name=name, spell=spellname)
             app.spell_count.add(line_type=subtree.data, name=name, spell=spellname)
 
@@ -2352,6 +2429,7 @@ def generate_output(app):
 
     app.print_consumables.print(output)
 
+    app.sunder_armor_summary.print(output)
     app.cooldown_summary.print(output)
     app.proc_summary.print(output)
 
