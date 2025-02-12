@@ -3,38 +3,98 @@ run-name: ${{ github.actor }} making a release
 on: [push]
 jobs:
   make-artifact:
-    runs-on: windows-latest
+    strategy:
+      matrix:
+        os: [windows-latest, ubuntu-latest]
+        include:
+          - os: windows-latest
+            pyinstaller_cmd: pyinstaller.exe
+            main_path: .\src\melbalabs\summarize_consumes\main.py
+            dist_path: .\dist\summarize_consumes.exe
+            artifact_name: summarize_consumes.exe
+            executable_name: summarize_consumes
+          - os: ubuntu-latest
+            pyinstaller_cmd: pyinstaller
+            main_path: ./src/melbalabs/summarize_consumes/main.py
+            dist_path: ./dist/summarize_consumes_linux
+            artifact_name: summarize_consumes_linux
+            executable_name: summarize_consumes_linux
+            container: python:3.10-slim-buster
+    runs-on: ${{ matrix.os }}
+    container: ${{ matrix.container }}
     steps:
       - uses: actions/checkout@v4
+
+      - name: Set up Python 3.10 (Linux)
+        if: matrix.os == 'ubuntu-latest'
+        run: |
+          echo "$PATH"
+
+          apt-get update
+          apt-get install -y --no-install-recommends binutils coreutils
+
+          python -m ensurepip --upgrade
+          pip install --upgrade pip
+
       - uses: actions/setup-python@v5
+        if: matrix.os != 'ubuntu-latest'
         with:
           python-version: '3.10'
+
       - run: pip install .[dev,release]
       - run: pytest -v
-      - run: pyinstaller.exe -F --name summarize_consumes --copy-metadata melbalabs.summarize_consumes .\src\melbalabs\summarize_consumes\main.py
-      - run: gci .\dist\
-      - uses: actions/upload-artifact@v4
+      - run: ${{ matrix.pyinstaller_cmd }} -F --name ${{ matrix.executable_name }} --copy-metadata melbalabs.summarize_consumes ${{ matrix.main_path }}
+      - run: ls ./dist/
+      - name: set linux artifact name with arch and glibc version
+        if: matrix.os == 'ubuntu-latest'
+        shell: bash
+        run: |
+          arch=$(arch)
+          glibc_version=$(getconf GNU_LIBC_VERSION | awk '{gsub(/\./, "_"); print $NF}')
+          original_name="${{ matrix.executable_name }}"
+          suffix="${arch}_glibc${glibc_version}"
+          new_name="${original_name}_$suffix"
+          new_path="${{ matrix.dist_path}}_$suffix"
+          mv ${{ matrix.dist_path }} "$new_path"
+          echo "ARTIFACT_NAME=${new_name}" >> $GITHUB_ENV
+          echo "ARTIFACT_PATH=${new_path}" >> $GITHUB_ENV
+
+      - name: Upload Linux Artifact
+        if: matrix.os == 'ubuntu-latest'
+        uses: actions/upload-artifact@v4
         with:
-          name: summarize_consumes.exe
-          path: .\dist\summarize_consumes.exe
+          name: ${{ env.ARTIFACT_NAME }}
+          path: ${{ env.ARTIFACT_PATH }}
+
+      - name: Upload Windows Artifact
+        if: matrix.os == 'windows-latest'
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.artifact_name }}
+          path: ${{ matrix.dist_path }}
 
   make-release:
     needs: make-artifact
     permissions:
-      contents:
-        write
-    runs-on: windows-latest
+      contents: write
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/download-artifact@v4
         with:
-          name: summarize_consumes.exe
+          path: artifacts
+      - name: Prepare release files
+        shell: bash
+        run: |
+          mkdir -p release_files
+          cp artifacts/*/* release_files/
+          ls -l release_files/
       - name: Determine release type
         id: determine_release
         shell: bash
         run: |
-          release_type="draft"
-          release_name="${{ github.ref_name }}-draft"
-          tag_name="${{ github.ref_name }}-draft"
+          release_type="prerelease"
+          release_name="${{ github.ref_name }}-prerelease"
+          tag_name="${{ github.ref_name }}-prerelease"
           make_latest="false"
 
           if [[ "${{ github.ref_name }}" == "master" ]]; then
@@ -61,9 +121,8 @@ jobs:
         with:
           name: ${{ steps.determine_release.outputs.release_name }}
           tag_name: ${{ steps.determine_release.outputs.tag_name }}
-          draft: ${{ steps.determine_release.outputs.release_type == 'draft' }}
+          prerelease: ${{ steps.determine_release.outputs.release_type == 'prerelease' }}
           make_latest: ${{ steps.determine_release.outputs.make_latest }}
           token: "${{ secrets.GITHUB_TOKEN }}"
           files: |
-            summarize_consumes.exe
-
+            release_files/*

@@ -2542,8 +2542,13 @@ class BpasteUploader:
 
 def upload_pastebin(output):
     url = BpasteUploader().upload(output)
-    if url: return url
-    url = IxioUploader().upload(output)
+    if not url:
+        url = IxioUploader().upload(output)
+
+    if url:
+        print("pastebin url", url)
+    else:
+        print("couldn't get a pastebin url")
     return url
 
 def open_browser(url):
@@ -2643,9 +2648,7 @@ def main(argv):
     url = upload_pastebin(output)
 
     if not args.open_browser: return
-    if not url:
-        print("didn't get a pastebin url")
-        return
+    if not url: return
     open_browser(url)
 
 
