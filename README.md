@@ -5,6 +5,7 @@ The project generates a summary of WoW raid combat logs.
 The summary includes:
 * consumables (as much as the combat log allows)
 * consumable prices if data is available. First an attempt is made to download prices from the web. If that fails, prices are read from the local prices.json
+* sunder summary (for superwow logs)
 * cooldowns, resurrects, racial abilities and trinkets used
 * annihilator log
 * flame buffet (dragonling) log

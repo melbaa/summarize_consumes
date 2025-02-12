@@ -19,24 +19,51 @@ jobs:
           path: .\dist\summarize_consumes.exe
 
   make-release:
-      needs: make-artifact
-      permissions:
-        contents:
-          write
-      runs-on: windows-latest
-      steps:
+    needs: make-artifact
+    permissions:
+      contents:
+        write
+    runs-on: windows-latest
+    steps:
       - uses: actions/download-artifact@v4
         with:
           name: summarize_consumes.exe
-      - run: gh release delete latest --cleanup-tag --yes
+      - name: Determine release type
+        id: determine_release
+        shell: bash
+        run: |
+          release_type="draft"
+          release_name="${{ github.ref_name }}-draft"
+          tag_name="${{ github.ref_name }}-draft"
+          make_latest="false"
+
+          if [[ "${{ github.ref_name }}" == "master" ]]; then
+            release_type="latest"
+            release_name="latest"
+            tag_name="latest"
+            make_latest="true"
+          fi
+
+          echo "release_type=${release_type}" >> $GITHUB_OUTPUT
+          echo "release_name=${release_name}" >> $GITHUB_OUTPUT
+          echo "tag_name=${tag_name}" >> $GITHUB_OUTPUT
+          echo "make_latest=${make_latest}" >> $GITHUB_OUTPUT
+
+      - name: Delete previous 'latest' release (master only)
+        if: ${{ github.ref_name == 'master' }}
+        run: gh release delete latest --cleanup-tag --yes
         env:
           GH_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
           GH_REPO: "${{ github.repository }}"
-      - uses: softprops/action-gh-release@v2.1.0
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v2.1.0
         with:
-          name: latest
-          tag_name: latest
-          make_latest: true
+          name: ${{ steps.determine_release.outputs.release_name }}
+          tag_name: ${{ steps.determine_release.outputs.tag_name }}
+          draft: ${{ steps.determine_release.outputs.release_type == 'draft' }}
+          make_latest: ${{ steps.determine_release.outputs.make_latest }}
           token: "${{ secrets.GITHUB_TOKEN }}"
           files: |
             summarize_consumes.exe
+
