@@ -32,12 +32,13 @@ Price data via https://www.wowauctions.net/
 
 ## From the command line
 ```
-usage: summarize_consumes.exe [-h] [--pastebin] [--open-browser]
-               [--write-summary] [--write-consumable-totals-csv]
-               [--write-damage-output] [--write-healing-output]
-               [--write-damage-taken-output] [--prices-server {nord,telabim}]
-               [--compare-players PLAYER1 PLAYER2] [--expert-log-unparsed-lines]
-               [--visualize]
+usage: summarize_consumes.exe [-h] [--pastebin] [--open-browser] [--write-summary]
+               [--write-consumable-totals-csv] [--write-damage-output]
+               [--write-healing-output] [--write-damage-taken-output]
+               [--prices-server {nord,telabim}] [--visualize]
+               [--compare-players PLAYER1 PLAYER2]
+               [--expert-log-unparsed-lines] [--expert-write-web-prices]
+               [--expert-disable-web-prices] [--expert-deterministic-logs]
                logpath
 
 positional arguments:
@@ -58,11 +59,17 @@ options:
                         writes output to damage-taken-output.txt
   --prices-server {nord,telabim}
                         specify which server price data to use
+  --visualize           Generate visual infographic
   --compare-players PLAYER1 PLAYER2
                         compare 2 players, output the difference in compare-players.txt
   --expert-log-unparsed-lines
                         create an unparsed.txt with everything that was not parsed
-  --visualize           Generate visual infographic
+  --expert-write-web-prices
+                        writes output to prices-web.json
+  --expert-disable-web-prices
+                        don't download price data
+  --expert-deterministic-logs
+                        disable environmental outputs
 ```
 
 ## Hosted javascript version

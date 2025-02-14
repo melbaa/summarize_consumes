@@ -25,7 +25,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Set up Python 3.10 (Linux)
+      - name: set up linux deps
         if: matrix.os == 'ubuntu-latest'
         run: |
           echo "$PATH"
@@ -54,7 +54,7 @@ jobs:
           original_name="${{ matrix.executable_name }}"
           suffix="${arch}_glibc${glibc_version}"
           new_name="${original_name}_$suffix"
-          new_path="${{ matrix.dist_path}}_$suffix"
+          new_path="${{ matrix.dist_path }}_$suffix"
           mv ${{ matrix.dist_path }} "$new_path"
           echo "ARTIFACT_NAME=${new_name}" >> $GITHUB_ENV
           echo "ARTIFACT_PATH=${new_path}" >> $GITHUB_ENV

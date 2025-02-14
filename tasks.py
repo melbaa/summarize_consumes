@@ -50,14 +50,14 @@ def examples(c):
 
     filename = 'aq40-2024-09-16.txt'
     input_file = cwd / 'testdata' / filename
-    cmd = f"python -m melbalabs.summarize_consumes.main {input_file} --write-summary --compare-players psykhe zloveleen --expert-disable-web-prices"
+    cmd = f"python -m melbalabs.summarize_consumes.main {input_file} --write-summary --compare-players psykhe zloveleen --expert-disable-web-prices --expert-deterministic-logs"
     c.run(cmd)
     compare_players_output_file = cwd / 'examples' / f'compare-players-{filename}'
     c.run(f'mv compare-players.txt {compare_players_output_file}')
 
     for filename in filenames:
         input_file = cwd / 'testdata' / filename
-        cmd = f"python -m melbalabs.summarize_consumes.main {input_file} --write-summary --write-consumable-totals-csv --write-damage-output --write-healing-output --expert-disable-web-prices"
+        cmd = f"python -m melbalabs.summarize_consumes.main {input_file} --write-summary --write-consumable-totals-csv --write-damage-output --write-healing-output --expert-disable-web-prices --expert-deterministic-logs"
         c.run(cmd)
         output_file = cwd / 'examples' / f'summary-{filename}'
         c.run(f'mv summary.txt {output_file}')

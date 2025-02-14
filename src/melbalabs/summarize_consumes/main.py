@@ -70,6 +70,7 @@ def create_app(
         expert_log_unparsed_lines,
         prices_server,
         expert_disable_web_prices,
+        expert_deterministic_logs,
     ):
 
     app = App()
@@ -172,7 +173,12 @@ def create_app(
         allow_selfdmg=True,
     )
 
-    app.techinfo = Techinfo(time_start=time_start, prices_last_update=app.pricedb.last_update, prices_server=prices_server)
+    app.techinfo = Techinfo(
+        time_start=time_start,
+        prices_last_update=app.pricedb.last_update,
+        prices_server=prices_server,
+        expert_deterministic_logs=expert_deterministic_logs,
+    )
 
     app.infographic = Infographic(accumulator=app.consumables_accumulator, class_detection=app.class_detection)
 
@@ -611,7 +617,7 @@ RENAME_TRINKET_SPELL = {
     'Immune Fear/Polymorph/Stun': "Insignia of the Alliance/Horde",
     'Immune Root/Snare/Stun': "Insignia of the Alliance/Horde",
 }
-for spell in itertools.chain(TRINKET_SPELL, RACIAL_SPELL, RECEIVE_BUFF_SPELL):
+for spell in itertools.chain(TRINKET_SPELL, RACIAL_SPELL, sorted(RECEIVE_BUFF_SPELL)):
     for clsorder in CDSPELL_CLASS:
         spells = clsorder[1]
         spells.append(spell)
@@ -1102,7 +1108,7 @@ class Dmgstore2:
 
 
 class Techinfo:
-    def __init__(self, time_start, prices_last_update, prices_server):
+    def __init__(self, time_start, prices_last_update, prices_server, expert_deterministic_logs):
         self.time_start = time_start
         self.logsize = 0
         self.linecount = 0
@@ -1113,6 +1119,7 @@ class Techinfo:
         self.project_homepage = url.strip()
         self.prices_last_update = prices_last_update
         self.prices_server = prices_server
+        self.expert_deterministic_logs = expert_deterministic_logs
 
         self.implementation = str(sys.implementation).replace("namespace", "")
         self.platform = sys.platform
@@ -1144,17 +1151,19 @@ class Techinfo:
             time_end = time.time()
         time_delta = time_end - self.time_start
         print("\n\nTech", file=output)
-        print('  ', f'project version {self.package_version}', file=output)
-        print('  ', f'project homepage {self.project_homepage}', file=output)
-        print('  ', f'prices server {self.prices_server}', file=output)
-        print('  ', f'prices timestamp {self.format_price_timestamp()}', file=output)
+        if not self.expert_deterministic_logs:
+            print('  ', f'project version {self.package_version}', file=output)
+            print('  ', f'project homepage {self.project_homepage}', file=output)
+            print('  ', f'prices server {self.prices_server}', file=output)
+            print('  ', f'prices timestamp {self.format_price_timestamp()}', file=output)
         print('  ', f'log size {humanize.naturalsize(self.logsize)}', file=output)
         print('  ', f'log lines {self.linecount}', file=output)
         print('  ', f'skipped log lines {self.skiplinecount} {self.format_skipped_percent()}', file=output)
-        print('  ', f'processed in {time_delta:.2f} seconds. {self.linecount / time_delta:.2f} log lines/sec', file=output)
-        print('  ', f'runtime platform {self.platform}', file=output)
-        print('  ', f'runtime implementation {self.implementation}', file=output)
-        print('  ', f'runtime version {self.version}', file=output)
+        if not self.expert_deterministic_logs:
+            print('  ', f'processed in {time_delta:.2f} seconds. {self.linecount / time_delta:.2f} log lines/sec', file=output)
+            print('  ', f'runtime platform {self.platform}', file=output)
+            print('  ', f'runtime implementation {self.implementation}', file=output)
+            print('  ', f'runtime version {self.version}', file=output)
 
 
 
@@ -2490,6 +2499,7 @@ def get_user_input(argv):
     parser.add_argument('--expert-log-unparsed-lines', action='store_true', help='create an unparsed.txt with everything that was not parsed')
     parser.add_argument('--expert-write-web-prices', action='store_true', help='writes output to prices-web.json')
     parser.add_argument('--expert-disable-web-prices', action='store_true', help="don't download price data")
+    parser.add_argument('--expert-deterministic-logs', action='store_true', help='disable environmental outputs')
 
 
     args = parser.parse_args(argv)
@@ -2569,6 +2579,7 @@ def main(argv):
         expert_log_unparsed_lines=args.expert_log_unparsed_lines,
         prices_server=args.prices_server,
         expert_disable_web_prices=args.expert_disable_web_prices,
+        expert_deterministic_logs=args.expert_deterministic_logs,
     )
 
     parse_log(app, filename=args.logpath)

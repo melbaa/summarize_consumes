@@ -979,13 +979,8 @@ def test_techinfo(app):
         parse_line(app, line)
         app.techinfo.linecount += 1
     output = io.StringIO()
-    app.techinfo.package_version = 'whatever'
-    app.techinfo.prices_last_update = app.techinfo.time_start + 3600
-    app.techinfo.version = 'mockver'
-    app.techinfo.platform = 'mockplat'
-    app.techinfo.implementation = 'mockimpl'
-    app.techinfo.print(output, time_end=app.techinfo.time_start + 5)
-    assert output.getvalue() == '\n\nTech\n   project version whatever\n   project homepage https://github.com/melbaa/summarize_consumes\n   prices server nord\n   prices timestamp 2023-11-18T00:39:15.383111 (an hour ago)\n   log size 0 Bytes\n   log lines 9\n   skipped log lines 0 (0.00%)\n   processed in 5.00 seconds. 1.80 log lines/sec\n   runtime platform mockplat\n   runtime implementation mockimpl\n   runtime version mockver\n'
+    app.techinfo.print(output)
+    assert output.getvalue() == '\n\nTech\n   log size 0 Bytes\n   log lines 9\n   skipped log lines 0 (0.00%)\n'
 
 
 def test_causes_damage_line(app):
