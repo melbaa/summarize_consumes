@@ -1547,3 +1547,16 @@ def test_durloss(app):
         match += parse_line(app, line)
     assert match == 1
 
+
+def test_crash_log(app, caplog):
+    lines = """
+11/2 22:17:49.752  Cabum is dismissed.
+    """
+    lines = lines.splitlines(keepends=True)
+    match = 0
+    with pytest.raises(Exception) as e:
+        for line in lines:
+            match += parse_line(app, line)
+
+    assert "11/2 22:17:49.752  Cabum is dismissed." in caplog.text
+

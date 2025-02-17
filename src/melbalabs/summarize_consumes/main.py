@@ -1875,7 +1875,16 @@ class Infographic:
         print(f'Infographic saved to: {filepath}')
 
 
+
 def parse_line(app, line):
+    try:
+        return parse_line2(app, line)
+    except Exception as e:
+        logging.exception(line)
+        raise
+
+
+def parse_line2(app, line):
     """
     returns True when a match is found, so we can stop trying different parsers
     """
@@ -1885,12 +1894,7 @@ def parse_line(app, line):
         timestamp = tree.children[0]
         subtree = tree.children[1]
 
-        try:
-            timestamp_unix = parse_ts2unixtime(timestamp)
-        except Exception:
-            logging.exception(line)
-            raise
-
+        timestamp_unix = parse_ts2unixtime(timestamp)
 
         # inline some parsing to reduce funcalls
         # for same reason not using visitors to traverse the parse tree
