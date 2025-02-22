@@ -373,12 +373,14 @@ def test_hits_line(app):
 4/14 21:49:18.451  Maexxna 's Poison Shock hits Jaekta for 270 Nature damage. (481 resisted)
 4/30 20:58:34.369  Tlw 's Frostbolt hits Flameguard for 1867 Frost damage. (+742 vulnerability bonus)
 1/26 21:49:03.473  Flameguard hits Psykhe for 606 Fire damage. (202 resisted)
+2/21 21:20:32.779  Psykhe hits Flamewaker Elite for 333. (glancing) (+15 vulnerability bonus)
+12/20 21:23:43.965  Allaxou hits Flamewaker Elite for 159. (+10 vulnerability bonus) (37 blocked)
     """
     lines = lines.splitlines(keepends=True)
     match = 0
     for line in lines:
         match += parse_line(app, line)
-    assert match == 5
+    assert match == 7
 
 def test_hits_line2(app):
     lines = """
