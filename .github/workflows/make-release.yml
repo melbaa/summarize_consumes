@@ -79,6 +79,8 @@ jobs:
       contents: write
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
+
       - uses: actions/download-artifact@v4
         with:
           path: artifacts
@@ -88,13 +90,13 @@ jobs:
           mkdir -p release_files
           cp artifacts/*/* release_files/
           ls -l release_files/
-      - name: Determine release type
+      - name: Determine release type and name
         id: determine_release
         shell: bash
         run: |
           release_type="prerelease"
-          release_name="${{ github.ref_name }}-prerelease"
-          tag_name="${{ github.ref_name }}-prerelease"
+          release_name="prerelease"
+          tag_name="prerelease"
           make_latest="false"
 
           if [[ "${{ github.ref_name }}" == "master" ]]; then
@@ -109,20 +111,59 @@ jobs:
           echo "tag_name=${tag_name}" >> $GITHUB_OUTPUT
           echo "make_latest=${make_latest}" >> $GITHUB_OUTPUT
 
-      - name: Delete previous 'latest' release (master only)
-        if: ${{ github.ref_name == 'master' }}
-        run: gh release delete latest --cleanup-tag --yes
+      - name: Delete previous release
+        shell: bash
+        run: |
+          release_name="${{ steps.determine_release.outputs.release_name }}"
+          tag_name="${{ steps.determine_release.outputs.tag_name }}"
+          gh release delete $release_name --cleanup-tag --yes || true
+          git push --delete origin refs/tags/$tag_name || true
+
+          check_release_deleted() {
+              local start_time=$SECONDS
+              local timeout=20
+              release_deleted=0
+              tag_deleted=0
+
+              while true; do
+                  if ! gh release view $release_name > /dev/null 2>&1; then
+                      echo "Release deleted successfully."
+                      release_deleted=1
+                  fi
+
+                  if ! git ls-remote origin refs/tags/$tag_name | grep -q $tag_name; then
+                      echo "Tag deleted successfully."
+                      tag_deleted=1
+                  fi
+
+                  if [[ $release_deleted -eq 1 && $tag_deleted -eq 1 ]]; then
+                      return 0
+                  fi
+
+                  local elapsed_time=$((SECONDS - start_time))
+                  if [[ $elapsed_time -ge $timeout ]]; then
+                      echo "Timeout: Release deletion check failed after $timeout seconds."
+                      exit 1
+                  fi
+
+                  echo "Waiting for release to be deleted..."
+                  sleep 2
+              done
+          }
+
+          check_release_deleted
         env:
           GH_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
           GH_REPO: "${{ github.repository }}"
 
       - name: Create Release
-        uses: softprops/action-gh-release@v2.1.0
+        uses: softprops/action-gh-release@v2.2.1
         with:
           name: ${{ steps.determine_release.outputs.release_name }}
           tag_name: ${{ steps.determine_release.outputs.tag_name }}
           prerelease: ${{ steps.determine_release.outputs.release_type == 'prerelease' }}
           make_latest: ${{ steps.determine_release.outputs.make_latest }}
+          target_commitish: ${{ github.sha }}
           token: "${{ secrets.GITHUB_TOKEN }}"
           files: |
             release_files/*

@@ -656,12 +656,13 @@ def test_slain_line(app):
     lines = """
 10/28 20:12:40.079  Blackwing Mage is slain by Gorkagoth!
 10/28 20:12:41.886  Blackwing Mage is slain by Charmia!
+2/23 19:04:16.822  Vekniss Wasp is slain by Shape.
     """
     lines = lines.splitlines(keepends=True)
     match = 0
     for line in lines:
         match += parse_line(app, line)
-    assert match == 2
+    assert match == 3
 
 def test_creates_line(app):
     lines = """
@@ -1569,25 +1570,25 @@ def test_urlparse(app):
     downloader = app.log_downloader
 
     urls_ok = [
-        'turtlogs.com',
         'https://turtlogs.com/viewer/8406/base?history_state=1',
         'https://turtlogs.com/viewer/8406',
     ]
 
     for filename in urls_ok:
         filename2 = downloader.try_download(filename)
-        filename == app.log_downloader.output_name
-        filename == filename2
+        assert filename2 == app.log_downloader.output_name
+        assert filename != filename2
 
 
 
     urls_fail = [
+        'turtlogs.com',
         'https://turtlogs.com/viewer/',
         'https://turtlogs.com/viewer',
     ]
     for filename in urls_fail:
         filename2 = downloader.try_download(filename)
-        filename != app.log_downloader.output_name
-        filename != filename2
+        assert filename != app.log_downloader.output_name
+        assert filename == filename2
 
 

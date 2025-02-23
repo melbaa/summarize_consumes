@@ -2620,6 +2620,7 @@ class LogDownloader:
                     content = text_file.read()
 
                 with open(output_name, 'wb') as output_file:
+                    print('writing downloaded log to', output_name)
                     output_file.write(content)
                 return output_name
 

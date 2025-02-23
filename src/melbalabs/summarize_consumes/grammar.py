@@ -92,7 +92,7 @@ removed_line: MULTIWORD " 's " MULTIWORD " is removed."
 
 dies_line: MULTIWORD " dies."
 is_killed_line: MULTIWORD " is killed by " MULTIWORD "."
-slain_line: MULTIWORD " is slain by " MULTIWORD "!"
+slain_line: MULTIWORD " is slain by " MULTIWORD ("." | "!")
 
 is_dismissed_line: MULTIWORD " 's " MULTIWORD " is dismissed."
 is_dismissed_line2: MULTIWORD " is dismissed."
