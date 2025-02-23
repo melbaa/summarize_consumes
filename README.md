@@ -42,7 +42,7 @@ usage: summarize_consumes.exe [-h] [--pastebin] [--open-browser] [--write-summar
                logpath
 
 positional arguments:
-  logpath               path to WoWCombatLog.txt
+  logpath               path to WoWCombatLog.txt or an url like https://turtlogs.com/viewer/8406/base?history_state=1
 
 options:
   -h, --help            show this help message and exit

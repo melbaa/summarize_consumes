@@ -1562,3 +1562,32 @@ def test_crash_log(app, caplog):
 
     assert "11/2 22:17:49.752  Cabum is dismissed." in caplog.text
 
+
+
+@pytest.mark.skip('needs valid logs to test')  # pragma: no cover
+def test_urlparse(app):
+    downloader = app.log_downloader
+
+    urls_ok = [
+        'turtlogs.com',
+        'https://turtlogs.com/viewer/8406/base?history_state=1',
+        'https://turtlogs.com/viewer/8406',
+    ]
+
+    for filename in urls_ok:
+        filename2 = downloader.try_download(filename)
+        filename == app.log_downloader.output_name
+        filename == filename2
+
+
+
+    urls_fail = [
+        'https://turtlogs.com/viewer/',
+        'https://turtlogs.com/viewer',
+    ]
+    for filename in urls_fail:
+        filename2 = downloader.try_download(filename)
+        filename != app.log_downloader.output_name
+        filename != filename2
+
+

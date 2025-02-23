@@ -13,6 +13,7 @@ import re
 import time
 import webbrowser
 import sys
+import zipfile
 from datetime import datetime as dt
 from pathlib import Path
 from typing import Dict
@@ -181,6 +182,8 @@ def create_app(
     )
 
     app.infographic = Infographic(accumulator=app.consumables_accumulator, class_detection=app.class_detection)
+
+    app.log_downloader = LogDownloader()
 
     return app
 
@@ -2485,7 +2488,7 @@ def write_output(
 
 def get_user_input(argv):
     parser = argparse.ArgumentParser()
-    parser.add_argument('logpath', help='path to WoWCombatLog.txt')
+    parser.add_argument('logpath', help='path to WoWCombatLog.txt or an url like https://turtlogs.com/viewer/8406/base?history_state=1')
     parser.add_argument('--pastebin', action='store_true', help='upload result to a pastebin and return the url')
     parser.add_argument('--open-browser', action='store_true', help='used with --pastebin. open the pastebin url with your browser')
 
@@ -2570,6 +2573,65 @@ def open_browser(url):
     webbrowser.open(url)
 
 
+class LogDownloader:
+    def __init__(self):
+        self.output_name = 'summarize-consumes-turtlogs.txt'
+
+    def try_download(self, filename):
+        output_name = self.output_name
+        if os.path.exists(filename):
+            return filename
+
+        urlprefixes = [
+            'https://www.turtlogs.com/viewer/',
+            'https://turtlogs.com/viewer/',
+        ]
+        found = False
+        for urlprefix in urlprefixes:
+            if filename.startswith(urlprefix):
+                newfilename = filename[len(urlprefix):]
+                found = True
+                break
+        if not found:
+            return filename
+
+        try:
+            logid = newfilename.split('/')[0]
+            logid = int(logid)
+            resp = requests.get(f'https://turtlogs.com/API/instance/export/{logid}')
+            resp.raise_for_status()
+
+            upload_id = resp.json()['upload_id']
+
+            resp = requests.get(f'https://www.turtlogs.com/uploads/upload_{upload_id}.zip')
+            resp.raise_for_status()
+
+            zip_buffer = io.BytesIO(resp.content)
+
+            with zipfile.ZipFile(zip_buffer) as zip_file:
+                file_list = zip_file.namelist()
+
+                if not file_list:
+                    raise ValueError("ZIP file is empty")
+
+                text_file_name = file_list[0]
+
+                with zip_file.open(text_file_name) as text_file:
+                    content = text_file.read()
+
+                with open(output_name, 'wb') as output_file:
+                    output_file.write(content)
+                return output_name
+
+
+        except ValueError as e:
+            pass
+        return filename
+
+
+
+
+
 
 
 
@@ -2586,7 +2648,9 @@ def main(argv):
         expert_deterministic_logs=args.expert_deterministic_logs,
     )
 
-    parse_log(app, filename=args.logpath)
+    logpath = app.log_downloader.try_download(filename=args.logpath)
+
+    parse_log(app, filename=logpath)
 
     output = generate_output(app)
     write_output(output, write_summary=args.write_summary)
@@ -2648,7 +2712,7 @@ def main(argv):
         feature()
 
     if args.visualize:
-        app.infographic.generate(output_file=Path(args.logpath).stem)
+        app.infographic.generate(output_file=Path(logpath).stem)
 
     if args.expert_write_web_prices:
         def feature():
