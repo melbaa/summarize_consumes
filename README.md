@@ -42,7 +42,8 @@ usage: summarize_consumes.exe [-h] [--pastebin] [--open-browser] [--write-summar
                logpath
 
 positional arguments:
-  logpath               path to WoWCombatLog.txt or an url like https://turtlogs.com/viewer/8406/base?history_state=1
+  logpath               path to WoWCombatLog.txt
+                        or an url like https://turtlogs.com/viewer/8406/base?history_state=1
 
 options:
   -h, --help            show this help message and exit
@@ -102,3 +103,55 @@ python -m venv venv
 # Create summary, upload to a pastebin and open with your browser:
 .\venv\Scripts\summarize_consumes.exe path\to\your\Logs\WoWCombatLog.txt --pastebin --open-browser
 ```
+
+
+# High level design decisions
+
+Provide prebuilt binaries - the project must be usable by people with no python knowledege and no python installation. Python is an implementation detail.
+
+Trust in the provided binaries - open and auditable build process via github actions, no manual uploads.
+
+The project must be easy to use in scripts and integrations. Keep it a standard command line program and use stdout, stderr and files for output.
+
+The project must be usable by people with python knowledge. Follow common python project structure and make it importable as a library.
+
+The project should be usable without access to servers and third party services.
+* by default prices are downloaded from the web, but it's possible to use local prices. There's a prices.json provided in the repository.
+* the basic output is on stdout or written to a local file via a cmdline flag. Allows people to share results via text files, chat programs or their own pastebins.
+* the default output is plain text, which doesn't cause security problems, eg no random javascript code injections
+
+Keep it convenient. Provide hosting for some of the features
+* serving prices for nordanaar and telabim transparently
+* pastebin automation to make results sharing easier
+* a web based version usable with a browser
+
+price gathering is a server side process, which is in sync with the consumables that the app knows about. It imports the ITEMID2NAME dictionary as a library, which makes it easier to maintain.
+
+Feature flags for convenience.
+
+It's ok for OPTIONAL features to have higher requirements (eg formatted output via HTML/JS; automatically submitting data to pastebins; browser automation; stateful processing; downloading prices from the web)
+
+Features MUST NOT interfere with unrelated functionality and make it less robust.
+
+As many tests as possible. Helps verify things still work as originally implemented across rewrites, runtime and library updates.
+
+As much output in a single file as possible
+* easier to search
+* no tabs
+* no delayed loading and failures from multiple HTTP requests
+
+Features with very verbose output write their own files. Pastebins limit payload size, so eventually output has to be split up into more parts.
+
+Parse log lines correctly and completely. No partial parses. Skip unknown syntax and report it.
+
+Prefer to use a parser framework as it's easier to maintain. The syntax is simple enough to allow it.
+
+The mental model for processing should be in multiple stages.
+* data parsing
+* counting, aggregating, processing the data
+* data presentation / output, potentially in multiple formats and to multiple destinations
+
+Dependencies in unpinned versions as documentation and to generate pinned dependencies for repeatable bulids.
+
+Include basic runtime info in the output (project version, python version etc), so users don't have to be interrogated for it.
+
