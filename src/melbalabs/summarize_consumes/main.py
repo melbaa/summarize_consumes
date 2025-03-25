@@ -539,6 +539,7 @@ INTERRUPT_SPELLS = {
 CDSPELL_CLASS = [
     ['warrior', [
         'Death Wish',
+        'Sweeping Strikes',
         'Shield Wall',
         'Recklessness',
         'Bloodrage',
@@ -1382,6 +1383,7 @@ LINE2SPELLCAST = {
         'Bloodrage',
         'Recklessness',
         'Shield Wall',
+        'Sweeping Strikes',
         'Elemental Mastery',
         'Inner Focus',
         'Rapid Healing',
