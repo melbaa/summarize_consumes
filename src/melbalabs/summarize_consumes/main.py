@@ -2540,6 +2540,25 @@ class IxioUploader:
         url = response.text.strip().split('\n')[-1]
         return url
 
+
+class RpasteUploader:
+    def upload(self, output):
+        data = output.getvalue().encode('utf8')
+        response = requests.post(
+            url='https://rpa.st/curl',
+            data={'raw': data, 'expiry': 'forever'},
+            timeout=30,
+        )
+        if response.status_code != 200:
+            print(response.text)
+            return None
+        lines = response.text.splitlines()
+        for line in lines:
+            if 'Raw URL' in line:
+                url = line.split()[-1]
+                return url
+
+
 class BpasteUploader:
     def upload(self, output):
         data = output.getvalue().encode('utf8')
@@ -2562,8 +2581,9 @@ class BpasteUploader:
 def upload_pastebin(output):
     url = BpasteUploader().upload(output)
     if not url:
+        url = RpasteUploader().upload(output)
+    if not url:
         url = IxioUploader().upload(output)
-
     if url:
         print("pastebin url", url)
     else:
