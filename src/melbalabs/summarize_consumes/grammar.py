@@ -76,7 +76,7 @@ slays_line: MULTIWORD " slays " MULTIWORD "!"
 none_line: "NONE"
 
 falls_line: MULTIWORD " falls and loses " INT " health."
-lava_line: MULTIWORD " loses " INT " health for swimming in lava." (" (" resisted_suffix)?  (" (" absorbed_suffix)?
+lava_line: MULTIWORD " loses " INT " health for swimming in lava." resisted_suffix? absorbed_suffix?
 
 reflects_damage_line: MULTIWORD " reflects " INT spell_damage_type " to " MULTIWORD "."
 
@@ -84,7 +84,7 @@ creates_line: MULTIWORD " creates " MULTIWORD "."
 
 suffers_line_nosource: " points of fire damage"
 suffers_line_source: spell_damage_type " from " MULTIWORD " 's " MULTIWORD
-suffers_line: MULTIWORD " suffers " INT (suffers_line_nosource | suffers_line_source) "." (" (" vulnerability_suffix)? (" (" resisted_suffix)?  (" (" absorbed_suffix)?
+suffers_line: MULTIWORD " suffers " INT (suffers_line_nosource | suffers_line_source) "." vulnerability_suffix? resisted_suffix? absorbed_suffix?
 
 fades_line: MULTIWORD " fades from " MULTIWORD "."
 
@@ -136,19 +136,19 @@ begins_to_perform_line: MULTIWORD " begins to perform " MULTIWORD "."
 consolidated_line: _CONSOLIDATED (_consolidated_case "{"?)+
 combatant_info_line: _COMBATANT_INFO_TOKEN /.+/
 
-hits_ability_line: _hits_ability_line_prefix (" (" vulnerability_suffix)? (" (" resisted_suffix)? (" (" blocked_suffix)? (" (" absorbed_suffix)?
+hits_ability_line: _hits_ability_line_prefix vulnerability_suffix? resisted_suffix? blocked_suffix? absorbed_suffix?
 _hits_ability_line_prefix: MULTIWORD " 's " MULTIWORD " " ("hits"|"crits") " " MULTIWORD " for " INT [spell_damage_type] "." glancing_suffix?
-hits_autoattack_line: MULTIWORD " " ("hits"|"crits") " " MULTIWORD " for " INT [spell_damage_type] "." glancing_suffix? (" (" vulnerability_suffix)? crushing_suffix? (" (" resisted_suffix)? (" (" blocked_suffix)?  (" (" absorbed_suffix)?
+hits_autoattack_line: MULTIWORD " " ("hits"|"crits") " " MULTIWORD " for " INT [spell_damage_type] "." glancing_suffix? vulnerability_suffix? crushing_suffix? resisted_suffix? blocked_suffix? absorbed_suffix?
 
 
 timestamp: INT "/" INT " " INT ":" INT ":" INT "." INT
 
-glancing_suffix: (" (glancing)")
-resisted_suffix: (INT " resisted)")
-absorbed_suffix: (INT " absorbed)")
-blocked_suffix: (INT " blocked)")
-vulnerability_suffix: "+" INT " vulnerability bonus)"
-crushing_suffix: (" (crushing)")
+glancing_suffix: " (glancing)"
+resisted_suffix: " (" INT " resisted)"
+absorbed_suffix: " (" INT " absorbed)"
+blocked_suffix: " (" INT " blocked)"
+vulnerability_suffix: " (+" INT " vulnerability bonus)"
+crushing_suffix: " (crushing)"
 _consolidated_case: consolidated_pet
     | consolidated_loot
     | consolidated_zone
@@ -179,7 +179,6 @@ CONNECTING_WORD: "and"|"with"|"by"|"of"|"to"|"the"|"75B"|"numbing"|"toasted"|"an
     |/(?<=Taste )for(?= Blood)/
     |/(?<=Thirst )for(?= Blood)/
 
-_TS_SEP: SPACE SPACE
 SPACE: " "
 SELF_DAMAGE: " (self damage)"
 TRAILING_SPACE: /(?<! ) (?= )/  # space only if followed by another space and not preceded by another space
