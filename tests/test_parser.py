@@ -395,8 +395,6 @@ def test_hits_line2(app):
     lines = lines.splitlines(keepends=True)
     match = 0
     for line in lines:
-        if len(line) > 10:
-            app.parser.parse(line)
         match += parse_line(app, line)
     assert match == 7
 
@@ -524,6 +522,8 @@ def test_beamchain(app):
 
 def test_suffers_line(app):
     lines = """
+4/3 22:39:20.049  Manascale Ley-Seeker (Ley-Watcher Incantagos) suffers 109 Nature damage from Gees 's Serpent Sting.
+
 10/20 20:04:05.389  Anubisath Sentinel suffers 60 Nature damage from Jaekta 's Potent Venom.
 10/20 20:04:05.389  Anubisath Sentinel suffers 287 Shadow damage from Rossol 's Shadow Word: Pain.
 10/20 20:04:05.389  Anubisath Sentinel suffers 260 Shadow damage from Dregoth 's Corruption.
@@ -546,7 +546,7 @@ def test_suffers_line(app):
     match = 0
     for line in lines:
         match += parse_line(app, line)
-    assert match == 12
+    assert match == 13
 
 
 def test_nef_corrupted_healing(app):

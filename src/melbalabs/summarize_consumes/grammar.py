@@ -59,6 +59,7 @@ _line: gains_line
     | causes_damage_line
     | equipped_durability_loss
 
+
 equipped_durability_loss: MULTIWORD " 's equipped items suffer a 10% durability loss."
 
 causes_damage_line: MULTIWORD " 's " MULTIWORD " causes " MULTIWORD " " INT " damage."
@@ -84,7 +85,7 @@ creates_line: MULTIWORD " creates " MULTIWORD "."
 
 suffers_line_nosource: " points of fire damage"
 suffers_line_source: spell_damage_type " from " MULTIWORD " 's " MULTIWORD
-suffers_line: MULTIWORD " suffers " INT (suffers_line_nosource | suffers_line_source) "." vulnerability_suffix? resisted_suffix? absorbed_suffix?
+suffers_line: multiword " suffers " INT (suffers_line_nosource | suffers_line_source) "." vulnerability_suffix? resisted_suffix? absorbed_suffix?
 
 fades_line: MULTIWORD " fades from " MULTIWORD "."
 
@@ -157,10 +158,10 @@ consolidated_loot: "LOOT: " _CONSOLIDATED_TIMESTAMP /[^\{\n]+/
 consolidated_zone: "ZONE_INFO: " _CONSOLIDATED_TIMESTAMP /[^\{\n]+/
 
 
+
 # higher prio terminals for disambiguation. keywords
 _COMBATANT_INFO_TOKEN.2: "COMBATANT_INFO: "
 _CONSOLIDATED.2: "CONSOLIDATED: "
-
 
 spell_damage_type: " " /Fire|Frost|Holy|Arcane|Nature|Shadow|Physical/ " damage"
 
@@ -168,12 +169,14 @@ _CONSOLIDATED_TIMESTAMP: INT "." INT "." INT " " INT ":" INT ":" INT "&"
 
 HEAL_CRIT: " critically"
 
+multiword: MULTIWORD _paren_word?
+_paren_word: SPACE LEFT_PAREN MULTIWORD+ RIGHT_PAREN
+
 WORD: UCASE_LETTER (LETTER | DIGIT | CONNECTING_APOSTROPHE | CONNECTING_COLON | COMMA | SLASH)*
-PAREN_WORD: "(" WORD (SPACE WORD)* ")"
 MULTIWORD: WORD ((SPACE | DASH | UNDERSCORE) CONNECTING_WORD)* SELF_DAMAGE? TRAILING_SPACE?
 CONNECTING_APOSTROPHE: /(?<! )'/  # allow it only inside a word
 CONNECTING_COLON: /(?<! ):/
-CONNECTING_WORD: "and"|"with"|"by"|"of"|"to"|"the"|"75B"|"numbing"|"toasted"|"an"|DASH|PAREN_WORD|WORD
+CONNECTING_WORD: "and"|"with"|"by"|"of"|"to"|"the"|"75B"|"numbing"|"toasted"|"an"|DASH|WORD
     |/(?<=Lay )on(?= Hands)/
     |/(?<=Mark )for(?= Death)/
     |/(?<=Taste )for(?= Blood)/
@@ -186,6 +189,8 @@ DASH: "-"
 UNDERSCORE: "_"
 COMMA: ","
 SLASH: "/"
+LEFT_PAREN: "("
+RIGHT_PAREN: ")"
 
 # https://github.com/lark-parser/lark/blob/master/lark/grammars/common.lark
 %import common.INT
@@ -194,4 +199,6 @@ SLASH: "/"
 %import common.DIGIT -> DIGIT
 %import common.NEWLINE
 """
+
+
 

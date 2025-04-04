@@ -39,6 +39,14 @@ class App:
     pass
 
 
+class TreeTransformer(lark.Transformer):
+    def multiword(self, args):
+        result = ''
+        for arg in args:
+            result += arg
+        return lark.Token('MULTIWORD_T', result)
+
+
 @functools.cache
 def create_parser(grammar: str, debug):
     return lark.Lark(
@@ -47,6 +55,7 @@ def create_parser(grammar: str, debug):
         debug=debug,
         # ambiguity='explicit',  # not in lalr
         strict=True,
+        transformer=TreeTransformer(),
     )
 
 @functools.cache
@@ -1883,6 +1892,7 @@ class Infographic:
 
 def parse_line(app, line):
     try:
+        if line == '\n': return False
         return parse_line2(app, line)
     except Exception as e:
         logging.exception(line)
@@ -2386,7 +2396,9 @@ def parse_line2(app, line):
 
     except LarkError:
         # parse errors ignored to try different strategies
+        # raise
         pass
+
     return False
 
 def parse_log(app, filename):
