@@ -288,6 +288,8 @@ Cooldown Summary
          Bubasita 8
          Edmonnd 6
          Everglow 2
+      Sweeping Strikes
+         Storkie 20
       Shield Wall
          Psykhe 1
          Edmonnd 1

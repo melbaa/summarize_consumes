@@ -45,6 +45,8 @@ class TreeTransformer(lark.Transformer):
         for arg in args:
             result += arg
         return lark.Token('MULTIWORD_T', result)
+    def PARENS_INT(self, args):
+        return lark.Token('INT_T', args[2:-1])
 
 
 @functools.cache
@@ -2396,7 +2398,10 @@ def parse_line2(app, line):
 
     except LarkError:
         # parse errors ignored to try different strategies
-        # raise
+        #print(line)
+        #print(app.parser.parse(line))
+        #raise
+
         pass
 
     return False

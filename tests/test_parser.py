@@ -1,6 +1,8 @@
 import pytest
 import io
 
+import lark
+
 
 from melbalabs.summarize_consumes.main import parse_line
 from melbalabs.summarize_consumes.main import NAME2ITEMID
@@ -26,6 +28,26 @@ def test_lark_contextual_lexer(app):
     lines = lines.splitlines(keepends=True)
     assert len(app.parser.parser.parser.parser.parse_table.states)
 
+
+def test_lark_contextual_lexer2():
+    lines = """
+"""
+    grammar = """
+    start: "hi"
+"""
+
+    if 0:
+        parser = lark.Lark(
+            grammar,
+            parser='lalr',
+            debug=True,
+            strict=True,
+        )
+
+
+    lines = lines.splitlines(keepends=True)
+    #result = parser.parse(lines[0])
+    #assert result
 
 def test_lark_whitespace():
     lines = """a .
@@ -88,7 +110,7 @@ def test_rage_consumable_line(app):
 4/19 21:10:19.076  Dragoon gains 60 Rage from Dragoon 's Great Rage.
 4/19 21:10:19.076  Dragoon gains 60 Rage from Dragoon 's Mighty Rage.
 4/19 21:10:19.076  Dragoon gains 60 Rage from Dragoon 's Rage.
-    """
+"""
     lines = lines.splitlines(keepends=True)
     for line in lines:
         parse_line(app, line)
@@ -101,7 +123,7 @@ def test_tea_with_sugar_line(app):
 4/21 21:01:38.861  Psykhe 's Tea with Sugar critically heals Psykhe for 1613.
 12/4 21:20:37.957  Elieena 's Tea heals Elieena for 579.
 4/21 21:22:41.023  Shumy gains 1209 Mana from Shumy 's Tea with Sugar.
-    """
+"""
     lines = lines.splitlines(keepends=True)
     for line in lines:
         parse_line(app, line)
@@ -112,7 +134,7 @@ def test_tea_with_sugar_line(app):
 def test_gains_line(app):
     lines = """
 11/3 21:33:37.718  Zugger gains Taste for Blood (1).
-    """
+"""
     lines = lines.splitlines(keepends=True)
     match = 0
     for line in lines:
@@ -135,7 +157,7 @@ def test_gains_consumable_line(app):
 12/6 20:51:27.752  Squirreled gains Elixir of Brute Force (1).
 6/29 22:01:40.488  Kuroiyuusha gains Fire-toasted Bun (1).
 7/14 20:12:11.200  Xelya gains Lucidity Potion (1).
-    """
+"""
     lines = lines.splitlines(keepends=True)
     for line in lines:
         parse_line(app, line)
@@ -157,7 +179,7 @@ def test_buff_line(app):
 6/16 21:32:19.790  Ikoretta gains Prayer of Shadow Protection (1).
 6/16 21:32:19.859  Samet gains Prayer of Shadow Protection (1).
 6/16 21:32:22.078  Charmia gains Prayer of Shadow Protection (1).
-    """
+"""
     lines = lines.splitlines(keepends=True)
     for line in lines:
         parse_line(app, line)
@@ -170,7 +192,7 @@ def test_dies_line(app):
 4/5 20:11:49.164  Nilia dies.
 4/5 20:11:49.653  Blackwing Mage dies.
 1/26 21:42:20.979  Field Repair Bot 75B dies.
-    """
+"""
     lines = lines.splitlines(keepends=True)
     for line in lines:
         parse_line(app, line)
@@ -182,7 +204,7 @@ def test_healpot_line(app):
     lines = """
 4/5 20:46:53.177  Macc 's Healing Potion heals Macc for 1628.
 4/5 20:57:27.357  Srj 's Healing Potion critically heals Srj for 2173.
-    """
+"""
     lines = lines.splitlines(keepends=True)
     for line in lines:
         parse_line(app, line)
@@ -194,7 +216,7 @@ def test_manapot_line(app):
 4/5 22:42:46.277  Ikoretta gains 1787 Mana from Ikoretta 's Restore Mana.
 4/5 22:43:16.765  Smahingbolt gains 1967 Mana from Smahingbolt 's Restore Mana.
 4/5 22:50:51.341  Magikal gains 1550 Mana from Magikal 's Restore Mana.
-    """
+"""
     lines = lines.splitlines(keepends=True)
     for line in lines:
         parse_line(app, line)
@@ -210,7 +232,7 @@ def test_manarune_line(app):
 4/5 20:10:47.164  Getterfour 's Demonic Rune hits Getterfour for 653 Shadow damage.
 4/5 20:10:54.738  Badmanaz gains 1499 Mana from Badmanaz 's Demonic Rune.
 4/5 20:10:54.738  Badmanaz 's Demonic Rune hits Badmanaz for 858 Shadow damage. (286 resisted)
-    """
+"""
     lines = lines.splitlines(keepends=True)
     for line in lines:
         parse_line(app, line)
@@ -222,7 +244,7 @@ def test_drains_mana_line(app):
     lines = """
 7/14 20:33:44.437  Titicacal 's Drain Mana drains 139 Mana from Obsidian Eradicator. Titicacal gains 139 Mana.
 7/14 00:00:03.782  Solnius 's Sanctum Mind Decay drains 135 Mana from Interlan.
-    """
+"""
     lines = lines.splitlines(keepends=True)
     match = 0
     for line in lines:
@@ -249,7 +271,7 @@ def test_begins_to_cast_line(app):
 4/12 21:03:59.459  Bruceweed begins to cast Kreeg's Stout Beatdown.
 4/12 21:04:00.483  Bruceweed is afflicted by Kreeg's Stout Beatdown (1).
 7/1 20:10:19.518  Exeggute begins to cast Sharpen Weapon - Critical.
-    """
+"""
     lines = lines.splitlines(keepends=True)
     for line in lines:
         parse_line(app, line)
@@ -265,7 +287,7 @@ def test_casts_melt_weapon(app):
 1/26 22:16:05.435  Ragnaros casts Melt Weapon on Wezepeng: Vis'kag the Bloodletter damaged.
 1/26 22:16:06.461  Ragnaros casts Melt Weapon on Psykhe: Iblis, Blade of the Fallen Seraph damaged.
 4/19 21:55:29.304  Ragnaros casts Melt Weapon on Ingar: Remnants of an Old God damaged.
-    """
+"""
     lines = lines.splitlines(keepends=True)
     match = 0
     for line in lines:
@@ -283,7 +305,7 @@ def test_casts_consumable_line(app):
 4/13 22:19:00.971  Doombabe casts Cure Ailments on Doombabe.
 4/13 22:19:00.971  Doombabe casts Cure Ailments on Doombabe.
 4/14 21:04:16.502  Samain casts Cure Ailments on Samain.
-    """
+"""
     lines = lines.splitlines(keepends=True)
     for line in lines:
         parse_line(app, line)
@@ -308,7 +330,7 @@ def test_hits_consumable_line(app):
 4/5 22:42:16.307  Samain 's Stratholme Holy Water hits Bone Construct for 474 Holy damage.
 4/5 22:42:16.307  Samain 's Stratholme Holy Water hits Bone Construct for 455 Holy damage.
 4/5 22:42:16.307  Samain 's Stratholme Holy Water hits Bone Construct for 550 Holy damage.
-    """
+"""
     lines = lines.splitlines(keepends=True)
     match = 0
     for line in lines:
@@ -335,7 +357,7 @@ def test_consolidated_line(app):
 5/24 22:06:52.097  CONSOLIDATED: PET: 24.05.23 22:03:04&Doombabe&Khuujhomv3
 5/24 22:41:47.934  CONSOLIDATED: LOOT: 24.05.23 22:40:17&Doombabe receives item: |cffffffff|Hitem:6265:0:0:0|h[Soul Shard]|h|rx1.{PET: 24.05.23 22:40:17&Doombabe&Khuujhom{LOOT: 24.05.23 22:40:36&Waken receives item: |cffffffff|Hitem:21177:0:0:0|h[Symbol of Kings]|h|rx20.{LOOT: 24.05.23 22:40:36&Waken receives item: |cffffffff|Hitem:21177:0:0:0|h[Symbol of Kings]|h|rx20.{LOOT: 24.05.23 22:40:37&Waken receives item: |cffffffff|Hitem:21177:0:0:0|h[Symbol of Kings]|h|rx20.
 10/11 20:40:42.226  CONSOLIDATED: PET: 11.10.23 20:40:36&Arzetlam&Deathknight Understudy{LOOT: 24.05.23 21:14:39&Doombabe receives item: |cffffffff|Hitem:6265:0:0:0|h[Soul Shard]|h|rx1.
-    """
+"""
     lines = lines.splitlines(keepends=True)
     match = 0
     for line in lines:
@@ -359,7 +381,7 @@ def test_combatant_info_line(app):
 10/11 20:03:02.614  COMBATANT_INFO: 11.10.23 20:02:40&Druindy&DRUID&Tauren&3&nil&Cold Embrace&Marauder&4&nil&nil&nil&nil&nil&nil&nil&22490:2591:0:0&23036:0:0:0&22491:0:0:0&51904:0:0:0&65021:928:0:0&21582:0:0:0&19385:2591:0:0&19437:911:0:0&21604:2566:0:0&22493:2617:0:0&19382:0:0:0&19140:0:0:0&nil
 10/11 20:03:02.614  COMBATANT_INFO: 11.10.23 20:02:40&Loyola&PALADIN&Human&2&nil&Cold Embrace&Member&7&nil&nil&nil&nil&nil&nil&nil&21387:2584:0:0&18404:0:0:0&21391:0:0:0&3428:0:0:0&16958:0:0:0&19137:0:0:0&21390:2584:0:0&21388:1887:0:0&21618:1885:0:0&21623:2564:0:0&60006:0:0:0&19382:0:0:0&nil
 10/11 20:03:02.614  COMBATANT_INFO: 11.10.23 20:02:40&Druindy&DRUID&Tauren&3&nil&Cold Embrace&Marauder&4&nil&nil&nil&nil&nil&nil&nil&22490:2591:0:0&23036:0:0:0&22491:0:0:0&51904:0:0:0&65021:928:0:0&21582:0:0:0&19385:2591:0:0&19437:911:0:0&21604:2566:0:0&22493:2617:0:0&19382:0:0:0&19140:0:0:0&nil
-    """
+"""
     lines = lines.splitlines(keepends=True)
     match = 0
     for line in lines:
@@ -375,7 +397,7 @@ def test_hits_line(app):
 1/26 21:49:03.473  Flameguard hits Psykhe for 606 Fire damage. (202 resisted)
 2/21 21:20:32.779  Psykhe hits Flamewaker Elite for 333. (glancing) (+15 vulnerability bonus)
 12/20 21:23:43.965  Allaxou hits Flamewaker Elite for 159. (+10 vulnerability bonus) (37 blocked)
-    """
+"""
     lines = lines.splitlines(keepends=True)
     match = 0
     for line in lines:
@@ -391,7 +413,7 @@ def test_hits_line2(app):
 10/15 20:10:30.145  Jaekta hits Core Hound for 1. (189 absorbed)
 10/15 20:10:30.145  Jaekta hits Core Hound for 1.
 4/15 15:15:08.612  Kurinnaxx hits Psykhe for 1452. (crushing) (144 absorbed)
-    """
+"""
     lines = lines.splitlines(keepends=True)
     match = 0
     for line in lines:
@@ -403,7 +425,7 @@ def test_hits_line3(app):
 2/8 11:40:10.559  Rila 's Whirlwind crits Bile Sludge (Sludge Belcher) for 606.
 11/3 20:40:02.661  Mcstabbys 's Mark for Death hits Qiraji Brainwasher for 396.
 9/28 22:52:56.103  Srj 's Kick hits Kel'Thuzad for 66.
-    """
+"""
     lines = lines.splitlines(keepends=True)
     match = 0
     for line in lines:
@@ -425,7 +447,7 @@ def test_ktfrostbolt(app):
 11/2 22:53:38.470  Windfurytotm 's Earth Shock crits Kel'Thuzad for 385 Nature damage.
 11/2 22:53:47.930  Windfurytotm 's Earth Shock hits Kel'Thuzad for 255 Nature damage.
 11/2 22:53:55.048  Windfurytotm 's Earth Shock was resisted by Kel'Thuzad.
-    """
+"""
     lines = lines.splitlines(keepends=True)
     for line in lines:
         parse_line(app, line)
@@ -445,7 +467,7 @@ def test_kt_frostblast(app):
 9/28 22:52:04.449  Kel'Thuzad 's Frost Blast hits Melevolence for 1315 Frost damage.
 9/28 22:52:04.449  Kel'Thuzad 's Frost Blast hits Killanime for 1605 Frost damage.
 9/28 22:52:04.449  Kel'Thuzad 's Frost Blast hits Dyrachyo for 1546 Frost damage.
-    """
+"""
     lines = lines.splitlines(keepends=True)
     for line in lines:
         parse_line(app, line)
@@ -460,7 +482,7 @@ def test_kt_shadowfissure(app):
 10/19 22:28:38.946  Kel'Thuzad casts Shadow Fissure.
 10/19 22:28:42.004  Shadow Fissure 's Void Blast hits Windfurytotm for 127456 Shadow damage.
 10/19 22:28:42.004  Shadow Fissure 's Void Blast hits Everglow for 102705 Shadow damage.
-    """
+"""
     lines = lines.splitlines(keepends=True)
     for line in lines:
         parse_line(app, line)
@@ -487,7 +509,7 @@ def test_huhuran(app):
 10/6 21:06:14.089  Killanime casts Death by Peasant.
 10/6 21:06:16.497  Iniri casts Death by Peasant.
 4/13 21:11:02.121  Princess Huhuran dies.
-    """
+"""
     lines = lines.splitlines(keepends=True)
     for line in lines:
         parse_line(app, line)
@@ -507,7 +529,7 @@ def test_beamchain(app):
 9/20 22:51:04.622  Sir Zeliek 's Holy Wrath is absorbed by Exeggute.
 9/20 22:51:04.622  Sir Zeliek 's Holy Wrath is absorbed by Exeggute.
 9/20 23:06:17.787  Sir Zeliek 's Holy Wrath hits Obbi for 477 Holy damage.
-    """
+"""
     lines = lines.splitlines(keepends=True)
     for line in lines:
         parse_line(app, line)
@@ -541,7 +563,7 @@ def test_suffers_line(app):
 1/26 22:07:16.185  Moryak suffers 0 points of fire damage. (368 resisted) (369 absorbed)
 
 6/27 20:21:39.048  Vvalter suffers 100 Nature damage from Vvalter (self damage) 's Slime.
-    """
+"""
     lines = lines.splitlines(keepends=True)
     match = 0
     for line in lines:
@@ -556,7 +578,7 @@ def test_nef_corrupted_healing(app):
 10/14 22:02:42.457  Psykhe suffers 315 Shadow damage from Jarnp 's Corrupted Healing.
 10/14 22:02:43.366  Psykhe suffers 315 Shadow damage from Jarnp 's Corrupted Healing.
 5/6 22:14:32.515  Arzetlam 's Corrupted Healing is absorbed by Jaekta.
-    """
+"""
     lines = lines.splitlines(keepends=True)
     for line in lines:
         parse_line(app, line)
@@ -578,7 +600,7 @@ def test_gluth(app):
 9/21 22:58:39.978  Gluth gains Frenzy (1).
 
 9/21 23:00:42.334  Gluth 's Frenzy is removed.
-    """
+"""
     lines = lines.splitlines(keepends=True)
     for line in lines:
         parse_line(app, line)
@@ -623,7 +645,7 @@ def test_rejuv_pot(app):
 4/14 23:19:29.030  Sebben gains 1548 Mana from Sebben 's Rejuvenation Potion.
 4/14 23:19:29.030  Sebben 's Rejuvenation Potion heals Sebben for 1497.
 4/14 23:19:29.030  Psykhe 's Rejuvenation Potion heals Psykhe for 497.
-    """
+"""
     lines = lines.splitlines(keepends=True)
     for line in lines:
         parse_line(app, line)
@@ -644,7 +666,7 @@ def test_fades_line(app):
 10/28 20:02:13.961  Mark of the Wild fades from Psykhe.
 10/28 20:02:13.961  Mark of the Wild fades from Jaekta.
 10/28 20:02:32.827  Rallying Cry of the Dragonslayer fades from Sunor.
-    """
+"""
     lines = lines.splitlines(keepends=True)
     match = 0
     for line in lines:
@@ -657,7 +679,7 @@ def test_slain_line(app):
 10/28 20:12:40.079  Blackwing Mage is slain by Gorkagoth!
 10/28 20:12:41.886  Blackwing Mage is slain by Charmia!
 2/23 19:04:16.822  Vekniss Wasp is slain by Shape.
-    """
+"""
     lines = lines.splitlines(keepends=True)
     match = 0
     for line in lines:
@@ -668,7 +690,7 @@ def test_creates_line(app):
     lines = """
 10/29 19:44:43.785  Tovenares creates Conjured Sparkling Water.
 10/29 19:44:54.085  Tovenares creates Mana Ruby.
-    """
+"""
     lines = lines.splitlines(keepends=True)
     match = 0
     for line in lines:
@@ -679,7 +701,7 @@ def test_is_killed_line(app):
     lines = """
 4/28 14:28:45.871  Gurubashi Bat Rider is killed by Unstable Concoction.
 4/28 15:04:48.311  Lenato is killed by Divine Intervention.
-    """
+"""
     lines = lines.splitlines(keepends=True)
     match = 0
     for line in lines:
@@ -693,7 +715,7 @@ def test_gains_energy_line(app):
 10/29 19:44:43.965  Syjlas gains 12 Energy from Syjlas 's Quel'dorei Meditation.
 10/29 19:44:44.933  Syjlas gains 12 Energy from Syjlas 's Quel'dorei Meditation.
 10/29 19:44:45.926  Syjlas gains 12 Energy from Syjlas 's Quel'dorei Meditation.
-    """
+"""
     lines = lines.splitlines(keepends=True)
     match = 0
     for line in lines:
@@ -706,7 +728,7 @@ def test_gains_health_line(app):
 10/29 20:01:52.120  Jaekta gains 114 health from Niviri 's Regrowth.
 10/29 20:01:52.660  Jaekta gains 491 health from Niviri 's Rejuvenation.
 
-    """
+"""
     lines = lines.splitlines(keepends=True)
     match = 0
     for line in lines:
@@ -716,7 +738,7 @@ def test_gains_health_line(app):
 def test_blocked_autoattack(app):
     lines = """
 10/29 21:03:46.392  Jaekta hits Lava Surger for 203. (10 resisted) (31 blocked)
-    """
+"""
     lines = lines.splitlines(keepends=True)
     match = 0
     for line in lines:
@@ -727,7 +749,7 @@ def test_blocked_ability(app):
     lines = """
 4/5 21:04:07.515  Smahingbolt 's Arcane Shot hits Blackwing Taskmaster for 125 Arcane damage. (41 resisted) (31 blocked)
 4/5 22:13:38.659  Smahingbolt 's Arcane Shot hits Chromaggus for 13 Arcane damage. (12 resisted) (31 blocked)
-    """
+"""
     lines = lines.splitlines(keepends=True)
     match = 0
     for line in lines:
@@ -739,7 +761,7 @@ def test_blocked_ability(app):
 def test_paren_word(app):
     lines = """
 10/29 20:19:24.006  Firelord is afflicted by Faerie Fire (Feral) (1).
-    """
+"""
     lines = lines.splitlines(keepends=True)
     match = 0
     for line in lines:
@@ -749,7 +771,7 @@ def test_paren_word(app):
 def test_dashed_word(app):
     lines = """
 4/14 21:02:23.229  Interlani is afflicted by Mind-numbing Poison (1).
-    """
+"""
     lines = lines.splitlines(keepends=True)
 
     match = 0
@@ -761,7 +783,7 @@ def test_is_destroyed_line(app):
     lines = """
 4/19 21:21:30.746  Battle Chicken is destroyed.
 4/20 16:35:21.543  Magma Totem IV is destroyed.
-    """
+"""
     lines = lines.splitlines(keepends=True)
 
     match = 0
@@ -778,7 +800,7 @@ def test_performs_line(app):
 10/29 19:59:28.113  Inris performs Call Pet.
 10/29 20:01:22.446  Smahingbolt performs Call Pet.
 11/17 22:02:43.381  Raibagz performs Powerful Smelling Salts on Illasei.
-    """
+"""
     lines = lines.splitlines(keepends=True)
     match = 0
     for line in lines:
@@ -792,7 +814,7 @@ def test_gains_extra_attacks_line(app):
 10/29 20:01:39.675  Jaekta gains 1 extra attacks through Windfury Totem.
 10/29 20:01:39.675  Jaekta gains 1 extra attack through Windfury Totem.
 10/29 20:01:40.292  Windfurytotm gains 2 extra attacks through Windfury Weapon.
-    """
+"""
     lines = lines.splitlines(keepends=True)
     match = 0
     for line in lines:
@@ -806,7 +828,7 @@ def test_dodges_line(app):
 10/29 21:09:34.996  Pieshka attacks. Ragnaros dodges.
 10/29 20:01:50.732  Bloxie 's Crusader Strike was dodged by Molten Giant.
 10/29 20:01:52.660  Bloxie 's Holy Strike was dodged by Molten Giant.
-    """
+"""
     lines = lines.splitlines(keepends=True)
     match = 0
     for line in lines:
@@ -817,7 +839,7 @@ def test_reflects_line(app):
     lines = """
 10/29 20:01:38.278  Palapus reflects 35 Holy damage to Molten Giant.
 10/29 20:01:38.278  Palapus reflects 3 Arcane damage to Molten Giant.
-    """
+"""
     lines = lines.splitlines(keepends=True)
     match = 0
     for line in lines:
@@ -828,7 +850,7 @@ def test_is_reflected_back_line(app):
     lines = """
 1/26 22:07:07.457  Meowxs 's Vampiric Embrace is reflected back by Flamewaker Elite.
 1/26 22:07:08.679  Goscha 's Frostbolt is reflected back by Flamewaker Healer.
-    """
+"""
     lines = lines.splitlines(keepends=True)
     match = 0
     for line in lines:
@@ -838,7 +860,7 @@ def test_is_reflected_back_line(app):
 def test_fails_to_dispel_line(app):
     lines = """
 1/26 21:35:06.364  Garr fails to dispel Variusz 's Seal of Command.
-    """
+"""
     lines = lines.splitlines(keepends=True)
     match = 0
     for line in lines:
@@ -850,7 +872,7 @@ def test_misses_line(app):
 10/29 20:23:04.371  Pieshka misses Ancient Core Hound.
 10/29 21:10:44.948  Bloxie 's Crusader Strike missed Ragnaros.
 10/29 20:08:41.392  Core Hound 's Serrated Bite misses Psykhe.
-    """
+"""
     lines = lines.splitlines(keepends=True)
     match = 0
     for line in lines:
@@ -861,7 +883,7 @@ def test_parry_lines(app):
     lines = """
 9/28 22:50:24.408  Melevolence 's Pummel was parried by Kel'Thuzad.
 10/29 20:01:41.199  Jaekta attacks. Molten Giant parries.
-    """
+"""
     lines = lines.splitlines(keepends=True)
     match = 0
     for line in lines:
@@ -873,7 +895,7 @@ def test_falls_line(app):
 10/29 20:02:07.266  Everglow falls and loses 1300 health.
 10/29 20:02:07.266  Psykhe falls and loses 1176 health.
 10/29 20:02:07.735  Sunor falls and loses 727 health.
-    """
+"""
     lines = lines.splitlines(keepends=True)
     match = 0
     for line in lines:
@@ -886,7 +908,7 @@ def test_none_line(app):
 10/29 20:13:04.841  NONE
 10/29 20:13:05.007  NONE
 10/29 20:13:05.007  NONE
-    """
+"""
     lines = lines.splitlines(keepends=True)
     match = 0
     for line in lines:
@@ -900,7 +922,7 @@ def test_immune_line(app):
 10/29 20:46:59.833  Jaekta attacks but Lava Elemental is immune.
 10/29 20:46:59.833  Windfurytotm attacks but Lava Elemental is immune.
 10/29 20:46:59.908  Bloxie attacks but Lava Elemental is immune.
-    """
+"""
     lines = lines.splitlines(keepends=True)
     match = 0
     for line in lines:
@@ -913,7 +935,7 @@ def test_lava_line(app):
 10/29 21:05:53.467  Umbriela loses 90 health for swimming in lava. (287 resisted) (198 absorbed)
 10/29 21:05:54.431  Umbriela loses 413 health for swimming in lava. (137 resisted)
 10/29 21:05:56.723  Umbriela loses 569 health for swimming in lava.
-    """
+"""
     lines = lines.splitlines(keepends=True)
     match = 0
     for line in lines:
@@ -924,7 +946,7 @@ def test_slays_line(app):
     lines = """
 10/29 20:20:31.006  Psykhe slays Gehennas!
 10/29 20:22:11.290  Psykhe slays Molten Destroyer!
-    """
+"""
     lines = lines.splitlines(keepends=True)
     match = 0
     for line in lines:
@@ -941,7 +963,7 @@ def test_kt_guardian_log(app):
 11/2 22:17:49.752  Guardian of Icecrown hits Shumy for 2200.
 11/2 22:18:02.277  Guardian of Icecrown crits Geniesham for 9184.
 
-    """
+"""
     lines = lines.splitlines(keepends=True)
     for line in lines:
         parse_line(app, line)
@@ -956,7 +978,7 @@ def test_viscidus(app):
 4/13 22:19:03.511  Alexjed 's Shoot hits Viscidus for 57 Frost damage.
 4/13 22:19:03.511  Alexjed 's Frostbolt hits Viscidus for 57 Frost damage.
 4/13 22:19:03.511  Alexjed 's Bloodthirst hits Viscidus for 57.
-    """
+"""
     lines = lines.splitlines(keepends=True)
     for line in lines:
         parse_line(app, line)
@@ -976,21 +998,22 @@ def test_techinfo(app):
 4/13 22:19:03.511  Alexjed 's Shoot hits Viscidus for 57 Frost damage.
 4/13 22:19:03.511  Alexjed 's Frostbolt hits Viscidus for 57 Frost damage.
 4/13 22:19:03.511  Alexjed 's Bloodthirst hits Viscidus for 57.
-    """
+"""
     lines = lines.splitlines(keepends=True)
     for line in lines:
-        parse_line(app, line)
-        app.techinfo.linecount += 1
+        match = parse_line(app, line)
+        if match:
+            app.techinfo.linecount += 1
     output = io.StringIO()
     app.techinfo.print(output)
-    assert output.getvalue() == '\n\nTech\n   log size 0 Bytes\n   log lines 9\n   skipped log lines 0 (0.00%)\n'
+    assert output.getvalue() == '\n\nTech\n   log size 0 Bytes\n   log lines 7\n   skipped log lines 0 (0.00%)\n'
 
 
 def test_causes_damage_line(app):
     lines = """
 2/3 22:40:48.259  Kel'Thuzad 's Spirit Link causes Cracklinoats 27 damage.
 2/3 22:40:48.259  Kel'Thuzad 's Spirit Link causes Martl 27 damage.
-    """
+"""
     lines = lines.splitlines(keepends=True)
     match = 0
     for line in lines:
@@ -1003,7 +1026,7 @@ def test_was_evaded_line(app):
 11/11 22:47:45.054  Syjlas 's Wild Polymorph was evaded by Teldelar.
 11/11 22:47:50.083  Ridea 's Wild Polymorph was evaded by Aphorodite.
 11/11 22:47:55.100  Syjlas 's Wild Polymorph was evaded by Platedps.
-    """
+"""
     lines = lines.splitlines(keepends=True)
     match = 0
     for line in lines:
@@ -1018,15 +1041,15 @@ def test_wild_polymorph(app):
 11/11 22:48:05.162  Coldbeer casts Wild Polymorph on Coldbeer.
 11/11 22:48:05.162  Coldbeer casts Wild Polymorph on Coldbeer.
 11/11 22:48:05.162  Psykhe casts Wild Polymorph on Psykhe.
-    """
+"""
 
     # too spammy
-    """
+    spammy = """
 11/11 22:48:05.162  Psykhe is afflicted by Wild Polymorph (1).
 11/11 22:48:05.194  Coldbeer is afflicted by Wild Polymorph (1).
 11/11 22:48:07.996  Psykhe 's Wild Polymorph is removed.
 11/11 22:47:55.740  Wild Polymorph fades from Srj.
-    """
+"""
     lines = lines.splitlines(keepends=True)
     for line in lines:
         parse_line(app, line)
@@ -1038,7 +1061,7 @@ def test_block_lines(app):
 11/11 22:31:21.990  Chromaggus attacks. Psykhe blocks.
 11/11 22:31:31.273  Dyrachyo 's Hamstring was blocked by Chromaggus.
 11/11 22:31:43.889  Dyrachyo 's Hamstring was blocked by Chromaggus.
-    """
+"""
     lines = lines.splitlines(keepends=True)
     match = 0
     for line in lines:
@@ -1048,7 +1071,7 @@ def test_block_lines(app):
 def test_interrupts_line(app):
     lines = """
 1/26 21:46:12.930  Shazzrah interrupts Minidance 's Shadow Bolt.
-    """
+"""
     lines = lines.splitlines(keepends=True)
     match = 0
     for line in lines:
@@ -1063,7 +1086,7 @@ def test_absorbs_lines(app):
 4/13 20:53:28.221  Vekniss Hatchling attacks. Salammbo absorbs all the damage.
 11/22 23:08:18.114  Zombie Chow attacks. Redzeus absorbs all the damage.
 11/22 22:40:00.824  Mad Scientist attacks. Bloxie absorbs all the damage.
-    """
+"""
     lines = lines.splitlines(keepends=True)
     match = 0
     for line in lines:
@@ -1074,7 +1097,7 @@ def test_pet_begins_eating(app):
     lines = """
 11/22 23:02:29.919  Chan's pet begins eating a Roasted Quail.
 11/22 23:02:46.728  Berserkss's pet begins eating a Conjured Mana Orange.
-    """
+"""
     lines = lines.splitlines(keepends=True)
     match = 0
     for line in lines:
@@ -1085,7 +1108,7 @@ def test_pet_begins_eating(app):
 def test_lay_on_hands(app):
     lines = """
 11/22 21:59:35.972  Bloxie 's Lay on Hands heals Bloxie for 3805.
-    """
+"""
     lines = lines.splitlines(keepends=True)
     match = 0
     for line in lines:
@@ -1096,7 +1119,7 @@ def test_gains_happiness(app):
     lines = """
 11/22 23:02:48.712  BATMAN gains 35 Happiness from Berserkss 's Feed Pet Effect.
 11/22 23:02:49.843  Kotick gains 35 Happiness from Chan 's Feed Pet Effect.
-    """
+"""
     lines = lines.splitlines(keepends=True)
     match = 0
     for line in lines:
@@ -1110,7 +1133,7 @@ def test_is_dismissed(app):
 4/19 20:54:23.504  Leyzara's Azrael is dismissed.
 12/10 21:15:33.219  Pitsharp 's Wolf is dismissed.
 12/10 21:40:45.575  Minoas 's Thunder is dismissed.
-    """
+"""
     lines = lines.splitlines(keepends=True)
     match = 0
     for line in lines:
@@ -1128,7 +1151,7 @@ def test_is_immune_ability(app):
 11/22 21:58:53.272  Noth the Plaguebringer is immune to Psykhe 's Goblin Sapper Charge.
 11/22 21:58:53.425  Noth the Plaguebringer is immune to Shrimpshark 's Ignite.
 11/22 21:58:53.425  Noth the Plaguebringer is immune to Shrimpshark 's Fireball.
-    """
+"""
     lines = lines.splitlines(keepends=True)
     match = 0
     for line in lines:
@@ -1203,7 +1226,7 @@ def test_cooldown_summary(app):
 2/8 10:33:14.532  Martl casts Sunder Armor on Venom Stalker.
 2/8 10:33:14.532  Martl casts Sunder Armor on Thaddius.
 3/23 19:06:36.405  Psykhe gains Sweeping Strikes (1).
-    """
+"""
     lines = lines.splitlines(keepends=True)
     for line in lines:
         parse_line(app, line)
@@ -1295,7 +1318,7 @@ def test_spellcount_stackcount(app):
 2/25 12:31:58.809  Unstable Power fades from Nerilen.
 2/25 12:32:26.785  Almouty gains Unstable Power (1).
 2/25 12:32:26.789  Almouty gains Unstable Power (12).
-    """
+"""
     lines = lines.splitlines(keepends=True)
     for line in lines:
         parse_line(app, line)
@@ -1356,7 +1379,7 @@ def test_class_detection(app):
 10/15 14:20:58.028  SimplezzAS 's Arcane Shot hits Scarlet Diviner for 83 Arcane damage.
 7/20 22:12:05.921  XelyaSOC gains Seal of Command (1).
 7/20 20:32:42.954  XelyaSOR gains Seal of Righteousness (1).
-    """
+"""
     lines = lines.splitlines(keepends=True)
     for line in lines:
         parse_line(app, line)
@@ -1434,7 +1457,7 @@ def test_proc_count(app):
 2/4 20:42:25.033  Abstractz gains Clearcasting (2).
 2/4 20:46:00.878  Pikachurin gains Vengeance (1).
 2/4 20:48:08.252  Starraven gains Nature's Grace (1).
-    """
+"""
     lines = lines.splitlines(keepends=True)
     for line in lines:
         parse_line(app, line)
@@ -1457,7 +1480,7 @@ def test_annihilator(app):
 3/23 21:03:32.631  Armor Shatter fades from Instructor Razuvious.
 3/23 21:30:48.616  Vallcow 's Armor Shatter was resisted by Noth the Plaguebringer.
 3/23 22:13:17.915  Feugen is afflicted by Armor Shatter (2).
-    """
+"""
     lines = lines.splitlines(keepends=True)
     for line in lines:
         parse_line(app, line)
@@ -1517,7 +1540,7 @@ def test_flamebuffet(app):
 3/23 21:57:13.811  Patchwerk gains Flame Buffet (4).
 3/23 21:57:15.420  Arcanite Dragonling 's Flame Buffet hits Patchwerk for 476 Fire damage.
 3/23 21:57:15.420  Patchwerk gains Flame Buffet (5).
-    """
+"""
     lines = lines.splitlines(keepends=True)
     for line in lines:
         parse_line(app, line)
@@ -1531,7 +1554,7 @@ def test_dmgstore(app):
 4/21 20:28:26.317  Obsidian Eradicator suffers 81 Physical damage from Agonist 's Deep Wound.
 10/29 20:01:38.278  Palapus reflects 35 Holy damage to Molten Giant.
 2/3 22:40:48.259  Kel'Thuzad 's Spirit Link causes Cracklinoats 27 damage.
-    """
+"""
     lines = lines.splitlines(keepends=True)
     for line in lines:
         parse_line(app, line)
@@ -1545,7 +1568,7 @@ def test_dmgstore(app):
 def test_durloss(app):
     lines = """
 5/19 21:24:56.215  Psykhe 's equipped items suffer a 10% durability loss.
-    """
+"""
     lines = lines.splitlines(keepends=True)
     match = 0
     for line in lines:
@@ -1556,7 +1579,7 @@ def test_durloss(app):
 def test_crash_log(app, caplog):
     lines = """
 11/2 22:17:49.752  Cabum is dismissed.
-    """
+"""
     lines = lines.splitlines(keepends=True)
     match = 0
     with pytest.raises(Exception) as e:

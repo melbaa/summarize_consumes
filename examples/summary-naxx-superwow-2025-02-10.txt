@@ -653,6 +653,10 @@ Cooldown Summary
          Squirreled 12
          Pitbound 9
          Zloveleen 4
+      Sweeping Strikes
+         Zloveleen 48
+         Ruwusz 41
+         Saberslash 19
       Shield Wall
          Zloveleen 1
          Squirreled 1
@@ -1113,4 +1117,4 @@ Class Detection
 Tech
    log size 29.1 MB
    log lines 413920
-   skipped log lines 630 (0.15%)
+   skipped log lines 575 (0.14%)

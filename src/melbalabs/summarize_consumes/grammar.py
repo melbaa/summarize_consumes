@@ -1,6 +1,7 @@
 grammar = r"""
 start: timestamp "  " _line NEWLINE
 
+
 _line: gains_line
     | gains_rage_line
     | gains_mana_line
@@ -60,100 +61,103 @@ _line: gains_line
     | equipped_durability_loss
 
 
-equipped_durability_loss: MULTIWORD " 's equipped items suffer a 10% durability loss."
 
-causes_damage_line: MULTIWORD " 's " MULTIWORD " causes " MULTIWORD " " INT " damage."
 
-fails_to_dispel_line: MULTIWORD " fails to dispel " MULTIWORD " 's " MULTIWORD "."
 
-is_reflected_back_line: MULTIWORD " 's " MULTIWORD " is reflected back by " MULTIWORD "."
+equipped_durability_loss: multiword " 's equipped items suffer a 10% durability loss."
 
-is_destroyed_line: MULTIWORD " is destroyed."
+causes_damage_line: multiword " 's " multiword " causes " multiword " " INT " damage."
 
-interrupts_line: MULTIWORD " interrupts " MULTIWORD " 's " MULTIWORD "."
+fails_to_dispel_line: multiword " fails to dispel " multiword " 's " multiword "."
 
-slays_line: MULTIWORD " slays " MULTIWORD "!"
+is_reflected_back_line: multiword " 's " multiword " is reflected back by " multiword "."
+
+is_destroyed_line: multiword " is destroyed."
+
+interrupts_line: multiword " interrupts " multiword " 's " multiword "."
+
+slays_line: multiword " slays " multiword "!"
 
 none_line: "NONE"
 
-falls_line: MULTIWORD " falls and loses " INT " health."
-lava_line: MULTIWORD " loses " INT " health for swimming in lava." resisted_suffix? absorbed_suffix?
+falls_line: multiword " falls and loses " INT " health."
+lava_line: multiword " loses " INT " health for swimming in lava." RESISTED_SUFFIX? ABSORBED_SUFFIX?
 
-reflects_damage_line: MULTIWORD " reflects " INT spell_damage_type " to " MULTIWORD "."
+reflects_damage_line: multiword " reflects " INT spell_damage_type " to " multiword "."
 
-creates_line: MULTIWORD " creates " MULTIWORD "."
+creates_line: multiword " creates " multiword "."
 
 suffers_line_nosource: " points of fire damage"
-suffers_line_source: spell_damage_type " from " MULTIWORD " 's " MULTIWORD
-suffers_line: multiword " suffers " INT (suffers_line_nosource | suffers_line_source) "." vulnerability_suffix? resisted_suffix? absorbed_suffix?
+suffers_line_source: spell_damage_type " from " multiword " 's " multiword
+suffers_line: multiword " suffers " INT (suffers_line_nosource | suffers_line_source) "." VULNERABILITY_SUFFIX? RESISTED_SUFFIX? ABSORBED_SUFFIX?
 
-fades_line: MULTIWORD " fades from " MULTIWORD "."
+fades_line: multiword " fades from " multiword "."
 
-removed_line: MULTIWORD " 's " MULTIWORD " is removed."
+removed_line: multiword " 's " multiword " is removed."
 
-dies_line: MULTIWORD " dies."
-is_killed_line: MULTIWORD " is killed by " MULTIWORD "."
-slain_line: MULTIWORD " is slain by " MULTIWORD ("." | "!")
+dies_line: multiword " dies."
+is_killed_line: multiword " is killed by " multiword "."
+slain_line: multiword " is slain by " multiword ("." | "!")
 
-is_dismissed_line: MULTIWORD " 's " MULTIWORD " is dismissed."
-is_dismissed_line2: MULTIWORD " is dismissed."
-gains_happiness_line: MULTIWORD " gains " INT " Happiness from " MULTIWORD " 's Feed Pet Effect."
-pet_begins_eating_line: MULTIWORD " pet begins eating a " MULTIWORD "."
-block_ability_line: MULTIWORD " 's " MULTIWORD " was blocked by " MULTIWORD "."
-block_line: MULTIWORD " attacks. " MULTIWORD " blocks."
-parry_ability_line: MULTIWORD " 's " MULTIWORD " was parried by " MULTIWORD "."
-parry_line: MULTIWORD " attacks. " MULTIWORD " parries."
-dodges_line: MULTIWORD " attacks. " MULTIWORD " dodges."
-dodge_ability_line: MULTIWORD " 's " MULTIWORD " was dodged by " MULTIWORD "."
-misses_line: MULTIWORD " misses " MULTIWORD "."
-misses_ability_line: MULTIWORD " 's " MULTIWORD (" missed "|" misses ") MULTIWORD "."
-resist_line: MULTIWORD " 's " MULTIWORD " was resisted by " MULTIWORD "."
-immune_ability_line: MULTIWORD " 's " MULTIWORD " fails. " MULTIWORD " is immune."
-immune_line: MULTIWORD " attacks but " MULTIWORD " is immune."
-is_immune_ability_line: MULTIWORD " is immune to " MULTIWORD " 's " MULTIWORD "."
-is_absorbed_ability_line: MULTIWORD " 's " MULTIWORD " is absorbed by " MULTIWORD "."
-absorbs_ability_line: MULTIWORD " absorbs " MULTIWORD " 's " MULTIWORD "."
-absorbs_all_line: MULTIWORD " attacks. " MULTIWORD " absorbs all the damage."
-was_evaded_line: MULTIWORD " 's " MULTIWORD " was evaded by " MULTIWORD "."
+is_dismissed_line: multiword " 's " multiword " is dismissed."
+is_dismissed_line2: multiword " is dismissed."
+gains_happiness_line: multiword " gains " INT " Happiness from " multiword " 's Feed Pet Effect."
+pet_begins_eating_line: multiword " pet begins eating a " multiword "."
+block_ability_line: multiword " 's " multiword " was blocked by " multiword "."
+block_line: multiword " attacks. " multiword " blocks."
+parry_ability_line: multiword " 's " multiword " was parried by " multiword "."
+parry_line: multiword " attacks. " multiword " parries."
+dodges_line: multiword " attacks. " multiword " dodges."
+dodge_ability_line: multiword " 's " multiword " was dodged by " multiword "."
+misses_line: multiword " misses " multiword "."
+misses_ability_line: multiword " 's " multiword (" missed "|" misses ") multiword "."
+resist_line: multiword " 's " multiword " was resisted by " multiword "."
+immune_ability_line: multiword " 's " multiword " fails. " multiword " is immune."
+immune_line: multiword " attacks but " multiword " is immune."
+is_immune_ability_line: multiword " is immune to " multiword " 's " multiword "."
+is_absorbed_ability_line: multiword " 's " multiword " is absorbed by " multiword "."
+absorbs_ability_line: multiword " absorbs " multiword " 's " multiword "."
+absorbs_all_line: multiword " attacks. " multiword " absorbs all the damage."
+was_evaded_line: multiword " 's " multiword " was evaded by " multiword "."
 
-heals_line: MULTIWORD " 's " MULTIWORD HEAL_CRIT? " heals " MULTIWORD " for " INT "."
+heals_line: multiword " 's " multiword HEAL_CRIT? " heals " multiword " for " INT "."
 
-gains_line: MULTIWORD " gains " MULTIWORD " (" INT ")."
-gains_rage_line: MULTIWORD " gains " INT " Rage from " MULTIWORD " 's " MULTIWORD "."
-gains_mana_line: MULTIWORD " gains " INT " Mana from " MULTIWORD " 's " MULTIWORD "."
-drains_mana_line: MULTIWORD " 's " MULTIWORD " drains " INT " Mana from " MULTIWORD ". " MULTIWORD " gains " INT " Mana."
-drains_mana_line2: MULTIWORD " 's " MULTIWORD " drains " INT " Mana from " MULTIWORD "."
-gains_energy_line: MULTIWORD " gains " INT " Energy from " MULTIWORD " 's " MULTIWORD "."
-gains_health_line: MULTIWORD " gains " INT " health from " MULTIWORD " 's " MULTIWORD "."
-gains_extra_attacks_line: MULTIWORD " gains " INT " extra attack" "s"? " through " MULTIWORD "."
+gains_line: multiword " gains " multiword PARENS_INT "."
+gains_rage_line: multiword " gains " INT " Rage from " multiword " 's " multiword "."
+gains_mana_line: multiword " gains " INT " Mana from " multiword " 's " multiword "."
+drains_mana_line: multiword " 's " multiword " drains " INT " Mana from " multiword "." " " multiword " gains " INT " Mana."
+drains_mana_line2: multiword " 's " multiword " drains " INT " Mana from " multiword "."
+gains_energy_line: multiword " gains " INT " Energy from " multiword " 's " multiword "."
+gains_health_line: multiword " gains " INT " health from " multiword " 's " multiword "."
+gains_extra_attacks_line: multiword " gains " INT " extra attack" "s"? " through " multiword "."
 
-afflicted_line: MULTIWORD " is afflicted by " MULTIWORD " (" INT ")."
-casts_line: MULTIWORD " casts " MULTIWORD (" on " MULTIWORD)? " damaged"? "."
-begins_to_cast_line: MULTIWORD " begins to cast " MULTIWORD "."
-performs_on_line: MULTIWORD " performs " MULTIWORD " on " MULTIWORD "."
-performs_line: MULTIWORD " performs " MULTIWORD "."
-begins_to_perform_line: MULTIWORD " begins to perform " MULTIWORD "."
+afflicted_line: multiword " is afflicted by " multiword PARENS_INT "."
+casts_line: multiword " casts " multiword (" on " multiword)? " damaged"? "."
+begins_to_cast_line: multiword " begins to cast " multiword "."
+performs_on_line: multiword " performs " multiword " on " multiword "."
+performs_line: multiword " performs " multiword "."
+begins_to_perform_line: multiword " begins to perform " multiword "."
 
 consolidated_line: _CONSOLIDATED (_consolidated_case "{"?)+
 combatant_info_line: _COMBATANT_INFO_TOKEN /.+/
 
-hits_ability_line: _hits_ability_line_prefix vulnerability_suffix? resisted_suffix? blocked_suffix? absorbed_suffix?
-_hits_ability_line_prefix: MULTIWORD " 's " MULTIWORD " " ("hits"|"crits") " " MULTIWORD " for " INT [spell_damage_type] "." glancing_suffix?
-hits_autoattack_line: MULTIWORD " " ("hits"|"crits") " " MULTIWORD " for " INT [spell_damage_type] "." glancing_suffix? vulnerability_suffix? crushing_suffix? resisted_suffix? blocked_suffix? absorbed_suffix?
+hits_ability_line: _hits_ability_line_prefix VULNERABILITY_SUFFIX? RESISTED_SUFFIX? BLOCKED_SUFFIX? ABSORBED_SUFFIX?
+_hits_ability_line_prefix: multiword " 's " multiword " " ("hits"|"crits") " " multiword " for " INT [spell_damage_type] "." glancing_suffix?
+hits_autoattack_line: multiword " " ("hits"|"crits") " " multiword " for " INT [spell_damage_type] "." glancing_suffix? VULNERABILITY_SUFFIX? crushing_suffix? RESISTED_SUFFIX? BLOCKED_SUFFIX? ABSORBED_SUFFIX?
 
 
 timestamp: INT "/" INT " " INT ":" INT ":" INT "." INT
 
 glancing_suffix: " (glancing)"
-resisted_suffix: " (" INT " resisted)"
-absorbed_suffix: " (" INT " absorbed)"
-blocked_suffix: " (" INT " blocked)"
-vulnerability_suffix: " (+" INT " vulnerability bonus)"
+RESISTED_SUFFIX: SPACE_LPAREN INT " resisted)"
+ABSORBED_SUFFIX: SPACE_LPAREN INT " absorbed)"
+BLOCKED_SUFFIX: SPACE_LPAREN INT " blocked)"
+VULNERABILITY_SUFFIX: " (+" INT " vulnerability bonus)"
 crushing_suffix: " (crushing)"
 _consolidated_case: consolidated_pet
     | consolidated_loot
     | consolidated_zone
-consolidated_pet: "PET: " _CONSOLIDATED_TIMESTAMP MULTIWORD "&" MULTIWORD
+consolidated_pet: "PET: " _CONSOLIDATED_TIMESTAMP multiword "&" multiword
 consolidated_loot: "LOOT: " _CONSOLIDATED_TIMESTAMP /[^\{\n]+/
 consolidated_zone: "ZONE_INFO: " _CONSOLIDATED_TIMESTAMP /[^\{\n]+/
 
@@ -170,7 +174,7 @@ _CONSOLIDATED_TIMESTAMP: INT "." INT "." INT " " INT ":" INT ":" INT "&"
 HEAL_CRIT: " critically"
 
 multiword: MULTIWORD _paren_word?
-_paren_word: SPACE LEFT_PAREN MULTIWORD+ RIGHT_PAREN
+_paren_word: SPACE_LPAREN MULTIWORD RPAREN
 
 WORD: UCASE_LETTER (LETTER | DIGIT | CONNECTING_APOSTROPHE | CONNECTING_COLON | COMMA | SLASH)*
 MULTIWORD: WORD ((SPACE | DASH | UNDERSCORE) CONNECTING_WORD)* SELF_DAMAGE? TRAILING_SPACE?
@@ -189,8 +193,9 @@ DASH: "-"
 UNDERSCORE: "_"
 COMMA: ","
 SLASH: "/"
-LEFT_PAREN: "("
-RIGHT_PAREN: ")"
+SPACE_LPAREN: " ("
+RPAREN: ")"
+PARENS_INT: SPACE_LPAREN INT RPAREN
 
 # https://github.com/lark-parser/lark/blob/master/lark/grammars/common.lark
 %import common.INT

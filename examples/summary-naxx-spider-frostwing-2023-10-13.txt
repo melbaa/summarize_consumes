@@ -532,6 +532,8 @@ Cooldown Summary
          Psykhe 2
          Obbi 1
          Everglow 1
+      Sweeping Strikes
+         Rhudaur 2
       Shield Wall
          Jaekta 1
          Everglow 1
