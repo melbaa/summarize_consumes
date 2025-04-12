@@ -13,4 +13,5 @@ def app():
         prices_server=prices_server,
         expert_disable_web_prices=False,
         expert_deterministic_logs=True,
+        expert_write_lalr_states=False,
     )

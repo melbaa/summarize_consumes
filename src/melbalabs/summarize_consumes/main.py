@@ -51,7 +51,7 @@ class TreeTransformer(lark.Transformer):
 
 @functools.cache
 def create_parser(grammar: str, debug):
-    return lark.Lark(
+    parser = lark.Lark(
         grammar,
         parser='lalr',
         debug=debug,
@@ -59,6 +59,8 @@ def create_parser(grammar: str, debug):
         strict=True,
         transformer=TreeTransformer(),
     )
+
+    return parser
 
 @functools.cache
 def dl_price_data(prices_server):
@@ -83,16 +85,37 @@ def create_app(
         prices_server,
         expert_disable_web_prices,
         expert_deterministic_logs,
+        expert_write_lalr_states,
     ):
 
     app = App()
 
     lark_debug = False
-    if expert_log_unparsed_lines:
+    if expert_log_unparsed_lines or expert_write_lalr_states:
         lark.logger.setLevel(logging.DEBUG)
         lark_debug = True
 
     app.parser = create_parser(grammar=grammar.grammar, debug=lark_debug)
+
+    if expert_write_lalr_states:
+        def feature():
+            parser = app.parser
+            states = parser.parser.parser.parser.parse_table.states
+            filename = 'lalr-states.txt'
+            with open(filename, 'w') as f:
+
+                for terminal in parser.terminals:
+                    print('  ', terminal.name, f"'{terminal.pattern.value}'", file=f)
+                print(file=f)
+
+                for state, actions in states.items():
+                    print(state, file=f)
+                    for token, (action, arg) in actions.items():
+                        print('  ', token, action, arg, file=f)
+                    print(file=f)
+            print('writing lalr table to', filename)
+        feature()
+
 
 
     if expert_log_unparsed_lines:
@@ -2526,6 +2549,7 @@ def get_user_input(argv):
     parser.add_argument('--expert-write-web-prices', action='store_true', help='writes output to prices-web.json')
     parser.add_argument('--expert-disable-web-prices', action='store_true', help="don't download price data")
     parser.add_argument('--expert-deterministic-logs', action='store_true', help='disable environmental outputs')
+    parser.add_argument('--expert-write-lalr-states', action='store_true')
 
 
     args = parser.parse_args(argv)
@@ -2686,6 +2710,7 @@ def main(argv):
         prices_server=args.prices_server,
         expert_disable_web_prices=args.expert_disable_web_prices,
         expert_deterministic_logs=args.expert_deterministic_logs,
+        expert_write_lalr_states=args.expert_write_lalr_states,
     )
 
     logpath = app.log_downloader.try_download(filename=args.logpath)
@@ -2762,6 +2787,7 @@ def main(argv):
                 print('writing web prices to', filename)
                 json.dump(prices, f, indent=4)
         feature()
+
 
     if not args.pastebin: return
     url = upload_pastebin(output)
