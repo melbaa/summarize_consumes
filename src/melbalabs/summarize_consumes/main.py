@@ -1175,7 +1175,7 @@ class Techinfo:
     def format_price_timestamp(self):
         if self.prices_last_update == 0:
             return 'not available'
-        dt = datetime.datetime.utcfromtimestamp(self.prices_last_update)
+        dt = datetime.datetime.fromtimestamp(self.prices_last_update, datetime.UTC)
         delta = self.time_start - self.prices_last_update
         return f'{dt.isoformat()} ({humanize.naturaltime(delta)})'
 
@@ -2754,6 +2754,8 @@ def main(argv):
             with open(filename, 'wb') as f:
                 print('writing damage output to', filename)
                 f.write(output.getvalue().encode('utf8'))
+                if args.pastebin:
+                    upload_pastebin(output)
         feature()
 
     if args.write_healing_output:
@@ -2764,6 +2766,8 @@ def main(argv):
             with open(filename, 'wb') as f:
                 print('writing healing output to', filename)
                 f.write(output.getvalue().encode('utf8'))
+                if args.pastebin:
+                    upload_pastebin(output)
         feature()
 
     if args.write_damage_taken_output:
@@ -2774,6 +2778,8 @@ def main(argv):
             with open(filename, 'wb') as f:
                 print('writing damage taken output to', filename)
                 f.write(output.getvalue().encode('utf8'))
+                if args.pastebin:
+                    upload_pastebin(output)
         feature()
 
     if args.visualize:
