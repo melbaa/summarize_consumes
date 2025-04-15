@@ -1226,6 +1226,7 @@ def test_cooldown_summary(app):
 2/8 10:33:14.532  Martl casts Sunder Armor on Venom Stalker.
 2/8 10:33:14.532  Martl casts Sunder Armor on Thaddius.
 3/23 19:06:36.405  Psykhe gains Sweeping Strikes (1).
+4/12 21:06:21.521  Tekn casts Sunder Armor.
 """
     lines = lines.splitlines(keepends=True)
     for line in lines:
@@ -1234,6 +1235,7 @@ def test_cooldown_summary(app):
     app.cooldown_summary.print(output)
 
 
+    assert app.spell_count.counts['Sunder Armor']['Tekn'] == 1
     assert app.spell_count.counts['Sweeping Strikes']['Psykhe'] == 1
     assert app.spell_count.counts['Sunder Armor (boss)']['Martl'] == 1
     assert app.spell_count.counts['Sunder Armor']['Martl'] == 1

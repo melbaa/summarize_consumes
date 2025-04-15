@@ -2078,7 +2078,11 @@ def parse_line2(app, line):
                 app.player[name][consumable] += 1
 
             if spellname == 'Sunder Armor':
-                targetname = subtree.children[2].value
+                if len(subtree.children) < 3:
+                    # a mystery sunder armor with no target
+                    targetname = 'unknown'
+                else:
+                    targetname = subtree.children[2].value
                 if targetname in KNOWN_BOSS_NAMES:
                     spellname += ' (boss)'
 
@@ -2718,7 +2722,6 @@ def main(argv):
     parse_log(app, filename=logpath)
 
     output = generate_output(app)
-    write_output(output, write_summary=args.write_summary)
 
     if args.write_consumable_totals_csv:
         def feature():
@@ -2795,6 +2798,7 @@ def main(argv):
         feature()
 
 
+    write_output(output, write_summary=args.write_summary)
     if not args.pastebin: return
     url = upload_pastebin(output)
 
