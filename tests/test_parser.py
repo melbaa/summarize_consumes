@@ -314,6 +314,34 @@ def test_casts_consumable_line(app):
     assert app.player['Psykhe']["Powerful Anti-Venom"] == 1
     assert app.player['Doombabe']["Jungle Remedy"] == 2
 
+def test_uses_consumable_safe_line(app):
+    lines = """
+4/13 01:15:12.253  Tnu uses Danonzo 's Tel'Abim Medley.
+4/13 19:53:22.169  Gregory uses Juju Power on Gregory.
+4/13 19:59:30.916  Anarion uses Juju Ember on Anarion.
+"""
+    lines = lines.splitlines(keepends=True)
+    for line in lines:
+        parse_line(app, line)
+    assert app.player['Tnu']["Danonzo's Tel'Abim Medley"] == 1
+    assert app.player['Gregory']["Juju Power"] == 1
+    assert app.player['Anarion']["Juju Ember"] == 1
+
+
+def test_uses_consumable_ignore_line(app):
+    lines = """
+4/12 19:54:57.588  Ohdangxiety uses MOLL-E, Remote Mail Terminal.
+4/12 19:59:56.981  Chadmaleorc uses Goblin Brainwashing Device.
+"""
+    lines = lines.splitlines(keepends=True)
+    match = 0
+    for line in lines:
+        match += parse_line(app, line)
+    assert match == len(lines) - 1
+    assert not app.player
+    assert not app.player_superwow
+
+
 def test_hits_consumable_line(app):
     lines = """
 4/19 20:15:15.532  Getterfour 's Dragonbreath Chili crits Razorgore the Untamed for 521 Fire damage. (173 resisted)

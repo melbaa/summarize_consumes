@@ -155,3 +155,5 @@ Dependencies in unpinned versions as documentation and to generate pinned depend
 
 Include basic runtime info in the output (project version, python version etc), so users don't have to be interrogated for it.
 
+The linux binaries should be usable on older installs. Aim for 5+ years.
+

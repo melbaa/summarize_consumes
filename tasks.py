@@ -12,11 +12,6 @@ except ModuleNotFoundError:
 
 
 @task
-def unparsed(c):
-    cmd = "python -m melbalabs.summarize_consumes.main ..\..\..\Logs\WoWCombatLog.txt --expert-log-unparsed-lines --write-summary"
-    c.run(cmd)
-
-@task
 def damage(c):
     cmd = "python -m melbalabs.summarize_consumes.main ..\..\..\Logs\WoWCombatLog.txt --expert-log-unparsed-lines --write-summary --write-damage-output --write-healing-output"
     c.run(cmd)

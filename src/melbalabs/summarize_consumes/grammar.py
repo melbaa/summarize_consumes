@@ -10,6 +10,8 @@ _line: gains_line
     | gains_energy_line
     | gains_health_line
     | gains_extra_attacks_line
+    | uses_line
+    | uses_line2
     | dies_line
     | begins_to_cast_line
     | casts_line
@@ -63,6 +65,8 @@ _line: gains_line
 
 
 
+uses_line: multiword " uses " multiword (" on " multiword)? "."
+uses_line2: multiword " uses " "Danonzo" " 's " multiword "."
 
 equipped_durability_loss: multiword " 's equipped items suffer a 10% durability loss."
 

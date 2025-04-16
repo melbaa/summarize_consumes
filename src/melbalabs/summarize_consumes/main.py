@@ -126,6 +126,7 @@ def create_app(
 
     # player - consumable - count
     app.player = collections.defaultdict(lambda: collections.defaultdict(int))
+    app.player_superwow = collections.defaultdict(lambda: collections.defaultdict(int))
 
     app.class_detection = ClassDetection(player=app.player)
 
@@ -316,6 +317,10 @@ RENAME_CONSUMABLE = {
     'Crystal Protection': 'Crystal Protection (Crystal Basilisk Spine)',
     'Invisibility': 'Invisibility Potion',
     'Lesser Invisibility': 'Lesser Invisibility Potion',
+    'Mighty Rage': 'Mighty Rage Potion',
+    'Great Rage': 'Great Rage Potion',
+    'Rage': 'Rage Potion',
+
 }
 
 CONSUMABLE_COMPONENTS = {
@@ -559,6 +564,36 @@ MANARUNE_CONSUMABLE = {
     "Dark Rune",
 }
 
+# superwow. mostly duplicates everything else, have to be careful
+# the names are not consistent. the superwow logger and this project rename spells in different ways
+# the 's suffix isn't consistent either
+# if available, the superwow logs should be preferred to the native one
+# the native log misses a lot of consumables
+# the native log often doesn't show anything when a player reapplies a buff they already have
+
+# not available in native logs, safe to process as usual
+USES_CONSUMABLE_SAFE = {
+    "Juju Power",
+    "Juju Might",
+    "Juju Flurry",
+    "Juju Escape",
+    "Juju Ember",
+    "Juju Chill",
+    "Juju Guile",
+    "Danonzo's Tel'Abim Medley",  # renamed
+    "Danonzo's Tel'Abim Delight",  # renamed
+    "Danonzo's Tel'Abim Surprise",  # renamed
+}
+
+# prot pots have very generic names in native logs
+USES_CONSUMABLE_ENHANCE = {
+    # "Greater Fire Protection Potion": "Fire Protection",
+}
+
+USES_CONSUMABLE_IGNORE = {
+    "MOLL-E, Remote Mail Terminal",
+    "Goblin Brainwashing Device",
+}
 
 INTERRUPT_SPELLS = {
     'Kick',
@@ -566,7 +601,6 @@ INTERRUPT_SPELLS = {
     'Shield Bash',
     'Earth Shock',
 }
-
 
 
 
@@ -1976,7 +2010,8 @@ def parse_line2(app, line):
 
             if spellname in RAGE_CONSUMABLE:
                 consumable = spellname
-                consumable += ' Potion'
+                if consumable in RENAME_CONSUMABLE:
+                    consumable = RENAME_CONSUMABLE[consumable]
                 app.player[name][consumable] += 1
             return True
         elif subtree.data == 'gains_energy_line':
@@ -1991,6 +2026,33 @@ def parse_line2(app, line):
 
             app.healstore.add(name, targetname, spellname, amount, timestamp_unix)
             return True
+        elif subtree.data == 'uses_line':
+            name = subtree.children[0].value
+            spellname = subtree.children[1].value
+
+            if spellname in USES_CONSUMABLE_SAFE:
+                consumable = spellname
+                app.player[name][consumable] += 1
+                return True
+
+            if spellname in USES_CONSUMABLE_ENHANCE:
+                consumable = spellname
+                app.player_superwow[name][consumable] += 1
+                return True
+
+            if spellname in USES_CONSUMABLE_IGNORE:
+                return True
+        elif subtree.data == 'uses_line2':
+            name = subtree.children[0].value
+            spellname = subtree.children[1].value
+            spellname = "Danonzo's " + spellname
+
+            if spellname in USES_CONSUMABLE_SAFE:
+                consumable = spellname
+                app.player[name][consumable] += 1
+                return True
+
+
         elif subtree.data == 'dies_line':
             name = subtree.children[0].value
             app.death_count[name] += 1
