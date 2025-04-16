@@ -86,6 +86,7 @@ def create_app(
         expert_disable_web_prices,
         expert_deterministic_logs,
         expert_write_lalr_states,
+        expert_log_superwow_merge,
     ):
 
     app = App()
@@ -127,6 +128,14 @@ def create_app(
     # player - consumable - count
     app.player = collections.defaultdict(lambda: collections.defaultdict(int))
     app.player_superwow = collections.defaultdict(lambda: collections.defaultdict(int))
+    app.player_superwow_unknown = collections.defaultdict(lambda: collections.defaultdict(int))
+
+    app.merge_superwow_consumables = MergeSuperwowConsumables(
+        player=app.player,
+        player_superwow=app.player_superwow,
+        player_superwow_unknown=app.player_superwow_unknown,
+        expert_log_superwow_merge=expert_log_superwow_merge,
+    )
 
     app.class_detection = ClassDetection(player=app.player)
 
@@ -585,9 +594,77 @@ USES_CONSUMABLE_SAFE = {
     "Danonzo's Tel'Abim Surprise",  # renamed
 }
 
-# prot pots have very generic names in native logs
 USES_CONSUMABLE_ENHANCE = {
-    # "Greater Fire Protection Potion": "Fire Protection",
+
+    # prot pots have very generic names in native logs
+    'Greater Fire Protection Potion': 'Fire Protection',
+    'Greater Frost Protection Potion': 'Frost Protection',
+    'Greater Arcane Protection Potion': 'Arcane Protection',
+    'Arcane Protection Potion': 'Arcane Protection',
+    'Greater Nature Protection Potion': 'Nature Protection',
+    'Nature Protection Potion': 'Nature Protection',
+    'Greater Shadow Protection Potion': 'Shadow Protection',
+    'Shadow Protection Potion': 'Shadow Protection',
+    'Greater Holy Protection Potion': 'Holy Protection',
+
+    'Cerebral Cortex Compound': 'Infallible Mind (Cerebral Cortex Compound)',
+
+    'Dreamshard Elixir': 'Dreamshard Elixir',
+    'Brilliant Mana Oil': 'Brilliant Mana Oil',
+    'Rumsey Rum Black Label': 'Rumsey Rum Black Label',
+    'Dense Weightstone': 'Dense Weightstone',
+    'Brilliant Wizard Oil': 'Brilliant Wizard Oil',
+    'Dreamtonic': 'Dreamtonic',
+    'Free Action Potion': 'Free Action Potion',
+    'Winterfall Firewater': 'Winterfall Firewater',
+    'Mighty Rage Potion': 'Mighty Rage Potion',
+    'Stratholme Holy Water': 'Stratholme Holy Water',
+    'Flask of Distilled Wisdom': 'Flask of Distilled Wisdom',
+    'Goblin Sapper Charge': 'Goblin Sapper Charge',
+    'Elixir of Frost Power': 'Elixir of Frost Power',
+    'Greater Arcane Elixir': 'Greater Arcane Elixir',
+    'Elixir of Shadow Power': 'Elixir of Shadow Power',
+    'Flask of the Titans': 'Flask of the Titans',
+    'Mageblood Potion': 'Mageblood Potion',
+    'Gurubashi Gumbo': 'Gurubashi Gumbo',
+    'Elixir of Greater Firepower': 'Elixir of Greater Firepower',
+    'Spirit of Zanza': 'Spirit of Zanza',
+    'Consecrated Sharpening Stone': 'Consecrated Sharpening Stone',
+    'Major Rejuvenation Potion': 'Major Rejuvenation Potion',
+    'Major Mana Potion': 'Major Mana Potion',
+    'Invisibility Potion': 'Invisibility Potion',
+    'Gift of Arthas': 'Gift of Arthas',
+    'Hardened Mushroom': 'Hardened Mushroom',
+    'Elixir of Greater Defense': 'Elixir of Greater Defense',
+    'Dark Rune': 'Dark Rune',
+    'Noggenfogger Elixir': 'Noggenfogger Elixir',
+    'Dense Dynamite': 'Dense Dynamite',
+    'Elixir of Giants': 'Elixir of Giants',
+    'Demonic Rune': 'Demonic Rune',
+    'Restorative Potion': 'Restorative Potion',
+    'Elixir of Superior Defense': 'Elixir of Superior Defense',
+    'Swiftness Potion': 'Swiftness Potion',
+    'Ground Scorpok Assay': 'Ground Scorpok Assay',
+    'Oil of Immolation': 'Oil of Immolation',
+    'Elixir of Fortitude': 'Elixir of Fortitude',
+    'Flask of Supreme Power': 'Flask of Supreme Power',
+    'Elemental Sharpening Stone': 'Elemental Sharpening Stone',
+    'Blessed Wizard Oil': 'Blessed Wizard Oil',
+    'Medivhs Merlot Blue Label': 'Medivhs Merlot Blue Label',
+    'Gnomish Battle Chicken': 'Gnomish Battle Chicken',
+    'Thistle Tea': 'Thistle Tea',
+    'Tea With Sugar': 'Tea With Sugar',
+    'Powerful Smelling Salts': 'Powerful Smelling Salts',
+    'Greater Stoneshield Potion': 'Greater Stoneshield Potion',
+    'Major Healing Potion': 'Major Healing Potion',
+    'Dense Sharpening Stone': 'Dense Sharpening Stone',
+    'Potion of Quickness': 'Potion of Quickness',
+    'Le Fishe Au Chocolat': 'Le Fishe Au Chocolat',
+    'Elixir of the Mongoose': 'Elixir of the Mongoose',
+    'Elixir of Greater Nature Power': 'Elixir of Greater Nature Power',
+    'Limited Invulnerability Potion': 'Limited Invulnerability Potion',
+    'Power Mushroom': 'Power Mushroom',
+    'Scroll of Protection IV': 'Scroll of Protection IV',
 }
 
 USES_CONSUMABLE_IGNORE = {
@@ -2028,27 +2105,28 @@ def parse_line2(app, line):
             return True
         elif subtree.data == 'uses_line':
             name = subtree.children[0].value
-            spellname = subtree.children[1].value
+            consumable = subtree.children[1].value
 
-            if spellname in USES_CONSUMABLE_SAFE:
-                consumable = spellname
+            if consumable in USES_CONSUMABLE_SAFE:
                 app.player[name][consumable] += 1
                 return True
 
-            if spellname in USES_CONSUMABLE_ENHANCE:
-                consumable = spellname
+
+            if consumable in USES_CONSUMABLE_ENHANCE:
                 app.player_superwow[name][consumable] += 1
                 return True
 
-            if spellname in USES_CONSUMABLE_IGNORE:
+            if consumable in USES_CONSUMABLE_IGNORE:
                 return True
+
+            app.player_superwow_unknown[name][consumable] += 1
+
         elif subtree.data == 'uses_line2':
             name = subtree.children[0].value
-            spellname = subtree.children[1].value
-            spellname = "Danonzo's " + spellname
+            consumable = subtree.children[1].value
+            consumable = "Danonzo's " + consumable
 
-            if spellname in USES_CONSUMABLE_SAFE:
-                consumable = spellname
+            if consumable in USES_CONSUMABLE_SAFE:
                 app.player[name][consumable] += 1
                 return True
 
@@ -2547,6 +2625,8 @@ def generate_output(app):
     # remove unknowns from class detection
     app.class_detection.remove_unknown()
 
+    app.merge_superwow_consumables.merge()
+
     # calculate consumables
     app.consumables_accumulator.calculate()
 
@@ -2616,7 +2696,7 @@ def get_user_input(argv):
     parser.add_argument('--expert-disable-web-prices', action='store_true', help="don't download price data")
     parser.add_argument('--expert-deterministic-logs', action='store_true', help='disable environmental outputs')
     parser.add_argument('--expert-write-lalr-states', action='store_true')
-
+    parser.add_argument('--expert-log-superwow-merge', action='store_true')
 
     args = parser.parse_args(argv)
 
@@ -2759,7 +2839,49 @@ class LogDownloader:
         return filename
 
 
+class MergeSuperwowConsumables:
+    def __init__(self, player, player_superwow, player_superwow_unknown, expert_log_superwow_merge):
+        self.player = player
+        self.player_superwow = player_superwow
+        self.player_superwow_unknown = player_superwow_unknown
+        self.logfile = None
+        self.filename = 'superwow-merge.txt'
+        if self.filename:
+            self.logfile = open(self.filename, 'w')
 
+    def log(self, txt):
+        print(txt, file=self.logfile)
+
+    def merge(self):
+        if self.filename:
+            print('writing superwow merge to', self.filename)
+
+        for player in self.player_superwow:
+            consumables_swow = dict(self.player_superwow[player])
+            consumables = dict(self.player[player])
+            for c_swow in consumables_swow:
+                if c_swow not in USES_CONSUMABLE_ENHANCE:
+                    self.log(f"{c_swow} not in USES_CONSUMABLE_ENHANCE")
+                    continue
+                c = USES_CONSUMABLE_ENHANCE[c_swow]
+                if c not in consumables:
+                    self.log(f"mismatch from {c_swow} to {c}. {c} is not in consumables")
+                if consumables.get(c, 0) > consumables_swow[c_swow]:
+                    self.log(f"skipping. {c} > {c_swow}")
+                    continue
+                self.player[player][c] = self.player_superwow[player][c_swow]
+                del self.player_superwow[player][c_swow]
+
+
+        all_unknown = set()
+        for player, consumables in self.player_superwow_unknown.items():
+            self.log(f'unknown consumables for {player}: {consumables}')
+            for cons in consumables:
+                all_unknown.add(cons)
+
+        self.log(f'all unknown. suggestions:')
+        for cons in all_unknown:
+            self.log(repr({cons: cons}))
 
 
 
@@ -2777,6 +2899,7 @@ def main(argv):
         expert_disable_web_prices=args.expert_disable_web_prices,
         expert_deterministic_logs=args.expert_deterministic_logs,
         expert_write_lalr_states=args.expert_write_lalr_states,
+        expert_log_superwow_merge=args.expert_log_superwow_merge,
     )
 
     logpath = app.log_downloader.try_download(filename=args.logpath)

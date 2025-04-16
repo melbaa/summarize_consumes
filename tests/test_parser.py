@@ -1647,3 +1647,23 @@ def test_urlparse(app):
         assert filename == filename2
 
 
+def test_merge_superwow_consumables(app_log_merge):
+    app = app_log_merge
+    lines = """
+4/12 21:08:48.791  Akanamu uses Dreamshard Elixir.
+4/12 21:08:48.791  Akanamu gains Dreamshard Elixir (1).
+"""
+    lines = lines.splitlines(keepends=True)
+    for line in lines:
+        parse_line(app, line)
+
+    assert app.player['Akanamu']['Dreamshard Elixir'] == 1
+    assert app.player_superwow['Akanamu']['Dreamshard Elixir'] == 1
+
+    app.merge_superwow_consumables.merge()
+
+    assert app.player['Akanamu']['Dreamshard Elixir'] == 1
+    assert app.player_superwow['Akanamu']['Dreamshard Elixir'] == 0
+
+
+

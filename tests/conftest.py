@@ -15,7 +15,23 @@ def app():
         expert_disable_web_prices=False,
         expert_deterministic_logs=True,
         expert_write_lalr_states=False,
+        expert_log_superwow_merge=False,
     )
+
+@pytest.fixture
+def app_log_merge():
+    time_start = 1700264355.3831115
+    prices_server = 'nord'
+    return create_app(
+        time_start=time_start,
+        expert_log_unparsed_lines=True,
+        prices_server=prices_server,
+        expert_disable_web_prices=False,
+        expert_deterministic_logs=True,
+        expert_write_lalr_states=False,
+        expert_log_superwow_merge=True,
+    )
+
 
 @pytest.fixture
 def app_nondeterministic():
@@ -28,6 +44,7 @@ def app_nondeterministic():
         expert_disable_web_prices=False,
         expert_deterministic_logs=False,
         expert_write_lalr_states=False,
+        expert_log_superwow_merge=False,
     )
 
 
