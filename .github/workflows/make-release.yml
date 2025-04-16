@@ -10,14 +10,10 @@ jobs:
           - os: windows-latest
             pyinstaller_cmd: pyinstaller.exe
             main_path: .\src\melbalabs\summarize_consumes\main.py
-            dist_path: .\dist\summarize_consumes.exe
-            artifact_name: summarize_consumes.exe
             executable_name: summarize_consumes
           - os: ubuntu-latest
             pyinstaller_cmd: pyinstaller
             main_path: ./src/melbalabs/summarize_consumes/main.py
-            dist_path: ./dist/summarize_consumes_linux
-            artifact_name: summarize_consumes_linux
             executable_name: summarize_consumes_linux
             container: python:3.10-slim-buster
     runs-on: ${{ matrix.os }}
@@ -45,33 +41,32 @@ jobs:
       - run: pytest -v
       - run: ${{ matrix.pyinstaller_cmd }} -F --name ${{ matrix.executable_name }} --copy-metadata melbalabs.summarize_consumes ${{ matrix.main_path }}
       - run: ls ./dist/
-      - name: set linux artifact name with arch and glibc version
-        if: matrix.os == 'ubuntu-latest'
+        shell: bash
+      - name: compute ARTIFACT_NAME and ARTIFACT_PATH
         shell: bash
         run: |
-          arch=$(arch)
-          glibc_version=$(getconf GNU_LIBC_VERSION | awk '{gsub(/\./, "_"); print $NF}')
-          original_name="${{ matrix.executable_name }}"
-          suffix="${arch}_glibc${glibc_version}"
-          new_name="${original_name}_$suffix"
-          new_path="${{ matrix.dist_path }}_$suffix"
-          mv ${{ matrix.dist_path }} "$new_path"
-          echo "ARTIFACT_NAME=${new_name}" >> $GITHUB_ENV
-          echo "ARTIFACT_PATH=${new_path}" >> $GITHUB_ENV
+          if [ "${{ matrix.os }}" = "ubuntu-latest" ]; then
+            # set linux artifact name with arch and glibc version
+            dist_path=./dist/${{ matrix.executable_name }}
+            arch=$(arch)
+            glibc_version=$(getconf GNU_LIBC_VERSION | awk '{gsub(/\./, "_"); print $NF}')
+            original_name="${{ matrix.executable_name }}"
+            suffix="${arch}_glibc${glibc_version}"
+            new_name="${original_name}_$suffix"
+            new_path="${dist_path}_$suffix"
+            mv "${dist_path}" "$new_path"
+            echo "ARTIFACT_NAME=${new_name}" >> $GITHUB_ENV
+            echo "ARTIFACT_PATH=${new_path}" >> $GITHUB_ENV
+          else
+            echo "ARTIFACT_NAME=${{ matrix.executable_name }}.exe" >> $GITHUB_ENV
+            echo "ARTIFACT_PATH=.\dist\${{ matrix.executable_name }}.exe" >> $GITHUB_ENV
+          fi
 
-      - name: Upload Linux Artifact
-        if: matrix.os == 'ubuntu-latest'
+      - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
           name: ${{ env.ARTIFACT_NAME }}
           path: ${{ env.ARTIFACT_PATH }}
-
-      - name: Upload Windows Artifact
-        if: matrix.os == 'windows-latest'
-        uses: actions/upload-artifact@v4
-        with:
-          name: ${{ matrix.artifact_name }}
-          path: ${{ matrix.dist_path }}
 
   make-release:
     needs: make-artifact
