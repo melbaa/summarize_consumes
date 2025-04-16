@@ -15,7 +15,7 @@ jobs:
             pyinstaller_cmd: pyinstaller
             main_path: ./src/melbalabs/summarize_consumes/main.py
             executable_name: summarize_consumes_linux
-            container: python:3.10-slim-buster
+            container: python:3.12-slim-bullseye
     runs-on: ${{ matrix.os }}
     container: ${{ matrix.container }}
     steps:
@@ -35,7 +35,7 @@ jobs:
       - uses: actions/setup-python@v5
         if: matrix.os != 'ubuntu-latest'
         with:
-          python-version: '3.10'
+          python-version: '3.12'
 
       - run: pip install .[dev,release]
       - run: pytest -v
