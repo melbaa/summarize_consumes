@@ -1919,7 +1919,7 @@ def parse_line(app, line):
     try:
         if line == '\n': return False
         return parse_line2(app, line)
-    except Exception as e:
+    except Exception:
         logging.exception(line)
         raise
 
@@ -2692,7 +2692,7 @@ class LogDownloader:
                 return output_name
 
 
-        except ValueError as e:
+        except ValueError:
             pass
         return filename
 
