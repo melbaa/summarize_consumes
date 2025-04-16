@@ -49,7 +49,7 @@ jobs:
             # set linux artifact name with arch and glibc version
             dist_path=./dist/${{ matrix.executable_name }}
             arch=$(arch)
-            glibc_version=$(getconf GNU_LIBC_VERSION | awk '{gsub(/\./, "_"); print $NF}')
+            glibc_version=$(python ./scripts/objdump.py | sort -V | tail -n 1)
             original_name="${{ matrix.executable_name }}"
             suffix="${arch}_glibc${glibc_version}"
             new_name="${original_name}_$suffix"
