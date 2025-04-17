@@ -31,23 +31,11 @@ def excludes(c):
 @task
 def updateprices(c):
     cwd = Path('.')
-    input_file = cwd / 'emptylog.txt'
+    input_file = cwd / 'testdata' / 'empty.txt'
     c.run(f"copy NUL {input_file}")
     print('downloading prices')
     cmd = f"python -m melbalabs.summarize_consumes.main {input_file} --expert-write-web-prices"
     c.run(cmd)
-
-@task
-def commit(c, message):
-    cmd = 'bumpver update --no-fetch'
-    c.run(cmd)
-
-    # bumpver still buggy
-    c.run('dos2unix pyproject.toml')
-    c.run('dos2unix src/melbalabs/summarize_consumes/package.py')
-
-    c.run(f'git add pyproject.toml src/melbalabs/summarize_consumes/package.py')
-    c.run(f'git commit -m "{message}"')
 
 @task
 def tar(c):

@@ -1420,7 +1420,7 @@ class PetHandler:
                 yield pet
     def print(self, output):
         if not len(self.store): return
-        print(f"\n\nPets", file=output)
+        print("\n\nPets", file=output)
         for owner, petset in self.store.items():
             for pet in sorted(petset):
                 print('  ', pet, 'owned by', owner, file=output)
@@ -1946,7 +1946,7 @@ class ClassDetection:
         #     logging.warning(f'{cls} != {self.store[name]} for {name}')
         #     return
     def print(self, output):
-        print(f"\n\nClass Detection", file=output)
+        print("\n\nClass Detection", file=output)
         for name in sorted(self.player):
             cls = self.store.get(name, 'unknown')
             print('  ', name, cls, file=output)
@@ -2928,7 +2928,7 @@ class MergeSuperwowConsumables:
             for cons in consumables:
                 all_unknown.add(cons)
 
-        self.log(f'all unknown suggestions:')
+        self.log('all unknown suggestions:')
         for cons in all_unknown:
             self.log(repr({cons: cons}))
 
@@ -2939,9 +2939,9 @@ class MergeSuperwowConsumables:
         self.log('data dumps:')
         #self.log(f'self.player:')
         #printer(self.player)
-        self.log(f'self.player_superwow:')
+        self.log('self.player_superwow:')
         printer(self.player_superwow)
-        self.log(f'self.player_superwow_unknown:')
+        self.log('self.player_superwow_unknown:')
         printer(self.player_superwow_unknown)
 
 
