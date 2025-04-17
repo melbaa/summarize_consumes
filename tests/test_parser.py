@@ -1652,15 +1652,36 @@ def test_merge_superwow_consumables(app_log_merge):
     lines = """
 4/12 21:08:48.791  Akanamu uses Dreamshard Elixir.
 4/12 21:08:48.791  Akanamu gains Dreamshard Elixir (1).
+4/12 21:09:14.530  Chocolandra uses Greater Arcane Protection Potion.
+4/12 21:09:14.530  Chocolandra gains Arcane Protection (1).
+4/13 23:31:24.242  Corta gains Fire Protection (1).
+4/13 23:31:24.242  Corta gains Fire Protection (1).
+4/12 21:09:14.530  Corta uses Greater Fire Protection Potion.
 """
     lines = lines.splitlines(keepends=True)
     for line in lines:
         parse_line(app, line)
 
+
+    assert app.player['Corta']['Fire Protection'] == 2
+    assert app.player['Corta']['Greater Fire Protection Potion'] == 0
+    assert app.player_superwow['Corta']['Greater Fire Protection Potion'] == 1
+
+    assert app.player['Chocolandra']['Arcane Protection'] == 1
+    assert app.player_superwow['Chocolandra']['Greater Arcane Protection Potion'] == 1
+
     assert app.player['Akanamu']['Dreamshard Elixir'] == 1
     assert app.player_superwow['Akanamu']['Dreamshard Elixir'] == 1
 
     app.merge_superwow_consumables.merge()
+
+    assert app.player['Corta']['Fire Protection'] == 1
+    assert app.player['Corta']['Greater Fire Protection Potion'] == 1
+    assert app.player_superwow['Corta']['Greater Fire Protection Potion'] == 0
+
+    assert app.player['Chocolandra']['Greater Arcane Protection Potion'] == 1
+    assert app.player['Chocolandra']['Arcane Protection'] == 0
+    assert app.player_superwow['Chocolandra']['Greater Arcane Protection Potion'] == 0
 
     assert app.player['Akanamu']['Dreamshard Elixir'] == 1
     assert app.player_superwow['Akanamu']['Dreamshard Elixir'] == 0

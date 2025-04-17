@@ -479,6 +479,7 @@ BEGINS_TO_CAST_CONSUMABLE = {
     "Sharpen Blade V",
     "Enhance Blunt Weapon V",
     "Crystal Force",
+    "Medivhs Merlot Blue Label",
 }
 
 CASTS_CONSUMABLE = {
@@ -589,13 +590,19 @@ USES_CONSUMABLE_SAFE = {
     "Juju Ember",
     "Juju Chill",
     "Juju Guile",
+    "Gurubashi Gumbo",
+    "Swiftness Potion",
+    "Gift of Arthas",
+    "Scroll of Protection IV",
+    'Oil of Immolation',
+
     "Danonzo's Tel'Abim Medley",  # renamed
     "Danonzo's Tel'Abim Delight",  # renamed
     "Danonzo's Tel'Abim Surprise",  # renamed
 }
 
-USES_CONSUMABLE_ENHANCE = {
-
+# straight up upgrade, will try to delete the native counts with the old name and use the new name
+USES_CONSUMABLE_OVERWRITE = {
     # prot pots have very generic names in native logs
     'Greater Fire Protection Potion': 'Fire Protection',
     'Greater Frost Protection Potion': 'Frost Protection',
@@ -607,13 +614,49 @@ USES_CONSUMABLE_ENHANCE = {
     'Shadow Protection Potion': 'Shadow Protection',
     'Greater Holy Protection Potion': 'Holy Protection',
 
-    'Cerebral Cortex Compound': 'Infallible Mind (Cerebral Cortex Compound)',
+    'Hardened Mushroom': 'Increased Stamina',
+    'Mageblood Potion': 'Mana Regeneration',
+    'Thistle Tea': 'Tea With Sugar',
+    'Tea With Sugar': 'Tea With Sugar',
 
-    'Dreamshard Elixir': 'Dreamshard Elixir',
-    'Brilliant Mana Oil': 'Brilliant Mana Oil',
-    'Rumsey Rum Black Label': 'Rumsey Rum Black Label',
+    # superwow counts are lower, because 'begins to cast' may not actually cast the spell
     'Dense Weightstone': 'Dense Weightstone',
+    'Brilliant Mana Oil': 'Brilliant Mana Oil',
     'Brilliant Wizard Oil': 'Brilliant Wizard Oil',
+    'Blessed Wizard Oil': 'Blessed Wizard Oil',
+    'Consecrated Sharpening Stone': 'Consecrated Sharpening Stone',
+    'Elemental Sharpening Stone': 'Elemental Sharpening Stone',
+    'Dense Sharpening Stone': 'Dense Sharpening Stone',
+    'Dense Dynamite': 'Dense Dynamite',
+}
+
+# will try to merge counts, but keep the existing names
+USES_CONSUMABLE_ENHANCE = {
+
+
+    # verify again
+    'Lesser Invisibility Potion': 'Lesser Invisibility Potion',
+
+    # missing? 'Mana Potion - Greater'
+    # missing? 'Mana Potion - Superior'
+    'Major Mana Potion': 'Mana Potion - Major',
+    'Major Healing Potion': 'Healing Potion - Major',
+
+    'Limited Invulnerability Potion': 'Invulnerability',
+
+    'Rage of Ages': 'Rage of Ages (ROIDS)',
+    'Ground Scorpok Assay': 'Strike of the Scorpok',
+    'Cerebral Cortex Compound': 'Infallible Mind (Cerebral Cortex Compound)',
+    "Elixir of Giants": 'Elixir of Giants',
+    'Medivhs Merlot Blue Label': 'Medivhs Merlot Blue Label',
+    'Iron Grenade': 'Iron Grenade',
+    'Elixir of Giant Growth': 'Elixir of Giant Growth',
+    'Swiftness of Zanza': 'Swiftness of Zanza',
+    'Sheen of Zanza': 'Sheen of Zanza',
+    'Blessed Sunfruit': 'Blessed Sunfruit',
+    'Grilled Squid': 'Grilled Squid',
+    'Dreamshard Elixir': 'Dreamshard Elixir',
+    'Rumsey Rum Black Label': 'Rumsey Rum Black Label',
     'Dreamtonic': 'Dreamtonic',
     'Free Action Potion': 'Free Action Potion',
     'Winterfall Firewater': 'Winterfall Firewater',
@@ -625,46 +668,29 @@ USES_CONSUMABLE_ENHANCE = {
     'Greater Arcane Elixir': 'Greater Arcane Elixir',
     'Elixir of Shadow Power': 'Elixir of Shadow Power',
     'Flask of the Titans': 'Flask of the Titans',
-    'Mageblood Potion': 'Mageblood Potion',
-    'Gurubashi Gumbo': 'Gurubashi Gumbo',
     'Elixir of Greater Firepower': 'Elixir of Greater Firepower',
     'Spirit of Zanza': 'Spirit of Zanza',
-    'Consecrated Sharpening Stone': 'Consecrated Sharpening Stone',
     'Major Rejuvenation Potion': 'Major Rejuvenation Potion',
-    'Major Mana Potion': 'Major Mana Potion',
     'Invisibility Potion': 'Invisibility Potion',
-    'Gift of Arthas': 'Gift of Arthas',
-    'Hardened Mushroom': 'Hardened Mushroom',
     'Elixir of Greater Defense': 'Elixir of Greater Defense',
     'Dark Rune': 'Dark Rune',
     'Noggenfogger Elixir': 'Noggenfogger Elixir',
-    'Dense Dynamite': 'Dense Dynamite',
-    'Elixir of Giants': 'Elixir of Giants',
     'Demonic Rune': 'Demonic Rune',
     'Restorative Potion': 'Restorative Potion',
     'Elixir of Superior Defense': 'Elixir of Superior Defense',
-    'Swiftness Potion': 'Swiftness Potion',
-    'Ground Scorpok Assay': 'Ground Scorpok Assay',
-    'Oil of Immolation': 'Oil of Immolation',
     'Elixir of Fortitude': 'Elixir of Fortitude',
     'Flask of Supreme Power': 'Flask of Supreme Power',
-    'Elemental Sharpening Stone': 'Elemental Sharpening Stone',
-    'Blessed Wizard Oil': 'Blessed Wizard Oil',
-    'Medivhs Merlot Blue Label': 'Medivhs Merlot Blue Label',
-    'Gnomish Battle Chicken': 'Gnomish Battle Chicken',
-    'Thistle Tea': 'Thistle Tea',
-    'Tea With Sugar': 'Tea With Sugar',
     'Powerful Smelling Salts': 'Powerful Smelling Salts',
     'Greater Stoneshield Potion': 'Greater Stoneshield Potion',
-    'Major Healing Potion': 'Major Healing Potion',
-    'Dense Sharpening Stone': 'Dense Sharpening Stone',
     'Potion of Quickness': 'Potion of Quickness',
     'Le Fishe Au Chocolat': 'Le Fishe Au Chocolat',
     'Elixir of the Mongoose': 'Elixir of the Mongoose',
     'Elixir of Greater Nature Power': 'Elixir of Greater Nature Power',
-    'Limited Invulnerability Potion': 'Limited Invulnerability Potion',
     'Power Mushroom': 'Power Mushroom',
-    'Scroll of Protection IV': 'Scroll of Protection IV',
+}
+
+USES_LINE_ITEM = {
+    'Gnomish Battle Chicken',
 }
 
 USES_CONSUMABLE_IGNORE = {
@@ -902,6 +928,7 @@ def print_collected_log_always(section_name, log_list, output):
     if not log_list:
         print('  ', '<nothing found>', end='', file=output)
     return
+
 
 class Annihilator:
     def __init__(self):
@@ -2116,6 +2143,10 @@ def parse_line2(app, line):
                 app.player_superwow[name][consumable] += 1
                 return True
 
+            if consumable in USES_CONSUMABLE_OVERWRITE:
+                app.player_superwow[name][consumable] += 1
+                return True
+
             if consumable in USES_CONSUMABLE_IGNORE:
                 return True
 
@@ -2846,32 +2877,52 @@ class MergeSuperwowConsumables:
         self.player_superwow_unknown = player_superwow_unknown
         self.logfile = None
         self.filename = 'superwow-merge.txt'
-        if self.filename:
+        if expert_log_superwow_merge:
             self.logfile = open(self.filename, 'w')
 
     def log(self, txt):
+        if not self.logfile: return
         print(txt, file=self.logfile)
 
     def merge(self):
-        if self.filename:
+        if self.logfile:
             print('writing superwow merge to', self.filename)
 
         for player in self.player_superwow:
             consumables_swow = dict(self.player_superwow[player])
             consumables = dict(self.player[player])
             for c_swow in consumables_swow:
-                if c_swow not in USES_CONSUMABLE_ENHANCE:
-                    self.log(f"{c_swow} not in USES_CONSUMABLE_ENHANCE")
-                    continue
-                c = USES_CONSUMABLE_ENHANCE[c_swow]
-                if c not in consumables:
-                    self.log(f"mismatch from {c_swow} to {c}. {c} is not in consumables")
-                if consumables.get(c, 0) > consumables_swow[c_swow]:
-                    self.log(f"skipping. {c} > {c_swow}")
-                    continue
-                self.player[player][c] = self.player_superwow[player][c_swow]
-                del self.player_superwow[player][c_swow]
+                if c_swow in USES_CONSUMABLE_OVERWRITE:
+                    c = USES_CONSUMABLE_OVERWRITE[c_swow]
+                    #if c not in consumables:
+                    #    self.log(f"mismatch from {c_swow} to {c}. {player} {c} is not in consumables")
+                    if c != c_swow and consumables.get(c, 0) > consumables_swow[c_swow]:
+                        self.log(f"partial merge (overwrite). {player} {c} > {c_swow}")
 
+                        remain = consumables[c] - consumables_swow[c_swow]
+                        self.player[player][c] = remain
+                        self.player[player][c_swow] = consumables_swow[c_swow]
+                        del self.player_superwow[player][c_swow]
+
+                        continue
+
+                    self.player[player].pop(c, None)  # might not exist
+                    self.player[player][c_swow] = self.player_superwow[player][c_swow]
+                    del self.player_superwow[player][c_swow]
+
+                elif c_swow in USES_CONSUMABLE_ENHANCE:
+                    c = USES_CONSUMABLE_ENHANCE[c_swow]
+                    #if c not in consumables:
+                    #    self.log(f"mismatch from {c_swow} to {c}. {player} {c} is not in consumables")
+                    if consumables.get(c, 0) > consumables_swow[c_swow]:
+                        self.log(f"skipping. superwow has less? {player} {c} > {c_swow}")
+                        continue
+
+                    self.player[player][c] = self.player_superwow[player][c_swow]
+                    del self.player_superwow[player][c_swow]
+                else:
+                    self.log(f"{c_swow} not in any USES table")
+                    continue
 
         all_unknown = set()
         for player, consumables in self.player_superwow_unknown.items():
@@ -2879,10 +2930,21 @@ class MergeSuperwowConsumables:
             for cons in consumables:
                 all_unknown.add(cons)
 
-        self.log(f'all unknown. suggestions:')
+        self.log(f'all unknown suggestions:')
         for cons in all_unknown:
             self.log(repr({cons: cons}))
 
+        def printer(player):
+            for player, cons in player.items():
+                for cname, count in cons.items():
+                    self.log(f"{player} {cname} {count}")
+        self.log('data dumps:')
+        #self.log(f'self.player:')
+        #printer(self.player)
+        self.log(f'self.player_superwow:')
+        printer(self.player_superwow)
+        self.log(f'self.player_superwow_unknown:')
+        printer(self.player_superwow_unknown)
 
 
 
