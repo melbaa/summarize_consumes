@@ -316,6 +316,7 @@ def test_casts_consumable_line(app):
 
 def test_uses_consumable_safe_line(app):
     lines = """
+4/13 01:15:12.253  Tnu uses Danonzos Tel'Abim Medley.
 4/13 01:15:12.253  Tnu uses Danonzo 's Tel'Abim Medley.
 4/13 19:53:22.169  Gregory uses Juju Power on Gregory.
 4/13 19:59:30.916  Anarion uses Juju Ember on Anarion.
@@ -323,10 +324,64 @@ def test_uses_consumable_safe_line(app):
     lines = lines.splitlines(keepends=True)
     for line in lines:
         parse_line(app, line)
-    assert app.player['Tnu']["Danonzo's Tel'Abim Medley"] == 1
+    assert app.player['Tnu']["Danonzo's Tel'Abim Medley"] == 2
     assert app.player['Gregory']["Juju Power"] == 1
     assert app.player['Anarion']["Juju Ember"] == 1
 
+
+def test_uses_consumables(app_log_merge):
+    app = app_log_merge
+    lines = """
+4/11 22:44:54.456  Doomfully gains Shadow Protection (1).
+4/11 23:40:19.784  Doomfully gains Shadow Protection  (1).
+4/11 23:56:36.499  Doomfully gains Shadow Protection  (1).
+4/12 00:15:15.422  Doomfully gains Shadow Protection  (1).
+4/13 20:09:05.791  Doomfully gains Shadow Protection  (1).
+4/11 23:40:19.784  Doomfully uses Greater Shadow Protection Potion.
+4/11 23:56:36.498  Doomfully uses Greater Shadow Protection Potion.
+4/12 00:15:15.422  Doomfully uses Greater Shadow Protection Potion.
+4/13 20:09:05.791  Doomfully uses Shadow Protection Potion.
+4/12 21:08:48.791  Akanamu uses Dreamshard Elixir.
+4/12 21:08:48.791  Akanamu gains Dreamshard Elixir (1).
+4/12 21:09:14.530  Chocolandra uses Greater Arcane Protection Potion.
+4/12 21:09:14.530  Chocolandra gains Arcane Protection (1).
+4/13 23:31:24.242  Corta gains Fire Protection (1).
+4/13 23:31:24.242  Corta gains Fire Protection (1).
+4/12 21:09:14.530  Corta uses Greater Fire Protection Potion.
+"""
+    lines = lines.splitlines(keepends=True)
+    for line in lines:
+        parse_line(app, line)
+
+
+    assert app.player['Doomfully']['Shadow Protection'] == 4
+
+    assert app.player['Corta']['Fire Protection'] == 2
+    assert app.player['Corta']['Greater Fire Protection Potion'] == 0
+    assert app.player_superwow['Corta']['Greater Fire Protection Potion'] == 1
+
+    assert app.player['Chocolandra']['Arcane Protection'] == 1
+    assert app.player_superwow['Chocolandra']['Greater Arcane Protection Potion'] == 1
+
+    assert app.player['Akanamu']['Dreamshard Elixir'] == 1
+    assert app.player_superwow['Akanamu']['Dreamshard Elixir'] == 1
+
+    app.merge_superwow_consumables.merge()
+
+    assert app.player['Doomfully']['Shadow Protection'] == 0
+    assert app.player['Doomfully']['Greater Shadow Protection Potion'] == 3
+    assert app.player['Doomfully']['Shadow Protection Potion'] == 1
+
+    assert app.player['Corta']['Fire Protection'] == 1
+    assert app.player['Corta']['Greater Fire Protection Potion'] == 1
+    assert app.player_superwow['Corta']['Greater Fire Protection Potion'] == 0
+
+    assert app.player['Chocolandra']['Greater Arcane Protection Potion'] == 1
+    assert app.player['Chocolandra']['Arcane Protection'] == 0
+    assert app.player_superwow['Chocolandra']['Greater Arcane Protection Potion'] == 0
+
+    assert app.player['Akanamu']['Dreamshard Elixir'] == 1
+    assert app.player_superwow['Akanamu']['Dreamshard Elixir'] == 0
 
 def test_uses_consumable_ignore_line(app):
     lines = """
@@ -1645,46 +1700,5 @@ def test_urlparse(app):
         filename2 = downloader.try_download(filename)
         assert filename != app.log_downloader.output_name
         assert filename == filename2
-
-
-def test_merge_superwow_consumables(app_log_merge):
-    app = app_log_merge
-    lines = """
-4/12 21:08:48.791  Akanamu uses Dreamshard Elixir.
-4/12 21:08:48.791  Akanamu gains Dreamshard Elixir (1).
-4/12 21:09:14.530  Chocolandra uses Greater Arcane Protection Potion.
-4/12 21:09:14.530  Chocolandra gains Arcane Protection (1).
-4/13 23:31:24.242  Corta gains Fire Protection (1).
-4/13 23:31:24.242  Corta gains Fire Protection (1).
-4/12 21:09:14.530  Corta uses Greater Fire Protection Potion.
-"""
-    lines = lines.splitlines(keepends=True)
-    for line in lines:
-        parse_line(app, line)
-
-
-    assert app.player['Corta']['Fire Protection'] == 2
-    assert app.player['Corta']['Greater Fire Protection Potion'] == 0
-    assert app.player_superwow['Corta']['Greater Fire Protection Potion'] == 1
-
-    assert app.player['Chocolandra']['Arcane Protection'] == 1
-    assert app.player_superwow['Chocolandra']['Greater Arcane Protection Potion'] == 1
-
-    assert app.player['Akanamu']['Dreamshard Elixir'] == 1
-    assert app.player_superwow['Akanamu']['Dreamshard Elixir'] == 1
-
-    app.merge_superwow_consumables.merge()
-
-    assert app.player['Corta']['Fire Protection'] == 1
-    assert app.player['Corta']['Greater Fire Protection Potion'] == 1
-    assert app.player_superwow['Corta']['Greater Fire Protection Potion'] == 0
-
-    assert app.player['Chocolandra']['Greater Arcane Protection Potion'] == 1
-    assert app.player['Chocolandra']['Arcane Protection'] == 0
-    assert app.player_superwow['Chocolandra']['Greater Arcane Protection Potion'] == 0
-
-    assert app.player['Akanamu']['Dreamshard Elixir'] == 1
-    assert app.player_superwow['Akanamu']['Dreamshard Elixir'] == 0
-
 
 

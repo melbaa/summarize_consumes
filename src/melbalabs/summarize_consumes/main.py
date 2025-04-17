@@ -329,7 +329,6 @@ RENAME_CONSUMABLE = {
     'Mighty Rage': 'Mighty Rage Potion',
     'Great Rage': 'Great Rage Potion',
     'Rage': 'Rage Potion',
-
 }
 
 CONSUMABLE_COMPONENTS = {
@@ -416,7 +415,7 @@ NAME2ITEMID = {
     'Dreamtonic': 61423,
     'Goblin Sapper Charge': 10646,
     "Medivh's Merlot": 61174,
-    'Shadow Protection': 13459,
+    'Greater Shadow Protection Potion': 13459,
     'Dreamshard Elixir': 61224,
     'Lesser Mana Oil': 20747,
     'Brilliant Mana Oil': 20748,
@@ -599,6 +598,7 @@ USES_CONSUMABLE_SAFE = {
     "Danonzo's Tel'Abim Medley",  # renamed
     "Danonzo's Tel'Abim Delight",  # renamed
     "Danonzo's Tel'Abim Surprise",  # renamed
+    "Major Troll's Blood Potion",  # renamed
 }
 
 # straight up upgrade, will try to delete the native counts with the old name and use the new name
@@ -633,7 +633,6 @@ USES_CONSUMABLE_OVERWRITE = {
 # will try to merge counts, but keep the existing names
 USES_CONSUMABLE_ENHANCE = {
 
-
     # verify again
     'Lesser Invisibility Potion': 'Lesser Invisibility Potion',
 
@@ -643,6 +642,7 @@ USES_CONSUMABLE_ENHANCE = {
     'Major Healing Potion': 'Healing Potion - Major',
 
     'Limited Invulnerability Potion': 'Invulnerability',
+    'Elixir of Fortitude': 'Elixir of Fortitude',
 
     'Rage of Ages': 'Rage of Ages (ROIDS)',
     'Ground Scorpok Assay': 'Strike of the Scorpok',
@@ -678,7 +678,6 @@ USES_CONSUMABLE_ENHANCE = {
     'Demonic Rune': 'Demonic Rune',
     'Restorative Potion': 'Restorative Potion',
     'Elixir of Superior Defense': 'Elixir of Superior Defense',
-    'Elixir of Fortitude': 'Elixir of Fortitude',
     'Flask of Supreme Power': 'Flask of Supreme Power',
     'Powerful Smelling Salts': 'Powerful Smelling Salts',
     'Greater Stoneshield Potion': 'Greater Stoneshield Potion',
@@ -689,6 +688,11 @@ USES_CONSUMABLE_ENHANCE = {
     'Power Mushroom': 'Power Mushroom',
 }
 
+
+USES_CONSUMABLE_RENAME = {
+    "Danonzos Tel'Abim Medley": "Danonzo's Tel'Abim Medley",
+    "Major Trolls Blood Potion": "Major Troll's Blood Potion",
+}
 
 USES_CONSUMABLE_IGNORE = {
     "MOLL-E, Remote Mail Terminal",
@@ -2131,6 +2135,8 @@ def parse_line2(app, line):
             name = subtree.children[0].value
             consumable = subtree.children[1].value
 
+            consumable = USES_CONSUMABLE_RENAME.get(consumable, consumable)
+
             if consumable in USES_CONSUMABLE_SAFE:
                 app.player[name][consumable] += 1
                 return True
@@ -2897,9 +2903,9 @@ class MergeSuperwowConsumables:
                     if c != c_swow and consumables.get(c, 0) > consumables_swow[c_swow]:
                         self.log(f"partial merge (overwrite). {player} {c} > {c_swow}")
 
-                        remain = consumables[c] - consumables_swow[c_swow]
+                        remain = self.player[player][c] - self.player_superwow[player][c_swow]
                         self.player[player][c] = remain
-                        self.player[player][c_swow] = consumables_swow[c_swow]
+                        self.player[player][c_swow] = self.player_superwow[player][c_swow]
                         del self.player_superwow[player][c_swow]
 
                         continue
