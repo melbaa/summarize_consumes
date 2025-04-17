@@ -689,9 +689,6 @@ USES_CONSUMABLE_ENHANCE = {
     'Power Mushroom': 'Power Mushroom',
 }
 
-USES_LINE_ITEM = {
-    'Gnomish Battle Chicken',
-}
 
 USES_CONSUMABLE_IGNORE = {
     "MOLL-E, Remote Mail Terminal",
@@ -2656,6 +2653,7 @@ def generate_output(app):
     # remove unknowns from class detection
     app.class_detection.remove_unknown()
 
+    # merge superwow extra data so everything else can see it
     app.merge_superwow_consumables.merge()
 
     # calculate consumables

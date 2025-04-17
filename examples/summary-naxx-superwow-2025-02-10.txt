@@ -23,6 +23,7 @@ Adachisakura deaths:1
    Invulnerability 1   (1g 59s 28c)
    Mana Potion - Major 7   (12g 10s 37c)
    Mana Potion - Superior 1   (75s 72c)
+   Medivhs Merlot Blue Label 2 
    Noggenfogger Elixir 1 
    Shadow Protection 1   (4g 89s 74c)
    Tea with Sugar 11   (3g 3s 49c)
@@ -86,6 +87,7 @@ Bolyarka deaths:5
 Cheesebreath deaths:2
    Greater Arcane Elixir 1   (2g 52s 17c)
    Mana Potion - Major 6   (10g 37s 46c)
+   Medivhs Merlot Blue Label 1 
    Shadow Protection 1   (4g 89s 74c)
    Spirit of Zanza 1   (1g 94s 85c)
    Tea with Sugar 6   (1g 65s 54c)
@@ -103,6 +105,7 @@ Clapya deaths:1
    Infallible Mind (Cerebral Cortex Compound) 1   (5g 4s 64c)
    Invulnerability 4   (6g 37s 12c)
    Mana Potion - Major 6   (10g 37s 46c)
+   Medivhs Merlot Blue Label 7 
    Stratholme Holy Water 4 
    Tea with Sugar 11   (3g 3s 49c)
 
@@ -134,6 +137,7 @@ Interlan deaths:1
    Infallible Mind (Cerebral Cortex Compound) 2   (10g 9s 28c)
    Mana Potion - Major 13   (22g 47s 83c)
    Mana Regeneration (food or mageblood) 5 
+   Medivhs Merlot Blue Label 8 
    Nature Protection 3 
    Shadow Protection 1   (4g 89s 74c)
    Spirit of Zanza 1   (1g 94s 85c)
@@ -242,6 +246,7 @@ Nehelenia deaths:2
    Healing Potion - Major 3   (2g 29s 8c)
    Invulnerability 1   (1g 59s 28c)
    Mana Potion - Major 2   (3g 45s 82c)
+   Medivhs Merlot Blue Label 7 
    Noggenfogger Elixir 1 
    Regeneration 1 
    Shadow Protection 1   (4g 89s 74c)
@@ -261,6 +266,7 @@ Onetwofree deaths:1
    Frost Protection 4 
    Greater Arcane Elixir 1   (2g 52s 17c)
    Invulnerability 2   (3g 18s 56c)
+   Medivhs Merlot Blue Label 7 
    Nature Protection 1 
    Shadow Protection 2   (9g 79s 48c)
    Spirit of Zanza 1   (1g 94s 85c)
@@ -331,6 +337,7 @@ Randgriz deaths:1
    Frost Protection 1 
    Infallible Mind (Cerebral Cortex Compound) 2   (10g 9s 28c)
    Mana Potion - Major 8   (13g 83s 28c)
+   Medivhs Merlot Blue Label 2 
    Nature Protection 1 
    Shadow Protection 1   (4g 89s 74c)
    Spirit of Zanza 1   (1g 94s 85c)
@@ -417,6 +424,7 @@ Selverslip deaths:3
    Infallible Mind (Cerebral Cortex Compound) 2   (10g 9s 28c)
    Mana Potion - Major 14   (24g 20s 74c)
    Mana Regeneration (food or mageblood) 6 
+   Medivhs Merlot Blue Label 8 
    Nature Protection 1 
    Shadow Protection 1   (4g 89s 74c)
    Tea with Sugar 8   (2g 20s 72c)
