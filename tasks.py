@@ -32,7 +32,6 @@ def excludes(c):
 def updateprices(c):
     cwd = Path('.')
     input_file = cwd / 'testdata' / 'empty.txt'
-    c.run(f"copy NUL {input_file}")
     print('downloading prices')
     cmd = f"python -m melbalabs.summarize_consumes.main {input_file} --expert-write-web-prices"
     c.run(cmd)

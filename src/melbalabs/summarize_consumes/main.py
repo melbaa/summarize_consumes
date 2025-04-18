@@ -592,13 +592,13 @@ USES_CONSUMABLE_SAFE = {
     "Gurubashi Gumbo",
     "Swiftness Potion",
     "Gift of Arthas",
-    "Scroll of Protection IV",
     'Oil of Immolation',
 
     "Danonzo's Tel'Abim Medley",  # renamed
     "Danonzo's Tel'Abim Delight",  # renamed
     "Danonzo's Tel'Abim Surprise",  # renamed
     "Major Troll's Blood Potion",  # renamed
+
 }
 
 # straight up upgrade, will try to delete the native counts with the old name and use the new name
@@ -624,10 +624,20 @@ USES_CONSUMABLE_OVERWRITE = {
     'Brilliant Mana Oil': 'Brilliant Mana Oil',
     'Brilliant Wizard Oil': 'Brilliant Wizard Oil',
     'Blessed Wizard Oil': 'Blessed Wizard Oil',
+    'Wizard Oil': 'Wizard Oil',
     'Consecrated Sharpening Stone': 'Consecrated Sharpening Stone',
     'Elemental Sharpening Stone': 'Elemental Sharpening Stone',
     'Dense Sharpening Stone': 'Dense Sharpening Stone',
     'Dense Dynamite': 'Dense Dynamite',
+
+
+    # those don't stack, so usually they don't do anything and their buff isn't in the logs
+    "Scroll of Protection IV": "Armor",
+    "Scroll of Stamina IV": "Stamina",
+    "Scroll of Intellect IV": "Intellect",
+    "Scroll of Strength IV": "Strength",
+    "Scroll of Agility IV": "Agility",
+    "Scroll of Spirit IV": "Spirit",
 }
 
 # will try to merge counts, but keep the existing names
@@ -661,6 +671,7 @@ USES_CONSUMABLE_ENHANCE = {
     'Free Action Potion': 'Free Action Potion',
     'Winterfall Firewater': 'Winterfall Firewater',
     'Mighty Rage Potion': 'Mighty Rage Potion',
+    'Great Rage Potion': 'Great Rage Potion',
     'Stratholme Holy Water': 'Stratholme Holy Water',
     'Flask of Distilled Wisdom': 'Flask of Distilled Wisdom',
     'Goblin Sapper Charge': 'Goblin Sapper Charge',
@@ -686,6 +697,7 @@ USES_CONSUMABLE_ENHANCE = {
     'Elixir of the Mongoose': 'Elixir of the Mongoose',
     'Elixir of Greater Nature Power': 'Elixir of Greater Nature Power',
     'Power Mushroom': 'Power Mushroom',
+    'Gordok Green Grog': 'Gordok Green Grog',
 }
 
 
@@ -2893,14 +2905,14 @@ class MergeSuperwowConsumables:
             print('writing superwow merge to', self.filename)
 
         for player in self.player_superwow:
-            consumables_swow = dict(self.player_superwow[player])
-            consumables = dict(self.player[player])
+            consumables_swow = set(self.player_superwow[player])
+            consumables = set(self.player[player])
             for c_swow in consumables_swow:
                 if c_swow in USES_CONSUMABLE_OVERWRITE:
                     c = USES_CONSUMABLE_OVERWRITE[c_swow]
                     #if c not in consumables:
                     #    self.log(f"mismatch from {c_swow} to {c}. {player} {c} is not in consumables")
-                    if c != c_swow and consumables.get(c, 0) > consumables_swow[c_swow]:
+                    if c != c_swow and self.player[player].get(c, 0) > self.player_superwow[player][c_swow]:
                         self.log(f"partial merge (overwrite). {player} {c} > {c_swow}")
 
                         remain = self.player[player][c] - self.player_superwow[player][c_swow]
@@ -2918,7 +2930,7 @@ class MergeSuperwowConsumables:
                     c = USES_CONSUMABLE_ENHANCE[c_swow]
                     #if c not in consumables:
                     #    self.log(f"mismatch from {c_swow} to {c}. {player} {c} is not in consumables")
-                    if consumables.get(c, 0) > consumables_swow[c_swow]:
+                    if self.player[player].get(c, 0) > self.player_superwow[player][c_swow]:
                         self.log(f"skipping. superwow has less? {player} {c} > {c_swow}")
                         continue
 
