@@ -40,10 +40,6 @@ def updateprices(c):
 def tar(c):
     c.run('tar --exclude __pycache__ -czvf src.tgz src')
 
-@task
-def genpkg(c):
-    shutil.rmtree(Path('dist'))
-    c.run('python -m build')
 
 @task
 def gendeps(c):

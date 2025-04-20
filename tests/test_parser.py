@@ -123,6 +123,8 @@ def test_tea_with_sugar_line(app):
 4/21 21:01:38.861  Psykhe 's Tea with Sugar critically heals Psykhe for 1613.
 12/4 21:20:37.957  Elieena 's Tea heals Elieena for 579.
 4/21 21:22:41.023  Shumy gains 1209 Mana from Shumy 's Tea with Sugar.
+4/19 21:30:12.721  Levaen uses Tea With Sugar.
+4/19 21:30:12.721  Levaen 's Tea heals Levaen for 699.
 """
     lines = lines.splitlines(keepends=True)
     for line in lines:
@@ -130,6 +132,13 @@ def test_tea_with_sugar_line(app):
     assert app.player['Psykhe']['Tea with Sugar'] == 2
     assert app.player['Shumy']['Tea with Sugar'] == 0
     assert app.player['Elieena']['Tea with Sugar'] == 1
+
+    assert app.player['Levaen']['Tea with Sugar'] == 1
+    assert app.player_superwow['Levaen']['Tea with Sugar'] == 1
+    app.merge_superwow_consumables.merge()
+    assert app.player['Levaen']['Tea with Sugar'] == 1
+    assert app.player_superwow['Levaen']['Tea with Sugar'] == 0
+
 
 def test_gains_line(app):
     lines = """

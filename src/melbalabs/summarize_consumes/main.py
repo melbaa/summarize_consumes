@@ -391,6 +391,14 @@ NAME2ITEMID = {
     'Elixir of the Mongoose': 13452,
     'Elixir of Brute Force': 13453,
     'Winterfall Firewater': 12820,
+    'Juju Power': 12431,
+    'Juju Flurry': 12430,
+    'Juju Might': 12436,
+    'Medivhs Merlot Blue Label': 61175,
+    'Gurubashi Gumbo': 53015,
+    'Hardened Mushroom': 51717,
+    'Power Mushroom': 51720,
+    'Oil of Immolation': 8956,
     'Greater Stoneshield': 13455,
     'Lucidity Potion': 61225,
     'Scorpok Pincer': 8393,
@@ -415,7 +423,12 @@ NAME2ITEMID = {
     'Dreamtonic': 61423,
     'Goblin Sapper Charge': 10646,
     "Medivh's Merlot": 61174,
+    'Greater Arcane Protection Potion': 13461,
+    'Greater Holy Protection Potion': 13460,
     'Greater Shadow Protection Potion': 13459,
+    'Greater Nature Protection Potion': 13458,
+    'Greater Fire Protection Potion': 13457,
+    'Greater Frost Protection Potion': 13456,
     'Dreamshard Elixir': 61224,
     'Lesser Mana Oil': 20747,
     'Brilliant Mana Oil': 20748,
@@ -441,6 +454,11 @@ NAME2ITEMID = {
     'Larval Acid': 18512,
     'Dark Rune': 20520,
     'Small Dream Shard': 61198,
+    'Mageblood Potion': 20007,
+    "Danonzo's Tel'Abim Surprise": 60976,
+    "Danonzo's Tel'Abim Delight": 60977,
+    "Danonzo's Tel'Abim Medley": 60978,
+
 }
 ITEMID2NAME = { value: key for key, value in NAME2ITEMID.items() }
 
@@ -615,9 +633,9 @@ USES_CONSUMABLE_OVERWRITE = {
     'Greater Holy Protection Potion': 'Holy Protection',
 
     'Hardened Mushroom': 'Increased Stamina',
-    'Mageblood Potion': 'Mana Regeneration',
-    'Thistle Tea': 'Tea With Sugar',
-    'Tea With Sugar': 'Tea With Sugar',
+    'Mageblood Potion': 'Mana Regeneration (food or mageblood)',
+    'Thistle Tea': 'Tea with Sugar',
+    'Tea with Sugar': 'Tea with Sugar',
 
     # superwow counts are lower, because 'begins to cast' may not actually cast the spell
     'Dense Weightstone': 'Dense Weightstone',
@@ -653,11 +671,10 @@ USES_CONSUMABLE_ENHANCE = {
 
     'Limited Invulnerability Potion': 'Invulnerability',
     'Elixir of Fortitude': 'Elixir of Fortitude',
-
+    "Elixir of Giants": 'Elixir of the Giants',
     'Rage of Ages': 'Rage of Ages (ROIDS)',
     'Ground Scorpok Assay': 'Strike of the Scorpok',
     'Cerebral Cortex Compound': 'Infallible Mind (Cerebral Cortex Compound)',
-    "Elixir of Giants": 'Elixir of Giants',
     'Medivhs Merlot Blue Label': 'Medivhs Merlot Blue Label',
     'Iron Grenade': 'Iron Grenade',
     'Elixir of Giant Growth': 'Elixir of Giant Growth',
@@ -691,7 +708,7 @@ USES_CONSUMABLE_ENHANCE = {
     'Elixir of Superior Defense': 'Elixir of Superior Defense',
     'Flask of Supreme Power': 'Flask of Supreme Power',
     'Powerful Smelling Salts': 'Powerful Smelling Salts',
-    'Greater Stoneshield Potion': 'Greater Stoneshield Potion',
+    'Greater Stoneshield Potion': 'Greater Stoneshield',
     'Potion of Quickness': 'Potion of Quickness',
     'Le Fishe Au Chocolat': 'Le Fishe Au Chocolat',
     'Elixir of the Mongoose': 'Elixir of the Mongoose',
@@ -704,6 +721,7 @@ USES_CONSUMABLE_ENHANCE = {
 USES_CONSUMABLE_RENAME = {
     "Danonzos Tel'Abim Medley": "Danonzo's Tel'Abim Medley",
     "Major Trolls Blood Potion": "Major Troll's Blood Potion",
+    "Tea With Sugar": "Tea with Sugar",
 }
 
 USES_CONSUMABLE_IGNORE = {
