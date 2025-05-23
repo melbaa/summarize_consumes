@@ -465,7 +465,7 @@ NAME2ITEMID = {
     "Danonzo's Tel'Abim Surprise": 60976,
     "Danonzo's Tel'Abim Delight": 60977,
     "Danonzo's Tel'Abim Medley": 60978,
-    "Kreeg's Stout Beatdown": 18284,
+    # "Kreeg's Stout Beatdown": 18284,  # bop
 }
 ITEMID2NAME = { value: key for key, value in NAME2ITEMID.items() }
 
@@ -2688,12 +2688,9 @@ def generate_output(app):
     - The report is generated using the combat log, which is far from perfect.
     - Use the report as evidence something DID happen and keep in mind the data is not exhaustive. In other words the report DOES NOT cover everything.
     - Some events are missing because the person logging wasn't in the instance yet or was too far away. This means inferring something DID NOT happen may be hard or impossible and requires extra care.
-    - Jujus and many foods are not in the combat log, so they can't be easily counted.
+    - This is called "open-world assumption" - missing information doesn't imply falsity.
+    - Without superwow, many spells and consumables are not logged and can't be easily counted. Examples are jujus, many foods, mageblood and other mana consumables, lesser vs greater protection potions, gift of arthas etc.
     - Dragonbreath chili and goblin sappers have only "on hit" messages, so their usage is estimated based on timestamps and cooldowns.
-    - Mageblood and some other mana consumes are "mana regeneration" in the combat log, can't tell them apart.
-    - Lesser, greater protection potions and frozen runes don't have unique names, can't tell them apart.
-    - Nordanaar Herbal Tea casts the same spell as Tea with Sugar, can't tell them apart.
-    - Gift of Arthas looks like a buff on both players and NPCs, which messes up player detection, so it's not tracked.
 
 """, file=output)
 
