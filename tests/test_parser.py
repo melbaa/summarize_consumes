@@ -314,10 +314,12 @@ def test_casts_consumable_line(app):
 4/13 22:19:00.971  Doombabe casts Cure Ailments on Doombabe.
 4/13 22:19:00.971  Doombabe casts Cure Ailments on Doombabe.
 4/14 21:04:16.502  Samain casts Cure Ailments on Samain.
+5/23 21:41:45.065  Isilja casts Emerald Blessing.
 """
     lines = lines.splitlines(keepends=True)
     for line in lines:
         parse_line(app, line)
+    assert app.player['Isilja']["Emerald Blessing"] == 1
     assert app.player['Faradin']["Advanced Target Dummy"] == 1
     assert app.player['FaradinMW']["Masterwork Target Dummy"] == 1
     assert app.player['Psykhe']["Powerful Anti-Venom"] == 1
@@ -357,11 +359,22 @@ def test_uses_consumables(app_log_merge):
 4/13 23:31:24.242  Corta gains Fire Protection (1).
 4/13 23:31:24.242  Corta gains Fire Protection (1).
 4/12 21:09:14.530  Corta uses Greater Fire Protection Potion.
+5/23 20:26:02.071  Angrycat gains Chromatic Resistance (1).
+5/23 20:26:02.071  Angrycat uses Flask of Chromatic Resistance.
+5/23 20:26:02.071  Angrycat uses Flask of Chromatic Resistance.
+5/23 20:37:41.005  Murdinn begins to cast Kreeg's Stout Beatdown.
+5/23 19:20:54.693  Murdinn uses Kreegs Stout Beatdown.
+5/23 19:20:54.693  Murdinn uses Kreegs Stout Beatdown.
 """
     lines = lines.splitlines(keepends=True)
     for line in lines:
         parse_line(app, line)
 
+    assert app.player['Murdinn']["Kreeg's Stout Beatdown"] == 1
+    assert app.player_superwow['Murdinn']["Kreeg's Stout Beatdown"] == 2
+
+    assert app.player['Angrycat']['Flask of Chromatic Resistance'] == 1
+    assert app.player_superwow['Angrycat']['Flask of Chromatic Resistance'] == 2
 
     assert app.player['Doomfully']['Shadow Protection'] == 4
 
@@ -376,6 +389,12 @@ def test_uses_consumables(app_log_merge):
     assert app.player_superwow['Akanamu']['Dreamshard Elixir'] == 1
 
     app.merge_superwow_consumables.merge()
+
+    assert app.player['Murdinn']["Kreeg's Stout Beatdown"] == 2
+    assert app.player_superwow['Murdinn']["Kreeg's Stout Beatdown"] == 0
+
+    assert app.player['Angrycat']['Flask of Chromatic Resistance'] == 2
+    assert app.player_superwow['Angrycat']['Flask of Chromatic Resistance'] == 0
 
     assert app.player['Doomfully']['Shadow Protection'] == 0
     assert app.player['Doomfully']['Greater Shadow Protection Potion'] == 3

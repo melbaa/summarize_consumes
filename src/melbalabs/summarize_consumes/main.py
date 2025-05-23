@@ -294,6 +294,7 @@ def rename_spell(spell, line_type):
     return rename or spell
 
 RENAME_CONSUMABLE = {
+    'Chromatic Resistance': 'Flask of Chromatic Resistance',
     'Supreme Power': 'Flask of Supreme Power',
     'Distilled Wisdom': 'Flask of Distilled Wisdom',
     'Rage of Ages': 'Rage of Ages (ROIDS)',
@@ -369,9 +370,13 @@ CONSUMABLE_COMPONENTS = {
     "Tea with Sugar": [
         ('Small Dream Shard', 1/5),
     ],
+    "Emerald Blessing": [
+        ("Bright Dream Shard", 1),
+    ]
 }
 
 NAME2ITEMID = {
+    "Flask of Chromatic Resistance": 13513,
     "Flask of the Titans": 13510,
     "Flask of Supreme Power": 13512,
     'Flask of Distilled Wisdom': 13511,
@@ -394,7 +399,6 @@ NAME2ITEMID = {
     'Juju Power': 12431,
     'Juju Flurry': 12430,
     'Juju Might': 12436,
-    'Medivhs Merlot Blue Label': 61175,
     'Gurubashi Gumbo': 53015,
     'Hardened Mushroom': 51717,
     'Power Mushroom': 51720,
@@ -422,6 +426,7 @@ NAME2ITEMID = {
     'Dragonbreath Chili': 12217,
     'Dreamtonic': 61423,
     'Goblin Sapper Charge': 10646,
+    "Medivh's Merlot Blue Label": 61175,
     "Medivh's Merlot": 61174,
     'Greater Arcane Protection Potion': 13461,
     'Greater Holy Protection Potion': 13460,
@@ -435,16 +440,17 @@ NAME2ITEMID = {
     'Mighty Rage Potion': 13442,
     'Great Rage Potion': 5633,
     'Dense Dynamite': 18641,
+    "Gift of Arthas": 9088,
     'Brilliant Wizard Oil': 20749,
     'Wizard Oil': 20750,
     'Blessed Wizard Oil': 23123,
     'Thorium Grenade': 15993,
     'Potion of Quickness': 61181,
-    "Medivh's Merlot Blue Label": 61175,
     'Elixir of Greater Nature Power': 50237,
     'Elixir of Greater Intellect': 9179,
     'Rejuvenation Potion - Major': 18253,
     'Invisibility Potion': 9172,
+    'Swiftness Potion': 2459,
     'Lesser Invisibility Potion': 3823,
     'Powerful Anti-Venom': 19440,
     'Strong Anti-Venom': 6453,
@@ -454,11 +460,12 @@ NAME2ITEMID = {
     'Larval Acid': 18512,
     'Dark Rune': 20520,
     'Small Dream Shard': 61198,
+    'Bright Dream Shard': 61199,
     'Mageblood Potion': 20007,
     "Danonzo's Tel'Abim Surprise": 60976,
     "Danonzo's Tel'Abim Delight": 60977,
     "Danonzo's Tel'Abim Medley": 60978,
-
+    "Kreeg's Stout Beatdown": 18284,
 }
 ITEMID2NAME = { value: key for key, value in NAME2ITEMID.items() }
 
@@ -496,7 +503,7 @@ BEGINS_TO_CAST_CONSUMABLE = {
     "Sharpen Blade V",
     "Enhance Blunt Weapon V",
     "Crystal Force",
-    "Medivhs Merlot Blue Label",
+    "Medivh's Merlot Blue Label",
 }
 
 CASTS_CONSUMABLE = {
@@ -506,6 +513,7 @@ CASTS_CONSUMABLE = {
     "Cure Ailments",
     "Advanced Target Dummy",
     "Masterwork Target Dummy",
+    "Emerald Blessing",  # superwow
 }
 
 
@@ -519,6 +527,7 @@ GAINS_CONSUMABLE = {
     "Elixir of Greater Nature Power",
     "Elixir of Brute Force",
     "Flask of the Titans",
+    "Chromatic Resistance",
     "Supreme Power",
     "Distilled Wisdom",
     "Spirit of Zanza",
@@ -619,7 +628,8 @@ USES_CONSUMABLE_SAFE = {
 
 }
 
-# straight up upgrade, will try to delete the native counts with the old name and use the new name
+# will try to delete the native counts with the old name and use the new name coming from superwow
+# eg. the prot pots have non-specific native names, but with superwow the specific name shows up
 USES_CONSUMABLE_OVERWRITE = {
     # prot pots have very generic names in native logs
     'Greater Fire Protection Potion': 'Fire Protection',
@@ -634,7 +644,6 @@ USES_CONSUMABLE_OVERWRITE = {
 
     'Hardened Mushroom': 'Increased Stamina',
     'Mageblood Potion': 'Mana Regeneration (food or mageblood)',
-    'Thistle Tea': 'Tea with Sugar',
     'Tea with Sugar': 'Tea with Sugar',
 
     # superwow counts are lower, because 'begins to cast' may not actually cast the spell
@@ -658,7 +667,7 @@ USES_CONSUMABLE_OVERWRITE = {
     "Scroll of Spirit IV": "Spirit",
 }
 
-# will try to merge counts, but keep the existing names
+# will try to merge counts, but keep the existing names from the native client
 USES_CONSUMABLE_ENHANCE = {
 
     # verify again
@@ -669,13 +678,19 @@ USES_CONSUMABLE_ENHANCE = {
     'Major Mana Potion': 'Mana Potion - Major',
     'Major Healing Potion': 'Healing Potion - Major',
 
+    "Kreeg's Stout Beatdown": "Kreeg's Stout Beatdown",  # renamed
+    'Flask of Chromatic Resistance': 'Flask of Chromatic Resistance',
+    'Thistle Tea': 'Thistle Tea',
     'Limited Invulnerability Potion': 'Invulnerability',
     'Elixir of Fortitude': 'Elixir of Fortitude',
     "Elixir of Giants": 'Elixir of the Giants',
+    "Elixir of Greater Agility": 'Elixir of the Greater Agility',
     'Rage of Ages': 'Rage of Ages (ROIDS)',
     'Ground Scorpok Assay': 'Strike of the Scorpok',
+    'Lung Juice Cocktail': 'Lung Juice Cocktail',
     'Cerebral Cortex Compound': 'Infallible Mind (Cerebral Cortex Compound)',
-    'Medivhs Merlot Blue Label': 'Medivhs Merlot Blue Label',
+    "Medivh's Merlot Blue Label": "Medivh's Merlot Blue Label",
+    "Medivh's Merlot": "Medivh's Merlot",
     'Iron Grenade': 'Iron Grenade',
     'Elixir of Giant Growth': 'Elixir of Giant Growth',
     'Swiftness of Zanza': 'Swiftness of Zanza',
@@ -720,8 +735,13 @@ USES_CONSUMABLE_ENHANCE = {
 
 USES_CONSUMABLE_RENAME = {
     "Danonzos Tel'Abim Medley": "Danonzo's Tel'Abim Medley",
+    "Danonzos Tel'Abim Surprise": "Danonzo's Tel'Abim Surprise",
+    "Danonzos Tel'Abim Delight": "Danonzo's Tel'Abim Delight",
     "Major Trolls Blood Potion": "Major Troll's Blood Potion",
     "Tea With Sugar": "Tea with Sugar",
+    "Kreegs Stout Beatdown": "Kreeg's Stout Beatdown",
+    "Medivhs Merlot Blue Label": "Medivh's Merlot Blue Label",
+    "Medivhs Merlot": "Medivh's Merlot",
 }
 
 USES_CONSUMABLE_IGNORE = {
@@ -2166,6 +2186,7 @@ def parse_line2(app, line):
             consumable = subtree.children[1].value
 
             consumable = USES_CONSUMABLE_RENAME.get(consumable, consumable)
+
 
             if consumable in USES_CONSUMABLE_SAFE:
                 app.player[name][consumable] += 1
