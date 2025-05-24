@@ -75,7 +75,7 @@ options:
 
 ## Hosted javascript version
 
-On [melbalabs](https://melbalabs.com/summarize_consumes/) you can find a simple version that analyzes the log in your browser.
+On [melbalabs](https://melbalabs.com/summarize_consumes/) you can find a simple version that analyzes the log in **your** browser. Nothing is sent across the network.
 
 
 # Installation
