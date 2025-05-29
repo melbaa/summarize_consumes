@@ -2,12 +2,9 @@ Notes:
     - The report is generated using the combat log, which is far from perfect.
     - Use the report as evidence something DID happen and keep in mind the data is not exhaustive. In other words the report DOES NOT cover everything.
     - Some events are missing because the person logging wasn't in the instance yet or was too far away. This means inferring something DID NOT happen may be hard or impossible and requires extra care.
-    - Jujus and many foods are not in the combat log, so they can't be easily counted.
+    - This is called "open-world assumption" - missing information doesn't imply falsity.
+    - Without superwow, many spells and consumables are not logged and can't be easily counted. Examples are jujus, many foods, mageblood and other mana consumables, lesser vs greater protection potions, gift of arthas etc.
     - Dragonbreath chili and goblin sappers have only "on hit" messages, so their usage is estimated based on timestamps and cooldowns.
-    - Mageblood and some other mana consumes are "mana regeneration" in the combat log, can't tell them apart.
-    - Lesser, greater protection potions and frozen runes don't have unique names, can't tell them apart.
-    - Nordanaar Herbal Tea casts the same spell as Tea with Sugar, can't tell them apart.
-    - Gift of Arthas looks like a buff on both players and NPCs, which messes up player detection, so it's not tracked.
 
 
 Airin deaths:3
@@ -93,10 +90,10 @@ Few deaths:5
    Fire Protection 2 
    Healing Potion - Major 2   (1g 52s 72c)
    Rumsey Rum Black Label 2   (79s 94c)
-   Shadow Protection 1   (4g 89s 74c)
+   Shadow Protection 1 
    Winterfall Firewater 5   (5g 17s 65c)
 
-   total spent: 21g 82s 13c
+   total spent: 16g 92s 39c
 Fflur deaths:0
    <nothing found>
 Gack deaths:1
@@ -154,6 +151,7 @@ Shrimpshark deaths:2
    Increased Intellect 3 
    Invulnerability 2   (3g 18s 56c)
    Mana Potion - Major 1   (1g 72s 91c)
+   Rumsey Rum Dark 3 
    Tea with Sugar 10   (2g 75s 90c)
 
    total spent: 24g 1s 90c

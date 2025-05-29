@@ -2,12 +2,9 @@ Notes:
     - The report is generated using the combat log, which is far from perfect.
     - Use the report as evidence something DID happen and keep in mind the data is not exhaustive. In other words the report DOES NOT cover everything.
     - Some events are missing because the person logging wasn't in the instance yet or was too far away. This means inferring something DID NOT happen may be hard or impossible and requires extra care.
-    - Jujus and many foods are not in the combat log, so they can't be easily counted.
+    - This is called "open-world assumption" - missing information doesn't imply falsity.
+    - Without superwow, many spells and consumables are not logged and can't be easily counted. Examples are jujus, many foods, mageblood and other mana consumables, lesser vs greater protection potions, gift of arthas etc.
     - Dragonbreath chili and goblin sappers have only "on hit" messages, so their usage is estimated based on timestamps and cooldowns.
-    - Mageblood and some other mana consumes are "mana regeneration" in the combat log, can't tell them apart.
-    - Lesser, greater protection potions and frozen runes don't have unique names, can't tell them apart.
-    - Nordanaar Herbal Tea casts the same spell as Tea with Sugar, can't tell them apart.
-    - Gift of Arthas looks like a buff on both players and NPCs, which messes up player detection, so it's not tracked.
 
 
 Alpra deaths:5
@@ -69,15 +66,15 @@ Bruceweed deaths:6
    Increased Stamina 2 
    Invulnerability 2   (3g 18s 56c)
    Mana Potion - Major 6   (10g 37s 46c)
-   Medivh's Merlot Blue Label 1   (1g 49s 72c)
+   Medivh's Merlot Blue Label 2   (2g 99s 44c)
    Nature Protection 5 
    Regeneration 2 
    Rumsey Rum Black Label 3   (1g 19s 91c)
-   Shadow Protection 1   (4g 89s 74c)
+   Shadow Protection 1 
    Spirit of Zanza 4   (7g 79s 40c)
    Tea with Sugar 12   (3g 31s 8c)
 
-   total spent: 106g 43s 17c
+   total spent: 103g 3s 15c
 Charmia deaths:4
    Elixir of Fortitude 2   (1g 24s 62c)
    Elixir of the Giants 4   (5g 52s 12c)
@@ -116,6 +113,7 @@ Dregoth deaths:6
    Elixir of Shadow Power 4   (7g 94s 96c)
    Frost Protection 7 
    Healing Potion - Major 1   (76s 36c)
+   Rumsey Rum Dark 4 
    Tea with Sugar 3   (82s 77c)
 
    total spent: 20g 54s 5c
@@ -187,9 +185,9 @@ Faradin deaths:3
    Mana Potion - Major 4   (6g 91s 64c)
    Mana Potion - Superior 4   (3g 2s 88c)
    Rumsey Rum Black Label 1   (39s 97c)
-   Shadow Protection 1   (4g 89s 74c)
+   Shadow Protection 1 
 
-   total spent: 96g 33s 10c
+   total spent: 91g 43s 36c
 Getterfour deaths:7
    Dragonbreath Chili 9   (13g 66s 38c)
    Dreamtonic 6   (10g 63s 80c)
@@ -216,11 +214,11 @@ Illasei deaths:5
    Flask of the Titans 1   (72g 79s 93c)
    Frost Protection 6 
    Powerful Anti-Venom 1   (98s 99c)
-   Shadow Protection 1   (4g 89s 74c)
+   Shadow Protection 1 
    Spirit of Zanza 6   (11g 69s 10c)
    Winterfall Firewater 7   (7g 24s 71c)
 
-   total spent: 105g 11s 67c
+   total spent: 100g 21s 93c
 Iniri deaths:3
    Elixir of the Giants 2   (2g 76s 6c)
    Elixir of the Mongoose 2   (2g 99s 68c)
@@ -241,11 +239,11 @@ Jaekta deaths:3
    Increased Stamina 6 
    Rage of Ages (ROIDS) 1   (2g 11s 91c)
    Rumsey Rum Black Label 6   (2g 39s 82c)
-   Shadow Protection 2   (9g 79s 48c)
+   Shadow Protection 2 
    Spirit of Zanza 2   (3g 89s 70c)
    Winterfall Firewater 4   (4g 14s 12c)
 
-   total spent: 140g 32s 76c
+   total spent: 130g 53s 28c
 Jarnp deaths:8
    Brilliant Mana Oil 4   (6g 3s 4c)
    Frost Protection 4 
@@ -314,12 +312,12 @@ Niviri deaths:3
    Nature Protection 1 
    Rejuvenation Potion - Major 2   (5g 37s 56c)
    Rumsey Rum Black Label 1   (39s 97c)
-   Shadow Protection 1   (4g 89s 74c)
+   Shadow Protection 1 
    Spirit of Zanza 4   (7g 79s 40c)
    Swiftness of Zanza 1   (1g 94s 85c)
    Tea with Sugar 6   (1g 65s 54c)
 
-   total spent: 26g 55s 35c
+   total spent: 21g 65s 61c
 Obbi deaths:3
    Elixir of Greater Agility 1   (20s 69c)
    Elixir of Superior Defense 1   (2g 26s 42c)
@@ -401,6 +399,7 @@ Shrimpshark deaths:10
    Mana Potion - Greater 1   (4s 43c)
    Mana Potion - Major 2   (3g 45s 82c)
    Noggenfogger Elixir 3 
+   Rumsey Rum Dark 7 
    Tea with Sugar 2   (55s 18c)
 
    total spent: 118g 79s 46c
@@ -478,11 +477,11 @@ Tlw deaths:1
    Nature Protection 4 
    Regeneration 2 
    Rumsey Rum Black Label 3   (1g 19s 91c)
-   Shadow Protection 1   (4g 89s 74c)
+   Shadow Protection 1 
    Spirit of Zanza 1   (1g 94s 85c)
    Tea with Sugar 8   (2g 20s 72c)
 
-   total spent: 111g 10s 78c
+   total spent: 106g 21s 4c
 Windfurytotm deaths:5
    Elixir of Fortitude 3   (1g 86s 93c)
    Fire Protection 2 

@@ -745,6 +745,8 @@ def test_consumable_report(app):
     assert output.getvalue() == 'Psykhe,9090059,0\r\n'
 
 
+
+
 def test_rejuv_pot(app):
     lines = """
 4/14 21:05:17.903  Sebben gains 1676 Mana from Sebben 's Rejuvenation Potion.
@@ -1728,5 +1730,6 @@ def test_urlparse(app):
         filename2 = downloader.try_download(filename)
         assert filename != app.log_downloader.output_name
         assert filename == filename2
+
 
 
