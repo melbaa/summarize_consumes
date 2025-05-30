@@ -29,6 +29,7 @@ from plotly.subplots import make_subplots
 from typing_extensions import Self
 
 from melbalabs.summarize_consumes import grammar
+from melbalabs.summarize_consumes.consumable import ConsumableItem
 import melbalabs.summarize_consumes.package as package
 
 
@@ -302,6 +303,23 @@ class HitsConsumable:
             raise RuntimeError('fixme')
 
 
+# canonical names, as they'd show in the final output
+_brilliant_mana_oil = ConsumableItem(name="Brilliant Mana Oil", charges=5)
+_lesser_mana_oil = ConsumableItem(name="Lesser Mana Oil", charges=5)
+_brilliant_wizard_oil = ConsumableItem(name="Brilliant Wizard Oil", charges=5)
+_wizard_oil = ConsumableItem(name="Wizard Oil", charges=5)
+
+
+NAME2CONSUMABLE: Dict[str, ConsumableItem] = {
+    _brilliant_mana_oil.name: _brilliant_mana_oil,
+    _lesser_mana_oil.name: _lesser_mana_oil,
+    _brilliant_wizard_oil.name: _brilliant_wizard_oil,
+    _wizard_oil.name: _wizard_oil,
+}
+
+
+
+
 RENAME_SPELL = {
     ('hits_ability_line', 'Holy Shock'): 'Holy Shock (dmg)',
     ('heals_line', 'Holy Shock'): 'Holy Shock (heal)',
@@ -336,7 +354,7 @@ RENAME_CONSUMABLE = {
     'Sharpen Weapon - Critical': 'Elemental Sharpening Stone',
     'Consecrated Weapon': 'Consecrated Sharpening Stone',
     'Sharpen Blade V': 'Dense Sharpening Stone',
-    'Enhance Blunt Weapon V': 'Dense Weighstone',
+    'Enhance Blunt Weapon V': 'Dense Weightstone',
     'Cure Ailments': 'Jungle Remedy',
     'Stoneshield': '??? Lesser Stoneshield Potion ???',
     'Restoration': 'Restorative Potion',
@@ -562,12 +580,6 @@ NAME2ITEMID_BOP = {
 }
 ITEMID2NAME = { value: key for key, value in NAME2ITEMID.items() }
 
-CONSUMABLE_CHARGES = {
-    "Brilliant Mana Oil" : 5,
-    "Lesser Mana Oil" : 5,
-    "Brilliant Wizard Oil" : 5,
-    "Wizard Oil" : 5,
-}
 
 RAGE_CONSUMABLE = {
     "Mighty Rage",
@@ -1939,7 +1951,6 @@ class ConsumablesEntry:
         self.consumables.append(consumable)
         self.total_spent += consumable.total_price
 
-
 @dataclasses.dataclass
 class ConsumablesAccumulator:
     player: Dict
@@ -1947,35 +1958,41 @@ class ConsumablesAccumulator:
     death_count: Dict[str, int]
     data: List[ConsumablesEntry] = dataclasses.field(default_factory=list)
 
-    def get_consumable_price(self, consumable: str) -> Currency:
+    def get_consumable_price(self, consumable: str) -> Currency: # consumable is a string (canonical name)
         total_price = Currency(0)
 
         components = CONSUMABLE_COMPONENTS.get(consumable)
         if not components:
             components = [(consumable, 1)]
 
-        for component in components:
-            consumable_component_name, multi = component
+        for component_tuple in components:
+            consumable_component_name, multi = component_tuple
             itemid = NAME2ITEMID.get(consumable_component_name)
             if not itemid: continue
             price = self.pricedb.lookup(itemid)
             if not price: continue
             total_price += int(price * multi)
 
-        total_price /= CONSUMABLE_CHARGES.get(consumable, 1)
+        charges = 1
+        item_object = NAME2CONSUMABLE.get(consumable)
+        if item_object:
+            charges = item_object.charges
+
+        total_price /= charges
         return total_price
 
     def calculate(self) -> None:
         for name in sorted(self.player):
             consumables = sorted(self.player[name])
             player_entry = ConsumablesEntry(name, deaths=self.death_count[name])
-            for consumable in sorted(consumables):
+            for consumable_name_str in sorted(consumables): # consumable_name_str is already a canonical string
                 player_entry.add_consumable(ConsumableStore(
-                    consumable,
-                    amount=self.player[name][consumable],
-                    price=self.get_consumable_price(consumable),
+                    consumable_name_str,
+                    amount=self.player[name][consumable_name_str],
+                    price=self.get_consumable_price(consumable_name_str),
                 ))
             self.data.append(player_entry)
+
 
 
 class PrintConsumables:
