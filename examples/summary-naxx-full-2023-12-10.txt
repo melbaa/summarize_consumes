@@ -232,7 +232,7 @@ Drapes deaths:6
    Arcane Protection 1 
    Consecrated Sharpening Stone 1   (4g 9s 99c)
    Dense Dynamite 4   (5g 19s 48c)
-   Dense Weighstone 2 
+   Dense Weightstone 2 
    Elixir of Superior Defense 2   (4g 52s 84c)
    Elixir of the Mongoose 6   (8g 99s 4c)
    Flask of the Titans 1   (72g 79s 93c)

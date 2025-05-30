@@ -7,6 +7,7 @@ from melbalabs.summarize_consumes.main import USES_CONSUMABLE_OVERWRITE
 from melbalabs.summarize_consumes.main import USES_CONSUMABLE_SAFE
 from melbalabs.summarize_consumes.main import RENAME_CONSUMABLE
 from melbalabs.summarize_consumes.main import GAINS_CONSUMABLE
+from melbalabs.summarize_consumes.main import _all_defined_consumable_items
 
 
 def test_uses_consumable_disjoint():
@@ -354,3 +355,15 @@ def test_consumes_exist():
     for key in sorted(found):
         print(key)
     # assert not found
+
+
+def test_sanity1():
+ 
+    for name in NAME2ITEMID:
+        assert name in NAME2CONSUMABLE
+        assert NAME2CONSUMABLE[name].itemid == NAME2ITEMID[name]
+
+def test_sanity2():
+    for item in _all_defined_consumable_items:
+        # item has a price or components that can be priced
+        assert item.itemid or item.components

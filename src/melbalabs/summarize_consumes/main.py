@@ -304,19 +304,19 @@ class HitsConsumable:
             raise RuntimeError('fixme')
 
 
-_purple_lotus = ConsumableItem(name="Purple Lotus")
-_large_brilliant_shard = ConsumableItem(name="Large Brilliant Shard")
-_scorpok_pincer = ConsumableItem(name="Scorpok Pincer")
-_blasted_boar_lung = ConsumableItem(name="Blasted Boar Lung")
-_snickerfang_jowl = ConsumableItem(name="Snickerfang Jowl")
-_basilisk_brain = ConsumableItem(name="Basilisk Brain")
-_vulture_gizzard = ConsumableItem(name="Vulture Gizzard")
-_zulian_coin = ConsumableItem(name="Zulian Coin")
-_deeprock_salt = ConsumableItem(name="Deeprock Salt")
-_essence_of_fire = ConsumableItem(name="Essence of Fire")
-_larval_acid = ConsumableItem(name="Larval Acid")
-_small_dream_shard = ConsumableItem(name="Small Dream Shard")
-_bright_dream_shard = ConsumableItem(name="Bright Dream Shard")
+_purple_lotus = ConsumableItem(name="Purple Lotus", itemid=8831)
+_large_brilliant_shard = ConsumableItem(name="Large Brilliant Shard", itemid=14344)
+_scorpok_pincer = ConsumableItem(name="Scorpok Pincer", itemid=8393)
+_blasted_boar_lung = ConsumableItem(name="Blasted Boar Lung", itemid=8392)
+_snickerfang_jowl = ConsumableItem(name="Snickerfang Jowl", itemid=8391)
+_basilisk_brain = ConsumableItem(name="Basilisk Brain", itemid=8394)
+_vulture_gizzard = ConsumableItem(name="Vulture Gizzard", itemid=8396)
+_zulian_coin = ConsumableItem(name="Zulian Coin", itemid=19698)
+_deeprock_salt = ConsumableItem(name="Deeprock Salt", itemid=8150)
+_essence_of_fire = ConsumableItem(name="Essence of Fire", itemid=7078)
+_larval_acid = ConsumableItem(name="Larval Acid", itemid=18512)
+_small_dream_shard = ConsumableItem(name="Small Dream Shard", itemid=61198)
+_bright_dream_shard = ConsumableItem(name="Bright Dream Shard", itemid=61199)
 
 
 _all_defined_consumable_items: List[ConsumableItem] = [
@@ -342,19 +342,23 @@ _all_defined_consumable_items: List[ConsumableItem] = [
         components=[
             (_purple_lotus, 3),
             (_large_brilliant_shard, 2),
-        ]
+        ],
+        itemid=20748
     ),
     ConsumableItem(
         name="Lesser Mana Oil",
-        charges=5
+        charges=5,
+        itemid=20747
     ),
     ConsumableItem(
         name="Brilliant Wizard Oil",
-        charges=5
+        charges=5,
+        itemid=20749
     ),
     ConsumableItem(
         name="Wizard Oil",
-        charges=5
+        charges=5,
+        itemid=20750
     ),
     ConsumableItem(
         name='Rage of Ages (ROIDS)',
@@ -362,7 +366,8 @@ _all_defined_consumable_items: List[ConsumableItem] = [
             (_scorpok_pincer, 1),
             (_blasted_boar_lung, 2),
             (_snickerfang_jowl, 3),
-        ]
+        ],
+        itemid=None
     ),
     ConsumableItem(
         name='Strike of the Scorpok',
@@ -370,7 +375,8 @@ _all_defined_consumable_items: List[ConsumableItem] = [
             (_blasted_boar_lung, 1),
             (_vulture_gizzard, 2),
             (_scorpok_pincer, 3),
-        ]
+        ],
+        itemid=None
     ),
     ConsumableItem(
         name='Lung Juice Cocktail',
@@ -378,26 +384,31 @@ _all_defined_consumable_items: List[ConsumableItem] = [
             (_basilisk_brain, 1),
             (_scorpok_pincer, 2),
             (_blasted_boar_lung, 3),
-        ]
+        ],
+        itemid=None
     ),
     ConsumableItem(
         name='Infallible Mind (Cerebral Cortex Compound)',
         components=[
             (_basilisk_brain, 10),
             (_vulture_gizzard, 2),
-        ]
+        ],
+        itemid=None
     ),
     ConsumableItem(
         name="Sheen of Zanza",
-        components=[(_zulian_coin, 3)]
+        components=[(_zulian_coin, 3)],
+        itemid=None
     ),
     ConsumableItem(
         name="Spirit of Zanza",
-        components=[(_zulian_coin, 3)]
+        components=[(_zulian_coin, 3)],
+        itemid=None
     ),
     ConsumableItem(
         name="Swiftness of Zanza",
-        components=[(_zulian_coin, 3)]
+        components=[(_zulian_coin, 3)],
+        itemid=None
     ),
     ConsumableItem(
         name="Powerful Smelling Salts",
@@ -405,16 +416,135 @@ _all_defined_consumable_items: List[ConsumableItem] = [
             (_deeprock_salt, 4),
             (_essence_of_fire, 2),
             (_larval_acid, 1),
-        ]
+        ],
+        itemid=None
     ),
     ConsumableItem(
         name="Tea with Sugar",
-        components=[(_small_dream_shard, 1/5)]
+        components=[(_small_dream_shard, 1/5)],
+        itemid=None
     ),
     ConsumableItem(
         name="Emerald Blessing",
-        components=[(_bright_dream_shard, 1)]
+        components=[(_bright_dream_shard, 1)],
+        itemid=None
     ),
+    ConsumableItem(name='Hourglass Sand', itemid=19183),
+    ConsumableItem(name='Flask of Chromatic Resistance', itemid=13513),
+    ConsumableItem(name='Flask of the Titans', itemid=13510),
+    ConsumableItem(name='Flask of Supreme Power', itemid=13512),
+    ConsumableItem(name='Flask of Distilled Wisdom', itemid=13511),
+    ConsumableItem(name='Flask of Petrification', itemid=13506),
+    ConsumableItem(name='Elixir of Fortitude', itemid=3825),
+    ConsumableItem(name='Bogling Root', itemid=5206),
+    ConsumableItem(name='??? Elixir of the Sages ???', itemid=13447),
+    ConsumableItem(name='Elixir of Shadow Power', itemid=9264),
+    ConsumableItem(name='Elixir of Greater Firepower', itemid=21546),
+    ConsumableItem(name='Elixir of Firepower', itemid=6373),
+    ConsumableItem(name='Elixir of Greater Agility', itemid=9187),
+    ConsumableItem(name='Elixir of Superior Defense', itemid=13445),
+    ConsumableItem(name='Free Action Potion', itemid=5634),
+    ConsumableItem(name='Elixir of Frost Power', itemid=17708),
+    ConsumableItem(name='Greater Arcane Elixir', itemid=13454),
+    ConsumableItem(name='Thistle Tea', itemid=7676),
+    ConsumableItem(name='Elemental Sharpening Stone', itemid=18262),
+    ConsumableItem(name='Elixir of the Mongoose', itemid=13452),
+    ConsumableItem(name='Elixir of Brute Force', itemid=13453),
+    ConsumableItem(name='Winterfall Firewater', itemid=12820),
+    ConsumableItem(name='Juju Power', itemid=12431),
+    ConsumableItem(name='Juju Flurry', itemid=12430),
+    ConsumableItem(name='Juju Might', itemid=12436),
+    ConsumableItem(name='Juju Guile', itemid=12433),
+    ConsumableItem(name='Juju Escape', itemid=12435),
+    ConsumableItem(name='Juju Ember', itemid=12432),
+    ConsumableItem(name='Juju Chill', itemid=12434),
+    ConsumableItem(name='Gurubashi Gumbo', itemid=53015),
+    ConsumableItem(name='Hardened Mushroom', itemid=51717),
+    ConsumableItem(name='Power Mushroom', itemid=51720),
+    ConsumableItem(name='Oil of Immolation', itemid=8956),
+    ConsumableItem(name='Greater Stoneshield', itemid=13455),
+    ConsumableItem(name='Lucidity Potion', itemid=61225),
+    ConsumableItem(name='Mana Potion - Greater', itemid=6149),
+    ConsumableItem(name='Mana Potion - Superior', itemid=13443),
+    ConsumableItem(name='Mana Potion - Major', itemid=13444),
+    ConsumableItem(name='Restorative Potion', itemid=9030),
+    ConsumableItem(name='Healing Potion - Major', itemid=13446),
+    ConsumableItem(name='Healing Potion - Superior', itemid=3928),
+    ConsumableItem(name='Elixir of the Giants', itemid=9206),
+    ConsumableItem(name='Rumsey Rum Black Label', itemid=21151),
+    ConsumableItem(name='Rumsey Rum Dark', itemid=21114),
+    ConsumableItem(name='Consecrated Sharpening Stone', itemid=23122),
+    ConsumableItem(name='Invulnerability', itemid=3387),
+    ConsumableItem(name='Dragonbreath Chili', itemid=12217),
+    ConsumableItem(name='Dreamtonic', itemid=61423),
+    ConsumableItem(name='Goblin Sapper Charge', itemid=10646),
+    ConsumableItem(name="Medivh's Merlot Blue Label", itemid=61175),
+    ConsumableItem(name="Medivh's Merlot", itemid=61174),
+    ConsumableItem(name='Greater Arcane Protection Potion', itemid=13461),
+    ConsumableItem(name='Greater Holy Protection Potion', itemid=13460),
+    ConsumableItem(name='Greater Shadow Protection Potion', itemid=13459),
+    ConsumableItem(name='Greater Nature Protection Potion', itemid=13458),
+    ConsumableItem(name='Greater Fire Protection Potion', itemid=13457),
+    ConsumableItem(name='Greater Frost Protection Potion', itemid=13456),
+    ConsumableItem(name='Holy Protection Potion', itemid=6051),
+    ConsumableItem(name='Shadow Protection Potion', itemid=6048),
+    ConsumableItem(name='Nature Protection Potion', itemid=6052),
+    ConsumableItem(name='Fire Protection Potion', itemid=6049),
+    ConsumableItem(name='Frost Protection Potion', itemid=6050),
+    ConsumableItem(name='Dreamshard Elixir', itemid=61224),
+    ConsumableItem(name='Mighty Rage Potion', itemid=13442),
+    ConsumableItem(name='Great Rage Potion', itemid=5633),
+    ConsumableItem(name='Rage Potion', itemid=5631),
+    ConsumableItem(name='Dense Dynamite', itemid=18641),
+    ConsumableItem(name='Solid Dynamite', itemid=10507),
+    ConsumableItem(name='Gift of Arthas', itemid=9088),
+    ConsumableItem(name='Blessed Wizard Oil', itemid=23123),
+    ConsumableItem(name='Thorium Grenade', itemid=15993),
+    ConsumableItem(name='Iron Grenade', itemid=4390),
+    ConsumableItem(name='Grilled Squid', itemid=13928),
+    ConsumableItem(name='Potion of Quickness', itemid=61181),
+    ConsumableItem(name='Elixir of Greater Nature Power', itemid=50237),
+    ConsumableItem(name='Elixir of Greater Intellect', itemid=9179),
+    ConsumableItem(name='Rejuvenation Potion - Major', itemid=18253),
+    ConsumableItem(name='Invisibility Potion', itemid=9172),
+    ConsumableItem(name='Swiftness Potion', itemid=2459),
+    ConsumableItem(name='Lesser Invisibility Potion', itemid=3823),
+    ConsumableItem(name='Powerful Anti-Venom', itemid=19440),
+    ConsumableItem(name='Strong Anti-Venom', itemid=6453),
+    ConsumableItem(name='Anti-Venom', itemid=6452),
+    ConsumableItem(name='Dark Rune', itemid=20520),
+    ConsumableItem(name='Mageblood Potion', itemid=20007),
+    ConsumableItem(name="Danonzo's Tel'Abim Surprise", itemid=60976),
+    ConsumableItem(name="Danonzo's Tel'Abim Delight", itemid=60977),
+    ConsumableItem(name="Danonzo's Tel'Abim Medley", itemid=60978),
+    ConsumableItem(name='Wildvine Potion', itemid=9144),
+    ConsumableItem(name='Shadow Oil', itemid=3824),
+    ConsumableItem(name='Scroll of Stamina IV', itemid=10307),
+    ConsumableItem(name='Scroll of Strength IV', itemid=10310),
+    ConsumableItem(name='Scroll of Spirit IV', itemid=10306),
+    ConsumableItem(name='Scroll of Protection IV', itemid=10305),
+    ConsumableItem(name='Scroll of Intellect IV', itemid=10308),
+    ConsumableItem(name='Scroll of Agility IV', itemid=10309),
+    ConsumableItem(name='Purification Potion', itemid=13462),
+    ConsumableItem(name='Poisonous Mushroom', itemid=5823),
+    ConsumableItem(name='Nightfin Soup', itemid=13931),
+    ConsumableItem(name="Major Troll's Blood Potion", itemid=20004),
+    ConsumableItem(name='Major Rejuvenation Potion', itemid=18253),
+    ConsumableItem(name='Magic Resistance Potion', itemid=9036),
+    ConsumableItem(name='Living Action Potion', itemid=20008),
+    ConsumableItem(name='Le Fishe Au Chocolat', itemid=84040),
+    ConsumableItem(name='Jungle Remedy', itemid=2633),
+    ConsumableItem(name="Graccu's Homemade Meat Pie", itemid=17407),
+    ConsumableItem(name='Frozen Rune', itemid=22682),
+    ConsumableItem(name='Greater Dreamless Sleep Potion', itemid=20002),
+    ConsumableItem(name='Empowering Herbal Salad', itemid=83309),
+    ConsumableItem(name='Elixir of Poison Resistance', itemid=3386),
+    ConsumableItem(name='Elixir of Greater Defense', itemid=8951),
+    ConsumableItem(name='Elixir of Giant Growth', itemid=6662),
+    ConsumableItem(name='Elixir of Demonslaying', itemid=9224),
+    ConsumableItem(name='Arcane Elixir', itemid=9155),
+    ConsumableItem(name='Dense Sharpening Stone', itemid=12404),
+    ConsumableItem(name='Dense Weightstone', itemid=12643),
 ]
 
 NAME2CONSUMABLE: Dict[str, ConsumableItem] = {
@@ -472,143 +602,11 @@ RENAME_CONSUMABLE = {
     'Rage': 'Rage Potion',
 }
 
-
-
 NAME2ITEMID = {
-    'Hourglass Sand': 19183,
-    "Flask of Chromatic Resistance": 13513,
-    "Flask of the Titans": 13510,
-    "Flask of Supreme Power": 13512,
-    'Flask of Distilled Wisdom': 13511,
-    'Flask of Petrification': 13506,
-    'Elixir of Fortitude': 3825,
-    'Bogling Root': 5206,
-    '??? Elixir of the Sages ???': 13447,
-    'Elixir of Shadow Power': 9264,
-    'Elixir of Greater Firepower': 21546,
-    'Elixir of Firepower': 6373,
-    'Elixir of Greater Agility': 9187,
-    'Elixir of Superior Defense': 13445,
-    'Free Action Potion': 5634,
-    'Elixir of Frost Power': 17708,
-    'Greater Arcane Elixir': 13454,
-    'Thistle Tea': 7676,
-    'Elemental Sharpening Stone': 18262,
-    'Elixir of the Mongoose': 13452,
-    'Elixir of Brute Force': 13453,
-    'Winterfall Firewater': 12820,
-    'Juju Power': 12431,
-    'Juju Flurry': 12430,
-    'Juju Might': 12436,
-    'Juju Guile': 12433,
-    'Juju Escape': 12435,
-    'Juju Ember': 12432,
-    'Juju Chill': 12434,
-    'Gurubashi Gumbo': 53015,
-    'Hardened Mushroom': 51717,
-    'Power Mushroom': 51720,
-    'Oil of Immolation': 8956,
-    'Greater Stoneshield': 13455,
-    'Lucidity Potion': 61225,
-    'Scorpok Pincer': 8393,
-    'Blasted Boar Lung': 8392,
-    'Snickerfang Jowl': 8391,
-    'Basilisk Brain': 8394,
-    'Vulture Gizzard': 8396,
-    'Large Brilliant Shard': 14344,
-    'Purple Lotus': 8831,
-    'Mana Potion - Greater': 6149,
-    'Mana Potion - Superior': 13443,
-    'Mana Potion - Major': 13444,
-    'Restorative Potion': 9030,
-    'Healing Potion - Major': 13446,
-    'Healing Potion - Superior': 3928,
-    'Elixir of the Giants': 9206,
-    'Zulian Coin': 19698,
-    "Rumsey Rum Black Label": 21151,
-    'Rumsey Rum Dark': 21114,
-    'Consecrated Sharpening Stone': 23122,
-    'Invulnerability': 3387,
-    'Dragonbreath Chili': 12217,
-    'Dreamtonic': 61423,
-    'Goblin Sapper Charge': 10646,
-    "Medivh's Merlot Blue Label": 61175,
-    "Medivh's Merlot": 61174,
-    'Greater Arcane Protection Potion': 13461,
-    'Greater Holy Protection Potion': 13460,
-    'Greater Shadow Protection Potion': 13459,
-    'Greater Nature Protection Potion': 13458,
-    'Greater Fire Protection Potion': 13457,
-    'Greater Frost Protection Potion': 13456,
-    'Holy Protection Potion': 6051,
-    'Shadow Protection Potion': 6048,
-    'Nature Protection Potion': 6052,
-    'Fire Protection Potion': 6049,
-    'Frost Protection Potion': 6050,
-    'Dreamshard Elixir': 61224,
-    'Lesser Mana Oil': 20747,
-    'Brilliant Mana Oil': 20748,
-    'Mighty Rage Potion': 13442,
-    'Great Rage Potion': 5633,
-    'Rage Potion': 5631,
-    'Dense Dynamite': 18641,
-    'Solid Dynamite': 10507,
-    "Gift of Arthas": 9088,
-    'Brilliant Wizard Oil': 20749,
-    'Wizard Oil': 20750,
-    'Blessed Wizard Oil': 23123,
-    'Thorium Grenade': 15993,
-    'Iron Grenade': 4390,
-    'Grilled Squid': 13928,
-    'Potion of Quickness': 61181,
-    'Elixir of Greater Nature Power': 50237,
-    'Elixir of Greater Intellect': 9179,
-    'Rejuvenation Potion - Major': 18253,
-    'Invisibility Potion': 9172,
-    'Swiftness Potion': 2459,
-    'Lesser Invisibility Potion': 3823,
-    'Powerful Anti-Venom': 19440,
-    'Strong Anti-Venom': 6453,
-    'Anti-Venom': 6452,
-    'Deeprock Salt': 8150,
-    'Essence of Fire': 7078,
-    'Larval Acid': 18512,
-    'Dark Rune': 20520,
-    'Small Dream Shard': 61198,
-    'Bright Dream Shard': 61199,
-    'Mageblood Potion': 20007,
-    "Danonzo's Tel'Abim Surprise": 60976,
-    "Danonzo's Tel'Abim Delight": 60977,
-    "Danonzo's Tel'Abim Medley": 60978,
-    'Wildvine Potion': 9144,
-    'Shadow Oil': 3824,
-    'Scroll of Stamina IV': 10307,
-    'Scroll of Strength IV': 10310,
-    'Scroll of Spirit IV': 10306,
-    'Scroll of Protection IV': 10305,
-    'Scroll of Intellect IV': 10308,
-    'Scroll of Agility IV': 10309,
-    'Purification Potion': 13462,
-    'Poisonous Mushroom': 5823,
-    'Nightfin Soup': 13931,
-    "Major Troll's Blood Potion": 20004,
-    'Major Rejuvenation Potion': 18253,
-    'Magic Resistance Potion': 9036,
-    'Living Action Potion': 20008,
-    'Le Fishe Au Chocolat': 84040,
-    'Jungle Remedy': 2633,
-    "Graccu's Homemade Meat Pie": 17407,
-    'Frozen Rune': 22682,
-    'Greater Dreamless Sleep Potion': 20002,
-    'Empowering Herbal Salad': 83309,
-    'Elixir of Poison Resistance': 3386,
-    'Elixir of Greater Defense': 8951,
-    'Elixir of Giant Growth': 6662,
-    'Elixir of Demonslaying': 9224,
-    'Arcane Elixir': 9155,
-    'Dense Sharpening Stone': 12404,
-    'Dense Weightstone': 12643,
+    consumable.name: consumable.itemid
+    for consumable in _all_defined_consumable_items
 }
+
 NAME2ITEMID_BOP = {
     'Slumber Sand',
     'Conjured Crystal Water',
@@ -2010,6 +2008,7 @@ class ConsumablesEntry:
         self.consumables.append(consumable)
         self.total_spent += consumable.total_price
 
+
 @dataclasses.dataclass
 class ConsumablesAccumulator:
     player: Dict
@@ -2018,47 +2017,53 @@ class ConsumablesAccumulator:
     data: List[ConsumablesEntry] = dataclasses.field(default_factory=list)
 
 
-    def get_consumable_price(self, consumable: str) -> Currency: # consumable is a string (canonical name)
-        total_price = Currency(0)
 
-        main_item_object = NAME2CONSUMABLE.get(consumable)
 
-        if main_item_object and main_item_object.components:
-            # Iterate through (ConsumableItem_object, quantity)
-            for component_item_object, multi in main_item_object.components:
-                # Use the component_item_object.name to look up its itemid
-                itemid = NAME2ITEMID.get(component_item_object.name)
-                if not itemid: continue
-                price = self.pricedb.lookup(itemid)
-                if not price: continue
-                total_price += int(price * multi)
-        else:
-            # Fallback: price the consumable string itself if it has no defined components
-            # or if the consumable string isn't in NAME2CONSUMABLE.
-            itemid = NAME2ITEMID.get(consumable)
-            if itemid:
-                price = self.pricedb.lookup(itemid)
-                if price:
-                    total_price += int(price)
-            # If not in NAME2ITEMID, its price contribution is 0, which is fine.
+    def get_consumable_price(self, consumable_name: str) -> Currency:
+        consumable = NAME2CONSUMABLE.get(consumable_name)
 
-        charges = 1
-        if main_item_object:
-            charges = main_item_object.charges
+        price = Currency(0)
+        if not consumable:
+            # logging.warning(f"Consumable '{consumable_name}' not defined.")
+            return price
 
-        total_price /= charges
-        return total_price
+        # Determine the list of items whose direct itemid-based price we need to sum up.
+        # For a crafted item, these are its components.
+        # For a base item, it's the item itself.
+        components: List[Tuple[ConsumableItem, float]]
+        if consumable.components: # It's a crafted item
+            components = consumable.components
+        else: # It's a base item (or has no defined components)
+            components = [(consumable, 1.0)]
+
+
+        for base_item, quantity in components:
+            if not base_item.itemid:
+                # This item/component doesn't have an itemID to look up.
+                # logging.debug(f"Item '{base_item.name}' has no itemid for pricing.")
+                continue
+
+            unit_price = self.pricedb.lookup(base_item.itemid)
+            if unit_price is None:
+                # logging.debug(f"Price not found for item '{base_item.name}' (ID: {base_item.itemid}).")
+                continue
+
+            price += int(unit_price * quantity)
+
+        charges = consumable.charges
+
+        return price / charges
 
 
     def calculate(self) -> None:
         for name in sorted(self.player):
             consumables = sorted(self.player[name])
             player_entry = ConsumablesEntry(name, deaths=self.death_count[name])
-            for consumable_name_str in sorted(consumables): # consumable_name_str is already a canonical string
+            for consumable_name in sorted(consumables): # consumable_name is already a canonical string
                 player_entry.add_consumable(ConsumableStore(
-                    consumable_name_str,
-                    amount=self.player[name][consumable_name_str],
-                    price=self.get_consumable_price(consumable_name_str),
+                    consumable_name,
+                    amount=self.player[name][consumable_name],
+                    price=self.get_consumable_price(consumable_name),
                 ))
             self.data.append(player_entry)
 

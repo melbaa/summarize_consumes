@@ -2,6 +2,7 @@ from dataclasses import dataclass
 from dataclasses import field
 from typing import List
 from typing import Tuple
+from typing import Optional
 
 @dataclass(frozen=True)
 class ConsumableItem:
@@ -15,6 +16,8 @@ class ConsumableItem:
 
     # Number of charges the item has (e.g. oils have 5 charges)
     charges: int = 1
+
+    itemid: Optional[int] = None
 
     def __post_init__(self):
         if self.charges <= 0: raise ValueError('positive charges plz')
