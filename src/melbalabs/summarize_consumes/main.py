@@ -19,6 +19,7 @@ from enum import Enum
 from pathlib import Path
 from typing import Dict
 from typing import List
+from typing import Tuple
 from uuid import uuid4
 
 import humanize
@@ -303,20 +304,104 @@ class HitsConsumable:
             raise RuntimeError('fixme')
 
 
-# canonical names, as they'd show in the final output
-_brilliant_mana_oil = ConsumableItem(name="Brilliant Mana Oil", charges=5)
-_lesser_mana_oil = ConsumableItem(name="Lesser Mana Oil", charges=5)
-_brilliant_wizard_oil = ConsumableItem(name="Brilliant Wizard Oil", charges=5)
-_wizard_oil = ConsumableItem(name="Wizard Oil", charges=5)
-
+_all_defined_consumable_items: List[ConsumableItem] = [
+    ConsumableItem(
+        name="Brilliant Mana Oil",
+        charges=5,
+        components=[
+            ('Purple Lotus', 3),
+            ('Large Brilliant Shard', 2),
+        ]
+    ),
+    ConsumableItem(
+        name="Lesser Mana Oil",
+        charges=5,
+        components=[],
+    ),
+    ConsumableItem(
+        name="Brilliant Wizard Oil",
+        charges=5,
+        components=[],
+    ),
+    ConsumableItem(
+        name="Wizard Oil",
+        charges=5,
+        components=[],
+    ),
+    ConsumableItem(
+        name='Rage of Ages (ROIDS)',
+        charges=1,
+        components=[
+            ('Scorpok Pincer', 1),
+            ('Blasted Boar Lung', 2),
+            ('Snickerfang Jowl', 3),
+        ]
+    ),
+    ConsumableItem(
+        name='Strike of the Scorpok',
+        charges=1,
+        components=[
+            ('Blasted Boar Lung', 1),
+            ('Vulture Gizzard', 2),
+            ('Scorpok Pincer', 3),
+        ]
+    ),
+    ConsumableItem(
+        name='Lung Juice Cocktail',
+        charges=1,
+        components=[
+            ('Basilisk Brain', 1),
+            ('Scorpok Pincer', 2),
+            ('Blasted Boar Lung', 3),
+        ]
+    ),
+    ConsumableItem(
+        name='Infallible Mind (Cerebral Cortex Compound)',
+        charges=1,
+        components=[
+            ('Basilisk Brain', 10),
+            ('Vulture Gizzard', 2),
+        ]
+    ),
+    ConsumableItem(
+        name="Sheen of Zanza",
+        charges=1,
+        components=[('Zulian Coin', 3)]
+    ),
+    ConsumableItem(
+        name="Spirit of Zanza",
+        charges=1,
+        components=[('Zulian Coin', 3)]
+    ),
+    ConsumableItem(
+        name="Swiftness of Zanza",
+        charges=1,
+        components=[('Zulian Coin', 3)]
+    ),
+    ConsumableItem(
+        name="Powerful Smelling Salts",
+        charges=1,
+        components=[
+            ('Deeprock Salt', 4),
+            ('Essence of Fire', 2),
+            ('Larval Acid', 1),
+        ]
+    ),
+    ConsumableItem(
+        name="Tea with Sugar",
+        charges=1,
+        components=[('Small Dream Shard', 1/5)]
+    ),
+    ConsumableItem(
+        name="Emerald Blessing",
+        charges=1,
+        components=[("Bright Dream Shard", 1)]
+    ),
+]
 
 NAME2CONSUMABLE: Dict[str, ConsumableItem] = {
-    _brilliant_mana_oil.name: _brilliant_mana_oil,
-    _lesser_mana_oil.name: _lesser_mana_oil,
-    _brilliant_wizard_oil.name: _brilliant_wizard_oil,
-    _wizard_oil.name: _wizard_oil,
+    item.name: item for item in _all_defined_consumable_items
 }
-
 
 
 
@@ -369,51 +454,7 @@ RENAME_CONSUMABLE = {
     'Rage': 'Rage Potion',
 }
 
-CONSUMABLE_COMPONENTS = {
-    'Rage of Ages (ROIDS)': [
-        ('Scorpok Pincer', 1),
-        ('Blasted Boar Lung', 2),
-        ('Snickerfang Jowl', 3),
-    ],
-    'Strike of the Scorpok': [
-        ('Blasted Boar Lung', 1),
-        ('Vulture Gizzard', 2),
-        ('Scorpok Pincer', 3),
-    ],
-    'Lung Juice Cocktail': [
-        ('Basilisk Brain', 1),
-        ('Scorpok Pincer', 2),
-        ('Blasted Boar Lung', 3),
-    ],
-    'Infallible Mind (Cerebral Cortex Compound)': [
-        ('Basilisk Brain', 10),
-        ('Vulture Gizzard', 2),
-    ],
-    "Brilliant Mana Oil": [
-        ('Purple Lotus', 3),
-        ('Large Brilliant Shard', 2),
-    ],
-    "Sheen of Zanza": [
-        ('Zulian Coin', 3),
-    ],
-    "Spirit of Zanza": [
-        ('Zulian Coin', 3),
-    ],
-    "Swiftness of Zanza": [
-        ('Zulian Coin', 3),
-    ],
-    "Powerful Smelling Salts": [
-        ('Deeprock Salt', 4),
-        ('Essence of Fire', 2),
-        ('Larval Acid', 1),
-    ],
-    "Tea with Sugar": [
-        ('Small Dream Shard', 1/5),
-    ],
-    "Emerald Blessing": [
-        ("Bright Dream Shard", 1),
-    ]
-}
+
 
 NAME2ITEMID = {
     'Hourglass Sand': 19183,
@@ -1958,28 +1999,33 @@ class ConsumablesAccumulator:
     death_count: Dict[str, int]
     data: List[ConsumablesEntry] = dataclasses.field(default_factory=list)
 
+
+
     def get_consumable_price(self, consumable: str) -> Currency: # consumable is a string (canonical name)
         total_price = Currency(0)
 
-        components = CONSUMABLE_COMPONENTS.get(consumable)
-        if not components:
+        main_item_object = NAME2CONSUMABLE.get(consumable)
+
+        components: List[Tuple[str, float]]
+        if main_item_object and main_item_object.components:
+            components = main_item_object.components
+        else:
             components = [(consumable, 1)]
 
-        for component_tuple in components:
-            consumable_component_name, multi = component_tuple
-            itemid = NAME2ITEMID.get(consumable_component_name)
+        for component_name, multi in components:
+            itemid = NAME2ITEMID.get(component_name)
             if not itemid: continue
             price = self.pricedb.lookup(itemid)
             if not price: continue
             total_price += int(price * multi)
 
         charges = 1
-        item_object = NAME2CONSUMABLE.get(consumable)
-        if item_object:
-            charges = item_object.charges
+        if main_item_object:
+            charges = main_item_object.charges
 
         total_price /= charges
         return total_price
+
 
     def calculate(self) -> None:
         for name in sorted(self.player):

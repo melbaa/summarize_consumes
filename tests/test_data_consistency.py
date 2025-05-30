@@ -1,10 +1,10 @@
 from melbalabs.summarize_consumes.main import NAME2ITEMID
 from melbalabs.summarize_consumes.main import NAME2ITEMID_BOP
+from melbalabs.summarize_consumes.main import NAME2CONSUMABLE
 from melbalabs.summarize_consumes.main import USES_CONSUMABLE_RENAME
 from melbalabs.summarize_consumes.main import USES_CONSUMABLE_ENHANCE
 from melbalabs.summarize_consumes.main import USES_CONSUMABLE_OVERWRITE
 from melbalabs.summarize_consumes.main import USES_CONSUMABLE_SAFE
-from melbalabs.summarize_consumes.main import CONSUMABLE_COMPONENTS
 from melbalabs.summarize_consumes.main import RENAME_CONSUMABLE
 from melbalabs.summarize_consumes.main import GAINS_CONSUMABLE
 
@@ -343,7 +343,7 @@ def test_consumes_exist():
             found.add((key, 'not categorized'))
             continue
 
-        if key in CONSUMABLE_COMPONENTS:
+        if key in NAME2CONSUMABLE:
             continue
         if key in NAME2ITEMID:
             continue
