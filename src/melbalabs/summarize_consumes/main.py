@@ -15,6 +15,7 @@ import webbrowser
 import sys
 import zipfile
 from datetime import datetime as dt
+from enum import Enum
 from pathlib import Path
 from typing import Dict
 from typing import List
@@ -33,6 +34,24 @@ import melbalabs.summarize_consumes.package as package
 
 LarkError = lark.LarkError
 CURRENT_YEAR = datetime.datetime.now().year
+
+
+class PlayerClass(Enum):
+    DRUID = "druid"
+    HUNTER = "hunter"
+    MAGE = "mage"
+    PALADIN = "paladin"
+    PRIEST = "priest"
+    ROGUE = "rogue"
+    SHAMAN = "shaman"
+    WARLOCK = "warlock"
+    WARRIOR = "warrior"
+    UNKNOWN = "unknown"
+
+    @classmethod
+    def from_string(cls, class_string: str) -> 'PlayerClass':
+        # lowercase is the only extra processing. everything else should be an error
+        return cls(class_string.lower())
 
 
 class App:
@@ -889,15 +908,15 @@ INTERRUPT_SPELLS = {
 
 
 CDSPELL_CLASS = [
-    ['warrior', [
+    [PlayerClass.WARRIOR, [
         'Death Wish',
         'Sweeping Strikes',
         'Shield Wall',
         'Recklessness',
         'Bloodrage',
     ]],
-    ['mage', ['Combustion', 'Scorch']],
-    ['shaman', [
+    [PlayerClass.MAGE, ['Combustion', 'Scorch']],
+    [PlayerClass.SHAMAN, [
         "Nature's Swiftness",
         'Windfury Totem',
         'Mana Tide Totem',
@@ -910,15 +929,15 @@ CDSPELL_CLASS = [
         'Magma Totem',
         'Ancestral Spirit',
     ]],
-    ['druid', ["Nature's Swiftness", "Rebirth", "Swiftmend"]],
-    ['priest', ['Inner Focus', 'Resurrection',]],
-    ['paladin', ['Divine Favor', 'Holy Shock (heal)', 'Holy Shock (dmg)', 'Redemption']],
-    ['rogue', [
+    [PlayerClass.DRUID, ["Nature's Swiftness", "Rebirth", "Swiftmend"]],
+    [PlayerClass.PRIEST, ['Inner Focus', 'Resurrection',]],
+    [PlayerClass.PALADIN, ['Divine Favor', 'Holy Shock (heal)', 'Holy Shock (dmg)', 'Redemption']],
+    [PlayerClass.ROGUE, [
         'Adrenaline Rush',
         'Blade Flurry',
     ]],
-    ['warlock', []],
-    ['hunter', ['Rapid Fire']],
+    [PlayerClass.WARLOCK, []],
+    [PlayerClass.HUNTER, ['Rapid Fire']],
 ]
 
 
@@ -1302,7 +1321,7 @@ class DmgstoreEntry:
 
 
 class Dmgstore2:
-    def __init__(self, player, class_detection, abilitycost, abilitycooldown, logname, allow_selfdmg):
+    def __init__(self, player, class_detection: 'ClassDetection', abilitycost, abilitycooldown, logname, allow_selfdmg):
         self.logname = logname
         self.player = player
         self.class_detection = class_detection
@@ -1611,7 +1630,7 @@ class PetHandler:
 
 
 class SunderArmorSummary:
-    def __init__(self, spell_count, class_detection):
+    def __init__(self, spell_count, class_detection: 'ClassDetection'):
         self.counts = spell_count.counts
         self.class_detection = class_detection
 
@@ -1619,8 +1638,8 @@ class SunderArmorSummary:
         print("\n\nSunder Armor Summary (trash and boss counts)", file=output)
         warriors = [
             name
-            for name, cls in self.class_detection.store.items()
-            if cls == 'warrior'
+            for name, player_class in self.class_detection.store.items()
+            if player_class is PlayerClass.WARRIOR
         ]
 
         found_sunder = False
@@ -1651,28 +1670,28 @@ class SunderArmorSummary:
 
 
 class CooldownSummary:
-    def __init__(self, spell_count, class_detection):
+    def __init__(self, spell_count, class_detection: 'ClassDetection'):
         # spell - player - count
         self.counts = spell_count.counts
         self.class_detection = class_detection
 
     def print(self, output):
         print("\n\nCooldown Summary", file=output)
-        for cls, spells in CDSPELL_CLASS:
+        for player_class, spells in CDSPELL_CLASS:
             cls_printed = False
             for spell in spells:
                 if spell not in self.counts: continue
 
                 data = []
                 for name, total in self.counts[spell].items():
-                    if not self.class_detection.is_class(cls=cls, name=name): continue
+                    if not self.class_detection.is_class(cls=player_class, name=name): continue
                     data.append((total, name))
                 data.sort(reverse=True)
 
                 if not data: continue
 
                 if not cls_printed:
-                    print("  ", cls.capitalize(), file=output)
+                    print("  ", player_class.value.capitalize(), file=output)
                     cls_printed = True
                 if spell in RENAME_TRINKET_SPELL:
                     spell = RENAME_TRINKET_SPELL[spell]
@@ -1947,7 +1966,7 @@ class ConsumablesAccumulator:
         return total_price
 
     def calculate(self) -> None:
-        for name in sorted(self.player.keys()):
+        for name in sorted(self.player):
             consumables = sorted(self.player[name])
             player_entry = ConsumablesEntry(name, deaths=self.death_count[name])
             for consumable in sorted(consumables):
@@ -1986,169 +2005,176 @@ class PrintConsumableTotalsCsv:
             writer.writerow([player.name, player.total_spent, player.deaths])
 
 
-# line type -> spell -> class
+# line type -> spell -> PlayerClass
 # shouldn't need to be an exhaustive list, only the most common
 # unique spells, no ambiguity
-UNIQUE_LINE2SPELL2CLASS = {
+UNIQUE_LINE2SPELL2CLASS: Dict[str, Dict[str, PlayerClass]] = {
     'afflicted_line': {
-        'Death Wish': 'warrior',
+        'Death Wish': PlayerClass.WARRIOR,
     },
     'gains_line': {
-        'Recklessness': 'warrior',
-        'Shield Wall': 'warrior',
-        'Bloodrage': 'warrior',
-        'Sweeping Strikes': 'warrior',
+        'Recklessness': PlayerClass.WARRIOR,
+        'Shield Wall': PlayerClass.WARRIOR,
+        'Bloodrage': PlayerClass.WARRIOR,
+        'Sweeping Strikes': PlayerClass.WARRIOR,
 
-        'Combustion': 'mage',
+        'Combustion': PlayerClass.MAGE,
 
-        'Adrenaline Rush': 'rogue',
-        'Blade Flurry': 'rogue',
-        'Cold Blood': 'rogue',
-        'Slice and Dice': 'rogue',
+        'Adrenaline Rush': PlayerClass.ROGUE,
+        'Blade Flurry': PlayerClass.ROGUE,
+        'Cold Blood': PlayerClass.ROGUE,
+        'Slice and Dice': PlayerClass.ROGUE,
 
-        'Divine Favor': 'paladin',
-        'Seal of Command': 'paladin',
-        'Seal of Righteousness': 'paladin',
+        'Divine Favor': PlayerClass.PALADIN,
+        'Seal of Command': PlayerClass.PALADIN,
+        'Seal of Righteousness': PlayerClass.PALADIN,
     },
     'heals_line': {
-        'Flash of Light': 'paladin',
-        'Holy Light': 'paladin',
-        'Holy Shock (heal)': 'paladin',
+        'Flash of Light': PlayerClass.PALADIN,
+        'Holy Light': PlayerClass.PALADIN,
+        'Holy Shock (heal)': PlayerClass.PALADIN,
 
-        'Heal': 'priest',
-        'Flash Heal': 'priest',
-        'Greater Heal': 'priest',
-        'Prayer of Healing': 'priest',
+        'Heal': PlayerClass.PRIEST,
+        'Flash Heal': PlayerClass.PRIEST,
+        'Greater Heal': PlayerClass.PRIEST,
+        'Prayer of Healing': PlayerClass.PRIEST,
     },
     'hits_ability_line': {
-        'Cleave': 'warrior',
-        'Whirlwind': 'warrior',
-        'Bloodthirst': 'warrior',
-        'Heroic Strike': 'warrior',
+        'Cleave': PlayerClass.WARRIOR,
+        'Whirlwind': PlayerClass.WARRIOR,
+        'Bloodthirst': PlayerClass.WARRIOR,
+        'Heroic Strike': PlayerClass.WARRIOR,
 
-        'Sinister Strike': 'rogue',
+        'Sinister Strike': PlayerClass.ROGUE,
 
-        'Arcane Explosion': 'mage',
-        'Fire Blast': 'mage',
+        'Arcane Explosion': PlayerClass.MAGE,
+        'Fire Blast': PlayerClass.MAGE,
 
-        'Starfire': 'druid',
-        'Moonfire': 'druid',
-        'Wrath': 'druid',
+        'Starfire': PlayerClass.DRUID,
+        'Moonfire': PlayerClass.DRUID,
+        'Wrath': PlayerClass.DRUID,
 
-        'Shadow Bolt': 'warlock',
+        'Shadow Bolt': PlayerClass.WARLOCK,
 
-        'Mind Blast': 'priest',
+        'Mind Blast': PlayerClass.PRIEST,
 
-        'Arcane Shot': 'hunter',
-        'Multi-Shot': 'hunter',
+        'Arcane Shot': PlayerClass.HUNTER,
+        'Multi-Shot': PlayerClass.HUNTER,
 
-        'Holy Shock (dmg)': 'paladin',
+        'Holy Shock (dmg)': PlayerClass.PALADIN,
 
    },
     'gains_health_line': {
-        'Rejuvenation': 'druid',
-        'Regrowth': 'druid',
+        'Rejuvenation': PlayerClass.DRUID,
+        'Regrowth': PlayerClass.DRUID,
     },
     'begins_to_cast_line': {
-        'Shadow Bolt': 'warlock',
+        'Shadow Bolt': PlayerClass.WARLOCK,
 
-        'Rejuvenation': 'druid',
-        'Regrowth': 'druid',
-        'Wrath': 'druid',
+        'Rejuvenation': PlayerClass.DRUID,
+        'Regrowth': PlayerClass.DRUID,
+        'Wrath': PlayerClass.DRUID,
 
         # frostbolt not unique enough probably, eg frost oils
-        'Fireball': 'mage',
-        'Scorch': 'mage',
-        'Polymorph': 'mage',
+        'Fireball': PlayerClass.MAGE,
+        'Scorch': PlayerClass.MAGE,
+        'Polymorph': PlayerClass.MAGE,
 
 
-        'Chain Heal': 'shaman',
-        'Lesser Healing Wave': 'shaman',
+        'Chain Heal': PlayerClass.SHAMAN,
+        'Lesser Healing Wave': PlayerClass.SHAMAN,
 
-        'Mind Blast': 'priest',
-        'Smite': 'priest',
-        'Heal': 'priest',
-        'Flash Heal': 'priest',
-        'Greater Heal': 'priest',
-        'Prayer of Healing': 'priest',
+        'Mind Blast': PlayerClass.PRIEST,
+        'Smite': PlayerClass.PRIEST,
+        'Heal': PlayerClass.PRIEST,
+        'Flash Heal': PlayerClass.PRIEST,
+        'Greater Heal': PlayerClass.PRIEST,
+        'Prayer of Healing': PlayerClass.PRIEST,
 
-        'Multi-Shot': 'hunter',
+        'Multi-Shot': PlayerClass.HUNTER,
 
-        'Flash of Light': 'paladin',
-        'Holy Light': 'paladin',
+        'Flash of Light': PlayerClass.PALADIN,
+        'Holy Light': PlayerClass.PALADIN,
     },
     'begins_to_perform_line': {
-        'Auto Shot': 'hunter',
-        'Trueshot': 'hunter',
+        'Auto Shot': PlayerClass.HUNTER,
+        'Trueshot': PlayerClass.HUNTER,
     },
     'casts_line': {
-        'Windfury Totem': 'shaman',
-        'Mana Tide Totem': 'shaman',
-        'Grace of Air Totem': 'shaman',
-        'Tranquil Air Totem': 'shaman',
-        'Strength of Earth Totem': 'shaman',
-        'Mana Spring Totem': 'shaman',
-        'Searing Totem': 'shaman',
-        'Fire Nova Totem': 'shaman',
-        'Magma Totem': 'shaman',
-        'Ancestral Spirit': 'shaman',
+        'Windfury Totem': PlayerClass.SHAMAN,
+        'Mana Tide Totem': PlayerClass.SHAMAN,
+        'Grace of Air Totem': PlayerClass.SHAMAN,
+        'Tranquil Air Totem': PlayerClass.SHAMAN,
+        'Strength of Earth Totem': PlayerClass.SHAMAN,
+        'Mana Spring Totem': PlayerClass.SHAMAN,
+        'Searing Totem': PlayerClass.SHAMAN,
+        'Fire Nova Totem': PlayerClass.SHAMAN,
+        'Magma Totem': PlayerClass.SHAMAN,
+        'Ancestral Spirit': PlayerClass.SHAMAN,
 
-        'Redemption': 'paladin',
-        'Resurrection': 'priest',
-        'Rebirth': 'druid',
+        'Redemption': PlayerClass.PALADIN,
+        'Resurrection': PlayerClass.PRIEST,
+        'Rebirth': PlayerClass.DRUID,
 
     },
 }
 class ClassDetection:
     def __init__(self, player):
-        # name -> class
-        self.store = dict()
-
+        self.store: Dict[str, PlayerClass] = dict()
         self.player = player
+
     def remove_unknown(self):
         knowns = set(self.player)
         for name in list(self.store):
             if name not in knowns:
                 del self.store[name]
-    def is_class(self, cls, name):
+
+    def is_class(self, cls: PlayerClass, name: str) -> bool:
         if name not in self.store:
             return False
-        return cls == self.store[name]
-    def detect(self, line_type, name, spell):
+        return self.store[name] is cls
+
+    def detect(self, line_type: str, name: str, spell: str):
         if line_type not in UNIQUE_LINE2SPELL2CLASS:
             return
         spell2class = UNIQUE_LINE2SPELL2CLASS[line_type]
         if spell not in spell2class:
             return
-        cls = spell2class[spell]
+
+        detected_class: PlayerClass = spell2class[spell]
 
         if name not in self.store:
-            self.store[name] = cls
+            self.store[name] = detected_class
             return
 
-        # if name in self.store and cls != self.store[name]:
-        #     logging.warning(f'{cls} != {self.store[name]} for {name}')
-        #     return
+        # sanity check if a player is detected as a different class
+        # if self.store.get(name) is not detected_class:
+        #     logging.warning(
+        #         f"{name} re-detected from {self.store[name].value} to {detected_class.value} via {spell}"
+        #     )
+        #     # decide on a strategy: overwrite, keep first, error
+        #     self.store[name] = detected_class # overwrite
+
     def print(self, output):
         print("\n\nClass Detection", file=output)
         for name in sorted(self.player):
-            cls = self.store.get(name, 'unknown')
-            print('  ', name, cls, file=output)
+            player_class = self.store.get(name, PlayerClass.UNKNOWN)
+            print('  ', name, player_class.value, file=output)
 
 
 class Infographic:
     BACKGROUND_COLOR = '#282B2C'
-    CLASS_COLOURS = {
-        'druid': '#FF7D0A',
-        'hunter': '#ABD473',
-        'mage': '#69CCF0',
-        'paladin': '#F58CBA',
-        'priest': '#FFFFFF',
-        'rogue': '#FFF569',
-        'shaman': '#0070DE',
-        'warlock': '#9482C9',
-        'warrior': '#C79C6E',
-        'unknown': '#660099',
+    CLASS_COLOURS: Dict[PlayerClass, str] = {
+        PlayerClass.DRUID: '#FF7D0A',
+        PlayerClass.HUNTER: '#ABD473',
+        PlayerClass.MAGE: '#69CCF0',
+        PlayerClass.PALADIN: '#F58CBA',
+        PlayerClass.PRIEST: '#FFFFFF',
+        PlayerClass.ROGUE: '#FFF569',
+        PlayerClass.SHAMAN: '#0070DE',
+        PlayerClass.WARLOCK: '#9482C9',
+        PlayerClass.WARRIOR: '#C79C6E',
+        PlayerClass.UNKNOWN: '#660099',
     }
     DEFAULT_FILENAME = 'infographic'
 
@@ -2158,13 +2184,13 @@ class Infographic:
                  title: str='',
     ):
         self.accumulator = accumulator
-        self.detected_classes = class_detection.store if class_detection else {}
+        self.detected_classes: Dict[str, PlayerClass] = class_detection.store if class_detection else {}
         self.title = title
 
     def generate(self, output_file: Path=None) -> None:
         players = sorted(self.accumulator.data, key=lambda entry: -entry.total_spent)
         names = [e.name for e in players]
-        colors = [self.CLASS_COLOURS[self.detected_classes.get(name, 'unknown')]
+        colors = [self.CLASS_COLOURS[self.detected_classes.get(name, PlayerClass.UNKNOWN)]
                   for name in names]
         bar_values = [p.total_spent for p in players]
 
@@ -3237,3 +3263,4 @@ def main(argv):
 
 if __name__ == '__main__':
     main(sys.argv[1:])
+

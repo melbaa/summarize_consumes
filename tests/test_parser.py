@@ -6,6 +6,7 @@ import lark
 
 from melbalabs.summarize_consumes.main import parse_line
 from melbalabs.summarize_consumes.main import NAME2ITEMID
+from melbalabs.summarize_consumes.main import PlayerClass
 
 from melbalabs.summarize_consumes.grammar import grammar
 
@@ -1498,63 +1499,64 @@ def test_class_detection(app):
     lines = lines.splitlines(keepends=True)
     for line in lines:
         parse_line(app, line)
+
     assert app.class_detection.store == {
 
-        'SimplezzMS': 'hunter',
-        'SimplezzAS': 'hunter',
-        'Babystone': 'hunter',
-        'BabystoneAS': 'hunter',
-        'BabystoneTS': 'hunter',
+        'SimplezzMS': PlayerClass.HUNTER,
+        'SimplezzAS': PlayerClass.HUNTER,
+        'Babystone': PlayerClass.HUNTER,
+        'BabystoneAS': PlayerClass.HUNTER,
+        'BabystoneTS': PlayerClass.HUNTER,
 
-        'Bever': 'priest',
-        'NimpheraFH': 'priest',
-        'NimpheraGH': 'priest',
-        'NimpheraPH': 'priest',
-        'NimpheraH': 'priest',
-        'Mindblasttest': 'priest',
-        'Nesma': 'priest',
-        'Prayer': 'priest',
+        'Bever': PlayerClass.PRIEST,
+        'NimpheraFH': PlayerClass.PRIEST,
+        'NimpheraGH': PlayerClass.PRIEST,
+        'NimpheraPH': PlayerClass.PRIEST,
+        'NimpheraH': PlayerClass.PRIEST,
+        'Mindblasttest': PlayerClass.PRIEST,
+        'Nesma': PlayerClass.PRIEST,
+        'Prayer': PlayerClass.PRIEST,
 
-        'BudwiserFL': 'paladin',
-        'BudwiserHL': 'paladin',
-        'XelyaSOC': 'paladin',
-        'XelyaSOR': 'paladin',
-        'JocasteHL': 'paladin',
-        'JocasteFL': 'paladin',
-        'Interlani': 'paladin',
+        'BudwiserFL': PlayerClass.PALADIN,
+        'BudwiserHL': PlayerClass.PALADIN,
+        'XelyaSOC': PlayerClass.PALADIN,
+        'XelyaSOR': PlayerClass.PALADIN,
+        'JocasteHL': PlayerClass.PALADIN,
+        'JocasteFL': PlayerClass.PALADIN,
+        'Interlani': PlayerClass.PALADIN,
 
-        'Deathstruck': 'warrior',
-        'Squirreled': 'warrior',
-        'Martl': 'warrior',
-        'Littlelnnos': 'warrior',
-        'Wwtest': 'warrior',
-        'Cleavetest': 'warrior',
-        'Psykhe': 'warrior',
-        'Bloodragetest': 'warrior',
+        'Deathstruck': PlayerClass.WARRIOR,
+        'Squirreled': PlayerClass.WARRIOR,
+        'Martl': PlayerClass.WARRIOR,
+        'Littlelnnos': PlayerClass.WARRIOR,
+        'Wwtest': PlayerClass.WARRIOR,
+        'Cleavetest': PlayerClass.WARRIOR,
+        'Psykhe': PlayerClass.WARRIOR,
+        'Bloodragetest': PlayerClass.WARRIOR,
 
-        'Shreked': 'mage',
-        'Scorchtest': 'mage',
-        'Fireballtest': 'mage',
-        'Polytest': 'mage',
-        'Arcex': 'mage',
-        'Firebl': 'mage',
+        'Shreked': PlayerClass.MAGE,
+        'Scorchtest': PlayerClass.MAGE,
+        'Fireballtest': PlayerClass.MAGE,
+        'Polytest': PlayerClass.MAGE,
+        'Arcex': PlayerClass.MAGE,
+        'Firebl': PlayerClass.MAGE,
 
-        'Inshadow': 'rogue',
-        'Bftest': 'rogue',
-        'Raimme': 'rogue',
-        'Emeryn': 'rogue',
+        'Inshadow': PlayerClass.ROGUE,
+        'Bftest': PlayerClass.ROGUE,
+        'Raimme': PlayerClass.ROGUE,
+        'Emeryn': PlayerClass.ROGUE,
 
-        'Yakub': 'shaman',
-        'Seidhkona': 'shaman',
+        'Yakub': PlayerClass.SHAMAN,
+        'Seidhkona': PlayerClass.SHAMAN,
 
-        'Azot': 'warlock',
-        'Antihum': 'warlock',
+        'Azot': PlayerClass.WARLOCK,
+        'Antihum': PlayerClass.WARLOCK,
 
-        'Almouty': 'druid',
-        'Valurian': 'druid',
-        'Starfiretest': 'druid',
-        'Moonfiretest': 'druid',
-        'Wrathtest': 'druid',
+        'Almouty': PlayerClass.DRUID,
+        'Valurian': PlayerClass.DRUID,
+        'Starfiretest': PlayerClass.DRUID,
+        'Moonfiretest': PlayerClass.DRUID,
+        'Wrathtest': PlayerClass.DRUID,
     }
 
 
