@@ -304,98 +304,116 @@ class HitsConsumable:
             raise RuntimeError('fixme')
 
 
+_purple_lotus = ConsumableItem(name="Purple Lotus")
+_large_brilliant_shard = ConsumableItem(name="Large Brilliant Shard")
+_scorpok_pincer = ConsumableItem(name="Scorpok Pincer")
+_blasted_boar_lung = ConsumableItem(name="Blasted Boar Lung")
+_snickerfang_jowl = ConsumableItem(name="Snickerfang Jowl")
+_basilisk_brain = ConsumableItem(name="Basilisk Brain")
+_vulture_gizzard = ConsumableItem(name="Vulture Gizzard")
+_zulian_coin = ConsumableItem(name="Zulian Coin")
+_deeprock_salt = ConsumableItem(name="Deeprock Salt")
+_essence_of_fire = ConsumableItem(name="Essence of Fire")
+_larval_acid = ConsumableItem(name="Larval Acid")
+_small_dream_shard = ConsumableItem(name="Small Dream Shard")
+_bright_dream_shard = ConsumableItem(name="Bright Dream Shard")
+
+
 _all_defined_consumable_items: List[ConsumableItem] = [
+    _purple_lotus,
+    _large_brilliant_shard,
+    _scorpok_pincer,
+    _blasted_boar_lung,
+    _snickerfang_jowl,
+    _basilisk_brain,
+    _vulture_gizzard,
+    _zulian_coin,
+    _deeprock_salt,
+    _essence_of_fire,
+    _larval_acid,
+    _small_dream_shard,
+    _bright_dream_shard,
+
+
+
     ConsumableItem(
         name="Brilliant Mana Oil",
         charges=5,
         components=[
-            ('Purple Lotus', 3),
-            ('Large Brilliant Shard', 2),
+            (_purple_lotus, 3),
+            (_large_brilliant_shard, 2),
         ]
     ),
     ConsumableItem(
         name="Lesser Mana Oil",
-        charges=5,
-        components=[],
+        charges=5
     ),
     ConsumableItem(
         name="Brilliant Wizard Oil",
-        charges=5,
-        components=[],
+        charges=5
     ),
     ConsumableItem(
         name="Wizard Oil",
-        charges=5,
-        components=[],
+        charges=5
     ),
     ConsumableItem(
         name='Rage of Ages (ROIDS)',
-        charges=1,
         components=[
-            ('Scorpok Pincer', 1),
-            ('Blasted Boar Lung', 2),
-            ('Snickerfang Jowl', 3),
+            (_scorpok_pincer, 1),
+            (_blasted_boar_lung, 2),
+            (_snickerfang_jowl, 3),
         ]
     ),
     ConsumableItem(
         name='Strike of the Scorpok',
-        charges=1,
         components=[
-            ('Blasted Boar Lung', 1),
-            ('Vulture Gizzard', 2),
-            ('Scorpok Pincer', 3),
+            (_blasted_boar_lung, 1),
+            (_vulture_gizzard, 2),
+            (_scorpok_pincer, 3),
         ]
     ),
     ConsumableItem(
         name='Lung Juice Cocktail',
-        charges=1,
         components=[
-            ('Basilisk Brain', 1),
-            ('Scorpok Pincer', 2),
-            ('Blasted Boar Lung', 3),
+            (_basilisk_brain, 1),
+            (_scorpok_pincer, 2),
+            (_blasted_boar_lung, 3),
         ]
     ),
     ConsumableItem(
         name='Infallible Mind (Cerebral Cortex Compound)',
-        charges=1,
         components=[
-            ('Basilisk Brain', 10),
-            ('Vulture Gizzard', 2),
+            (_basilisk_brain, 10),
+            (_vulture_gizzard, 2),
         ]
     ),
     ConsumableItem(
         name="Sheen of Zanza",
-        charges=1,
-        components=[('Zulian Coin', 3)]
+        components=[(_zulian_coin, 3)]
     ),
     ConsumableItem(
         name="Spirit of Zanza",
-        charges=1,
-        components=[('Zulian Coin', 3)]
+        components=[(_zulian_coin, 3)]
     ),
     ConsumableItem(
         name="Swiftness of Zanza",
-        charges=1,
-        components=[('Zulian Coin', 3)]
+        components=[(_zulian_coin, 3)]
     ),
     ConsumableItem(
         name="Powerful Smelling Salts",
-        charges=1,
         components=[
-            ('Deeprock Salt', 4),
-            ('Essence of Fire', 2),
-            ('Larval Acid', 1),
+            (_deeprock_salt, 4),
+            (_essence_of_fire, 2),
+            (_larval_acid, 1),
         ]
     ),
     ConsumableItem(
         name="Tea with Sugar",
-        charges=1,
-        components=[('Small Dream Shard', 1/5)]
+        components=[(_small_dream_shard, 1/5)]
     ),
     ConsumableItem(
         name="Emerald Blessing",
-        charges=1,
-        components=[("Bright Dream Shard", 1)]
+        components=[(_bright_dream_shard, 1)]
     ),
 ]
 
@@ -2000,24 +2018,29 @@ class ConsumablesAccumulator:
     data: List[ConsumablesEntry] = dataclasses.field(default_factory=list)
 
 
-
     def get_consumable_price(self, consumable: str) -> Currency: # consumable is a string (canonical name)
         total_price = Currency(0)
 
         main_item_object = NAME2CONSUMABLE.get(consumable)
 
-        components: List[Tuple[str, float]]
         if main_item_object and main_item_object.components:
-            components = main_item_object.components
+            # Iterate through (ConsumableItem_object, quantity)
+            for component_item_object, multi in main_item_object.components:
+                # Use the component_item_object.name to look up its itemid
+                itemid = NAME2ITEMID.get(component_item_object.name)
+                if not itemid: continue
+                price = self.pricedb.lookup(itemid)
+                if not price: continue
+                total_price += int(price * multi)
         else:
-            components = [(consumable, 1)]
-
-        for component_name, multi in components:
-            itemid = NAME2ITEMID.get(component_name)
-            if not itemid: continue
-            price = self.pricedb.lookup(itemid)
-            if not price: continue
-            total_price += int(price * multi)
+            # Fallback: price the consumable string itself if it has no defined components
+            # or if the consumable string isn't in NAME2CONSUMABLE.
+            itemid = NAME2ITEMID.get(consumable)
+            if itemid:
+                price = self.pricedb.lookup(itemid)
+                if price:
+                    total_price += int(price)
+            # If not in NAME2ITEMID, its price contribution is 0, which is fine.
 
         charges = 1
         if main_item_object:
