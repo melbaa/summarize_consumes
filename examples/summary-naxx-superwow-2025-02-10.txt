@@ -139,7 +139,7 @@ Interlan deaths:1
    total spent: 50g 61s 98c
 Jinp deaths:3
    Elixir of Fortitude 1   (62s 31c)
-   Elixir of the Giants 2   (2g 76s 6c)
+   Elixir of Giants 2   (2g 76s 6c)
    Elixir of the Mongoose 2   (2g 99s 68c)
    Free Action Potion 3   (4g 20s 36c)
    Frost Protection 2 

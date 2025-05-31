@@ -42,7 +42,7 @@ Chan deaths:0
    total spent: 82s 77c
 Charmia deaths:2
    Elixir of Fortitude 2   (1g 24s 62c)
-   Elixir of the Giants 1   (1g 38s 3c)
+   Elixir of Giants 1   (1g 38s 3c)
    Elixir of the Mongoose 3   (4g 49s 52c)
    Free Action Potion 2   (2g 80s 24c)
    Spirit of Zanza 2   (3g 89s 70c)
@@ -84,8 +84,8 @@ Everglow deaths:4
 Few deaths:5
    Dense Sharpening Stone 2 
    Elixir of Fortitude 3   (1g 86s 93c)
+   Elixir of Giants 3   (4g 14s 9c)
    Elixir of Greater Agility 2   (41s 38c)
-   Elixir of the Giants 3   (4g 14s 9c)
    Elixir of the Mongoose 2   (2g 99s 68c)
    Fire Protection 2 
    Healing Potion - Major 2   (1g 52s 72c)

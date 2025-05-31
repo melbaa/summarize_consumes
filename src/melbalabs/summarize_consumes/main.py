@@ -334,8 +334,6 @@ _all_defined_consumable_items: List[ConsumableItem] = [
     _small_dream_shard,
     _bright_dream_shard,
 
-
-
     ConsumableItem(
         name="Brilliant Mana Oil",
         charges=5,
@@ -367,7 +365,8 @@ _all_defined_consumable_items: List[ConsumableItem] = [
             (_blasted_boar_lung, 2),
             (_snickerfang_jowl, 3),
         ],
-        itemid=None
+        itemid=None,
+        spell_aliases=[('gains_line', 'Rage of Ages')]
     ),
     ConsumableItem(
         name='Strike of the Scorpok',
@@ -376,7 +375,8 @@ _all_defined_consumable_items: List[ConsumableItem] = [
             (_vulture_gizzard, 2),
             (_scorpok_pincer, 3),
         ],
-        itemid=None
+        itemid=None,
+        spell_aliases=[('gains_line', 'Strike of the Scorpok')]
     ),
     ConsumableItem(
         name='Lung Juice Cocktail',
@@ -385,7 +385,8 @@ _all_defined_consumable_items: List[ConsumableItem] = [
             (_scorpok_pincer, 2),
             (_blasted_boar_lung, 3),
         ],
-        itemid=None
+        itemid=None,
+        spell_aliases=[('gains_line', 'Spirit of the Boar')]
     ),
     ConsumableItem(
         name='Infallible Mind (Cerebral Cortex Compound)',
@@ -393,22 +394,26 @@ _all_defined_consumable_items: List[ConsumableItem] = [
             (_basilisk_brain, 10),
             (_vulture_gizzard, 2),
         ],
-        itemid=None
+        itemid=None,
+        spell_aliases=[('gains_line', 'Infallible Mind')]
     ),
     ConsumableItem(
         name="Sheen of Zanza",
         components=[(_zulian_coin, 3)],
-        itemid=None
+        itemid=None,
+        spell_aliases=[('gains_line', 'Sheen of Zanza')]
     ),
     ConsumableItem(
         name="Spirit of Zanza",
         components=[(_zulian_coin, 3)],
-        itemid=None
+        itemid=None,
+        spell_aliases=[('gains_line', 'Spirit of Zanza')]
     ),
     ConsumableItem(
         name="Swiftness of Zanza",
         components=[(_zulian_coin, 3)],
-        itemid=None
+        itemid=None,
+        spell_aliases=[('gains_line', 'Swiftness of Zanza')]
     ),
     ConsumableItem(
         name="Powerful Smelling Salts",
@@ -430,27 +435,81 @@ _all_defined_consumable_items: List[ConsumableItem] = [
         itemid=None
     ),
     ConsumableItem(name='Hourglass Sand', itemid=19183),
-    ConsumableItem(name='Flask of Chromatic Resistance', itemid=13513),
-    ConsumableItem(name='Flask of the Titans', itemid=13510),
-    ConsumableItem(name='Flask of Supreme Power', itemid=13512),
-    ConsumableItem(name='Flask of Distilled Wisdom', itemid=13511),
+
+    ConsumableItem(name='Restorative Potion', itemid=9030,
+        spell_aliases=[('gains_line', "Restoration")],
+    ),
+    ConsumableItem(name='Flask of Chromatic Resistance', itemid=13513,
+        spell_aliases=[('gains_line', "Chromatic Resistance")],
+    ),
+    ConsumableItem(name='Flask of the Titans', itemid=13510,
+        spell_aliases=[('gains_line', 'Flask of the Titans')]
+    ),
+    ConsumableItem(name='Flask of Supreme Power', itemid=13512,
+        spell_aliases=[('gains_line', 'Supreme Power')]
+    ),
+    ConsumableItem(name='Flask of Distilled Wisdom', itemid=13511,
+        spell_aliases=[('gains_line', 'Distilled Wisdom')]
+    ),
     ConsumableItem(name='Flask of Petrification', itemid=13506),
-    ConsumableItem(name='Elixir of Fortitude', itemid=3825),
-    ConsumableItem(name='Bogling Root', itemid=5206),
-    ConsumableItem(name='??? Elixir of the Sages ???', itemid=13447),
-    ConsumableItem(name='Elixir of Shadow Power', itemid=9264),
-    ConsumableItem(name='Elixir of Greater Firepower', itemid=21546),
-    ConsumableItem(name='Elixir of Firepower', itemid=6373),
-    ConsumableItem(name='Elixir of Greater Agility', itemid=9187),
-    ConsumableItem(name='Elixir of Superior Defense', itemid=13445),
-    ConsumableItem(name='Free Action Potion', itemid=5634),
-    ConsumableItem(name='Elixir of Frost Power', itemid=17708),
-    ConsumableItem(name='Greater Arcane Elixir', itemid=13454),
-    ConsumableItem(name='Thistle Tea', itemid=7676),
+    ConsumableItem(name='Elixir of Fortitude', itemid=3825,
+        spell_aliases=[('gains_line', 'Health II')]
+    ),
+    ConsumableItem(name='Bogling Root', itemid=5206,
+        spell_aliases=[('gains_line', 'Fury of the Bogling')]
+    ),
+
+
+    ConsumableItem(name='Bloodkelp Elixir of Resistance', itemid=22193,
+        spell_aliases=[('gains_line', 'Elixir of Resistance')]
+    ),
+
+
+
+
+    ConsumableItem(name='Crystal Basilisk Spine', itemid=1703,
+        spell_aliases=[('gains_line', 'Crystal Protection')]
+    ),
+    ConsumableItem(name='??? Elixir of the Sages ???', itemid=13447,
+        spell_aliases=[('gains_line', 'Elixir of the Sages')]
+    ),
+    ConsumableItem(name='Elixir of Shadow Power', itemid=9264,
+        spell_aliases=[('gains_line', 'Shadow Power')]
+    ),
+    ConsumableItem(name='Elixir of Greater Firepower', itemid=21546,
+        spell_aliases=[('gains_line', 'Greater Firepower')]
+    ),
+    ConsumableItem(name='Elixir of Firepower', itemid=6373,
+        spell_aliases=[('gains_line', 'Fire Power')]
+    ),
+    ConsumableItem(name='Elixir of Greater Agility', itemid=9187,
+        spell_aliases=[('gains_line', 'Greater Agility')]
+    ),
+    ConsumableItem(name='Elixir of Superior Defense', itemid=13445,
+        spell_aliases=[('gains_line', 'Greater Armor')]
+    ),
+    ConsumableItem(name='Free Action Potion', itemid=5634,
+        spell_aliases=[('gains_line', 'Free Action')]
+    ),
+    ConsumableItem(name='Elixir of Frost Power', itemid=17708,
+        spell_aliases=[('gains_line', 'Frost Power')]
+    ),
+    ConsumableItem(name='Greater Arcane Elixir', itemid=13454,
+        spell_aliases=[('gains_line', 'Greater Arcane Elixir')]
+    ),
+    ConsumableItem(name='Thistle Tea', itemid=7676,
+        spell_aliases=[('gains_line', '100 energy')]
+    ),
     ConsumableItem(name='Elemental Sharpening Stone', itemid=18262),
-    ConsumableItem(name='Elixir of the Mongoose', itemid=13452),
-    ConsumableItem(name='Elixir of Brute Force', itemid=13453),
-    ConsumableItem(name='Winterfall Firewater', itemid=12820),
+    ConsumableItem(name='Elixir of the Mongoose', itemid=13452,
+        spell_aliases=[('gains_line', 'Elixir of the Mongoose')]
+    ),
+    ConsumableItem(name='Elixir of Brute Force', itemid=13453,
+        spell_aliases=[('gains_line', 'Elixir of Brute Force')]
+    ),
+    ConsumableItem(name='Winterfall Firewater', itemid=12820,
+        spell_aliases=[('gains_line', 'Winterfall Firewater')]
+    ),
     ConsumableItem(name='Juju Power', itemid=12431),
     ConsumableItem(name='Juju Flurry', itemid=12430),
     ConsumableItem(name='Juju Might', itemid=12436),
@@ -462,24 +521,48 @@ _all_defined_consumable_items: List[ConsumableItem] = [
     ConsumableItem(name='Hardened Mushroom', itemid=51717),
     ConsumableItem(name='Power Mushroom', itemid=51720),
     ConsumableItem(name='Oil of Immolation', itemid=8956),
-    ConsumableItem(name='Greater Stoneshield', itemid=13455),
-    ConsumableItem(name='Lucidity Potion', itemid=61225),
+
+
+
+    ConsumableItem(name='??? Lesser Stoneshield Potion ???', itemid=4623,
+        spell_aliases=[('gains_line', 'Stoneshield')]
+    ),
+    ConsumableItem(name='Greater Stoneshield', itemid=13455,
+        spell_aliases=[('gains_line', 'Greater Stoneshield')]
+    ),
+    ConsumableItem(name='Lucidity Potion', itemid=61225,
+        spell_aliases=[('gains_line', 'Lucidity Potion')]
+    ),
     ConsumableItem(name='Mana Potion - Greater', itemid=6149),
     ConsumableItem(name='Mana Potion - Superior', itemid=13443),
     ConsumableItem(name='Mana Potion - Major', itemid=13444),
     ConsumableItem(name='Restorative Potion', itemid=9030),
     ConsumableItem(name='Healing Potion - Major', itemid=13446),
     ConsumableItem(name='Healing Potion - Superior', itemid=3928),
-    ConsumableItem(name='Elixir of the Giants', itemid=9206),
-    ConsumableItem(name='Rumsey Rum Black Label', itemid=21151),
-    ConsumableItem(name='Rumsey Rum Dark', itemid=21114),
+    ConsumableItem(name='Elixir of Giants', itemid=9206,
+        spell_aliases=[('gains_line', 'Elixir of the Giants')]
+    ),
+    ConsumableItem(name='Rumsey Rum Black Label', itemid=21151,
+        spell_aliases=[('gains_line', 'Rumsey Rum Black Label')]
+    ),
+    ConsumableItem(name='Rumsey Rum Dark', itemid=21114,
+        spell_aliases=[('gains_line', 'Rumsey Rum Dark')]
+    ),
     ConsumableItem(name='Consecrated Sharpening Stone', itemid=23122),
-    ConsumableItem(name='Invulnerability', itemid=3387),
+    ConsumableItem(name='Invulnerability', itemid=3387,
+        spell_aliases=[('gains_line', 'Invulnerability')]
+    ),
     ConsumableItem(name='Dragonbreath Chili', itemid=12217),
-    ConsumableItem(name='Dreamtonic', itemid=61423),
+    ConsumableItem(name='Dreamtonic', itemid=61423,
+        spell_aliases=[('gains_line', 'Dreamtonic')]
+    ),
     ConsumableItem(name='Goblin Sapper Charge', itemid=10646),
-    ConsumableItem(name="Medivh's Merlot Blue Label", itemid=61175),
-    ConsumableItem(name="Medivh's Merlot", itemid=61174),
+    ConsumableItem(name="Medivh's Merlot Blue Label", itemid=61175,
+        spell_aliases=[('gains_line', "Medivh's Merlot Blue Label")]
+    ),
+    ConsumableItem(name="Medivh's Merlot", itemid=61174,
+        spell_aliases=[('gains_line', "Medivh's Merlot")]
+    ),
     ConsumableItem(name='Greater Arcane Protection Potion', itemid=13461),
     ConsumableItem(name='Greater Holy Protection Potion', itemid=13460),
     ConsumableItem(name='Greater Shadow Protection Potion', itemid=13459),
@@ -491,24 +574,38 @@ _all_defined_consumable_items: List[ConsumableItem] = [
     ConsumableItem(name='Nature Protection Potion', itemid=6052),
     ConsumableItem(name='Fire Protection Potion', itemid=6049),
     ConsumableItem(name='Frost Protection Potion', itemid=6050),
-    ConsumableItem(name='Dreamshard Elixir', itemid=61224),
+    ConsumableItem(name='Dreamshard Elixir', itemid=61224,
+        spell_aliases=[('gains_line', 'Dreamshard Elixir')]
+    ),
     ConsumableItem(name='Mighty Rage Potion', itemid=13442),
     ConsumableItem(name='Great Rage Potion', itemid=5633),
     ConsumableItem(name='Rage Potion', itemid=5631),
     ConsumableItem(name='Dense Dynamite', itemid=18641),
     ConsumableItem(name='Solid Dynamite', itemid=10507),
-    ConsumableItem(name='Gift of Arthas', itemid=9088),
+    ConsumableItem(name='Gift of Arthas', itemid=9088,
+        # both players and NPCs gain it, track only with superwow
+    ),
     ConsumableItem(name='Blessed Wizard Oil', itemid=23123),
     ConsumableItem(name='Thorium Grenade', itemid=15993),
     ConsumableItem(name='Iron Grenade', itemid=4390),
     ConsumableItem(name='Grilled Squid', itemid=13928),
-    ConsumableItem(name='Potion of Quickness', itemid=61181),
-    ConsumableItem(name='Elixir of Greater Nature Power', itemid=50237),
-    ConsumableItem(name='Elixir of Greater Intellect', itemid=9179),
+    ConsumableItem(name='Potion of Quickness', itemid=61181,
+        spell_aliases=[('gains_line', 'Potion of Quickness')]
+    ),
+    ConsumableItem(name='Elixir of Greater Nature Power', itemid=50237,
+        spell_aliases=[('gains_line', 'Elixir of Greater Nature Power')]
+    ),
+    ConsumableItem(name='Elixir of Greater Intellect', itemid=9179,
+        spell_aliases=[('gains_line', "Greater Intellect")]
+    ),
     ConsumableItem(name='Rejuvenation Potion - Major', itemid=18253),
-    ConsumableItem(name='Invisibility Potion', itemid=9172),
     ConsumableItem(name='Swiftness Potion', itemid=2459),
-    ConsumableItem(name='Lesser Invisibility Potion', itemid=3823),
+    ConsumableItem(name='Invisibility Potion', itemid=9172,
+        spell_aliases=[('gains_line', "Invisibility")]
+    ),
+    ConsumableItem(name='Lesser Invisibility Potion', itemid=3823,
+        spell_aliases=[('gains_line', "Lesser Invisibility")]
+    ),
     ConsumableItem(name='Powerful Anti-Venom', itemid=19440),
     ConsumableItem(name='Strong Anti-Venom', itemid=6453),
     ConsumableItem(name='Anti-Venom', itemid=6452),
@@ -540,9 +637,13 @@ _all_defined_consumable_items: List[ConsumableItem] = [
     ConsumableItem(name='Empowering Herbal Salad', itemid=83309),
     ConsumableItem(name='Elixir of Poison Resistance', itemid=3386),
     ConsumableItem(name='Elixir of Greater Defense', itemid=8951),
-    ConsumableItem(name='Elixir of Giant Growth', itemid=6662),
+    ConsumableItem(name='Elixir of Giant Growth', itemid=6662,
+        spell_aliases=[('gains_line', 'Enlarge')]
+    ),
     ConsumableItem(name='Elixir of Demonslaying', itemid=9224),
-    ConsumableItem(name='Arcane Elixir', itemid=9155),
+    ConsumableItem(name='Arcane Elixir', itemid=9155,
+        spell_aliases=[('gains_line', 'Arcane Elixir')]
+    ),
     ConsumableItem(name='Dense Sharpening Stone', itemid=12404),
     ConsumableItem(name='Dense Weightstone', itemid=12643),
 ]
@@ -550,6 +651,16 @@ _all_defined_consumable_items: List[ConsumableItem] = [
 NAME2CONSUMABLE: Dict[str, ConsumableItem] = {
     item.name: item for item in _all_defined_consumable_items
 }
+
+RAWSPELLNAME2CONSUMABLE: Dict[Tuple[str, str], ConsumableItem] = {}
+for item in _all_defined_consumable_items:
+    for line_type, raw_spellname in item.spell_aliases:
+        key = (line_type, raw_spellname)
+        if key in RAWSPELLNAME2CONSUMABLE:
+            raise ValueError(f'duplicate consumable alias. tried to add {key} for {item.name}'
+                             f' but {RAWSPELLNAME2CONSUMABLE[key].name} already added')
+        RAWSPELLNAME2CONSUMABLE[key] = item
+
 
 
 
@@ -564,39 +675,15 @@ def rename_spell(spell, line_type):
     return rename or spell
 
 RENAME_CONSUMABLE = {
-    'Chromatic Resistance': 'Flask of Chromatic Resistance',
-    'Supreme Power': 'Flask of Supreme Power',
-    'Distilled Wisdom': 'Flask of Distilled Wisdom',
-    'Rage of Ages': 'Rage of Ages (ROIDS)',
-    'Health II': 'Elixir of Fortitude',
-    'Fury of the Bogling': 'Bogling Root',
-    'Elixir of the Sages': '??? Elixir of the Sages ???',
-    'Shadow Power': 'Elixir of Shadow Power',
-    'Greater Firepower': 'Elixir of Greater Firepower',
-    'Fire Power': 'Elixir of Firepower',
-    'Greater Agility': 'Elixir of Greater Agility',
-    'Spirit of the Boar': 'Lung Juice Cocktail',
-    'Greater Armor': 'Elixir of Superior Defense',
     'Mana Regeneration': 'Mana Regeneration (food or mageblood)',
-    'Free Action': 'Free Action Potion',
-    'Frost Power': 'Elixir of Frost Power',
     'Nature Protection ': 'Nature Protection',
     'Shadow Protection ': 'Shadow Protection',
     'Holy Protection ': 'Holy Protection',
-    '100 energy': 'Thistle Tea',
     'Sharpen Weapon - Critical': 'Elemental Sharpening Stone',
     'Consecrated Weapon': 'Consecrated Sharpening Stone',
     'Sharpen Blade V': 'Dense Sharpening Stone',
     'Enhance Blunt Weapon V': 'Dense Weightstone',
     'Cure Ailments': 'Jungle Remedy',
-    'Stoneshield': '??? Lesser Stoneshield Potion ???',
-    'Restoration': 'Restorative Potion',
-    'Enlarge': 'Elixir of Giant Growth',
-    'Greater Intellect': 'Elixir of Greater Intellect',
-    'Infallible Mind': 'Infallible Mind (Cerebral Cortex Compound)',
-    'Crystal Protection': 'Crystal Protection (Crystal Basilisk Spine)',
-    'Invisibility': 'Invisibility Potion',
-    'Lesser Invisibility': 'Lesser Invisibility Potion',
     'Mighty Rage': 'Mighty Rage Potion',
     'Great Rage': 'Great Rage Potion',
     'Rage': 'Rage Potion',
@@ -664,8 +751,6 @@ BEGINS_TO_CAST_CONSUMABLE = {
     "Fire-toasted Bun",
     "Sharpen Blade V",
     "Enhance Blunt Weapon V",
-    "Crystal Force",
-    "Medivh's Merlot Blue Label",
 }
 
 CASTS_CONSUMABLE = {
@@ -680,59 +765,14 @@ CASTS_CONSUMABLE = {
 
 
 GAINS_CONSUMABLE = {
-    "Greater Arcane Elixir",
-    "Arcane Elixir",
-    "Elixir of the Mongoose",
-    "Elixir of the Giants",
-    "Elixir of the Sages",
-    "Elixir of Resistance",
-    "Elixir of Greater Nature Power",
-    "Elixir of Brute Force",
-    "Flask of the Titans",
-    "Chromatic Resistance",
-    "Supreme Power",
-    "Distilled Wisdom",
-    "Spirit of Zanza",
-    "Swiftness of Zanza",
-    "Sheen of Zanza",
-    "Rage of Ages",
-    "Invulnerability",
-    "Potion of Quickness",
-    "Lucidity Potion",
-    "Noggenfogger Elixir",
-    "Fire-toasted Bun",
-    "Shadow Power",
-    "Stoneshield",
-    "Health II",
-    "Rumsey Rum Black Label",
-    "Rumsey Rum",
-    "Rumsey Rum Dark",
-    "Fury of the Bogling",
-    "Winterfall Firewater",
-    "Greater Agility",
-    "Greater Firepower",
-    "Greater Armor",
-    "Greater Stoneshield",
-    "Fire Power",
-    "Strike of the Scorpok",
-    "Spirit of the Boar",
-    "Free Action",
-    "Blessed Sunfruit",
-    "Gordok Green Grog",
-    "Frost Power",
-    # "Gift of Arthas",  # both players and NPCs gain it, really annoying
-    "100 Energy",  # Restore Energy aka Thistle Tea
-    "Restoration",
+    'Crystal Force',
     "Crystal Ward",
-    "Infallible Mind",
-    "Crystal Protection",
-    "Dreamtonic",
-    "Dreamshard Elixir",
-    "Medivh's Merlot",
-    "Medivh's Merlot Blue Label",
+    "Fire-toasted Bun",
+    "Blessed Sunfruit",
+    "Noggenfogger Elixir",  # bop
+    "Rumsey Rum",  # bop
+    "Gordok Green Grog",  # bop
     # ambiguous
-    "Invisibility",
-    "Lesser Invisibility",
     "Increased Stamina",
     "Increased Intellect",
     "Mana Regeneration",
@@ -740,9 +780,6 @@ GAINS_CONSUMABLE = {
     "Agility",  # pots or scrolls
     "Strength",
     "Stamina",
-    "Enlarge",
-    "Greater Intellect",
-    "Greater Armor",
     ## "Armor",  # same as a spell?
     # protections
     "Fire Protection",
@@ -772,6 +809,7 @@ MANARUNE_CONSUMABLE = {
 
 # not available in native logs, safe to process as usual
 USES_CONSUMABLE_SAFE = {
+    'Crystal Charge',
     'Conjured Mana Orange',
     'Conjured Crystal Water',
     'Blessed Sunfruit Juice',
@@ -896,7 +934,7 @@ USES_CONSUMABLE_ENHANCE = {
     'Thistle Tea': 'Thistle Tea',
     'Limited Invulnerability Potion': 'Invulnerability',
     'Elixir of Fortitude': 'Elixir of Fortitude',
-    "Elixir of Giants": 'Elixir of the Giants',
+    "Elixir of Giants": 'Elixir of Giants',
     "Elixir of Greater Agility": 'Elixir of Greater Agility',
     'Elixir of the Sages': '??? Elixir of the Sages ???',
     'Rage of Ages': 'Rage of Ages (ROIDS)',
@@ -2388,6 +2426,9 @@ def parse_line2(app, line):
                 if consumable in RENAME_CONSUMABLE:
                     consumable = RENAME_CONSUMABLE[consumable]
                 app.player[name][consumable] += 1
+
+            if consumable_item := RAWSPELLNAME2CONSUMABLE.get((subtree.data, spellname)):
+                app.player[name][consumable_item.name] += 1
 
             if spellname in BUFF_SPELL:
                 app.player_detect[name].add('buff: ' + spellname)

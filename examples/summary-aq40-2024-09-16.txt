@@ -48,13 +48,13 @@ Bobsterr deaths:2
    Greater Arcane Elixir 1   (2g 52s 17c)
    Increased Stamina 2 
    Lucidity Potion 1   (1g 41s 14c)
-   Medivh's Merlot Blue Label 8   (11g 97s 76c)
+   Medivh's Merlot Blue Label 3   (4g 49s 16c)
    Spirit of Zanza 1   (1g 94s 85c)
    Strike of the Scorpok 1   (3g 26s 48c)
    Swiftness of Zanza 1   (1g 94s 85c)
    Winterfall Firewater 2   (2g 7s 6c)
 
-   total spent: 89g 67s 31c
+   total spent: 82g 18s 71c
 Catajumbo deaths:3
    Arcane Protection 1 
    Healing Potion - Major 3   (2g 29s 8c)
@@ -68,11 +68,11 @@ Clapya deaths:0
    Goblin Sapper Charge 5   (7g 49s 75c)
    Invulnerability 1   (1g 59s 28c)
    Mana Potion - Major 3   (5g 18s 73c)
-   Medivh's Merlot Blue Label 9   (13g 47s 48c)
+   Medivh's Merlot Blue Label 3   (4g 49s 16c)
    Potion of Quickness 2   (5g 18s)
    Tea with Sugar 5   (1g 37s 95c)
 
-   total spent: 39g 96s 45c
+   total spent: 30g 98s 13c
 Cracklinoats deaths:2
    Elixir of the Mongoose 1   (1g 49s 84c)
    Spirit of Zanza 1   (1g 94s 85c)
@@ -269,11 +269,11 @@ Shreked deaths:3
    Elixir of Greater Firepower 1   (1g 16s 74c)
    Greater Arcane Elixir 1   (2g 52s 17c)
    Increased Intellect 5 
-   Medivh's Merlot Blue Label 3   (4g 49s 16c)
+   Medivh's Merlot Blue Label 1   (1g 49s 72c)
    Thorium Grenade 4   (3g 59s 56c)
    Wizard Oil 2   (40s)
 
-   total spent: 14g 17s 37c
+   total spent: 11g 17s 93c
 Spankys deaths:0
    Agility 1 
    Elixir of the Mongoose 1   (1g 49s 84c)
@@ -290,12 +290,12 @@ Starraven deaths:1
    Goblin Sapper Charge 2   (2g 99s 90c)
    Healing Potion - Superior 3   (12s 3c)
    Mana Potion - Major 2   (3g 45s 82c)
-   Medivh's Merlot Blue Label 2   (2g 99s 44c)
+   Medivh's Merlot Blue Label 1   (1g 49s 72c)
    Nature Protection 2 
    Potion of Quickness 5   (12g 95s)
    Tea with Sugar 9   (2g 48s 31c)
 
-   total spent: 84g 10s 8c
+   total spent: 82g 60s 36c
 Sunpriest deaths:1
    Arcane Protection 1 
    Brilliant Wizard Oil 2   (3g 87s 96c)
@@ -347,13 +347,13 @@ Yakub deaths:0
    Infallible Mind (Cerebral Cortex Compound) 1   (5g 4s 64c)
    Mana Potion - Major 3   (5g 18s 73c)
    Mana Regeneration (food or mageblood) 4 
-   Medivh's Merlot Blue Label 8   (11g 97s 76c)
+   Medivh's Merlot Blue Label 4   (5g 98s 88c)
    Nature Protection 2 
    Shadow Protection 1 
    Swiftness of Zanza 1   (1g 94s 85c)
    Tea with Sugar 11   (3g 3s 49c)
 
-   total spent: 34g 33s 80c
+   total spent: 28g 34s 92c
 Zahyla deaths:5
    <nothing found>
 Zdraxus deaths:0

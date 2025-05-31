@@ -19,6 +19,8 @@ class ConsumableItem:
 
     itemid: Optional[int] = None
 
+    spell_aliases: List[Tuple[str, str]] = field(default_factory=list)
+
     def __post_init__(self):
         if self.charges <= 0: raise ValueError('positive charges plz')
 

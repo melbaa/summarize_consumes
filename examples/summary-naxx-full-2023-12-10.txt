@@ -22,7 +22,7 @@ Abstractz deaths:6
    Infallible Mind (Cerebral Cortex Compound) 7   (35g 32s 48c)
    Invulnerability 13   (20g 70s 64c)
    Mana Potion - Major 25   (43g 22s 75c)
-   Medivh's Merlot Blue Label 22   (32g 93s 84c)
+   Medivh's Merlot Blue Label 9   (13g 47s 48c)
    Nature Protection 1 
    Shadow Protection 1 
    Spirit of Zanza 3   (5g 84s 55c)
@@ -30,7 +30,7 @@ Abstractz deaths:6
    Swiftness of Zanza 2   (3g 89s 70c)
    Tea with Sugar 26   (7g 17s 34c)
 
-   total spent: 324g 33s 35c
+   total spent: 304g 86s 99c
 Almouty deaths:5
    Brilliant Mana Oil 5   (7g 53s 80c)
    Flask of Distilled Wisdom 1   (47g 47s 87c)
@@ -95,15 +95,15 @@ Azot deaths:4
    Mana Potion - Greater 3   (13s 29c)
    Mana Potion - Major 1   (1g 72s 91c)
    Mana Potion - Superior 3   (2g 27s 16c)
-   Medivh's Merlot Blue Label 2   (2g 99s 44c)
+   Medivh's Merlot Blue Label 1   (1g 49s 72c)
    Nature Protection 3 
    Shadow Protection 2 
 
-   total spent: 114g 22s 20c
+   total spent: 112g 72s 48c
 Baalfyr deaths:1
    Agility 2 
    Dense Dynamite 3   (3g 89s 61c)
-   Elixir of the Giants 2   (2g 76s 6c)
+   Elixir of Giants 2   (2g 76s 6c)
    Invulnerability 1   (1g 59s 28c)
    Iron Grenade 5 
 
@@ -126,8 +126,8 @@ Bobsterr deaths:2
    Dreamshard Elixir 5   (9g 98s 70c)
    Dreamtonic 1   (1g 77s 30c)
    Elixir of Fortitude 4   (2g 49s 24c)
+   Elixir of Giants 1   (1g 38s 3c)
    Elixir of Shadow Power 1   (1g 98s 74c)
-   Elixir of the Giants 1   (1g 38s 3c)
    Elixir of the Mongoose 1   (1g 49s 84c)
    Fire Protection 3 
    Frost Protection 2 
@@ -136,14 +136,14 @@ Bobsterr deaths:2
    Infallible Mind (Cerebral Cortex Compound) 5   (25g 23s 20c)
    Mana Potion - Major 5   (8g 64s 55c)
    Mana Potion - Superior 2   (1g 51s 44c)
-   Medivh's Merlot Blue Label 22   (32g 93s 84c)
+   Medivh's Merlot Blue Label 9   (13g 47s 48c)
    Shadow Protection 4 
    Spirit of Zanza 1   (1g 94s 85c)
    Swiftness of Zanza 4   (7g 79s 40c)
    Tea with Sugar 9   (2g 48s 31c)
    Winterfall Firewater 1   (1g 3s 53c)
 
-   total spent: 114g 87s 2c
+   total spent: 95g 40s 66c
 Celebrity deaths:1
    <nothing found>
 Cheesebreath deaths:4
@@ -153,13 +153,13 @@ Cheesebreath deaths:4
    Fire Protection 2 
    Greater Arcane Elixir 4   (10g 8s 68c)
    Mana Potion - Major 16   (27g 66s 56c)
-   Medivh's Merlot Blue Label 4   (5g 98s 88c)
+   Medivh's Merlot Blue Label 2   (2g 99s 44c)
    Rumsey Rum Black Label 1   (39s 97c)
    Rumsey Rum Dark 2 
    Shadow Protection 3 
    Spirit of Zanza 2   (3g 89s 70c)
 
-   total spent: 51g 90s 46c
+   total spent: 48g 91s 2c
 Cracklinoats deaths:6
    Elixir of the Mongoose 7   (10g 48s 88c)
    Fire Protection 1 
@@ -278,14 +278,14 @@ Interlani deaths:2
    Infallible Mind (Cerebral Cortex Compound) 4   (20g 18s 56c)
    Mana Potion - Major 3   (5g 18s 73c)
    Mana Regeneration (food or mageblood) 2 
-   Medivh's Merlot Blue Label 15   (22g 45s 80c)
+   Medivh's Merlot Blue Label 7   (10g 48s 4c)
    Nature Protection 2 
    Rumsey Rum Black Label 4   (1g 59s 88c)
    Shadow Protection 2 
    Spirit of Zanza 3   (5g 84s 55c)
    Tea with Sugar 8   (2g 20s 72c)
 
-   total spent: 80g 91s 99c
+   total spent: 68g 94s 23c
 Jocaste deaths:5
    Brilliant Wizard Oil 4   (7g 75s 92c)
    Elixir of Fortitude 3   (1g 86s 93c)
@@ -358,7 +358,7 @@ Mombat deaths:7
    Dreamshard Elixir 8   (15g 97s 92c)
    Dreamtonic 6   (10g 63s 80c)
    Elixir of Fortitude 6   (3g 73s 86c)
-   Elixir of the Giants 7   (9g 66s 21c)
+   Elixir of Giants 7   (9g 66s 21c)
    Elixir of the Mongoose 7   (10g 48s 88c)
    Flask of Supreme Power 2   (99g 79s 44c)
    Frost Protection 4 
@@ -406,7 +406,7 @@ Plaguejak deaths:4
    Increased Stamina 2 
    Invulnerability 6   (9g 55s 68c)
    Mana Potion - Major 2   (3g 45s 82c)
-   Medivh's Merlot Blue Label 8   (11g 97s 76c)
+   Medivh's Merlot Blue Label 4   (5g 98s 88c)
    Nature Protection 2 
    Rumsey Rum Black Label 2   (79s 94c)
    Shadow Protection 4 
@@ -414,7 +414,7 @@ Plaguejak deaths:4
    Swiftness of Zanza 1   (1g 94s 85c)
    Tea with Sugar 5   (1g 37s 95c)
 
-   total spent: 134g 59s 97c
+   total spent: 128g 61s 9c
 Psykhe deaths:4
    Elixir of the Mongoose 6   (8g 99s 4c)
    Free Action Potion 2   (2g 80s 24c)
@@ -451,11 +451,11 @@ Sanwen deaths:3
    Mana Potion - Major 5   (8g 64s 55c)
    Mana Potion - Superior 1   (75s 72c)
    Mana Regeneration (food or mageblood) 1 
-   Medivh's Merlot Blue Label 6   (8g 98s 32c)
+   Medivh's Merlot Blue Label 3   (4g 49s 16c)
    Stratholme Holy Water 1 
    Tea with Sugar 12   (3g 31s 8c)
 
-   total spent: 75g 29s 10c
+   total spent: 70g 79s 94c
 Seidhkona deaths:4
    Brilliant Mana Oil 5   (7g 53s 80c)
    Dreamshard Elixir 6   (11g 98s 44c)
@@ -464,14 +464,14 @@ Seidhkona deaths:4
    Frost Protection 2 
    Mana Potion - Major 9   (15g 56s 19c)
    Mana Regeneration (food or mageblood) 8 
-   Medivh's Merlot Blue Label 2   (2g 99s 44c)
+   Medivh's Merlot Blue Label 1   (1g 49s 72c)
    Nature Protection 1 
    Rumsey Rum Black Label 1   (39s 97c)
    Shadow Protection 2 
    Spirit of Zanza 2   (3g 89s 70c)
    Tea with Sugar 3   (82s 77c)
 
-   total spent: 90g 68s 18c
+   total spent: 89g 18s 46c
 Shadowheals deaths:5
    Brilliant Mana Oil 3   (4g 52s 28c)
    Flask of Distilled Wisdom 1   (47g 47s 87c)
@@ -511,8 +511,8 @@ Squirreled deaths:3
    Dense Sharpening Stone 1 
    Elixir of Brute Force 2   (8g 99s 98c)
    Elixir of Fortitude 3   (1g 86s 93c)
+   Elixir of Giants 3   (4g 14s 9c)
    Elixir of Superior Defense 2   (4g 52s 84c)
-   Elixir of the Giants 3   (4g 14s 9c)
    Elixir of the Mongoose 3   (4g 49s 52c)
    Fire Protection 2 
    Flask of the Titans 1   (72g 79s 93c)
@@ -582,7 +582,7 @@ Sunwelp deaths:5
    Infallible Mind (Cerebral Cortex Compound) 5   (25g 23s 20c)
    Invulnerability 3   (4g 77s 84c)
    Mana Potion - Major 10   (17g 29s 10c)
-   Medivh's Merlot Blue Label 13   (19g 46s 36c)
+   Medivh's Merlot Blue Label 6   (8g 98s 32c)
    Nature Protection 1 
    Noggenfogger Elixir 5 
    Potion of Quickness 4   (10g 36s)
@@ -592,7 +592,7 @@ Sunwelp deaths:5
    Stratholme Holy Water 6 
    Tea with Sugar 22   (6g 6s 98c)
 
-   total spent: 238g 21s 9c
+   total spent: 227g 73s 5c
 Supal deaths:4
    Dense Dynamite 7   (9g 9s 9c)
    Elixir of Fortitude 7   (4g 36s 17c)

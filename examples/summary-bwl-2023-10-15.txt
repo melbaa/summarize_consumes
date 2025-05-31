@@ -34,8 +34,8 @@ Bloxie deaths:4
    total spent: 5g 76s 92c
 Bubasita deaths:2
    Dense Sharpening Stone 5 
+   Elixir of Giants 5   (6g 90s 15c)
    Elixir of Greater Agility 5   (1g 3s 45c)
-   Elixir of the Giants 5   (6g 90s 15c)
    Elixir of the Mongoose 5   (7g 49s 20c)
    Fire Protection 1 
    Goblin Sapper Charge 3   (4g 49s 85c)
@@ -110,8 +110,8 @@ Illasei deaths:1
 
    total spent: 9g 67s 17c
 Iniri deaths:2
+   Elixir of Giants 3   (4g 14s 9c)
    Elixir of Greater Agility 1   (20s 69c)
-   Elixir of the Giants 3   (4g 14s 9c)
    Elixir of the Mongoose 2   (2g 99s 68c)
    Invulnerability 2   (3g 18s 56c)
 
@@ -249,8 +249,8 @@ Tlw deaths:2
 Windfurytotm deaths:3
    Blessed Sunfruit 4 
    Dragonbreath Chili 1   (1g 51s 82c)
+   Elixir of Giants 3   (4g 14s 9c)
    Elixir of Greater Agility 4   (82s 76c)
-   Elixir of the Giants 3   (4g 14s 9c)
    Fire Protection 3 
    Free Action Potion 1   (1g 40s 12c)
    Mana Potion - Greater 11   (48s 73c)

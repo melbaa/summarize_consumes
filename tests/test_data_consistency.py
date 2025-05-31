@@ -10,14 +10,6 @@ from melbalabs.summarize_consumes.main import GAINS_CONSUMABLE
 from melbalabs.summarize_consumes.main import _all_defined_consumable_items
 
 
-def test_uses_consumable_disjoint():
-    enh = set(USES_CONSUMABLE_ENHANCE)
-    ow = set(USES_CONSUMABLE_OVERWRITE)
-    safe = set(USES_CONSUMABLE_SAFE)
-    assert enh.isdisjoint(ow)
-    assert enh.isdisjoint(safe)
-    assert ow.isdisjoint(safe)
-
 def test_consumes_exist():
     logger_consumes = {
 "Bloodkelp Elixir of Resistance",
@@ -316,16 +308,6 @@ def test_consumes_exist():
     }
     found = set()
 
-    # check if a SAFE consumable isn't that safe
-    for key in USES_CONSUMABLE_SAFE:
-        for k, v in RENAME_CONSUMABLE.items():
-            if key == k or key == v:
-                found.add((key, 'safe consumable already in RENAME_CONSUMABLE'))
-
-        if key in GAINS_CONSUMABLE:
-            found.add((key, 'safe consumable already in GAINS_CONSUMABLE'))
-
-
     # check if the logger consume is added to USES_CONSUMABLE whitelists
     # and to NAME2ITEMID for pricing
     for key in logger_consumes:
@@ -358,7 +340,7 @@ def test_consumes_exist():
 
 
 def test_sanity1():
- 
+
     for name in NAME2ITEMID:
         assert name in NAME2CONSUMABLE
         assert NAME2CONSUMABLE[name].itemid == NAME2ITEMID[name]
@@ -367,3 +349,26 @@ def test_sanity2():
     for item in _all_defined_consumable_items:
         # item has a price or components that can be priced
         assert item.itemid or item.components
+
+def test_sanity3():
+    assert set(NAME2ITEMID_BOP).isdisjoint(set(NAME2ITEMID))
+
+def test_uses_consumable_disjoint():
+    enh = set(USES_CONSUMABLE_ENHANCE)
+    ow = set(USES_CONSUMABLE_OVERWRITE)
+    safe = set(USES_CONSUMABLE_SAFE)
+    assert enh.isdisjoint(ow)
+    assert enh.isdisjoint(safe)
+    assert ow.isdisjoint(safe)
+
+def test_sanity4():
+    # check if a SAFE consumable isn't that safe
+    for key in USES_CONSUMABLE_SAFE:
+        for k, v in RENAME_CONSUMABLE.items():
+            if key == k or key == v:
+                raise ValueError(f'{key} safe consumable already in RENAME_CONSUMABLE')
+
+        if key in GAINS_CONSUMABLE:
+            raise ValueError(f'{key} safe consumable already in GAINS_CONSUMABLE')
+
+

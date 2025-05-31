@@ -63,7 +63,7 @@ Bruceweed deaths:8
    Iron Grenade 4 
    Mana Potion - Major 4   (6g 91s 64c)
    Mana Potion - Superior 1   (75s 72c)
-   Medivh's Merlot Blue Label 4   (5g 98s 88c)
+   Medivh's Merlot Blue Label 2   (2g 99s 44c)
    Nature Protection 9 
    Regeneration 5 
    Rumsey Rum Black Label 5   (1g 99s 85c)
@@ -71,13 +71,13 @@ Bruceweed deaths:8
    Spirit of Zanza 5   (9g 74s 25c)
    Tea with Sugar 9   (2g 48s 31c)
 
-   total spent: 138g 40s 73c
+   total spent: 135g 41s 29c
 Bubasita deaths:10
    Dense Sharpening Stone 14 
    Elixir of Fortitude 3   (1g 86s 93c)
+   Elixir of Giants 9   (12g 42s 27c)
    Elixir of Greater Agility 9   (1g 86s 21c)
    Elixir of Superior Defense 3   (6g 79s 26c)
-   Elixir of the Giants 9   (12g 42s 27c)
    Elixir of the Mongoose 9   (13g 48s 56c)
    Goblin Sapper Charge 4   (5g 99s 80c)
    Healing Potion - Major 7   (5g 34s 52c)
@@ -87,7 +87,7 @@ Bubasita deaths:10
    total spent: 66g 48s 47c
 Charmia deaths:7
    Elixir of Fortitude 7   (4g 36s 17c)
-   Elixir of the Giants 2   (2g 76s 6c)
+   Elixir of Giants 2   (2g 76s 6c)
    Elixir of the Mongoose 2   (2g 99s 68c)
    Flask of the Titans 2   (145g 59s 86c)
    Free Action Potion 3   (4g 20s 36c)
@@ -258,8 +258,8 @@ Imhungry deaths:7
 
    total spent: 41s 38c
 Iniri deaths:9
+   Elixir of Giants 8   (11g 4s 24c)
    Elixir of Greater Agility 1   (20s 69c)
-   Elixir of the Giants 8   (11g 4s 24c)
    Elixir of the Mongoose 7   (10g 48s 88c)
    Nature Protection 1 
    Shadow Protection 3 
@@ -344,7 +344,7 @@ Mupsi deaths:8
    total spent: 103g 16s 5c
 Paris deaths:5
    Elixir of Fortitude 1   (62s 31c)
-   Elixir of the Giants 3   (4g 14s 9c)
+   Elixir of Giants 3   (4g 14s 9c)
    Elixir of the Mongoose 3   (4g 49s 52c)
    Flask of the Titans 1   (72g 79s 93c)
    Free Action Potion 3   (4g 20s 36c)
@@ -499,9 +499,9 @@ Tlw deaths:5
    total spent: 184g 91s 75c
 Wicks deaths:5
    Elixir of Fortitude 3   (1g 86s 93c)
+   Elixir of Giants 1   (1g 38s 3c)
    Elixir of Greater Agility 5   (1g 3s 45c)
    Elixir of Superior Defense 3   (6g 79s 26c)
-   Elixir of the Giants 1   (1g 38s 3c)
    Elixir of the Mongoose 2   (2g 99s 68c)
    Flask of the Titans 1   (72g 79s 93c)
    Free Action Potion 1   (1g 40s 12c)
@@ -514,8 +514,8 @@ Wicks deaths:5
 Windfurytotm deaths:11
    Blessed Sunfruit 1 
    Dragonbreath Chili 1   (1g 51s 82c)
+   Elixir of Giants 2   (2g 76s 6c)
    Elixir of Greater Agility 2   (41s 38c)
-   Elixir of the Giants 2   (2g 76s 6c)
    Fire Protection 2 
    Free Action Potion 3   (4g 20s 36c)
    Healing Potion - Superior 3   (12s 3c)
