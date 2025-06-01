@@ -390,14 +390,14 @@ Sunor deaths:4
 
    total spent: 127g 99s
 Teldelar deaths:8
-   Brilliant Mana Oil 3   (4g 52s 28c)
+   Brilliant Mana Oil 3   (5g 98s 14c)
    Mana Regeneration (food or mageblood) 7 
    Nature Protection 5 
    Spirit of Zanza 3   (5g 84s 55c)
    Swiftness of Zanza 1   (1g 94s 85c)
    Tea with Sugar 3   (82s 77c)
 
-   total spent: 13g 14s 45c
+   total spent: 14g 60s 31c
 Thorshifter deaths:7
    Arcane Protection 1 
    Dark Rune 1   (3g 33s 14c)

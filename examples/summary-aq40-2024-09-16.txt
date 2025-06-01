@@ -118,7 +118,7 @@ Immunium deaths:0
 
    total spent: 76s 36c
 Interlan deaths:0
-   Brilliant Mana Oil 2   (3g 1s 52c)
+   Brilliant Mana Oil 2   (3g 98s 76c)
    Dreamshard Elixir 1   (1g 99s 74c)
    Elixir of Fortitude 1   (62s 31c)
    Mana Potion - Major 4   (6g 91s 64c)
@@ -127,7 +127,7 @@ Interlan deaths:0
    Rumsey Rum Black Label 3   (1g 19s 91c)
    Tea with Sugar 10   (2g 75s 90c)
 
-   total spent: 16g 51s 2c
+   total spent: 17g 48s 26c
 Jhuulum deaths:1
    <nothing found>
 Jocaste deaths:0
@@ -198,12 +198,12 @@ Murto deaths:5
 
    total spent: 1g 49s 84c
 Ostkastare deaths:3
-   Brilliant Mana Oil 1   (1g 50s 76c)
+   Brilliant Mana Oil 1   (1g 99s 38c)
    Greater Arcane Elixir 1   (2g 52s 17c)
    Mana Potion - Major 4   (6g 91s 64c)
    Tea with Sugar 3   (82s 77c)
 
-   total spent: 11g 77s 34c
+   total spent: 12g 25s 96c
 Pitbound deaths:1
    Dense Sharpening Stone 1 
    Elixir of the Mongoose 1   (1g 49s 84c)
@@ -216,7 +216,7 @@ Pitbound deaths:1
    total spent: 13g 82s 32c
 Pristitute deaths:1
    Arcane Protection 1 
-   Brilliant Mana Oil 3   (4g 52s 28c)
+   Brilliant Mana Oil 3   (5g 98s 14c)
    Elixir of Fortitude 1   (62s 31c)
    Flask of Distilled Wisdom 1   (47g 47s 87c)
    Infallible Mind (Cerebral Cortex Compound) 1   (5g 4s 64c)
@@ -225,7 +225,7 @@ Pristitute deaths:1
    Rumsey Rum Black Label 3   (1g 19s 91c)
    Spirit of Zanza 1   (1g 94s 85c)
 
-   total spent: 66g 59c
+   total spent: 67g 46s 45c
 Psykhe deaths:3
    Elixir of the Mongoose 1   (1g 49s 84c)
    Goblin Sapper Charge 3   (4g 49s 85c)
@@ -341,7 +341,7 @@ Xiaofeigunn deaths:4
    total spent: 14g 49s 3c
 Yakub deaths:0
    Arcane Protection 1 
-   Brilliant Mana Oil 3   (4g 52s 28c)
+   Brilliant Mana Oil 3   (5g 98s 14c)
    Dreamshard Elixir 1   (1g 99s 74c)
    Elixir of Fortitude 1   (62s 31c)
    Infallible Mind (Cerebral Cortex Compound) 1   (5g 4s 64c)
@@ -353,7 +353,7 @@ Yakub deaths:0
    Swiftness of Zanza 1   (1g 94s 85c)
    Tea with Sugar 11   (3g 3s 49c)
 
-   total spent: 28g 34s 92c
+   total spent: 29g 80s 78c
 Zahyla deaths:5
    <nothing found>
 Zdraxus deaths:0

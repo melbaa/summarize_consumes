@@ -237,6 +237,7 @@ Sunor deaths:5
 Teldelar deaths:1
    <nothing found>
 Thorshifter deaths:1
+   Blessed Sunfruit Juice 1 
    Dark Rune 2   (6g 66s 28c)
    Mana Potion - Major 1   (1g 72s 91c)
 

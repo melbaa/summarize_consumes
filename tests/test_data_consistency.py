@@ -348,7 +348,11 @@ def test_sanity1():
 def test_sanity2():
     for item in _all_defined_consumable_items:
         # item has a price or components that can be priced
-        assert item.itemid or item.components
+
+        count = 0
+        if item.itemid: count += 1
+        if item.components: count += 1
+        assert count == 1
 
 def test_sanity3():
     assert set(NAME2ITEMID_BOP).isdisjoint(set(NAME2ITEMID))

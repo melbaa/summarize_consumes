@@ -138,6 +138,7 @@ Dregoth deaths:8
 
    total spent: 31g 68s 77c
 Druindy deaths:7
+   Blessed Sunfruit Juice 4 
    Increased Stamina 2 
    Mana Potion - Superior 1   (75s 72c)
    Nature Protection 3 
@@ -230,6 +231,7 @@ Getterfour deaths:11
 
    total spent: 272g 99s 91c
 Hrin deaths:0
+   Blessed Sunfruit Juice 1 
    Consecrated Sharpening Stone 6   (24g 59s 94c)
    Elixir of the Mongoose 1   (1g 49s 84c)
    Healing Potion - Major 2   (1g 52s 72c)
@@ -286,12 +288,12 @@ Jaekta deaths:7
 
    total spent: 196g 27s 55c
 Jarnp deaths:6
-   Brilliant Mana Oil 2   (3g 1s 52c)
+   Brilliant Mana Oil 2   (3g 98s 76c)
    Mana Potion - Greater 9   (39s 87c)
    Noggenfogger Elixir 8 
    Shadow Protection 1 
 
-   total spent: 3g 41s 39c
+   total spent: 4g 38s 63c
 Killanime deaths:8
    Consecrated Sharpening Stone 2   (8g 19s 98c)
    Crystal Ward 1 
@@ -370,7 +372,7 @@ Psykhe deaths:7
 
    total spent: 167g 46s 2c
 Redzeus deaths:9
-   Brilliant Mana Oil 1   (1g 50s 76c)
+   Brilliant Mana Oil 1   (1g 99s 38c)
    Demonic Rune 3 
    Dreamshard Elixir 1   (1g 99s 74c)
    Dreamtonic 4   (7g 9s 20c)
@@ -382,7 +384,7 @@ Redzeus deaths:9
    Shadow Protection 3 
    Spirit of Zanza 5   (9g 74s 25c)
 
-   total spent: 74g 54s 4c
+   total spent: 75g 2s 66c
 Rhudaur deaths:4
    Consecrated Sharpening Stone 2   (8g 19s 98c)
    Elixir of the Mongoose 4   (5g 99s 36c)
@@ -394,13 +396,13 @@ Rhudaur deaths:4
 Rossol deaths:11
    Nature Protection 3 
 Salammbo deaths:7
-   Brilliant Mana Oil 3   (4g 52s 28c)
+   Brilliant Mana Oil 3   (5g 98s 14c)
    Mana Potion - Major 14   (24g 20s 74c)
    Nature Protection 1 
    Shadow Protection 1 
    Tea with Sugar 10   (2g 75s 90c)
 
-   total spent: 31g 48s 92c
+   total spent: 32g 94s 78c
 Seath deaths:9
    Arcane Elixir 11 
    Demonic Rune 1 
@@ -416,7 +418,7 @@ Seath deaths:9
 
    total spent: 58g 26s 4c
 Shumy deaths:9
-   Brilliant Mana Oil 1   (1g 50s 76c)
+   Brilliant Mana Oil 1   (1g 99s 38c)
    Elixir of Fortitude 3   (1g 86s 93c)
    Fire Protection 3 
    Flask of the Titans 1   (72g 79s 93c)
@@ -427,7 +429,7 @@ Shumy deaths:9
    Shadow Protection 2 
    Tea with Sugar 3   (82s 77c)
 
-   total spent: 79g 49s 66c
+   total spent: 79g 98s 28c
 Smahingbolt deaths:5
    Consecrated Sharpening Stone 2   (8g 19s 98c)
    Elixir of the Mongoose 5   (7g 49s 20c)
@@ -469,14 +471,14 @@ Sunor deaths:7
 
    total spent: 110g 55s 50c
 Teldelar deaths:6
-   Brilliant Mana Oil 4   (6g 3s 4c)
+   Brilliant Mana Oil 4   (7g 97s 52c)
    Mana Potion - Major 4   (6g 91s 64c)
    Mana Regeneration (food or mageblood) 7 
    Nature Protection 4 
    Spirit of Zanza 8   (15g 58s 80c)
    Tea with Sugar 12   (3g 31s 8c)
 
-   total spent: 31g 84s 56c
+   total spent: 33g 79s 4c
 Tlw deaths:5
    Blessed Wizard Oil 3   (16g 49s 94c)
    Demonic Rune 2 

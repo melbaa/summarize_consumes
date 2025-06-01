@@ -40,7 +40,7 @@ Aquatic deaths:2
 
    total spent: 65g 93s 47c
 Aveenna deaths:2
-   Brilliant Mana Oil 2   (3g 1s 52c)
+   Brilliant Mana Oil 2   (3g 98s 76c)
    Flask of Distilled Wisdom 1   (47g 47s 87c)
    Frost Protection 3 
    Greater Arcane Elixir 2   (5g 4s 34c)
@@ -49,9 +49,9 @@ Aveenna deaths:2
    Spirit of Zanza 1   (1g 94s 85c)
    Tea with Sugar 16   (4g 41s 44c)
 
-   total spent: 75g 73s 30c
+   total spent: 76g 70s 54c
 Bobbywf deaths:3
-   Brilliant Mana Oil 1   (1g 50s 76c)
+   Brilliant Mana Oil 1   (1g 99s 38c)
    Demonic Rune 1 
    Elixir of Greater Intellect 2   (1g 9s 98c)
    Frost Protection 2 
@@ -60,7 +60,7 @@ Bobbywf deaths:3
    Mana Potion - Superior 2   (1g 51s 44c)
    Shadow Protection 1 
 
-   total spent: 14g 35s 55c
+   total spent: 14g 84s 17c
 Bolyarka deaths:5
    Dragonbreath Chili 9   (13g 66s 38c)
    Dreamshard Elixir 1   (1g 99s 74c)
@@ -123,7 +123,7 @@ Eleae deaths:1
 
    total spent: 89g 31s 91c
 Interlan deaths:1
-   Brilliant Mana Oil 4   (6g 3s 4c)
+   Brilliant Mana Oil 4   (7g 97s 52c)
    Dreamshard Elixir 1   (1g 99s 74c)
    Elixir of Fortitude 1   (62s 31c)
    Fire Protection 1 
@@ -136,7 +136,7 @@ Interlan deaths:1
    Spirit of Zanza 1   (1g 94s 85c)
    Tea with Sugar 27   (7g 44s 93c)
 
-   total spent: 50g 61s 98c
+   total spent: 52g 56s 46c
 Jinp deaths:3
    Elixir of Fortitude 1   (62s 31c)
    Elixir of Giants 2   (2g 76s 6c)
@@ -292,7 +292,8 @@ Pitbound (self damage) deaths:0
 
    total spent: 1g 49s 95c
 Pristitute deaths:3
-   Brilliant Mana Oil 2   (3g 1s 52c)
+   Brilliant Mana Oil 2   (3g 98s 76c)
+   Crystal Force 3 
    Dreamshard Elixir 1   (1g 99s 74c)
    Elixir of Fortitude 2   (1g 24s 62c)
    Flask of Distilled Wisdom 1   (47g 47s 87c)
@@ -307,7 +308,7 @@ Pristitute deaths:3
    Spirit of Zanza 1   (1g 94s 85c)
    Tea with Sugar 5   (1g 37s 95c)
 
-   total spent: 73g 71s
+   total spent: 74g 68s 24c
 Psykhe deaths:2
    Consecrated Sharpening Stone 3   (12g 29s 97c)
    Elemental Sharpening Stone 1   (5g 38s 18c)
@@ -322,7 +323,7 @@ Psykhe deaths:2
 
    total spent: 53g 14s 91c
 Randgriz deaths:1
-   Brilliant Mana Oil 2   (3g 1s 52c)
+   Brilliant Mana Oil 2   (3g 98s 76c)
    Dreamshard Elixir 2   (3g 99s 48c)
    Flask of Distilled Wisdom 1   (47g 47s 87c)
    Frost Protection 1 
@@ -333,7 +334,7 @@ Randgriz deaths:1
    Spirit of Zanza 1   (1g 94s 85c)
    Tea with Sugar 11   (3g 3s 49c)
 
-   total spent: 83g 39s 77c
+   total spent: 84g 37s 1c
 Rila deaths:2
    Consecrated Sharpening Stone 4   (16g 39s 96c)
    Dense Dynamite 1   (1g 29s 87c)
@@ -449,7 +450,7 @@ Shizumo deaths:1
 
    total spent: 1g 76s 43c
 Snega deaths:2
-   Brilliant Mana Oil 4   (6g 3s 4c)
+   Brilliant Mana Oil 4   (7g 97s 52c)
    Dreamshard Elixir 2   (3g 99s 48c)
    Elixir of Fortitude 2   (1g 24s 62c)
    Fire Protection 1 
@@ -464,7 +465,7 @@ Snega deaths:2
    Spirit of Zanza 1   (1g 94s 85c)
    Tea with Sugar 17   (4g 69s 3c)
 
-   total spent: 88g 18s 29c
+   total spent: 90g 12s 77c
 Spankys deaths:1
    Elixir of Fortitude 1   (62s 31c)
    Elixir of the Mongoose 1   (1g 49s 84c)

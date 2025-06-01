@@ -317,6 +317,9 @@ _essence_of_fire = ConsumableItem(name="Essence of Fire", itemid=7078)
 _larval_acid = ConsumableItem(name="Larval Acid", itemid=18512)
 _small_dream_shard = ConsumableItem(name="Small Dream Shard", itemid=61198)
 _bright_dream_shard = ConsumableItem(name="Bright Dream Shard", itemid=61199)
+_green_power_crystal = ConsumableItem(name='Green Power Crystal', itemid=11185)
+_blue_power_crystal = ConsumableItem(name='Blue Power Crystal', itemid=11184)
+_red_power_crystal = ConsumableItem(name='Red Power Crystal', itemid=11186)
 
 
 _all_defined_consumable_items: List[ConsumableItem] = [
@@ -333,14 +336,36 @@ _all_defined_consumable_items: List[ConsumableItem] = [
     _larval_acid,
     _small_dream_shard,
     _bright_dream_shard,
+    _green_power_crystal,
+    _blue_power_crystal,
+    _red_power_crystal,
+
+    ConsumableItem(
+        name='Crystal Ward',
+        charges=6,
+        components=[
+            (_green_power_crystal, 10),
+            (_red_power_crystal, 10),
+        ],
+
+        spell_aliases=[('gains_line', 'Crystal Ward')],
+        itemid=None
+    ),
+
+    ConsumableItem(
+        name='Crystal Force',
+        charges=6,
+        components=[
+            (_green_power_crystal, 10),
+            (_blue_power_crystal, 10),
+        ],
+        spell_aliases=[('gains_line', 'Crystal Force')],
+        itemid=None
+    ),
 
     ConsumableItem(
         name="Brilliant Mana Oil",
         charges=5,
-        components=[
-            (_purple_lotus, 3),
-            (_large_brilliant_shard, 2),
-        ],
         itemid=20748
     ),
     ConsumableItem(
@@ -458,15 +483,9 @@ _all_defined_consumable_items: List[ConsumableItem] = [
     ConsumableItem(name='Bogling Root', itemid=5206,
         spell_aliases=[('gains_line', 'Fury of the Bogling')]
     ),
-
-
     ConsumableItem(name='Bloodkelp Elixir of Resistance', itemid=22193,
         spell_aliases=[('gains_line', 'Elixir of Resistance')]
     ),
-
-
-
-
     ConsumableItem(name='Crystal Basilisk Spine', itemid=1703,
         spell_aliases=[('gains_line', 'Crystal Protection')]
     ),
@@ -599,6 +618,8 @@ _all_defined_consumable_items: List[ConsumableItem] = [
         spell_aliases=[('gains_line', "Greater Intellect")]
     ),
     ConsumableItem(name='Rejuvenation Potion - Major', itemid=18253),
+    ConsumableItem(name='Rejuvenation Potion - Minor', itemid=2456),
+
     ConsumableItem(name='Swiftness Potion', itemid=2459),
     ConsumableItem(name='Invisibility Potion', itemid=9172,
         spell_aliases=[('gains_line', "Invisibility")]
@@ -626,7 +647,6 @@ _all_defined_consumable_items: List[ConsumableItem] = [
     ConsumableItem(name='Poisonous Mushroom', itemid=5823),
     ConsumableItem(name='Nightfin Soup', itemid=13931),
     ConsumableItem(name="Major Troll's Blood Potion", itemid=20004),
-    ConsumableItem(name='Major Rejuvenation Potion', itemid=18253),
     ConsumableItem(name='Magic Resistance Potion', itemid=9036),
     ConsumableItem(name='Living Action Potion', itemid=20008),
     ConsumableItem(name='Le Fishe Au Chocolat', itemid=84040),
@@ -692,9 +712,11 @@ RENAME_CONSUMABLE = {
 NAME2ITEMID = {
     consumable.name: consumable.itemid
     for consumable in _all_defined_consumable_items
+    if consumable.itemid
 }
 
 NAME2ITEMID_BOP = {
+    "Fire-toasted Bun",
     'Slumber Sand',
     'Conjured Crystal Water',
     'Conjured Mana Orange',
@@ -722,6 +744,8 @@ NAME2ITEMID_BOP = {
     'Stratholme Holy Water',
     'Rumsey Rum',
 }
+
+# used for pricing
 ITEMID2NAME = { value: key for key, value in NAME2ITEMID.items() }
 
 
@@ -748,7 +772,6 @@ BEGINS_TO_CAST_CONSUMABLE = {
     "Iron Grenade",
     "Thorium Grenade",
     "Kreeg's Stout Beatdown",
-    "Fire-toasted Bun",
     "Sharpen Blade V",
     "Enhance Blunt Weapon V",
 }
@@ -765,10 +788,9 @@ CASTS_CONSUMABLE = {
 
 
 GAINS_CONSUMABLE = {
-    'Crystal Force',
-    "Crystal Ward",
-    "Fire-toasted Bun",
-    "Blessed Sunfruit",
+    "Fire-toasted Bun",  # bop
+    "Blessed Sunfruit",  # bop
+    "Blessed Sunfruit Juice",  # bop
     "Noggenfogger Elixir",  # bop
     "Rumsey Rum",  # bop
     "Gordok Green Grog",  # bop
@@ -812,7 +834,6 @@ USES_CONSUMABLE_SAFE = {
     'Crystal Charge',
     'Conjured Mana Orange',
     'Conjured Crystal Water',
-    'Blessed Sunfruit Juice',
     'Winter Veil Eggnog',
     'Winter Veil Candy',
     'Winter Veil Cookie',
@@ -882,6 +903,7 @@ USES_CONSUMABLE_OVERWRITE = {
     'Nightfin Soup': 'Mana Regeneration (food or mageblood)',
     'Tea with Sugar': 'Tea with Sugar',
 
+
     # superwow counts are lower, because 'begins to cast' may not actually cast the spell
     'Dense Weightstone': 'Dense Weightstone',
     'Brilliant Mana Oil': 'Brilliant Mana Oil',
@@ -919,6 +941,7 @@ USES_CONSUMABLE_ENHANCE = {
     'Elixir of Brute Force': 'Elixir of Brute Force',
     'Bogling Root': 'Bogling Root',
     'Blessed Sunfruit': 'Blessed Sunfruit',
+    'Blessed Sunfruit Juice': 'Blessed Sunfruit Juice',
     'Jungle Remedy': 'Jungle Remedy',
     'Lucidity Potion': 'Lucidity Potion',
     "Solid Dynamite": "Solid Dynamite",
@@ -968,7 +991,8 @@ USES_CONSUMABLE_ENHANCE = {
     'Elixir of Shadow Power': 'Elixir of Shadow Power',
     'Elixir of Greater Firepower': 'Elixir of Greater Firepower',
     'Elixir of Firepower': 'Elixir of Firepower',
-    'Major Rejuvenation Potion': 'Major Rejuvenation Potion',
+    'Major Rejuvenation Potion': 'Rejuvenation Potion - Major',
+    'Minor Rejuvenation Potion': 'Rejuvenation Potion - Minor',
     'Invisibility Potion': 'Invisibility Potion',
     'Elixir of Greater Defense': 'Elixir of Greater Defense',
     'Dark Rune': 'Dark Rune',

@@ -32,7 +32,7 @@ Abstractz deaths:6
 
    total spent: 304g 86s 99c
 Almouty deaths:5
-   Brilliant Mana Oil 5   (7g 53s 80c)
+   Brilliant Mana Oil 5   (9g 96s 90c)
    Flask of Distilled Wisdom 1   (47g 47s 87c)
    Frost Protection 1 
    Mana Potion - Major 12   (20g 74s 92c)
@@ -41,7 +41,7 @@ Almouty deaths:5
    Spirit of Zanza 3   (5g 84s 55c)
    Tea with Sugar 18   (4g 96s 62c)
 
-   total spent: 86g 57s 76c
+   total spent: 89g 86c
 Ancst deaths:1
    Brilliant Wizard Oil 1   (1g 93s 98c)
    Dreamshard Elixir 2   (3g 99s 48c)
@@ -256,7 +256,7 @@ Drapes deaths:6
 
    total spent: 164g 3s 16c
 Ergofobia deaths:7
-   Brilliant Mana Oil 3   (4g 52s 28c)
+   Brilliant Mana Oil 3   (5g 98s 14c)
    Fire Protection 1 
    Flask of Distilled Wisdom 1   (47g 47s 87c)
    Frost Protection 3 
@@ -266,7 +266,7 @@ Ergofobia deaths:7
    Spirit of Zanza 5   (9g 74s 25c)
    Tea with Sugar 6   (1g 65s 54c)
 
-   total spent: 70g 84s 74c
+   total spent: 72g 30s 60c
 Interlani deaths:2
    Brilliant Wizard Oil 7   (13g 57s 86c)
    Dreamshard Elixir 4   (7g 98s 96c)
@@ -443,7 +443,7 @@ Ryx deaths:2
 
    total spent: 12g 32s 64c
 Sanwen deaths:3
-   Brilliant Mana Oil 3   (4g 52s 28c)
+   Brilliant Mana Oil 3   (5g 98s 14c)
    Flask of Distilled Wisdom 1   (47g 47s 87c)
    Increased Intellect 6 
    Increased Stamina 2 
@@ -455,9 +455,9 @@ Sanwen deaths:3
    Stratholme Holy Water 1 
    Tea with Sugar 12   (3g 31s 8c)
 
-   total spent: 70g 79s 94c
+   total spent: 72g 25s 80c
 Seidhkona deaths:4
-   Brilliant Mana Oil 5   (7g 53s 80c)
+   Brilliant Mana Oil 5   (9g 96s 90c)
    Dreamshard Elixir 6   (11g 98s 44c)
    Fire Protection 1 
    Flask of Distilled Wisdom 1   (47g 47s 87c)
@@ -471,9 +471,9 @@ Seidhkona deaths:4
    Spirit of Zanza 2   (3g 89s 70c)
    Tea with Sugar 3   (82s 77c)
 
-   total spent: 89g 18s 46c
+   total spent: 91g 61s 56c
 Shadowheals deaths:5
-   Brilliant Mana Oil 3   (4g 52s 28c)
+   Brilliant Mana Oil 3   (5g 98s 14c)
    Flask of Distilled Wisdom 1   (47g 47s 87c)
    Frost Protection 2 
    Increased Stamina 1 
@@ -481,7 +481,7 @@ Shadowheals deaths:5
    Mana Regeneration (food or mageblood) 1 
    Shadow Protection 4 
 
-   total spent: 53g 73s 6c
+   total spent: 55g 18s 92c
 Shreked deaths:5
    Arcane Elixir 7 
    Blessed Wizard Oil 3   (16g 49s 94c)
@@ -550,7 +550,7 @@ Starraven deaths:6
 
    total spent: 149g 38s 94c
 Suigetsu deaths:3
-   Brilliant Mana Oil 6   (9g 4s 56c)
+   Brilliant Mana Oil 6   (11g 96s 28c)
    Fire Protection 2 
    Flask of Distilled Wisdom 1   (47g 47s 87c)
    Frost Protection 1 
@@ -562,7 +562,7 @@ Suigetsu deaths:3
    Spirit of Zanza 3   (5g 84s 55c)
    Tea with Sugar 11   (3g 3s 49c)
 
-   total spent: 99g 12s 38c
+   total spent: 102g 4s 10c
 Sunwelp deaths:5
    Blessed Wizard Oil 3   (16g 49s 94c)
    Brilliant Wizard Oil 3   (5g 81s 94c)
@@ -653,7 +653,7 @@ Vallcow deaths:4
 
    total spent: 218g 14s 17c
 Valurian deaths:3
-   Brilliant Mana Oil 3   (4g 52s 28c)
+   Brilliant Mana Oil 3   (5g 98s 14c)
    Invulnerability 3   (4g 77s 84c)
    Mana Potion - Major 8   (13g 83s 28c)
    Mana Regeneration (food or mageblood) 4 
@@ -663,10 +663,10 @@ Valurian deaths:3
    Tea with Sugar 8   (2g 20s 72c)
    Thorium Grenade 5   (4g 49s 45c)
 
-   total spent: 36g 8s 9c
+   total spent: 37g 53s 95c
 Yakub deaths:5
    Arcane Protection 1 
-   Brilliant Mana Oil 6   (9g 4s 56c)
+   Brilliant Mana Oil 6   (11g 96s 28c)
    Elixir of Fortitude 4   (2g 49s 24c)
    Fire Protection 1 
    Flask of Distilled Wisdom 1   (47g 47s 87c)
@@ -678,7 +678,7 @@ Yakub deaths:5
    Spirit of Zanza 3   (5g 84s 55c)
    Tea with Sugar 28   (7g 72s 52c)
 
-   total spent: 105g 44s 3c
+   total spent: 108g 35s 75c
 Zdraxus deaths:5
    Arcane Elixir 1 
    Gordok Green Grog 4 
