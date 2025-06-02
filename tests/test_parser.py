@@ -168,10 +168,12 @@ def test_gains_consumable_line(app):
 6/29 22:01:40.488  Kuroiyuusha gains Fire-toasted Bun (1).
 7/14 20:12:11.200  Xelya gains Lucidity Potion (1).
 6/30 13:35:20.360  Turkishboss gains Fire-toasted Bun (1).
+6/30 13:35:20.360  Turkishboss gains Elixir of Resistance (1).
 """
     lines = lines.splitlines(keepends=True)
     for line in lines:
         parse_line(app, line)
+    assert app.player['Turkishboss']['Bloodkelp Elixir of Resistance'] == 1
     assert app.player['Turkishboss']['Fire-toasted Bun'] == 1
     assert app.player['Xelya']['Lucidity Potion'] == 1
     assert app.player['Kuroiyuusha']['Fire-toasted Bun'] == 1

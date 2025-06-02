@@ -209,7 +209,7 @@ Getterfour deaths:7
 
    total spent: 130g 17s 64c
 Illasei deaths:5
-   Bloodkelp Elixir of Resistance 3 
+   Elixir of Resistance 3 
    Elixir of the Mongoose 5   (7g 49s 20c)
    Flask of the Titans 1   (72g 79s 93c)
    Frost Protection 6 

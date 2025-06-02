@@ -30,7 +30,10 @@ from plotly.subplots import make_subplots
 from typing_extensions import Self
 
 from melbalabs.summarize_consumes import grammar
-from melbalabs.summarize_consumes.consumable import ConsumableItem
+from melbalabs.summarize_consumes.consumable import Consumable
+from melbalabs.summarize_consumes.consumable import DirectPrice
+from melbalabs.summarize_consumes.consumable import PriceFromComponents
+from melbalabs.summarize_consumes.consumable import NoPrice
 import melbalabs.summarize_consumes.package as package
 
 
@@ -304,25 +307,25 @@ class HitsConsumable:
             raise RuntimeError('fixme')
 
 
-_purple_lotus = ConsumableItem(name="Purple Lotus", itemid=8831)
-_large_brilliant_shard = ConsumableItem(name="Large Brilliant Shard", itemid=14344)
-_scorpok_pincer = ConsumableItem(name="Scorpok Pincer", itemid=8393)
-_blasted_boar_lung = ConsumableItem(name="Blasted Boar Lung", itemid=8392)
-_snickerfang_jowl = ConsumableItem(name="Snickerfang Jowl", itemid=8391)
-_basilisk_brain = ConsumableItem(name="Basilisk Brain", itemid=8394)
-_vulture_gizzard = ConsumableItem(name="Vulture Gizzard", itemid=8396)
-_zulian_coin = ConsumableItem(name="Zulian Coin", itemid=19698)
-_deeprock_salt = ConsumableItem(name="Deeprock Salt", itemid=8150)
-_essence_of_fire = ConsumableItem(name="Essence of Fire", itemid=7078)
-_larval_acid = ConsumableItem(name="Larval Acid", itemid=18512)
-_small_dream_shard = ConsumableItem(name="Small Dream Shard", itemid=61198)
-_bright_dream_shard = ConsumableItem(name="Bright Dream Shard", itemid=61199)
-_green_power_crystal = ConsumableItem(name='Green Power Crystal', itemid=11185)
-_blue_power_crystal = ConsumableItem(name='Blue Power Crystal', itemid=11184)
-_red_power_crystal = ConsumableItem(name='Red Power Crystal', itemid=11186)
+_purple_lotus = Consumable(name="Purple Lotus", price=DirectPrice(itemid=8831))
+_large_brilliant_shard = Consumable(name="Large Brilliant Shard", price=DirectPrice(itemid=14344))
+_scorpok_pincer = Consumable(name="Scorpok Pincer", price=DirectPrice(itemid=8393))
+_blasted_boar_lung = Consumable(name="Blasted Boar Lung", price=DirectPrice(itemid=8392))
+_snickerfang_jowl = Consumable(name="Snickerfang Jowl", price=DirectPrice(itemid=8391))
+_basilisk_brain = Consumable(name="Basilisk Brain", price=DirectPrice(itemid=8394))
+_vulture_gizzard = Consumable(name="Vulture Gizzard", price=DirectPrice(itemid=8396))
+_zulian_coin = Consumable(name="Zulian Coin", price=DirectPrice(itemid=19698))
+_deeprock_salt = Consumable(name="Deeprock Salt", price=DirectPrice(itemid=8150))
+_essence_of_fire = Consumable(name="Essence of Fire", price=DirectPrice(itemid=7078))
+_larval_acid = Consumable(name="Larval Acid", price=DirectPrice(itemid=18512))
+_small_dream_shard = Consumable(name="Small Dream Shard", price=DirectPrice(itemid=61198))
+_bright_dream_shard = Consumable(name="Bright Dream Shard", price=DirectPrice(itemid=61199))
+_green_power_crystal = Consumable(name='Green Power Crystal', price=DirectPrice(itemid=11185))
+_blue_power_crystal = Consumable(name='Blue Power Crystal', price=DirectPrice(itemid=11184))
+_red_power_crystal = Consumable(name='Red Power Crystal', price=DirectPrice(itemid=11186))
 
 
-_all_defined_consumable_items: List[ConsumableItem] = [
+_all_defined_consumable_items: List[Consumable] = [
     _purple_lotus,
     _large_brilliant_shard,
     _scorpok_pincer,
@@ -340,339 +343,339 @@ _all_defined_consumable_items: List[ConsumableItem] = [
     _blue_power_crystal,
     _red_power_crystal,
 
-    ConsumableItem(
+
+    # bop stuff
+    Consumable(
+        name='Bloodkelp Elixir of Resistance',
+        price=NoPrice(),
+        spell_aliases=[('gains_line', 'Elixir of Resistance')],
+    ),
+    Consumable(
+        name="Fire-toasted Bun",
+        price=NoPrice(),
+        spell_aliases=[('gains_line', "Fire-toasted Bun")],
+    ),
+
+
+
+    Consumable(
         name='Crystal Ward',
-        charges=6,
-        components=[
-            (_green_power_crystal, 10),
-            (_red_power_crystal, 10),
-        ],
-
+        price=PriceFromComponents(
+            charges=6,
+            components=[
+                (_green_power_crystal, 10),
+                (_red_power_crystal, 10),
+            ]
+        ),
         spell_aliases=[('gains_line', 'Crystal Ward')],
-        itemid=None
     ),
 
-    ConsumableItem(
+    Consumable(
         name='Crystal Force',
-        charges=6,
-        components=[
-            (_green_power_crystal, 10),
-            (_blue_power_crystal, 10),
-        ],
+        price=PriceFromComponents(
+            charges=6,
+            components=[
+                (_green_power_crystal, 10),
+                (_blue_power_crystal, 10),
+            ]
+        ),
         spell_aliases=[('gains_line', 'Crystal Force')],
-        itemid=None
     ),
 
-    ConsumableItem(
+    Consumable(
         name="Brilliant Mana Oil",
-        charges=5,
-        itemid=20748
+        price=DirectPrice(charges=5, itemid=20748)
     ),
-    ConsumableItem(
+    Consumable(
         name="Lesser Mana Oil",
-        charges=5,
-        itemid=20747
+        price=DirectPrice(charges=5, itemid=20747)
     ),
-    ConsumableItem(
+    Consumable(
         name="Brilliant Wizard Oil",
-        charges=5,
-        itemid=20749
+        price=DirectPrice(charges=5, itemid=20749)
     ),
-    ConsumableItem(
+    Consumable(
         name="Wizard Oil",
-        charges=5,
-        itemid=20750
+        price=DirectPrice(charges=5, itemid=20750)
     ),
-    ConsumableItem(
+    Consumable(
         name='Rage of Ages (ROIDS)',
-        components=[
+        price=PriceFromComponents(components=[
             (_scorpok_pincer, 1),
             (_blasted_boar_lung, 2),
             (_snickerfang_jowl, 3),
-        ],
-        itemid=None,
+        ]),
         spell_aliases=[('gains_line', 'Rage of Ages')]
     ),
-    ConsumableItem(
+    Consumable(
         name='Strike of the Scorpok',
-        components=[
+        price=PriceFromComponents(components=[
             (_blasted_boar_lung, 1),
             (_vulture_gizzard, 2),
             (_scorpok_pincer, 3),
-        ],
-        itemid=None,
+        ]),
         spell_aliases=[('gains_line', 'Strike of the Scorpok')]
     ),
-    ConsumableItem(
+    Consumable(
         name='Lung Juice Cocktail',
-        components=[
+        price=PriceFromComponents(components=[
             (_basilisk_brain, 1),
             (_scorpok_pincer, 2),
             (_blasted_boar_lung, 3),
-        ],
-        itemid=None,
+        ]),
         spell_aliases=[('gains_line', 'Spirit of the Boar')]
     ),
-    ConsumableItem(
+    Consumable(
         name='Infallible Mind (Cerebral Cortex Compound)',
-        components=[
+        price=PriceFromComponents(components=[
             (_basilisk_brain, 10),
             (_vulture_gizzard, 2),
-        ],
-        itemid=None,
+        ]),
         spell_aliases=[('gains_line', 'Infallible Mind')]
     ),
-    ConsumableItem(
+    Consumable(
         name="Sheen of Zanza",
-        components=[(_zulian_coin, 3)],
-        itemid=None,
+        price=PriceFromComponents(components=[(_zulian_coin, 3)]),
         spell_aliases=[('gains_line', 'Sheen of Zanza')]
     ),
-    ConsumableItem(
+    Consumable(
         name="Spirit of Zanza",
-        components=[(_zulian_coin, 3)],
-        itemid=None,
+        price=PriceFromComponents(components=[(_zulian_coin, 3)]),
         spell_aliases=[('gains_line', 'Spirit of Zanza')]
     ),
-    ConsumableItem(
+    Consumable(
         name="Swiftness of Zanza",
-        components=[(_zulian_coin, 3)],
-        itemid=None,
+        price=PriceFromComponents(components=[(_zulian_coin, 3)]),
         spell_aliases=[('gains_line', 'Swiftness of Zanza')]
     ),
-    ConsumableItem(
+    Consumable(
         name="Powerful Smelling Salts",
-        components=[
+        price=PriceFromComponents(components=[
             (_deeprock_salt, 4),
             (_essence_of_fire, 2),
             (_larval_acid, 1),
-        ],
-        itemid=None
+        ]),
     ),
-    ConsumableItem(
+    Consumable(
         name="Tea with Sugar",
-        components=[(_small_dream_shard, 1/5)],
-        itemid=None
+        price=PriceFromComponents(components=[(_small_dream_shard, 1/5)]),
     ),
-    ConsumableItem(
+    Consumable(
         name="Emerald Blessing",
-        components=[(_bright_dream_shard, 1)],
-        itemid=None
+        price=PriceFromComponents(components=[(_bright_dream_shard, 1)]),
     ),
-    ConsumableItem(name='Hourglass Sand', itemid=19183),
+    Consumable(name='Hourglass Sand', price=DirectPrice(itemid=19183)),
 
-    ConsumableItem(name='Restorative Potion', itemid=9030,
+    Consumable(name='Restorative Potion', price=DirectPrice(itemid=9030),
         spell_aliases=[('gains_line', "Restoration")],
     ),
-    ConsumableItem(name='Flask of Chromatic Resistance', itemid=13513,
+    Consumable(name='Flask of Chromatic Resistance', price=DirectPrice(itemid=13513),
         spell_aliases=[('gains_line', "Chromatic Resistance")],
     ),
-    ConsumableItem(name='Flask of the Titans', itemid=13510,
+    Consumable(name='Flask of the Titans', price=DirectPrice(itemid=13510),
         spell_aliases=[('gains_line', 'Flask of the Titans')]
     ),
-    ConsumableItem(name='Flask of Supreme Power', itemid=13512,
+    Consumable(name='Flask of Supreme Power', price=DirectPrice(itemid=13512),
         spell_aliases=[('gains_line', 'Supreme Power')]
     ),
-    ConsumableItem(name='Flask of Distilled Wisdom', itemid=13511,
+    Consumable(name='Flask of Distilled Wisdom', price=DirectPrice(itemid=13511),
         spell_aliases=[('gains_line', 'Distilled Wisdom')]
     ),
-    ConsumableItem(name='Flask of Petrification', itemid=13506),
-    ConsumableItem(name='Elixir of Fortitude', itemid=3825,
+    Consumable(name='Flask of Petrification', price=DirectPrice(itemid=13506)),
+    Consumable(name='Elixir of Fortitude', price=DirectPrice(itemid=3825),
         spell_aliases=[('gains_line', 'Health II')]
     ),
-    ConsumableItem(name='Bogling Root', itemid=5206,
+    Consumable(name='Bogling Root', price=DirectPrice(itemid=5206),
         spell_aliases=[('gains_line', 'Fury of the Bogling')]
     ),
-    ConsumableItem(name='Bloodkelp Elixir of Resistance', itemid=22193,
-        spell_aliases=[('gains_line', 'Elixir of Resistance')]
-    ),
-    ConsumableItem(name='Crystal Basilisk Spine', itemid=1703,
+    Consumable(name='Crystal Basilisk Spine', price=DirectPrice(itemid=1703),
         spell_aliases=[('gains_line', 'Crystal Protection')]
     ),
-    ConsumableItem(name='??? Elixir of the Sages ???', itemid=13447,
+    Consumable(name='??? Elixir of the Sages ???', price=DirectPrice(itemid=13447),
         spell_aliases=[('gains_line', 'Elixir of the Sages')]
     ),
-    ConsumableItem(name='Elixir of Shadow Power', itemid=9264,
+    Consumable(name='Elixir of Shadow Power', price=DirectPrice(itemid=9264),
         spell_aliases=[('gains_line', 'Shadow Power')]
     ),
-    ConsumableItem(name='Elixir of Greater Firepower', itemid=21546,
+    Consumable(name='Elixir of Greater Firepower', price=DirectPrice(itemid=21546),
         spell_aliases=[('gains_line', 'Greater Firepower')]
     ),
-    ConsumableItem(name='Elixir of Firepower', itemid=6373,
+    Consumable(name='Elixir of Firepower', price=DirectPrice(itemid=6373),
         spell_aliases=[('gains_line', 'Fire Power')]
     ),
-    ConsumableItem(name='Elixir of Greater Agility', itemid=9187,
+    Consumable(name='Elixir of Greater Agility', price=DirectPrice(itemid=9187),
         spell_aliases=[('gains_line', 'Greater Agility')]
     ),
-    ConsumableItem(name='Elixir of Superior Defense', itemid=13445,
+    Consumable(name='Elixir of Superior Defense', price=DirectPrice(itemid=13445),
         spell_aliases=[('gains_line', 'Greater Armor')]
     ),
-    ConsumableItem(name='Free Action Potion', itemid=5634,
+    Consumable(name='Free Action Potion', price=DirectPrice(itemid=5634),
         spell_aliases=[('gains_line', 'Free Action')]
     ),
-    ConsumableItem(name='Elixir of Frost Power', itemid=17708,
+    Consumable(name='Elixir of Frost Power', price=DirectPrice(itemid=17708),
         spell_aliases=[('gains_line', 'Frost Power')]
     ),
-    ConsumableItem(name='Greater Arcane Elixir', itemid=13454,
+    Consumable(name='Greater Arcane Elixir', price=DirectPrice(itemid=13454),
         spell_aliases=[('gains_line', 'Greater Arcane Elixir')]
     ),
-    ConsumableItem(name='Thistle Tea', itemid=7676,
+    Consumable(name='Thistle Tea', price=DirectPrice(itemid=7676),
         spell_aliases=[('gains_line', '100 energy')]
     ),
-    ConsumableItem(name='Elemental Sharpening Stone', itemid=18262),
-    ConsumableItem(name='Elixir of the Mongoose', itemid=13452,
+    Consumable(name='Elemental Sharpening Stone', price=DirectPrice(itemid=18262)),
+    Consumable(name='Elixir of the Mongoose', price=DirectPrice(itemid=13452),
         spell_aliases=[('gains_line', 'Elixir of the Mongoose')]
     ),
-    ConsumableItem(name='Elixir of Brute Force', itemid=13453,
+    Consumable(name='Elixir of Brute Force', price=DirectPrice(itemid=13453),
         spell_aliases=[('gains_line', 'Elixir of Brute Force')]
     ),
-    ConsumableItem(name='Winterfall Firewater', itemid=12820,
+    Consumable(name='Winterfall Firewater', price=DirectPrice(itemid=12820),
         spell_aliases=[('gains_line', 'Winterfall Firewater')]
     ),
-    ConsumableItem(name='Juju Power', itemid=12431),
-    ConsumableItem(name='Juju Flurry', itemid=12430),
-    ConsumableItem(name='Juju Might', itemid=12436),
-    ConsumableItem(name='Juju Guile', itemid=12433),
-    ConsumableItem(name='Juju Escape', itemid=12435),
-    ConsumableItem(name='Juju Ember', itemid=12432),
-    ConsumableItem(name='Juju Chill', itemid=12434),
-    ConsumableItem(name='Gurubashi Gumbo', itemid=53015),
-    ConsumableItem(name='Hardened Mushroom', itemid=51717),
-    ConsumableItem(name='Power Mushroom', itemid=51720),
-    ConsumableItem(name='Oil of Immolation', itemid=8956),
+    Consumable(name='Juju Power', price=DirectPrice(itemid=12431)),
+    Consumable(name='Juju Flurry', price=DirectPrice(itemid=12430)),
+    Consumable(name='Juju Might', price=DirectPrice(itemid=12436)),
+    Consumable(name='Juju Guile', price=DirectPrice(itemid=12433)),
+    Consumable(name='Juju Escape', price=DirectPrice(itemid=12435)),
+    Consumable(name='Juju Ember', price=DirectPrice(itemid=12432)),
+    Consumable(name='Juju Chill', price=DirectPrice(itemid=12434)),
+    Consumable(name='Gurubashi Gumbo', price=DirectPrice(itemid=53015)),
+    Consumable(name='Hardened Mushroom', price=DirectPrice(itemid=51717)),
+    Consumable(name='Power Mushroom', price=DirectPrice(itemid=51720)),
+    Consumable(name='Oil of Immolation', price=DirectPrice(itemid=8956)),
 
 
 
-    ConsumableItem(name='??? Lesser Stoneshield Potion ???', itemid=4623,
+    Consumable(name='??? Lesser Stoneshield Potion ???', price=DirectPrice(itemid=4623),
         spell_aliases=[('gains_line', 'Stoneshield')]
     ),
-    ConsumableItem(name='Greater Stoneshield', itemid=13455,
+    Consumable(name='Greater Stoneshield', price=DirectPrice(itemid=13455),
         spell_aliases=[('gains_line', 'Greater Stoneshield')]
     ),
-    ConsumableItem(name='Lucidity Potion', itemid=61225,
+    Consumable(name='Lucidity Potion', price=DirectPrice(itemid=61225),
         spell_aliases=[('gains_line', 'Lucidity Potion')]
     ),
-    ConsumableItem(name='Mana Potion - Greater', itemid=6149),
-    ConsumableItem(name='Mana Potion - Superior', itemid=13443),
-    ConsumableItem(name='Mana Potion - Major', itemid=13444),
-    ConsumableItem(name='Restorative Potion', itemid=9030),
-    ConsumableItem(name='Healing Potion - Major', itemid=13446),
-    ConsumableItem(name='Healing Potion - Superior', itemid=3928),
-    ConsumableItem(name='Elixir of Giants', itemid=9206,
+    Consumable(name='Mana Potion - Greater', price=DirectPrice(itemid=6149)),
+    Consumable(name='Mana Potion - Superior', price=DirectPrice(itemid=13443)),
+    Consumable(name='Mana Potion - Major', price=DirectPrice(itemid=13444)),
+    Consumable(name='Restorative Potion', price=DirectPrice(itemid=9030)),
+    Consumable(name='Healing Potion - Major', price=DirectPrice(itemid=13446)),
+    Consumable(name='Healing Potion - Superior', price=DirectPrice(itemid=3928)),
+    Consumable(name='Elixir of Giants', price=DirectPrice(itemid=9206),
         spell_aliases=[('gains_line', 'Elixir of the Giants')]
     ),
-    ConsumableItem(name='Rumsey Rum Black Label', itemid=21151,
+    Consumable(name='Rumsey Rum Black Label', price=DirectPrice(itemid=21151),
         spell_aliases=[('gains_line', 'Rumsey Rum Black Label')]
     ),
-    ConsumableItem(name='Rumsey Rum Dark', itemid=21114,
+    Consumable(name='Rumsey Rum Dark', price=DirectPrice(itemid=21114),
         spell_aliases=[('gains_line', 'Rumsey Rum Dark')]
     ),
-    ConsumableItem(name='Consecrated Sharpening Stone', itemid=23122),
-    ConsumableItem(name='Invulnerability', itemid=3387,
+    Consumable(name='Consecrated Sharpening Stone', price=DirectPrice(itemid=23122)),
+    Consumable(name='Invulnerability', price=DirectPrice(itemid=3387),
         spell_aliases=[('gains_line', 'Invulnerability')]
     ),
-    ConsumableItem(name='Dragonbreath Chili', itemid=12217),
-    ConsumableItem(name='Dreamtonic', itemid=61423,
+    Consumable(name='Dragonbreath Chili', price=DirectPrice(itemid=12217)),
+    Consumable(name='Dreamtonic', price=DirectPrice(itemid=61423),
         spell_aliases=[('gains_line', 'Dreamtonic')]
     ),
-    ConsumableItem(name='Goblin Sapper Charge', itemid=10646),
-    ConsumableItem(name="Medivh's Merlot Blue Label", itemid=61175,
+    Consumable(name='Goblin Sapper Charge', price=DirectPrice(itemid=10646)),
+    Consumable(name="Medivh's Merlot Blue Label", price=DirectPrice(itemid=61175),
         spell_aliases=[('gains_line', "Medivh's Merlot Blue Label")]
     ),
-    ConsumableItem(name="Medivh's Merlot", itemid=61174,
+    Consumable(name="Medivh's Merlot", price=DirectPrice(itemid=61174),
         spell_aliases=[('gains_line', "Medivh's Merlot")]
     ),
-    ConsumableItem(name='Greater Arcane Protection Potion', itemid=13461),
-    ConsumableItem(name='Greater Holy Protection Potion', itemid=13460),
-    ConsumableItem(name='Greater Shadow Protection Potion', itemid=13459),
-    ConsumableItem(name='Greater Nature Protection Potion', itemid=13458),
-    ConsumableItem(name='Greater Fire Protection Potion', itemid=13457),
-    ConsumableItem(name='Greater Frost Protection Potion', itemid=13456),
-    ConsumableItem(name='Holy Protection Potion', itemid=6051),
-    ConsumableItem(name='Shadow Protection Potion', itemid=6048),
-    ConsumableItem(name='Nature Protection Potion', itemid=6052),
-    ConsumableItem(name='Fire Protection Potion', itemid=6049),
-    ConsumableItem(name='Frost Protection Potion', itemid=6050),
-    ConsumableItem(name='Dreamshard Elixir', itemid=61224,
+    Consumable(name='Greater Arcane Protection Potion', price=DirectPrice(itemid=13461)),
+    Consumable(name='Greater Holy Protection Potion', price=DirectPrice(itemid=13460)),
+    Consumable(name='Greater Shadow Protection Potion', price=DirectPrice(itemid=13459)),
+    Consumable(name='Greater Nature Protection Potion', price=DirectPrice(itemid=13458)),
+    Consumable(name='Greater Fire Protection Potion', price=DirectPrice(itemid=13457)),
+    Consumable(name='Greater Frost Protection Potion', price=DirectPrice(itemid=13456)),
+    Consumable(name='Holy Protection Potion', price=DirectPrice(itemid=6051)),
+    Consumable(name='Shadow Protection Potion', price=DirectPrice(itemid=6048)),
+    Consumable(name='Nature Protection Potion', price=DirectPrice(itemid=6052)),
+    Consumable(name='Fire Protection Potion', price=DirectPrice(itemid=6049)),
+    Consumable(name='Frost Protection Potion', price=DirectPrice(itemid=6050)),
+    Consumable(name='Dreamshard Elixir', price=DirectPrice(itemid=61224),
         spell_aliases=[('gains_line', 'Dreamshard Elixir')]
     ),
-    ConsumableItem(name='Mighty Rage Potion', itemid=13442),
-    ConsumableItem(name='Great Rage Potion', itemid=5633),
-    ConsumableItem(name='Rage Potion', itemid=5631),
-    ConsumableItem(name='Dense Dynamite', itemid=18641),
-    ConsumableItem(name='Solid Dynamite', itemid=10507),
-    ConsumableItem(name='Gift of Arthas', itemid=9088,
+    Consumable(name='Mighty Rage Potion', price=DirectPrice(itemid=13442)),
+    Consumable(name='Great Rage Potion', price=DirectPrice(itemid=5633)),
+    Consumable(name='Rage Potion', price=DirectPrice(itemid=5631)),
+    Consumable(name='Dense Dynamite', price=DirectPrice(itemid=18641)),
+    Consumable(name='Solid Dynamite', price=DirectPrice(itemid=10507)),
+    Consumable(name='Gift of Arthas', price=DirectPrice(itemid=9088),
         # both players and NPCs gain it, track only with superwow
     ),
-    ConsumableItem(name='Blessed Wizard Oil', itemid=23123),
-    ConsumableItem(name='Thorium Grenade', itemid=15993),
-    ConsumableItem(name='Iron Grenade', itemid=4390),
-    ConsumableItem(name='Grilled Squid', itemid=13928),
-    ConsumableItem(name='Potion of Quickness', itemid=61181,
+    Consumable(name='Blessed Wizard Oil', price=DirectPrice(itemid=23123)),
+    Consumable(name='Thorium Grenade', price=DirectPrice(itemid=15993)),
+    Consumable(name='Iron Grenade', price=DirectPrice(itemid=4390)),
+    Consumable(name='Grilled Squid', price=DirectPrice(itemid=13928)),
+    Consumable(name='Potion of Quickness', price=DirectPrice(itemid=61181),
         spell_aliases=[('gains_line', 'Potion of Quickness')]
     ),
-    ConsumableItem(name='Elixir of Greater Nature Power', itemid=50237,
+    Consumable(name='Elixir of Greater Nature Power', price=DirectPrice(itemid=50237),
         spell_aliases=[('gains_line', 'Elixir of Greater Nature Power')]
     ),
-    ConsumableItem(name='Elixir of Greater Intellect', itemid=9179,
+    Consumable(name='Elixir of Greater Intellect', price=DirectPrice(itemid=9179),
         spell_aliases=[('gains_line', "Greater Intellect")]
     ),
-    ConsumableItem(name='Rejuvenation Potion - Major', itemid=18253),
-    ConsumableItem(name='Rejuvenation Potion - Minor', itemid=2456),
+    Consumable(name='Rejuvenation Potion - Major', price=DirectPrice(itemid=18253)),
+    Consumable(name='Rejuvenation Potion - Minor', price=DirectPrice(itemid=2456)),
 
-    ConsumableItem(name='Swiftness Potion', itemid=2459),
-    ConsumableItem(name='Invisibility Potion', itemid=9172,
+    Consumable(name='Swiftness Potion', price=DirectPrice(itemid=2459)),
+    Consumable(name='Invisibility Potion', price=DirectPrice(itemid=9172),
         spell_aliases=[('gains_line', "Invisibility")]
     ),
-    ConsumableItem(name='Lesser Invisibility Potion', itemid=3823,
+    Consumable(name='Lesser Invisibility Potion', price=DirectPrice(itemid=3823),
         spell_aliases=[('gains_line', "Lesser Invisibility")]
     ),
-    ConsumableItem(name='Powerful Anti-Venom', itemid=19440),
-    ConsumableItem(name='Strong Anti-Venom', itemid=6453),
-    ConsumableItem(name='Anti-Venom', itemid=6452),
-    ConsumableItem(name='Dark Rune', itemid=20520),
-    ConsumableItem(name='Mageblood Potion', itemid=20007),
-    ConsumableItem(name="Danonzo's Tel'Abim Surprise", itemid=60976),
-    ConsumableItem(name="Danonzo's Tel'Abim Delight", itemid=60977),
-    ConsumableItem(name="Danonzo's Tel'Abim Medley", itemid=60978),
-    ConsumableItem(name='Wildvine Potion', itemid=9144),
-    ConsumableItem(name='Shadow Oil', itemid=3824),
-    ConsumableItem(name='Scroll of Stamina IV', itemid=10307),
-    ConsumableItem(name='Scroll of Strength IV', itemid=10310),
-    ConsumableItem(name='Scroll of Spirit IV', itemid=10306),
-    ConsumableItem(name='Scroll of Protection IV', itemid=10305),
-    ConsumableItem(name='Scroll of Intellect IV', itemid=10308),
-    ConsumableItem(name='Scroll of Agility IV', itemid=10309),
-    ConsumableItem(name='Purification Potion', itemid=13462),
-    ConsumableItem(name='Poisonous Mushroom', itemid=5823),
-    ConsumableItem(name='Nightfin Soup', itemid=13931),
-    ConsumableItem(name="Major Troll's Blood Potion", itemid=20004),
-    ConsumableItem(name='Magic Resistance Potion', itemid=9036),
-    ConsumableItem(name='Living Action Potion', itemid=20008),
-    ConsumableItem(name='Le Fishe Au Chocolat', itemid=84040),
-    ConsumableItem(name='Jungle Remedy', itemid=2633),
-    ConsumableItem(name="Graccu's Homemade Meat Pie", itemid=17407),
-    ConsumableItem(name='Frozen Rune', itemid=22682),
-    ConsumableItem(name='Greater Dreamless Sleep Potion', itemid=20002),
-    ConsumableItem(name='Empowering Herbal Salad', itemid=83309),
-    ConsumableItem(name='Elixir of Poison Resistance', itemid=3386),
-    ConsumableItem(name='Elixir of Greater Defense', itemid=8951),
-    ConsumableItem(name='Elixir of Giant Growth', itemid=6662,
+    Consumable(name='Powerful Anti-Venom', price=DirectPrice(itemid=19440)),
+    Consumable(name='Strong Anti-Venom', price=DirectPrice(itemid=6453)),
+    Consumable(name='Anti-Venom', price=DirectPrice(itemid=6452)),
+    Consumable(name='Dark Rune', price=DirectPrice(itemid=20520)),
+    Consumable(name='Mageblood Potion', price=DirectPrice(itemid=20007)),
+    Consumable(name="Danonzo's Tel'Abim Surprise", price=DirectPrice(itemid=60976)),
+    Consumable(name="Danonzo's Tel'Abim Delight", price=DirectPrice(itemid=60977)),
+    Consumable(name="Danonzo's Tel'Abim Medley", price=DirectPrice(itemid=60978)),
+    Consumable(name='Wildvine Potion', price=DirectPrice(itemid=9144)),
+    Consumable(name='Shadow Oil', price=DirectPrice(itemid=3824)),
+    Consumable(name='Scroll of Stamina IV', price=DirectPrice(itemid=10307)),
+    Consumable(name='Scroll of Strength IV', price=DirectPrice(itemid=10310)),
+    Consumable(name='Scroll of Spirit IV', price=DirectPrice(itemid=10306)),
+    Consumable(name='Scroll of Protection IV', price=DirectPrice(itemid=10305)),
+    Consumable(name='Scroll of Intellect IV', price=DirectPrice(itemid=10308)),
+    Consumable(name='Scroll of Agility IV', price=DirectPrice(itemid=10309)),
+    Consumable(name='Purification Potion', price=DirectPrice(itemid=13462)),
+    Consumable(name='Poisonous Mushroom', price=DirectPrice(itemid=5823)),
+    Consumable(name='Nightfin Soup', price=DirectPrice(itemid=13931)),
+    Consumable(name="Major Troll's Blood Potion", price=DirectPrice(itemid=20004)),
+    Consumable(name='Magic Resistance Potion', price=DirectPrice(itemid=9036)),
+    Consumable(name='Living Action Potion', price=DirectPrice(itemid=20008)),
+    Consumable(name='Le Fishe Au Chocolat', price=DirectPrice(itemid=84040)),
+    Consumable(name='Jungle Remedy', price=DirectPrice(itemid=2633)),
+    Consumable(name="Graccu's Homemade Meat Pie", price=DirectPrice(itemid=17407)),
+    Consumable(name='Frozen Rune', price=DirectPrice(itemid=22682)),
+    Consumable(name='Greater Dreamless Sleep Potion', price=DirectPrice(itemid=20002)),
+    Consumable(name='Empowering Herbal Salad', price=DirectPrice(itemid=83309)),
+    Consumable(name='Elixir of Poison Resistance', price=DirectPrice(itemid=3386)),
+    Consumable(name='Elixir of Greater Defense', price=DirectPrice(itemid=8951)),
+    Consumable(name='Elixir of Giant Growth', price=DirectPrice(itemid=6662),
         spell_aliases=[('gains_line', 'Enlarge')]
     ),
-    ConsumableItem(name='Elixir of Demonslaying', itemid=9224),
-    ConsumableItem(name='Arcane Elixir', itemid=9155,
+    Consumable(name='Elixir of Demonslaying', price=DirectPrice(itemid=9224)),
+    Consumable(name='Arcane Elixir', price=DirectPrice(itemid=9155),
         spell_aliases=[('gains_line', 'Arcane Elixir')]
     ),
-    ConsumableItem(name='Dense Sharpening Stone', itemid=12404),
-    ConsumableItem(name='Dense Weightstone', itemid=12643),
+    Consumable(name='Dense Sharpening Stone', price=DirectPrice(itemid=12404)),
+    Consumable(name='Dense Weightstone', price=DirectPrice(itemid=12643)),
 ]
 
-NAME2CONSUMABLE: Dict[str, ConsumableItem] = {
+
+NAME2CONSUMABLE: Dict[str, Consumable] = {
     item.name: item for item in _all_defined_consumable_items
 }
 
-RAWSPELLNAME2CONSUMABLE: Dict[Tuple[str, str], ConsumableItem] = {}
+RAWSPELLNAME2CONSUMABLE: Dict[Tuple[str, str], Consumable] = {}
 for item in _all_defined_consumable_items:
     for line_type, raw_spellname in item.spell_aliases:
         key = (line_type, raw_spellname)
@@ -709,14 +712,15 @@ RENAME_CONSUMABLE = {
     'Rage': 'Rage Potion',
 }
 
+
+# careful. not everything needs an itemid
 NAME2ITEMID = {
-    consumable.name: consumable.itemid
+    consumable.name: consumable.price.itemid
     for consumable in _all_defined_consumable_items
-    if consumable.itemid
+    if isinstance(consumable.price, DirectPrice)
 }
 
 NAME2ITEMID_BOP = {
-    "Fire-toasted Bun",
     'Slumber Sand',
     'Conjured Crystal Water',
     'Conjured Mana Orange',
@@ -788,7 +792,8 @@ CASTS_CONSUMABLE = {
 
 
 GAINS_CONSUMABLE = {
-    "Fire-toasted Bun",  # bop
+
+
     "Blessed Sunfruit",  # bop
     "Blessed Sunfruit Juice",  # bop
     "Noggenfogger Elixir",  # bop
@@ -2089,32 +2094,41 @@ class ConsumablesAccumulator:
             # logging.warning(f"Consumable '{consumable_name}' not defined.")
             return price
 
+        if isinstance(consumable.price, NoPrice):
+            return price
+
+
         # Determine the list of items whose direct itemid-based price we need to sum up.
         # For a crafted item, these are its components.
         # For a base item, it's the item itself.
-        components: List[Tuple[ConsumableItem, float]]
-        if consumable.components: # It's a crafted item
-            components = consumable.components
-        else: # It's a base item (or has no defined components)
-            components = [(consumable, 1.0)]
+        components_to_price: List[Tuple[Consumable, float]]
+
+        item_charges = consumable.price.charges
 
 
-        for base_item, quantity in components:
-            if not base_item.itemid:
+        if isinstance(consumable.price, PriceFromComponents):
+            components_to_price = consumable.price.components
+        elif isinstance(consumable.price, DirectPrice): # It's a base item (or has no defined components)
+            components_to_price = [(consumable, 1.0)]
+        else: # Should not happen if NoPrice is handled
+            raise RuntimeError('this should be unreachable')
+
+
+        for base_item, quantity in components_to_price:
+            if not isinstance(base_item.price, DirectPrice) or not base_item.price.itemid:
                 # This item/component doesn't have an itemID to look up.
                 # logging.debug(f"Item '{base_item.name}' has no itemid for pricing.")
                 continue
 
-            unit_price = self.pricedb.lookup(base_item.itemid)
+            unit_price = self.pricedb.lookup(base_item.price.itemid)
             if unit_price is None:
-                # logging.debug(f"Price not found for item '{base_item.name}' (ID: {base_item.itemid}).")
+                # logging.debug(f"Price not found for item '{base_item.name}' (ID: {base_item.price.itemid}).")
                 continue
 
             price += int(unit_price * quantity)
 
-        charges = consumable.charges
 
-        return price / charges
+        return price / item_charges
 
 
     def calculate(self) -> None:

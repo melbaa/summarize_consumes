@@ -19,11 +19,6 @@ def damage(c):
 
 
 @task
-def pytest(c):
-    cmd = "pytest -vs --cache-clear --pdb --color=yes"
-    c.run(cmd)
-
-@task
 def excludes(c):
     cmd = r"grep -v -f .\excludes.txt ..\..\..\Logs\WoWCombatLog.txt"
     c.run(cmd)

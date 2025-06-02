@@ -1,0 +1,525 @@
+Clapya  3867485
+  Lightning Bolt  2472137
+  Chain Lightning  1075266
+  Earth Shock  220571
+  Flame Shock  48562
+  Stratholme Holy Water  34361
+  Goblin Sapper Charge  8361
+  Dense Dynamite  3852
+  hit  2976
+  Frost Shock  951
+  Positive Charge  227
+  reflect  169
+  Fire Shield  52
+Doelfinest  3789126
+  hit  1192666
+  Seal of Righteousness  561828
+  Crusader Strike  439184
+  Judgement of Righteousness  422857
+  Consecration  334400
+  Exorcism  167898
+  Dragonbreath Chili  147524
+  Holy Strike  125952
+  Repent  118731
+  Flametongue Attack  64683
+  Sweeping Strikes  48102
+  Hammer of Wrath  42307
+  Holy Wrath  40940
+  Stratholme Holy Water  34535
+  Goblin Sapper Charge  23209
+  Fire Strike  11375
+  Positive Charge  8200
+  Judgement of Command  2319
+  Negative Charge  1500
+  Seal of Command  916
+Bcube  3409123
+  hit  868823
+  Seal of Righteousness  516900
+  Crusader Strike  449019
+  Judgement of Righteousness  401547
+  Consecration  323635
+  Drain Life  214567
+  Dragonbreath Chili  187985
+  Exorcism  154895
+  Repent  124224
+  Flametongue Attack  50792
+  Holy Strike  36597
+  Stratholme Holy Water  32370
+  Hammer of Wrath  23143
+  Holy Wrath  13861
+  Fire Strike  9151
+  Crystal Charge  940
+  Negative Charge  674
+Shape  3323037
+  hit  1146270
+  Claw  524102
+  Shred  496346
+  Rake  233449
+  Maul  179899
+  Rip  172905
+  Swipe  162932
+  Dragonbreath Chili  108402
+  Ferocious Bite  104309
+  Savage Bite  86990
+  Flametongue Attack  38567
+  Moonfire  17250
+  Goblin Sapper Charge  15719
+  Ravage  14974
+  Pounce Bleed  12528
+  Negative Charge  3500
+  Hurricane  2156
+  reflect  1430
+  Insect Swarm  1309
+Manadevil  3120290
+  Arcane Missiles  2029009
+  Arcane Explosion  423927
+  Arcane Rupture  380137
+  Arcane Instability  157162
+  Arcane Surge  64573
+  Fireball  34210
+  Blizzard  16638
+  Cone of Cold  5967
+  Negative Charge  5800
+  Shoot  1457
+  Frost Nova  736
+  Erupting Shield  674
+Psykhe  2929783
+  hit  1039470
+  Heroic Strike  486837
+  Bloodthirst  421945
+  Execute  339846
+  Whirlwind  282471
+  Cleave  233710
+  Deep Wound  58590
+  Flametongue Attack  36854
+  Pummel  15886
+  Hamstring  5453
+  Negative Charge  2000
+  Overpower  1804
+  Revenge  1782
+  Thunderfury  1440
+  Slam  1216
+  Greater Blessing of Sanctuary  265
+  Intercept Stun  214
+Tiogar  2917609
+  hit  1041924
+  Heroic Strike  426524
+  Bloodthirst  419372
+  Execute  330642
+  Whirlwind  300383
+  Cleave  269507
+  Deep Wound  68465
+  Flametongue Attack  28731
+  Goblin Sapper Charge  17862
+  Pummel  11741
+  Positive Charge  2000
+  Hamstring  264
+  Intercept Stun  194
+Lorrah  2894291
+  hit  1358868
+  Backstab  580535
+  Eviscerate  492255
+  Blade Flurry  159237
+  Deadly Poison V  99608
+  Surprise Attack  72479
+  Corrosive Poison II  55375
+  Sinister Strike  44006
+  Flametongue Attack  25309
+  Dragonbreath Chili  2841
+  Negative Charge  2000
+  Shoot Bow  1347
+  Kick  431
+Jinp  2872279
+  hit  1425272
+  Eviscerate  947440
+  Sinister Strike  215535
+  Blade Flurry  161516
+  Surprise Attack  47675
+  Goblin Sapper Charge  25425
+  Dense Dynamite  23384
+  Deadly Poison V  21667
+  Positive Charge  2200
+  Kick  1190
+  Shoot Crossbow  975
+Nehelenia  2764138
+  Arcane Missiles  1415954
+  Arcane Explosion  475117
+  Arcane Rupture  472153
+  Arcane Instability  122205
+  Arcane Surge  95710
+  Fire Blast  81674
+  Fireball  27372
+  Flamestrike  22932
+  Stratholme Holy Water  21186
+  Ignite  12329
+  Cone of Cold  7868
+  Jewel of Wild Magics: Arcane  7408
+  Shoot  2137
+  reflect  93
+Freedlock  2600509
+  Shadow Bolt  1574962
+  Corruption  433848
+  Curse of Agony  234818
+  Hellfire Effect  142766
+  Shadowburn  69653
+  Searing Pain  64697
+  Firebolt  29675
+  Death Coil  14440
+  Drain Soul  10786
+  Siphon Life  10330
+  Rain of Fire  9060
+  Shoot  2570
+  Immolate  2266
+  Immolation  625
+  reflect  13
+Tinerispew  2568664
+  Arcane Missiles  1285440
+  Arcane Explosion  400558
+  Arcane Rupture  374957
+  Frostbolt  160518
+  Arcane Instability  115131
+  Scorch  72398
+  Arcane Surge  48036
+  Icicle  46606
+  Fire Blast  37542
+  Cone of Cold  15328
+  Blizzard  8211
+  Shard of the Fallen Star  2831
+  Erupting Shield  564
+  Frost Nova  196
+  hit  175
+  Shoot  173
+Turborevenge  2496683
+  hit  756780
+  Execute  464446
+  Mortal Strike  372940
+  Whirlwind  314815
+  Sweeping Strikes  166265
+  Slam  116455
+  Deep Wound  103495
+  Heroic Strike  85011
+  Cleave  81933
+  Bloodthirst  19632
+  Overpower  4893
+  Negative Charge  3500
+  Wrath of the Plaguebringer  2933
+  Positive Charge  2000
+  Hamstring  595
+  Intercept Stun  500
+  Pummel  369
+  Mocking Blow  121
+Kayax  2359573
+  Shadow Bolt  1371328
+  Curse of Agony  275639
+  Corruption  248328
+  Hellfire Effect  201101
+  Shadowburn  64819
+  Immolate  59002
+  Siphon Life  58400
+  Rain of Fire  30128
+  Drain Soul  13729
+  Stratholme Holy Water  13387
+  Firebolt  10978
+  Drain Life  5481
+  Death Coil  5053
+  Positive Charge  2200
+Adachisakura  2345245
+  Shadow Bolt  1325965
+  Curse of Agony  368168
+  Corruption  353420
+  Hellfire Effect  131482
+  Searing Pain  57828
+  Shadowburn  53850
+  Drain Soul  21977
+  Firebolt  21813
+  Immolate  3231
+  Death Coil  2949
+  Shoot  2851
+  Soul Fire  1711
+Oivse  2269884
+  Mind Flay  1187719
+  Shadow Word: Pain  542181
+  Mind Blast  525880
+  Positive Charge  9500
+  Devouring Plague  2943
+  Pain Spike  1661
+Ryx  2230140
+  Arcane Missiles  1106922
+  Arcane Explosion  507477
+  Arcane Rupture  325803
+  Arcane Surge  143711
+  Arcane Instability  104606
+  Fire Blast  28894
+  Fireball  8755
+  Flamestrike  3241
+  hit  731
+Magn  2192119
+  hit  885719
+  Heroic Strike  456122
+  Bloodthirst  340647
+  Cleave  143584
+  Execute  116975
+  Whirlwind  112494
+  Thunderfury  47640
+  Deep Wound  30336
+  Flametongue Attack  21767
+  Goblin Sapper Charge  7785
+  Shoot Crossbow  5819
+  reflect  5065
+  Revenge  4236
+  Pummel  3349
+  Hamstring  2695
+  Dense Dynamite  2640
+  Spirit Link  2304
+  Greater Blessing of Sanctuary  1207
+  Stratholme Holy Water  1188
+  Dragonbreath Chili  429
+  Thunder Clap  79
+  Intercept Stun  39
+Adm  2188107
+  hit  1222472
+  Sinister Strike  598008
+  Eviscerate  228405
+  Blade Flurry  94084
+  Flametongue Attack  31397
+  Deadly Poison V  5176
+  Negative Charge  3200
+  Positive Charge  2200
+  Surprise Attack  1879
+  Kick  885
+  Rupture  401
+Kilgasm  2060896
+  hit  961009
+  Bloodthirst  305484
+  Heroic Strike  259770
+  Execute  212420
+  Whirlwind  162760
+  Cleave  82729
+  Deep Wound  53262
+  Pummel  14745
+  Positive Charge  6200
+  Thunder Clap  739
+  Rend  645
+  Hamstring  306
+  Firebolt  224
+  Intercept Stun  197
+  Shoot Gun  162
+  Revenge  105
+  Shield Bash  93
+  Thorium Shield Spike  46
+Teawon  2023444
+  hit  1051088
+  Backstab  574102
+  Eviscerate  78618
+  Surprise Attack  72114
+  Deadly Poison V  71889
+  Blade Flurry  54548
+  Corrosive Poison II  48368
+  Sinister Strike  36627
+  Instant Poison VI  32319
+  Ghostly Strike  1539
+  Negative Charge  1500
+  Kick  732
+Xelya  1993485
+  Holy Strike  390734
+  hit  333388
+  Judgement of Righteousness  278708
+  Consecration  262006
+  Thunderfury  210875
+  Seal of Righteousness  162918
+  Exorcism  114284
+  Holy Shield  68308
+  Spirit Link  35849
+  Flametongue Attack  26825
+  reflect  22615
+  Greater Blessing of Sanctuary  20822
+  Crusader Strike  13433
+  Dragonbreath Chili  13427
+  Bulwark of the Righteous  12092
+  Goblin Sapper Charge  10054
+  Hammer of Wrath  6849
+  Holy Wrath  5039
+  Negative Charge  3700
+  Force Reactive Disk  1349
+  Thorium Shield Spike  210
+Adriana  1915190
+  Mind Flay  884975
+  Mind Blast  596662
+  Shadow Word: Pain  363939
+  Pain Spike  44705
+  Holy Nova  24909
+Imul  1773342
+  Moonfire  561317
+  Wrath  432826
+  Starfire  380909
+  Hurricane  208362
+  Insect Swarm  185928
+  Positive Charge  4000
+Eleae  1741483
+  hit  462994
+  Maul  406983
+  Claw  229139
+  Swipe  163411
+  Savage Bite  159329
+  Ferocious Bite  75507
+  Rake  73086
+  Shred  60879
+  Rip  56794
+  Flametongue Attack  31079
+  reflect  8405
+  Goblin Sapper Charge  6392
+  Pounce Bleed  3246
+  Moonfire  2593
+  Negative Charge  1500
+  Insect Swarm  146
+Minoas  1729426
+  Auto Shot  609174
+  Steady Shot  527159
+  Multi-Shot  389178
+  Piercing Shots  78892
+  Arcane Shot  56360
+  Extra Shot  28397
+  Aimed Shot  19545
+  Volley  16955
+  Negative Charge  2900
+  hit  713
+  Bite  103
+  Greater Blessing of Sanctuary  50
+Gholmes  1565125
+  Arcane Missiles  785982
+  Arcane Rupture  371112
+  Arcane Explosion  139422
+  Arcane Surge  135156
+  Arcane Instability  78832
+  Fire Blast  26394
+  Blizzard  15137
+  Positive Charge  7600
+  Cone of Cold  4651
+  Shoot  730
+  hit  109
+Cheesebreath  1514860
+  Starfire  634528
+  Wrath  466548
+  Hurricane  190076
+  Moonfire  144648
+  Insect Swarm  79060
+Martlflash  1435766
+  Holy Strike  337157
+  hit  329979
+  Seal of Righteousness  193468
+  Consecration  188743
+  Judgement of Righteousness  167415
+  Exorcism  131958
+  Flametongue Attack  34854
+  Dream's Herald  19261
+  Stratholme Holy Water  12319
+  reflect  6670
+  Holy Shield  4755
+  Greater Blessing of Sanctuary  3955
+  Holy Wrath  2543
+  Hammer of Wrath  1789
+  Negative Charge  900
+Cleanskill  1179375
+  hit  490347
+  Earth Shock  320145
+  Stormstrike  212509
+  Lightning Strike  115379
+  Attack  16665
+  Lightning Shield  9172
+  Flame Shock  6895
+  Magma Totem  4142
+  Positive Charge  4121
+Jagdar  342911
+  Lightning Bolt  163146
+  Chain Lightning  84287
+  Earth Shock  35350
+  Frost Shock  24996
+  Dense Dynamite  11019
+  Goblin Sapper Charge  10595
+  Flame Shock  6649
+  Fire Nova  3286
+  hit  1778
+  Thorium Grenade  1730
+  Flametongue Attack  75
+Interlani  115731
+  Holy Strike  43725
+  hit  37472
+  Crusader Strike  12200
+  Exorcism  12159
+  Positive Charge  10140
+  Greater Blessing of Sanctuary  35
+Randgriz  88945
+  Smite  53858
+  Enlighten  25828
+  Holy Fire  6005
+  Negative Charge  1500
+  Shoot  1102
+  Pain Spike  531
+  hit  121
+Adya  71934
+  Smite  30377
+  Holy Fire  12675
+  Holy Nova  10454
+  Shadow Word: Pain  9274
+  Mind Blast  7762
+  Shoot  1392
+Yuyi  61262
+  Smite  40261
+  Enlighten  9638
+  Holy Fire  7828
+  Shoot  3162
+  hit  373
+Pristitute  51171
+  Smite  23820
+  Enlighten  17588
+  Shadow Word: Pain  3549
+  Negative Charge  3275
+  Mind Blast  2939
+Snega  36456
+  Flame Shock  11452
+  Lightning Bolt  8441
+  Earth Shock  3799
+  Fire Nova  3790
+  Chain Lightning  3575
+  Positive Charge  2200
+  Frost Shock  1853
+  Magma Totem  988
+  hit  188
+  reflect  170
+Moossiss  18546
+  Wrath  15404
+  Positive Charge  3000
+  hit  142
+Selverslip  10406
+  hit  6356
+  Earth Shock  2742
+  Flame Shock  708
+  Flametongue Attack  600
+Tiogar (self damage)  10143
+  Bloodrage  7646
+  Goblin Sapper Charge  2387
+  Slime  110
+Oileri  8430
+  Lightning Bolt  4879
+  Positive Charge  2200
+  hit  727
+  Stratholme Holy Water  624
+Jinp (self damage)  4765
+  Goblin Sapper Charge  4765
+Magn (self damage)  4477
+  Bloodrage  3256
+  Goblin Sapper Charge  1221
+Doelfinest (self damage)  3185
+  Goblin Sapper Charge  3185
+Xelya (self damage)  2233
+  Goblin Sapper Charge  1166
+  Slime  1067
+Jagdar (self damage)  1785
+  Goblin Sapper Charge  1785
+Shape (self damage)  1586
+  Goblin Sapper Charge  1586
+Clapya (self damage)  1277
+  Goblin Sapper Charge  1177
+  Slime  100
+Eleae (self damage)  372
+  Goblin Sapper Charge  372

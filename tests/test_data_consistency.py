@@ -9,6 +9,10 @@ from melbalabs.summarize_consumes.main import RENAME_CONSUMABLE
 from melbalabs.summarize_consumes.main import GAINS_CONSUMABLE
 from melbalabs.summarize_consumes.main import _all_defined_consumable_items
 
+from melbalabs.summarize_consumes.consumable import PriceFromComponents
+from melbalabs.summarize_consumes.consumable import DirectPrice
+
+
 
 def test_consumes_exist():
     logger_consumes = {
@@ -343,16 +347,8 @@ def test_sanity1():
 
     for name in NAME2ITEMID:
         assert name in NAME2CONSUMABLE
-        assert NAME2CONSUMABLE[name].itemid == NAME2ITEMID[name]
+        assert NAME2CONSUMABLE[name].price.itemid == NAME2ITEMID[name]
 
-def test_sanity2():
-    for item in _all_defined_consumable_items:
-        # item has a price or components that can be priced
-
-        count = 0
-        if item.itemid: count += 1
-        if item.components: count += 1
-        assert count == 1
 
 def test_sanity3():
     assert set(NAME2ITEMID_BOP).isdisjoint(set(NAME2ITEMID))
