@@ -325,7 +325,7 @@ _blue_power_crystal = Consumable(name='Blue Power Crystal', price=DirectPrice(it
 _red_power_crystal = Consumable(name='Red Power Crystal', price=DirectPrice(itemid=11186))
 
 
-_all_defined_consumable_items: List[Consumable] = [
+all_defined_consumable_items: List[Consumable] = [
     _purple_lotus,
     _large_brilliant_shard,
     _scorpok_pincer,
@@ -373,20 +373,30 @@ _all_defined_consumable_items: List[Consumable] = [
 
     Consumable(
         name="Brilliant Mana Oil",
-        price=DirectPrice(charges=5, itemid=20748)
+        price=DirectPrice(charges=5, itemid=20748),
+        spell_aliases=[('begins_to_cast_line', 'Brilliant Mana Oil')]
     ),
     Consumable(
         name="Lesser Mana Oil",
-        price=DirectPrice(charges=5, itemid=20747)
+        price=DirectPrice(charges=5, itemid=20747),
+        spell_aliases=[('begins_to_cast_line', 'Lesser Mana Oil')]
     ),
+    Consumable(name='Blessed Wizard Oil', price=DirectPrice(itemid=23123), spell_aliases=[('begins_to_cast_line', 'Blessed Wizard Oil')]),
+
     Consumable(
         name="Brilliant Wizard Oil",
-        price=DirectPrice(charges=5, itemid=20749)
+        price=DirectPrice(charges=5, itemid=20749),
+        spell_aliases=[('begins_to_cast_line', 'Brilliant Wizard Oil')]
     ),
     Consumable(
         name="Wizard Oil",
-        price=DirectPrice(charges=5, itemid=20750)
+        price=DirectPrice(charges=5, itemid=20750),
+        spell_aliases=[('begins_to_cast_line', 'Wizard Oil')]
     ),
+
+    Consumable(name='Frost Oil', price=DirectPrice(itemid=3829), spell_aliases=[('begins_to_cast_line', 'Frost Oil')]),
+    Consumable(name='Shadow Oil', price=DirectPrice(itemid=3824), spell_aliases=[('begins_to_cast_line', 'Shadow Oil')]),
+
     Consumable(
         name='Rage of Ages (ROIDS)',
         price=PriceFromComponents(components=[
@@ -510,7 +520,6 @@ _all_defined_consumable_items: List[Consumable] = [
     Consumable(name='Thistle Tea', price=DirectPrice(itemid=7676),
         spell_aliases=[('gains_line', '100 energy')]
     ),
-    Consumable(name='Elemental Sharpening Stone', price=DirectPrice(itemid=18262)),
     Consumable(name='Elixir of the Mongoose', price=DirectPrice(itemid=13452),
         spell_aliases=[('gains_line', 'Elixir of the Mongoose')]
     ),
@@ -558,7 +567,14 @@ _all_defined_consumable_items: List[Consumable] = [
     Consumable(name='Rumsey Rum Dark', price=DirectPrice(itemid=21114),
         spell_aliases=[('gains_line', 'Rumsey Rum Dark')]
     ),
-    Consumable(name='Consecrated Sharpening Stone', price=DirectPrice(itemid=23122)),
+    Consumable(name='Elemental Sharpening Stone', price=DirectPrice(itemid=18262),
+        spell_aliases=[('begins_to_cast_line', 'Sharpen Weapon - Critical')]
+    ),
+    Consumable(name='Consecrated Sharpening Stone', price=DirectPrice(itemid=23122),
+        spell_aliases=[('begins_to_cast_line', 'Consecrated Weapon')]
+    ),
+
+
     Consumable(name='Invulnerability', price=DirectPrice(itemid=3387),
         spell_aliases=[('gains_line', 'Invulnerability')]
     ),
@@ -590,14 +606,20 @@ _all_defined_consumable_items: List[Consumable] = [
     Consumable(name='Mighty Rage Potion', price=DirectPrice(itemid=13442)),
     Consumable(name='Great Rage Potion', price=DirectPrice(itemid=5633)),
     Consumable(name='Rage Potion', price=DirectPrice(itemid=5631)),
-    Consumable(name='Dense Dynamite', price=DirectPrice(itemid=18641)),
-    Consumable(name='Solid Dynamite', price=DirectPrice(itemid=10507)),
+    Consumable(name='Dense Dynamite', price=DirectPrice(itemid=18641), 
+        spell_aliases=[('begins_to_cast_line', 'Dense Dynamite')]),
+    Consumable(name='Solid Dynamite', price=DirectPrice(itemid=10507), 
+        spell_aliases=[('begins_to_cast_line', 'Solid Dynamite')]),
+    
     Consumable(name='Gift of Arthas', price=DirectPrice(itemid=9088),
         # both players and NPCs gain it, track only with superwow
     ),
-    Consumable(name='Blessed Wizard Oil', price=DirectPrice(itemid=23123)),
-    Consumable(name='Thorium Grenade', price=DirectPrice(itemid=15993)),
-    Consumable(name='Iron Grenade', price=DirectPrice(itemid=4390)),
+
+    Consumable(name='Thorium Grenade', price=DirectPrice(itemid=15993), 
+        spell_aliases=[('begins_to_cast_line', 'Thorium Grenade')]),
+    Consumable(name='Iron Grenade', price=DirectPrice(itemid=4390), 
+        spell_aliases=[('begins_to_cast_line', 'Iron Grenade')]),
+
     Consumable(name='Grilled Squid', price=DirectPrice(itemid=13928)),
     Consumable(name='Potion of Quickness', price=DirectPrice(itemid=61181),
         spell_aliases=[('gains_line', 'Potion of Quickness')]
@@ -627,7 +649,6 @@ _all_defined_consumable_items: List[Consumable] = [
     Consumable(name="Danonzo's Tel'Abim Delight", price=DirectPrice(itemid=60977)),
     Consumable(name="Danonzo's Tel'Abim Medley", price=DirectPrice(itemid=60978)),
     Consumable(name='Wildvine Potion', price=DirectPrice(itemid=9144)),
-    Consumable(name='Shadow Oil', price=DirectPrice(itemid=3824)),
     Consumable(name='Scroll of Stamina IV', price=DirectPrice(itemid=10307)),
     Consumable(name='Scroll of Strength IV', price=DirectPrice(itemid=10310)),
     Consumable(name='Scroll of Spirit IV', price=DirectPrice(itemid=10306)),
@@ -655,8 +676,11 @@ _all_defined_consumable_items: List[Consumable] = [
     Consumable(name='Arcane Elixir', price=DirectPrice(itemid=9155),
         spell_aliases=[('gains_line', 'Arcane Elixir')]
     ),
-    Consumable(name='Dense Sharpening Stone', price=DirectPrice(itemid=12404)),
-    Consumable(name='Dense Weightstone', price=DirectPrice(itemid=12643)),
+    Consumable(name='Dense Sharpening Stone', price=DirectPrice(itemid=12404), 
+        spell_aliases=[('begins_to_cast_line', 'Sharpen Blade V')]),
+    Consumable(name='Dense Weightstone', price=DirectPrice(itemid=12643), 
+        spell_aliases=[('begins_to_cast_line', 'Enhance Blunt Weapon V')]),
+
 
 
     Consumable(name='Bloodkelp Elixir of Resistance', price=NoPrice(),
@@ -718,16 +742,18 @@ _all_defined_consumable_items: List[Consumable] = [
     ),
     Consumable(name='Holy Protection', price=NoPrice(),
         spell_aliases=[('gains_line', 'Holy Protection ')],  # need the trailing space
-    ),
+    ),    
+    Consumable(name="Kreeg's Stout Beatdown", price=NoPrice(),
+        spell_aliases=[('begins_to_cast_line', "Kreeg's Stout Beatdown")]),
 ]
 
 
 NAME2CONSUMABLE: Dict[str, Consumable] = {
-    item.name: item for item in _all_defined_consumable_items
+    item.name: item for item in all_defined_consumable_items
 }
 
 RAWSPELLNAME2CONSUMABLE: Dict[Tuple[str, str], Consumable] = {}
-for item in _all_defined_consumable_items:
+for item in all_defined_consumable_items:
     for line_type, raw_spellname in item.spell_aliases:
         key = (line_type, raw_spellname)
         if key in RAWSPELLNAME2CONSUMABLE:
@@ -749,10 +775,6 @@ def rename_spell(spell, line_type):
     return rename or spell
 
 RENAME_CONSUMABLE = {
-    'Sharpen Weapon - Critical': 'Elemental Sharpening Stone',
-    'Consecrated Weapon': 'Consecrated Sharpening Stone',
-    'Sharpen Blade V': 'Dense Sharpening Stone',
-    'Enhance Blunt Weapon V': 'Dense Weightstone',
     'Cure Ailments': 'Jungle Remedy',
     'Mighty Rage': 'Mighty Rage Potion',
     'Great Rage': 'Great Rage Potion',
@@ -763,7 +785,7 @@ RENAME_CONSUMABLE = {
 # careful. not everything needs an itemid
 NAME2ITEMID = {
     consumable.name: consumable.price.itemid
-    for consumable in _all_defined_consumable_items
+    for consumable in all_defined_consumable_items
     if isinstance(consumable.price, DirectPrice)
 }
 
@@ -776,14 +798,13 @@ NAME2ITEMID_BOP = {
     'Dark Desire',
     "Graccu's Mince Meat Fruitcake",
     'Midsummer Sausage',
-    "Kreeg's Stout Beatdown",
     'Demonic Rune',
     'Winter Veil Eggnog',
     'Winter Veil Candy',
     'Winter Veil Cookie',
     'Windblossom Berries',
     "Ironforge Gift of Friendship",
-    "Stormwind Gift of Friendship",
+    "Stormwind Gift of Friendship", 
     "Darnassus Gift of Friendship",
     "Orgrimmar Gift of Friendship",
     "Thunder Bluff Gift of Friendship",
@@ -804,24 +825,6 @@ RAGE_CONSUMABLE = {
 
 
 
-BEGINS_TO_CAST_CONSUMABLE = {
-    "Brilliant Mana Oil",
-    "Lesser Mana Oil",
-    "Brilliant Wizard Oil",
-    "Blessed Wizard Oil",
-    "Wizard Oil",
-    "Frost Oil",
-    "Shadow Oil",
-    "Dense Dynamite",
-    "Solid Dynamite",
-    "Sharpen Weapon - Critical",
-    "Consecrated Weapon",
-    "Iron Grenade",
-    "Thorium Grenade",
-    "Kreeg's Stout Beatdown",
-    "Sharpen Blade V",
-    "Enhance Blunt Weapon V",
-}
 
 CASTS_CONSUMABLE = {
     "Powerful Anti-Venom",
@@ -879,7 +882,6 @@ USES_CONSUMABLE_SAFE = {
     'Slumber Sand',
     'Wildvine Potion',
     'Sweet Surprise',
-    'Shadow Oil',
     'Purification Potion',
     'Poisonous Mushroom',
     'Magic Resistance Potion',
@@ -926,11 +928,13 @@ USES_CONSUMABLE_OVERWRITE = {
 
 
     # superwow counts are lower, because 'begins to cast' may not actually cast the spell
+    # thus the overwrite is more appropriate, because it takes superwow counts
     'Dense Weightstone': 'Dense Weightstone',
     'Brilliant Mana Oil': 'Brilliant Mana Oil',
     'Brilliant Wizard Oil': 'Brilliant Wizard Oil',
     'Blessed Wizard Oil': 'Blessed Wizard Oil',
     'Wizard Oil': 'Wizard Oil',
+    'Shadow Oil': 'Shadow Oil',
     'Consecrated Sharpening Stone': 'Consecrated Sharpening Stone',
     'Elemental Sharpening Stone': 'Elemental Sharpening Stone',
     'Dense Sharpening Stone': 'Dense Sharpening Stone',
@@ -1684,6 +1688,7 @@ class Techinfo:
             print('  ', f'project homepage {self.project_homepage}', file=output)
             print('  ', f'prices server {self.prices_server}', file=output)
             print('  ', f'prices timestamp {self.format_price_timestamp()}', file=output)
+        print('  ', f'known consumables {len(all_defined_consumable_items)}', file=output)
         print('  ', f'log size {humanize.naturalsize(self.logsize)}', file=output)
         print('  ', f'log lines {self.linecount}', file=output)
         print('  ', f'skipped log lines {self.skiplinecount} {self.format_skipped_percent()}', file=output)
@@ -2618,11 +2623,9 @@ def parse_line2(app, line):
 
             app.class_detection.detect(line_type=subtree.data, name=name, spell=spellname)
 
-            if spellname in BEGINS_TO_CAST_CONSUMABLE:
-                consumable = spellname
-                if consumable in RENAME_CONSUMABLE:
-                    consumable = RENAME_CONSUMABLE[consumable]
-                app.player[name][consumable] += 1
+            
+            if consumable_item := RAWSPELLNAME2CONSUMABLE.get((subtree.data, spellname)):
+                app.player[name][consumable_item.name] += 1
 
             if name == "Kel'Thuzad" and spellname == 'Frostbolt':
                 app.kt_frostbolt.begins_to_cast(line)

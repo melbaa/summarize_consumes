@@ -25,7 +25,7 @@ types of consumables by how they are priced
 
 [2] not on the auction house. reasons include
 * seasonal quests or nonseasonal quests
-* looted BOPs like holy waterslen(set(consumable.name for consumable in _all_defined_consumable_items))
+* looted BOPs like holy waters
 * consumables that cast ambiguous spells. happens with some low level buffs.
 the superwow log may disambiguate what exactly it is, but not guaranteed
 * others?

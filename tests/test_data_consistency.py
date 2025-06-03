@@ -6,7 +6,7 @@ from melbalabs.summarize_consumes.main import USES_CONSUMABLE_ENHANCE
 from melbalabs.summarize_consumes.main import USES_CONSUMABLE_OVERWRITE
 from melbalabs.summarize_consumes.main import USES_CONSUMABLE_SAFE
 from melbalabs.summarize_consumes.main import RENAME_CONSUMABLE
-from melbalabs.summarize_consumes.main import _all_defined_consumable_items
+from melbalabs.summarize_consumes.main import all_defined_consumable_items
 
 from melbalabs.summarize_consumes.consumable import PriceFromComponents
 from melbalabs.summarize_consumes.consumable import DirectPrice
@@ -370,7 +370,7 @@ def test_sanity4():
 
     # Check that SAFE consumables don't have spell aliases outside of uses_line
     for safe_consumable in USES_CONSUMABLE_SAFE:
-        for consumable_item in _all_defined_consumable_items:
+        for consumable_item in all_defined_consumable_items:
             if safe_consumable != consumable_item.name: continue
             print(safe_consumable)
             for line_type, raw_spellname in consumable_item.spell_aliases:
@@ -382,6 +382,6 @@ def test_sanity4():
 
 
 def test_sanity5():
-    uniq = len(set(consumable.name for consumable in _all_defined_consumable_items))
-    len(_all_defined_consumable_items) == uniq
+    uniq = len(set(consumable.name for consumable in all_defined_consumable_items))
+    len(all_defined_consumable_items) == uniq
 
