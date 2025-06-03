@@ -979,6 +979,7 @@ Class Detection
 
 
 Tech
+   known consumables 176
    log size 34.9 MB
    log lines 467300
    skipped log lines 191 (0.04%)

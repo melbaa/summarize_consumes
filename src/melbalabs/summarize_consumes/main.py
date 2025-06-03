@@ -461,8 +461,10 @@ all_defined_consumable_items: List[Consumable] = [
         price=PriceFromComponents(components=[(_small_dream_shard, 1/5)]),
     ),
     Consumable(
+        # superwow, but looks like native logs
         name="Emerald Blessing",
         price=PriceFromComponents(components=[(_bright_dream_shard, 1)]),
+        spell_aliases=[('casts_line', 'Emerald Blessing')],
     ),
     Consumable(name='Hourglass Sand', price=DirectPrice(itemid=19183)),
 
@@ -639,9 +641,15 @@ all_defined_consumable_items: List[Consumable] = [
     Consumable(name='Lesser Invisibility Potion', price=DirectPrice(itemid=3823),
         spell_aliases=[('gains_line', "Lesser Invisibility")]
     ),
-    Consumable(name='Powerful Anti-Venom', price=DirectPrice(itemid=19440)),
-    Consumable(name='Strong Anti-Venom', price=DirectPrice(itemid=6453)),
-    Consumable(name='Anti-Venom', price=DirectPrice(itemid=6452)),
+    Consumable(name='Powerful Anti-Venom', price=DirectPrice(itemid=19440),
+               spell_aliases=[('casts_line', "Powerful Anti-Venom")]
+               ),
+    Consumable(name='Strong Anti-Venom', price=DirectPrice(itemid=6453),
+               spell_aliases=[('casts_line', "Strong Anti-Venom")]
+               ),
+    Consumable(name='Anti-Venom', price=DirectPrice(itemid=6452),
+               spell_aliases=[('casts_line', "Anti-Venom")]
+               ),
     Consumable(name='Dark Rune', price=DirectPrice(itemid=20520),
         spell_aliases=[('gains_mana_line', 'Dark Rune')],
     ),
@@ -663,7 +671,9 @@ all_defined_consumable_items: List[Consumable] = [
     Consumable(name='Magic Resistance Potion', price=DirectPrice(itemid=9036)),
     Consumable(name='Living Action Potion', price=DirectPrice(itemid=20008)),
     Consumable(name='Le Fishe Au Chocolat', price=DirectPrice(itemid=84040)),
-    Consumable(name='Jungle Remedy', price=DirectPrice(itemid=2633)),
+    Consumable(name='Jungle Remedy', price=DirectPrice(itemid=2633),
+        spell_aliases=[('casts_line', 'Cure Ailments')],
+    ),
     Consumable(name="Graccu's Homemade Meat Pie", price=DirectPrice(itemid=17407)),
     Consumable(name='Frozen Rune', price=DirectPrice(itemid=22682)),
     Consumable(name='Greater Dreamless Sleep Potion', price=DirectPrice(itemid=20002)),
@@ -765,6 +775,10 @@ all_defined_consumable_items: List[Consumable] = [
     Consumable(name='Demonic Rune', price=NoPrice(),
         spell_aliases=[('gains_mana_line', 'Demonic Rune')],
     ),
+    
+    Consumable(name='Advanced Target Dummy', price=DirectPrice(itemid=4392), spell_aliases=[('casts_line', 'Advanced Target Dummy')]),
+    
+    Consumable(name='Masterwork Target Dummy', price=DirectPrice(itemid=16023), spell_aliases=[('casts_line', 'Masterwork Target Dummy')]),
 ]
 
 
@@ -793,10 +807,6 @@ RENAME_SPELL = {
 def rename_spell(spell, line_type):
     rename = RENAME_SPELL.get((line_type, spell))
     return rename or spell
-
-RENAME_CONSUMABLE = {
-    'Cure Ailments': 'Jungle Remedy',
-}
 
 
 # careful. not everything needs an itemid
@@ -835,15 +845,6 @@ ITEMID2NAME = { value: key for key, value in NAME2ITEMID.items() }
 
 
 
-CASTS_CONSUMABLE = {
-    "Powerful Anti-Venom",
-    "Strong Anti-Venom",
-    "Anti-Venom",
-    "Cure Ailments",
-    "Advanced Target Dummy",
-    "Masterwork Target Dummy",
-    "Emerald Blessing",  # superwow
-}
 
 
 
@@ -2632,12 +2633,8 @@ def parse_line2(app, line):
         elif subtree.data == 'casts_line':
             name = subtree.children[0].value
             spellname = subtree.children[1].value
-
-            if spellname in CASTS_CONSUMABLE:
-                consumable = spellname
-                if consumable in RENAME_CONSUMABLE:
-                    consumable = RENAME_CONSUMABLE[consumable]
-                app.player[name][consumable] += 1
+            if consumable_item := RAWSPELLNAME2CONSUMABLE.get((subtree.data, spellname)):
+                app.player[name][consumable_item.name] += 1
 
             if spellname == 'Sunder Armor':
                 if len(subtree.children) < 3:

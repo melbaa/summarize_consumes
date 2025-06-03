@@ -5,7 +5,6 @@ from melbalabs.summarize_consumes.main import USES_CONSUMABLE_RENAME
 from melbalabs.summarize_consumes.main import USES_CONSUMABLE_ENHANCE
 from melbalabs.summarize_consumes.main import USES_CONSUMABLE_OVERWRITE
 from melbalabs.summarize_consumes.main import USES_CONSUMABLE_SAFE
-from melbalabs.summarize_consumes.main import RENAME_CONSUMABLE
 from melbalabs.summarize_consumes.main import all_defined_consumable_items
 
 from melbalabs.summarize_consumes.consumable import PriceFromComponents
@@ -362,11 +361,7 @@ def test_uses_consumable_disjoint():
 
 def test_sanity4():
     # check if a SAFE consumable isn't that safe
-    for key in USES_CONSUMABLE_SAFE:
-        for k, v in RENAME_CONSUMABLE.items():
-            if key == k or key == v:
-                raise ValueError(f'{key} safe consumable already in RENAME_CONSUMABLE')
-
+    
 
     # Check that SAFE consumables don't have spell aliases outside of uses_line
     for safe_consumable in USES_CONSUMABLE_SAFE:
