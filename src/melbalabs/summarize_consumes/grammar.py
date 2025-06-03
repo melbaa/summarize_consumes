@@ -206,6 +206,3 @@ PARENS_INT: SPACE_LPAREN INT RPAREN
 %import common.DIGIT -> DIGIT
 %import common.NEWLINE
 """
-
-
-

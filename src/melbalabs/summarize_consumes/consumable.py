@@ -43,7 +43,6 @@ A design goal is to avoid having classes with optional attributes.
 """
 
 
-
 @dataclass(frozen=True)
 class NoPrice:
     pass
@@ -51,11 +50,12 @@ class NoPrice:
 
 class ChargeValidation:
     def __post_init__(self):
-        if self.charges <= 0: raise ValueError('positive charges plz')
+        if self.charges <= 0:
+            raise ValueError("positive charges plz")
+
 
 @dataclass(frozen=True, kw_only=True)
 class DirectPrice(ChargeValidation):
-
     itemid: int
 
     # Number of charges the item has (e.g. oils have 5 charges)
@@ -63,16 +63,15 @@ class DirectPrice(ChargeValidation):
 
     def __post_init__(self):
         super().__post_init__()
-        if self.itemid is None: raise ValueError('itemid must be int')
+        if self.itemid is None:
+            raise ValueError("itemid must be int")
 
 
 @dataclass(frozen=True, kw_only=True)
 class PriceFromComponents(ChargeValidation):
-
     charges: int = 1
 
-    components: List[Tuple['Consumable', float]] = field(default_factory=list)
-
+    components: List[Tuple["Consumable", float]] = field(default_factory=list)
 
 
 @dataclass(frozen=True, kw_only=True)
@@ -84,10 +83,8 @@ class Consumable:
 
     price: Union[NoPrice, DirectPrice, PriceFromComponents]
 
-
     # maps line_type, spellname to the consumable
     spell_aliases: List[Tuple[str, str]] = field(default_factory=list)
-
 
 
 class MergeStrategy(Enum):
@@ -96,10 +93,8 @@ class MergeStrategy(Enum):
     ENHANCE = enum.auto()
     OVERWRITE = enum.auto()
 
+
 @dataclass(frozen=True, kw_only=True)
 class SuperwowConsumable(Consumable):
     # the merge strategy used to reconcile with the native log counts
     strategy: MergeStrategy
-
-
-

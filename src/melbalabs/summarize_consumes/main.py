@@ -56,7 +56,7 @@ class PlayerClass(Enum):
     UNKNOWN = "unknown"
 
     @classmethod
-    def from_string(cls, class_string: str) -> 'PlayerClass':
+    def from_string(cls, class_string: str) -> "PlayerClass":
         # lowercase is the only extra processing. everything else should be an error
         return cls(class_string.lower())
 
@@ -67,19 +67,20 @@ class App:
 
 class TreeTransformer(lark.Transformer):
     def multiword(self, args):
-        result = ''
+        result = ""
         for arg in args:
             result += arg
-        return lark.Token('MULTIWORD_T', result)
+        return lark.Token("MULTIWORD_T", result)
+
     def PARENS_INT(self, args):
-        return lark.Token('INT_T', args[2:-1])
+        return lark.Token("INT_T", args[2:-1])
 
 
 @functools.cache
 def create_parser(grammar: str, debug):
     parser = lark.Lark(
         grammar,
-        parser='lalr',
+        parser="lalr",
         debug=debug,
         # ambiguity='explicit',  # not in lalr
         strict=True,
@@ -88,12 +89,13 @@ def create_parser(grammar: str, debug):
 
     return parser
 
+
 @functools.cache
 def dl_price_data(prices_server):
     try:
         URLS = {
-            'nord' : 'https://melbalabs.com/static/twowprices.json',
-            'telabim': 'https://melbalabs.com/static/twowprices-telabim.json',
+            "nord": "https://melbalabs.com/static/twowprices.json",
+            "telabim": "https://melbalabs.com/static/twowprices-telabim.json",
         }
         url = URLS[prices_server]
         resp = requests.get(url, timeout=30)
@@ -101,20 +103,19 @@ def dl_price_data(prices_server):
         data = resp.json()
         return data
     except requests.exceptions.RequestException:
-        logging.warning('web prices not available')
+        logging.warning("web prices not available")
         return None
 
 
 def create_app(
-        time_start,
-        expert_log_unparsed_lines,
-        prices_server,
-        expert_disable_web_prices,
-        expert_deterministic_logs,
-        expert_write_lalr_states,
-        expert_log_superwow_merge,
-    ):
-
+    time_start,
+    expert_log_unparsed_lines,
+    prices_server,
+    expert_disable_web_prices,
+    expert_deterministic_logs,
+    expert_write_lalr_states,
+    expert_log_superwow_merge,
+):
     app = App()
 
     lark_debug = False
@@ -125,36 +126,36 @@ def create_app(
     app.parser = create_parser(grammar=grammar.grammar, debug=lark_debug)
 
     if expert_write_lalr_states:
+
         def feature():
             parser = app.parser
             states = parser.parser.parser.parser.parse_table.states
-            filename = 'lalr-states.txt'
-            with open(filename, 'w') as f:
-
+            filename = "lalr-states.txt"
+            with open(filename, "w") as f:
                 for terminal in parser.terminals:
-                    print('  ', terminal.name, f"'{terminal.pattern.value}'", file=f)
+                    print("  ", terminal.name, f"'{terminal.pattern.value}'", file=f)
                 print(file=f)
 
                 for state, actions in states.items():
                     print(state, file=f)
                     for token, (action, arg) in actions.items():
-                        print('  ', token, action, arg, file=f)
+                        print("  ", token, action, arg, file=f)
                     print(file=f)
-            print('writing lalr table to', filename)
+            print("writing lalr table to", filename)
+
         feature()
 
-
-
     if expert_log_unparsed_lines:
-        app.unparsed_logger = UnparsedLogger(filename='unparsed.txt')
+        app.unparsed_logger = UnparsedLogger(filename="unparsed.txt")
     else:
-        app.unparsed_logger = NullLogger(filename='unparsed.txt')
-
+        app.unparsed_logger = NullLogger(filename="unparsed.txt")
 
     # player - consumable - count
     app.player = collections.defaultdict(lambda: collections.defaultdict(int))
     app.player_superwow = collections.defaultdict(lambda: collections.defaultdict(int))
-    app.player_superwow_unknown = collections.defaultdict(lambda: collections.defaultdict(int))
+    app.player_superwow_unknown = collections.defaultdict(
+        lambda: collections.defaultdict(int)
+    )
 
     app.merge_superwow_consumables = MergeSuperwowConsumables(
         player=app.player,
@@ -189,17 +190,23 @@ def create_app(
     # name -> death count
     app.death_count = collections.defaultdict(int)
 
-    app.hits_consumable = HitsConsumable(player=app.player, last_hit_cache=app.last_hit_cache)
+    app.hits_consumable = HitsConsumable(
+        player=app.player, last_hit_cache=app.last_hit_cache
+    )
 
     app.web_price_provider = WebPriceProvider(prices_server=prices_server)
     price_providers = []
     if not expert_disable_web_prices:
         price_providers.append(app.web_price_provider)
-    price_providers.append(LocalPriceProvider('prices.json'))
+    price_providers.append(LocalPriceProvider("prices.json"))
     app.pricedb = PriceDB(price_providers=price_providers)
-    app.consumables_accumulator = ConsumablesAccumulator(player=app.player, pricedb=app.pricedb, death_count=app.death_count)
+    app.consumables_accumulator = ConsumablesAccumulator(
+        player=app.player, pricedb=app.pricedb, death_count=app.death_count
+    )
     app.print_consumables = PrintConsumables(accumulator=app.consumables_accumulator)
-    app.print_consumable_totals_csv = PrintConsumableTotalsCsv(accumulator=app.consumables_accumulator)
+    app.print_consumable_totals_csv = PrintConsumableTotalsCsv(
+        accumulator=app.consumables_accumulator
+    )
 
     app.annihilator = Annihilator()
     app.flamebuffet = FlameBuffet()
@@ -210,10 +217,18 @@ def create_app(
     # aq
     app.viscidus = Viscidus()
     app.huhuran = Huhuran()
-    app.cthun_chain = BeamChain(logname="C'Thun Chain Log (2+)", beamname="Eye of C'Thun 's Eye Beam", chainsize=2)
+    app.cthun_chain = BeamChain(
+        logname="C'Thun Chain Log (2+)",
+        beamname="Eye of C'Thun 's Eye Beam",
+        chainsize=2,
+    )
     # naxx
     app.gluth = Gluth()
-    app.fourhm_chain = BeamChain(logname="4HM Zeliek Chain Log (4+)", beamname="Sir Zeliek 's Holy Wrath", chainsize=4)
+    app.fourhm_chain = BeamChain(
+        logname="4HM Zeliek Chain Log (4+)",
+        beamname="Sir Zeliek 's Holy Wrath",
+        chainsize=4,
+    )
     app.kt_frostblast = KTFrostblast()
     app.kt_frostbolt = KTFrostbolt()
     app.kt_shadowfissure = KTShadowfissure()
@@ -224,7 +239,7 @@ def create_app(
         class_detection=app.class_detection,
         abilitycost=ABILITYCOST,
         abilitycooldown=ABILITYCOOLDOWN,
-        logname='Damage Done',
+        logname="Damage Done",
         allow_selfdmg=False,
     )
     app.dmgtakenstore = Dmgstore2(
@@ -232,7 +247,7 @@ def create_app(
         class_detection=app.class_detection,
         abilitycost=ABILITYCOST,
         abilitycooldown=ABILITYCOOLDOWN,
-        logname='Damage Taken',
+        logname="Damage Taken",
         allow_selfdmg=True,
     )
     app.healstore = Dmgstore2(
@@ -240,7 +255,7 @@ def create_app(
         class_detection=app.class_detection,
         abilitycost=dict(),
         abilitycooldown=dict(),
-        logname='Healing and Overhealing Done',
+        logname="Healing and Overhealing Done",
         allow_selfdmg=True,
     )
 
@@ -251,12 +266,13 @@ def create_app(
         expert_deterministic_logs=expert_deterministic_logs,
     )
 
-    app.infographic = Infographic(accumulator=app.consumables_accumulator, class_detection=app.class_detection)
+    app.infographic = Infographic(
+        accumulator=app.consumables_accumulator, class_detection=app.class_detection
+    )
 
     app.log_downloader = LogDownloader()
 
     return app
-
 
 
 def parse_ts2unixtime(timestamp):
@@ -267,7 +283,15 @@ def parse_ts2unixtime(timestamp):
     minute = int(minute)
     sec = int(sec)
     ms = int(ms)
-    timestamp = dt(year=CURRENT_YEAR, month=month, day=day, hour=hour, minute=minute, second=sec, tzinfo=datetime.timezone.utc)
+    timestamp = dt(
+        year=CURRENT_YEAR,
+        month=month,
+        day=day,
+        hour=hour,
+        minute=minute,
+        second=sec,
+        tzinfo=datetime.timezone.utc,
+    )
     unixtime = timestamp.timestamp()  # seconds
     return unixtime
 
@@ -287,11 +311,10 @@ def check_existing_file(file: Path, delete: bool = False) -> None:
 
 
 class HitsConsumable:
-
     COOLDOWNS = {
-        'Dragonbreath Chili': 10 * 60,
-        'Goblin Sapper Charge': 5 * 60,
-        'Stratholme Holy Water': 1 * 60,
+        "Dragonbreath Chili": 10 * 60,
+        "Goblin Sapper Charge": 5 * 60,
+        "Stratholme Holy Water": 1 * 60,
     }
 
     def __init__(self, player, last_hit_cache):
@@ -306,13 +329,17 @@ class HitsConsumable:
             self.last_hit_cache[name][consumable] = timestamp_unix
         elif delta < 0:
             # probably a new year, will ignore for now
-            raise RuntimeError('fixme')
+            raise RuntimeError("fixme")
 
 
 _purple_lotus = Consumable(name="Purple Lotus", price=DirectPrice(itemid=8831))
-_large_brilliant_shard = Consumable(name="Large Brilliant Shard", price=DirectPrice(itemid=14344))
+_large_brilliant_shard = Consumable(
+    name="Large Brilliant Shard", price=DirectPrice(itemid=14344)
+)
 _scorpok_pincer = Consumable(name="Scorpok Pincer", price=DirectPrice(itemid=8393))
-_blasted_boar_lung = Consumable(name="Blasted Boar Lung", price=DirectPrice(itemid=8392))
+_blasted_boar_lung = Consumable(
+    name="Blasted Boar Lung", price=DirectPrice(itemid=8392)
+)
 _snickerfang_jowl = Consumable(name="Snickerfang Jowl", price=DirectPrice(itemid=8391))
 _basilisk_brain = Consumable(name="Basilisk Brain", price=DirectPrice(itemid=8394))
 _vulture_gizzard = Consumable(name="Vulture Gizzard", price=DirectPrice(itemid=8396))
@@ -320,12 +347,24 @@ _zulian_coin = Consumable(name="Zulian Coin", price=DirectPrice(itemid=19698))
 _deeprock_salt = Consumable(name="Deeprock Salt", price=DirectPrice(itemid=8150))
 _essence_of_fire = Consumable(name="Essence of Fire", price=DirectPrice(itemid=7078))
 _larval_acid = Consumable(name="Larval Acid", price=DirectPrice(itemid=18512))
-_small_dream_shard = Consumable(name="Small Dream Shard", price=DirectPrice(itemid=61198))
-_bright_dream_shard = Consumable(name="Bright Dream Shard", price=DirectPrice(itemid=61199))
-_green_power_crystal = Consumable(name='Green Power Crystal', price=DirectPrice(itemid=11185))
-_blue_power_crystal = Consumable(name='Blue Power Crystal', price=DirectPrice(itemid=11184))
-_red_power_crystal = Consumable(name='Red Power Crystal', price=DirectPrice(itemid=11186))
-_yellow_power_crystal = Consumable(name='Yellow Power Crystal', price=DirectPrice(itemid=11188))
+_small_dream_shard = Consumable(
+    name="Small Dream Shard", price=DirectPrice(itemid=61198)
+)
+_bright_dream_shard = Consumable(
+    name="Bright Dream Shard", price=DirectPrice(itemid=61199)
+)
+_green_power_crystal = Consumable(
+    name="Green Power Crystal", price=DirectPrice(itemid=11185)
+)
+_blue_power_crystal = Consumable(
+    name="Blue Power Crystal", price=DirectPrice(itemid=11184)
+)
+_red_power_crystal = Consumable(
+    name="Red Power Crystal", price=DirectPrice(itemid=11186)
+)
+_yellow_power_crystal = Consumable(
+    name="Yellow Power Crystal", price=DirectPrice(itemid=11188)
+)
 
 
 all_defined_consumable_items: List[Consumable] = [
@@ -346,475 +385,855 @@ all_defined_consumable_items: List[Consumable] = [
     _blue_power_crystal,
     _red_power_crystal,
     _yellow_power_crystal,
-
-
-
-
-
     Consumable(
-        name='Crystal Ward',
+        name="Crystal Ward",
         price=PriceFromComponents(
             charges=6,
             components=[
                 (_green_power_crystal, 10),
                 (_red_power_crystal, 10),
-            ]
+            ],
         ),
-        spell_aliases=[('gains_line', 'Crystal Ward')],
+        spell_aliases=[("gains_line", "Crystal Ward")],
     ),
-
     Consumable(
-        name='Crystal Force',
+        name="Crystal Force",
         price=PriceFromComponents(
             charges=6,
             components=[
                 (_green_power_crystal, 10),
                 (_blue_power_crystal, 10),
-            ]
+            ],
         ),
-        spell_aliases=[('gains_line', 'Crystal Force')],
+        spell_aliases=[("gains_line", "Crystal Force")],
     ),
-
     Consumable(
         name="Brilliant Mana Oil",
         price=DirectPrice(charges=5, itemid=20748),
-        spell_aliases=[('begins_to_cast_line', 'Brilliant Mana Oil')]
+        spell_aliases=[("begins_to_cast_line", "Brilliant Mana Oil")],
     ),
     Consumable(
         name="Lesser Mana Oil",
         price=DirectPrice(charges=5, itemid=20747),
-        spell_aliases=[('begins_to_cast_line', 'Lesser Mana Oil')]
+        spell_aliases=[("begins_to_cast_line", "Lesser Mana Oil")],
     ),
-    Consumable(name='Blessed Wizard Oil', price=DirectPrice(itemid=23123), spell_aliases=[('begins_to_cast_line', 'Blessed Wizard Oil')]),
-
+    Consumable(
+        name="Blessed Wizard Oil",
+        price=DirectPrice(itemid=23123),
+        spell_aliases=[("begins_to_cast_line", "Blessed Wizard Oil")],
+    ),
     Consumable(
         name="Brilliant Wizard Oil",
         price=DirectPrice(charges=5, itemid=20749),
-        spell_aliases=[('begins_to_cast_line', 'Brilliant Wizard Oil')]
+        spell_aliases=[("begins_to_cast_line", "Brilliant Wizard Oil")],
     ),
     Consumable(
         name="Wizard Oil",
         price=DirectPrice(charges=5, itemid=20750),
-        spell_aliases=[('begins_to_cast_line', 'Wizard Oil')]
-    ),
-
-    Consumable(name='Frost Oil', price=DirectPrice(itemid=3829), spell_aliases=[('begins_to_cast_line', 'Frost Oil')]),
-    Consumable(name='Shadow Oil', price=DirectPrice(itemid=3824), spell_aliases=[('begins_to_cast_line', 'Shadow Oil')]),
-
-    Consumable(
-        name='Rage of Ages (ROIDS)',
-        price=PriceFromComponents(components=[
-            (_scorpok_pincer, 1),
-            (_blasted_boar_lung, 2),
-            (_snickerfang_jowl, 3),
-        ]),
-        spell_aliases=[('gains_line', 'Rage of Ages')]
+        spell_aliases=[("begins_to_cast_line", "Wizard Oil")],
     ),
     Consumable(
-        name='Strike of the Scorpok',
-        price=PriceFromComponents(components=[
-            (_blasted_boar_lung, 1),
-            (_vulture_gizzard, 2),
-            (_scorpok_pincer, 3),
-        ]),
-        spell_aliases=[('gains_line', 'Strike of the Scorpok')]
+        name="Frost Oil",
+        price=DirectPrice(itemid=3829),
+        spell_aliases=[("begins_to_cast_line", "Frost Oil")],
     ),
     Consumable(
-        name='Lung Juice Cocktail',
-        price=PriceFromComponents(components=[
-            (_basilisk_brain, 1),
-            (_scorpok_pincer, 2),
-            (_blasted_boar_lung, 3),
-        ]),
-        spell_aliases=[('gains_line', 'Spirit of the Boar')]
+        name="Shadow Oil",
+        price=DirectPrice(itemid=3824),
+        spell_aliases=[("begins_to_cast_line", "Shadow Oil")],
     ),
     Consumable(
-        name='Infallible Mind (Cerebral Cortex Compound)',
-        price=PriceFromComponents(components=[
-            (_basilisk_brain, 10),
-            (_vulture_gizzard, 2),
-        ]),
-        spell_aliases=[('gains_line', 'Infallible Mind')]
+        name="Rage of Ages (ROIDS)",
+        price=PriceFromComponents(
+            components=[
+                (_scorpok_pincer, 1),
+                (_blasted_boar_lung, 2),
+                (_snickerfang_jowl, 3),
+            ]
+        ),
+        spell_aliases=[("gains_line", "Rage of Ages")],
+    ),
+    Consumable(
+        name="Strike of the Scorpok",
+        price=PriceFromComponents(
+            components=[
+                (_blasted_boar_lung, 1),
+                (_vulture_gizzard, 2),
+                (_scorpok_pincer, 3),
+            ]
+        ),
+        spell_aliases=[("gains_line", "Strike of the Scorpok")],
+    ),
+    Consumable(
+        name="Lung Juice Cocktail",
+        price=PriceFromComponents(
+            components=[
+                (_basilisk_brain, 1),
+                (_scorpok_pincer, 2),
+                (_blasted_boar_lung, 3),
+            ]
+        ),
+        spell_aliases=[("gains_line", "Spirit of the Boar")],
+    ),
+    Consumable(
+        name="Infallible Mind (Cerebral Cortex Compound)",
+        price=PriceFromComponents(
+            components=[
+                (_basilisk_brain, 10),
+                (_vulture_gizzard, 2),
+            ]
+        ),
+        spell_aliases=[("gains_line", "Infallible Mind")],
     ),
     Consumable(
         name="Sheen of Zanza",
         price=PriceFromComponents(components=[(_zulian_coin, 3)]),
-        spell_aliases=[('gains_line', 'Sheen of Zanza')]
+        spell_aliases=[("gains_line", "Sheen of Zanza")],
     ),
     Consumable(
         name="Spirit of Zanza",
         price=PriceFromComponents(components=[(_zulian_coin, 3)]),
-        spell_aliases=[('gains_line', 'Spirit of Zanza')]
+        spell_aliases=[("gains_line", "Spirit of Zanza")],
     ),
     Consumable(
         name="Swiftness of Zanza",
         price=PriceFromComponents(components=[(_zulian_coin, 3)]),
-        spell_aliases=[('gains_line', 'Swiftness of Zanza')]
+        spell_aliases=[("gains_line", "Swiftness of Zanza")],
     ),
     Consumable(
         name="Powerful Smelling Salts",
-        price=PriceFromComponents(components=[
-            (_deeprock_salt, 4),
-            (_essence_of_fire, 2),
-            (_larval_acid, 1),
-        ]),
-        spell_aliases=[('performs_on_line', "Powerful Smelling Salts")],
+        price=PriceFromComponents(
+            components=[
+                (_deeprock_salt, 4),
+                (_essence_of_fire, 2),
+                (_larval_acid, 1),
+            ]
+        ),
+        spell_aliases=[("performs_on_line", "Powerful Smelling Salts")],
     ),
     Consumable(
         name="Tea with Sugar",
-        price=PriceFromComponents(components=[(_small_dream_shard, 1/5)]),
+        price=PriceFromComponents(components=[(_small_dream_shard, 1 / 5)]),
     ),
     Consumable(
         # superwow, but looks like native logs
         name="Emerald Blessing",
         price=PriceFromComponents(components=[(_bright_dream_shard, 1)]),
-        spell_aliases=[('casts_line', 'Emerald Blessing')],
+        spell_aliases=[("casts_line", "Emerald Blessing")],
     ),
-    SuperwowConsumable(name='Hourglass Sand', price=DirectPrice(itemid=19183), spell_aliases=[('uses_line', 'Hourglass Sand')], strategy=MergeStrategy.SAFE),
-    Consumable(name='Restorative Potion', price=DirectPrice(itemid=9030),
-        spell_aliases=[('gains_line', "Restoration")],
+    SuperwowConsumable(
+        name="Hourglass Sand",
+        price=DirectPrice(itemid=19183),
+        spell_aliases=[("uses_line", "Hourglass Sand")],
+        strategy=MergeStrategy.SAFE,
     ),
-    Consumable(name='Flask of Chromatic Resistance', price=DirectPrice(itemid=13513),
-        spell_aliases=[('gains_line', "Chromatic Resistance")],
-    ),
-    Consumable(name='Flask of the Titans', price=DirectPrice(itemid=13510),
-        spell_aliases=[('gains_line', 'Flask of the Titans')]
-    ),
-    Consumable(name='Flask of Supreme Power', price=DirectPrice(itemid=13512),
-        spell_aliases=[('gains_line', 'Supreme Power')]
-    ),
-    Consumable(name='Flask of Distilled Wisdom', price=DirectPrice(itemid=13511),
-        spell_aliases=[('gains_line', 'Distilled Wisdom')]
-    ),
-    Consumable(name='Flask of Petrification', price=DirectPrice(itemid=13506)),
-    Consumable(name='Elixir of Fortitude', price=DirectPrice(itemid=3825),
-        spell_aliases=[('gains_line', 'Health II')]
-    ),
-    Consumable(name='Bogling Root', price=DirectPrice(itemid=5206),
-        spell_aliases=[('gains_line', 'Fury of the Bogling')]
-    ),
-    Consumable(name='Crystal Basilisk Spine', price=DirectPrice(itemid=1703),
-        spell_aliases=[('gains_line', 'Crystal Protection')]
-    ),
-    Consumable(name='??? Elixir of the Sages ???', price=DirectPrice(itemid=13447),
-        spell_aliases=[('gains_line', 'Elixir of the Sages')]
-    ),
-    Consumable(name='Elixir of Shadow Power', price=DirectPrice(itemid=9264),
-        spell_aliases=[('gains_line', 'Shadow Power')]
-    ),
-    Consumable(name='Elixir of Greater Firepower', price=DirectPrice(itemid=21546),
-        spell_aliases=[('gains_line', 'Greater Firepower')]
-    ),
-    Consumable(name='Elixir of Firepower', price=DirectPrice(itemid=6373),
-        spell_aliases=[('gains_line', 'Fire Power')]
-    ),
-    Consumable(name='Elixir of Greater Agility', price=DirectPrice(itemid=9187),
-        spell_aliases=[('gains_line', 'Greater Agility')]
-    ),
-    Consumable(name='Elixir of Superior Defense', price=DirectPrice(itemid=13445),
-        spell_aliases=[('gains_line', 'Greater Armor')]
-    ),
-    Consumable(name='Free Action Potion', price=DirectPrice(itemid=5634),
-        spell_aliases=[('gains_line', 'Free Action')]
-    ),
-    Consumable(name='Elixir of Frost Power', price=DirectPrice(itemid=17708),
-        spell_aliases=[('gains_line', 'Frost Power')]
-    ),
-    Consumable(name='Greater Arcane Elixir', price=DirectPrice(itemid=13454),
-        spell_aliases=[('gains_line', 'Greater Arcane Elixir')]
-    ),
-    Consumable(name='Thistle Tea', price=DirectPrice(itemid=7676),
-        spell_aliases=[('gains_line', '100 energy')]
-    ),
-    Consumable(name='Elixir of the Mongoose', price=DirectPrice(itemid=13452),
-        spell_aliases=[('gains_line', 'Elixir of the Mongoose')]
-    ),
-    Consumable(name='Elixir of Brute Force', price=DirectPrice(itemid=13453),
-        spell_aliases=[('gains_line', 'Elixir of Brute Force')]
-    ),
-    Consumable(name='Winterfall Firewater', price=DirectPrice(itemid=12820),
-        spell_aliases=[('gains_line', 'Winterfall Firewater')]
-    ),
-    SuperwowConsumable(name='Juju Power', price=DirectPrice(itemid=12431), spell_aliases=[('uses_line', 'Juju Power')], strategy=MergeStrategy.SAFE),
-    SuperwowConsumable(name='Juju Flurry', price=DirectPrice(itemid=12430), spell_aliases=[('uses_line', 'Juju Flurry')], strategy=MergeStrategy.SAFE),
-    SuperwowConsumable(name='Juju Might', price=DirectPrice(itemid=12436), spell_aliases=[('uses_line', 'Juju Might')], strategy=MergeStrategy.SAFE),
-    SuperwowConsumable(name='Juju Guile', price=DirectPrice(itemid=12433), spell_aliases=[('uses_line', 'Juju Guile')], strategy=MergeStrategy.SAFE),
-    SuperwowConsumable(name='Juju Escape', price=DirectPrice(itemid=12435), spell_aliases=[('uses_line', 'Juju Escape')], strategy=MergeStrategy.SAFE),
-    SuperwowConsumable(name='Juju Ember', price=DirectPrice(itemid=12432), spell_aliases=[('uses_line', 'Juju Ember')], strategy=MergeStrategy.SAFE),
-    SuperwowConsumable(name='Juju Chill', price=DirectPrice(itemid=12434), spell_aliases=[('uses_line', 'Juju Chill')], strategy=MergeStrategy.SAFE),
-    SuperwowConsumable(name='Gurubashi Gumbo', price=DirectPrice(itemid=53015), spell_aliases=[('uses_line', 'Gurubashi Gumbo')], strategy=MergeStrategy.SAFE),
-    Consumable(name='Hardened Mushroom', price=DirectPrice(itemid=51717)),
-    Consumable(name='Power Mushroom', price=DirectPrice(itemid=51720)),
-    SuperwowConsumable(name='Oil of Immolation', price=DirectPrice(itemid=8956), spell_aliases=[('uses_line', 'Oil of Immolation')], strategy=MergeStrategy.SAFE),
-
-
-
-    Consumable(name='??? Lesser Stoneshield Potion ???', price=DirectPrice(itemid=4623),
-        spell_aliases=[('gains_line', 'Stoneshield')]
-    ),
-    Consumable(name='Greater Stoneshield', price=DirectPrice(itemid=13455),
-        spell_aliases=[('gains_line', 'Greater Stoneshield')]
-    ),
-    Consumable(name='Lucidity Potion', price=DirectPrice(itemid=61225),
-        spell_aliases=[('gains_line', 'Lucidity Potion')]
-    ),
-    Consumable(name='Mana Potion - Greater', price=DirectPrice(itemid=6149)),
-    Consumable(name='Mana Potion - Superior', price=DirectPrice(itemid=13443)),
-    Consumable(name='Mana Potion - Major', price=DirectPrice(itemid=13444)),
-    Consumable(name='Restorative Potion', price=DirectPrice(itemid=9030)),
-    Consumable(name='Healing Potion - Major', price=DirectPrice(itemid=13446)),
-    Consumable(name='Healing Potion - Superior', price=DirectPrice(itemid=3928)),
-    Consumable(name='Elixir of Giants', price=DirectPrice(itemid=9206),
-        spell_aliases=[('gains_line', 'Elixir of the Giants')]
-    ),
-    Consumable(name='Rumsey Rum Black Label', price=DirectPrice(itemid=21151),
-        spell_aliases=[('gains_line', 'Rumsey Rum Black Label')]
-    ),
-    Consumable(name='Rumsey Rum Dark', price=DirectPrice(itemid=21114),
-        spell_aliases=[('gains_line', 'Rumsey Rum Dark')]
-    ),
-    Consumable(name='Elemental Sharpening Stone', price=DirectPrice(itemid=18262),
-        spell_aliases=[('begins_to_cast_line', 'Sharpen Weapon - Critical')]
-    ),
-    Consumable(name='Consecrated Sharpening Stone', price=DirectPrice(itemid=23122),
-        spell_aliases=[('begins_to_cast_line', 'Consecrated Weapon')]
-    ),
-
-
-    Consumable(name='Invulnerability', price=DirectPrice(itemid=3387),
-        spell_aliases=[('gains_line', 'Invulnerability')]
-    ),
-    Consumable(name='Dragonbreath Chili', price=DirectPrice(itemid=12217)),
-    Consumable(name='Dreamtonic', price=DirectPrice(itemid=61423),
-        spell_aliases=[('gains_line', 'Dreamtonic')]
-    ),
-    Consumable(name='Goblin Sapper Charge', price=DirectPrice(itemid=10646)),
-    Consumable(name="Medivh's Merlot Blue Label", price=DirectPrice(itemid=61175),
-        spell_aliases=[('gains_line', "Medivh's Merlot Blue Label")]
-    ),
-    Consumable(name="Medivh's Merlot", price=DirectPrice(itemid=61174),
-        spell_aliases=[('gains_line', "Medivh's Merlot")]
-    ),
-    Consumable(name='Greater Arcane Protection Potion', price=DirectPrice(itemid=13461)),
-    Consumable(name='Greater Holy Protection Potion', price=DirectPrice(itemid=13460)),
-    Consumable(name='Greater Shadow Protection Potion', price=DirectPrice(itemid=13459)),
-    Consumable(name='Greater Nature Protection Potion', price=DirectPrice(itemid=13458)),
-    Consumable(name='Greater Fire Protection Potion', price=DirectPrice(itemid=13457)),
-    Consumable(name='Greater Frost Protection Potion', price=DirectPrice(itemid=13456)),
-    Consumable(name='Holy Protection Potion', price=DirectPrice(itemid=6051)),
-    Consumable(name='Shadow Protection Potion', price=DirectPrice(itemid=6048)),
-    Consumable(name='Nature Protection Potion', price=DirectPrice(itemid=6052)),
-    Consumable(name='Fire Protection Potion', price=DirectPrice(itemid=6049)),
-    Consumable(name='Frost Protection Potion', price=DirectPrice(itemid=6050)),
-    Consumable(name='Dreamshard Elixir', price=DirectPrice(itemid=61224),
-        spell_aliases=[('gains_line', 'Dreamshard Elixir')]
-    ),
-
-    Consumable(name='Dense Dynamite', price=DirectPrice(itemid=18641),
-        spell_aliases=[('begins_to_cast_line', 'Dense Dynamite')]),
-    Consumable(name='Solid Dynamite', price=DirectPrice(itemid=10507),
-        spell_aliases=[('begins_to_cast_line', 'Solid Dynamite')]),
-
-    SuperwowConsumable(name='Gift of Arthas', price=DirectPrice(itemid=9088), spell_aliases=[('uses_line', 'Gift of Arthas')], strategy=MergeStrategy.SAFE),
-
-    Consumable(name='Thorium Grenade', price=DirectPrice(itemid=15993),
-        spell_aliases=[('begins_to_cast_line', 'Thorium Grenade')]),
-    Consumable(name='Iron Grenade', price=DirectPrice(itemid=4390),
-        spell_aliases=[('begins_to_cast_line', 'Iron Grenade')]),
-
-    Consumable(name='Grilled Squid', price=DirectPrice(itemid=13928)),
-    Consumable(name='Potion of Quickness', price=DirectPrice(itemid=61181),
-        spell_aliases=[('gains_line', 'Potion of Quickness')]
-    ),
-    Consumable(name='Elixir of Greater Nature Power', price=DirectPrice(itemid=50237),
-        spell_aliases=[('gains_line', 'Elixir of Greater Nature Power')]
-    ),
-    Consumable(name='Elixir of Greater Intellect', price=DirectPrice(itemid=9179),
-        spell_aliases=[('gains_line', "Greater Intellect")]
-    ),
-    Consumable(name='Rejuvenation Potion - Major', price=DirectPrice(itemid=18253)),
-    Consumable(name='Rejuvenation Potion - Minor', price=DirectPrice(itemid=2456)),
-
-    SuperwowConsumable(name='Swiftness Potion', price=DirectPrice(itemid=2459), spell_aliases=[('uses_line', 'Swiftness Potion')], strategy=MergeStrategy.SAFE),
-    Consumable(name='Invisibility Potion', price=DirectPrice(itemid=9172),
-        spell_aliases=[('gains_line', "Invisibility")]
-    ),
-    Consumable(name='Lesser Invisibility Potion', price=DirectPrice(itemid=3823),
-        spell_aliases=[('gains_line', "Lesser Invisibility")]
-    ),
-    Consumable(name='Powerful Anti-Venom', price=DirectPrice(itemid=19440),
-               spell_aliases=[('casts_line', "Powerful Anti-Venom")]
-               ),
-    Consumable(name='Strong Anti-Venom', price=DirectPrice(itemid=6453),
-               spell_aliases=[('casts_line', "Strong Anti-Venom")]
-               ),
-    Consumable(name='Anti-Venom', price=DirectPrice(itemid=6452),
-               spell_aliases=[('casts_line', "Anti-Venom")]
-               ),
-    Consumable(name='Dark Rune', price=DirectPrice(itemid=20520),
-        spell_aliases=[('gains_mana_line', 'Dark Rune')],
-    ),
-    Consumable(name='Mageblood Potion', price=DirectPrice(itemid=20007)),
-    SuperwowConsumable(name="Danonzo's Tel'Abim Surprise", price=DirectPrice(itemid=60976), spell_aliases=[('uses_line', "Danonzos Tel'Abim Surprise")], strategy=MergeStrategy.SAFE),
-    SuperwowConsumable(name="Danonzo's Tel'Abim Delight", price=DirectPrice(itemid=60977), spell_aliases=[('uses_line', "Danonzos Tel'Abim Delight")], strategy=MergeStrategy.SAFE),
-    SuperwowConsumable(name="Danonzo's Tel'Abim Medley", price=DirectPrice(itemid=60978), spell_aliases=[('uses_line', "Danonzos Tel'Abim Medley")], strategy=MergeStrategy.SAFE),
-    SuperwowConsumable(name='Wildvine Potion', price=DirectPrice(itemid=9144), spell_aliases=[('uses_line', 'Wildvine Potion')], strategy=MergeStrategy.SAFE),
-    Consumable(name='Scroll of Stamina IV', price=DirectPrice(itemid=10307)),
-    Consumable(name='Scroll of Strength IV', price=DirectPrice(itemid=10310)),
-    Consumable(name='Scroll of Spirit IV', price=DirectPrice(itemid=10306)),
-    Consumable(name='Scroll of Protection IV', price=DirectPrice(itemid=10305)),
-    Consumable(name='Scroll of Intellect IV', price=DirectPrice(itemid=10308)),
-    Consumable(name='Scroll of Agility IV', price=DirectPrice(itemid=10309)),
-    SuperwowConsumable(name='Purification Potion', price=DirectPrice(itemid=13462), spell_aliases=[('uses_line', 'Purification Potion')], strategy=MergeStrategy.SAFE),
-    SuperwowConsumable(name='Poisonous Mushroom', price=DirectPrice(itemid=5823), spell_aliases=[('uses_line', 'Poisonous Mushroom')], strategy=MergeStrategy.SAFE),
-    Consumable(name='Nightfin Soup', price=DirectPrice(itemid=13931)),
-    SuperwowConsumable(name="Major Troll's Blood Potion", price=DirectPrice(itemid=20004), spell_aliases=[('uses_line', 'Major Trolls Blood Potion')], strategy=MergeStrategy.SAFE),
-    SuperwowConsumable(name='Magic Resistance Potion', price=DirectPrice(itemid=9036), spell_aliases=[('uses_line', 'Magic Resistance Potion')], strategy=MergeStrategy.SAFE),
-    Consumable(name='Le Fishe Au Chocolat', price=DirectPrice(itemid=84040)),
-    Consumable(name='Jungle Remedy', price=DirectPrice(itemid=2633),
-        spell_aliases=[('casts_line', 'Cure Ailments')],
-    ),
-
-
-    SuperwowConsumable(name='Living Action Potion', price=DirectPrice(itemid=20008), spell_aliases=[('uses_line', 'Living Action Potion')], strategy=MergeStrategy.SAFE),
-    SuperwowConsumable(name='Empowering Herbal Salad', price=DirectPrice(itemid=83309), spell_aliases=[('uses_line', 'Empowering Herbal Salad')], strategy=MergeStrategy.SAFE),
-    SuperwowConsumable(name='Elixir of Poison Resistance', price=DirectPrice(itemid=3386), spell_aliases=[('uses_line', 'Elixir of Poison Resistance')], strategy=MergeStrategy.SAFE),
-    SuperwowConsumable(name='Elixir of Demonslaying', price=DirectPrice(itemid=9224), spell_aliases=[('uses_line', 'Elixir of Demonslaying')], strategy=MergeStrategy.SAFE),
-    SuperwowConsumable(name="Graccu's Homemade Meat Pie", price=DirectPrice(itemid=17407), spell_aliases=[('uses_line', 'Graccus Homemade Meat Pie')], strategy=MergeStrategy.SAFE),
-
-    SuperwowConsumable(name='Greater Dreamless Sleep Potion', price=DirectPrice(itemid=20002), spell_aliases=[('uses_line', 'Greater Dreamless Sleep Potion')], strategy=MergeStrategy.SAFE),
-    Consumable(name='Elixir of Greater Defense', price=DirectPrice(itemid=8951)),
-    Consumable(name='Elixir of Giant Growth', price=DirectPrice(itemid=6662),
-        spell_aliases=[('gains_line', 'Enlarge')]
-    ),
-    Consumable(name='Frozen Rune', price=DirectPrice(itemid=22682)),
-
-
-
-    Consumable(name='Arcane Elixir', price=DirectPrice(itemid=9155),
-        spell_aliases=[('gains_line', 'Arcane Elixir')]
-    ),
-    Consumable(name='Dense Sharpening Stone', price=DirectPrice(itemid=12404),
-        spell_aliases=[('begins_to_cast_line', 'Sharpen Blade V')]),
-    Consumable(name='Dense Weightstone', price=DirectPrice(itemid=12643),
-        spell_aliases=[('begins_to_cast_line', 'Enhance Blunt Weapon V')]),
-
-
-
-    Consumable(name='Bloodkelp Elixir of Resistance', price=NoPrice(),
-        spell_aliases=[('gains_line', 'Elixir of Resistance')],
-    ),
-    Consumable(name="Fire-toasted Bun", price=NoPrice(),
-        spell_aliases=[('gains_line', "Fire-toasted Bun")],
-    ),
-    Consumable(name='Blessed Sunfruit', price=NoPrice(),
-        spell_aliases=[('gains_line', 'Blessed Sunfruit')],
-    ),
-    Consumable(name='Blessed Sunfruit Juice', price=NoPrice(),
-        spell_aliases=[('gains_line', 'Blessed Sunfruit Juice')],
-    ),
-    Consumable(name='Noggenfogger Elixir', price=NoPrice(),
-        spell_aliases=[('gains_line', 'Noggenfogger Elixir')],
-    ),
-    Consumable(name='Rumsey Rum', price=NoPrice(),
-        spell_aliases=[('gains_line', 'Rumsey Rum')],
-    ),
-    Consumable(name='Gordok Green Grog', price=NoPrice(),
-        spell_aliases=[('gains_line', 'Gordok Green Grog')],
-    ),
-    Consumable(name='Increased Stamina', price=NoPrice(),
-        spell_aliases=[('gains_line', 'Increased Stamina')],
-    ),
-    Consumable(name='Increased Intellect', price=NoPrice(),
-        spell_aliases=[('gains_line', 'Increased Intellect')],
-    ),
-    Consumable(name='Mana Regeneration (food or mageblood)', price=NoPrice(),
-        spell_aliases=[('gains_line', 'Mana Regeneration')],
-    ),
-    Consumable(name='Regeneration', price=NoPrice(),
-        spell_aliases=[('gains_line', 'Regeneration')],
-    ),
-    Consumable(name='Agility', price=NoPrice(),
-        spell_aliases=[('gains_line', 'Agility')],
-    ),
-    Consumable(name='Strength', price=NoPrice(),
-        spell_aliases=[('gains_line', 'Strength')],
-    ),
-    Consumable(name='Stamina', price=NoPrice(),
-        spell_aliases=[('gains_line', 'Stamina')],
-    ),
-    Consumable(name='Fire Protection', price=NoPrice(),
-        spell_aliases=[('gains_line', 'Fire Protection')],
-    ),
-    Consumable(name='Frost Protection', price=NoPrice(),
-        spell_aliases=[('gains_line', 'Frost Protection')],
-    ),
-    Consumable(name='Arcane Protection', price=NoPrice(),
-        spell_aliases=[('gains_line', 'Arcane Protection')],
-    ),
-    Consumable(name='Nature Protection', price=NoPrice(),
-        spell_aliases=[('gains_line', 'Nature Protection ')],  # need the trailing space
-    ),
-    Consumable(name='Shadow Protection', price=NoPrice(),
-        spell_aliases=[('gains_line', 'Shadow Protection ')],  # need the trailing space
-    ),
-    Consumable(name='Holy Protection', price=NoPrice(),
-        spell_aliases=[('gains_line', 'Holy Protection ')],  # need the trailing space
-    ),
-    Consumable(name="Kreeg's Stout Beatdown", price=NoPrice(),
-        spell_aliases=[('begins_to_cast_line', "Kreeg's Stout Beatdown")]),
-
     Consumable(
-        name='Mighty Rage Potion',
+        name="Restorative Potion",
+        price=DirectPrice(itemid=9030),
+        spell_aliases=[("gains_line", "Restoration")],
+    ),
+    Consumable(
+        name="Flask of Chromatic Resistance",
+        price=DirectPrice(itemid=13513),
+        spell_aliases=[("gains_line", "Chromatic Resistance")],
+    ),
+    Consumable(
+        name="Flask of the Titans",
+        price=DirectPrice(itemid=13510),
+        spell_aliases=[("gains_line", "Flask of the Titans")],
+    ),
+    Consumable(
+        name="Flask of Supreme Power",
+        price=DirectPrice(itemid=13512),
+        spell_aliases=[("gains_line", "Supreme Power")],
+    ),
+    Consumable(
+        name="Flask of Distilled Wisdom",
+        price=DirectPrice(itemid=13511),
+        spell_aliases=[("gains_line", "Distilled Wisdom")],
+    ),
+    Consumable(name="Flask of Petrification", price=DirectPrice(itemid=13506)),
+    Consumable(
+        name="Elixir of Fortitude",
+        price=DirectPrice(itemid=3825),
+        spell_aliases=[("gains_line", "Health II")],
+    ),
+    Consumable(
+        name="Bogling Root",
+        price=DirectPrice(itemid=5206),
+        spell_aliases=[("gains_line", "Fury of the Bogling")],
+    ),
+    Consumable(
+        name="Crystal Basilisk Spine",
+        price=DirectPrice(itemid=1703),
+        spell_aliases=[("gains_line", "Crystal Protection")],
+    ),
+    Consumable(
+        name="??? Elixir of the Sages ???",
+        price=DirectPrice(itemid=13447),
+        spell_aliases=[("gains_line", "Elixir of the Sages")],
+    ),
+    Consumable(
+        name="Elixir of Shadow Power",
+        price=DirectPrice(itemid=9264),
+        spell_aliases=[("gains_line", "Shadow Power")],
+    ),
+    Consumable(
+        name="Elixir of Greater Firepower",
+        price=DirectPrice(itemid=21546),
+        spell_aliases=[("gains_line", "Greater Firepower")],
+    ),
+    Consumable(
+        name="Elixir of Firepower",
+        price=DirectPrice(itemid=6373),
+        spell_aliases=[("gains_line", "Fire Power")],
+    ),
+    Consumable(
+        name="Elixir of Greater Agility",
+        price=DirectPrice(itemid=9187),
+        spell_aliases=[("gains_line", "Greater Agility")],
+    ),
+    Consumable(
+        name="Elixir of Superior Defense",
+        price=DirectPrice(itemid=13445),
+        spell_aliases=[("gains_line", "Greater Armor")],
+    ),
+    Consumable(
+        name="Free Action Potion",
+        price=DirectPrice(itemid=5634),
+        spell_aliases=[("gains_line", "Free Action")],
+    ),
+    Consumable(
+        name="Elixir of Frost Power",
+        price=DirectPrice(itemid=17708),
+        spell_aliases=[("gains_line", "Frost Power")],
+    ),
+    Consumable(
+        name="Greater Arcane Elixir",
+        price=DirectPrice(itemid=13454),
+        spell_aliases=[("gains_line", "Greater Arcane Elixir")],
+    ),
+    Consumable(
+        name="Thistle Tea",
+        price=DirectPrice(itemid=7676),
+        spell_aliases=[("gains_line", "100 energy")],
+    ),
+    Consumable(
+        name="Elixir of the Mongoose",
+        price=DirectPrice(itemid=13452),
+        spell_aliases=[("gains_line", "Elixir of the Mongoose")],
+    ),
+    Consumable(
+        name="Elixir of Brute Force",
+        price=DirectPrice(itemid=13453),
+        spell_aliases=[("gains_line", "Elixir of Brute Force")],
+    ),
+    Consumable(
+        name="Winterfall Firewater",
+        price=DirectPrice(itemid=12820),
+        spell_aliases=[("gains_line", "Winterfall Firewater")],
+    ),
+    SuperwowConsumable(
+        name="Juju Power",
+        price=DirectPrice(itemid=12431),
+        spell_aliases=[("uses_line", "Juju Power")],
+        strategy=MergeStrategy.SAFE,
+    ),
+    SuperwowConsumable(
+        name="Juju Flurry",
+        price=DirectPrice(itemid=12430),
+        spell_aliases=[("uses_line", "Juju Flurry")],
+        strategy=MergeStrategy.SAFE,
+    ),
+    SuperwowConsumable(
+        name="Juju Might",
+        price=DirectPrice(itemid=12436),
+        spell_aliases=[("uses_line", "Juju Might")],
+        strategy=MergeStrategy.SAFE,
+    ),
+    SuperwowConsumable(
+        name="Juju Guile",
+        price=DirectPrice(itemid=12433),
+        spell_aliases=[("uses_line", "Juju Guile")],
+        strategy=MergeStrategy.SAFE,
+    ),
+    SuperwowConsumable(
+        name="Juju Escape",
+        price=DirectPrice(itemid=12435),
+        spell_aliases=[("uses_line", "Juju Escape")],
+        strategy=MergeStrategy.SAFE,
+    ),
+    SuperwowConsumable(
+        name="Juju Ember",
+        price=DirectPrice(itemid=12432),
+        spell_aliases=[("uses_line", "Juju Ember")],
+        strategy=MergeStrategy.SAFE,
+    ),
+    SuperwowConsumable(
+        name="Juju Chill",
+        price=DirectPrice(itemid=12434),
+        spell_aliases=[("uses_line", "Juju Chill")],
+        strategy=MergeStrategy.SAFE,
+    ),
+    SuperwowConsumable(
+        name="Gurubashi Gumbo",
+        price=DirectPrice(itemid=53015),
+        spell_aliases=[("uses_line", "Gurubashi Gumbo")],
+        strategy=MergeStrategy.SAFE,
+    ),
+    Consumable(name="Hardened Mushroom", price=DirectPrice(itemid=51717)),
+    Consumable(name="Power Mushroom", price=DirectPrice(itemid=51720)),
+    SuperwowConsumable(
+        name="Oil of Immolation",
+        price=DirectPrice(itemid=8956),
+        spell_aliases=[("uses_line", "Oil of Immolation")],
+        strategy=MergeStrategy.SAFE,
+    ),
+    Consumable(
+        name="??? Lesser Stoneshield Potion ???",
+        price=DirectPrice(itemid=4623),
+        spell_aliases=[("gains_line", "Stoneshield")],
+    ),
+    Consumable(
+        name="Greater Stoneshield",
+        price=DirectPrice(itemid=13455),
+        spell_aliases=[("gains_line", "Greater Stoneshield")],
+    ),
+    Consumable(
+        name="Lucidity Potion",
+        price=DirectPrice(itemid=61225),
+        spell_aliases=[("gains_line", "Lucidity Potion")],
+    ),
+    Consumable(name="Mana Potion - Greater", price=DirectPrice(itemid=6149)),
+    Consumable(name="Mana Potion - Superior", price=DirectPrice(itemid=13443)),
+    Consumable(name="Mana Potion - Major", price=DirectPrice(itemid=13444)),
+    Consumable(name="Restorative Potion", price=DirectPrice(itemid=9030)),
+    Consumable(name="Healing Potion - Major", price=DirectPrice(itemid=13446)),
+    Consumable(name="Healing Potion - Superior", price=DirectPrice(itemid=3928)),
+    Consumable(
+        name="Elixir of Giants",
+        price=DirectPrice(itemid=9206),
+        spell_aliases=[("gains_line", "Elixir of the Giants")],
+    ),
+    Consumable(
+        name="Rumsey Rum Black Label",
+        price=DirectPrice(itemid=21151),
+        spell_aliases=[("gains_line", "Rumsey Rum Black Label")],
+    ),
+    Consumable(
+        name="Rumsey Rum Dark",
+        price=DirectPrice(itemid=21114),
+        spell_aliases=[("gains_line", "Rumsey Rum Dark")],
+    ),
+    Consumable(
+        name="Elemental Sharpening Stone",
+        price=DirectPrice(itemid=18262),
+        spell_aliases=[("begins_to_cast_line", "Sharpen Weapon - Critical")],
+    ),
+    Consumable(
+        name="Consecrated Sharpening Stone",
+        price=DirectPrice(itemid=23122),
+        spell_aliases=[("begins_to_cast_line", "Consecrated Weapon")],
+    ),
+    Consumable(
+        name="Invulnerability",
+        price=DirectPrice(itemid=3387),
+        spell_aliases=[("gains_line", "Invulnerability")],
+    ),
+    Consumable(name="Dragonbreath Chili", price=DirectPrice(itemid=12217)),
+    Consumable(
+        name="Dreamtonic",
+        price=DirectPrice(itemid=61423),
+        spell_aliases=[("gains_line", "Dreamtonic")],
+    ),
+    Consumable(name="Goblin Sapper Charge", price=DirectPrice(itemid=10646)),
+    Consumable(
+        name="Medivh's Merlot Blue Label",
+        price=DirectPrice(itemid=61175),
+        spell_aliases=[("gains_line", "Medivh's Merlot Blue Label")],
+    ),
+    Consumable(
+        name="Medivh's Merlot",
+        price=DirectPrice(itemid=61174),
+        spell_aliases=[("gains_line", "Medivh's Merlot")],
+    ),
+    Consumable(
+        name="Greater Arcane Protection Potion", price=DirectPrice(itemid=13461)
+    ),
+    Consumable(name="Greater Holy Protection Potion", price=DirectPrice(itemid=13460)),
+    Consumable(
+        name="Greater Shadow Protection Potion", price=DirectPrice(itemid=13459)
+    ),
+    Consumable(
+        name="Greater Nature Protection Potion", price=DirectPrice(itemid=13458)
+    ),
+    Consumable(name="Greater Fire Protection Potion", price=DirectPrice(itemid=13457)),
+    Consumable(name="Greater Frost Protection Potion", price=DirectPrice(itemid=13456)),
+    Consumable(name="Holy Protection Potion", price=DirectPrice(itemid=6051)),
+    Consumable(name="Shadow Protection Potion", price=DirectPrice(itemid=6048)),
+    Consumable(name="Nature Protection Potion", price=DirectPrice(itemid=6052)),
+    Consumable(name="Fire Protection Potion", price=DirectPrice(itemid=6049)),
+    Consumable(name="Frost Protection Potion", price=DirectPrice(itemid=6050)),
+    Consumable(
+        name="Dreamshard Elixir",
+        price=DirectPrice(itemid=61224),
+        spell_aliases=[("gains_line", "Dreamshard Elixir")],
+    ),
+    Consumable(
+        name="Dense Dynamite",
+        price=DirectPrice(itemid=18641),
+        spell_aliases=[("begins_to_cast_line", "Dense Dynamite")],
+    ),
+    Consumable(
+        name="Solid Dynamite",
+        price=DirectPrice(itemid=10507),
+        spell_aliases=[("begins_to_cast_line", "Solid Dynamite")],
+    ),
+    SuperwowConsumable(
+        name="Gift of Arthas",
+        price=DirectPrice(itemid=9088),
+        spell_aliases=[("uses_line", "Gift of Arthas")],
+        strategy=MergeStrategy.SAFE,
+    ),
+    Consumable(
+        name="Thorium Grenade",
+        price=DirectPrice(itemid=15993),
+        spell_aliases=[("begins_to_cast_line", "Thorium Grenade")],
+    ),
+    Consumable(
+        name="Iron Grenade",
+        price=DirectPrice(itemid=4390),
+        spell_aliases=[("begins_to_cast_line", "Iron Grenade")],
+    ),
+    Consumable(name="Grilled Squid", price=DirectPrice(itemid=13928)),
+    Consumable(
+        name="Potion of Quickness",
+        price=DirectPrice(itemid=61181),
+        spell_aliases=[("gains_line", "Potion of Quickness")],
+    ),
+    Consumable(
+        name="Elixir of Greater Nature Power",
+        price=DirectPrice(itemid=50237),
+        spell_aliases=[("gains_line", "Elixir of Greater Nature Power")],
+    ),
+    Consumable(
+        name="Elixir of Greater Intellect",
+        price=DirectPrice(itemid=9179),
+        spell_aliases=[("gains_line", "Greater Intellect")],
+    ),
+    Consumable(name="Rejuvenation Potion - Major", price=DirectPrice(itemid=18253)),
+    Consumable(name="Rejuvenation Potion - Minor", price=DirectPrice(itemid=2456)),
+    SuperwowConsumable(
+        name="Swiftness Potion",
+        price=DirectPrice(itemid=2459),
+        spell_aliases=[("uses_line", "Swiftness Potion")],
+        strategy=MergeStrategy.SAFE,
+    ),
+    Consumable(
+        name="Invisibility Potion",
+        price=DirectPrice(itemid=9172),
+        spell_aliases=[("gains_line", "Invisibility")],
+    ),
+    Consumable(
+        name="Lesser Invisibility Potion",
+        price=DirectPrice(itemid=3823),
+        spell_aliases=[("gains_line", "Lesser Invisibility")],
+    ),
+    Consumable(
+        name="Powerful Anti-Venom",
+        price=DirectPrice(itemid=19440),
+        spell_aliases=[("casts_line", "Powerful Anti-Venom")],
+    ),
+    Consumable(
+        name="Strong Anti-Venom",
+        price=DirectPrice(itemid=6453),
+        spell_aliases=[("casts_line", "Strong Anti-Venom")],
+    ),
+    Consumable(
+        name="Anti-Venom",
+        price=DirectPrice(itemid=6452),
+        spell_aliases=[("casts_line", "Anti-Venom")],
+    ),
+    Consumable(
+        name="Dark Rune",
+        price=DirectPrice(itemid=20520),
+        spell_aliases=[("gains_mana_line", "Dark Rune")],
+    ),
+    Consumable(name="Mageblood Potion", price=DirectPrice(itemid=20007)),
+    SuperwowConsumable(
+        name="Danonzo's Tel'Abim Surprise",
+        price=DirectPrice(itemid=60976),
+        spell_aliases=[("uses_line", "Danonzos Tel'Abim Surprise")],
+        strategy=MergeStrategy.SAFE,
+    ),
+    SuperwowConsumable(
+        name="Danonzo's Tel'Abim Delight",
+        price=DirectPrice(itemid=60977),
+        spell_aliases=[("uses_line", "Danonzos Tel'Abim Delight")],
+        strategy=MergeStrategy.SAFE,
+    ),
+    SuperwowConsumable(
+        name="Danonzo's Tel'Abim Medley",
+        price=DirectPrice(itemid=60978),
+        spell_aliases=[("uses_line", "Danonzos Tel'Abim Medley")],
+        strategy=MergeStrategy.SAFE,
+    ),
+    SuperwowConsumable(
+        name="Wildvine Potion",
+        price=DirectPrice(itemid=9144),
+        spell_aliases=[("uses_line", "Wildvine Potion")],
+        strategy=MergeStrategy.SAFE,
+    ),
+    Consumable(name="Scroll of Stamina IV", price=DirectPrice(itemid=10307)),
+    Consumable(name="Scroll of Strength IV", price=DirectPrice(itemid=10310)),
+    Consumable(name="Scroll of Spirit IV", price=DirectPrice(itemid=10306)),
+    Consumable(name="Scroll of Protection IV", price=DirectPrice(itemid=10305)),
+    Consumable(name="Scroll of Intellect IV", price=DirectPrice(itemid=10308)),
+    Consumable(name="Scroll of Agility IV", price=DirectPrice(itemid=10309)),
+    SuperwowConsumable(
+        name="Purification Potion",
+        price=DirectPrice(itemid=13462),
+        spell_aliases=[("uses_line", "Purification Potion")],
+        strategy=MergeStrategy.SAFE,
+    ),
+    SuperwowConsumable(
+        name="Poisonous Mushroom",
+        price=DirectPrice(itemid=5823),
+        spell_aliases=[("uses_line", "Poisonous Mushroom")],
+        strategy=MergeStrategy.SAFE,
+    ),
+    Consumable(name="Nightfin Soup", price=DirectPrice(itemid=13931)),
+    SuperwowConsumable(
+        name="Major Troll's Blood Potion",
+        price=DirectPrice(itemid=20004),
+        spell_aliases=[("uses_line", "Major Trolls Blood Potion")],
+        strategy=MergeStrategy.SAFE,
+    ),
+    SuperwowConsumable(
+        name="Magic Resistance Potion",
+        price=DirectPrice(itemid=9036),
+        spell_aliases=[("uses_line", "Magic Resistance Potion")],
+        strategy=MergeStrategy.SAFE,
+    ),
+    Consumable(name="Le Fishe Au Chocolat", price=DirectPrice(itemid=84040)),
+    Consumable(
+        name="Jungle Remedy",
+        price=DirectPrice(itemid=2633),
+        spell_aliases=[("casts_line", "Cure Ailments")],
+    ),
+    SuperwowConsumable(
+        name="Living Action Potion",
+        price=DirectPrice(itemid=20008),
+        spell_aliases=[("uses_line", "Living Action Potion")],
+        strategy=MergeStrategy.SAFE,
+    ),
+    SuperwowConsumable(
+        name="Empowering Herbal Salad",
+        price=DirectPrice(itemid=83309),
+        spell_aliases=[("uses_line", "Empowering Herbal Salad")],
+        strategy=MergeStrategy.SAFE,
+    ),
+    SuperwowConsumable(
+        name="Elixir of Poison Resistance",
+        price=DirectPrice(itemid=3386),
+        spell_aliases=[("uses_line", "Elixir of Poison Resistance")],
+        strategy=MergeStrategy.SAFE,
+    ),
+    SuperwowConsumable(
+        name="Elixir of Demonslaying",
+        price=DirectPrice(itemid=9224),
+        spell_aliases=[("uses_line", "Elixir of Demonslaying")],
+        strategy=MergeStrategy.SAFE,
+    ),
+    SuperwowConsumable(
+        name="Graccu's Homemade Meat Pie",
+        price=DirectPrice(itemid=17407),
+        spell_aliases=[("uses_line", "Graccus Homemade Meat Pie")],
+        strategy=MergeStrategy.SAFE,
+    ),
+    SuperwowConsumable(
+        name="Greater Dreamless Sleep Potion",
+        price=DirectPrice(itemid=20002),
+        spell_aliases=[("uses_line", "Greater Dreamless Sleep Potion")],
+        strategy=MergeStrategy.SAFE,
+    ),
+    Consumable(name="Elixir of Greater Defense", price=DirectPrice(itemid=8951)),
+    Consumable(
+        name="Elixir of Giant Growth",
+        price=DirectPrice(itemid=6662),
+        spell_aliases=[("gains_line", "Enlarge")],
+    ),
+    Consumable(name="Frozen Rune", price=DirectPrice(itemid=22682)),
+    Consumable(
+        name="Arcane Elixir",
+        price=DirectPrice(itemid=9155),
+        spell_aliases=[("gains_line", "Arcane Elixir")],
+    ),
+    Consumable(
+        name="Dense Sharpening Stone",
+        price=DirectPrice(itemid=12404),
+        spell_aliases=[("begins_to_cast_line", "Sharpen Blade V")],
+    ),
+    Consumable(
+        name="Dense Weightstone",
+        price=DirectPrice(itemid=12643),
+        spell_aliases=[("begins_to_cast_line", "Enhance Blunt Weapon V")],
+    ),
+    Consumable(
+        name="Bloodkelp Elixir of Resistance",
+        price=NoPrice(),
+        spell_aliases=[("gains_line", "Elixir of Resistance")],
+    ),
+    Consumable(
+        name="Fire-toasted Bun",
+        price=NoPrice(),
+        spell_aliases=[("gains_line", "Fire-toasted Bun")],
+    ),
+    Consumable(
+        name="Blessed Sunfruit",
+        price=NoPrice(),
+        spell_aliases=[("gains_line", "Blessed Sunfruit")],
+    ),
+    Consumable(
+        name="Blessed Sunfruit Juice",
+        price=NoPrice(),
+        spell_aliases=[("gains_line", "Blessed Sunfruit Juice")],
+    ),
+    Consumable(
+        name="Noggenfogger Elixir",
+        price=NoPrice(),
+        spell_aliases=[("gains_line", "Noggenfogger Elixir")],
+    ),
+    Consumable(
+        name="Rumsey Rum",
+        price=NoPrice(),
+        spell_aliases=[("gains_line", "Rumsey Rum")],
+    ),
+    Consumable(
+        name="Gordok Green Grog",
+        price=NoPrice(),
+        spell_aliases=[("gains_line", "Gordok Green Grog")],
+    ),
+    Consumable(
+        name="Increased Stamina",
+        price=NoPrice(),
+        spell_aliases=[("gains_line", "Increased Stamina")],
+    ),
+    Consumable(
+        name="Increased Intellect",
+        price=NoPrice(),
+        spell_aliases=[("gains_line", "Increased Intellect")],
+    ),
+    Consumable(
+        name="Mana Regeneration (food or mageblood)",
+        price=NoPrice(),
+        spell_aliases=[("gains_line", "Mana Regeneration")],
+    ),
+    Consumable(
+        name="Regeneration",
+        price=NoPrice(),
+        spell_aliases=[("gains_line", "Regeneration")],
+    ),
+    Consumable(
+        name="Agility",
+        price=NoPrice(),
+        spell_aliases=[("gains_line", "Agility")],
+    ),
+    Consumable(
+        name="Strength",
+        price=NoPrice(),
+        spell_aliases=[("gains_line", "Strength")],
+    ),
+    Consumable(
+        name="Stamina",
+        price=NoPrice(),
+        spell_aliases=[("gains_line", "Stamina")],
+    ),
+    Consumable(
+        name="Fire Protection",
+        price=NoPrice(),
+        spell_aliases=[("gains_line", "Fire Protection")],
+    ),
+    Consumable(
+        name="Frost Protection",
+        price=NoPrice(),
+        spell_aliases=[("gains_line", "Frost Protection")],
+    ),
+    Consumable(
+        name="Arcane Protection",
+        price=NoPrice(),
+        spell_aliases=[("gains_line", "Arcane Protection")],
+    ),
+    Consumable(
+        name="Nature Protection",
+        price=NoPrice(),
+        spell_aliases=[("gains_line", "Nature Protection ")],  # need the trailing space
+    ),
+    Consumable(
+        name="Shadow Protection",
+        price=NoPrice(),
+        spell_aliases=[("gains_line", "Shadow Protection ")],  # need the trailing space
+    ),
+    Consumable(
+        name="Holy Protection",
+        price=NoPrice(),
+        spell_aliases=[("gains_line", "Holy Protection ")],  # need the trailing space
+    ),
+    Consumable(
+        name="Kreeg's Stout Beatdown",
+        price=NoPrice(),
+        spell_aliases=[("begins_to_cast_line", "Kreeg's Stout Beatdown")],
+    ),
+    Consumable(
+        name="Mighty Rage Potion",
         price=DirectPrice(itemid=13442),
-        spell_aliases=[('gains_rage_line', 'Mighty Rage')],
+        spell_aliases=[("gains_rage_line", "Mighty Rage")],
     ),
     Consumable(
-        name='Great Rage Potion',
+        name="Great Rage Potion",
         price=DirectPrice(itemid=5633),
-        spell_aliases=[('gains_rage_line', 'Great Rage')],
+        spell_aliases=[("gains_rage_line", "Great Rage")],
     ),
     Consumable(
-        name='Rage Potion',
+        name="Rage Potion",
         price=DirectPrice(itemid=5631),
-        spell_aliases=[('gains_rage_line', 'Rage')],
+        spell_aliases=[("gains_rage_line", "Rage")],
     ),
-    Consumable(name='Demonic Rune', price=NoPrice(),
-        spell_aliases=[('gains_mana_line', 'Demonic Rune')],
+    Consumable(
+        name="Demonic Rune",
+        price=NoPrice(),
+        spell_aliases=[("gains_mana_line", "Demonic Rune")],
     ),
-
-    Consumable(name='Advanced Target Dummy', price=DirectPrice(itemid=4392), spell_aliases=[('casts_line', 'Advanced Target Dummy')]),
-
-    Consumable(name='Masterwork Target Dummy', price=DirectPrice(itemid=16023), spell_aliases=[('casts_line', 'Masterwork Target Dummy')]),
-
-    SuperwowConsumable(name='Crystal Charge',
+    Consumable(
+        name="Advanced Target Dummy",
+        price=DirectPrice(itemid=4392),
+        spell_aliases=[("casts_line", "Advanced Target Dummy")],
+    ),
+    Consumable(
+        name="Masterwork Target Dummy",
+        price=DirectPrice(itemid=16023),
+        spell_aliases=[("casts_line", "Masterwork Target Dummy")],
+    ),
+    SuperwowConsumable(
+        name="Crystal Charge",
         price=PriceFromComponents(
             charges=6,
             components=[
                 (_yellow_power_crystal, 10),
                 (_red_power_crystal, 10),
-            ]
+            ],
         ),
-        spell_aliases=[('uses_line', 'Crystal Charge')],
-        strategy=MergeStrategy.SAFE),
-    SuperwowConsumable(name='Conjured Mana Orange', price=NoPrice(), spell_aliases=[('uses_line', 'Conjured Mana Orange')], strategy=MergeStrategy.SAFE),
-    SuperwowConsumable(name='Conjured Crystal Water', price=NoPrice(), spell_aliases=[('uses_line', 'Conjured Crystal Water')], strategy=MergeStrategy.SAFE),
-    SuperwowConsumable(name='Winter Veil Eggnog', price=NoPrice(), spell_aliases=[('uses_line', 'Winter Veil Eggnog')], strategy=MergeStrategy.SAFE),
-    SuperwowConsumable(name='Winter Veil Candy', price=NoPrice(), spell_aliases=[('uses_line', 'Winter Veil Candy')], strategy=MergeStrategy.SAFE),
-    SuperwowConsumable(name='Winter Veil Cookie', price=NoPrice(), spell_aliases=[('uses_line', 'Winter Veil Cookie')], strategy=MergeStrategy.SAFE),
-    SuperwowConsumable(name='Ironforge Gift of Friendship', price=NoPrice(), spell_aliases=[('uses_line', 'Ironforge Gift of Friendship')], strategy=MergeStrategy.SAFE),
-    SuperwowConsumable(name='Stormwind Gift of Friendship', price=NoPrice(), spell_aliases=[('uses_line', 'Stormwind Gift of Friendship')], strategy=MergeStrategy.SAFE),
-    SuperwowConsumable(name='Darnassus Gift of Friendship', price=NoPrice(), spell_aliases=[('uses_line', 'Darnassus Gift of Friendship')], strategy=MergeStrategy.SAFE),
-    SuperwowConsumable(name='Orgrimmar Gift of Friendship', price=NoPrice(), spell_aliases=[('uses_line', 'Orgrimmar Gift of Friendship')], strategy=MergeStrategy.SAFE),
-    SuperwowConsumable(name='Thunder Bluff Gift of Friendship', price=NoPrice(), spell_aliases=[('uses_line', 'Thunder Bluff Gift of Friendship')], strategy=MergeStrategy.SAFE),
-    SuperwowConsumable(name='Undercity Gift of Friendship', price=NoPrice(), spell_aliases=[('uses_line', 'Undercity Gift of Friendship')], strategy=MergeStrategy.SAFE),
-    SuperwowConsumable(name='Slumber Sand', price=NoPrice(), spell_aliases=[('uses_line', 'Slumber Sand')], strategy=MergeStrategy.SAFE),
-    SuperwowConsumable(name='Sweet Surprise', price=NoPrice(), spell_aliases=[('uses_line', 'Sweet Surprise')], strategy=MergeStrategy.SAFE),
-    SuperwowConsumable(name='Midsummer Sausage', price=NoPrice(), spell_aliases=[('uses_line', 'Midsummer Sausage')], strategy=MergeStrategy.SAFE),
-    SuperwowConsumable(name='Very Berry Cream', price=NoPrice(), spell_aliases=[('uses_line', 'Very Berry Cream')], strategy=MergeStrategy.SAFE),
-    SuperwowConsumable(name='Dark Desire', price=NoPrice(), spell_aliases=[('uses_line', 'Dark Desire')], strategy=MergeStrategy.SAFE),
-    SuperwowConsumable(name='Buttermilk Delight', price=NoPrice(), spell_aliases=[('uses_line', 'Buttermilk Delight')], strategy=MergeStrategy.SAFE),
-    SuperwowConsumable(name="Graccu's Mince Meat Fruitcake", price=NoPrice(), spell_aliases=[('uses_line', 'Graccus Mince Meat Fruitcake')], strategy=MergeStrategy.SAFE),
+        spell_aliases=[("uses_line", "Crystal Charge")],
+        strategy=MergeStrategy.SAFE,
+    ),
+    SuperwowConsumable(
+        name="Conjured Mana Orange",
+        price=NoPrice(),
+        spell_aliases=[("uses_line", "Conjured Mana Orange")],
+        strategy=MergeStrategy.SAFE,
+    ),
+    SuperwowConsumable(
+        name="Conjured Crystal Water",
+        price=NoPrice(),
+        spell_aliases=[("uses_line", "Conjured Crystal Water")],
+        strategy=MergeStrategy.SAFE,
+    ),
+    SuperwowConsumable(
+        name="Winter Veil Eggnog",
+        price=NoPrice(),
+        spell_aliases=[("uses_line", "Winter Veil Eggnog")],
+        strategy=MergeStrategy.SAFE,
+    ),
+    SuperwowConsumable(
+        name="Winter Veil Candy",
+        price=NoPrice(),
+        spell_aliases=[("uses_line", "Winter Veil Candy")],
+        strategy=MergeStrategy.SAFE,
+    ),
+    SuperwowConsumable(
+        name="Winter Veil Cookie",
+        price=NoPrice(),
+        spell_aliases=[("uses_line", "Winter Veil Cookie")],
+        strategy=MergeStrategy.SAFE,
+    ),
+    SuperwowConsumable(
+        name="Ironforge Gift of Friendship",
+        price=NoPrice(),
+        spell_aliases=[("uses_line", "Ironforge Gift of Friendship")],
+        strategy=MergeStrategy.SAFE,
+    ),
+    SuperwowConsumable(
+        name="Stormwind Gift of Friendship",
+        price=NoPrice(),
+        spell_aliases=[("uses_line", "Stormwind Gift of Friendship")],
+        strategy=MergeStrategy.SAFE,
+    ),
+    SuperwowConsumable(
+        name="Darnassus Gift of Friendship",
+        price=NoPrice(),
+        spell_aliases=[("uses_line", "Darnassus Gift of Friendship")],
+        strategy=MergeStrategy.SAFE,
+    ),
+    SuperwowConsumable(
+        name="Orgrimmar Gift of Friendship",
+        price=NoPrice(),
+        spell_aliases=[("uses_line", "Orgrimmar Gift of Friendship")],
+        strategy=MergeStrategy.SAFE,
+    ),
+    SuperwowConsumable(
+        name="Thunder Bluff Gift of Friendship",
+        price=NoPrice(),
+        spell_aliases=[("uses_line", "Thunder Bluff Gift of Friendship")],
+        strategy=MergeStrategy.SAFE,
+    ),
+    SuperwowConsumable(
+        name="Undercity Gift of Friendship",
+        price=NoPrice(),
+        spell_aliases=[("uses_line", "Undercity Gift of Friendship")],
+        strategy=MergeStrategy.SAFE,
+    ),
+    SuperwowConsumable(
+        name="Slumber Sand",
+        price=NoPrice(),
+        spell_aliases=[("uses_line", "Slumber Sand")],
+        strategy=MergeStrategy.SAFE,
+    ),
+    SuperwowConsumable(
+        name="Sweet Surprise",
+        price=NoPrice(),
+        spell_aliases=[("uses_line", "Sweet Surprise")],
+        strategy=MergeStrategy.SAFE,
+    ),
+    SuperwowConsumable(
+        name="Midsummer Sausage",
+        price=NoPrice(),
+        spell_aliases=[("uses_line", "Midsummer Sausage")],
+        strategy=MergeStrategy.SAFE,
+    ),
+    SuperwowConsumable(
+        name="Very Berry Cream",
+        price=NoPrice(),
+        spell_aliases=[("uses_line", "Very Berry Cream")],
+        strategy=MergeStrategy.SAFE,
+    ),
+    SuperwowConsumable(
+        name="Dark Desire",
+        price=NoPrice(),
+        spell_aliases=[("uses_line", "Dark Desire")],
+        strategy=MergeStrategy.SAFE,
+    ),
+    SuperwowConsumable(
+        name="Buttermilk Delight",
+        price=NoPrice(),
+        spell_aliases=[("uses_line", "Buttermilk Delight")],
+        strategy=MergeStrategy.SAFE,
+    ),
+    SuperwowConsumable(
+        name="Graccu's Mince Meat Fruitcake",
+        price=NoPrice(),
+        spell_aliases=[("uses_line", "Graccus Mince Meat Fruitcake")],
+        strategy=MergeStrategy.SAFE,
+    ),
 ]
 
 
@@ -827,19 +1246,21 @@ for item in all_defined_consumable_items:
     for line_type, raw_spellname in item.spell_aliases:
         key = (line_type, raw_spellname)
         if key in RAWSPELLNAME2CONSUMABLE:
-            raise ValueError(f'duplicate consumable alias. tried to add {key} for {item.name}'
-                             f' but {RAWSPELLNAME2CONSUMABLE[key].name} already added')
+            raise ValueError(
+                f"duplicate consumable alias. tried to add {key} for {item.name}"
+                f" but {RAWSPELLNAME2CONSUMABLE[key].name} already added"
+            )
         RAWSPELLNAME2CONSUMABLE[key] = item
 
 
-
-
 RENAME_SPELL = {
-    ('hits_ability_line', 'Holy Shock'): 'Holy Shock (dmg)',
-    ('heals_line', 'Holy Shock'): 'Holy Shock (heal)',
-    ('heals_line', 'Tea'): 'Tea with Sugar',
-    ('gains_rage_line', 'Blood Fury'): "Gri'lek's Charm of Might",
+    ("hits_ability_line", "Holy Shock"): "Holy Shock (dmg)",
+    ("heals_line", "Holy Shock"): "Holy Shock (heal)",
+    ("heals_line", "Tea"): "Tea with Sugar",
+    ("gains_rage_line", "Blood Fury"): "Gri'lek's Charm of Might",
 }
+
+
 def rename_spell(spell, line_type):
     rename = RENAME_SPELL.get((line_type, spell))
     return rename or spell
@@ -853,78 +1274,66 @@ NAME2ITEMID = {
 }
 
 NAME2ITEMID_BOP = {
-    'Slumber Sand',
-    'Conjured Crystal Water',
-    'Conjured Mana Orange',
-    'Buttermilk Delight',
-    'Very Berry Cream',
-    'Dark Desire',
+    "Slumber Sand",
+    "Conjured Crystal Water",
+    "Conjured Mana Orange",
+    "Buttermilk Delight",
+    "Very Berry Cream",
+    "Dark Desire",
     "Graccu's Mince Meat Fruitcake",
-    'Midsummer Sausage',
-    'Demonic Rune',
-    'Winter Veil Eggnog',
-    'Winter Veil Candy',
-    'Winter Veil Cookie',
-    'Windblossom Berries',
+    "Midsummer Sausage",
+    "Demonic Rune",
+    "Winter Veil Eggnog",
+    "Winter Veil Candy",
+    "Winter Veil Cookie",
+    "Windblossom Berries",
     "Ironforge Gift of Friendship",
     "Stormwind Gift of Friendship",
     "Darnassus Gift of Friendship",
     "Orgrimmar Gift of Friendship",
     "Thunder Bluff Gift of Friendship",
     "Undercity Gift of Friendship",
-    'Sweet Surprise',
-    'Stratholme Holy Water',
+    "Sweet Surprise",
+    "Stratholme Holy Water",
 }
 
 # used for pricing
-ITEMID2NAME = { value: key for key, value in NAME2ITEMID.items() }
-
-
-
-
-
-
-
+ITEMID2NAME = {value: key for key, value in NAME2ITEMID.items()}
 
 
 # will try to delete the native counts with the old name and use the new name coming from superwow
 # eg. the prot pots have non-specific native names, but with superwow the specific name shows up
 USES_CONSUMABLE_OVERWRITE = {
     # prot pots have very generic names in native logs
-    'Greater Fire Protection Potion': 'Fire Protection',
-    'Greater Frost Protection Potion': 'Frost Protection',
-    'Greater Arcane Protection Potion': 'Arcane Protection',
-    'Greater Nature Protection Potion': 'Nature Protection',
-    'Greater Shadow Protection Potion': 'Shadow Protection',
-    'Greater Holy Protection Potion': 'Holy Protection',
-    'Frost Protection Potion': 'Frost Protection',
-    'Fire Protection Potion': 'Fire Protection',
-    'Nature Protection Potion': 'Nature Protection',
-    'Shadow Protection Potion': 'Shadow Protection',
-    'Holy Protection Potion': 'Holy Protection',
-    'Frozen Rune': 'Fire Protection',
-
-    'Windblossom Berries': 'Increased Stamina',
-    'Hardened Mushroom': 'Increased Stamina',
-    'Mageblood Potion': 'Mana Regeneration (food or mageblood)',
-    'Nightfin Soup': 'Mana Regeneration (food or mageblood)',
-    'Tea with Sugar': 'Tea with Sugar',
-
-
+    "Greater Fire Protection Potion": "Fire Protection",
+    "Greater Frost Protection Potion": "Frost Protection",
+    "Greater Arcane Protection Potion": "Arcane Protection",
+    "Greater Nature Protection Potion": "Nature Protection",
+    "Greater Shadow Protection Potion": "Shadow Protection",
+    "Greater Holy Protection Potion": "Holy Protection",
+    "Frost Protection Potion": "Frost Protection",
+    "Fire Protection Potion": "Fire Protection",
+    "Nature Protection Potion": "Nature Protection",
+    "Shadow Protection Potion": "Shadow Protection",
+    "Holy Protection Potion": "Holy Protection",
+    "Frozen Rune": "Fire Protection",
+    "Windblossom Berries": "Increased Stamina",
+    "Hardened Mushroom": "Increased Stamina",
+    "Mageblood Potion": "Mana Regeneration (food or mageblood)",
+    "Nightfin Soup": "Mana Regeneration (food or mageblood)",
+    "Tea with Sugar": "Tea with Sugar",
     # superwow counts are lower, because 'begins to cast' may not actually cast the spell
     # thus the overwrite is more appropriate, because it takes superwow counts
-    'Dense Weightstone': 'Dense Weightstone',
-    'Brilliant Mana Oil': 'Brilliant Mana Oil',
-    'Brilliant Wizard Oil': 'Brilliant Wizard Oil',
-    'Blessed Wizard Oil': 'Blessed Wizard Oil',
-    'Wizard Oil': 'Wizard Oil',
-    'Shadow Oil': 'Shadow Oil',
-    'Consecrated Sharpening Stone': 'Consecrated Sharpening Stone',
-    'Elemental Sharpening Stone': 'Elemental Sharpening Stone',
-    'Dense Sharpening Stone': 'Dense Sharpening Stone',
-    'Dense Dynamite': 'Dense Dynamite',
-
-
+    "Dense Weightstone": "Dense Weightstone",
+    "Brilliant Mana Oil": "Brilliant Mana Oil",
+    "Brilliant Wizard Oil": "Brilliant Wizard Oil",
+    "Blessed Wizard Oil": "Blessed Wizard Oil",
+    "Wizard Oil": "Wizard Oil",
+    "Shadow Oil": "Shadow Oil",
+    "Consecrated Sharpening Stone": "Consecrated Sharpening Stone",
+    "Elemental Sharpening Stone": "Elemental Sharpening Stone",
+    "Dense Sharpening Stone": "Dense Sharpening Stone",
+    "Dense Dynamite": "Dense Dynamite",
     # those don't stack, so usually they don't do anything and their buff isn't in the logs
     "Scroll of Protection IV": "Armor",
     "Scroll of Stamina IV": "Stamina",
@@ -936,87 +1345,82 @@ USES_CONSUMABLE_OVERWRITE = {
 
 # will try to merge counts, but keep the existing names from the native client
 USES_CONSUMABLE_ENHANCE = {
-
     # verify again
-    'Lesser Invisibility Potion': 'Lesser Invisibility Potion',
-
+    "Lesser Invisibility Potion": "Lesser Invisibility Potion",
     # missing? 'Mana Potion - Greater'
     # missing? 'Mana Potion - Superior'
-    'Major Mana Potion': 'Mana Potion - Major',
-    'Major Healing Potion': 'Healing Potion - Major',
-
-
-
-    'Elixir of Brute Force': 'Elixir of Brute Force',
-    'Bogling Root': 'Bogling Root',
-    'Blessed Sunfruit': 'Blessed Sunfruit',
-    'Blessed Sunfruit Juice': 'Blessed Sunfruit Juice',
-    'Jungle Remedy': 'Jungle Remedy',
-    'Lucidity Potion': 'Lucidity Potion',
+    "Major Mana Potion": "Mana Potion - Major",
+    "Major Healing Potion": "Healing Potion - Major",
+    "Elixir of Brute Force": "Elixir of Brute Force",
+    "Bogling Root": "Bogling Root",
+    "Blessed Sunfruit": "Blessed Sunfruit",
+    "Blessed Sunfruit Juice": "Blessed Sunfruit Juice",
+    "Jungle Remedy": "Jungle Remedy",
+    "Lucidity Potion": "Lucidity Potion",
     "Solid Dynamite": "Solid Dynamite",
-    'Anti-Venom': 'Anti-Venom',
-    'Strong Anti-Venom': 'Strong Anti-Venom',
-    'Powerful Anti-Venom': 'Powerful Anti-Venom',
+    "Anti-Venom": "Anti-Venom",
+    "Strong Anti-Venom": "Strong Anti-Venom",
+    "Powerful Anti-Venom": "Powerful Anti-Venom",
     "Kreeg's Stout Beatdown": "Kreeg's Stout Beatdown",  # renamed
-    'Flask of Chromatic Resistance': 'Flask of Chromatic Resistance',
-    'Flask of Petrification': 'Flask of Petrification',
-    'Flask of Distilled Wisdom': 'Flask of Distilled Wisdom',
-    'Flask of the Titans': 'Flask of the Titans',
-    'Flask of Supreme Power': 'Flask of Supreme Power',
-    'Thistle Tea': 'Thistle Tea',
-    'Limited Invulnerability Potion': 'Invulnerability',
-    'Elixir of Fortitude': 'Elixir of Fortitude',
-    "Elixir of Giants": 'Elixir of Giants',
-    "Elixir of Greater Agility": 'Elixir of Greater Agility',
-    'Elixir of the Sages': '??? Elixir of the Sages ???',
-    'Rage of Ages': 'Rage of Ages (ROIDS)',
-    'Ground Scorpok Assay': 'Strike of the Scorpok',
-    'Lung Juice Cocktail': 'Lung Juice Cocktail',
-    'Cerebral Cortex Compound': 'Infallible Mind (Cerebral Cortex Compound)',
+    "Flask of Chromatic Resistance": "Flask of Chromatic Resistance",
+    "Flask of Petrification": "Flask of Petrification",
+    "Flask of Distilled Wisdom": "Flask of Distilled Wisdom",
+    "Flask of the Titans": "Flask of the Titans",
+    "Flask of Supreme Power": "Flask of Supreme Power",
+    "Thistle Tea": "Thistle Tea",
+    "Limited Invulnerability Potion": "Invulnerability",
+    "Elixir of Fortitude": "Elixir of Fortitude",
+    "Elixir of Giants": "Elixir of Giants",
+    "Elixir of Greater Agility": "Elixir of Greater Agility",
+    "Elixir of the Sages": "??? Elixir of the Sages ???",
+    "Rage of Ages": "Rage of Ages (ROIDS)",
+    "Ground Scorpok Assay": "Strike of the Scorpok",
+    "Lung Juice Cocktail": "Lung Juice Cocktail",
+    "Cerebral Cortex Compound": "Infallible Mind (Cerebral Cortex Compound)",
     "Medivh's Merlot Blue Label": "Medivh's Merlot Blue Label",
     "Medivh's Merlot": "Medivh's Merlot",
-    'Iron Grenade': 'Iron Grenade',
-    'Thorium Grenade': 'Thorium Grenade',
-    'Elixir of Giant Growth': 'Elixir of Giant Growth',
-    'Swiftness of Zanza': 'Swiftness of Zanza',
-    'Sheen of Zanza': 'Sheen of Zanza',
-    'Spirit of Zanza': 'Spirit of Zanza',
-    'Grilled Squid': 'Grilled Squid',
-    'Dreamshard Elixir': 'Dreamshard Elixir',
-    'Rumsey Rum Black Label': 'Rumsey Rum Black Label',
-    'Rumsey Rum': 'Rumsey Rum',
-    'Rumsey Rum Dark': 'Rumsey Rum Dark',
-    'Dreamtonic': 'Dreamtonic',
-    'Free Action Potion': 'Free Action Potion',
-    'Winterfall Firewater': 'Winterfall Firewater',
-    'Mighty Rage Potion': 'Mighty Rage Potion',
-    'Great Rage Potion': 'Great Rage Potion',
-    'Rage Potion': 'Rage Potion',
-    'Stratholme Holy Water': 'Stratholme Holy Water',
-    'Goblin Sapper Charge': 'Goblin Sapper Charge',
-    'Elixir of Frost Power': 'Elixir of Frost Power',
-    'Greater Arcane Elixir': 'Greater Arcane Elixir',
-    'Arcane Elixir': 'Arcane Elixir',
-    'Elixir of Shadow Power': 'Elixir of Shadow Power',
-    'Elixir of Greater Firepower': 'Elixir of Greater Firepower',
-    'Elixir of Firepower': 'Elixir of Firepower',
-    'Major Rejuvenation Potion': 'Rejuvenation Potion - Major',
-    'Minor Rejuvenation Potion': 'Rejuvenation Potion - Minor',
-    'Invisibility Potion': 'Invisibility Potion',
-    'Elixir of Greater Defense': 'Elixir of Greater Defense',
-    'Dark Rune': 'Dark Rune',
-    'Noggenfogger Elixir': 'Noggenfogger Elixir',
-    'Demonic Rune': 'Demonic Rune',
-    'Restorative Potion': 'Restorative Potion',
-    'Elixir of Superior Defense': 'Elixir of Superior Defense',
-    'Powerful Smelling Salts': 'Powerful Smelling Salts',
-    'Greater Stoneshield Potion': 'Greater Stoneshield',
-    'Potion of Quickness': 'Potion of Quickness',
-    'Le Fishe Au Chocolat': 'Le Fishe Au Chocolat',
-    'Elixir of the Mongoose': 'Elixir of the Mongoose',
-    'Elixir of Greater Nature Power': 'Elixir of Greater Nature Power',
-    'Power Mushroom': 'Power Mushroom',
-    'Gordok Green Grog': 'Gordok Green Grog',
+    "Iron Grenade": "Iron Grenade",
+    "Thorium Grenade": "Thorium Grenade",
+    "Elixir of Giant Growth": "Elixir of Giant Growth",
+    "Swiftness of Zanza": "Swiftness of Zanza",
+    "Sheen of Zanza": "Sheen of Zanza",
+    "Spirit of Zanza": "Spirit of Zanza",
+    "Grilled Squid": "Grilled Squid",
+    "Dreamshard Elixir": "Dreamshard Elixir",
+    "Rumsey Rum Black Label": "Rumsey Rum Black Label",
+    "Rumsey Rum": "Rumsey Rum",
+    "Rumsey Rum Dark": "Rumsey Rum Dark",
+    "Dreamtonic": "Dreamtonic",
+    "Free Action Potion": "Free Action Potion",
+    "Winterfall Firewater": "Winterfall Firewater",
+    "Mighty Rage Potion": "Mighty Rage Potion",
+    "Great Rage Potion": "Great Rage Potion",
+    "Rage Potion": "Rage Potion",
+    "Stratholme Holy Water": "Stratholme Holy Water",
+    "Goblin Sapper Charge": "Goblin Sapper Charge",
+    "Elixir of Frost Power": "Elixir of Frost Power",
+    "Greater Arcane Elixir": "Greater Arcane Elixir",
+    "Arcane Elixir": "Arcane Elixir",
+    "Elixir of Shadow Power": "Elixir of Shadow Power",
+    "Elixir of Greater Firepower": "Elixir of Greater Firepower",
+    "Elixir of Firepower": "Elixir of Firepower",
+    "Major Rejuvenation Potion": "Rejuvenation Potion - Major",
+    "Minor Rejuvenation Potion": "Rejuvenation Potion - Minor",
+    "Invisibility Potion": "Invisibility Potion",
+    "Elixir of Greater Defense": "Elixir of Greater Defense",
+    "Dark Rune": "Dark Rune",
+    "Noggenfogger Elixir": "Noggenfogger Elixir",
+    "Demonic Rune": "Demonic Rune",
+    "Restorative Potion": "Restorative Potion",
+    "Elixir of Superior Defense": "Elixir of Superior Defense",
+    "Powerful Smelling Salts": "Powerful Smelling Salts",
+    "Greater Stoneshield Potion": "Greater Stoneshield",
+    "Potion of Quickness": "Potion of Quickness",
+    "Le Fishe Au Chocolat": "Le Fishe Au Chocolat",
+    "Elixir of the Mongoose": "Elixir of the Mongoose",
+    "Elixir of Greater Nature Power": "Elixir of Greater Nature Power",
+    "Power Mushroom": "Power Mushroom",
+    "Gordok Green Grog": "Gordok Green Grog",
 }
 
 
@@ -1033,106 +1437,120 @@ USES_CONSUMABLE_IGNORE = {
 }
 
 INTERRUPT_SPELLS = {
-    'Kick',
-    'Pummel',
-    'Shield Bash',
-    'Earth Shock',
+    "Kick",
+    "Pummel",
+    "Shield Bash",
+    "Earth Shock",
 }
 
 
-
 CDSPELL_CLASS = [
-    [PlayerClass.WARRIOR, [
-        'Death Wish',
-        'Sweeping Strikes',
-        'Shield Wall',
-        'Recklessness',
-        'Bloodrage',
-    ]],
-    [PlayerClass.MAGE, ['Combustion', 'Scorch']],
-    [PlayerClass.SHAMAN, [
-        "Nature's Swiftness",
-        'Windfury Totem',
-        'Mana Tide Totem',
-        'Grace of Air Totem',
-        'Tranquil Air Totem',
-        'Strength of Earth Totem',
-        'Mana Spring Totem',
-        'Searing Totem',
-        'Fire Nova Totem',
-        'Magma Totem',
-        'Ancestral Spirit',
-    ]],
+    [
+        PlayerClass.WARRIOR,
+        [
+            "Death Wish",
+            "Sweeping Strikes",
+            "Shield Wall",
+            "Recklessness",
+            "Bloodrage",
+        ],
+    ],
+    [PlayerClass.MAGE, ["Combustion", "Scorch"]],
+    [
+        PlayerClass.SHAMAN,
+        [
+            "Nature's Swiftness",
+            "Windfury Totem",
+            "Mana Tide Totem",
+            "Grace of Air Totem",
+            "Tranquil Air Totem",
+            "Strength of Earth Totem",
+            "Mana Spring Totem",
+            "Searing Totem",
+            "Fire Nova Totem",
+            "Magma Totem",
+            "Ancestral Spirit",
+        ],
+    ],
     [PlayerClass.DRUID, ["Nature's Swiftness", "Rebirth", "Swiftmend"]],
-    [PlayerClass.PRIEST, ['Inner Focus', 'Resurrection',]],
-    [PlayerClass.PALADIN, ['Divine Favor', 'Holy Shock (heal)', 'Holy Shock (dmg)', 'Redemption']],
-    [PlayerClass.ROGUE, [
-        'Adrenaline Rush',
-        'Blade Flurry',
-    ]],
+    [
+        PlayerClass.PRIEST,
+        [
+            "Inner Focus",
+            "Resurrection",
+        ],
+    ],
+    [
+        PlayerClass.PALADIN,
+        ["Divine Favor", "Holy Shock (heal)", "Holy Shock (dmg)", "Redemption"],
+    ],
+    [
+        PlayerClass.ROGUE,
+        [
+            "Adrenaline Rush",
+            "Blade Flurry",
+        ],
+    ],
     [PlayerClass.WARLOCK, []],
-    [PlayerClass.HUNTER, ['Rapid Fire']],
+    [PlayerClass.HUNTER, ["Rapid Fire"]],
 ]
 
 
 RECEIVE_BUFF_SPELL = {
-    'Power Infusion',
-    'Bloodlust',
-    'Chastise Haste',
+    "Power Infusion",
+    "Bloodlust",
+    "Chastise Haste",
 }
 RACIAL_SPELL = [
-    'Blood Fury',
-    'Berserking',
-    'Stoneform',
-    'Desperate Prayer',
-    'Will of the Forsaken',
-    'War Stomp',
+    "Blood Fury",
+    "Berserking",
+    "Stoneform",
+    "Desperate Prayer",
+    "Will of the Forsaken",
+    "War Stomp",
 ]
 TRINKET_SPELL = [
-    'Kiss of the Spider',
+    "Kiss of the Spider",
     "Slayer's Crest",
-    'Jom Gabbar',
-    'Badge of the Swarmguard',
-    'Earthstrike',
-    'Diamond Flask',
+    "Jom Gabbar",
+    "Badge of the Swarmguard",
+    "Earthstrike",
+    "Diamond Flask",
     "Gri'lek's Charm of Might",
-    'The Eye of the Dead',
-    'Healing of the Ages',
-    'Essence of Sapphiron',
-    'Ephemeral Power',
-    'Unstable Power',
-    'Mind Quickening',
-    'Nature Aligned',
-    'Death by Peasant',
-    'Immune Charm/Fear/Stun',
-    'Immune Charm/Fear/Polymorph',
-    'Immune Fear/Polymorph/Snare',
-    'Immune Fear/Polymorph/Stun',
-    'Immune Root/Snare/Stun',
+    "The Eye of the Dead",
+    "Healing of the Ages",
+    "Essence of Sapphiron",
+    "Ephemeral Power",
+    "Unstable Power",
+    "Mind Quickening",
+    "Nature Aligned",
+    "Death by Peasant",
+    "Immune Charm/Fear/Stun",
+    "Immune Charm/Fear/Polymorph",
+    "Immune Fear/Polymorph/Snare",
+    "Immune Fear/Polymorph/Stun",
+    "Immune Root/Snare/Stun",
 ]
 RENAME_TRINKET_SPELL = {
-    'Unstable Power': 'Zandalarian Hero Charm',
-    'Ephemeral Power': 'Talisman of Ephemeral Power',
-    'Essence of Sapphiron': 'The Restrained Essence of Sapphiron',
-    'Mind Quickening': 'Mind Quickening Gem',
-    'Nature Aligned': 'Natural Alignment Crystal',
-    'Death by Peasant': 'Barov Peasant Caller',
-    'Healing of the Ages': 'Hibernation Crystal',
-    'Rapid Healing': "Hazza'rah's Charm of Healing",
-    'Chromatic Infusion': 'Draconic Infused Emblem',
-    'Immune Charm/Fear/Stun': "Insignia of the Alliance/Horde",
-    'Immune Charm/Fear/Polymorph': "Insignia of the Alliance/Horde",
-    'Immune Fear/Polymorph/Snare': "Insignia of the Alliance/Horde",
-    'Immune Fear/Polymorph/Stun': "Insignia of the Alliance/Horde",
-    'Immune Root/Snare/Stun': "Insignia of the Alliance/Horde",
+    "Unstable Power": "Zandalarian Hero Charm",
+    "Ephemeral Power": "Talisman of Ephemeral Power",
+    "Essence of Sapphiron": "The Restrained Essence of Sapphiron",
+    "Mind Quickening": "Mind Quickening Gem",
+    "Nature Aligned": "Natural Alignment Crystal",
+    "Death by Peasant": "Barov Peasant Caller",
+    "Healing of the Ages": "Hibernation Crystal",
+    "Rapid Healing": "Hazza'rah's Charm of Healing",
+    "Chromatic Infusion": "Draconic Infused Emblem",
+    "Immune Charm/Fear/Stun": "Insignia of the Alliance/Horde",
+    "Immune Charm/Fear/Polymorph": "Insignia of the Alliance/Horde",
+    "Immune Fear/Polymorph/Snare": "Insignia of the Alliance/Horde",
+    "Immune Fear/Polymorph/Stun": "Insignia of the Alliance/Horde",
+    "Immune Root/Snare/Stun": "Insignia of the Alliance/Horde",
 }
 for spell in itertools.chain(TRINKET_SPELL, RACIAL_SPELL, sorted(RECEIVE_BUFF_SPELL)):
     for clsorder in CDSPELL_CLASS:
         spells = clsorder[1]
         spells.append(spell)
-
-
-
 
 
 BUFF_SPELL = {
@@ -1147,18 +1565,18 @@ BUFF_SPELL = {
 }
 
 ABILITYCOST = {
-    'Bloodthirst': 30,
-    'Hamstring': 10,
-    'Heroic Strike': 15,
-    'Whirlwind': 25,
-    'Cleave': 20,
-    'Execute': 15,
-    'Slam': 15,
+    "Bloodthirst": 30,
+    "Hamstring": 10,
+    "Heroic Strike": 15,
+    "Whirlwind": 25,
+    "Cleave": 20,
+    "Execute": 15,
+    "Slam": 15,
 }
 
 ABILITYCOOLDOWN = {
-    'Whirlwind': 8,
-    'Cleave': 1,
+    "Whirlwind": 8,
+    "Cleave": 1,
 }
 
 KNOWN_BOSS_NAMES = {
@@ -1186,41 +1604,36 @@ KNOWN_BOSS_NAMES = {
 }
 
 
-
 def healpot_lookup(amount):
     # bigger ranges for rounding errors
     if 1049 <= amount <= 1751:
-        return 'Healing Potion - Major'
+        return "Healing Potion - Major"
     if 699 <= amount <= 901:
-        return 'Healing Potion - Superior'
+        return "Healing Potion - Superior"
     if 454 <= amount <= 586:
-        return 'Healing Potion - Greater'
+        return "Healing Potion - Greater"
     if 139 <= amount <= 181:
-        return 'Healing Potion - Lesser'
+        return "Healing Potion - Lesser"
     if 69 <= amount <= 91:
-        return 'Healing Potion - Minor'
-    return 'Healing Potion - unknown'
+        return "Healing Potion - Minor"
+    return "Healing Potion - unknown"
+
 
 def manapot_lookup(mana):
-    consumable = 'Restore Mana (mana potion?)'
+    consumable = "Restore Mana (mana potion?)"
     if 1350 <= mana <= 2250:
-        consumable = 'Mana Potion - Major'
+        consumable = "Mana Potion - Major"
     elif 900 <= mana <= 1500:
-        consumable = 'Mana Potion - Superior'
+        consumable = "Mana Potion - Superior"
     elif 700 <= mana <= 900:
-        consumable = 'Mana Potion - Greater'
+        consumable = "Mana Potion - Greater"
     elif 455 <= mana <= 585:
-        consumable = 'Mana Potion - 455 to 585'
+        consumable = "Mana Potion - 455 to 585"
     elif 280 <= mana <= 360:
-        consumable = 'Mana Potion - Lesser'
+        consumable = "Mana Potion - Lesser"
     elif 140 <= mana <= 180:
-        consumable = 'Mana Potion - Minor'
+        consumable = "Mana Potion - Minor"
     return consumable
-
-
-
-
-
 
 
 class LogParser:
@@ -1239,108 +1652,130 @@ class LogParser:
                 return 1
 
     def print(self, output):
-        if not self.log: return
+        if not self.log:
+            return
 
         print(f"\n\n{self.logname}", file=output)
         for line in self.log:
-            print('  ', line, end='', file=output)
-
-
+            print("  ", line, end="", file=output)
 
 
 def print_collected_log(section_name, log_list, output):
-    if not log_list: return
+    if not log_list:
+        return
     print(f"\n\n{section_name}", file=output)
     for line in log_list:
-        print('  ', line, end='', file=output)
+        print("  ", line, end="", file=output)
     return
+
 
 def print_collected_log_always(section_name, log_list, output):
     print(f"\n\n{section_name}", file=output)
     for line in log_list:
-        print('  ', line, end='', file=output)
+        print("  ", line, end="", file=output)
     if not log_list:
-        print('  ', '<nothing found>', end='', file=output)
+        print("  ", "<nothing found>", end="", file=output)
     return
 
 
 class Annihilator:
     def __init__(self):
-        self.logname = 'Annihilator Log'
+        self.logname = "Annihilator Log"
         self.log = []
+
     def add(self, line):
         self.log.append(line)
+
     def print(self, output):
         print_collected_log_always(self.logname, self.log, output)
+
 
 class FlameBuffet:
     def __init__(self):
-        self.logname = 'Flame Buffet (dragonling) Log'
+        self.logname = "Flame Buffet (dragonling) Log"
         self.log = []
+
     def add(self, line):
         self.log.append(line)
+
     def print(self, output):
         print_collected_log_always(self.logname, self.log, output)
-
-
 
 
 class KTFrostbolt:
     def __init__(self):
-        self.logname = 'KT Frostbolt Log'
+        self.logname = "KT Frostbolt Log"
         self.log = []
+
     def begins_to_cast(self, line):
-        self.log.append('\n')
+        self.log.append("\n")
         self.log.append(line)
+
     def add(self, line):
         self.log.append(line)
+
     def parry(self, line):
         line = "*** honorable mention *** " + line
         self.log.append(line)
+
     def print(self, output):
         print_collected_log(self.logname, self.log, output)
+
 
 class KTFrostblast:
     def __init__(self):
-        self.logname = 'KT Frost Blast Log'
+        self.logname = "KT Frost Blast Log"
         self.log = []
+
     def add(self, line):
         self.log.append(line)
+
     def print(self, output):
         print_collected_log(self.logname, self.log, output)
+
 
 class KTShadowfissure:
     def __init__(self):
-        self.logname = 'KT Shadow Fissure Log'
+        self.logname = "KT Shadow Fissure Log"
         self.log = []
+
     def add(self, line):
         self.log.append(line)
+
     def print(self, output):
         print_collected_log(self.logname, self.log, output)
+
 
 class KTGuardian:
     def __init__(self):
-        self.logname = 'KT Guardian of Icecrown Log'
+        self.logname = "KT Guardian of Icecrown Log"
         self.log = []
+
     def add(self, line):
         self.log.append(line)
+
     def print(self, output):
         print_collected_log(self.logname, self.log, output)
 
+
 class Viscidus:
     def __init__(self):
-        self.logname = 'Viscidus Frost Hits Log'
+        self.logname = "Viscidus Frost Hits Log"
         # player - frost spell - count
         self.counts = collections.defaultdict(lambda: collections.defaultdict(int))
         self.totals = collections.defaultdict(int)
         self._found = False
+
     def add(self, player, spell):
         self.counts[player][spell] += 1
         self.totals[player] += 1
+
     def found(self):
         self._found = True
+
     def print(self, output):
-        if not self._found: return
+        if not self._found:
+            return
         print(f"\n\n{self.logname}", file=output)
         players = [(total, player) for player, total in self.totals.items()]
         players.sort(reverse=True)
@@ -1353,44 +1788,57 @@ class Viscidus:
             for total, spell in spells:
                 print("  ", "  ", spell, total, file=output)
 
+
 class Huhuran:
     def __init__(self):
-        self.logname = 'Princess Huhuran Log'
+        self.logname = "Princess Huhuran Log"
         self.log = []
         self._found = False
+
     def found(self):
         self._found = True
+
     def add(self, line):
         self.log.append(line)
+
     def print(self, output):
-        if not self._found: return
+        if not self._found:
+            return
         print_collected_log(self.logname, self.log, output)
+
 
 class NefCorruptedHealing:
     def __init__(self):
-        self.logname = 'Nefarian Priest Corrupted Healing'
+        self.logname = "Nefarian Priest Corrupted Healing"
         self.log = []
+
     def add(self, line):
         self.log.append(line)
+
     def print(self, output):
         print_collected_log(self.logname, self.log, output)
 
+
 class NefWildPolymorph:
     def __init__(self):
-        self.logname = 'Nefarian Wild Polymorph (mage call)'
+        self.logname = "Nefarian Wild Polymorph (mage call)"
         self.log = []
+
     def add(self, line):
         self.log.append(line)
+
     def print(self, output):
         print_collected_log(self.logname, self.log, output)
 
 
 class Gluth:
     def __init__(self):
-        self.logname = 'Gluth Log'
+        self.logname = "Gluth Log"
         self.log = []
+
     def add(self, line):
         self.log.append(line)
+
     def print(self, output):
         print_collected_log(self.logname, self.log, output)
 
@@ -1406,7 +1854,6 @@ class BeamChain:
         self.logname = logname
         self.beamname = beamname
         self.chainsize = chainsize  # report chains bigger than this
-
 
     def add(self, timestamp_unix, line):
         self.log.append(line)
@@ -1425,7 +1872,8 @@ class BeamChain:
             self.current_batch = []
 
     def print(self, output):
-        if not self.log: return
+        if not self.log:
+            return
 
         self.commitbatch()
 
@@ -1433,16 +1881,22 @@ class BeamChain:
         print(f"\n\n{self.logname}", file=output)
 
         for batch in self.batches:
-            if len(batch) < self.chainsize: continue
+            if len(batch) < self.chainsize:
+                continue
 
             found_batch = 1
 
             print(file=output)
             for line in batch:
-                print('  ', line, end='', file=output)
+                print("  ", line, end="", file=output)
 
         if not found_batch:
-            print('  ', f'<no chains of {self.chainsize} found. well done>', end='', file=output)
+            print(
+                "  ",
+                f"<no chains of {self.chainsize} found. well done>",
+                end="",
+                file=output,
+            )
 
 
 class DmgstoreEntry:
@@ -1455,7 +1909,15 @@ class DmgstoreEntry:
 
 
 class Dmgstore2:
-    def __init__(self, player, class_detection: 'ClassDetection', abilitycost, abilitycooldown, logname, allow_selfdmg):
+    def __init__(
+        self,
+        player,
+        class_detection: "ClassDetection",
+        abilitycost,
+        abilitycooldown,
+        logname,
+        allow_selfdmg,
+    ):
         self.logname = logname
         self.player = player
         self.class_detection = class_detection
@@ -1468,11 +1930,8 @@ class Dmgstore2:
         self.store_source = collections.defaultdict(DmgstoreEntry)
 
         self.store_by_source_ability = collections.defaultdict(
-            lambda: collections.defaultdict(
-                DmgstoreEntry))
-
-
-
+            lambda: collections.defaultdict(DmgstoreEntry)
+        )
 
     def add(self, source, target, ability, amount, timestamp_unix):
         if not self.allow_selfdmg and source == target:
@@ -1510,11 +1969,7 @@ class Dmgstore2:
             entry_target.cost += cost
             entry_source.cost += cost
 
-
-
-
     def print_compare_players(self, player1, player2, output):
-
         # fill blanks
 
         for source, target, ability in sorted(self.store_ability):
@@ -1538,10 +1993,13 @@ class Dmgstore2:
             elif source == player2:
                 p2[(target, ability)] = self.store_ability[(player2, target, ability)]
 
-        print(f'output for {player1} - {player2}', file=output)
+        print(f"output for {player1} - {player2}", file=output)
         print(file=output)
 
-        print(f'total  dmg:{es1.dmg - es2.dmg} cost:{es1.cost - es2.cost} uses:{es1.uses - es2.uses} hits:{es1.hits - es2.hits}', file=output)
+        print(
+            f"total  dmg:{es1.dmg - es2.dmg} cost:{es1.cost - es2.cost} uses:{es1.uses - es2.uses} hits:{es1.hits - es2.hits}",
+            file=output,
+        )
         print(file=output)
 
         seen_target = set()
@@ -1554,18 +2012,18 @@ class Dmgstore2:
                 print(file=output)
                 et1 = self.store_target[(player1, target)]
                 et2 = self.store_target[(player2, target)]
-                txt = f'{target}   dmg:{et1.dmg - et2.dmg} cost:{et1.cost - et2.cost} uses:{et1.uses - et2.uses} hits:{et1.hits - et2.hits}'
+                txt = f"{target}   dmg:{et1.dmg - et2.dmg} cost:{et1.cost - et2.cost} uses:{et1.uses - et2.uses} hits:{et1.hits - et2.hits}"
                 print(txt, file=output)
-            txt = f'{ability}   dmg:{e1.dmg - e2.dmg} cost:{e1.cost - e2.cost} uses:{e1.uses - e2.uses} hits:{e1.hits - e2.hits}'
+            txt = f"{ability}   dmg:{e1.dmg - e2.dmg} cost:{e1.cost - e2.cost} uses:{e1.uses - e2.uses} hits:{e1.hits - e2.hits}"
             print(txt, file=output)
-
 
     def print_damage(self, output):
         # first find dmg totals
         # then abilities
         dmgtotals = collections.defaultdict(int)
         for (source, target, ability), entry in self.store_ability.items():
-            if source not in self.player: continue
+            if source not in self.player:
+                continue
             dmgtotals[source] += entry.dmg
 
         sortdmgtotals = []
@@ -1574,17 +2032,18 @@ class Dmgstore2:
 
         sortdmgtotals.sort(reverse=True)
         for dmg, source in sortdmgtotals:
-            print(f'{source}  {dmg}', file=output)
+            print(f"{source}  {dmg}", file=output)
 
             sortabilitytotals = []
-            for ability, entry_by_source_ability in self.store_by_source_ability[source].items():
+            for ability, entry_by_source_ability in self.store_by_source_ability[
+                source
+            ].items():
                 dmg = entry_by_source_ability.dmg
                 sortabilitytotals.append((dmg, ability))
 
             sortabilitytotals.sort(reverse=True)
             for dmg2, ability in sortabilitytotals:
-                print(f'  {ability}  {dmg2}', file=output)
-
+                print(f"  {ability}  {dmg2}", file=output)
 
     def print_damage_taken(self, output):
         # by source, ability, target
@@ -1593,7 +2052,8 @@ class Dmgstore2:
         by_ability = collections.defaultdict(lambda: collections.defaultdict(int))
         by_target = collections.defaultdict(lambda: collections.defaultdict(int))
         for (source, target, ability), entry in self.store_ability.items():
-            if target not in self.player: continue
+            if target not in self.player:
+                continue
 
             dmg = entry.dmg
             by_source[source] += dmg
@@ -1602,30 +2062,41 @@ class Dmgstore2:
 
         source_sorted = sorted(by_source, key=lambda k: by_source[k], reverse=True)
         for source in source_sorted:
-            print(f'{source}  {by_source[source]}', file=output)
+            print(f"{source}  {by_source[source]}", file=output)
 
-            ability_sorted = sorted(by_ability[source], key=lambda k: by_ability[source][k], reverse=True)
+            ability_sorted = sorted(
+                by_ability[source], key=lambda k: by_ability[source][k], reverse=True
+            )
 
             for ability in ability_sorted:
-                print('  ', f'{ability}  {by_ability[source][ability]}', file=output)
+                print("  ", f"{ability}  {by_ability[source][ability]}", file=output)
 
-                target_sorted = sorted(by_target[(source, ability)], key=lambda k: by_target[(source, ability)][k], reverse=True)
+                target_sorted = sorted(
+                    by_target[(source, ability)],
+                    key=lambda k: by_target[(source, ability)][k],
+                    reverse=True,
+                )
 
                 for target in target_sorted:
-                    print('  ', '  ', f'{target}  {by_target[(source, ability)][target]}', file=output)
-
-
+                    print(
+                        "  ",
+                        "  ",
+                        f"{target}  {by_target[(source, ability)][target]}",
+                        file=output,
+                    )
 
 
 class Techinfo:
-    def __init__(self, time_start, prices_last_update, prices_server, expert_deterministic_logs):
+    def __init__(
+        self, time_start, prices_last_update, prices_server, expert_deterministic_logs
+    ):
         self.time_start = time_start
         self.logsize = 0
         self.linecount = 0
         self.skiplinecount = 0
         self.package_version = package.VERSION
-        urlname, url = package.PROJECT_URL.split(',', maxsplit=1)
-        assert urlname == 'Homepage'
+        urlname, url = package.PROJECT_URL.split(",", maxsplit=1)
+        assert urlname == "Homepage"
         self.project_homepage = url.strip()
         self.prices_last_update = prices_last_update
         self.prices_server = prices_server
@@ -1646,15 +2117,15 @@ class Techinfo:
 
     def format_price_timestamp(self):
         if self.prices_last_update == 0:
-            return 'not available'
+            return "not available"
         dt = datetime.datetime.fromtimestamp(self.prices_last_update, datetime.UTC)
         delta = self.time_start - self.prices_last_update
-        return f'{dt.isoformat()} ({humanize.naturaltime(delta)})'
+        return f"{dt.isoformat()} ({humanize.naturaltime(delta)})"
 
     def format_skipped_percent(self):
         if self.linecount == 0:
-            return ''
-        return f'({(self.skiplinecount / self.linecount) * 100:.2f}%)'
+            return ""
+        return f"({(self.skiplinecount / self.linecount) * 100:.2f}%)"
 
     def print(self, output, time_end=None):
         if time_end is None:
@@ -1662,20 +2133,31 @@ class Techinfo:
         time_delta = time_end - self.time_start
         print("\n\nTech", file=output)
         if not self.expert_deterministic_logs:
-            print('  ', f'project version {self.package_version}', file=output)
-            print('  ', f'project homepage {self.project_homepage}', file=output)
-            print('  ', f'prices server {self.prices_server}', file=output)
-            print('  ', f'prices timestamp {self.format_price_timestamp()}', file=output)
-        print('  ', f'known consumables {len(all_defined_consumable_items)}', file=output)
-        print('  ', f'log size {humanize.naturalsize(self.logsize)}', file=output)
-        print('  ', f'log lines {self.linecount}', file=output)
-        print('  ', f'skipped log lines {self.skiplinecount} {self.format_skipped_percent()}', file=output)
+            print("  ", f"project version {self.package_version}", file=output)
+            print("  ", f"project homepage {self.project_homepage}", file=output)
+            print("  ", f"prices server {self.prices_server}", file=output)
+            print(
+                "  ", f"prices timestamp {self.format_price_timestamp()}", file=output
+            )
+        print(
+            "  ", f"known consumables {len(all_defined_consumable_items)}", file=output
+        )
+        print("  ", f"log size {humanize.naturalsize(self.logsize)}", file=output)
+        print("  ", f"log lines {self.linecount}", file=output)
+        print(
+            "  ",
+            f"skipped log lines {self.skiplinecount} {self.format_skipped_percent()}",
+            file=output,
+        )
         if not self.expert_deterministic_logs:
-            print('  ', f'processed in {time_delta:.2f} seconds. {self.linecount / time_delta:.2f} log lines/sec', file=output)
-            print('  ', f'runtime platform {self.platform}', file=output)
-            print('  ', f'runtime implementation {self.implementation}', file=output)
-            print('  ', f'runtime version {self.version}', file=output)
-
+            print(
+                "  ",
+                f"processed in {time_delta:.2f} seconds. {self.linecount / time_delta:.2f} log lines/sec",
+                file=output,
+            )
+            print("  ", f"runtime platform {self.platform}", file=output)
+            print("  ", f"runtime implementation {self.implementation}", file=output)
+            print("  ", f"runtime version {self.version}", file=output)
 
 
 class UnparsedLogger:
@@ -1684,18 +2166,21 @@ class UnparsedLogger:
         self.buffer = io.StringIO()
 
     def log(self, line):
-        print(line, end='', file=self.buffer)
+        print(line, end="", file=self.buffer)
 
     def flush(self):
-        print('writing unparsed to', self.filename)
-        with open(self.filename, 'wb') as f:
-            f.write(self.buffer.getvalue().encode('utf8'))
+        print("writing unparsed to", self.filename)
+        with open(self.filename, "wb") as f:
+            f.write(self.buffer.getvalue().encode("utf8"))
+
 
 class NullLogger:
     def __init__(self, filename):
         pass
+
     def log(self, line):
         pass
+
     def flush(self):
         pass
 
@@ -1707,22 +2192,22 @@ class LocalPriceProvider:
     def load(self):
         filename = self.filename
         if not os.path.exists(filename):
-            logging.warning(f'local prices not available. {filename} not found')
+            logging.warning(f"local prices not available. {filename} not found")
             return
-        logging.info('loading local prices from {filename}')
+        logging.info("loading local prices from {filename}")
         with open(filename) as f:
             prices = json.load(f)
             return prices
+
 
 class WebPriceProvider:
     def __init__(self, prices_server):
         self.prices_server = prices_server
 
     def load(self):
-        logging.info('loading web prices')
+        logging.info("loading web prices")
         prices = dl_price_data(prices_server=self.prices_server)
         return prices
-
 
 
 class PriceDB:
@@ -1732,7 +2217,8 @@ class PriceDB:
 
         for provider in price_providers:
             prices = provider.load()
-            if not prices: continue
+            if not prices:
+                continue
             self.load_incoming(prices)
             return
 
@@ -1740,8 +2226,8 @@ class PriceDB:
         return self.data.get(itemid)
 
     def load_incoming(self, incoming):
-        self.last_update = incoming['last_update']
-        for key, val in incoming['data'].items():
+        self.last_update = incoming["last_update"]
+        for key, val in incoming["data"].items():
             key = int(key)
             self.data[key] = val
 
@@ -1750,22 +2236,26 @@ class PetHandler:
     def __init__(self):
         # owner -> set of pets
         self.store = collections.defaultdict(set)
+
     def add(self, owner, pet):
         self.store[owner].add(pet)
+
     def get_all_pets(self):
         for owner, petset in self.store.items():
             for pet in petset:
                 yield pet
+
     def print(self, output):
-        if not len(self.store): return
+        if not len(self.store):
+            return
         print("\n\nPets", file=output)
         for owner, petset in self.store.items():
             for pet in sorted(petset):
-                print('  ', pet, 'owned by', owner, file=output)
+                print("  ", pet, "owned by", owner, file=output)
 
 
 class SunderArmorSummary:
-    def __init__(self, spell_count, class_detection: 'ClassDetection'):
+    def __init__(self, spell_count, class_detection: "ClassDetection"):
         self.counts = spell_count.counts
         self.class_detection = class_detection
 
@@ -1779,8 +2269,8 @@ class SunderArmorSummary:
 
         found_sunder = False
         entries = []
-        sunder_trash = self.counts.get('Sunder Armor', {})
-        sunder_boss = self.counts.get('Sunder Armor (boss)', {})
+        sunder_trash = self.counts.get("Sunder Armor", {})
+        sunder_boss = self.counts.get("Sunder Armor (boss)", {})
 
         for warrior in warriors:
             trash = sunder_trash.get(warrior, 0)
@@ -1798,14 +2288,13 @@ class SunderArmorSummary:
                     line += f" {boss}"
                 print(line, file=output)
         elif entries:
-            print('   <nothing found. needs superwow>', file=output)
+            print("   <nothing found. needs superwow>", file=output)
         else:
-            print('   <nothing found>', file=output)
-
+            print("   <nothing found>", file=output)
 
 
 class CooldownSummary:
-    def __init__(self, spell_count, class_detection: 'ClassDetection'):
+    def __init__(self, spell_count, class_detection: "ClassDetection"):
         # spell - player - count
         self.counts = spell_count.counts
         self.class_detection = class_detection
@@ -1815,15 +2304,18 @@ class CooldownSummary:
         for player_class, spells in CDSPELL_CLASS:
             cls_printed = False
             for spell in spells:
-                if spell not in self.counts: continue
+                if spell not in self.counts:
+                    continue
 
                 data = []
                 for name, total in self.counts[spell].items():
-                    if not self.class_detection.is_class(cls=player_class, name=name): continue
+                    if not self.class_detection.is_class(cls=player_class, name=name):
+                        continue
                     data.append((total, name))
                 data.sort(reverse=True)
 
-                if not data: continue
+                if not data:
+                    continue
 
                 if not cls_printed:
                     print("  ", player_class.value.capitalize(), file=output)
@@ -1831,10 +2323,11 @@ class CooldownSummary:
                 if spell in RENAME_TRINKET_SPELL:
                     spell = RENAME_TRINKET_SPELL[spell]
                 if spell in RECEIVE_BUFF_SPELL:
-                    spell += ' (received)'
+                    spell += " (received)"
                 print("  ", "  ", spell, file=output)
                 for total, name in data:
                     print("  ", "  ", "  ", name, total, file=output)
+
 
 class ProcSummary:
     def __init__(self, proc_count, player):
@@ -1842,165 +2335,188 @@ class ProcSummary:
         self.counts = proc_count.counts
         self.counts_extra_attacks = proc_count.counts_extra_attacks
         self.player = player
+
     def print(self, output):
         print("\n\nProc Summary", file=output)
         for proc in sorted(self.counts):
             data = []
             for name in sorted(self.counts[proc]):
                 total = self.counts[proc][name]
-                if name not in self.player: continue
+                if name not in self.player:
+                    continue
                 data.append((total, name))
             data.sort(reverse=True)
 
-            if not data: continue
+            if not data:
+                continue
             print("  ", proc, file=output)
             for total, name in data:
                 print("  ", "  ", name, total, file=output)
 
         # extra attacks
-        print("  ", 'Extra Attacks', file=output)
+        print("  ", "Extra Attacks", file=output)
         for source in sorted(self.counts_extra_attacks):
             data = []
             for name in sorted(self.counts_extra_attacks[source]):
                 total = self.counts_extra_attacks[source][name]
-                if name not in self.player: continue
+                if name not in self.player:
+                    continue
                 data.append((total, name))
             data.sort(reverse=True)
 
-            if not data: continue
+            if not data:
+                continue
             print("  ", "  ", source, file=output)
             for total, name in data:
                 print("  ", "  ", "  ", name, total, file=output)
 
 
-
 # count unique casts, the player using their spell. not the lingering buff/debuff procs
 # eg count a totem being dropped, not the buff procs it gives after that
 LINE2SPELLCAST = {
-    'afflicted_line': {
-        'Death Wish',
+    "afflicted_line": {
+        "Death Wish",
     },
-    'gains_line': {
-        'Immune Charm/Fear/Stun',
-        'Immune Charm/Fear/Polymorph',
-        'Immune Fear/Polymorph/Snare',
-        'Immune Fear/Polymorph/Stun',
-        'Immune Root/Snare/Stun',
-        'Will of the Forsaken',
-        'Bloodrage',
-        'Recklessness',
-        'Shield Wall',
-        'Sweeping Strikes',
-        'Elemental Mastery',
-        'Inner Focus',
-        'Rapid Healing',
-        'Chromatic Infusion',
-        'Combustion',
-        'Adrenaline Rush',  # careful with hunters
-        'Cold Blood',
-        'Blade Flurry',
+    "gains_line": {
+        "Immune Charm/Fear/Stun",
+        "Immune Charm/Fear/Polymorph",
+        "Immune Fear/Polymorph/Snare",
+        "Immune Fear/Polymorph/Stun",
+        "Immune Root/Snare/Stun",
+        "Will of the Forsaken",
+        "Bloodrage",
+        "Recklessness",
+        "Shield Wall",
+        "Sweeping Strikes",
+        "Elemental Mastery",
+        "Inner Focus",
+        "Rapid Healing",
+        "Chromatic Infusion",
+        "Combustion",
+        "Adrenaline Rush",  # careful with hunters
+        "Cold Blood",
+        "Blade Flurry",
         "Nature's Swiftness",  # sham and druid
-        'Rapid Fire',
-        'The Eye of the Dead',
-        'Healing of the Ages',
-        'Earthstrike',
-        'Diamond Flask',
-        'Kiss of the Spider',
+        "Rapid Fire",
+        "The Eye of the Dead",
+        "Healing of the Ages",
+        "Earthstrike",
+        "Diamond Flask",
+        "Kiss of the Spider",
         "Slayer's Crest",
-        'Jom Gabbar',
-        'Badge of the Swarmguard',
-        'Essence of Sapphiron',
-        'Ephemeral Power',
-        'Unstable Power',
-        'Mind Quickening',
-        'Nature Aligned',
-        'Divine Favor',
-        'Berserking',
-        'Stoneform',
+        "Jom Gabbar",
+        "Badge of the Swarmguard",
+        "Essence of Sapphiron",
+        "Ephemeral Power",
+        "Unstable Power",
+        "Mind Quickening",
+        "Nature Aligned",
+        "Divine Favor",
+        "Berserking",
+        "Stoneform",
         # buffs received
-        'Power Infusion',
-        'Bloodlust',
-        'Chastise Haste',
+        "Power Infusion",
+        "Bloodlust",
+        "Chastise Haste",
     },
-    'gains_rage_line': {
+    "gains_rage_line": {
         "Gri'lek's Charm of Might",
     },
-    'heals_line': {
-        'Holy Shock (heal)',
-        'Desperate Prayer',
-        'Swiftmend',
+    "heals_line": {
+        "Holy Shock (heal)",
+        "Desperate Prayer",
+        "Swiftmend",
     },
-    'casts_line': {
-        'Windfury Totem',
-        'Mana Tide Totem',
-        'Grace of Air Totem',
-        'Tranquil Air Totem',
-        'Strength of Earth Totem',
-        'Mana Spring Totem',
-        'Searing Totem',
-        'Fire Nova Totem',
-        'Magma Totem',
-        'Ancestral Spirit',
-        'Redemption',
-        'Resurrection',
-        'Rebirth',
-        'Sunder Armor',  # superwow
-        'Sunder Armor (boss)', # rename, superwow
-        'Blood Fury',  # superwow, spellid 23234
+    "casts_line": {
+        "Windfury Totem",
+        "Mana Tide Totem",
+        "Grace of Air Totem",
+        "Tranquil Air Totem",
+        "Strength of Earth Totem",
+        "Mana Spring Totem",
+        "Searing Totem",
+        "Fire Nova Totem",
+        "Magma Totem",
+        "Ancestral Spirit",
+        "Redemption",
+        "Resurrection",
+        "Rebirth",
+        "Sunder Armor",  # superwow
+        "Sunder Armor (boss)",  # rename, superwow
+        "Blood Fury",  # superwow, spellid 23234
     },
-    'hits_ability_line': {
-        'Sinister Strike',
-        'Scorch',
-        'Holy Shock (dmg)',
+    "hits_ability_line": {
+        "Sinister Strike",
+        "Scorch",
+        "Holy Shock (dmg)",
     },
-    'begins_to_perform_line': {
-        'War Stomp',
+    "begins_to_perform_line": {
+        "War Stomp",
     },
 }
+
+
 class SpellCount:
     def __init__(self):
         # spell - name - count
         self.counts = collections.defaultdict(lambda: collections.defaultdict(int))
+
     def add(self, line_type, name, spell):
-        if line_type not in LINE2SPELLCAST: return
-        if spell not in LINE2SPELLCAST[line_type]: return
+        if line_type not in LINE2SPELLCAST:
+            return
+        if spell not in LINE2SPELLCAST[line_type]:
+            return
         self.counts[spell][name] += 1
+
     def add_stackcount(self, line_type, name, spell, stackcount):
-        if spell in {'Combustion', 'Unstable Power', 'Jom Gabbar'} and line_type == 'gains_line' and stackcount != 1:
+        if (
+            spell in {"Combustion", "Unstable Power", "Jom Gabbar"}
+            and line_type == "gains_line"
+            and stackcount != 1
+        ):
             return
         self.add(line_type=line_type, name=name, spell=spell)
 
 
-
 LINE2PROC = {
-    'gains_line': {
-        'Enrage',
-        'Flurry',
-        'Elemental Devastation',
+    "gains_line": {
+        "Enrage",
+        "Flurry",
+        "Elemental Devastation",
         "Stormcaller's Wrath",
-        'Spell Blasting',
-        'Clearcasting',
-        'Vengeance',
+        "Spell Blasting",
+        "Clearcasting",
+        "Vengeance",
         "Nature's Grace",
     },
 }
+
+
 class ProcCount:
-    def __init__(self, ):
+    def __init__(
+        self,
+    ):
         # effect - name - count
         self.counts = collections.defaultdict(lambda: collections.defaultdict(int))
 
         # source - name - count
-        self.counts_extra_attacks = collections.defaultdict(lambda: collections.defaultdict(int))
+        self.counts_extra_attacks = collections.defaultdict(
+            lambda: collections.defaultdict(int)
+        )
+
     def add(self, line_type, name, spell):
-        if line_type not in LINE2PROC: return
-        if spell not in LINE2PROC[line_type]: return
+        if line_type not in LINE2PROC:
+            return
+        if spell not in LINE2PROC[line_type]:
+            return
         self.counts[spell][name] += 1
+
     def add_extra_attacks(self, howmany, source, name):
         self.counts_extra_attacks[source][name] += howmany
 
 
 class Currency(int):
-    string_pattern = r'((?P<gold>\d+)g)?\s?((?P<silver>\d+)s)?\s?((?P<copper>\d+)c)?'
+    string_pattern = r"((?P<gold>\d+)g)?\s?((?P<silver>\d+)s)?\s?((?P<copper>\d+)c)?"
 
     def __new__(cls, value, *args, **kwargs) -> Self:
         if isinstance(value, str):
@@ -2027,11 +2543,17 @@ class Currency(int):
         m = re.search(cls.string_pattern, s)
         if not any(m.groupdict().values()):
             raise ValueError(f"Invalid currency string format: {s}")
-        return cls(sum([int(m.group('gold') or 0) * 10000,
-                        int(m.group('silver') or 0) * 100,
-                        int(m.group('copper') or 0)]))
+        return cls(
+            sum(
+                [
+                    int(m.group("gold") or 0) * 10000,
+                    int(m.group("silver") or 0) * 100,
+                    int(m.group("copper") or 0),
+                ]
+            )
+        )
 
-    def to_string(self, short: bool=False) -> str:
+    def to_string(self, short: bool = False) -> str:
         if short:
             return f"{int(self) / 10000.0:.1f}g"
 
@@ -2041,14 +2563,16 @@ class Currency(int):
         silver = value % 100
         value = value // 100
         gold = value
-        s = ''
+        s = ""
 
         first = True
-        for amount, suffix in zip([gold, silver, copper], 'gsc'):
+        for amount, suffix in zip([gold, silver, copper], "gsc"):
             if amount:
-                if not first: s+= ' '
-                else: first = False
-                s += f'{amount}{suffix}'
+                if not first:
+                    s += " "
+                else:
+                    first = False
+                s += f"{amount}{suffix}"
         return s
 
 
@@ -2082,9 +2606,6 @@ class ConsumablesAccumulator:
     death_count: Dict[str, int]
     data: List[ConsumablesEntry] = dataclasses.field(default_factory=list)
 
-
-
-
     def get_consumable_price(self, consumable_name: str) -> Currency:
         consumable = NAME2CONSUMABLE.get(consumable_name)
 
@@ -2096,7 +2617,6 @@ class ConsumablesAccumulator:
         if isinstance(consumable.price, NoPrice):
             return price
 
-
         # Determine the list of items whose direct itemid-based price we need to sum up.
         # For a crafted item, these are its components.
         # For a base item, it's the item itself.
@@ -2104,17 +2624,20 @@ class ConsumablesAccumulator:
 
         item_charges = consumable.price.charges
 
-
         if isinstance(consumable.price, PriceFromComponents):
             components_to_price = consumable.price.components
-        elif isinstance(consumable.price, DirectPrice): # It's a base item (or has no defined components)
+        elif isinstance(
+            consumable.price, DirectPrice
+        ):  # It's a base item (or has no defined components)
             components_to_price = [(consumable, 1.0)]
-        else: # Should not happen if NoPrice is handled
-            raise RuntimeError('this should be unreachable')
-
+        else:  # Should not happen if NoPrice is handled
+            raise RuntimeError("this should be unreachable")
 
         for base_item, quantity in components_to_price:
-            if not isinstance(base_item.price, DirectPrice) or not base_item.price.itemid:
+            if (
+                not isinstance(base_item.price, DirectPrice)
+                or not base_item.price.itemid
+            ):
                 # This item/component doesn't have an itemID to look up.
                 # logging.debug(f"Item '{base_item.name}' has no itemid for pricing.")
                 continue
@@ -2126,22 +2649,23 @@ class ConsumablesAccumulator:
 
             price += int(unit_price * quantity)
 
-
         return price / item_charges
-
 
     def calculate(self) -> None:
         for name in sorted(self.player):
             consumables = sorted(self.player[name])
             player_entry = ConsumablesEntry(name, deaths=self.death_count[name])
-            for consumable_name in sorted(consumables): # consumable_name is already a canonical string
-                player_entry.add_consumable(ConsumableStore(
-                    consumable_name,
-                    amount=self.player[name][consumable_name],
-                    price=self.get_consumable_price(consumable_name),
-                ))
+            for consumable_name in sorted(
+                consumables
+            ):  # consumable_name is already a canonical string
+                player_entry.add_consumable(
+                    ConsumableStore(
+                        consumable_name,
+                        amount=self.player[name][consumable_name],
+                        price=self.get_consumable_price(consumable_name),
+                    )
+                )
             self.data.append(player_entry)
-
 
 
 class PrintConsumables:
@@ -2150,15 +2674,15 @@ class PrintConsumables:
 
     def print(self, output):
         for player in self.accumulator.data:
-            print(player.name, f'deaths:{player.deaths}', file=output)
+            print(player.name, f"deaths:{player.deaths}", file=output)
             for cons in player.consumables:
-                spent = f'  ({cons.total_price.to_string()})' if cons.price else ''
-                print('  ', cons.item_name, cons.amount, spent, file=output)
+                spent = f"  ({cons.total_price.to_string()})" if cons.price else ""
+                print("  ", cons.item_name, cons.amount, spent, file=output)
             if not player.consumables:
-                print('  ', '<nothing found>', file=output)
+                print("  ", "<nothing found>", file=output)
             elif player.total_spent:
                 print(file=output)
-                print('  ', 'total spent:', player.total_spent.to_string(), file=output)
+                print("  ", "total spent:", player.total_spent.to_string(), file=output)
 
 
 class PrintConsumableTotalsCsv:
@@ -2175,115 +2699,96 @@ class PrintConsumableTotalsCsv:
 # shouldn't need to be an exhaustive list, only the most common
 # unique spells, no ambiguity
 UNIQUE_LINE2SPELL2CLASS: Dict[str, Dict[str, PlayerClass]] = {
-    'afflicted_line': {
-        'Death Wish': PlayerClass.WARRIOR,
+    "afflicted_line": {
+        "Death Wish": PlayerClass.WARRIOR,
     },
-    'gains_line': {
-        'Recklessness': PlayerClass.WARRIOR,
-        'Shield Wall': PlayerClass.WARRIOR,
-        'Bloodrage': PlayerClass.WARRIOR,
-        'Sweeping Strikes': PlayerClass.WARRIOR,
-
-        'Combustion': PlayerClass.MAGE,
-
-        'Adrenaline Rush': PlayerClass.ROGUE,
-        'Blade Flurry': PlayerClass.ROGUE,
-        'Cold Blood': PlayerClass.ROGUE,
-        'Slice and Dice': PlayerClass.ROGUE,
-
-        'Divine Favor': PlayerClass.PALADIN,
-        'Seal of Command': PlayerClass.PALADIN,
-        'Seal of Righteousness': PlayerClass.PALADIN,
+    "gains_line": {
+        "Recklessness": PlayerClass.WARRIOR,
+        "Shield Wall": PlayerClass.WARRIOR,
+        "Bloodrage": PlayerClass.WARRIOR,
+        "Sweeping Strikes": PlayerClass.WARRIOR,
+        "Combustion": PlayerClass.MAGE,
+        "Adrenaline Rush": PlayerClass.ROGUE,
+        "Blade Flurry": PlayerClass.ROGUE,
+        "Cold Blood": PlayerClass.ROGUE,
+        "Slice and Dice": PlayerClass.ROGUE,
+        "Divine Favor": PlayerClass.PALADIN,
+        "Seal of Command": PlayerClass.PALADIN,
+        "Seal of Righteousness": PlayerClass.PALADIN,
     },
-    'heals_line': {
-        'Flash of Light': PlayerClass.PALADIN,
-        'Holy Light': PlayerClass.PALADIN,
-        'Holy Shock (heal)': PlayerClass.PALADIN,
-
-        'Heal': PlayerClass.PRIEST,
-        'Flash Heal': PlayerClass.PRIEST,
-        'Greater Heal': PlayerClass.PRIEST,
-        'Prayer of Healing': PlayerClass.PRIEST,
+    "heals_line": {
+        "Flash of Light": PlayerClass.PALADIN,
+        "Holy Light": PlayerClass.PALADIN,
+        "Holy Shock (heal)": PlayerClass.PALADIN,
+        "Heal": PlayerClass.PRIEST,
+        "Flash Heal": PlayerClass.PRIEST,
+        "Greater Heal": PlayerClass.PRIEST,
+        "Prayer of Healing": PlayerClass.PRIEST,
     },
-    'hits_ability_line': {
-        'Cleave': PlayerClass.WARRIOR,
-        'Whirlwind': PlayerClass.WARRIOR,
-        'Bloodthirst': PlayerClass.WARRIOR,
-        'Heroic Strike': PlayerClass.WARRIOR,
-
-        'Sinister Strike': PlayerClass.ROGUE,
-
-        'Arcane Explosion': PlayerClass.MAGE,
-        'Fire Blast': PlayerClass.MAGE,
-
-        'Starfire': PlayerClass.DRUID,
-        'Moonfire': PlayerClass.DRUID,
-        'Wrath': PlayerClass.DRUID,
-
-        'Shadow Bolt': PlayerClass.WARLOCK,
-
-        'Mind Blast': PlayerClass.PRIEST,
-
-        'Arcane Shot': PlayerClass.HUNTER,
-        'Multi-Shot': PlayerClass.HUNTER,
-
-        'Holy Shock (dmg)': PlayerClass.PALADIN,
-
-   },
-    'gains_health_line': {
-        'Rejuvenation': PlayerClass.DRUID,
-        'Regrowth': PlayerClass.DRUID,
+    "hits_ability_line": {
+        "Cleave": PlayerClass.WARRIOR,
+        "Whirlwind": PlayerClass.WARRIOR,
+        "Bloodthirst": PlayerClass.WARRIOR,
+        "Heroic Strike": PlayerClass.WARRIOR,
+        "Sinister Strike": PlayerClass.ROGUE,
+        "Arcane Explosion": PlayerClass.MAGE,
+        "Fire Blast": PlayerClass.MAGE,
+        "Starfire": PlayerClass.DRUID,
+        "Moonfire": PlayerClass.DRUID,
+        "Wrath": PlayerClass.DRUID,
+        "Shadow Bolt": PlayerClass.WARLOCK,
+        "Mind Blast": PlayerClass.PRIEST,
+        "Arcane Shot": PlayerClass.HUNTER,
+        "Multi-Shot": PlayerClass.HUNTER,
+        "Holy Shock (dmg)": PlayerClass.PALADIN,
     },
-    'begins_to_cast_line': {
-        'Shadow Bolt': PlayerClass.WARLOCK,
-
-        'Rejuvenation': PlayerClass.DRUID,
-        'Regrowth': PlayerClass.DRUID,
-        'Wrath': PlayerClass.DRUID,
-
+    "gains_health_line": {
+        "Rejuvenation": PlayerClass.DRUID,
+        "Regrowth": PlayerClass.DRUID,
+    },
+    "begins_to_cast_line": {
+        "Shadow Bolt": PlayerClass.WARLOCK,
+        "Rejuvenation": PlayerClass.DRUID,
+        "Regrowth": PlayerClass.DRUID,
+        "Wrath": PlayerClass.DRUID,
         # frostbolt not unique enough probably, eg frost oils
-        'Fireball': PlayerClass.MAGE,
-        'Scorch': PlayerClass.MAGE,
-        'Polymorph': PlayerClass.MAGE,
-
-
-        'Chain Heal': PlayerClass.SHAMAN,
-        'Lesser Healing Wave': PlayerClass.SHAMAN,
-
-        'Mind Blast': PlayerClass.PRIEST,
-        'Smite': PlayerClass.PRIEST,
-        'Heal': PlayerClass.PRIEST,
-        'Flash Heal': PlayerClass.PRIEST,
-        'Greater Heal': PlayerClass.PRIEST,
-        'Prayer of Healing': PlayerClass.PRIEST,
-
-        'Multi-Shot': PlayerClass.HUNTER,
-
-        'Flash of Light': PlayerClass.PALADIN,
-        'Holy Light': PlayerClass.PALADIN,
+        "Fireball": PlayerClass.MAGE,
+        "Scorch": PlayerClass.MAGE,
+        "Polymorph": PlayerClass.MAGE,
+        "Chain Heal": PlayerClass.SHAMAN,
+        "Lesser Healing Wave": PlayerClass.SHAMAN,
+        "Mind Blast": PlayerClass.PRIEST,
+        "Smite": PlayerClass.PRIEST,
+        "Heal": PlayerClass.PRIEST,
+        "Flash Heal": PlayerClass.PRIEST,
+        "Greater Heal": PlayerClass.PRIEST,
+        "Prayer of Healing": PlayerClass.PRIEST,
+        "Multi-Shot": PlayerClass.HUNTER,
+        "Flash of Light": PlayerClass.PALADIN,
+        "Holy Light": PlayerClass.PALADIN,
     },
-    'begins_to_perform_line': {
-        'Auto Shot': PlayerClass.HUNTER,
-        'Trueshot': PlayerClass.HUNTER,
+    "begins_to_perform_line": {
+        "Auto Shot": PlayerClass.HUNTER,
+        "Trueshot": PlayerClass.HUNTER,
     },
-    'casts_line': {
-        'Windfury Totem': PlayerClass.SHAMAN,
-        'Mana Tide Totem': PlayerClass.SHAMAN,
-        'Grace of Air Totem': PlayerClass.SHAMAN,
-        'Tranquil Air Totem': PlayerClass.SHAMAN,
-        'Strength of Earth Totem': PlayerClass.SHAMAN,
-        'Mana Spring Totem': PlayerClass.SHAMAN,
-        'Searing Totem': PlayerClass.SHAMAN,
-        'Fire Nova Totem': PlayerClass.SHAMAN,
-        'Magma Totem': PlayerClass.SHAMAN,
-        'Ancestral Spirit': PlayerClass.SHAMAN,
-
-        'Redemption': PlayerClass.PALADIN,
-        'Resurrection': PlayerClass.PRIEST,
-        'Rebirth': PlayerClass.DRUID,
-
+    "casts_line": {
+        "Windfury Totem": PlayerClass.SHAMAN,
+        "Mana Tide Totem": PlayerClass.SHAMAN,
+        "Grace of Air Totem": PlayerClass.SHAMAN,
+        "Tranquil Air Totem": PlayerClass.SHAMAN,
+        "Strength of Earth Totem": PlayerClass.SHAMAN,
+        "Mana Spring Totem": PlayerClass.SHAMAN,
+        "Searing Totem": PlayerClass.SHAMAN,
+        "Fire Nova Totem": PlayerClass.SHAMAN,
+        "Magma Totem": PlayerClass.SHAMAN,
+        "Ancestral Spirit": PlayerClass.SHAMAN,
+        "Redemption": PlayerClass.PALADIN,
+        "Resurrection": PlayerClass.PRIEST,
+        "Rebirth": PlayerClass.DRUID,
     },
 }
+
+
 class ClassDetection:
     def __init__(self, player):
         self.store: Dict[str, PlayerClass] = dict()
@@ -2325,45 +2830,50 @@ class ClassDetection:
         print("\n\nClass Detection", file=output)
         for name in sorted(self.player):
             player_class = self.store.get(name, PlayerClass.UNKNOWN)
-            print('  ', name, player_class.value, file=output)
+            print("  ", name, player_class.value, file=output)
 
 
 class Infographic:
-    BACKGROUND_COLOR = '#282B2C'
+    BACKGROUND_COLOR = "#282B2C"
     CLASS_COLOURS: Dict[PlayerClass, str] = {
-        PlayerClass.DRUID: '#FF7D0A',
-        PlayerClass.HUNTER: '#ABD473',
-        PlayerClass.MAGE: '#69CCF0',
-        PlayerClass.PALADIN: '#F58CBA',
-        PlayerClass.PRIEST: '#FFFFFF',
-        PlayerClass.ROGUE: '#FFF569',
-        PlayerClass.SHAMAN: '#0070DE',
-        PlayerClass.WARLOCK: '#9482C9',
-        PlayerClass.WARRIOR: '#C79C6E',
-        PlayerClass.UNKNOWN: '#660099',
+        PlayerClass.DRUID: "#FF7D0A",
+        PlayerClass.HUNTER: "#ABD473",
+        PlayerClass.MAGE: "#69CCF0",
+        PlayerClass.PALADIN: "#F58CBA",
+        PlayerClass.PRIEST: "#FFFFFF",
+        PlayerClass.ROGUE: "#FFF569",
+        PlayerClass.SHAMAN: "#0070DE",
+        PlayerClass.WARLOCK: "#9482C9",
+        PlayerClass.WARRIOR: "#C79C6E",
+        PlayerClass.UNKNOWN: "#660099",
     }
-    DEFAULT_FILENAME = 'infographic'
+    DEFAULT_FILENAME = "infographic"
 
-    def __init__(self,
-                 accumulator: ConsumablesAccumulator,
-                 class_detection: ClassDetection=None,
-                 title: str='',
+    def __init__(
+        self,
+        accumulator: ConsumablesAccumulator,
+        class_detection: ClassDetection = None,
+        title: str = "",
     ):
         self.accumulator = accumulator
-        self.detected_classes: Dict[str, PlayerClass] = class_detection.store if class_detection else {}
+        self.detected_classes: Dict[str, PlayerClass] = (
+            class_detection.store if class_detection else {}
+        )
         self.title = title
 
-    def generate(self, output_file: Path=None) -> None:
+    def generate(self, output_file: Path = None) -> None:
         players = sorted(self.accumulator.data, key=lambda entry: -entry.total_spent)
         names = [e.name for e in players]
-        colors = [self.CLASS_COLOURS[self.detected_classes.get(name, PlayerClass.UNKNOWN)]
-                  for name in names]
+        colors = [
+            self.CLASS_COLOURS[self.detected_classes.get(name, PlayerClass.UNKNOWN)]
+            for name in names
+        ]
         bar_values = [p.total_spent for p in players]
 
         width = 3
         height = len(players) // width + 2
-        specs = [[{'type': 'xy', 'colspan': width}] + [None] * (width - 1)]
-        specs.extend([[{'type': 'domain'}] * width] * (height - 1))
+        specs = [[{"type": "xy", "colspan": width}] + [None] * (width - 1)]
+        specs.extend([[{"type": "domain"}] * width] * (height - 1))
         bar_chart_height = 400
         pie_chart_height = 500
 
@@ -2372,63 +2882,75 @@ class Infographic:
             cols=width,
             row_heights=[bar_chart_height] + [pie_chart_height] * (height - 1),
             subplot_titles=[None] + names,
-            specs=specs)
+            specs=specs,
+        )
 
-        fig.add_trace(go.Bar(x=names,
-                             y=bar_values,
-                             marker=dict(color=colors),
-                             name='Gold spent',
-                             showlegend=False,
-                             text=[v.to_string(short=True) for v in bar_values],
-                             textposition='outside'),
-                      row=1,
-                      col=1)
+        fig.add_trace(
+            go.Bar(
+                x=names,
+                y=bar_values,
+                marker=dict(color=colors),
+                name="Gold spent",
+                showlegend=False,
+                text=[v.to_string(short=True) for v in bar_values],
+                textposition="outside",
+            ),
+            row=1,
+            col=1,
+        )
 
         for pos, player in enumerate(players):
             item_costs = [items.total_price for items in player.consumables]
-            item_texts = [f'x{items.amount}, {items.total_price.to_string(short=True)}'
-                          for items in player.consumables]
+            item_texts = [
+                f"x{items.amount}, {items.total_price.to_string(short=True)}"
+                for items in player.consumables
+            ]
 
             fig.add_trace(
-                go.Pie(labels=[c.item_name for c in player.consumables],
-                       values=item_costs,
-                       text=item_texts,
-                       showlegend=False,
-                       textposition='inside',
-                       textinfo='label+percent+text',
-                       name=player.name),
+                go.Pie(
+                    labels=[c.item_name for c in player.consumables],
+                    values=item_costs,
+                    text=item_texts,
+                    showlegend=False,
+                    textposition="inside",
+                    textinfo="label+percent+text",
+                    name=player.name,
+                ),
                 row=(pos // width) + 2,
-                col=(pos % width) + 1)
+                col=(pos % width) + 1,
+            )
 
-        fig.update_layout(title=self.title,
-                          template='plotly_dark',
-                          plot_bgcolor=self.BACKGROUND_COLOR,
-                          paper_bgcolor=self.BACKGROUND_COLOR,
-                          title_x=0.5,
-                          height=bar_chart_height + (pie_chart_height * height - 1))
+        fig.update_layout(
+            title=self.title,
+            template="plotly_dark",
+            plot_bgcolor=self.BACKGROUND_COLOR,
+            paper_bgcolor=self.BACKGROUND_COLOR,
+            title_x=0.5,
+            height=bar_chart_height + (pie_chart_height * height - 1),
+        )
 
         bg_script = f'document.body.style.backgroundColor = "{self.BACKGROUND_COLOR}"; '
         output = fig.to_html(post_script=[bg_script])
 
         filename = output_file or self.DEFAULT_FILENAME
-        filepath = Path(filename).with_suffix('.html')
+        filepath = Path(filename).with_suffix(".html")
 
         if check_existing_file(filepath):
             while check_existing_file(
-                filepath := filepath.with_stem(f'{filename}_{str(uuid4())[-4:]}')
+                filepath := filepath.with_stem(f"{filename}_{str(uuid4())[-4:]}")
             ):
                 pass
 
-        with open(filepath, 'w', encoding='utf-8') as f:
+        with open(filepath, "w", encoding="utf-8") as f:
             f.write(output)
 
-        print(f'Infographic saved to: {filepath}')
-
+        print(f"Infographic saved to: {filepath}")
 
 
 def parse_line(app, line):
     try:
-        if line == '\n': return False
+        if line == "\n":
+            return False
         return parse_line2(app, line)
     except Exception:
         logging.exception(line)
@@ -2440,7 +2962,6 @@ def parse_line2(app, line):
     returns True when a match is found, so we can stop trying different parsers
     """
     try:
-
         tree = app.parser.parse(line)
         timestamp = tree.children[0]
         subtree = tree.children[1]
@@ -2449,61 +2970,75 @@ def parse_line2(app, line):
 
         # inline some parsing to reduce funcalls
         # for same reason not using visitors to traverse the parse tree
-        if subtree.data == 'gains_line':
+        if subtree.data == "gains_line":
             name = subtree.children[0].value
             spellname = subtree.children[1].value
             stackcount = int(subtree.children[2].value)
 
-            app.class_detection.detect(line_type=subtree.data, name=name, spell=spellname)
-            app.spell_count.add_stackcount(line_type=subtree.data, name=name, spell=spellname, stackcount=stackcount)
+            app.class_detection.detect(
+                line_type=subtree.data, name=name, spell=spellname
+            )
+            app.spell_count.add_stackcount(
+                line_type=subtree.data,
+                name=name,
+                spell=spellname,
+                stackcount=stackcount,
+            )
             app.proc_count.add(line_type=subtree.data, name=name, spell=spellname)
 
-
-            if consumable_item := RAWSPELLNAME2CONSUMABLE.get((subtree.data, spellname)):
+            if consumable_item := RAWSPELLNAME2CONSUMABLE.get(
+                (subtree.data, spellname)
+            ):
                 app.player[name][consumable_item.name] += 1
 
             if spellname in BUFF_SPELL:
-                app.player_detect[name].add('buff: ' + spellname)
+                app.player_detect[name].add("buff: " + spellname)
 
-            if spellname == 'Armor Shatter':
+            if spellname == "Armor Shatter":
                 app.annihilator.add(line)
-            if spellname == 'Flame Buffet':
+            if spellname == "Flame Buffet":
                 app.flamebuffet.add(line)
 
-            if name == 'Princess Huhuran' and spellname in {'Frenzy', 'Berserk'}:
+            if name == "Princess Huhuran" and spellname in {"Frenzy", "Berserk"}:
                 app.huhuran.add(line)
-            if name == 'Gluth' and spellname == 'Frenzy':
+            if name == "Gluth" and spellname == "Frenzy":
                 app.gluth.add(line)
 
             return True
-        elif subtree.data == 'gains_rage_line':
+        elif subtree.data == "gains_rage_line":
             name = subtree.children[0].value
             spellname = subtree.children[3].value
 
             spellname = rename_spell(spellname, line_type=subtree.data)
             app.spell_count.add(line_type=subtree.data, name=name, spell=spellname)
 
-            if consumable_item := RAWSPELLNAME2CONSUMABLE.get((subtree.data, spellname)):
+            if consumable_item := RAWSPELLNAME2CONSUMABLE.get(
+                (subtree.data, spellname)
+            ):
                 app.player[name][consumable_item.name] += 1
             return True
-        elif subtree.data == 'gains_energy_line':
+        elif subtree.data == "gains_energy_line":
             return True
-        elif subtree.data == 'gains_health_line':
+        elif subtree.data == "gains_health_line":
             targetname = subtree.children[0].value
             amount = int(subtree.children[1].value)
             name = subtree.children[2].value
             spellname = subtree.children[3].value
 
-            app.class_detection.detect(line_type=subtree.data, name=name, spell=spellname)
+            app.class_detection.detect(
+                line_type=subtree.data, name=name, spell=spellname
+            )
 
             app.healstore.add(name, targetname, spellname, amount, timestamp_unix)
             return True
-        elif subtree.data == 'uses_line':
+        elif subtree.data == "uses_line":
             name = subtree.children[0].value
             consumable = subtree.children[1].value
 
             consumable = USES_CONSUMABLE_RENAME.get(consumable, consumable)
-            if consumable_item := RAWSPELLNAME2CONSUMABLE.get((subtree.data, consumable)):
+            if consumable_item := RAWSPELLNAME2CONSUMABLE.get(
+                (subtree.data, consumable)
+            ):
                 app.player_superwow[name][consumable_item.name] += 1
                 return True
 
@@ -2520,19 +3055,18 @@ def parse_line2(app, line):
 
             app.player_superwow_unknown[name][consumable] += 1
 
-
-        elif subtree.data == 'dies_line':
+        elif subtree.data == "dies_line":
             name = subtree.children[0].value
             app.death_count[name] += 1
 
-            if name == 'Princess Huhuran':
+            if name == "Princess Huhuran":
                 app.huhuran.add(line)
-            if name == 'Gluth':
+            if name == "Gluth":
                 app.gluth.add(line)
 
             return True
-        elif subtree.data == 'heals_line':
-            is_crit = subtree.children[2].type == 'HEAL_CRIT'
+        elif subtree.data == "heals_line":
+            is_crit = subtree.children[2].type == "HEAL_CRIT"
 
             name = subtree.children[0].value
             spellname = subtree.children[1].value
@@ -2546,106 +3080,119 @@ def parse_line2(app, line):
 
             spellname = rename_spell(spellname, line_type=subtree.data)
 
-            app.class_detection.detect(line_type=subtree.data, name=name, spell=spellname)
+            app.class_detection.detect(
+                line_type=subtree.data, name=name, spell=spellname
+            )
             app.spell_count.add(line_type=subtree.data, name=name, spell=spellname)
 
-            if spellname == 'Tea with Sugar':
-                app.player[name]['Tea with Sugar'] += 1
-            elif spellname == 'Healing Potion':
+            if spellname == "Tea with Sugar":
+                app.player[name]["Tea with Sugar"] += 1
+            elif spellname == "Healing Potion":
                 if is_crit:
-                    consumable = healpot_lookup(amount/1.5)
+                    consumable = healpot_lookup(amount / 1.5)
                 else:
                     consumable = healpot_lookup(amount)
                 app.player[name][consumable] += 1
-            elif spellname == 'Rejuvenation Potion':
+            elif spellname == "Rejuvenation Potion":
                 if amount > 500:
-                    app.player[name]['Rejuvenation Potion - Major'] += 1
+                    app.player[name]["Rejuvenation Potion - Major"] += 1
                 else:
-                    app.player[name]['Rejuvenation Potion - Minor'] += 1
+                    app.player[name]["Rejuvenation Potion - Minor"] += 1
 
             app.healstore.add(name, targetname, spellname, amount, timestamp_unix)
             return True
 
-        elif subtree.data == 'gains_mana_line':
+        elif subtree.data == "gains_mana_line":
             name = subtree.children[0].value
             spellname = subtree.children[-1].value
-            if consumable_item := RAWSPELLNAME2CONSUMABLE.get((subtree.data, spellname)):
+            if consumable_item := RAWSPELLNAME2CONSUMABLE.get(
+                (subtree.data, spellname)
+            ):
                 app.player[name][consumable_item.name] += 1
-            elif spellname == 'Restore Mana':
+            elif spellname == "Restore Mana":
                 mana = int(subtree.children[1].value)
                 consumable = manapot_lookup(mana)
                 app.player[name][consumable] += 1
 
             return True
-        elif subtree.data == 'drains_mana_line':
+        elif subtree.data == "drains_mana_line":
             return True
-        elif subtree.data == 'drains_mana_line2':
+        elif subtree.data == "drains_mana_line2":
             return True
-        elif subtree.data == 'begins_to_cast_line':
+        elif subtree.data == "begins_to_cast_line":
             name = subtree.children[0].value
             spellname = subtree.children[-1].value
 
-            app.class_detection.detect(line_type=subtree.data, name=name, spell=spellname)
+            app.class_detection.detect(
+                line_type=subtree.data, name=name, spell=spellname
+            )
 
-
-            if consumable_item := RAWSPELLNAME2CONSUMABLE.get((subtree.data, spellname)):
+            if consumable_item := RAWSPELLNAME2CONSUMABLE.get(
+                (subtree.data, spellname)
+            ):
                 app.player[name][consumable_item.name] += 1
 
-            if name == "Kel'Thuzad" and spellname == 'Frostbolt':
+            if name == "Kel'Thuzad" and spellname == "Frostbolt":
                 app.kt_frostbolt.begins_to_cast(line)
 
             return True
-        elif subtree.data == 'casts_line':
+        elif subtree.data == "casts_line":
             name = subtree.children[0].value
             spellname = subtree.children[1].value
-            if consumable_item := RAWSPELLNAME2CONSUMABLE.get((subtree.data, spellname)):
+            if consumable_item := RAWSPELLNAME2CONSUMABLE.get(
+                (subtree.data, spellname)
+            ):
                 app.player[name][consumable_item.name] += 1
 
-            if spellname == 'Sunder Armor':
+            if spellname == "Sunder Armor":
                 if len(subtree.children) < 3:
                     # a mystery sunder armor with no target
-                    targetname = 'unknown'
+                    targetname = "unknown"
                 else:
                     targetname = subtree.children[2].value
                 if targetname in KNOWN_BOSS_NAMES:
-                    spellname += ' (boss)'
+                    spellname += " (boss)"
 
-            app.class_detection.detect(line_type=subtree.data, name=name, spell=spellname)
+            app.class_detection.detect(
+                line_type=subtree.data, name=name, spell=spellname
+            )
             app.spell_count.add(line_type=subtree.data, name=name, spell=spellname)
 
-            if spellname == 'Wild Polymorph':
+            if spellname == "Wild Polymorph":
                 app.nef_wild_polymorph.add(line)
 
-            if spellname == 'Death by Peasant':
+            if spellname == "Death by Peasant":
                 app.huhuran.add(line)
 
             if len(subtree.children) == 3:
                 targetname = subtree.children[2].value
 
-                if spellname == 'Tranquilizing Shot' and targetname == 'Princess Huhuran':
+                if (
+                    spellname == "Tranquilizing Shot"
+                    and targetname == "Princess Huhuran"
+                ):
                     app.huhuran.add(line)
-                if spellname == 'Tranquilizing Shot' and targetname == 'Gluth':
+                if spellname == "Tranquilizing Shot" and targetname == "Gluth":
                     app.gluth.add(line)
 
             if name == "Kel'Thuzad" and spellname == "Shadow Fissure":
                 app.kt_shadowfissure.add(line)
 
             return True
-        elif subtree.data == 'combatant_info_line':
+        elif subtree.data == "combatant_info_line":
             return True
-        elif subtree.data == 'consolidated_line':
+        elif subtree.data == "consolidated_line":
             for entry in subtree.children:
-                if entry.data == 'consolidated_pet':
+                if entry.data == "consolidated_pet":
                     name = entry.children[0].value
                     petname = entry.children[1].value
                     app.pet_handler.add(name, petname)
-                    app.player_detect[name].add('pet: ' + petname)
+                    app.player_detect[name].add("pet: " + petname)
                 else:
                     # parse but ignore the other consolidated entries
                     pass
             return True
-        elif subtree.data == 'hits_ability_line':
-
+        elif subtree.data == "hits_ability_line":
             name = subtree.children[0].value
             spellname = subtree.children[1].value
             targetname = subtree.children[2].value
@@ -2653,25 +3200,27 @@ def parse_line2(app, line):
 
             spellname = rename_spell(spellname, line_type=subtree.data)
 
-            app.class_detection.detect(line_type=subtree.data, name=name, spell=spellname)
+            app.class_detection.detect(
+                line_type=subtree.data, name=name, spell=spellname
+            )
             app.spell_count.add(line_type=subtree.data, name=name, spell=spellname)
 
             if spellname in app.hits_consumable.COOLDOWNS:
                 app.hits_consumable.update(name, spellname, timestamp_unix)
 
-            if targetname == 'Viscidus':
+            if targetname == "Viscidus":
                 app.viscidus.found()
                 spell_damage_type = subtree.children[4]
-                if spell_damage_type and spell_damage_type.children[0].value == 'Frost':
+                if spell_damage_type and spell_damage_type.children[0].value == "Frost":
                     app.viscidus.add(name, spellname)
 
-            if targetname == 'Princess Huhuran':
+            if targetname == "Princess Huhuran":
                 app.huhuran.found()
 
             if name == "Eye of C'Thun" and spellname == "Eye Beam":
                 app.cthun_chain.add(timestamp_unix, line)
 
-            if name == 'Gluth' and spellname == 'Decimate':
+            if name == "Gluth" and spellname == "Decimate":
                 app.gluth.add(line)
 
             if name == "Sir Zeliek" and spellname == "Holy Wrath":
@@ -2680,7 +3229,11 @@ def parse_line2(app, line):
             if spellname in INTERRUPT_SPELLS and targetname == "Kel'Thuzad":
                 app.kt_frostbolt.add(line)
 
-            if name == "Kel'Thuzad" and spellname == "Frostbolt" and int(subtree.children[3].value) >= 4000:
+            if (
+                name == "Kel'Thuzad"
+                and spellname == "Frostbolt"
+                and int(subtree.children[3].value) >= 4000
+            ):
                 app.kt_frostbolt.add(line)
 
             if name == "Kel'Thuzad" and spellname == "Frost Blast":
@@ -2698,12 +3251,12 @@ def parse_line2(app, line):
             target = subtree.children[1].value
             amount = int(subtree.children[2].value)
 
-            if name == 'Guardian of Icecrown':
+            if name == "Guardian of Icecrown":
                 app.kt_guardian.add(line)
-            app.dmgstore.add(name, target, 'hit', amount, timestamp_unix)
-            app.dmgtakenstore.add(name, target, 'hit', amount, timestamp_unix)
+            app.dmgstore.add(name, target, "hit", amount, timestamp_unix)
+            app.dmgtakenstore.add(name, target, "hit", amount, timestamp_unix)
             return True
-        elif subtree.data == 'parry_ability_line':
+        elif subtree.data == "parry_ability_line":
             name = subtree.children[0].value
             spellname = subtree.children[1].value
             targetname = subtree.children[2].value
@@ -2712,26 +3265,24 @@ def parse_line2(app, line):
                 app.kt_frostbolt.parry(line)
 
             return True
-        elif subtree.data == 'parry_line':
+        elif subtree.data == "parry_line":
             return True
-        elif subtree.data == 'block_line':
+        elif subtree.data == "block_line":
             return True
-        elif subtree.data == 'block_ability_line':
+        elif subtree.data == "block_ability_line":
             return True
-        elif subtree.data == 'interrupts_line':
+        elif subtree.data == "interrupts_line":
             return True
 
-
-        elif subtree.data == 'resist_line':
+        elif subtree.data == "resist_line":
             name = subtree.children[0].value
             spellname = subtree.children[1].value
             targetname = subtree.children[2].value
 
-
             if spellname in app.hits_consumable.COOLDOWNS:
                 app.hits_consumable.update(name, spellname, timestamp_unix)
 
-            if spellname == 'Armor Shatter':
+            if spellname == "Armor Shatter":
                 app.annihilator.add(line)
 
             if name == "Eye of C'Thun" and spellname == "Eye Beam":
@@ -2744,7 +3295,7 @@ def parse_line2(app, line):
                 app.kt_frostbolt.parry(line)
 
             return True
-        elif subtree.data == 'immune_ability_line':
+        elif subtree.data == "immune_ability_line":
             name = subtree.children[0].value
             spellname = subtree.children[1].value
 
@@ -2752,7 +3303,7 @@ def parse_line2(app, line):
                 app.hits_consumable.update(name, spellname, timestamp_unix)
 
             return True
-        elif subtree.data == 'is_immune_ability_line':
+        elif subtree.data == "is_immune_ability_line":
             targetname = subtree.children[0].value
             name = subtree.children[1].value
             spellname = subtree.children[2].value
@@ -2760,30 +3311,33 @@ def parse_line2(app, line):
                 app.hits_consumable.update(name, spellname, timestamp_unix)
             return True
 
-        elif subtree.data == 'immune_line':
+        elif subtree.data == "immune_line":
             return True
-        elif subtree.data == 'afflicted_line':
+        elif subtree.data == "afflicted_line":
             targetname = subtree.children[0].value
             spellname = subtree.children[1].value
 
-            app.class_detection.detect(line_type=subtree.data, name=targetname, spell=spellname)
-            app.spell_count.add(line_type=subtree.data, name=targetname, spell=spellname)
+            app.class_detection.detect(
+                line_type=subtree.data, name=targetname, spell=spellname
+            )
+            app.spell_count.add(
+                line_type=subtree.data, name=targetname, spell=spellname
+            )
 
-            if spellname == 'Armor Shatter':
+            if spellname == "Armor Shatter":
                 app.annihilator.add(line)
-            if spellname == 'Decimate':
+            if spellname == "Decimate":
                 app.gluth.add(line)
             if spellname == "Frost Blast":
                 app.kt_frostblast.add(line)
 
-            if targetname == 'Guardian of Icecrown':
+            if targetname == "Guardian of Icecrown":
                 app.kt_guardian.add(line)
 
             return True
-        elif subtree.data == 'is_destroyed_line':
+        elif subtree.data == "is_destroyed_line":
             return True
-        elif subtree.data == 'is_absorbed_ability_line':
-
+        elif subtree.data == "is_absorbed_ability_line":
             name = subtree.children[0].value
             spellname = subtree.children[1].value
 
@@ -2800,116 +3354,121 @@ def parse_line2(app, line):
                 app.kt_frostblast.add(line)
 
             return True
-        elif subtree.data == 'absorbs_ability_line':
+        elif subtree.data == "absorbs_ability_line":
             targetname = subtree.children[0].value
             name = subtree.children[1].value
             spellname = subtree.children[2].value
-            if spellname == 'Corrupted Healing':
+            if spellname == "Corrupted Healing":
                 app.nef_corrupted_healing.add(line)
             return True
-        elif subtree.data == 'absorbs_all_line':
+        elif subtree.data == "absorbs_all_line":
             return True
-        elif subtree.data == 'fails_to_dispel_line':
+        elif subtree.data == "fails_to_dispel_line":
             return True
-        elif subtree.data == 'pet_begins_eating_line':
+        elif subtree.data == "pet_begins_eating_line":
             return True
-        elif subtree.data == 'is_dismissed_line':
+        elif subtree.data == "is_dismissed_line":
             name = subtree.children[0].value
             petname = subtree.children[1].value
             app.pet_handler.add(name, petname)
             return True
-        elif subtree.data == 'is_dismissed_line2':
-            name, petname = subtree.children[0].value.split(' ', 1)
+        elif subtree.data == "is_dismissed_line2":
+            name, petname = subtree.children[0].value.split(" ", 1)
             if name[-2:] == "'s":
                 name = name[:-2]
             app.pet_handler.add(name, petname)
             return True
-        elif subtree.data == 'gains_happiness_line':
+        elif subtree.data == "gains_happiness_line":
             petname = subtree.children[0].value
             amount = subtree.children[1].value
             name = subtree.children[2].value
             app.pet_handler.add(name, petname)
             return True
-        elif subtree.data == 'removed_line':
+        elif subtree.data == "removed_line":
             name = subtree.children[0].value
             spellname = subtree.children[1].value
 
-            if name == 'Princess Huhuran' and spellname == 'Frenzy':
+            if name == "Princess Huhuran" and spellname == "Frenzy":
                 app.huhuran.add(line)
 
-            if name == 'Gluth' and spellname == 'Frenzy':
+            if name == "Gluth" and spellname == "Frenzy":
                 app.gluth.add(line)
 
             return True
-        elif subtree.data == 'suffers_line':
-
+        elif subtree.data == "suffers_line":
             targetname = subtree.children[0].value
             amount = int(subtree.children[1])
-            if subtree.children[2].data == 'suffers_line_source':
+            if subtree.children[2].data == "suffers_line_source":
                 name = subtree.children[2].children[1].value
                 spellname = subtree.children[2].children[2].value
 
-                if spellname == 'Corrupted Healing':
+                if spellname == "Corrupted Healing":
                     app.nef_corrupted_healing.add(line)
 
                 app.dmgstore.add(name, targetname, spellname, amount, timestamp_unix)
-                app.dmgtakenstore.add(name, targetname, spellname, amount, timestamp_unix)
+                app.dmgtakenstore.add(
+                    name, targetname, spellname, amount, timestamp_unix
+                )
             else:
                 # nosource
                 pass
 
             return True
-        elif subtree.data == 'fades_line':
+        elif subtree.data == "fades_line":
             spellname = subtree.children[0].value
             targetname = subtree.children[1].value
 
-            if spellname == 'Armor Shatter':
+            if spellname == "Armor Shatter":
                 app.annihilator.add(line)
-            if targetname == 'Guardian of Icecrown':
+            if targetname == "Guardian of Icecrown":
                 app.kt_guardian.add(line)
 
             return True
-        elif subtree.data == 'slain_line':
+        elif subtree.data == "slain_line":
             return True
-        elif subtree.data == 'creates_line':
+        elif subtree.data == "creates_line":
             return True
-        elif subtree.data == 'is_killed_line':
+        elif subtree.data == "is_killed_line":
             return True
-        elif subtree.data == 'performs_on_line':
+        elif subtree.data == "performs_on_line":
             name = subtree.children[0].value
             spellname = subtree.children[1].value
             targetname = subtree.children[2].value
 
-            if consumable_item := RAWSPELLNAME2CONSUMABLE.get((subtree.data, spellname)):
+            if consumable_item := RAWSPELLNAME2CONSUMABLE.get(
+                (subtree.data, spellname)
+            ):
                 app.player[name][consumable_item.name] += 1
 
             return True
-        elif subtree.data == 'performs_line':
+        elif subtree.data == "performs_line":
             return True
-        elif subtree.data == 'begins_to_perform_line':
+        elif subtree.data == "begins_to_perform_line":
             name = subtree.children[0].value
             spellname = subtree.children[-1].value
-            app.class_detection.detect(line_type=subtree.data, name=name, spell=spellname)
+            app.class_detection.detect(
+                line_type=subtree.data, name=name, spell=spellname
+            )
             app.spell_count.add(line_type=subtree.data, name=name, spell=spellname)
             return True
-        elif subtree.data == 'gains_extra_attacks_line':
+        elif subtree.data == "gains_extra_attacks_line":
             name = subtree.children[0].value
             howmany = int(subtree.children[1].value)
             source = subtree.children[2].value
             app.proc_count.add_extra_attacks(howmany=howmany, name=name, source=source)
             return True
-        elif subtree.data == 'dodges_line':
+        elif subtree.data == "dodges_line":
             return True
-        elif subtree.data == 'dodge_ability_line':
+        elif subtree.data == "dodge_ability_line":
             return True
-        elif subtree.data == 'reflects_damage_line':
+        elif subtree.data == "reflects_damage_line":
             name = subtree.children[0].value
             amount = int(subtree.children[1].value)
             target = subtree.children[3].value
-            app.dmgstore.add(name, target, 'reflect', amount, timestamp_unix)
-            app.dmgtakenstore.add(name, target, 'reflect', amount, timestamp_unix)
+            app.dmgstore.add(name, target, "reflect", amount, timestamp_unix)
+            app.dmgtakenstore.add(name, target, "reflect", amount, timestamp_unix)
             return True
-        elif subtree.data == 'causes_damage_line':
+        elif subtree.data == "causes_damage_line":
             name = subtree.children[0].value
             spellname = subtree.children[1].value
             target = subtree.children[2].value
@@ -2917,48 +3476,46 @@ def parse_line2(app, line):
             app.dmgstore.add(name, target, spellname, amount, timestamp_unix)
             app.dmgtakenstore.add(name, target, spellname, amount, timestamp_unix)
             return True
-        elif subtree.data == 'is_reflected_back_line':
+        elif subtree.data == "is_reflected_back_line":
             return True
-        elif subtree.data == 'misses_line':
+        elif subtree.data == "misses_line":
             return True
-        elif subtree.data == 'misses_ability_line':
+        elif subtree.data == "misses_ability_line":
             return True
-        elif subtree.data == 'falls_line':
+        elif subtree.data == "falls_line":
             return True
-        elif subtree.data == 'none_line':
+        elif subtree.data == "none_line":
             return True
-        elif subtree.data == 'lava_line':
+        elif subtree.data == "lava_line":
             return True
-        elif subtree.data == 'slays_line':
+        elif subtree.data == "slays_line":
             return True
-        elif subtree.data == 'was_evaded_line':
+        elif subtree.data == "was_evaded_line":
             name = subtree.children[0].value
             spellname = subtree.children[1].value
             targetname = subtree.children[2].value
 
-            if spellname == 'Wild Polymorph':
+            if spellname == "Wild Polymorph":
                 app.nef_wild_polymorph.add(line)
             return True
-        elif subtree.data == 'equipped_durability_loss':
+        elif subtree.data == "equipped_durability_loss":
             return True
-
-
 
     except LarkError:
         # parse errors ignored to try different strategies
-        #print(line)
-        #print(app.parser.parse(line))
-        #raise
+        # print(line)
+        # print(app.parser.parse(line))
+        # raise
 
         pass
 
     return False
 
-def parse_log(app, filename):
 
+def parse_log(app, filename):
     app.techinfo.set_file_size(filename)
 
-    with io.open(filename, encoding='utf8') as f:
+    with io.open(filename, encoding="utf8") as f:
         linecount = 0
         skiplinecount = 0
         for line in f:
@@ -2976,11 +3533,12 @@ def parse_log(app, filename):
 
         app.unparsed_logger.flush()
 
-def generate_output(app):
 
+def generate_output(app):
     output = io.StringIO()
 
-    print("""Notes:
+    print(
+        """Notes:
     - The report is generated using the combat log, which is far from perfect.
     - Use the report as evidence something DID happen and keep in mind the data is not exhaustive. In other words the report DOES NOT cover everything.
     - Some events are missing because the person logging wasn't in the instance yet or was too far away. This means inferring something DID NOT happen may be hard or impossible and requires extra care.
@@ -2988,8 +3546,9 @@ def generate_output(app):
     - Without superwow, many spells and consumables are not logged and can't be easily counted. Examples are jujus, many foods, mageblood and other mana consumables, lesser vs greater protection potions, gift of arthas etc.
     - Dragonbreath chili and goblin sappers have only "on hit" messages, so their usage is estimated based on timestamps and cooldowns.
 
-""", file=output)
-
+""",
+        file=output,
+    )
 
     # remove pets from players
     for pet in app.pet_handler.get_all_pets():
@@ -3008,7 +3567,6 @@ def generate_output(app):
 
     # calculate consumables
     app.consumables_accumulator.calculate()
-
 
     app.print_consumables.print(output)
 
@@ -3042,40 +3600,106 @@ def generate_output(app):
 
     return output
 
+
 def write_output(
-    output, write_summary,
-    ):
+    output,
+    write_summary,
+):
     if write_summary:
-        filename = 'summary.txt'
-        with open(filename, 'wb') as f:
-            f.write(output.getvalue().encode('utf8'))
-            print('writing summary to', filename)
+        filename = "summary.txt"
+        with open(filename, "wb") as f:
+            f.write(output.getvalue().encode("utf8"))
+            print("writing summary to", filename)
     else:
         print(output.getvalue())
 
+
 def get_user_input(argv):
     parser = argparse.ArgumentParser()
-    parser.add_argument('logpath', help='path to WoWCombatLog.txt or an url like https://turtlogs.com/viewer/8406/base?history_state=1')
-    parser.add_argument('--pastebin', action='store_true', help='upload result to a pastebin and return the url')
-    parser.add_argument('--open-browser', action='store_true', help='used with --pastebin. open the pastebin url with your browser')
+    parser.add_argument(
+        "logpath",
+        help="path to WoWCombatLog.txt or an url like https://turtlogs.com/viewer/8406/base?history_state=1",
+    )
+    parser.add_argument(
+        "--pastebin",
+        action="store_true",
+        help="upload result to a pastebin and return the url",
+    )
+    parser.add_argument(
+        "--open-browser",
+        action="store_true",
+        help="used with --pastebin. open the pastebin url with your browser",
+    )
 
-    parser.add_argument('--write-summary', action='store_true', help='writes output to summary.txt instead of the console')
-    parser.add_argument('--write-consumable-totals-csv', action='store_true', help='also writes consumable-totals.csv (name, copper, deaths)')
-    parser.add_argument('--write-damage-output', action='store_true', help='writes output to damage-output.txt')
-    parser.add_argument('--write-healing-output', action='store_true', help='writes output to healing-output.txt')
-    parser.add_argument('--write-damage-taken-output', action='store_true', help='writes output to damage-taken-output.txt')
+    parser.add_argument(
+        "--write-summary",
+        action="store_true",
+        help="writes output to summary.txt instead of the console",
+    )
+    parser.add_argument(
+        "--write-consumable-totals-csv",
+        action="store_true",
+        help="also writes consumable-totals.csv (name, copper, deaths)",
+    )
+    parser.add_argument(
+        "--write-damage-output",
+        action="store_true",
+        help="writes output to damage-output.txt",
+    )
+    parser.add_argument(
+        "--write-healing-output",
+        action="store_true",
+        help="writes output to healing-output.txt",
+    )
+    parser.add_argument(
+        "--write-damage-taken-output",
+        action="store_true",
+        help="writes output to damage-taken-output.txt",
+    )
 
-    parser.add_argument('--prices-server', choices=['nord', 'telabim'], default='nord', help='specify which server price data to use')
+    parser.add_argument(
+        "--prices-server",
+        choices=["nord", "telabim"],
+        default="nord",
+        help="specify which server price data to use",
+    )
 
-    parser.add_argument('--visualize', action='store_true', required=False, help='Generate visual infographic')
-    parser.add_argument('--compare-players', nargs=2, metavar=('PLAYER1', 'PLAYER2'), required=False, help='compare 2 players, output the difference in compare-players.txt')
+    parser.add_argument(
+        "--visualize",
+        action="store_true",
+        required=False,
+        help="Generate visual infographic",
+    )
+    parser.add_argument(
+        "--compare-players",
+        nargs=2,
+        metavar=("PLAYER1", "PLAYER2"),
+        required=False,
+        help="compare 2 players, output the difference in compare-players.txt",
+    )
 
-    parser.add_argument('--expert-log-unparsed-lines', action='store_true', help='create an unparsed.txt with everything that was not parsed')
-    parser.add_argument('--expert-write-web-prices', action='store_true', help='writes output to prices-web.json')
-    parser.add_argument('--expert-disable-web-prices', action='store_true', help="don't download price data")
-    parser.add_argument('--expert-deterministic-logs', action='store_true', help='disable environmental outputs')
-    parser.add_argument('--expert-write-lalr-states', action='store_true')
-    parser.add_argument('--expert-log-superwow-merge', action='store_true')
+    parser.add_argument(
+        "--expert-log-unparsed-lines",
+        action="store_true",
+        help="create an unparsed.txt with everything that was not parsed",
+    )
+    parser.add_argument(
+        "--expert-write-web-prices",
+        action="store_true",
+        help="writes output to prices-web.json",
+    )
+    parser.add_argument(
+        "--expert-disable-web-prices",
+        action="store_true",
+        help="don't download price data",
+    )
+    parser.add_argument(
+        "--expert-deterministic-logs",
+        action="store_true",
+        help="disable environmental outputs",
+    )
+    parser.add_argument("--expert-write-lalr-states", action="store_true")
+    parser.add_argument("--expert-log-superwow-merge", action="store_true")
 
     args = parser.parse_args(argv)
 
@@ -3084,35 +3708,35 @@ def get_user_input(argv):
 
 class IxioUploader:
     def upload(self, output):
-        data = output.getvalue().encode('utf8')
+        data = output.getvalue().encode("utf8")
 
-        username, password = 'summarize_consumes', 'summarize_consumes'
+        username, password = "summarize_consumes", "summarize_consumes"
         auth = requests.auth.HTTPBasicAuth(username, password)
         response = requests.post(
-            url='http://ix.io',
-            files={'f:1': data},
+            url="http://ix.io",
+            files={"f:1": data},
             auth=auth,
             timeout=30,
         )
         print(response.text)
-        if 'already exists' in response.text:
+        if "already exists" in response.text:
             return None
-        if 'down for DDOS' in response.text:
+        if "down for DDOS" in response.text:
             return None
-        if 'ix.io is taking a break' in response.text:
+        if "ix.io is taking a break" in response.text:
             return None
         if response.status_code != 200:
             return None
-        url = response.text.strip().split('\n')[-1]
+        url = response.text.strip().split("\n")[-1]
         return url
 
 
 class RpasteUploader:
     def upload(self, output):
-        data = output.getvalue().encode('utf8')
+        data = output.getvalue().encode("utf8")
         response = requests.post(
-            url='https://rpa.st/curl',
-            data={'raw': data, 'expiry': 'forever'},
+            url="https://rpa.st/curl",
+            data={"raw": data, "expiry": "forever"},
             timeout=30,
         )
         if response.status_code != 200:
@@ -3120,18 +3744,18 @@ class RpasteUploader:
             return None
         lines = response.text.splitlines()
         for line in lines:
-            if 'Raw URL' in line:
+            if "Raw URL" in line:
                 url = line.split()[-1]
                 return url
 
 
 class BpasteUploader:
     def upload(self, output):
-        data = output.getvalue().encode('utf8')
+        data = output.getvalue().encode("utf8")
         response = requests.post(
-            #url='https://bpaste.net/curl',
-            url='https://bpa.st/curl',
-            data={'raw': data, 'expiry': '1month'},
+            # url='https://bpaste.net/curl',
+            url="https://bpa.st/curl",
+            data={"raw": data, "expiry": "1month"},
             timeout=30,
         )
         if response.status_code != 200:
@@ -3139,7 +3763,7 @@ class BpasteUploader:
             return None
         lines = response.text.splitlines()
         for line in lines:
-            if 'Raw URL' in line:
+            if "Raw URL" in line:
                 url = line.split()[-1]
                 return url
 
@@ -3156,14 +3780,15 @@ def upload_pastebin(output):
         print("couldn't get a pastebin url")
     return url
 
+
 def open_browser(url):
-    print(f'opening browser with {url}')
+    print(f"opening browser with {url}")
     webbrowser.open(url)
 
 
 class LogDownloader:
     def __init__(self):
-        self.output_name = 'summarize-consumes-turtlogs.txt'
+        self.output_name = "summarize-consumes-turtlogs.txt"
 
     def try_download(self, filename):
         output_name = self.output_name
@@ -3171,27 +3796,29 @@ class LogDownloader:
             return filename
 
         urlprefixes = [
-            'https://www.turtlogs.com/viewer/',
-            'https://turtlogs.com/viewer/',
+            "https://www.turtlogs.com/viewer/",
+            "https://turtlogs.com/viewer/",
         ]
         found = False
         for urlprefix in urlprefixes:
             if filename.startswith(urlprefix):
-                newfilename = filename[len(urlprefix):]
+                newfilename = filename[len(urlprefix) :]
                 found = True
                 break
         if not found:
             return filename
 
         try:
-            logid = newfilename.split('/')[0]
+            logid = newfilename.split("/")[0]
             logid = int(logid)
-            resp = requests.get(f'https://turtlogs.com/API/instance/export/{logid}')
+            resp = requests.get(f"https://turtlogs.com/API/instance/export/{logid}")
             resp.raise_for_status()
 
-            upload_id = resp.json()['upload_id']
+            upload_id = resp.json()["upload_id"]
 
-            resp = requests.get(f'https://www.turtlogs.com/uploads/upload_{upload_id}.zip')
+            resp = requests.get(
+                f"https://www.turtlogs.com/uploads/upload_{upload_id}.zip"
+            )
             resp.raise_for_status()
 
             zip_buffer = io.BytesIO(resp.content)
@@ -3207,11 +3834,10 @@ class LogDownloader:
                 with zip_file.open(text_file_name) as text_file:
                     content = text_file.read()
 
-                with open(output_name, 'wb') as output_file:
-                    print('writing downloaded log to', output_name)
+                with open(output_name, "wb") as output_file:
+                    print("writing downloaded log to", output_name)
                     output_file.write(content)
                 return output_name
-
 
         except ValueError:
             pass
@@ -3219,48 +3845,66 @@ class LogDownloader:
 
 
 class MergeSuperwowConsumables:
-    def __init__(self, player, player_superwow, player_superwow_unknown, expert_log_superwow_merge):
+    def __init__(
+        self,
+        player,
+        player_superwow,
+        player_superwow_unknown,
+        expert_log_superwow_merge,
+    ):
         self.player = player
         self.player_superwow = player_superwow
         self.player_superwow_unknown = player_superwow_unknown
         self.logfile = None
-        self.filename = 'superwow-merge.txt'
+        self.filename = "superwow-merge.txt"
         if expert_log_superwow_merge:
-            self.logfile = open(self.filename, 'w')
+            self.logfile = open(self.filename, "w")
 
     def log(self, txt):
-        if not self.logfile: return
+        if not self.logfile:
+            return
         print(txt, file=self.logfile)
 
     def merge(self):
         if self.logfile:
-            print('writing superwow merge to', self.filename)
+            print("writing superwow merge to", self.filename)
 
         for player in self.player_superwow:
             consumables_swow = set(self.player_superwow[player])
             consumables = set(self.player[player])
             for c_swow in consumables_swow:
-
                 consumable = NAME2CONSUMABLE.get(c_swow)
                 if consumable is None:
-                    self.log(f'impossible! consumable not found {c_swow}')
+                    self.log(f"impossible! consumable not found {c_swow}")
                     continue
-                if isinstance(consumable, SuperwowConsumable) and consumable.strategy == MergeStrategy.SAFE:
+                if (
+                    isinstance(consumable, SuperwowConsumable)
+                    and consumable.strategy == MergeStrategy.SAFE
+                ):
                     if self.player[player].get(c_swow, 0):
-                        self.log(f'impossible! consumable not safe {consumable}')
+                        self.log(f"impossible! consumable not safe {consumable}")
                     self.player[player][c_swow] = self.player_superwow[player][c_swow]
                     del self.player_superwow[player][c_swow]
 
                 elif c_swow in USES_CONSUMABLE_OVERWRITE:
                     c = USES_CONSUMABLE_OVERWRITE[c_swow]
-                    #if c not in consumables:
+                    # if c not in consumables:
                     #    self.log(f"mismatch from {c_swow} to {c}. {player} {c} is not in consumables")
-                    if c != c_swow and self.player[player].get(c, 0) > self.player_superwow[player][c_swow]:
+                    if (
+                        c != c_swow
+                        and self.player[player].get(c, 0)
+                        > self.player_superwow[player][c_swow]
+                    ):
                         self.log(f"partial merge (overwrite). {player} {c} > {c_swow}")
 
-                        remain = self.player[player][c] - self.player_superwow[player][c_swow]
+                        remain = (
+                            self.player[player][c]
+                            - self.player_superwow[player][c_swow]
+                        )
                         self.player[player][c] = remain
-                        self.player[player][c_swow] = self.player_superwow[player][c_swow]
+                        self.player[player][c_swow] = self.player_superwow[player][
+                            c_swow
+                        ]
                         del self.player_superwow[player][c_swow]
 
                         continue
@@ -3271,10 +3915,15 @@ class MergeSuperwowConsumables:
 
                 elif c_swow in USES_CONSUMABLE_ENHANCE:
                     c = USES_CONSUMABLE_ENHANCE[c_swow]
-                    #if c not in consumables:
+                    # if c not in consumables:
                     #    self.log(f"mismatch from {c_swow} to {c}. {player} {c} is not in consumables")
-                    if self.player[player].get(c, 0) > self.player_superwow[player][c_swow]:
-                        self.log(f"skipping. superwow has less? {player} {c} > {c_swow}")
+                    if (
+                        self.player[player].get(c, 0)
+                        > self.player_superwow[player][c_swow]
+                    ):
+                        self.log(
+                            f"skipping. superwow has less? {player} {c} > {c_swow}"
+                        )
                         continue
 
                     self.player[player][c] = self.player_superwow[player][c_swow]
@@ -3285,11 +3934,11 @@ class MergeSuperwowConsumables:
 
         all_unknown = set()
         for player, consumables in self.player_superwow_unknown.items():
-            self.log(f'unknown consumables for {player}: {consumables}')
+            self.log(f"unknown consumables for {player}: {consumables}")
             for cons in consumables:
                 all_unknown.add(cons)
 
-        self.log('all unknown suggestions:')
+        self.log("all unknown suggestions:")
         for cons in all_unknown:
             self.log(repr({cons: cons}))
 
@@ -3297,19 +3946,17 @@ class MergeSuperwowConsumables:
             for player, cons in player.items():
                 for cname, count in cons.items():
                     self.log(f"{player} {cname} {count}")
-        self.log('data dumps:')
-        #self.log(f'self.player:')
-        #printer(self.player)
-        self.log('self.player_superwow:')
+
+        self.log("data dumps:")
+        # self.log(f'self.player:')
+        # printer(self.player)
+        self.log("self.player_superwow:")
         printer(self.player_superwow)
-        self.log('self.player_superwow_unknown:')
+        self.log("self.player_superwow_unknown:")
         printer(self.player_superwow_unknown)
 
 
-
-
 def main(argv):
-
     args = get_user_input(argv)
 
     time_start = time.time()
@@ -3330,89 +3977,104 @@ def main(argv):
     output = generate_output(app)
 
     if args.write_consumable_totals_csv:
+
         def feature():
             output = io.StringIO()
             app.print_consumable_totals_csv.print(output)
 
-            filename = 'consumable-totals.csv'
-            with open(filename, 'wb') as f:
-                f.write(output.getvalue().encode('utf8'))
-                print('writing consumable totals to', filename)
+            filename = "consumable-totals.csv"
+            with open(filename, "wb") as f:
+                f.write(output.getvalue().encode("utf8"))
+                print("writing consumable totals to", filename)
+
         feature()
 
     if args.compare_players:
+
         def feature():
             player1, player2 = args.compare_players
             player1 = player1.capitalize()
             player2 = player2.capitalize()
 
             output = io.StringIO()
-            app.dmgstore.print_compare_players(player1=player1, player2=player2, output=output)
+            app.dmgstore.print_compare_players(
+                player1=player1, player2=player2, output=output
+            )
 
-            filename = 'compare-players.txt'
-            with open(filename, 'wb') as f:
-                print('writing comparison of players to', filename)
-                f.write(output.getvalue().encode('utf8'))
+            filename = "compare-players.txt"
+            with open(filename, "wb") as f:
+                print("writing comparison of players to", filename)
+                f.write(output.getvalue().encode("utf8"))
+
         feature()
 
     if args.write_damage_output:
+
         def feature():
             output = io.StringIO()
             app.dmgstore.print_damage(output=output)
-            filename = 'damage-output.txt'
-            with open(filename, 'wb') as f:
-                print('writing damage output to', filename)
-                f.write(output.getvalue().encode('utf8'))
+            filename = "damage-output.txt"
+            with open(filename, "wb") as f:
+                print("writing damage output to", filename)
+                f.write(output.getvalue().encode("utf8"))
                 if args.pastebin:
                     upload_pastebin(output)
+
         feature()
 
     if args.write_healing_output:
+
         def feature():
             output = io.StringIO()
             app.healstore.print_damage(output=output)
-            filename = 'healing-output.txt'
-            with open(filename, 'wb') as f:
-                print('writing healing output to', filename)
-                f.write(output.getvalue().encode('utf8'))
+            filename = "healing-output.txt"
+            with open(filename, "wb") as f:
+                print("writing healing output to", filename)
+                f.write(output.getvalue().encode("utf8"))
                 if args.pastebin:
                     upload_pastebin(output)
+
         feature()
 
     if args.write_damage_taken_output:
+
         def feature():
             output = io.StringIO()
             app.dmgtakenstore.print_damage_taken(output=output)
-            filename = 'damage-taken-output.txt'
-            with open(filename, 'wb') as f:
-                print('writing damage taken output to', filename)
-                f.write(output.getvalue().encode('utf8'))
+            filename = "damage-taken-output.txt"
+            with open(filename, "wb") as f:
+                print("writing damage taken output to", filename)
+                f.write(output.getvalue().encode("utf8"))
                 if args.pastebin:
                     upload_pastebin(output)
+
         feature()
 
     if args.visualize:
         app.infographic.generate(output_file=Path(logpath).stem)
 
     if args.expert_write_web_prices:
+
         def feature():
             prices = app.web_price_provider.load()
-            filename = 'prices-web.json'
-            with open(filename, 'w', newline='') as f:
-                print('writing web prices to', filename)
+            filename = "prices-web.json"
+            with open(filename, "w", newline="") as f:
+                print("writing web prices to", filename)
                 json.dump(prices, f, indent=4)
+
         feature()
 
-
     write_output(output, write_summary=args.write_summary)
-    if not args.pastebin: return
+    if not args.pastebin:
+        return
     url = upload_pastebin(output)
 
-    if not args.open_browser: return
-    if not url: return
+    if not args.open_browser:
+        return
+    if not url:
+        return
     open_browser(url)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main(sys.argv[1:])
-
