@@ -6,7 +6,6 @@ from melbalabs.summarize_consumes.main import USES_CONSUMABLE_ENHANCE
 from melbalabs.summarize_consumes.main import USES_CONSUMABLE_OVERWRITE
 from melbalabs.summarize_consumes.main import USES_CONSUMABLE_SAFE
 from melbalabs.summarize_consumes.main import RENAME_CONSUMABLE
-from melbalabs.summarize_consumes.main import GAINS_CONSUMABLE
 from melbalabs.summarize_consumes.main import _all_defined_consumable_items
 
 from melbalabs.summarize_consumes.consumable import PriceFromComponents
@@ -368,7 +367,21 @@ def test_sanity4():
             if key == k or key == v:
                 raise ValueError(f'{key} safe consumable already in RENAME_CONSUMABLE')
 
-        if key in GAINS_CONSUMABLE:
-            raise ValueError(f'{key} safe consumable already in GAINS_CONSUMABLE')
 
+    # Check that SAFE consumables don't have spell aliases outside of uses_line
+    for safe_consumable in USES_CONSUMABLE_SAFE:
+        for consumable_item in _all_defined_consumable_items:
+            if safe_consumable != consumable_item.name: continue
+            print(safe_consumable)
+            for line_type, raw_spellname in consumable_item.spell_aliases:
+                if line_type != 'uses_line':
+                    raise ValueError(
+                        f'{safe_consumable} found in spell_alias with anothe line_type {line_type}, '
+                        'but SAFE consumables should only appear in uses_line'
+                    )
+
+
+def test_sanity5():
+    uniq = len(set(consumable.name for consumable in _all_defined_consumable_items))
+    len(_all_defined_consumable_items) == uniq
 

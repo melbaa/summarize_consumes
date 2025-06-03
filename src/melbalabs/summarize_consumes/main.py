@@ -344,17 +344,6 @@ _all_defined_consumable_items: List[Consumable] = [
     _red_power_crystal,
 
 
-    # bop stuff
-    Consumable(
-        name='Bloodkelp Elixir of Resistance',
-        price=NoPrice(),
-        spell_aliases=[('gains_line', 'Elixir of Resistance')],
-    ),
-    Consumable(
-        name="Fire-toasted Bun",
-        price=NoPrice(),
-        spell_aliases=[('gains_line', "Fire-toasted Bun")],
-    ),
 
 
 
@@ -668,6 +657,68 @@ _all_defined_consumable_items: List[Consumable] = [
     ),
     Consumable(name='Dense Sharpening Stone', price=DirectPrice(itemid=12404)),
     Consumable(name='Dense Weightstone', price=DirectPrice(itemid=12643)),
+
+
+    Consumable(name='Bloodkelp Elixir of Resistance', price=NoPrice(),
+        spell_aliases=[('gains_line', 'Elixir of Resistance')],
+    ),
+    Consumable(name="Fire-toasted Bun", price=NoPrice(),
+        spell_aliases=[('gains_line', "Fire-toasted Bun")],
+    ),
+    Consumable(name='Blessed Sunfruit', price=NoPrice(),
+        spell_aliases=[('gains_line', 'Blessed Sunfruit')],
+    ),
+    Consumable(name='Blessed Sunfruit Juice', price=NoPrice(),
+        spell_aliases=[('gains_line', 'Blessed Sunfruit Juice')],
+    ),
+    Consumable(name='Noggenfogger Elixir', price=NoPrice(),
+        spell_aliases=[('gains_line', 'Noggenfogger Elixir')],
+    ),
+    Consumable(name='Rumsey Rum', price=NoPrice(),
+        spell_aliases=[('gains_line', 'Rumsey Rum')],
+    ),
+    Consumable(name='Gordok Green Grog', price=NoPrice(),
+        spell_aliases=[('gains_line', 'Gordok Green Grog')],
+    ),
+    Consumable(name='Increased Stamina', price=NoPrice(),
+        spell_aliases=[('gains_line', 'Increased Stamina')],
+    ),
+    Consumable(name='Increased Intellect', price=NoPrice(),
+        spell_aliases=[('gains_line', 'Increased Intellect')],
+    ),
+    Consumable(name='Mana Regeneration (food or mageblood)', price=NoPrice(),
+        spell_aliases=[('gains_line', 'Mana Regeneration')],
+    ),
+    Consumable(name='Regeneration', price=NoPrice(),
+        spell_aliases=[('gains_line', 'Regeneration')],
+    ),
+    Consumable(name='Agility', price=NoPrice(),
+        spell_aliases=[('gains_line', 'Agility')],
+    ),
+    Consumable(name='Strength', price=NoPrice(),
+        spell_aliases=[('gains_line', 'Strength')],
+    ),
+    Consumable(name='Stamina', price=NoPrice(),
+        spell_aliases=[('gains_line', 'Stamina')],
+    ),
+    Consumable(name='Fire Protection', price=NoPrice(),
+        spell_aliases=[('gains_line', 'Fire Protection')],
+    ),
+    Consumable(name='Frost Protection', price=NoPrice(),
+        spell_aliases=[('gains_line', 'Frost Protection')],
+    ),
+    Consumable(name='Arcane Protection', price=NoPrice(),
+        spell_aliases=[('gains_line', 'Arcane Protection')],
+    ),
+    Consumable(name='Nature Protection', price=NoPrice(),
+        spell_aliases=[('gains_line', 'Nature Protection ')],  # need the trailing space
+    ),
+    Consumable(name='Shadow Protection', price=NoPrice(),
+        spell_aliases=[('gains_line', 'Shadow Protection ')],  # need the trailing space
+    ),
+    Consumable(name='Holy Protection', price=NoPrice(),
+        spell_aliases=[('gains_line', 'Holy Protection ')],  # need the trailing space
+    ),
 ]
 
 
@@ -698,10 +749,6 @@ def rename_spell(spell, line_type):
     return rename or spell
 
 RENAME_CONSUMABLE = {
-    'Mana Regeneration': 'Mana Regeneration (food or mageblood)',
-    'Nature Protection ': 'Nature Protection',
-    'Shadow Protection ': 'Shadow Protection',
-    'Holy Protection ': 'Holy Protection',
     'Sharpen Weapon - Critical': 'Elemental Sharpening Stone',
     'Consecrated Weapon': 'Consecrated Sharpening Stone',
     'Sharpen Blade V': 'Dense Sharpening Stone',
@@ -724,12 +771,9 @@ NAME2ITEMID_BOP = {
     'Slumber Sand',
     'Conjured Crystal Water',
     'Conjured Mana Orange',
-    'Blessed Sunfruit Juice',
-    'Blessed Sunfruit',
     'Buttermilk Delight',
     'Very Berry Cream',
     'Dark Desire',
-    "Gordok Green Grog",
     "Graccu's Mince Meat Fruitcake",
     'Midsummer Sausage',
     "Kreeg's Stout Beatdown",
@@ -746,7 +790,6 @@ NAME2ITEMID_BOP = {
     "Undercity Gift of Friendship",
     'Sweet Surprise',
     'Stratholme Holy Water',
-    'Rumsey Rum',
 }
 
 # used for pricing
@@ -790,33 +833,6 @@ CASTS_CONSUMABLE = {
     "Emerald Blessing",  # superwow
 }
 
-
-GAINS_CONSUMABLE = {
-
-
-    "Blessed Sunfruit",  # bop
-    "Blessed Sunfruit Juice",  # bop
-    "Noggenfogger Elixir",  # bop
-    "Rumsey Rum",  # bop
-    "Gordok Green Grog",  # bop
-    # ambiguous
-    "Increased Stamina",
-    "Increased Intellect",
-    "Mana Regeneration",
-    "Regeneration",
-    "Agility",  # pots or scrolls
-    "Strength",
-    "Stamina",
-    ## "Armor",  # same as a spell?
-    # protections
-    "Fire Protection",
-    "Frost Protection",
-    "Arcane Protection",
-    # extra space here because there's a spell version with no space, which shouldn't match
-    "Nature Protection ",
-    "Shadow Protection ",
-    "Holy Protection ",
-}
 
 PERFORMS_ON_CONSUMABLE = {
     "Powerful Smelling Salts",
@@ -2459,11 +2475,6 @@ def parse_line2(app, line):
             app.spell_count.add_stackcount(line_type=subtree.data, name=name, spell=spellname, stackcount=stackcount)
             app.proc_count.add(line_type=subtree.data, name=name, spell=spellname)
 
-            if spellname in GAINS_CONSUMABLE:
-                consumable = spellname
-                if consumable in RENAME_CONSUMABLE:
-                    consumable = RENAME_CONSUMABLE[consumable]
-                app.player[name][consumable] += 1
 
             if consumable_item := RAWSPELLNAME2CONSUMABLE.get((subtree.data, spellname)):
                 app.player[name][consumable_item.name] += 1
