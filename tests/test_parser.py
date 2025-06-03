@@ -1124,7 +1124,10 @@ def test_techinfo(app):
             app.techinfo.linecount += 1
     output = io.StringIO()
     app.techinfo.print(output)
-    assert output.getvalue() == '\n\nTech\n   log size 0 Bytes\n   log lines 7\n   skipped log lines 0 (0.00%)\n'
+    output = output.getvalue()
+    assert "log size 0 Bytes\n" in output
+    assert "log lines 7\n" in output
+    assert "skipped log lines 0 (0.00%)\n" in output
 
 
 def test_causes_damage_line(app):

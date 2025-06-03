@@ -454,6 +454,7 @@ all_defined_consumable_items: List[Consumable] = [
             (_essence_of_fire, 2),
             (_larval_acid, 1),
         ]),
+        spell_aliases=[('performs_on_line', "Powerful Smelling Salts")],
     ),
     Consumable(
         name="Tea with Sugar",
@@ -603,9 +604,7 @@ all_defined_consumable_items: List[Consumable] = [
     Consumable(name='Dreamshard Elixir', price=DirectPrice(itemid=61224),
         spell_aliases=[('gains_line', 'Dreamshard Elixir')]
     ),
-    Consumable(name='Mighty Rage Potion', price=DirectPrice(itemid=13442)),
-    Consumable(name='Great Rage Potion', price=DirectPrice(itemid=5633)),
-    Consumable(name='Rage Potion', price=DirectPrice(itemid=5631)),
+    
     Consumable(name='Dense Dynamite', price=DirectPrice(itemid=18641), 
         spell_aliases=[('begins_to_cast_line', 'Dense Dynamite')]),
     Consumable(name='Solid Dynamite', price=DirectPrice(itemid=10507), 
@@ -643,7 +642,9 @@ all_defined_consumable_items: List[Consumable] = [
     Consumable(name='Powerful Anti-Venom', price=DirectPrice(itemid=19440)),
     Consumable(name='Strong Anti-Venom', price=DirectPrice(itemid=6453)),
     Consumable(name='Anti-Venom', price=DirectPrice(itemid=6452)),
-    Consumable(name='Dark Rune', price=DirectPrice(itemid=20520)),
+    Consumable(name='Dark Rune', price=DirectPrice(itemid=20520),
+        spell_aliases=[('gains_mana_line', 'Dark Rune')],
+    ),
     Consumable(name='Mageblood Potion', price=DirectPrice(itemid=20007)),
     Consumable(name="Danonzo's Tel'Abim Surprise", price=DirectPrice(itemid=60976)),
     Consumable(name="Danonzo's Tel'Abim Delight", price=DirectPrice(itemid=60977)),
@@ -745,6 +746,25 @@ all_defined_consumable_items: List[Consumable] = [
     ),    
     Consumable(name="Kreeg's Stout Beatdown", price=NoPrice(),
         spell_aliases=[('begins_to_cast_line', "Kreeg's Stout Beatdown")]),
+
+    Consumable(
+        name='Mighty Rage Potion',
+        price=DirectPrice(itemid=13442),
+        spell_aliases=[('gains_rage_line', 'Mighty Rage')],
+    ),
+    Consumable(
+        name='Great Rage Potion',
+        price=DirectPrice(itemid=5633),
+        spell_aliases=[('gains_rage_line', 'Great Rage')],
+    ),
+    Consumable(
+        name='Rage Potion',
+        price=DirectPrice(itemid=5631),
+        spell_aliases=[('gains_rage_line', 'Rage')],
+    ),
+    Consumable(name='Demonic Rune', price=NoPrice(),
+        spell_aliases=[('gains_mana_line', 'Demonic Rune')],
+    ),
 ]
 
 
@@ -776,9 +796,6 @@ def rename_spell(spell, line_type):
 
 RENAME_CONSUMABLE = {
     'Cure Ailments': 'Jungle Remedy',
-    'Mighty Rage': 'Mighty Rage Potion',
-    'Great Rage': 'Great Rage Potion',
-    'Rage': 'Rage Potion',
 }
 
 
@@ -817,14 +834,6 @@ NAME2ITEMID_BOP = {
 ITEMID2NAME = { value: key for key, value in NAME2ITEMID.items() }
 
 
-RAGE_CONSUMABLE = {
-    "Mighty Rage",
-    "Great Rage",
-    "Rage",
-}
-
-
-
 
 CASTS_CONSUMABLE = {
     "Powerful Anti-Venom",
@@ -837,14 +846,6 @@ CASTS_CONSUMABLE = {
 }
 
 
-PERFORMS_ON_CONSUMABLE = {
-    "Powerful Smelling Salts",
-}
-
-MANARUNE_CONSUMABLE = {
-    "Demonic Rune",
-    "Dark Rune",
-}
 
 # superwow. mostly duplicates everything else, have to be careful
 # the names are not consistent. the superwow logger and this project rename spells in different ways
@@ -2505,11 +2506,8 @@ def parse_line2(app, line):
             spellname = rename_spell(spellname, line_type=subtree.data)
             app.spell_count.add(line_type=subtree.data, name=name, spell=spellname)
 
-            if spellname in RAGE_CONSUMABLE:
-                consumable = spellname
-                if consumable in RENAME_CONSUMABLE:
-                    consumable = RENAME_CONSUMABLE[consumable]
-                app.player[name][consumable] += 1
+            if consumable_item := RAWSPELLNAME2CONSUMABLE.get((subtree.data, spellname)):
+                app.player[name][consumable_item.name] += 1
             return True
         elif subtree.data == 'gains_energy_line':
             return True
@@ -2604,10 +2602,10 @@ def parse_line2(app, line):
 
         elif subtree.data == 'gains_mana_line':
             name = subtree.children[0].value
-            consumable = subtree.children[-1].value
-            if consumable in MANARUNE_CONSUMABLE:
-                app.player[name][consumable] += 1
-            elif consumable == 'Restore Mana':
+            spellname = subtree.children[-1].value
+            if consumable_item := RAWSPELLNAME2CONSUMABLE.get((subtree.data, spellname)):
+                app.player[name][consumable_item.name] += 1
+            elif spellname == 'Restore Mana':
                 mana = int(subtree.children[1].value)
                 consumable = manapot_lookup(mana)
                 app.player[name][consumable] += 1
@@ -2920,11 +2918,8 @@ def parse_line2(app, line):
             spellname = subtree.children[1].value
             targetname = subtree.children[2].value
 
-            if spellname in PERFORMS_ON_CONSUMABLE:
-                consumable = spellname
-                if consumable in RENAME_CONSUMABLE:
-                    consumable = RENAME_CONSUMABLE[consumable]
-                app.player[name][consumable] += 1
+            if consumable_item := RAWSPELLNAME2CONSUMABLE.get((subtree.data, spellname)):
+                app.player[name][consumable_item.name] += 1
 
             return True
         elif subtree.data == 'performs_line':
