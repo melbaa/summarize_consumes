@@ -14,6 +14,7 @@ types of consumables by availability in combat log
 * in both native and superwow log
 
 [1] types of consumables in the superwow log
+* safe. easy to handle, no collision
 * ignored. not useful to report on, like mailboxes
 * enhance. improves the native counts, keeps the canonical name
 * overwrite. can also improve ambiguous spells and convert them into a specific canonical name
@@ -30,8 +31,15 @@ types of consumables by how they are priced
 the superwow log may disambiguate what exactly it is, but not guaranteed
 * others?
 
+the superwow logger names are different from the native names and from the
+canonical names of this project. if available, the superwow logs counts
+should be preferred to the native ones.
+the native log misses a lot of consumables
+the native log often doesn't show anything when a player reapplies a buff they already have
+
 
 A design goal is to avoid having classes with optional attributes.
+
 """
 
 
@@ -84,6 +92,7 @@ class Consumable:
 
 class MergeStrategy(Enum):
     IGNORE = enum.auto()
+    SAFE = enum.auto()
     ENHANCE = enum.auto()
     OVERWRITE = enum.auto()
 

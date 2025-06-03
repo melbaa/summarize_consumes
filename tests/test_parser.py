@@ -330,19 +330,8 @@ def test_casts_consumable_line(app):
     assert app.player['Psykhe']["Powerful Anti-Venom"] == 1
     assert app.player['Doombabe']["Jungle Remedy"] == 2
 
-def test_uses_consumable_safe_line(app):
-    lines = """
-4/13 01:15:12.253  Tnu uses Danonzos Tel'Abim Medley.
-4/13 01:15:12.253  Tnu uses Danonzo 's Tel'Abim Medley.
-4/13 19:53:22.169  Gregory uses Juju Power on Gregory.
-4/13 19:59:30.916  Anarion uses Juju Ember on Anarion.
-"""
-    lines = lines.splitlines(keepends=True)
-    for line in lines:
-        parse_line(app, line)
-    assert app.player['Tnu']["Danonzo's Tel'Abim Medley"] == 2
-    assert app.player['Gregory']["Juju Power"] == 1
-    assert app.player['Anarion']["Juju Ember"] == 1
+
+
 
 
 def test_uses_consumables(app_log_merge):
@@ -370,10 +359,27 @@ def test_uses_consumables(app_log_merge):
 5/23 20:37:41.005  Murdinn begins to cast Kreeg's Stout Beatdown.
 5/23 19:20:54.693  Murdinn uses Kreegs Stout Beatdown.
 5/23 19:20:54.693  Murdinn uses Kreegs Stout Beatdown.
+5/23 19:20:54.693  Murdinn uses Hourglass Sand.
+4/13 01:15:12.253  Tnu uses Danonzos Tel'Abim Medley.
+4/13 19:53:22.169  Gregory uses Juju Power on Gregory.
+4/13 19:59:30.916  Anarion uses Juju Ember on Anarion.
 """
     lines = lines.splitlines(keepends=True)
     for line in lines:
         parse_line(app, line)
+
+    
+    assert app.player['Gregory']["Juju Power"] == 0
+    assert app.player_superwow['Gregory']["Juju Power"] == 1
+
+    assert app.player['Anarion']["Juju Ember"] == 0
+    assert app.player_superwow['Anarion']["Juju Ember"] == 1
+
+    assert app.player['Tnu']["Danonzo's Tel'Abim Medley"] == 0
+    assert app.player_superwow['Tnu']["Danonzo's Tel'Abim Medley"] == 1
+    
+    assert app.player['Murdinn']["Hourglass Sand"] == 0
+    assert app.player_superwow['Murdinn']["Hourglass Sand"] == 1
 
     assert app.player['Murdinn']["Kreeg's Stout Beatdown"] == 1
     assert app.player_superwow['Murdinn']["Kreeg's Stout Beatdown"] == 2
@@ -393,7 +399,22 @@ def test_uses_consumables(app_log_merge):
     assert app.player['Akanamu']['Dreamshard Elixir'] == 1
     assert app.player_superwow['Akanamu']['Dreamshard Elixir'] == 1
 
+
     app.merge_superwow_consumables.merge()
+    
+
+
+    assert app.player['Gregory']["Juju Power"] == 1
+    assert app.player_superwow['Gregory']["Juju Power"] == 0
+
+    assert app.player['Anarion']["Juju Ember"] == 1
+    assert app.player_superwow['Anarion']["Juju Ember"] == 0
+
+    assert app.player['Tnu']["Danonzo's Tel'Abim Medley"] == 1
+    assert app.player_superwow['Tnu']["Danonzo's Tel'Abim Medley"] == 0
+
+    assert app.player['Murdinn']["Hourglass Sand"] == 1
+    assert app.player_superwow['Murdinn']["Hourglass Sand"] == 0
 
     assert app.player['Murdinn']["Kreeg's Stout Beatdown"] == 2
     assert app.player_superwow['Murdinn']["Kreeg's Stout Beatdown"] == 0

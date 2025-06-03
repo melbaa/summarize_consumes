@@ -4,7 +4,6 @@ from melbalabs.summarize_consumes.main import NAME2CONSUMABLE
 from melbalabs.summarize_consumes.main import USES_CONSUMABLE_RENAME
 from melbalabs.summarize_consumes.main import USES_CONSUMABLE_ENHANCE
 from melbalabs.summarize_consumes.main import USES_CONSUMABLE_OVERWRITE
-from melbalabs.summarize_consumes.main import USES_CONSUMABLE_SAFE
 from melbalabs.summarize_consumes.main import all_defined_consumable_items
 
 from melbalabs.summarize_consumes.consumable import PriceFromComponents
@@ -317,9 +316,7 @@ def test_consumes_exist():
         if key in skips: continue
         key = USES_CONSUMABLE_RENAME.get(key, key)
         whitelisted = 0
-        if key in USES_CONSUMABLE_SAFE:
-            whitelisted += 1
-        elif key in USES_CONSUMABLE_ENHANCE:
+        if key in USES_CONSUMABLE_ENHANCE:
             key = USES_CONSUMABLE_ENHANCE.get(key, key)
             whitelisted += 1
         elif key in USES_CONSUMABLE_OVERWRITE:
@@ -354,27 +351,9 @@ def test_sanity3():
 def test_uses_consumable_disjoint():
     enh = set(USES_CONSUMABLE_ENHANCE)
     ow = set(USES_CONSUMABLE_OVERWRITE)
-    safe = set(USES_CONSUMABLE_SAFE)
-    assert enh.isdisjoint(ow)
-    assert enh.isdisjoint(safe)
-    assert ow.isdisjoint(safe)
-
-def test_sanity4():
-    # check if a SAFE consumable isn't that safe
     
-
-    # Check that SAFE consumables don't have spell aliases outside of uses_line
-    for safe_consumable in USES_CONSUMABLE_SAFE:
-        for consumable_item in all_defined_consumable_items:
-            if safe_consumable != consumable_item.name: continue
-            print(safe_consumable)
-            for line_type, raw_spellname in consumable_item.spell_aliases:
-                if line_type != 'uses_line':
-                    raise ValueError(
-                        f'{safe_consumable} found in spell_alias with anothe line_type {line_type}, '
-                        'but SAFE consumables should only appear in uses_line'
-                    )
-
+    assert enh.isdisjoint(ow)
+    
 
 def test_sanity5():
     uniq = len(set(consumable.name for consumable in all_defined_consumable_items))
