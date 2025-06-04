@@ -49,8 +49,8 @@ Adriana deaths:2
    Hardened Mushroom 5 
    Mageblood Potion 2 
    Mana Potion - Major 3   (5g 18s 73c)
+   Mighty Troll's Blood Potion 2 
    Nature Protection Potion 1 
-   Regeneration 2 
    Rumsey Rum Black Label 5   (1g 99s 85c)
 
    total spent: 93g 57s 54c
@@ -66,7 +66,6 @@ Adya deaths:1
    Major Troll's Blood Potion 2 
    Mana Potion - Major 5   (8g 64s 55c)
    Nightfin Soup 2 
-   Regeneration 1 
    Spirit of Zanza 1   (1g 94s 85c)
    Tea with Sugar 6   (1g 65s 54c)
 
@@ -316,7 +315,6 @@ Kayax deaths:9
    Greater Frost Protection Potion 3 
    Greater Shadow Protection Potion 1   (4g 89s 74c)
    Major Troll's Blood Potion 2 
-   Regeneration 2 
    Spirit of Zanza 1   (1g 94s 85c)
    Stratholme Holy Water 2 
 
@@ -1413,7 +1411,7 @@ Class Detection
 
 
 Tech
-   known consumables 199
+   known consumables 200
    log size 34.2 MB
    log lines 477531
    skipped log lines 1415 (0.30%)
