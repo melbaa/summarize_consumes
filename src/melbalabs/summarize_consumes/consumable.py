@@ -1,5 +1,3 @@
-import enum
-from enum import Enum
 from dataclasses import dataclass
 from dataclasses import field
 from typing import List
@@ -87,14 +85,42 @@ class Consumable:
     spell_aliases: List[Tuple[str, str]] = field(default_factory=list)
 
 
-class MergeStrategy(Enum):
-    IGNORE = enum.auto()
-    SAFE = enum.auto()
-    ENHANCE = enum.auto()
-    OVERWRITE = enum.auto()
+@dataclass(frozen=True)
+class MergeStrategy:
+    """Base class for defining how Superwow consumables merge with native logs."""
+
+    pass
+
+
+@dataclass(frozen=True)
+class IgnoreStrategy(MergeStrategy):
+    """Ignore this Superwow consumable."""
+
+    pass
+
+
+@dataclass(frozen=True)
+class SafeStrategy(MergeStrategy):
+    """Add this Superwow consumable. No complex merging."""
+
+    pass
+
+
+@dataclass(frozen=True)
+class EnhanceStrategy(MergeStrategy):
+    """Enhance native counts with Superwow counts. Takes max of the two."""
+
+    pass
+
+
+@dataclass(frozen=True)
+class OverwriteStrategy(MergeStrategy):
+    """Superwow consumable overwrites a (potentially differently named) native consumable.
+    Used to resolve ambiguous native consumables."""
+
+    target_consumable_name: str  # The canonical name of the native consumable to overwrite.
 
 
 @dataclass(frozen=True, kw_only=True)
 class SuperwowConsumable(Consumable):
-    # the merge strategy used to reconcile with the native log counts
     strategy: MergeStrategy

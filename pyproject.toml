@@ -51,4 +51,7 @@ line-length = 100
 [tool.ruff.lint]
 ignore = ["E701"]
 
+[tool.ruff.lint.isort]
+force-single-line = true
+
 

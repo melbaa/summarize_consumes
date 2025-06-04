@@ -327,7 +327,6 @@ Kilgasm deaths:3
    Dense Weightstone 2 
    Elemental Sharpening Stone 3   (16g 14s 54c)
    Elixir of Fortitude 3   (1g 86s 93c)
-   Elixir of Greater Defense 3 
    Elixir of the Mongoose 3   (4g 49s 52c)
    Flask of the Titans 1   (72g 79s 93c)
    Free Action Potion 3   (4g 20s 36c)
@@ -1414,7 +1413,7 @@ Class Detection
 
 
 Tech
-   known consumables 198
+   known consumables 199
    log size 34.2 MB
    log lines 477531
-   skipped log lines 1503 (0.31%)
+   skipped log lines 1415 (0.30%)
