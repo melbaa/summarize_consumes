@@ -769,13 +769,13 @@ all_defined_consumable_items: List[Consumable] = [
         name="Mana Potion - Major",
         price=DirectPrice(itemid=13444),
         spell_aliases=[("uses_line", "Major Mana Potion")],
-        strategy=EnhanceStrategy,
+        strategy=EnhanceStrategy(),
     ),
     SuperwowConsumable(
         name="Healing Potion - Major",
         price=DirectPrice(itemid=13446),
         spell_aliases=[("uses_line", "Major Healing Potion")],
-        strategy=EnhanceStrategy,
+        strategy=EnhanceStrategy(),
     ),
     Consumable(name="Healing Potion - Superior", price=DirectPrice(itemid=3928)),
     SuperwowConsumable(
@@ -826,7 +826,13 @@ all_defined_consumable_items: List[Consumable] = [
         ],
         strategy=EnhanceStrategy(),
     ),
-    Consumable(name="Dragonbreath Chili", price=DirectPrice(itemid=12217)),
+
+    SuperwowConsumable(
+        name="Dragonbreath Chili",
+        price=DirectPrice(itemid=12217),
+        spell_aliases=[("uses_line", "Dragonbreath Chili")],
+        strategy=EnhanceStrategy(),
+    ),
     SuperwowConsumable(
         name="Dreamtonic",
         price=DirectPrice(itemid=61423),
@@ -965,11 +971,19 @@ all_defined_consumable_items: List[Consumable] = [
         spell_aliases=[("uses_line", "Grilled Squid")],
         strategy=EnhanceStrategy(),
     ),
-    Consumable(
+    SuperwowConsumable(
         name="Elixir of Greater Intellect",
         price=DirectPrice(itemid=9179),
-        spell_aliases=[("gains_line", "Greater Intellect")],
+        spell_aliases=[("gains_line", "Greater Intellect"), ('uses_line', 'Elixir of Greater Intellect')],
+        strategy=EnhanceStrategy(),
     ),
+    SuperwowConsumable(
+        name="Combat Mana Potion",
+        price=DirectPrice(itemid=18841),
+        spell_aliases=[("uses_line", "Combat Mana Potion")],
+        strategy=EnhanceStrategy(),
+    ),
+    
     SuperwowConsumable(
         name="Rejuvenation Potion - Major",
         price=DirectPrice(itemid=18253),
@@ -1175,7 +1189,7 @@ all_defined_consumable_items: List[Consumable] = [
         name="Elixir of Greater Defense",
         price=DirectPrice(itemid=8951),
         spell_aliases=[("uses_line", "Elixir of Greater Defense")],
-        strategy=EnhanceStrategy,
+        strategy=EnhanceStrategy(),
     ),
     SuperwowConsumable(
         name="Elixir of Giant Growth",
@@ -1593,73 +1607,9 @@ NAME2ITEMID = {
     if isinstance(consumable.price, DirectPrice)
 }
 
-NAME2ITEMID_BOP = {
-    "Slumber Sand",
-    "Conjured Crystal Water",
-    "Conjured Mana Orange",
-    "Buttermilk Delight",
-    "Very Berry Cream",
-    "Dark Desire",
-    "Graccu's Mince Meat Fruitcake",
-    "Midsummer Sausage",
-    "Demonic Rune",
-    "Winter Veil Eggnog",
-    "Winter Veil Candy",
-    "Winter Veil Cookie",
-    "Windblossom Berries",
-    "Ironforge Gift of Friendship",
-    "Stormwind Gift of Friendship",
-    "Darnassus Gift of Friendship",
-    "Orgrimmar Gift of Friendship",
-    "Thunder Bluff Gift of Friendship",
-    "Undercity Gift of Friendship",
-    "Sweet Surprise",
-    "Stratholme Holy Water",
-}
 
 # used for pricing
 ITEMID2NAME = {value: key for key, value in NAME2ITEMID.items()}
-
-
-USES_CONSUMABLE_OVERWRITE = {
-    # prot pots have very generic names in native logs
-    "Greater Fire Protection Potion": "Fire Protection",
-    "Greater Frost Protection Potion": "Frost Protection",
-    "Greater Arcane Protection Potion": "Arcane Protection",
-    "Greater Nature Protection Potion": "Nature Protection",
-    "Greater Shadow Protection Potion": "Shadow Protection",
-    "Greater Holy Protection Potion": "Holy Protection",
-    "Frost Protection Potion": "Frost Protection",
-    "Fire Protection Potion": "Fire Protection",
-    "Nature Protection Potion": "Nature Protection",
-    "Shadow Protection Potion": "Shadow Protection",
-    "Holy Protection Potion": "Holy Protection",
-    "Frozen Rune": "Fire Protection",
-    "Windblossom Berries": "Increased Stamina",
-    "Hardened Mushroom": "Increased Stamina",
-    "Mageblood Potion": "Mana Regeneration (food or mageblood)",
-    "Nightfin Soup": "Mana Regeneration (food or mageblood)",
-    "Tea with Sugar": "Tea with Sugar",
-    # superwow counts are lower, because 'begins to cast' may not actually cast the spell
-    # thus the overwrite is more appropriate, because it takes superwow counts
-    "Dense Weightstone": "Dense Weightstone",
-    "Brilliant Mana Oil": "Brilliant Mana Oil",
-    "Brilliant Wizard Oil": "Brilliant Wizard Oil",
-    "Blessed Wizard Oil": "Blessed Wizard Oil",
-    "Wizard Oil": "Wizard Oil",
-    "Shadow Oil": "Shadow Oil",
-    "Consecrated Sharpening Stone": "Consecrated Sharpening Stone",
-    "Elemental Sharpening Stone": "Elemental Sharpening Stone",
-    "Dense Sharpening Stone": "Dense Sharpening Stone",
-    "Dense Dynamite": "Dense Dynamite",
-    # those don't stack, so usually they don't do anything and their buff isn't in the logs
-    "Scroll of Protection IV": "Armor",
-    "Scroll of Stamina IV": "Stamina",
-    "Scroll of Intellect IV": "Intellect",
-    "Scroll of Strength IV": "Strength",
-    "Scroll of Agility IV": "Agility",
-    "Scroll of Spirit IV": "Spirit",
-}
 
 
 USES_CONSUMABLE_RENAME = {
@@ -1851,7 +1801,7 @@ def healpot_lookup(amount):
 
 
 def manapot_lookup(mana):
-    consumable = "Restore Mana (mana potion?)"
+    consumable = "Restore Mana (mana potion)"
     if 1350 <= mana <= 2250:
         consumable = "Mana Potion - Major"
     elif 900 <= mana <= 1500:
