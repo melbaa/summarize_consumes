@@ -153,9 +153,7 @@ def create_app(
     # player - consumable - count
     app.player = collections.defaultdict(lambda: collections.defaultdict(int))
     app.player_superwow = collections.defaultdict(lambda: collections.defaultdict(int))
-    app.player_superwow_unknown = collections.defaultdict(
-        lambda: collections.defaultdict(int)
-    )
+    app.player_superwow_unknown = collections.defaultdict(lambda: collections.defaultdict(int))
 
     app.merge_superwow_consumables = MergeSuperwowConsumables(
         player=app.player,
@@ -190,9 +188,7 @@ def create_app(
     # name -> death count
     app.death_count = collections.defaultdict(int)
 
-    app.hits_consumable = HitsConsumable(
-        player=app.player, last_hit_cache=app.last_hit_cache
-    )
+    app.hits_consumable = HitsConsumable(player=app.player, last_hit_cache=app.last_hit_cache)
 
     app.web_price_provider = WebPriceProvider(prices_server=prices_server)
     price_providers = []
@@ -333,13 +329,9 @@ class HitsConsumable:
 
 
 _purple_lotus = Consumable(name="Purple Lotus", price=DirectPrice(itemid=8831))
-_large_brilliant_shard = Consumable(
-    name="Large Brilliant Shard", price=DirectPrice(itemid=14344)
-)
+_large_brilliant_shard = Consumable(name="Large Brilliant Shard", price=DirectPrice(itemid=14344))
 _scorpok_pincer = Consumable(name="Scorpok Pincer", price=DirectPrice(itemid=8393))
-_blasted_boar_lung = Consumable(
-    name="Blasted Boar Lung", price=DirectPrice(itemid=8392)
-)
+_blasted_boar_lung = Consumable(name="Blasted Boar Lung", price=DirectPrice(itemid=8392))
 _snickerfang_jowl = Consumable(name="Snickerfang Jowl", price=DirectPrice(itemid=8391))
 _basilisk_brain = Consumable(name="Basilisk Brain", price=DirectPrice(itemid=8394))
 _vulture_gizzard = Consumable(name="Vulture Gizzard", price=DirectPrice(itemid=8396))
@@ -347,24 +339,12 @@ _zulian_coin = Consumable(name="Zulian Coin", price=DirectPrice(itemid=19698))
 _deeprock_salt = Consumable(name="Deeprock Salt", price=DirectPrice(itemid=8150))
 _essence_of_fire = Consumable(name="Essence of Fire", price=DirectPrice(itemid=7078))
 _larval_acid = Consumable(name="Larval Acid", price=DirectPrice(itemid=18512))
-_small_dream_shard = Consumable(
-    name="Small Dream Shard", price=DirectPrice(itemid=61198)
-)
-_bright_dream_shard = Consumable(
-    name="Bright Dream Shard", price=DirectPrice(itemid=61199)
-)
-_green_power_crystal = Consumable(
-    name="Green Power Crystal", price=DirectPrice(itemid=11185)
-)
-_blue_power_crystal = Consumable(
-    name="Blue Power Crystal", price=DirectPrice(itemid=11184)
-)
-_red_power_crystal = Consumable(
-    name="Red Power Crystal", price=DirectPrice(itemid=11186)
-)
-_yellow_power_crystal = Consumable(
-    name="Yellow Power Crystal", price=DirectPrice(itemid=11188)
-)
+_small_dream_shard = Consumable(name="Small Dream Shard", price=DirectPrice(itemid=61198))
+_bright_dream_shard = Consumable(name="Bright Dream Shard", price=DirectPrice(itemid=61199))
+_green_power_crystal = Consumable(name="Green Power Crystal", price=DirectPrice(itemid=11185))
+_blue_power_crystal = Consumable(name="Blue Power Crystal", price=DirectPrice(itemid=11184))
+_red_power_crystal = Consumable(name="Red Power Crystal", price=DirectPrice(itemid=11186))
+_yellow_power_crystal = Consumable(name="Yellow Power Crystal", price=DirectPrice(itemid=11188))
 
 
 all_defined_consumable_items: List[Consumable] = [
@@ -442,7 +422,7 @@ all_defined_consumable_items: List[Consumable] = [
         price=DirectPrice(itemid=3824),
         spell_aliases=[("begins_to_cast_line", "Shadow Oil")],
     ),
-    Consumable(
+    SuperwowConsumable(
         name="Rage of Ages (ROIDS)",
         price=PriceFromComponents(
             components=[
@@ -451,9 +431,12 @@ all_defined_consumable_items: List[Consumable] = [
                 (_snickerfang_jowl, 3),
             ]
         ),
-        spell_aliases=[("gains_line", "Rage of Ages")],
+        spell_aliases=[("gains_line", "Rage of Ages"),
+            ("uses_line", "Rage of Ages")
+            ],
+        strategy=MergeStrategy.ENHANCE,
     ),
-    Consumable(
+    SuperwowConsumable(
         name="Strike of the Scorpok",
         price=PriceFromComponents(
             components=[
@@ -462,9 +445,10 @@ all_defined_consumable_items: List[Consumable] = [
                 (_scorpok_pincer, 3),
             ]
         ),
-        spell_aliases=[("gains_line", "Strike of the Scorpok")],
+        spell_aliases=[("gains_line", "Strike of the Scorpok"), ("uses_line", "Ground Scorpok Assay")],
+        strategy=MergeStrategy.ENHANCE,
     ),
-    Consumable(
+    SuperwowConsumable(
         name="Lung Juice Cocktail",
         price=PriceFromComponents(
             components=[
@@ -473,9 +457,10 @@ all_defined_consumable_items: List[Consumable] = [
                 (_blasted_boar_lung, 3),
             ]
         ),
-        spell_aliases=[("gains_line", "Spirit of the Boar")],
+        spell_aliases=[("gains_line", "Spirit of the Boar"), ("uses_line", "Lung Juice Cocktail")],
+        strategy=MergeStrategy.ENHANCE,
     ),
-    Consumable(
+    SuperwowConsumable(
         name="Infallible Mind (Cerebral Cortex Compound)",
         price=PriceFromComponents(
             components=[
@@ -483,24 +468,28 @@ all_defined_consumable_items: List[Consumable] = [
                 (_vulture_gizzard, 2),
             ]
         ),
-        spell_aliases=[("gains_line", "Infallible Mind")],
+        spell_aliases=[("gains_line", "Infallible Mind"), ("uses_line", "Cerebral Cortex Compound")],
+        strategy=MergeStrategy.ENHANCE,
     ),
-    Consumable(
+    SuperwowConsumable(
         name="Sheen of Zanza",
         price=PriceFromComponents(components=[(_zulian_coin, 3)]),
-        spell_aliases=[("gains_line", "Sheen of Zanza")],
+        spell_aliases=[("gains_line", "Sheen of Zanza"), ("uses_line", "Sheen of Zanza")],
+        strategy=MergeStrategy.ENHANCE,
     ),
-    Consumable(
+    SuperwowConsumable(
         name="Spirit of Zanza",
         price=PriceFromComponents(components=[(_zulian_coin, 3)]),
-        spell_aliases=[("gains_line", "Spirit of Zanza")],
+        spell_aliases=[("gains_line", "Spirit of Zanza"), ("uses_line", "Spirit of Zanza")],
+        strategy=MergeStrategy.ENHANCE,
     ),
-    Consumable(
+    SuperwowConsumable(
         name="Swiftness of Zanza",
         price=PriceFromComponents(components=[(_zulian_coin, 3)]),
-        spell_aliases=[("gains_line", "Swiftness of Zanza")],
+        spell_aliases=[("gains_line", "Swiftness of Zanza"), ("uses_line", "Swiftness of Zanza")],
+        strategy=MergeStrategy.ENHANCE,
     ),
-    Consumable(
+    SuperwowConsumable(
         name="Powerful Smelling Salts",
         price=PriceFromComponents(
             components=[
@@ -509,7 +498,8 @@ all_defined_consumable_items: List[Consumable] = [
                 (_larval_acid, 1),
             ]
         ),
-        spell_aliases=[("performs_on_line", "Powerful Smelling Salts")],
+        spell_aliases=[("performs_on_line", "Powerful Smelling Salts"), ("uses_line", "Powerful Smelling Salts")],
+        strategy=MergeStrategy.ENHANCE,
     ),
     Consumable(
         name="Tea with Sugar",
@@ -527,111 +517,127 @@ all_defined_consumable_items: List[Consumable] = [
         spell_aliases=[("uses_line", "Hourglass Sand")],
         strategy=MergeStrategy.SAFE,
     ),
-    Consumable(
+    SuperwowConsumable(
         name="Restorative Potion",
         price=DirectPrice(itemid=9030),
-        spell_aliases=[("gains_line", "Restoration")],
+        spell_aliases=[("gains_line", "Restoration"), ("uses_line", "Restorative Potion")],
+        strategy=MergeStrategy.ENHANCE,
     ),
-    Consumable(
+    SuperwowConsumable(
         name="Flask of Chromatic Resistance",
         price=DirectPrice(itemid=13513),
-        spell_aliases=[("gains_line", "Chromatic Resistance")],
+        spell_aliases=[("gains_line", "Chromatic Resistance"), ("uses_line", "Flask of Chromatic Resistance")],
+        strategy=MergeStrategy.ENHANCE,
     ),
-    Consumable(
+    SuperwowConsumable(
         name="Flask of the Titans",
         price=DirectPrice(itemid=13510),
-        spell_aliases=[("gains_line", "Flask of the Titans")],
+        spell_aliases=[("gains_line", "Flask of the Titans"), ("uses_line", "Flask of the Titans")],
+        strategy=MergeStrategy.ENHANCE,
     ),
-    Consumable(
+    SuperwowConsumable(
         name="Flask of Supreme Power",
         price=DirectPrice(itemid=13512),
-        spell_aliases=[("gains_line", "Supreme Power")],
+        spell_aliases=[("gains_line", "Supreme Power"), ("uses_line", "Flask of Supreme Power")],
+        strategy=MergeStrategy.ENHANCE,
     ),
-    Consumable(
+    SuperwowConsumable(
         name="Flask of Distilled Wisdom",
         price=DirectPrice(itemid=13511),
-        spell_aliases=[("gains_line", "Distilled Wisdom")],
+        spell_aliases=[("gains_line", "Distilled Wisdom"), ("uses_line", "Flask of Distilled Wisdom")],
+        strategy=MergeStrategy.ENHANCE,
     ),
-    Consumable(name="Flask of Petrification", price=DirectPrice(itemid=13506)),
-    Consumable(
+    SuperwowConsumable(
+        name="Flask of Petrification", 
+        price=DirectPrice(itemid=13506),
+        spell_aliases=[("uses_line", "Flask of Petrification")],
+        strategy=MergeStrategy.ENHANCE,
+    ),
+    SuperwowConsumable(
         name="Elixir of Fortitude",
         price=DirectPrice(itemid=3825),
-        spell_aliases=[("gains_line", "Health II")],
+        spell_aliases=[("gains_line", "Health II"), ("uses_line", "Elixir of Fortitude")],
+        strategy=MergeStrategy.ENHANCE,
     ),
-    Consumable(
+    SuperwowConsumable(
         name="Bogling Root",
         price=DirectPrice(itemid=5206),
-        spell_aliases=[("gains_line", "Fury of the Bogling")],
+        spell_aliases=[("gains_line", "Fury of the Bogling"), ("uses_line", "Bogling Root")],
+        strategy=MergeStrategy.ENHANCE,
     ),
     Consumable(
         name="Crystal Basilisk Spine",
         price=DirectPrice(itemid=1703),
         spell_aliases=[("gains_line", "Crystal Protection")],
     ),
-    Consumable(
+    SuperwowConsumable(
         name="??? Elixir of the Sages ???",
         price=DirectPrice(itemid=13447),
-        spell_aliases=[("gains_line", "Elixir of the Sages")],
+        spell_aliases=[("gains_line", "Elixir of the Sages"), ("uses_line", "Elixir of the Sages")],
+        strategy=MergeStrategy.ENHANCE,
     ),
-    Consumable(
-        name="Elixir of Shadow Power",
-        price=DirectPrice(itemid=9264),
-        spell_aliases=[("gains_line", "Shadow Power")],
-    ),
-    Consumable(
-        name="Elixir of Greater Firepower",
-        price=DirectPrice(itemid=21546),
-        spell_aliases=[("gains_line", "Greater Firepower")],
-    ),
-    Consumable(
-        name="Elixir of Firepower",
-        price=DirectPrice(itemid=6373),
-        spell_aliases=[("gains_line", "Fire Power")],
-    ),
-    Consumable(
+
+
+    SuperwowConsumable(
         name="Elixir of Greater Agility",
         price=DirectPrice(itemid=9187),
-        spell_aliases=[("gains_line", "Greater Agility")],
+        spell_aliases=[("gains_line", "Greater Agility"), ("uses_line", "Elixir of Greater Agility")],
+        strategy=MergeStrategy.ENHANCE,
     ),
-    Consumable(
+    SuperwowConsumable(
         name="Elixir of Superior Defense",
         price=DirectPrice(itemid=13445),
-        spell_aliases=[("gains_line", "Greater Armor")],
+        spell_aliases=[("gains_line", "Greater Armor"), ("uses_line", "Elixir of Superior Defense")],
+        strategy=MergeStrategy.ENHANCE,
     ),
-    Consumable(
+    SuperwowConsumable(
         name="Free Action Potion",
         price=DirectPrice(itemid=5634),
-        spell_aliases=[("gains_line", "Free Action")],
+        spell_aliases=[("gains_line", "Free Action"), ("uses_line", "Free Action Potion")],
+        strategy=MergeStrategy.ENHANCE,
     ),
-    Consumable(
+    SuperwowConsumable(
         name="Elixir of Frost Power",
         price=DirectPrice(itemid=17708),
-        spell_aliases=[("gains_line", "Frost Power")],
+        spell_aliases=[("gains_line", "Frost Power"), ("uses_line", "Elixir of Frost Power")],
+        strategy=MergeStrategy.ENHANCE,
     ),
-    Consumable(
+    SuperwowConsumable(
         name="Greater Arcane Elixir",
         price=DirectPrice(itemid=13454),
-        spell_aliases=[("gains_line", "Greater Arcane Elixir")],
+        spell_aliases=[("gains_line", "Greater Arcane Elixir"), ("uses_line", "Greater Arcane Elixir")],
+        strategy=MergeStrategy.ENHANCE,
     ),
-    Consumable(
+    SuperwowConsumable(
         name="Thistle Tea",
         price=DirectPrice(itemid=7676),
-        spell_aliases=[("gains_line", "100 energy")],
+        spell_aliases=[("gains_line", "100 energy"), ("uses_line", "Thistle Tea")],
+        strategy=MergeStrategy.ENHANCE,
     ),
-    Consumable(
-        name="Elixir of the Mongoose",
-        price=DirectPrice(itemid=13452),
-        spell_aliases=[("gains_line", "Elixir of the Mongoose")],
-    ),
-    Consumable(
+
+    SuperwowConsumable(
         name="Elixir of Brute Force",
         price=DirectPrice(itemid=13453),
-        spell_aliases=[("gains_line", "Elixir of Brute Force")],
+        spell_aliases=[("gains_line", "Elixir of Brute Force"), ("uses_line", "Elixir of Brute Force")],
+        strategy=MergeStrategy.ENHANCE,
     ),
-    Consumable(
+    SuperwowConsumable(
         name="Winterfall Firewater",
         price=DirectPrice(itemid=12820),
-        spell_aliases=[("gains_line", "Winterfall Firewater")],
+        spell_aliases=[("gains_line", "Winterfall Firewater"), ("uses_line", "Winterfall Firewater")],
+        strategy=MergeStrategy.ENHANCE, 
+    ),
+    SuperwowConsumable(
+        name="Great Rage Potion",
+        price=DirectPrice(itemid=5633),
+        spell_aliases=[("gains_rage_line", "Great Rage"), ("uses_line", "Great Rage Potion")],
+        strategy=MergeStrategy.ENHANCE,
+    ),
+    SuperwowConsumable(
+        name="Rage Potion",
+        price=DirectPrice(itemid=5631),
+        spell_aliases=[("gains_rage_line", "Rage"), ("uses_line", "Rage Potion")],
+        strategy=MergeStrategy.ENHANCE,
     ),
     SuperwowConsumable(
         name="Juju Power",
@@ -682,7 +688,6 @@ all_defined_consumable_items: List[Consumable] = [
         strategy=MergeStrategy.SAFE,
     ),
     Consumable(name="Hardened Mushroom", price=DirectPrice(itemid=51717)),
-    Consumable(name="Power Mushroom", price=DirectPrice(itemid=51720)),
     SuperwowConsumable(
         name="Oil of Immolation",
         price=DirectPrice(itemid=8956),
@@ -694,36 +699,51 @@ all_defined_consumable_items: List[Consumable] = [
         price=DirectPrice(itemid=4623),
         spell_aliases=[("gains_line", "Stoneshield")],
     ),
-    Consumable(
+    SuperwowConsumable(
         name="Greater Stoneshield",
         price=DirectPrice(itemid=13455),
-        spell_aliases=[("gains_line", "Greater Stoneshield")],
+        spell_aliases=[("gains_line", "Greater Stoneshield"), ("uses_line", "Greater Stoneshield Potion")],
+        strategy=MergeStrategy.ENHANCE,
     ),
-    Consumable(
+    SuperwowConsumable(
         name="Lucidity Potion",
         price=DirectPrice(itemid=61225),
-        spell_aliases=[("gains_line", "Lucidity Potion")],
+        spell_aliases=[("gains_line", "Lucidity Potion"), ("uses_line", "Lucidity Potion")],
+        strategy=MergeStrategy.ENHANCE,
     ),
     Consumable(name="Mana Potion - Greater", price=DirectPrice(itemid=6149)),
     Consumable(name="Mana Potion - Superior", price=DirectPrice(itemid=13443)),
-    Consumable(name="Mana Potion - Major", price=DirectPrice(itemid=13444)),
-    Consumable(name="Restorative Potion", price=DirectPrice(itemid=9030)),
-    Consumable(name="Healing Potion - Major", price=DirectPrice(itemid=13446)),
+    SuperwowConsumable(
+        name="Mana Potion - Major", 
+        price=DirectPrice(itemid=13444),
+        spell_aliases=[("uses_line", "Major Mana Potion")], 
+        strategy=MergeStrategy.ENHANCE
+    ),
+    
+    SuperwowConsumable(
+        name="Healing Potion - Major", 
+        price=DirectPrice(itemid=13446),
+        spell_aliases=[("uses_line", "Major Healing Potion")],
+        strategy=MergeStrategy.ENHANCE
+    ),
     Consumable(name="Healing Potion - Superior", price=DirectPrice(itemid=3928)),
-    Consumable(
+    SuperwowConsumable(
         name="Elixir of Giants",
         price=DirectPrice(itemid=9206),
-        spell_aliases=[("gains_line", "Elixir of the Giants")],
+        spell_aliases=[("gains_line", "Elixir of the Giants"), ("uses_line", "Elixir of Giants")],
+        strategy=MergeStrategy.ENHANCE,
     ),
-    Consumable(
+    SuperwowConsumable(
         name="Rumsey Rum Black Label",
         price=DirectPrice(itemid=21151),
-        spell_aliases=[("gains_line", "Rumsey Rum Black Label")],
+        spell_aliases=[("gains_line", "Rumsey Rum Black Label"), ("uses_line", "Rumsey Rum Black Label")],
+        strategy=MergeStrategy.ENHANCE,
     ),
-    Consumable(
+    SuperwowConsumable(
         name="Rumsey Rum Dark",
         price=DirectPrice(itemid=21114),
-        spell_aliases=[("gains_line", "Rumsey Rum Dark")],
+        spell_aliases=[("gains_line", "Rumsey Rum Dark"), ("uses_line", "Rumsey Rum Dark")],
+        strategy=MergeStrategy.ENHANCE,
     ),
     Consumable(
         name="Elemental Sharpening Stone",
@@ -735,38 +755,36 @@ all_defined_consumable_items: List[Consumable] = [
         price=DirectPrice(itemid=23122),
         spell_aliases=[("begins_to_cast_line", "Consecrated Weapon")],
     ),
-    Consumable(
+    SuperwowConsumable(
         name="Invulnerability",
         price=DirectPrice(itemid=3387),
-        spell_aliases=[("gains_line", "Invulnerability")],
+        spell_aliases=[("gains_line", "Invulnerability"), ("uses_line", "Limited Invulnerability Potion")],
+        strategy=MergeStrategy.ENHANCE,
     ),
     Consumable(name="Dragonbreath Chili", price=DirectPrice(itemid=12217)),
-    Consumable(
+    SuperwowConsumable(
         name="Dreamtonic",
         price=DirectPrice(itemid=61423),
-        spell_aliases=[("gains_line", "Dreamtonic")],
+        spell_aliases=[("gains_line", "Dreamtonic"), ("uses_line", "Dreamtonic")],
+        strategy=MergeStrategy.ENHANCE,
     ),
-    Consumable(name="Goblin Sapper Charge", price=DirectPrice(itemid=10646)),
-    Consumable(
+    SuperwowConsumable(name="Goblin Sapper Charge", price=DirectPrice(itemid=10646), spell_aliases=[("uses_line", "Goblin Sapper Charge")], strategy=MergeStrategy.ENHANCE),
+    SuperwowConsumable(
         name="Medivh's Merlot Blue Label",
         price=DirectPrice(itemid=61175),
-        spell_aliases=[("gains_line", "Medivh's Merlot Blue Label")],
+        spell_aliases=[("gains_line", "Medivh's Merlot Blue Label"), ("uses_line", "Medivhs Merlot Blue Label")],
+        strategy=MergeStrategy.ENHANCE,
     ),
-    Consumable(
+    SuperwowConsumable(
         name="Medivh's Merlot",
         price=DirectPrice(itemid=61174),
-        spell_aliases=[("gains_line", "Medivh's Merlot")],
+        spell_aliases=[("gains_line", "Medivh's Merlot"), ("uses_line", "Medivhs Merlot")],
+        strategy=MergeStrategy.ENHANCE,
     ),
-    Consumable(
-        name="Greater Arcane Protection Potion", price=DirectPrice(itemid=13461)
-    ),
+    Consumable(name="Greater Arcane Protection Potion", price=DirectPrice(itemid=13461)),
     Consumable(name="Greater Holy Protection Potion", price=DirectPrice(itemid=13460)),
-    Consumable(
-        name="Greater Shadow Protection Potion", price=DirectPrice(itemid=13459)
-    ),
-    Consumable(
-        name="Greater Nature Protection Potion", price=DirectPrice(itemid=13458)
-    ),
+    Consumable(name="Greater Shadow Protection Potion", price=DirectPrice(itemid=13459)),
+    Consumable(name="Greater Nature Protection Potion", price=DirectPrice(itemid=13458)),
     Consumable(name="Greater Fire Protection Potion", price=DirectPrice(itemid=13457)),
     Consumable(name="Greater Frost Protection Potion", price=DirectPrice(itemid=13456)),
     Consumable(name="Holy Protection Potion", price=DirectPrice(itemid=6051)),
@@ -774,20 +792,22 @@ all_defined_consumable_items: List[Consumable] = [
     Consumable(name="Nature Protection Potion", price=DirectPrice(itemid=6052)),
     Consumable(name="Fire Protection Potion", price=DirectPrice(itemid=6049)),
     Consumable(name="Frost Protection Potion", price=DirectPrice(itemid=6050)),
-    Consumable(
+    SuperwowConsumable( 
         name="Dreamshard Elixir",
         price=DirectPrice(itemid=61224),
-        spell_aliases=[("gains_line", "Dreamshard Elixir")],
+        spell_aliases=[("gains_line", "Dreamshard Elixir"), ("uses_line", "Dreamshard Elixir")], 
+        strategy=MergeStrategy.ENHANCE,  # Added strategy
     ),
     Consumable(
         name="Dense Dynamite",
         price=DirectPrice(itemid=18641),
         spell_aliases=[("begins_to_cast_line", "Dense Dynamite")],
     ),
-    Consumable(
+    SuperwowConsumable(
         name="Solid Dynamite",
         price=DirectPrice(itemid=10507),
-        spell_aliases=[("begins_to_cast_line", "Solid Dynamite")],
+        spell_aliases=[("begins_to_cast_line", "Solid Dynamite"), ("uses_line", "Solid Dynamite")],
+        strategy=MergeStrategy.ENHANCE,
     ),
     SuperwowConsumable(
         name="Gift of Arthas",
@@ -795,69 +815,69 @@ all_defined_consumable_items: List[Consumable] = [
         spell_aliases=[("uses_line", "Gift of Arthas")],
         strategy=MergeStrategy.SAFE,
     ),
-    Consumable(
+    SuperwowConsumable(
         name="Thorium Grenade",
         price=DirectPrice(itemid=15993),
-        spell_aliases=[("begins_to_cast_line", "Thorium Grenade")],
+        spell_aliases=[("begins_to_cast_line", "Thorium Grenade"), ("uses_line", "Thorium Grenade")],
+        strategy=MergeStrategy.ENHANCE,
     ),
-    Consumable(
+    SuperwowConsumable(
         name="Iron Grenade",
         price=DirectPrice(itemid=4390),
-        spell_aliases=[("begins_to_cast_line", "Iron Grenade")],
+        spell_aliases=[("begins_to_cast_line", "Iron Grenade"), ("uses_line", "Iron Grenade")],
+        strategy=MergeStrategy.ENHANCE,
     ),
-    Consumable(name="Grilled Squid", price=DirectPrice(itemid=13928)),
-    Consumable(
-        name="Potion of Quickness",
-        price=DirectPrice(itemid=61181),
-        spell_aliases=[("gains_line", "Potion of Quickness")],
-    ),
-    Consumable(
-        name="Elixir of Greater Nature Power",
-        price=DirectPrice(itemid=50237),
-        spell_aliases=[("gains_line", "Elixir of Greater Nature Power")],
-    ),
+    SuperwowConsumable(name="Grilled Squid", price=DirectPrice(itemid=13928), spell_aliases=[("uses_line", "Grilled Squid")], strategy=MergeStrategy.ENHANCE),
+
+
     Consumable(
         name="Elixir of Greater Intellect",
         price=DirectPrice(itemid=9179),
         spell_aliases=[("gains_line", "Greater Intellect")],
     ),
-    Consumable(name="Rejuvenation Potion - Major", price=DirectPrice(itemid=18253)),
-    Consumable(name="Rejuvenation Potion - Minor", price=DirectPrice(itemid=2456)),
+    SuperwowConsumable(name="Rejuvenation Potion - Major", price=DirectPrice(itemid=18253), spell_aliases=[("uses_line", "Major Rejuvenation Potion")], strategy=MergeStrategy.ENHANCE),
+    SuperwowConsumable(name="Rejuvenation Potion - Minor", price=DirectPrice(itemid=2456), spell_aliases=[("uses_line", "Minor Rejuvenation Potion")], strategy=MergeStrategy.ENHANCE),
     SuperwowConsumable(
         name="Swiftness Potion",
         price=DirectPrice(itemid=2459),
         spell_aliases=[("uses_line", "Swiftness Potion")],
         strategy=MergeStrategy.SAFE,
     ),
-    Consumable(
+    SuperwowConsumable(
         name="Invisibility Potion",
         price=DirectPrice(itemid=9172),
-        spell_aliases=[("gains_line", "Invisibility")],
+        spell_aliases=[("gains_line", "Invisibility"), ("uses_line", "Invisibility Potion")],
+        strategy=MergeStrategy.ENHANCE,
     ),
-    Consumable(
+    SuperwowConsumable(
         name="Lesser Invisibility Potion",
         price=DirectPrice(itemid=3823),
-        spell_aliases=[("gains_line", "Lesser Invisibility")],
+        spell_aliases=[("gains_line", "Lesser Invisibility"), ("uses_line", "Lesser Invisibility Potion")],
+        strategy=MergeStrategy.ENHANCE,
     ),
-    Consumable(
+    SuperwowConsumable(
         name="Powerful Anti-Venom",
         price=DirectPrice(itemid=19440),
-        spell_aliases=[("casts_line", "Powerful Anti-Venom")],
+        spell_aliases=[("casts_line", "Powerful Anti-Venom"), ("uses_line", "Powerful Anti-Venom")],
+        strategy=MergeStrategy.ENHANCE,
     ),
-    Consumable(
+    SuperwowConsumable(
         name="Strong Anti-Venom",
         price=DirectPrice(itemid=6453),
-        spell_aliases=[("casts_line", "Strong Anti-Venom")],
+        spell_aliases=[("casts_line", "Strong Anti-Venom"), ("uses_line", "Strong Anti-Venom")],
+        strategy=MergeStrategy.ENHANCE,
     ),
-    Consumable(
+    SuperwowConsumable(
         name="Anti-Venom",
         price=DirectPrice(itemid=6452),
-        spell_aliases=[("casts_line", "Anti-Venom")],
+        spell_aliases=[("casts_line", "Anti-Venom"), ("uses_line", "Anti-Venom")],
+        strategy=MergeStrategy.ENHANCE,
     ),
-    Consumable(
+    SuperwowConsumable(
         name="Dark Rune",
         price=DirectPrice(itemid=20520),
-        spell_aliases=[("gains_mana_line", "Dark Rune")],
+        spell_aliases=[("gains_mana_line", "Dark Rune"), ("uses_line", "Dark Rune")],
+        strategy=MergeStrategy.ENHANCE,
     ),
     Consumable(name="Mageblood Potion", price=DirectPrice(itemid=20007)),
     SuperwowConsumable(
@@ -915,11 +935,11 @@ all_defined_consumable_items: List[Consumable] = [
         spell_aliases=[("uses_line", "Magic Resistance Potion")],
         strategy=MergeStrategy.SAFE,
     ),
-    Consumable(name="Le Fishe Au Chocolat", price=DirectPrice(itemid=84040)),
-    Consumable(
+    SuperwowConsumable(
         name="Jungle Remedy",
         price=DirectPrice(itemid=2633),
-        spell_aliases=[("casts_line", "Cure Ailments")],
+        spell_aliases=[("casts_line", "Cure Ailments"), ("uses_line", "Jungle Remedy")],
+        strategy=MergeStrategy.ENHANCE,
     ),
     SuperwowConsumable(
         name="Living Action Potion",
@@ -957,17 +977,19 @@ all_defined_consumable_items: List[Consumable] = [
         spell_aliases=[("uses_line", "Greater Dreamless Sleep Potion")],
         strategy=MergeStrategy.SAFE,
     ),
-    Consumable(name="Elixir of Greater Defense", price=DirectPrice(itemid=8951)),
-    Consumable(
+    SuperwowConsumable(name="Elixir of Greater Defense", price=DirectPrice(itemid=8951), spell_aliases=[("uses_line", "Elixir of Greater Defense")], strategy=MergeStrategy.ENHANCE),
+    SuperwowConsumable(
         name="Elixir of Giant Growth",
         price=DirectPrice(itemid=6662),
-        spell_aliases=[("gains_line", "Enlarge")],
+        spell_aliases=[("gains_line", "Enlarge"), ("uses_line", "Elixir of Giant Growth")],
+        strategy=MergeStrategy.ENHANCE,
     ),
     Consumable(name="Frozen Rune", price=DirectPrice(itemid=22682)),
-    Consumable(
+    SuperwowConsumable(
         name="Arcane Elixir",
         price=DirectPrice(itemid=9155),
-        spell_aliases=[("gains_line", "Arcane Elixir")],
+        spell_aliases=[("gains_line", "Arcane Elixir"), ("uses_line", "Arcane Elixir")],
+        strategy=MergeStrategy.ENHANCE,
     ),
     Consumable(
         name="Dense Sharpening Stone",
@@ -989,31 +1011,26 @@ all_defined_consumable_items: List[Consumable] = [
         price=NoPrice(),
         spell_aliases=[("gains_line", "Fire-toasted Bun")],
     ),
-    Consumable(
+    SuperwowConsumable(
         name="Blessed Sunfruit",
         price=NoPrice(),
-        spell_aliases=[("gains_line", "Blessed Sunfruit")],
+        spell_aliases=[("gains_line", "Blessed Sunfruit"), ("uses_line", "Blessed Sunfruit")],
+        strategy=MergeStrategy.ENHANCE,
     ),
-    Consumable(
+    SuperwowConsumable(
         name="Blessed Sunfruit Juice",
         price=NoPrice(),
-        spell_aliases=[("gains_line", "Blessed Sunfruit Juice")],
+        spell_aliases=[("gains_line", "Blessed Sunfruit Juice"), ("uses_line", "Blessed Sunfruit Juice")],
+        strategy=MergeStrategy.ENHANCE,
     ),
-    Consumable(
-        name="Noggenfogger Elixir",
-        price=NoPrice(),
-        spell_aliases=[("gains_line", "Noggenfogger Elixir")],
-    ),
-    Consumable(
+    
+    SuperwowConsumable(
         name="Rumsey Rum",
         price=NoPrice(),
-        spell_aliases=[("gains_line", "Rumsey Rum")],
+        spell_aliases=[("gains_line", "Rumsey Rum"), ("uses_line", "Rumsey Rum")],
+        strategy=MergeStrategy.ENHANCE,
     ),
-    Consumable(
-        name="Gordok Green Grog",
-        price=NoPrice(),
-        spell_aliases=[("gains_line", "Gordok Green Grog")],
-    ),
+
     Consumable(
         name="Increased Stamina",
         price=NoPrice(),
@@ -1079,31 +1096,14 @@ all_defined_consumable_items: List[Consumable] = [
         price=NoPrice(),
         spell_aliases=[("gains_line", "Holy Protection ")],  # need the trailing space
     ),
-    Consumable(
+    SuperwowConsumable(
         name="Kreeg's Stout Beatdown",
         price=NoPrice(),
-        spell_aliases=[("begins_to_cast_line", "Kreeg's Stout Beatdown")],
+        spell_aliases=[("begins_to_cast_line", "Kreeg's Stout Beatdown"), ("uses_line", "Kreegs Stout Beatdown")],
+        strategy=MergeStrategy.ENHANCE,
     ),
-    Consumable(
-        name="Mighty Rage Potion",
-        price=DirectPrice(itemid=13442),
-        spell_aliases=[("gains_rage_line", "Mighty Rage")],
-    ),
-    Consumable(
-        name="Great Rage Potion",
-        price=DirectPrice(itemid=5633),
-        spell_aliases=[("gains_rage_line", "Great Rage")],
-    ),
-    Consumable(
-        name="Rage Potion",
-        price=DirectPrice(itemid=5631),
-        spell_aliases=[("gains_rage_line", "Rage")],
-    ),
-    Consumable(
-        name="Demonic Rune",
-        price=NoPrice(),
-        spell_aliases=[("gains_mana_line", "Demonic Rune")],
-    ),
+
+  
     Consumable(
         name="Advanced Target Dummy",
         price=DirectPrice(itemid=4392),
@@ -1234,12 +1234,100 @@ all_defined_consumable_items: List[Consumable] = [
         spell_aliases=[("uses_line", "Graccus Mince Meat Fruitcake")],
         strategy=MergeStrategy.SAFE,
     ),
+    SuperwowConsumable(
+        name="MOLL-E, Remote Mail Terminal",
+        price=NoPrice(),
+        spell_aliases=[("uses_line", "MOLL-E, Remote Mail Terminal")],
+        strategy=MergeStrategy.IGNORE,
+    ),
+    SuperwowConsumable(
+        name="Goblin Brainwashing Device",
+        price=NoPrice(),
+        spell_aliases=[("uses_line", "Goblin Brainwashing Device")],
+        strategy=MergeStrategy.IGNORE,
+    ),
+    SuperwowConsumable(
+        name="Stratholme Holy Water",
+        price=NoPrice(),
+        spell_aliases=[("uses_line", "Stratholme Holy Water")],
+        strategy=MergeStrategy.SAFE,
+    ),
+    SuperwowConsumable(
+        name="Elixir of Firepower",
+        price=DirectPrice(itemid=6373),
+        spell_aliases=[("gains_line", "Fire Power"), ("uses_line", "Elixir of Firepower")],
+        strategy=MergeStrategy.ENHANCE,
+    ),
+    SuperwowConsumable(
+        name="Elixir of Greater Firepower",
+        price=DirectPrice(itemid=21546),
+        spell_aliases=[("gains_line", "Greater Firepower"), ("uses_line", "Elixir of Greater Firepower")],
+        strategy=MergeStrategy.ENHANCE,
+    ),
+    SuperwowConsumable(
+        name="Elixir of Shadow Power",
+        price=DirectPrice(itemid=9264),
+        spell_aliases=[("gains_line", "Shadow Power"), ("uses_line", "Elixir of Shadow Power")],
+        strategy=MergeStrategy.ENHANCE,
+    ),
+    SuperwowConsumable(
+        name="Potion of Quickness",
+        price=DirectPrice(itemid=61181),
+        spell_aliases=[("gains_line", "Potion of Quickness"), ("uses_line", "Potion of Quickness")],
+        strategy=MergeStrategy.ENHANCE,
+    ),
+    SuperwowConsumable(
+        name="Le Fishe Au Chocolat",
+        price=DirectPrice(itemid=84040),
+        spell_aliases=[("gains_line", "Le Fishe Au Chocolat"), ("uses_line", "Le Fishe Au Chocolat")],
+        strategy=MergeStrategy.ENHANCE,
+    ),
+    SuperwowConsumable(
+        name="Elixir of the Mongoose",
+        price=DirectPrice(itemid=13452),
+        spell_aliases=[("gains_line", "Elixir of the Mongoose"), ("uses_line", "Elixir of the Mongoose")],
+        strategy=MergeStrategy.ENHANCE,
+    ),
+    SuperwowConsumable(
+        name="Elixir of Greater Nature Power",
+        price=DirectPrice(itemid=50237),
+        spell_aliases=[("gains_line", "Elixir of Greater Nature Power"), ("uses_line", "Elixir of Greater Nature Power")],
+        strategy=MergeStrategy.ENHANCE,
+    ),
+    SuperwowConsumable(
+        name="Power Mushroom",
+        price=DirectPrice(itemid=51720),
+        spell_aliases=[("uses_line", "Power Mushroom")],
+        strategy=MergeStrategy.ENHANCE,
+    ),
+    SuperwowConsumable(
+        name="Gordok Green Grog",
+        price=NoPrice(),
+        spell_aliases=[("gains_line", "Gordok Green Grog"), ("uses_line", "Gordok Green Grog")],
+        strategy=MergeStrategy.ENHANCE,
+    ),
+    SuperwowConsumable(
+        name="Mighty Rage Potion",
+        price=DirectPrice(itemid=13442),
+        spell_aliases=[("gains_rage_line", "Mighty Rage"), ("uses_line", "Mighty Rage Potion")],
+        strategy=MergeStrategy.ENHANCE,
+    ),
+    SuperwowConsumable(
+        name="Noggenfogger Elixir",
+        price=NoPrice(),
+        spell_aliases=[("gains_line", "Noggenfogger Elixir"), ("uses_line", "Noggenfogger Elixir")],
+        strategy=MergeStrategy.ENHANCE,
+    ),
+    SuperwowConsumable(
+        name="Demonic Rune",
+        price=NoPrice(),
+        spell_aliases=[("gains_mana_line", "Demonic Rune"), ("uses_line", "Demonic Rune")],
+        strategy=MergeStrategy.ENHANCE,
+    ),
 ]
 
 
-NAME2CONSUMABLE: Dict[str, Consumable] = {
-    item.name: item for item in all_defined_consumable_items
-}
+NAME2CONSUMABLE: Dict[str, Consumable] = {item.name: item for item in all_defined_consumable_items}
 
 RAWSPELLNAME2CONSUMABLE: Dict[Tuple[str, str], Consumable] = {}
 for item in all_defined_consumable_items:
@@ -1343,98 +1431,13 @@ USES_CONSUMABLE_OVERWRITE = {
     "Scroll of Spirit IV": "Spirit",
 }
 
-# will try to merge counts, but keep the existing names from the native client
-USES_CONSUMABLE_ENHANCE = {
-    # verify again
-    "Lesser Invisibility Potion": "Lesser Invisibility Potion",
-    # missing? 'Mana Potion - Greater'
-    # missing? 'Mana Potion - Superior'
-    "Major Mana Potion": "Mana Potion - Major",
-    "Major Healing Potion": "Healing Potion - Major",
-    "Elixir of Brute Force": "Elixir of Brute Force",
-    "Bogling Root": "Bogling Root",
-    "Blessed Sunfruit": "Blessed Sunfruit",
-    "Blessed Sunfruit Juice": "Blessed Sunfruit Juice",
-    "Jungle Remedy": "Jungle Remedy",
-    "Lucidity Potion": "Lucidity Potion",
-    "Solid Dynamite": "Solid Dynamite",
-    "Anti-Venom": "Anti-Venom",
-    "Strong Anti-Venom": "Strong Anti-Venom",
-    "Powerful Anti-Venom": "Powerful Anti-Venom",
-    "Kreeg's Stout Beatdown": "Kreeg's Stout Beatdown",  # renamed
-    "Flask of Chromatic Resistance": "Flask of Chromatic Resistance",
-    "Flask of Petrification": "Flask of Petrification",
-    "Flask of Distilled Wisdom": "Flask of Distilled Wisdom",
-    "Flask of the Titans": "Flask of the Titans",
-    "Flask of Supreme Power": "Flask of Supreme Power",
-    "Thistle Tea": "Thistle Tea",
-    "Limited Invulnerability Potion": "Invulnerability",
-    "Elixir of Fortitude": "Elixir of Fortitude",
-    "Elixir of Giants": "Elixir of Giants",
-    "Elixir of Greater Agility": "Elixir of Greater Agility",
-    "Elixir of the Sages": "??? Elixir of the Sages ???",
-    "Rage of Ages": "Rage of Ages (ROIDS)",
-    "Ground Scorpok Assay": "Strike of the Scorpok",
-    "Lung Juice Cocktail": "Lung Juice Cocktail",
-    "Cerebral Cortex Compound": "Infallible Mind (Cerebral Cortex Compound)",
-    "Medivh's Merlot Blue Label": "Medivh's Merlot Blue Label",
-    "Medivh's Merlot": "Medivh's Merlot",
-    "Iron Grenade": "Iron Grenade",
-    "Thorium Grenade": "Thorium Grenade",
-    "Elixir of Giant Growth": "Elixir of Giant Growth",
-    "Swiftness of Zanza": "Swiftness of Zanza",
-    "Sheen of Zanza": "Sheen of Zanza",
-    "Spirit of Zanza": "Spirit of Zanza",
-    "Grilled Squid": "Grilled Squid",
-    "Dreamshard Elixir": "Dreamshard Elixir",
-    "Rumsey Rum Black Label": "Rumsey Rum Black Label",
-    "Rumsey Rum": "Rumsey Rum",
-    "Rumsey Rum Dark": "Rumsey Rum Dark",
-    "Dreamtonic": "Dreamtonic",
-    "Free Action Potion": "Free Action Potion",
-    "Winterfall Firewater": "Winterfall Firewater",
-    "Mighty Rage Potion": "Mighty Rage Potion",
-    "Great Rage Potion": "Great Rage Potion",
-    "Rage Potion": "Rage Potion",
-    "Stratholme Holy Water": "Stratholme Holy Water",
-    "Goblin Sapper Charge": "Goblin Sapper Charge",
-    "Elixir of Frost Power": "Elixir of Frost Power",
-    "Greater Arcane Elixir": "Greater Arcane Elixir",
-    "Arcane Elixir": "Arcane Elixir",
-    "Elixir of Shadow Power": "Elixir of Shadow Power",
-    "Elixir of Greater Firepower": "Elixir of Greater Firepower",
-    "Elixir of Firepower": "Elixir of Firepower",
-    "Major Rejuvenation Potion": "Rejuvenation Potion - Major",
-    "Minor Rejuvenation Potion": "Rejuvenation Potion - Minor",
-    "Invisibility Potion": "Invisibility Potion",
-    "Elixir of Greater Defense": "Elixir of Greater Defense",
-    "Dark Rune": "Dark Rune",
-    "Noggenfogger Elixir": "Noggenfogger Elixir",
-    "Demonic Rune": "Demonic Rune",
-    "Restorative Potion": "Restorative Potion",
-    "Elixir of Superior Defense": "Elixir of Superior Defense",
-    "Powerful Smelling Salts": "Powerful Smelling Salts",
-    "Greater Stoneshield Potion": "Greater Stoneshield",
-    "Potion of Quickness": "Potion of Quickness",
-    "Le Fishe Au Chocolat": "Le Fishe Au Chocolat",
-    "Elixir of the Mongoose": "Elixir of the Mongoose",
-    "Elixir of Greater Nature Power": "Elixir of Greater Nature Power",
-    "Power Mushroom": "Power Mushroom",
-    "Gordok Green Grog": "Gordok Green Grog",
-}
 
 
 USES_CONSUMABLE_RENAME = {
     "Tea With Sugar": "Tea with Sugar",
-    "Kreegs Stout Beatdown": "Kreeg's Stout Beatdown",
-    "Medivhs Merlot Blue Label": "Medivh's Merlot Blue Label",
-    "Medivhs Merlot": "Medivh's Merlot",
+    
 }
 
-USES_CONSUMABLE_IGNORE = {
-    "MOLL-E, Remote Mail Terminal",
-    "Goblin Brainwashing Device",
-}
 
 INTERRUPT_SPELLS = {
     "Kick",
@@ -2035,9 +2038,7 @@ class Dmgstore2:
             print(f"{source}  {dmg}", file=output)
 
             sortabilitytotals = []
-            for ability, entry_by_source_ability in self.store_by_source_ability[
-                source
-            ].items():
+            for ability, entry_by_source_ability in self.store_by_source_ability[source].items():
                 dmg = entry_by_source_ability.dmg
                 sortabilitytotals.append((dmg, ability))
 
@@ -2087,9 +2088,7 @@ class Dmgstore2:
 
 
 class Techinfo:
-    def __init__(
-        self, time_start, prices_last_update, prices_server, expert_deterministic_logs
-    ):
+    def __init__(self, time_start, prices_last_update, prices_server, expert_deterministic_logs):
         self.time_start = time_start
         self.logsize = 0
         self.linecount = 0
@@ -2136,12 +2135,8 @@ class Techinfo:
             print("  ", f"project version {self.package_version}", file=output)
             print("  ", f"project homepage {self.project_homepage}", file=output)
             print("  ", f"prices server {self.prices_server}", file=output)
-            print(
-                "  ", f"prices timestamp {self.format_price_timestamp()}", file=output
-            )
-        print(
-            "  ", f"known consumables {len(all_defined_consumable_items)}", file=output
-        )
+            print("  ", f"prices timestamp {self.format_price_timestamp()}", file=output)
+        print("  ", f"known consumables {len(all_defined_consumable_items)}", file=output)
         print("  ", f"log size {humanize.naturalsize(self.logsize)}", file=output)
         print("  ", f"log lines {self.linecount}", file=output)
         print(
@@ -2500,9 +2495,7 @@ class ProcCount:
         self.counts = collections.defaultdict(lambda: collections.defaultdict(int))
 
         # source - name - count
-        self.counts_extra_attacks = collections.defaultdict(
-            lambda: collections.defaultdict(int)
-        )
+        self.counts_extra_attacks = collections.defaultdict(lambda: collections.defaultdict(int))
 
     def add(self, line_type, name, spell):
         if line_type not in LINE2PROC:
@@ -2634,10 +2627,7 @@ class ConsumablesAccumulator:
             raise RuntimeError("this should be unreachable")
 
         for base_item, quantity in components_to_price:
-            if (
-                not isinstance(base_item.price, DirectPrice)
-                or not base_item.price.itemid
-            ):
+            if not isinstance(base_item.price, DirectPrice) or not base_item.price.itemid:
                 # This item/component doesn't have an itemID to look up.
                 # logging.debug(f"Item '{base_item.name}' has no itemid for pricing.")
                 continue
@@ -2975,9 +2965,7 @@ def parse_line2(app, line):
             spellname = subtree.children[1].value
             stackcount = int(subtree.children[2].value)
 
-            app.class_detection.detect(
-                line_type=subtree.data, name=name, spell=spellname
-            )
+            app.class_detection.detect(line_type=subtree.data, name=name, spell=spellname)
             app.spell_count.add_stackcount(
                 line_type=subtree.data,
                 name=name,
@@ -2986,9 +2974,7 @@ def parse_line2(app, line):
             )
             app.proc_count.add(line_type=subtree.data, name=name, spell=spellname)
 
-            if consumable_item := RAWSPELLNAME2CONSUMABLE.get(
-                (subtree.data, spellname)
-            ):
+            if consumable_item := RAWSPELLNAME2CONSUMABLE.get((subtree.data, spellname)):
                 app.player[name][consumable_item.name] += 1
 
             if spellname in BUFF_SPELL:
@@ -3012,9 +2998,7 @@ def parse_line2(app, line):
             spellname = rename_spell(spellname, line_type=subtree.data)
             app.spell_count.add(line_type=subtree.data, name=name, spell=spellname)
 
-            if consumable_item := RAWSPELLNAME2CONSUMABLE.get(
-                (subtree.data, spellname)
-            ):
+            if consumable_item := RAWSPELLNAME2CONSUMABLE.get((subtree.data, spellname)):
                 app.player[name][consumable_item.name] += 1
             return True
         elif subtree.data == "gains_energy_line":
@@ -3025,35 +3009,36 @@ def parse_line2(app, line):
             name = subtree.children[2].value
             spellname = subtree.children[3].value
 
-            app.class_detection.detect(
-                line_type=subtree.data, name=name, spell=spellname
-            )
+            app.class_detection.detect(line_type=subtree.data, name=name, spell=spellname)
 
             app.healstore.add(name, targetname, spellname, amount, timestamp_unix)
             return True
         elif subtree.data == "uses_line":
             name = subtree.children[0].value
-            consumable = subtree.children[1].value
+            spellname = subtree.children[1].value
 
-            consumable = USES_CONSUMABLE_RENAME.get(consumable, consumable)
-            if consumable_item := RAWSPELLNAME2CONSUMABLE.get(
-                (subtree.data, consumable)
-            ):
-                app.player_superwow[name][consumable_item.name] += 1
+            spellname = USES_CONSUMABLE_RENAME.get(spellname, spellname)
+            if consumable_item := RAWSPELLNAME2CONSUMABLE.get((subtree.data, spellname)):
+                if (
+                    isinstance(consumable_item, SuperwowConsumable)
+                    and consumable_item.strategy == MergeStrategy.IGNORE
+                ):
+                    return True
+
+                if isinstance(consumable_item, SuperwowConsumable) and consumable_item.strategy == MergeStrategy.SAFE:
+                    app.player_superwow[name][consumable_item.name] += 1
+                    return True
+
+                if isinstance(consumable_item, SuperwowConsumable) and consumable_item.strategy == MergeStrategy.ENHANCE:
+                    app.player_superwow[name][consumable_item.name] += 1
+                    return True
+            
+
+            if spellname in USES_CONSUMABLE_OVERWRITE:
+                app.player_superwow[name][spellname] += 1
                 return True
 
-            if consumable in USES_CONSUMABLE_ENHANCE:
-                app.player_superwow[name][consumable] += 1
-                return True
-
-            if consumable in USES_CONSUMABLE_OVERWRITE:
-                app.player_superwow[name][consumable] += 1
-                return True
-
-            if consumable in USES_CONSUMABLE_IGNORE:
-                return True
-
-            app.player_superwow_unknown[name][consumable] += 1
+            app.player_superwow_unknown[name][spellname] += 1
 
         elif subtree.data == "dies_line":
             name = subtree.children[0].value
@@ -3080,9 +3065,7 @@ def parse_line2(app, line):
 
             spellname = rename_spell(spellname, line_type=subtree.data)
 
-            app.class_detection.detect(
-                line_type=subtree.data, name=name, spell=spellname
-            )
+            app.class_detection.detect(line_type=subtree.data, name=name, spell=spellname)
             app.spell_count.add(line_type=subtree.data, name=name, spell=spellname)
 
             if spellname == "Tea with Sugar":
@@ -3105,9 +3088,7 @@ def parse_line2(app, line):
         elif subtree.data == "gains_mana_line":
             name = subtree.children[0].value
             spellname = subtree.children[-1].value
-            if consumable_item := RAWSPELLNAME2CONSUMABLE.get(
-                (subtree.data, spellname)
-            ):
+            if consumable_item := RAWSPELLNAME2CONSUMABLE.get((subtree.data, spellname)):
                 app.player[name][consumable_item.name] += 1
             elif spellname == "Restore Mana":
                 mana = int(subtree.children[1].value)
@@ -3123,13 +3104,9 @@ def parse_line2(app, line):
             name = subtree.children[0].value
             spellname = subtree.children[-1].value
 
-            app.class_detection.detect(
-                line_type=subtree.data, name=name, spell=spellname
-            )
+            app.class_detection.detect(line_type=subtree.data, name=name, spell=spellname)
 
-            if consumable_item := RAWSPELLNAME2CONSUMABLE.get(
-                (subtree.data, spellname)
-            ):
+            if consumable_item := RAWSPELLNAME2CONSUMABLE.get((subtree.data, spellname)):
                 app.player[name][consumable_item.name] += 1
 
             if name == "Kel'Thuzad" and spellname == "Frostbolt":
@@ -3139,9 +3116,7 @@ def parse_line2(app, line):
         elif subtree.data == "casts_line":
             name = subtree.children[0].value
             spellname = subtree.children[1].value
-            if consumable_item := RAWSPELLNAME2CONSUMABLE.get(
-                (subtree.data, spellname)
-            ):
+            if consumable_item := RAWSPELLNAME2CONSUMABLE.get((subtree.data, spellname)):
                 app.player[name][consumable_item.name] += 1
 
             if spellname == "Sunder Armor":
@@ -3153,9 +3128,7 @@ def parse_line2(app, line):
                 if targetname in KNOWN_BOSS_NAMES:
                     spellname += " (boss)"
 
-            app.class_detection.detect(
-                line_type=subtree.data, name=name, spell=spellname
-            )
+            app.class_detection.detect(line_type=subtree.data, name=name, spell=spellname)
             app.spell_count.add(line_type=subtree.data, name=name, spell=spellname)
 
             if spellname == "Wild Polymorph":
@@ -3167,10 +3140,7 @@ def parse_line2(app, line):
             if len(subtree.children) == 3:
                 targetname = subtree.children[2].value
 
-                if (
-                    spellname == "Tranquilizing Shot"
-                    and targetname == "Princess Huhuran"
-                ):
+                if spellname == "Tranquilizing Shot" and targetname == "Princess Huhuran":
                     app.huhuran.add(line)
                 if spellname == "Tranquilizing Shot" and targetname == "Gluth":
                     app.gluth.add(line)
@@ -3200,9 +3170,7 @@ def parse_line2(app, line):
 
             spellname = rename_spell(spellname, line_type=subtree.data)
 
-            app.class_detection.detect(
-                line_type=subtree.data, name=name, spell=spellname
-            )
+            app.class_detection.detect(line_type=subtree.data, name=name, spell=spellname)
             app.spell_count.add(line_type=subtree.data, name=name, spell=spellname)
 
             if spellname in app.hits_consumable.COOLDOWNS:
@@ -3317,12 +3285,8 @@ def parse_line2(app, line):
             targetname = subtree.children[0].value
             spellname = subtree.children[1].value
 
-            app.class_detection.detect(
-                line_type=subtree.data, name=targetname, spell=spellname
-            )
-            app.spell_count.add(
-                line_type=subtree.data, name=targetname, spell=spellname
-            )
+            app.class_detection.detect(line_type=subtree.data, name=targetname, spell=spellname)
+            app.spell_count.add(line_type=subtree.data, name=targetname, spell=spellname)
 
             if spellname == "Armor Shatter":
                 app.annihilator.add(line)
@@ -3406,9 +3370,7 @@ def parse_line2(app, line):
                     app.nef_corrupted_healing.add(line)
 
                 app.dmgstore.add(name, targetname, spellname, amount, timestamp_unix)
-                app.dmgtakenstore.add(
-                    name, targetname, spellname, amount, timestamp_unix
-                )
+                app.dmgtakenstore.add(name, targetname, spellname, amount, timestamp_unix)
             else:
                 # nosource
                 pass
@@ -3435,9 +3397,7 @@ def parse_line2(app, line):
             spellname = subtree.children[1].value
             targetname = subtree.children[2].value
 
-            if consumable_item := RAWSPELLNAME2CONSUMABLE.get(
-                (subtree.data, spellname)
-            ):
+            if consumable_item := RAWSPELLNAME2CONSUMABLE.get((subtree.data, spellname)):
                 app.player[name][consumable_item.name] += 1
 
             return True
@@ -3446,9 +3406,7 @@ def parse_line2(app, line):
         elif subtree.data == "begins_to_perform_line":
             name = subtree.children[0].value
             spellname = subtree.children[-1].value
-            app.class_detection.detect(
-                line_type=subtree.data, name=name, spell=spellname
-            )
+            app.class_detection.detect(line_type=subtree.data, name=name, spell=spellname)
             app.spell_count.add(line_type=subtree.data, name=name, spell=spellname)
             return True
         elif subtree.data == "gains_extra_attacks_line":
@@ -3816,9 +3774,7 @@ class LogDownloader:
 
             upload_id = resp.json()["upload_id"]
 
-            resp = requests.get(
-                f"https://www.turtlogs.com/uploads/upload_{upload_id}.zip"
-            )
+            resp = requests.get(f"https://www.turtlogs.com/uploads/upload_{upload_id}.zip")
             resp.raise_for_status()
 
             zip_buffer = io.BytesIO(resp.content)
@@ -3886,25 +3842,33 @@ class MergeSuperwowConsumables:
                     self.player[player][c_swow] = self.player_superwow[player][c_swow]
                     del self.player_superwow[player][c_swow]
 
+
+                
+                elif isinstance(consumable, SuperwowConsumable) and consumable.strategy == MergeStrategy.ENHANCE:
+                    # will try to merge counts, but keep the existing names from the native client
+                    c = consumable.name
+                    # if c not in consumables:
+                    #    self.log(f"mismatch from {c_swow} to {c}. {player} {c} is not in consumables")
+                    if self.player[player].get(c, 0) > self.player_superwow[player][c_swow]:
+                        self.log(f"skipping. superwow has less? {player} {c} > {c_swow}")
+                        continue
+
+                    self.player[player][c] = self.player_superwow[player][c_swow]
+                    del self.player_superwow[player][c_swow]
+
                 elif c_swow in USES_CONSUMABLE_OVERWRITE:
                     c = USES_CONSUMABLE_OVERWRITE[c_swow]
                     # if c not in consumables:
                     #    self.log(f"mismatch from {c_swow} to {c}. {player} {c} is not in consumables")
                     if (
                         c != c_swow
-                        and self.player[player].get(c, 0)
-                        > self.player_superwow[player][c_swow]
+                        and self.player[player].get(c, 0) > self.player_superwow[player][c_swow]
                     ):
                         self.log(f"partial merge (overwrite). {player} {c} > {c_swow}")
 
-                        remain = (
-                            self.player[player][c]
-                            - self.player_superwow[player][c_swow]
-                        )
+                        remain = self.player[player][c] - self.player_superwow[player][c_swow]
                         self.player[player][c] = remain
-                        self.player[player][c_swow] = self.player_superwow[player][
-                            c_swow
-                        ]
+                        self.player[player][c_swow] = self.player_superwow[player][c_swow]
                         del self.player_superwow[player][c_swow]
 
                         continue
@@ -3913,21 +3877,6 @@ class MergeSuperwowConsumables:
                     self.player[player][c_swow] = self.player_superwow[player][c_swow]
                     del self.player_superwow[player][c_swow]
 
-                elif c_swow in USES_CONSUMABLE_ENHANCE:
-                    c = USES_CONSUMABLE_ENHANCE[c_swow]
-                    # if c not in consumables:
-                    #    self.log(f"mismatch from {c_swow} to {c}. {player} {c} is not in consumables")
-                    if (
-                        self.player[player].get(c, 0)
-                        > self.player_superwow[player][c_swow]
-                    ):
-                        self.log(
-                            f"skipping. superwow has less? {player} {c} > {c_swow}"
-                        )
-                        continue
-
-                    self.player[player][c] = self.player_superwow[player][c_swow]
-                    del self.player_superwow[player][c_swow]
                 else:
                     self.log(f"{c_swow} not in any USES table")
                     continue
@@ -3997,9 +3946,7 @@ def main(argv):
             player2 = player2.capitalize()
 
             output = io.StringIO()
-            app.dmgstore.print_compare_players(
-                player1=player1, player2=player2, output=output
-            )
+            app.dmgstore.print_compare_players(player1=player1, player2=player2, output=output)
 
             filename = "compare-players.txt"
             with open(filename, "wb") as f:

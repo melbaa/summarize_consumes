@@ -363,12 +363,19 @@ def test_uses_consumables(app_log_merge):
 4/13 01:15:12.253  Tnu uses Danonzos Tel'Abim Medley.
 4/13 19:53:22.169  Gregory uses Juju Power on Gregory.
 4/13 19:59:30.916  Anarion uses Juju Ember on Anarion.
+6/1 18:30:49.698  Bcube uses Rage of Ages.
+6/1 18:30:49.698  Bcube gains Rage of Ages (1).
+6/1 19:30:12.337  Bcube uses Rage of Ages.
+6/1 20:26:37.476  Bcube uses Rage of Ages.
 """
     lines = lines.splitlines(keepends=True)
     for line in lines:
         parse_line(app, line)
 
-    
+
+    assert app.player['Bcube']["Rage of Ages (ROIDS)"] == 1
+    assert app.player_superwow['Bcube']["Rage of Ages (ROIDS)"] == 3
+
     assert app.player['Gregory']["Juju Power"] == 0
     assert app.player_superwow['Gregory']["Juju Power"] == 1
 
@@ -377,7 +384,7 @@ def test_uses_consumables(app_log_merge):
 
     assert app.player['Tnu']["Danonzo's Tel'Abim Medley"] == 0
     assert app.player_superwow['Tnu']["Danonzo's Tel'Abim Medley"] == 1
-    
+
     assert app.player['Murdinn']["Hourglass Sand"] == 0
     assert app.player_superwow['Murdinn']["Hourglass Sand"] == 1
 
@@ -401,7 +408,10 @@ def test_uses_consumables(app_log_merge):
 
 
     app.merge_superwow_consumables.merge()
-    
+
+
+    assert app.player['Bcube']["Rage of Ages (ROIDS)"] == 3
+    assert app.player_superwow['Bcube']["Rage of Ages (ROIDS)"] == 0
 
 
     assert app.player['Gregory']["Juju Power"] == 1

@@ -2,12 +2,12 @@ from melbalabs.summarize_consumes.main import NAME2ITEMID
 from melbalabs.summarize_consumes.main import NAME2ITEMID_BOP
 from melbalabs.summarize_consumes.main import NAME2CONSUMABLE
 from melbalabs.summarize_consumes.main import USES_CONSUMABLE_RENAME
-from melbalabs.summarize_consumes.main import USES_CONSUMABLE_ENHANCE
 from melbalabs.summarize_consumes.main import USES_CONSUMABLE_OVERWRITE
 from melbalabs.summarize_consumes.main import all_defined_consumable_items
 
 from melbalabs.summarize_consumes.consumable import PriceFromComponents
 from melbalabs.summarize_consumes.consumable import DirectPrice
+from melbalabs.summarize_consumes.consumable import SuperwowConsumable
 
 
 
@@ -316,10 +316,7 @@ def test_consumes_exist():
         if key in skips: continue
         key = USES_CONSUMABLE_RENAME.get(key, key)
         whitelisted = 0
-        if key in USES_CONSUMABLE_ENHANCE:
-            key = USES_CONSUMABLE_ENHANCE.get(key, key)
-            whitelisted += 1
-        elif key in USES_CONSUMABLE_OVERWRITE:
+        if  key in USES_CONSUMABLE_OVERWRITE:
             whitelisted += 1
         else:
             found.add((key, 'not categorized'))
@@ -343,17 +340,12 @@ def test_sanity1():
     for name in NAME2ITEMID:
         assert name in NAME2CONSUMABLE
         assert NAME2CONSUMABLE[name].price.itemid == NAME2ITEMID[name]
+ 
 
 
 def test_sanity3():
     assert set(NAME2ITEMID_BOP).isdisjoint(set(NAME2ITEMID))
-
-def test_uses_consumable_disjoint():
-    enh = set(USES_CONSUMABLE_ENHANCE)
-    ow = set(USES_CONSUMABLE_OVERWRITE)
-    
-    assert enh.isdisjoint(ow)
-    
+ 
 
 def test_sanity5():
     uniq = len(set(consumable.name for consumable in all_defined_consumable_items))
