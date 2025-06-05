@@ -379,7 +379,7 @@ all_defined_consumable_items: List[Consumable] = [
         ),
         spell_aliases=[("gains_line", "Crystal Ward")],
     ),
-    Consumable(
+    SuperwowConsumable(
         name="Crystal Force",
         price=PriceFromComponents(
             charges=6,
@@ -388,8 +388,34 @@ all_defined_consumable_items: List[Consumable] = [
                 (_blue_power_crystal, 10),
             ],
         ),
-        spell_aliases=[("gains_line", "Crystal Force")],
+        spell_aliases=[("gains_line", "Crystal Force"), ('uses_line', 'Crystal Force')],
+        strategy=EnhanceStrategy(),
     ),
+    SuperwowConsumable(
+        name="Crystal Spire",
+        price=PriceFromComponents(
+            charges=6,
+            components=[
+                (_blue_power_crystal, 10),
+                (_yellow_power_crystal, 10),
+            ],
+        ),
+        spell_aliases=[("gains_line", "Crystal Spire"), ('uses_line', 'Crystal Spire')],
+        strategy=EnhanceStrategy(),
+    ),
+    SuperwowConsumable(
+        name="Crystal Charge",
+        price=PriceFromComponents(
+            charges=6,
+            components=[
+                (_yellow_power_crystal, 10),
+                (_red_power_crystal, 10),
+            ],
+        ),
+        spell_aliases=[("uses_line", "Crystal Charge")],
+        strategy=SafeStrategy(),
+    ),
+
     SuperwowConsumable(
         name="Brilliant Mana Oil",
         price=DirectPrice(charges=5, itemid=20748),
@@ -990,7 +1016,7 @@ all_defined_consumable_items: List[Consumable] = [
         strategy=EnhanceStrategy(),
     ),
     Consumable(
-        name='Restore Mana (mana potion)',
+        name="Restore Mana (mana potion)",
         price=NoPrice(),
         spell_aliases=[("gains_mana_line", "Restore Mana")],
     ),
@@ -1147,7 +1173,6 @@ all_defined_consumable_items: List[Consumable] = [
         spell_aliases=[("uses_line", "Weak Trolls Blood Potion")],
         strategy=OverwriteStrategy(target_consumable_name="Regeneration"),
     ),
-
     SuperwowConsumable(
         name="Major Troll's Blood Potion",
         price=DirectPrice(itemid=20004),
@@ -1383,18 +1408,7 @@ all_defined_consumable_items: List[Consumable] = [
         price=DirectPrice(itemid=16023),
         spell_aliases=[("casts_line", "Masterwork Target Dummy")],
     ),
-    SuperwowConsumable(
-        name="Crystal Charge",
-        price=PriceFromComponents(
-            charges=6,
-            components=[
-                (_yellow_power_crystal, 10),
-                (_red_power_crystal, 10),
-            ],
-        ),
-        spell_aliases=[("uses_line", "Crystal Charge")],
-        strategy=SafeStrategy(),
-    ),
+
     SuperwowConsumable(
         name="Conjured Mana Orange",
         price=NoPrice(),
@@ -1426,37 +1440,37 @@ all_defined_consumable_items: List[Consumable] = [
         strategy=SafeStrategy(),
     ),
     SuperwowConsumable(
-        name="Ironforge Gift of Friendship",
+        name="Gift of Friendship - Ironforge (stam)",
         price=NoPrice(),
         spell_aliases=[("uses_line", "Ironforge Gift of Friendship")],
         strategy=SafeStrategy(),
     ),
     SuperwowConsumable(
-        name="Stormwind Gift of Friendship",
+        name="Gift of Friendship - Stormwind (int)",
         price=NoPrice(),
         spell_aliases=[("uses_line", "Stormwind Gift of Friendship")],
         strategy=SafeStrategy(),
     ),
     SuperwowConsumable(
-        name="Darnassus Gift of Friendship",
+        name="Gift of Friendship - Darnassus (agi)",
         price=NoPrice(),
         spell_aliases=[("uses_line", "Darnassus Gift of Friendship")],
         strategy=SafeStrategy(),
     ),
     SuperwowConsumable(
-        name="Orgrimmar Gift of Friendship",
+        name="Gift of Friendship - Orgrimmar (agi)",
         price=NoPrice(),
         spell_aliases=[("uses_line", "Orgrimmar Gift of Friendship")],
         strategy=SafeStrategy(),
     ),
     SuperwowConsumable(
-        name="Thunder Bluff Gift of Friendship",
+        name="Gift of Friendship - Thunder Bluff (stam)",
         price=NoPrice(),
         spell_aliases=[("uses_line", "Thunder Bluff Gift of Friendship")],
         strategy=SafeStrategy(),
     ),
     SuperwowConsumable(
-        name="Undercity Gift of Friendship",
+        name="Gift of Friendship - Undercity (int)",
         price=NoPrice(),
         spell_aliases=[("uses_line", "Undercity Gift of Friendship")],
         strategy=SafeStrategy(),
@@ -1833,7 +1847,6 @@ def healpot_lookup(amount):
     if 69 <= amount <= 91:
         return "Healing Potion - Minor"
     return "Healing Potion - unknown"
-
 
 
 class LogParser:
@@ -4013,8 +4026,9 @@ class MergeSuperwowConsumables:
             print("writing superwow merge to", self.filename)
 
         # note that both player and player_superwow map a canonical consumable
-        # name to its count. you can investigate eg. the uses_line and
-        # gains_line code to convince yourself it's true
+        # name (from all_defined_consumable_items) to its count.
+        # you can investigate eg. the uses_line and gains_line code to
+        # convince yourself it's true
         #
         # so the c and c_swow names are only different in how they are used.
         # c is used for the native counts in player
@@ -4025,52 +4039,50 @@ class MergeSuperwowConsumables:
             consumables = set(self.player[player])
             for c_swow in consumables_swow:
                 consumable = NAME2CONSUMABLE.get(c_swow)
-                if consumable is None:
-                    self.log(f"impossible! consumable not found {c_swow}")
-                    continue
-                if isinstance(consumable, SuperwowConsumable) and isinstance(
-                    consumable.strategy, SafeStrategy
-                ):
-                    if self.player[player].get(c_swow, 0):
-                        self.log(f"impossible! consumable not safe {consumable}")
-                    self.player[player][c_swow] = self.player_superwow[player][c_swow]
-                    del self.player_superwow[player][c_swow]
 
-                elif isinstance(consumable, SuperwowConsumable) and isinstance(
-                    consumable.strategy, EnhanceStrategy
-                ):
+                match consumable:
+                    case None:
+                        self.log(f"impossible! consumable not found {c_swow}")
+                        continue
 
-                    self.player[player][c_swow] = max(self.player_superwow[player][c_swow], self.player[player][c_swow])
-                    del self.player_superwow[player][c_swow]
-
-                elif isinstance(consumable, SuperwowConsumable) and isinstance(
-                    consumable.strategy, OverwriteStrategy
-                ):
-                    # will try to delete the native counts with the old name and use the new name coming from superwow
-                    # eg. the prot pots have non-specific native names, but with superwow the specific name shows up
-                    c = consumable.strategy.target_consumable_name
-                    # if c not in consumables:
-                    #    self.log(f"mismatch from {c_swow} to {c}. {player} {c} is not in consumables")
-                    if (
-                        c != c_swow
-                        and self.player[player].get(c, 0) > self.player_superwow[player][c_swow]
-                    ):
-                        self.log(f"partial merge (overwrite). {player} {c} > {c_swow}")
-
-                        remain = self.player[player][c] - self.player_superwow[player][c_swow]
-                        self.player[player][c] = remain
+                    case SuperwowConsumable(strategy=SafeStrategy()):
+                        if self.player[player].get(c_swow, 0):
+                            self.log(f"impossible! consumable not safe {consumable}")
                         self.player[player][c_swow] = self.player_superwow[player][c_swow]
                         del self.player_superwow[player][c_swow]
 
+                    case SuperwowConsumable(strategy=EnhanceStrategy()):
+                        self.player[player][c_swow] = max(
+                            self.player_superwow[player][c_swow], self.player[player][c_swow]
+                        )
+                        del self.player_superwow[player][c_swow]
+
+                    case SuperwowConsumable(strategy=OverwriteStrategy(target_consumable_name=c)):
+                        # will try to delete the native counts with the old name and use the new name coming from superwow
+                        # eg. the prot pots have non-specific native names, but with superwow the specific name shows up
+                        c = consumable.strategy.target_consumable_name
+                        # if c not in consumables:
+                        #    self.log(f"mismatch from {c_swow} to {c}. {player} {c} is not in consumables")
+                        if (
+                            c != c_swow
+                            and self.player[player].get(c, 0) > self.player_superwow[player][c_swow]
+                        ):
+                            self.log(f"partial merge (overwrite). {player} {c} > {c_swow}")
+
+                            remain = self.player[player][c] - self.player_superwow[player][c_swow]
+                            self.player[player][c] = remain
+                            self.player[player][c_swow] = self.player_superwow[player][c_swow]
+                            del self.player_superwow[player][c_swow]
+
+                            continue
+
+                        self.player[player].pop(c, None)  # might not exist
+                        self.player[player][c_swow] = self.player_superwow[player][c_swow]
+                        del self.player_superwow[player][c_swow]
+
+                    case _:
+                        self.log(f"{c_swow} not known??")
                         continue
-
-                    self.player[player].pop(c, None)  # might not exist
-                    self.player[player][c_swow] = self.player_superwow[player][c_swow]
-                    del self.player_superwow[player][c_swow]
-
-                else:
-                    self.log(f"{c_swow} not known??")
-                    continue
 
         all_unknown = set()
         for player, consumables in self.player_superwow_unknown.items():

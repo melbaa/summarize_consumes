@@ -305,8 +305,21 @@ def test_consumes_exist():
         'The Black Pendant',
         'Ancient Cornerstone Grimoire',
         'Shimmering Moonstone Tablet',
+        'Arcanite Dragonling',
+        'Defender of the Timbermaw',
+        'Coldhowls Necklace',
+        'Gnomish Battle Chicken',
+        'Goblin Rocket Boots',
+        'Barov Peasant Caller',
     }
     found = set()
+
+    RAWSPELLNAMES = set()
+    # build cache of all raw spellnames
+    for consumable in all_defined_consumable_items:
+        for line_type, rawspellname in consumable.spell_aliases:
+            RAWSPELLNAMES.add(rawspellname)
+
 
     # check if the logger consume is added to USES_CONSUMABLE whitelists
     # and to NAME2ITEMID for pricing
@@ -319,7 +332,9 @@ def test_consumes_exist():
             continue
         if key in NAME2ITEMID:
             continue
-        
+        if key in RAWSPELLNAMES:
+            continue
+
         found.add((key, 'not priced'))
     for key in sorted(found):
         print(key)
