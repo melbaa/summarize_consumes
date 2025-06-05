@@ -1,5 +1,6 @@
 from melbalabs.summarize_consumes.main import NAME2ITEMID
 from melbalabs.summarize_consumes.main import NAME2CONSUMABLE
+from melbalabs.summarize_consumes.main import RAWSPELLNAME2CONSUMABLE
 from melbalabs.summarize_consumes.main import USES_CONSUMABLE_RENAME
 from melbalabs.summarize_consumes.main import all_defined_consumable_items
 
@@ -311,6 +312,12 @@ def test_consumes_exist():
         'Gnomish Battle Chicken',
         'Goblin Rocket Boots',
         'Barov Peasant Caller',
+        "Alchemists Stone",
+        'Greater Mark of the Dawn',
+        'Lesser Mark of the Dawn',
+        'Mark of the Dawn',
+        'Low Energy Regulator',
+        'Severed Voodoo Claw',
     }
     found = set()
 
@@ -338,7 +345,7 @@ def test_consumes_exist():
         found.add((key, 'not priced'))
     for key in sorted(found):
         print(key)
-    # assert not found
+    assert not found
 
 
 def test_sanity1():
@@ -352,6 +359,10 @@ def test_sanity2():
         if not isinstance(consumable, SuperwowConsumable): continue
         if not isinstance(consumable.strategy, OverwriteStrategy): continue
         assert consumable.strategy.target_consumable_name in NAME2CONSUMABLE
+
+def test_sanity3():
+    # special handling
+    assert RAWSPELLNAME2CONSUMABLE.get(('gains_mana_line', 'Restore Mana')) is None
 
 
 def test_sanity5():

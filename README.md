@@ -116,42 +116,69 @@ python -m venv venv
 | Anti-Venom | [6452](https://database.turtle-wow.org/?item=6452) |  |
 | Arcane Elixir | [9155](https://database.turtle-wow.org/?item=9155) |  |
 | Arcane Protection |  |  |
+| Armor |  |  |
+| Baked Salmon | [13935](https://database.turtle-wow.org/?item=13935) |  |
 | Basilisk Brain | [8394](https://database.turtle-wow.org/?item=8394) |  |
 | Blasted Boar Lung | [8392](https://database.turtle-wow.org/?item=8392) |  |
+| Blended Bean Brew |  |  |
 | Blessed Sunfruit |  |  |
 | Blessed Sunfruit Juice |  |  |
 | Blessed Wizard Oil | [23123](https://database.turtle-wow.org/?item=23123) |  |
+| Bloodkelp Elixir of Dodging |  |  |
 | Bloodkelp Elixir of Resistance |  |  |
 | Blue Power Crystal | [11184](https://database.turtle-wow.org/?item=11184) |  |
 | Bogling Root | [5206](https://database.turtle-wow.org/?item=5206) |  |
+| Boiled Clams |  |  |
+| Bottled Alterac Spring Water |  |  |
+| Bottled Winterspring Water |  |  |
 | Bright Dream Shard | [61199](https://database.turtle-wow.org/?item=61199) |  |
 | Brilliant Mana Oil | [20748](https://database.turtle-wow.org/?item=20748) | 5 |
 | Brilliant Wizard Oil | [20749](https://database.turtle-wow.org/?item=20749) | 5 |
+| Bubbly Beverage |  |  |
 | Buttermilk Delight |  |  |
+| Catseye Elixir |  |  |
+| Cleaning Cloth |  |  |
+| Combat Healing Potion |  |  |
 | Conjured Crystal Water |  |  |
 | Conjured Mana Orange |  |  |
 | Consecrated Sharpening Stone | [23122](https://database.turtle-wow.org/?item=23122) |  |
+| Cowardly Flight Potion |  |  |
+| Crunchy Frog |  |  |
+| Crusty Flatbread |  |  |
 | Crystal Basilisk Spine | [1703](https://database.turtle-wow.org/?item=1703) |  |
-| Crystal Charge | - 10x Yellow Power Crystal<br>- 10x Red Power Crystal | 6 |
-| Crystal Force | - 10x Green Power Crystal<br>- 10x Blue Power Crystal | 6 |
-| Crystal Ward | - 10x Green Power Crystal<br>- 10x Red Power Crystal | 6 |
+| Crystal Charge | 10 x Yellow Power Crystal<br>10 x Red Power Crystal | 6 |
+| Crystal Force | 10 x Green Power Crystal<br>10 x Blue Power Crystal | 6 |
+| Crystal Infused Bandage |  |  |
+| Crystal Spire | 10 x Blue Power Crystal<br>10 x Yellow Power Crystal | 6 |
+| Crystal Ward | 10 x Green Power Crystal<br>10 x Red Power Crystal | 6 |
 | Danonzo's Tel'Abim Delight | [60977](https://database.turtle-wow.org/?item=60977) |  |
 | Danonzo's Tel'Abim Medley | [60978](https://database.turtle-wow.org/?item=60978) |  |
 | Danonzo's Tel'Abim Surprise | [60976](https://database.turtle-wow.org/?item=60976) |  |
 | Dark Desire |  |  |
 | Dark Rune | [20520](https://database.turtle-wow.org/?item=20520) |  |
-| Darnassus Gift of Friendship |  |  |
 | Deeprock Salt | [8150](https://database.turtle-wow.org/?item=8150) |  |
+| Deepsea Lobster |  |  |
+| Delicious Pizza |  |  |
 | Demonic Rune |  |  |
 | Dense Dynamite | [18641](https://database.turtle-wow.org/?item=18641) |  |
 | Dense Sharpening Stone | [12404](https://database.turtle-wow.org/?item=12404) |  |
 | Dense Weightstone | [12643](https://database.turtle-wow.org/?item=12643) |  |
+| Dig Rat Stew |  |  |
+| Discolored Healing Potion |  |  |
 | Dragonbreath Chili | [12217](https://database.turtle-wow.org/?item=12217) |  |
+| Dreamless Sleep Potion | [12190](https://database.turtle-wow.org/?item=12190) |  |
 | Dreamshard Elixir | [61224](https://database.turtle-wow.org/?item=61224) |  |
 | Dreamtonic | [61423](https://database.turtle-wow.org/?item=61423) |  |
+| Egg Nog |  |  |
+| Elderberry Pie |  |  |
 | Elemental Sharpening Stone | [18262](https://database.turtle-wow.org/?item=18262) |  |
+| Elixir of Agility |  |  |
 | Elixir of Brute Force | [13453](https://database.turtle-wow.org/?item=13453) |  |
+| Elixir of Defense |  |  |
 | Elixir of Demonslaying | [9224](https://database.turtle-wow.org/?item=9224) |  |
+| Elixir of Detect Demon |  |  |
+| Elixir of Detect Lesser Invisibility |  |  |
+| Elixir of Detect Undead |  |  |
 | Elixir of Firepower | [6373](https://database.turtle-wow.org/?item=6373) |  |
 | Elixir of Fortitude | [3825](https://database.turtle-wow.org/?item=3825) |  |
 | Elixir of Frost Power | [17708](https://database.turtle-wow.org/?item=17708) |  |
@@ -162,27 +189,50 @@ python -m venv venv
 | Elixir of Greater Firepower | [21546](https://database.turtle-wow.org/?item=21546) |  |
 | Elixir of Greater Intellect | [9179](https://database.turtle-wow.org/?item=9179) |  |
 | Elixir of Greater Nature Power | [50237](https://database.turtle-wow.org/?item=50237) |  |
+| Elixir of Greater Water Breathing |  |  |
+| Elixir of Lesser Agility |  |  |
+| Elixir of Lions Strength |  |  |
+| Elixir of Minor Agility |  |  |
+| Elixir of Minor Fortitude |  |  |
+| Elixir of Ogres Strength |  |  |
 | Elixir of Poison Resistance | [3386](https://database.turtle-wow.org/?item=3386) |  |
 | Elixir of Shadow Power | [9264](https://database.turtle-wow.org/?item=9264) |  |
 | Elixir of Superior Defense | [13445](https://database.turtle-wow.org/?item=13445) |  |
+| Elixir of Water Breathing |  |  |
+| Elixir of Water Walking |  |  |
+| Elixir of Wisdom |  |  |
 | Elixir of the Mongoose | [13452](https://database.turtle-wow.org/?item=13452) |  |
-| Emerald Blessing | - 1x Bright Dream Shard |  |
+| Emerald Blessing | 1 x Bright Dream Shard |  |
 | Empowering Herbal Salad | [83309](https://database.turtle-wow.org/?item=83309) |  |
 | Essence of Fire | [7078](https://database.turtle-wow.org/?item=7078) |  |
+| Festival Dumplings |  |  |
+| Fiery Festival Brew |  |  |
 | Fire Protection |  |  |
 | Fire Protection Potion | [6049](https://database.turtle-wow.org/?item=6049) |  |
 | Fire-toasted Bun |  |  |
+| Fishliver Oil |  |  |
+| Fizzy Faire Drink |  |  |
 | Flask of Chromatic Resistance | [13513](https://database.turtle-wow.org/?item=13513) |  |
 | Flask of Distilled Wisdom | [13511](https://database.turtle-wow.org/?item=13511) |  |
 | Flask of Petrification | [13506](https://database.turtle-wow.org/?item=13506) |  |
 | Flask of Supreme Power | [13512](https://database.turtle-wow.org/?item=13512) |  |
 | Flask of the Titans | [13510](https://database.turtle-wow.org/?item=13510) |  |
 | Free Action Potion | [5634](https://database.turtle-wow.org/?item=5634) |  |
+| Freshly-Squeezed Lemonade |  |  |
 | Frost Oil | [3829](https://database.turtle-wow.org/?item=3829) |  |
 | Frost Protection |  |  |
 | Frost Protection Potion | [6050](https://database.turtle-wow.org/?item=6050) |  |
 | Frozen Rune | [22682](https://database.turtle-wow.org/?item=22682) |  |
+| Gargantuan Tel'Abim Banana |  |  |
 | Gift of Arthas | [9088](https://database.turtle-wow.org/?item=9088) |  |
+| Gift of Friendship - Darnassus (agi) |  |  |
+| Gift of Friendship - Ironforge (stam) |  |  |
+| Gift of Friendship - Orgrimmar (agi) |  |  |
+| Gift of Friendship - Stormwind (int) |  |  |
+| Gift of Friendship - Thunder Bluff (stam) |  |  |
+| Gift of Friendship - Undercity (int) |  |  |
+| Gilneas Hot Stew | [84041](https://database.turtle-wow.org/?item=84041) |  |
+| Gizzard Gum (Spiritual Dominaiton) | 10 x Vulture Gizzard<br>2 x Snickerfang Jowl |  |
 | Goblin Brainwashing Device |  |  |
 | Goblin Sapper Charge | [10646](https://database.turtle-wow.org/?item=10646) |  |
 | Gordok Green Grog |  |  |
@@ -194,26 +244,34 @@ python -m venv venv
 | Greater Dreamless Sleep Potion | [20002](https://database.turtle-wow.org/?item=20002) |  |
 | Greater Fire Protection Potion | [13457](https://database.turtle-wow.org/?item=13457) |  |
 | Greater Frost Protection Potion | [13456](https://database.turtle-wow.org/?item=13456) |  |
+| Greater Healing Potion |  |  |
 | Greater Holy Protection Potion | [13460](https://database.turtle-wow.org/?item=13460) |  |
 | Greater Nature Protection Potion | [13458](https://database.turtle-wow.org/?item=13458) |  |
 | Greater Shadow Protection Potion | [13459](https://database.turtle-wow.org/?item=13459) |  |
 | Greater Stoneshield | [13455](https://database.turtle-wow.org/?item=13455) |  |
+| Green Garden Tea |  |  |
 | Green Power Crystal | [11185](https://database.turtle-wow.org/?item=11185) |  |
 | Grilled Squid | [13928](https://database.turtle-wow.org/?item=13928) |  |
 | Gurubashi Gumbo | [53015](https://database.turtle-wow.org/?item=53015) |  |
+| Handful of Rose Petals |  |  |
 | Hardened Mushroom | [51717](https://database.turtle-wow.org/?item=51717) |  |
+| Healing Potion |  |  |
 | Healing Potion - Major | [13446](https://database.turtle-wow.org/?item=13446) |  |
 | Healing Potion - Superior | [3928](https://database.turtle-wow.org/?item=3928) |  |
+| Heavy Runecloth Bandage |  |  |
+| Highpeak Thistle |  |  |
 | Holy Protection |  |  |
 | Holy Protection Potion | [6051](https://database.turtle-wow.org/?item=6051) |  |
+| Hot Smoked Bass |  |  |
 | Hourglass Sand | [19183](https://database.turtle-wow.org/?item=19183) |  |
 | Increased Intellect |  |  |
 | Increased Stamina |  |  |
-| Infallible Mind (Cerebral Cortex Compound) | - 10x Basilisk Brain<br>- 2x Vulture Gizzard |  |
+| Infallible Mind (Cerebral Cortex Compound) | 10 x Basilisk Brain<br>2 x Vulture Gizzard |  |
+| Intellect |  |  |
 | Invisibility Potion | [9172](https://database.turtle-wow.org/?item=9172) |  |
 | Invulnerability | [3387](https://database.turtle-wow.org/?item=3387) |  |
 | Iron Grenade | [4390](https://database.turtle-wow.org/?item=4390) |  |
-| Ironforge Gift of Friendship |  |  |
+| Juicy Striped Melon | [51718](https://database.turtle-wow.org/?item=51718) |  |
 | Juju Chill | [12434](https://database.turtle-wow.org/?item=12434) |  |
 | Juju Ember | [12432](https://database.turtle-wow.org/?item=12432) |  |
 | Juju Escape | [12435](https://database.turtle-wow.org/?item=12435) |  |
@@ -228,78 +286,122 @@ python -m venv venv
 | Le Fishe Au Chocolat | [84040](https://database.turtle-wow.org/?item=84040) |  |
 | Lesser Invisibility Potion | [3823](https://database.turtle-wow.org/?item=3823) |  |
 | Lesser Mana Oil | [20747](https://database.turtle-wow.org/?item=20747) | 5 |
+| Lesser Stoneshield Potion |  |  |
+| Lily Root |  |  |
 | Living Action Potion | [20008](https://database.turtle-wow.org/?item=20008) |  |
 | Lucidity Potion | [61225](https://database.turtle-wow.org/?item=61225) |  |
-| Lung Juice Cocktail | - 1x Basilisk Brain<br>- 2x Scorpok Pincer<br>- 3x Blasted Boar Lung |  |
+| Lung Juice Cocktail | 1 x Basilisk Brain<br>2 x Scorpok Pincer<br>3 x Blasted Boar Lung |  |
 | MOLL-E, Remote Mail Terminal |  |  |
 | Mageblood Potion | [20007](https://database.turtle-wow.org/?item=20007) |  |
+| Magic Dust | [2091](https://database.turtle-wow.org/?item=2091) |  |
 | Magic Resistance Potion | [9036](https://database.turtle-wow.org/?item=9036) |  |
+| Major Healing Draught |  |  |
+| Major Mana Draught |  |  |
 | Major Troll's Blood Potion | [20004](https://database.turtle-wow.org/?item=20004) |  |
+| Mana Potion | [3827](https://database.turtle-wow.org/?item=3827) |  |
 | Mana Potion - Greater | [6149](https://database.turtle-wow.org/?item=6149) |  |
+| Mana Potion - Lesser |  |  |
 | Mana Potion - Major | [13444](https://database.turtle-wow.org/?item=13444) |  |
+| Mana Potion - Minor |  |  |
 | Mana Potion - Superior | [13443](https://database.turtle-wow.org/?item=13443) |  |
 | Mana Regeneration (food or mageblood) |  |  |
 | Masterwork Target Dummy | [16023](https://database.turtle-wow.org/?item=16023) |  |
 | Medivh's Merlot | [61174](https://database.turtle-wow.org/?item=61174) |  |
 | Medivh's Merlot Blue Label | [61175](https://database.turtle-wow.org/?item=61175) |  |
 | Midsummer Sausage |  |  |
+| Mightfish Steak |  |  |
 | Mighty Rage Potion | [13442](https://database.turtle-wow.org/?item=13442) |  |
 | Mighty Troll's Blood Potion | [3826](https://database.turtle-wow.org/?item=3826) |  |
+| Minor Healing Potion |  |  |
+| Minor Magic Resistance Potion |  |  |
+| Morning Glory Dew |  |  |
+| Mug of Shimmer Stout |  |  |
 | Nature Protection |  |  |
 | Nature Protection Potion | [6052](https://database.turtle-wow.org/?item=6052) |  |
 | Nightfin Soup | [13931](https://database.turtle-wow.org/?item=13931) |  |
 | Noggenfogger Elixir |  |  |
 | Oil of Immolation | [8956](https://database.turtle-wow.org/?item=8956) |  |
-| Orgrimmar Gift of Friendship |  |  |
+| Oil of Olaf |  |  |
+| Party Grenade |  |  |
+| Plump Country Pumpkin |  |  |
 | Poisonous Mushroom | [5823](https://database.turtle-wow.org/?item=5823) |  |
+| Potion of Fervor |  |  |
 | Potion of Quickness | [61181](https://database.turtle-wow.org/?item=61181) |  |
 | Power Mushroom | [51720](https://database.turtle-wow.org/?item=51720) |  |
 | Powerful Anti-Venom | [19440](https://database.turtle-wow.org/?item=19440) |  |
-| Powerful Smelling Salts | - 4x Deeprock Salt<br>- 2x Essence of Fire<br>- 1x Larval Acid |  |
+| Powerful Smelling Salts | 4 x Deeprock Salt<br>2 x Essence of Fire<br>1 x Larval Acid |  |
 | Purification Potion | [13462](https://database.turtle-wow.org/?item=13462) |  |
 | Purple Lotus | [8831](https://database.turtle-wow.org/?item=8831) |  |
 | Rage Potion | [5631](https://database.turtle-wow.org/?item=5631) |  |
-| Rage of Ages (ROIDS) | - 1x Scorpok Pincer<br>- 2x Blasted Boar Lung<br>- 3x Snickerfang Jowl |  |
+| Rage of Ages (ROIDS) | 1 x Scorpok Pincer<br>2 x Blasted Boar Lung<br>3 x Snickerfang Jowl |  |
+| Raptor Punch |  |  |
+| Raw Slitherskin Mackerel |  |  |
+| Razorlash Root |  |  |
+| Really Sticky Glue |  |  |
 | Red Power Crystal | [11186](https://database.turtle-wow.org/?item=11186) |  |
+| Refreshing Red Apple |  |  |
 | Regeneration |  |  |
 | Rejuvenation Potion - Major | [18253](https://database.turtle-wow.org/?item=18253) |  |
 | Rejuvenation Potion - Minor | [2456](https://database.turtle-wow.org/?item=2456) |  |
 | Restorative Potion | [9030](https://database.turtle-wow.org/?item=9030) |  |
+| Restore Mana (mana potion) |  |  |
+| Restoring Balm |  |  |
+| Ripe Tel'Abim Banana |  |  |
+| Roast Raptor |  |  |
+| Roasted Kodo Meat |  |  |
 | Rumsey Rum |  |  |
 | Rumsey Rum Black Label | [21151](https://database.turtle-wow.org/?item=21151) |  |
 | Rumsey Rum Dark | [21114](https://database.turtle-wow.org/?item=21114) |  |
+| Runecloth Bandage |  |  |
+| Scorpid Surprise |  |  |
 | Scorpok Pincer | [8393](https://database.turtle-wow.org/?item=8393) |  |
 | Scroll of Agility IV | [10309](https://database.turtle-wow.org/?item=10309) |  |
+| Scroll of Empowered Protection |  |  |
 | Scroll of Intellect IV | [10308](https://database.turtle-wow.org/?item=10308) |  |
+| Scroll of Magic Warding |  |  |
 | Scroll of Protection IV | [10305](https://database.turtle-wow.org/?item=10305) |  |
 | Scroll of Spirit IV | [10306](https://database.turtle-wow.org/?item=10306) |  |
 | Scroll of Stamina IV | [10307](https://database.turtle-wow.org/?item=10307) |  |
 | Scroll of Strength IV | [10310](https://database.turtle-wow.org/?item=10310) |  |
+| Scroll of Thorns |  |  |
+| Senggin Root |  |  |
 | Shadow Oil | [3824](https://database.turtle-wow.org/?item=3824) |  |
 | Shadow Protection |  |  |
 | Shadow Protection Potion | [6048](https://database.turtle-wow.org/?item=6048) |  |
-| Sheen of Zanza | - 3x Zulian Coin |  |
+| Sheen of Zanza | 3 x Zulian Coin |  |
 | Slumber Sand |  |  |
 | Small Dream Shard | [61198](https://database.turtle-wow.org/?item=61198) |  |
 | Snickerfang Jowl | [8391](https://database.turtle-wow.org/?item=8391) |  |
 | Solid Dynamite | [10507](https://database.turtle-wow.org/?item=10507) |  |
-| Spirit of Zanza | - 3x Zulian Coin |  |
+| Spiced Beef Jerky |  |  |
+| Spirit |  |  |
+| Spirit of Zanza | 3 x Zulian Coin |  |
 | Stamina |  |  |
-| Stormwind Gift of Friendship |  |  |
+| Stormstout |  |  |
 | Stratholme Holy Water |  |  |
 | Strength |  |  |
-| Strike of the Scorpok | - 1x Blasted Boar Lung<br>- 2x Vulture Gizzard<br>- 3x Scorpok Pincer |  |
+| Strike of the Scorpok | 1 x Blasted Boar Lung<br>2 x Vulture Gizzard<br>3 x Scorpok Pincer |  |
 | Strong Anti-Venom | [6453](https://database.turtle-wow.org/?item=6453) |  |
+| Strong Troll's Blood Potion | [3388](https://database.turtle-wow.org/?item=3388) |  |
+| Sun-Parched Waterskin |  |  |
+| Super Snuff |  |  |
+| Superior Healing Draught |  |  |
+| Superior Mana Draught |  |  |
+| Sweet Mountain Berry |  |  |
 | Sweet Surprise |  |  |
 | Swiftness Potion | [2459](https://database.turtle-wow.org/?item=2459) |  |
-| Swiftness of Zanza | - 3x Zulian Coin |  |
-| Tea with Sugar | - 0.2x Small Dream Shard |  |
+| Swiftness of Zanza | 3 x Zulian Coin |  |
+| Swim Speed Potion |  |  |
+| Tasty Summer Treat |  |  |
+| Tea with Sugar | 0.2 x Small Dream Shard |  |
 | Thistle Tea | [7676](https://database.turtle-wow.org/?item=7676) |  |
 | Thorium Grenade | [15993](https://database.turtle-wow.org/?item=15993) |  |
-| Thunder Bluff Gift of Friendship |  |  |
-| Undercity Gift of Friendship |  |  |
+| Toasted Smorc |  |  |
 | Very Berry Cream |  |  |
+| Volatile Concoction |  |  |
 | Vulture Gizzard | [8396](https://database.turtle-wow.org/?item=8396) |  |
+| Watered-down Beer |  |  |
+| Weak Troll's Blood Potion | [3382](https://database.turtle-wow.org/?item=3382) |  |
 | Wildvine Potion | [9144](https://database.turtle-wow.org/?item=9144) |  |
 | Windblossom Berries |  |  |
 | Winter Veil Candy |  |  |

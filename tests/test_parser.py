@@ -234,9 +234,9 @@ def test_manapot_line(app):
     lines = lines.splitlines(keepends=True)
     for line in lines:
         parse_line(app, line)
-    assert app.player['Ikoretta']['Restore Mana (mana potion)'] == 1
-    assert app.player['Smahingbolt']['Restore Mana (mana potion)'] == 1
-    assert app.player['Magikal']['Restore Mana (mana potion)'] == 1
+    assert app.player['Ikoretta']['Mana Potion - Major'] == 1
+    assert app.player['Smahingbolt']['Mana Potion - Major'] == 1
+    assert app.player['Magikal']['Mana Potion - Major'] == 1
 
 def test_manarune_line(app):
     lines = """

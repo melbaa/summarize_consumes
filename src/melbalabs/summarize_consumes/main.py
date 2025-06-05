@@ -388,7 +388,7 @@ all_defined_consumable_items: List[Consumable] = [
                 (_blue_power_crystal, 10),
             ],
         ),
-        spell_aliases=[("gains_line", "Crystal Force"), ('uses_line', 'Crystal Force')],
+        spell_aliases=[("gains_line", "Crystal Force"), ("uses_line", "Crystal Force")],
         strategy=EnhanceStrategy(),
     ),
     SuperwowConsumable(
@@ -400,7 +400,7 @@ all_defined_consumable_items: List[Consumable] = [
                 (_yellow_power_crystal, 10),
             ],
         ),
-        spell_aliases=[("gains_line", "Crystal Spire"), ('uses_line', 'Crystal Spire')],
+        spell_aliases=[("gains_line", "Crystal Spire"), ("uses_line", "Crystal Spire")],
         strategy=EnhanceStrategy(),
     ),
     SuperwowConsumable(
@@ -415,7 +415,6 @@ all_defined_consumable_items: List[Consumable] = [
         spell_aliases=[("uses_line", "Crystal Charge")],
         strategy=SafeStrategy(),
     ),
-
     SuperwowConsumable(
         name="Brilliant Mana Oil",
         price=DirectPrice(charges=5, itemid=20748),
@@ -502,6 +501,17 @@ all_defined_consumable_items: List[Consumable] = [
             ]
         ),
         spell_aliases=[("gains_line", "Spirit of the Boar"), ("uses_line", "Lung Juice Cocktail")],
+        strategy=EnhanceStrategy(),
+    ),
+    SuperwowConsumable(
+        name="Gizzard Gum (Spiritual Dominaiton)",
+        price=PriceFromComponents(
+            components=[
+                (_vulture_gizzard, 10),
+                (_snickerfang_jowl, 2),
+            ]
+        ),
+        spell_aliases=[("gains_line", "Spiritual Domination"), ("uses_line", "Gizzard Gum")],
         strategy=EnhanceStrategy(),
     ),
     SuperwowConsumable(
@@ -789,6 +799,29 @@ all_defined_consumable_items: List[Consumable] = [
         spell_aliases=[("gains_line", "Lucidity Potion"), ("uses_line", "Lucidity Potion")],
         strategy=EnhanceStrategy(),
     ),
+    Consumable(
+        name="Restore Mana (mana potion)",
+        price=NoPrice(),
+        # special handling, no need to match
+    ),
+    SuperwowConsumable(
+        name="Mana Potion - Minor",
+        price=NoPrice(),
+        spell_aliases=[("uses_line", "Minor Mana Potion")],
+        strategy=OverwriteStrategy(target_consumable_name="Restore Mana (mana potion)"),
+    ),
+    SuperwowConsumable(
+        name="Mana Potion - Lesser",
+        price=NoPrice(),
+        spell_aliases=[("uses_line", "Full Moonshine")],  # small inaccuracy in logger
+        strategy=OverwriteStrategy(target_consumable_name="Restore Mana (mana potion)"),
+    ),
+    SuperwowConsumable(
+        name="Mana Potion",
+        price=DirectPrice(itemid=3827),
+        spell_aliases=[("uses_line", "Mana Potion")],
+        strategy=OverwriteStrategy(target_consumable_name="Restore Mana (mana potion)"),
+    ),
     SuperwowConsumable(
         name="Mana Potion - Greater",
         price=DirectPrice(itemid=6149),
@@ -798,7 +831,10 @@ all_defined_consumable_items: List[Consumable] = [
     SuperwowConsumable(
         name="Mana Potion - Superior",
         price=DirectPrice(itemid=13443),
-        spell_aliases=[("uses_line", "Superior Mana Potion")],
+        spell_aliases=[
+            ("uses_line", "Superior Mana Potion"),
+            ("uses_line", "Combat Mana Potion"),
+        ],
         strategy=OverwriteStrategy(target_consumable_name="Restore Mana (mana potion)"),
     ),
     SuperwowConsumable(
@@ -1015,17 +1051,6 @@ all_defined_consumable_items: List[Consumable] = [
         ],
         strategy=EnhanceStrategy(),
     ),
-    Consumable(
-        name="Restore Mana (mana potion)",
-        price=NoPrice(),
-        spell_aliases=[("gains_mana_line", "Restore Mana")],
-    ),
-    SuperwowConsumable(
-        name="Mana Potion - Combat",
-        price=DirectPrice(itemid=18841),
-        spell_aliases=[("uses_line", "Combat Mana Potion")],
-        strategy=OverwriteStrategy(target_consumable_name="Restore Mana (mana potion)"),
-    ),
     SuperwowConsumable(
         name="Rejuvenation Potion - Major",
         price=DirectPrice(itemid=18253),
@@ -1174,6 +1199,12 @@ all_defined_consumable_items: List[Consumable] = [
         strategy=OverwriteStrategy(target_consumable_name="Regeneration"),
     ),
     SuperwowConsumable(
+        name="Strong Troll's Blood Potion",
+        price=DirectPrice(itemid=3388),
+        spell_aliases=[("uses_line", "Strong Trolls Blood Potion")],
+        strategy=OverwriteStrategy(target_consumable_name="Regeneration"),
+    ),
+    SuperwowConsumable(
         name="Major Troll's Blood Potion",
         price=DirectPrice(itemid=20004),
         spell_aliases=[("uses_line", "Major Trolls Blood Potion")],
@@ -1275,10 +1306,23 @@ all_defined_consumable_items: List[Consumable] = [
         ],
         strategy=OverwriteStrategy(target_consumable_name="Dense Weightstone"),
     ),
-    Consumable(
+    SuperwowConsumable(
         name="Bloodkelp Elixir of Resistance",
         price=NoPrice(),
-        spell_aliases=[("gains_line", "Elixir of Resistance")],
+        spell_aliases=[
+            ("gains_line", "Elixir of Resistance"),
+            ("uses_line", "Bloodkelp Elixir of Resistance"),
+        ],
+        strategy=EnhanceStrategy(),
+    ),
+    SuperwowConsumable(
+        name="Bloodkelp Elixir of Dodging",
+        price=NoPrice(),
+        spell_aliases=[
+            ("gains_line", "Elixir of Dodging"),
+            ("uses_line", "Bloodkelp Elixir of Dodging"),
+        ],
+        strategy=EnhanceStrategy(),
     ),
     Consumable(
         name="Fire-toasted Bun",
@@ -1408,7 +1452,6 @@ all_defined_consumable_items: List[Consumable] = [
         price=DirectPrice(itemid=16023),
         spell_aliases=[("casts_line", "Masterwork Target Dummy")],
     ),
-
     SuperwowConsumable(
         name="Conjured Mana Orange",
         price=NoPrice(),
@@ -1533,7 +1576,7 @@ all_defined_consumable_items: List[Consumable] = [
         name="Stratholme Holy Water",
         price=NoPrice(),
         spell_aliases=[("uses_line", "Stratholme Holy Water")],
-        strategy=SafeStrategy(),
+        strategy=EnhanceStrategy(),
     ),
     SuperwowConsumable(
         name="Elixir of Firepower",
@@ -1618,6 +1661,546 @@ all_defined_consumable_items: List[Consumable] = [
         price=NoPrice(),
         spell_aliases=[("gains_mana_line", "Demonic Rune"), ("uses_line", "Demonic Rune")],
         strategy=EnhanceStrategy(),
+    ),
+    SuperwowConsumable(
+        name="Baked Salmon",
+        price=DirectPrice(itemid=13935),
+        spell_aliases=[("uses_line", "Baked Salmon")],
+        strategy=SafeStrategy(),
+    ),
+    SuperwowConsumable(
+        name="Blended Bean Brew",
+        price=NoPrice(),  # has price, but low lvl
+        spell_aliases=[("uses_line", "Blended Bean Brew")],
+        strategy=SafeStrategy(),
+    ),
+    SuperwowConsumable(
+        name="Boiled Clams",
+        price=NoPrice(),  # has price, but low lvl
+        spell_aliases=[("uses_line", "Boiled Clams")],
+        strategy=SafeStrategy(),
+    ),
+    SuperwowConsumable(
+        name="Bottled Alterac Spring Water",
+        price=NoPrice(),
+        spell_aliases=[("uses_line", "Bottled Alterac Spring Water")],
+        strategy=SafeStrategy(),
+    ),
+    SuperwowConsumable(
+        name="Bottled Winterspring Water",
+        price=NoPrice(),
+        spell_aliases=[("uses_line", "Bottled Winterspring Water")],
+        strategy=SafeStrategy(),
+    ),
+    SuperwowConsumable(
+        name="Bubbly Beverage",
+        price=NoPrice(),
+        spell_aliases=[("uses_line", "Bubbly Beverage")],
+        strategy=SafeStrategy(),
+    ),
+    SuperwowConsumable(
+        name="Catseye Elixir",
+        price=NoPrice(),  # has price, but low lvl
+        spell_aliases=[("uses_line", "Catseye Elixir")],
+        strategy=SafeStrategy(),
+    ),
+    SuperwowConsumable(
+        name="Cleaning Cloth",
+        price=NoPrice(),  # has price, but low lvl
+        spell_aliases=[("uses_line", "Cleaning Cloth")],
+        strategy=SafeStrategy(),
+    ),
+    SuperwowConsumable(
+        name="Combat Healing Potion",
+        price=NoPrice(),
+        spell_aliases=[("uses_line", "Combat Healing Potion")],
+        strategy=SafeStrategy(),
+    ),
+    SuperwowConsumable(
+        name="Cowardly Flight Potion",
+        price=NoPrice(),  # useless
+        spell_aliases=[("uses_line", "Cowardly Flight Potion")],
+        strategy=SafeStrategy(),
+    ),
+    SuperwowConsumable(
+        name="Crunchy Frog",
+        price=NoPrice(),  # useless
+        spell_aliases=[("uses_line", "Crunchy Frog")],
+        strategy=SafeStrategy(),
+    ),
+    SuperwowConsumable(
+        name="Crusty Flatbread",
+        price=NoPrice(),  # useless
+        spell_aliases=[("uses_line", "Crusty Flatbread")],
+        strategy=SafeStrategy(),
+    ),
+    SuperwowConsumable(
+        name="Crystal Infused Bandage",
+        price=NoPrice(),  # TODO
+        spell_aliases=[("uses_line", "Crystal Infused Bandage")],
+        strategy=SafeStrategy(),
+    ),
+    SuperwowConsumable(
+        name="Deepsea Lobster",
+        price=NoPrice(),  # useless
+        spell_aliases=[("uses_line", "Deepsea Lobster")],
+        strategy=SafeStrategy(),
+    ),
+    SuperwowConsumable(
+        name="Delicious Pizza",
+        price=NoPrice(),  # TODO
+        spell_aliases=[("uses_line", "Delicious Pizza")],
+        strategy=SafeStrategy(),
+    ),
+    SuperwowConsumable(
+        name="Dig Rat Stew",
+        price=NoPrice(),  # useless
+        spell_aliases=[("uses_line", "Dig Rat Stew")],
+        strategy=SafeStrategy(),
+    ),
+    SuperwowConsumable(
+        name="Discolored Healing Potion",
+        price=NoPrice(),  # useless
+        spell_aliases=[("uses_line", "Discolored Healing Potion")],
+        strategy=SafeStrategy(),
+    ),
+    SuperwowConsumable(
+        name="Dreamless Sleep Potion",
+        price=DirectPrice(itemid=12190),
+        spell_aliases=[("uses_line", "Dreamless Sleep Potion")],
+        strategy=SafeStrategy(),
+    ),
+    SuperwowConsumable(
+        name="Egg Nog",
+        price=NoPrice(),  # useless
+        spell_aliases=[("uses_line", "Egg Nog")],
+        strategy=SafeStrategy(),
+    ),
+    SuperwowConsumable(
+        name="Elderberry Pie",
+        price=NoPrice(),
+        spell_aliases=[("uses_line", "Elderberry Pie")],
+        strategy=SafeStrategy(),
+    ),
+    SuperwowConsumable(
+        name="Elixir of Agility",
+        price=NoPrice(),  # useless
+        spell_aliases=[("uses_line", "Elixir of Agility")],
+        strategy=SafeStrategy(),
+    ),
+    SuperwowConsumable(
+        name="Elixir of Defense",
+        price=NoPrice(),  # useless
+        spell_aliases=[("uses_line", "Elixir of Defense")],
+        strategy=SafeStrategy(),
+    ),
+    SuperwowConsumable(
+        name="Elixir of Detect Demon",
+        price=NoPrice(),  # useless
+        spell_aliases=[("uses_line", "Elixir of Detect Demon")],
+        strategy=SafeStrategy(),
+    ),
+    SuperwowConsumable(
+        name="Elixir of Detect Lesser Invisibility",
+        price=NoPrice(),  # useless
+        spell_aliases=[("uses_line", "Elixir of Detect Lesser Invisibility")],
+        strategy=SafeStrategy(),
+    ),
+    SuperwowConsumable(
+        name="Elixir of Detect Undead",
+        price=NoPrice(),  # useless
+        spell_aliases=[("uses_line", "Elixir of Detect Undead")],
+        strategy=SafeStrategy(),
+    ),
+    SuperwowConsumable(
+        name="Elixir of Greater Water Breathing",
+        price=NoPrice(),  # useless
+        spell_aliases=[("uses_line", "Elixir of Greater Water Breathing")],
+        strategy=SafeStrategy(),
+    ),
+    SuperwowConsumable(
+        name="Elixir of Lesser Agility",
+        price=NoPrice(),  # useless
+        spell_aliases=[("uses_line", "Elixir of Lesser Agility")],
+        strategy=SafeStrategy(),
+    ),
+    SuperwowConsumable(
+        name="Elixir of Lions Strength",
+        price=NoPrice(),  # useless
+        spell_aliases=[("uses_line", "Elixir of Lions Strength")],
+        strategy=SafeStrategy(),
+    ),
+    SuperwowConsumable(
+        name="Elixir of Minor Agility",
+        price=NoPrice(),  # useless
+        spell_aliases=[("uses_line", "Elixir of Minor Agility")],
+        strategy=SafeStrategy(),
+    ),
+    SuperwowConsumable(
+        name="Elixir of Minor Fortitude",
+        price=NoPrice(),  # useless
+        spell_aliases=[("uses_line", "Elixir of Minor Fortitude")],
+        strategy=SafeStrategy(),
+    ),
+    SuperwowConsumable(
+        name="Elixir of Ogres Strength",
+        price=NoPrice(),  # useless
+        spell_aliases=[("uses_line", "Elixir of Ogres Strength")],
+        strategy=SafeStrategy(),
+    ),
+    SuperwowConsumable(
+        name="Elixir of Water Breathing",
+        price=NoPrice(),  # useless
+        spell_aliases=[("uses_line", "Elixir of Water Breathing")],
+        strategy=SafeStrategy(),
+    ),
+    SuperwowConsumable(
+        name="Elixir of Water Walking",
+        price=NoPrice(),
+        spell_aliases=[("uses_line", "Elixir of Water Walking")],
+        strategy=SafeStrategy(),
+    ),
+    SuperwowConsumable(
+        name="Elixir of Wisdom",
+        price=NoPrice(),  # useless
+        spell_aliases=[("uses_line", "Elixir of Wisdom")],
+        strategy=SafeStrategy(),
+    ),
+    SuperwowConsumable(
+        name="Festival Dumplings",
+        price=NoPrice(),
+        spell_aliases=[("uses_line", "Festival Dumplings")],
+        strategy=SafeStrategy(),
+    ),
+    SuperwowConsumable(
+        name="Fiery Festival Brew",
+        price=NoPrice(),
+        spell_aliases=[("uses_line", "Fiery Festival Brew")],
+        strategy=SafeStrategy(),
+    ),
+    SuperwowConsumable(
+        name="Fishliver Oil",
+        price=NoPrice(),
+        spell_aliases=[("uses_line", "Fishliver Oil")],
+        strategy=SafeStrategy(),
+    ),
+    SuperwowConsumable(
+        name="Fizzy Faire Drink",
+        price=NoPrice(),
+        spell_aliases=[("uses_line", "Fizzy Faire Drink")],
+        strategy=SafeStrategy(),
+    ),
+    SuperwowConsumable(
+        name="Freshly-Squeezed Lemonade",
+        price=NoPrice(),
+        spell_aliases=[("uses_line", "Freshly-Squeezed Lemonade")],
+        strategy=SafeStrategy(),
+    ),
+    SuperwowConsumable(
+        name="Gargantuan Tel'Abim Banana",
+        price=NoPrice(),
+        spell_aliases=[("uses_line", "Gargantuan Tel'Abim Banana")],
+        strategy=SafeStrategy(),
+    ),
+    SuperwowConsumable(
+        name="Gilneas Hot Stew",
+        price=DirectPrice(itemid=84041),
+        spell_aliases=[("uses_line", "Gilneas Hot Stew")],
+        strategy=SafeStrategy(),
+    ),
+    SuperwowConsumable(
+        name="Greater Healing Potion",
+        price=NoPrice(),  # TODO
+        spell_aliases=[("uses_line", "Greater Healing Potion")],
+        strategy=SafeStrategy(),
+    ),
+    SuperwowConsumable(
+        name="Green Garden Tea",
+        price=NoPrice(),
+        spell_aliases=[("uses_line", "Green Garden Tea")],
+        strategy=SafeStrategy(),
+    ),
+    SuperwowConsumable(
+        name="Handful of Rose Petals",
+        price=NoPrice(),
+        spell_aliases=[("uses_line", "Handful of Rose Petals")],
+        strategy=SafeStrategy(),
+    ),
+    SuperwowConsumable(
+        name="Healing Potion",
+        price=NoPrice(),  # TODO
+        spell_aliases=[("uses_line", "Healing Potion")],
+        strategy=SafeStrategy(),
+    ),
+    SuperwowConsumable(
+        name="Heavy Runecloth Bandage",
+        price=NoPrice(),  # TODO
+        spell_aliases=[("uses_line", "Heavy Runecloth Bandage")],
+        strategy=SafeStrategy(),
+    ),
+    SuperwowConsumable(
+        name="Highpeak Thistle",
+        price=NoPrice(),  # useless
+        spell_aliases=[("uses_line", "Highpeak Thistle")],
+        strategy=SafeStrategy(),
+    ),
+    SuperwowConsumable(
+        name="Hot Smoked Bass",
+        price=NoPrice(),
+        spell_aliases=[("uses_line", "Hot Smoked Bass")],
+        strategy=SafeStrategy(),
+    ),
+    SuperwowConsumable(
+        name="Juicy Striped Melon",
+        price=DirectPrice(itemid=51718),
+        spell_aliases=[("uses_line", "Juicy Striped Melon")],
+        strategy=SafeStrategy(),
+    ),
+    SuperwowConsumable(
+        name="Lesser Stoneshield Potion",
+        price=NoPrice(),
+        spell_aliases=[("uses_line", "Lesser Stoneshield Potion")],
+        strategy=SafeStrategy(),
+    ),
+    SuperwowConsumable(
+        name="Lily Root",
+        price=NoPrice(),
+        spell_aliases=[("uses_line", "Lily Root")],
+        strategy=SafeStrategy(),
+    ),
+    SuperwowConsumable(
+        name="Magic Dust",
+        price=DirectPrice(itemid=2091),
+        spell_aliases=[("uses_line", "Magic Dust")],
+        strategy=SafeStrategy(),
+    ),
+    SuperwowConsumable(
+        name="Major Healing Draught",
+        price=NoPrice(),
+        spell_aliases=[("uses_line", "Major Healing Draught")],
+        strategy=SafeStrategy(),
+    ),
+    SuperwowConsumable(
+        name="Major Mana Draught",
+        price=NoPrice(),
+        spell_aliases=[("uses_line", "Major Mana Draught")],
+        strategy=SafeStrategy(),
+    ),
+    SuperwowConsumable(
+        name="Mightfish Steak",
+        price=NoPrice(),  # TODO
+        spell_aliases=[("uses_line", "Mightfish Steak")],
+        strategy=SafeStrategy(),
+    ),
+    SuperwowConsumable(
+        name="Minor Healing Potion",
+        price=NoPrice(),  # TODO
+        spell_aliases=[("uses_line", "Minor Healing Potion")],
+        strategy=SafeStrategy(),
+    ),
+    SuperwowConsumable(
+        name="Minor Magic Resistance Potion",
+        price=NoPrice(),
+        spell_aliases=[("uses_line", "Minor Magic Resistance Potion")],
+        strategy=SafeStrategy(),
+    ),
+    SuperwowConsumable(
+        name="Morning Glory Dew",
+        price=NoPrice(),
+        spell_aliases=[("uses_line", "Morning Glory Dew")],
+        strategy=SafeStrategy(),
+    ),
+    SuperwowConsumable(
+        name="Mug of Shimmer Stout",
+        price=NoPrice(),
+        spell_aliases=[("uses_line", "Mug of Shimmer Stout")],
+        strategy=SafeStrategy(),
+    ),
+    SuperwowConsumable(
+        name="Oil of Olaf",
+        price=NoPrice(),
+        spell_aliases=[("uses_line", "Oil of Olaf")],
+        strategy=SafeStrategy(),
+    ),
+    SuperwowConsumable(
+        name="Party Grenade",
+        price=NoPrice(),
+        spell_aliases=[("uses_line", "Party Grenade")],
+        strategy=SafeStrategy(),
+    ),
+    SuperwowConsumable(
+        name="Plump Country Pumpkin",
+        price=NoPrice(),
+        spell_aliases=[("uses_line", "Plump Country Pumpkin")],
+        strategy=SafeStrategy(),
+    ),
+    SuperwowConsumable(
+        name="Potion of Fervor",
+        price=NoPrice(),
+        spell_aliases=[("uses_line", "Potion of Fervor")],
+        strategy=SafeStrategy(),
+    ),
+    SuperwowConsumable(
+        name="Raptor Punch",
+        price=NoPrice(),
+        spell_aliases=[("uses_line", "Raptor Punch")],
+        strategy=SafeStrategy(),
+    ),
+    SuperwowConsumable(
+        name="Raw Slitherskin Mackerel",
+        price=NoPrice(),
+        spell_aliases=[("uses_line", "Raw Slitherskin Mackerel")],
+        strategy=SafeStrategy(),
+    ),
+    SuperwowConsumable(
+        name="Razorlash Root",
+        price=NoPrice(),
+        spell_aliases=[("uses_line", "Razorlash Root")],
+        strategy=SafeStrategy(),
+    ),
+    SuperwowConsumable(
+        name="Really Sticky Glue",
+        price=NoPrice(),
+        spell_aliases=[("uses_line", "Really Sticky Glue")],
+        strategy=SafeStrategy(),
+    ),
+    SuperwowConsumable(
+        name="Refreshing Red Apple",
+        price=NoPrice(),
+        spell_aliases=[("uses_line", "Refreshing Red Apple")],
+        strategy=SafeStrategy(),
+    ),
+    SuperwowConsumable(
+        name="Restoring Balm",
+        price=NoPrice(),
+        spell_aliases=[("uses_line", "Restoring Balm")],
+        strategy=SafeStrategy(),
+    ),
+    SuperwowConsumable(
+        name="Ripe Tel'Abim Banana",
+        price=NoPrice(),
+        spell_aliases=[("uses_line", "Ripe Tel'Abim Banana")],
+        strategy=SafeStrategy(),
+    ),
+    SuperwowConsumable(
+        name="Roast Raptor",
+        price=NoPrice(),
+        spell_aliases=[("uses_line", "Roast Raptor")],
+        strategy=SafeStrategy(),
+    ),
+    SuperwowConsumable(
+        name="Roasted Kodo Meat",
+        price=NoPrice(),
+        spell_aliases=[("uses_line", "Roasted Kodo Meat")],
+        strategy=SafeStrategy(),
+    ),
+    SuperwowConsumable(
+        name="Runecloth Bandage",
+        price=NoPrice(),
+        spell_aliases=[("uses_line", "Runecloth Bandage")],
+        strategy=SafeStrategy(),
+    ),
+    SuperwowConsumable(
+        name="Scorpid Surprise",
+        price=NoPrice(),
+        spell_aliases=[("uses_line", "Scorpid Surprise")],
+        strategy=SafeStrategy(),
+    ),
+    SuperwowConsumable(
+        name="Scroll of Empowered Protection",
+        price=NoPrice(),
+        spell_aliases=[("uses_line", "Scroll of Empowered Protection")],
+        strategy=SafeStrategy(),
+    ),
+    SuperwowConsumable(
+        name="Scroll of Magic Warding",
+        price=NoPrice(),
+        spell_aliases=[("uses_line", "Scroll of Magic Warding")],
+        strategy=SafeStrategy(),
+    ),
+    SuperwowConsumable(
+        name="Scroll of Thorns",
+        price=NoPrice(),
+        spell_aliases=[("uses_line", "Scroll of Thorns")],
+        strategy=SafeStrategy(),
+    ),
+    SuperwowConsumable(
+        name="Senggin Root",
+        price=NoPrice(),
+        spell_aliases=[("uses_line", "Senggin Root")],
+        strategy=SafeStrategy(),
+    ),
+    SuperwowConsumable(
+        name="Spiced Beef Jerky",
+        price=NoPrice(),
+        spell_aliases=[("uses_line", "Spiced Beef Jerky")],
+        strategy=SafeStrategy(),
+    ),
+    SuperwowConsumable(
+        name="Stormstout",
+        price=NoPrice(),
+        spell_aliases=[("uses_line", "Stormstout")],
+        strategy=SafeStrategy(),
+    ),
+    SuperwowConsumable(
+        name="Sun-Parched Waterskin",
+        price=NoPrice(),
+        spell_aliases=[("uses_line", "Sun-Parched Waterskin")],
+        strategy=SafeStrategy(),
+    ),
+    SuperwowConsumable(
+        name="Super Snuff",
+        price=NoPrice(),
+        spell_aliases=[("uses_line", "Super Snuff")],
+        strategy=SafeStrategy(),
+    ),
+    SuperwowConsumable(
+        name="Superior Healing Draught",
+        price=NoPrice(),
+        spell_aliases=[("uses_line", "Superior Healing Draught")],
+        strategy=SafeStrategy(),
+    ),
+    SuperwowConsumable(
+        name="Superior Mana Draught",
+        price=NoPrice(),
+        spell_aliases=[("uses_line", "Superior Mana Draught")],
+        strategy=SafeStrategy(),
+    ),
+    SuperwowConsumable(
+        name="Sweet Mountain Berry",
+        price=NoPrice(),
+        spell_aliases=[("uses_line", "Sweet Mountain Berry")],
+        strategy=SafeStrategy(),
+    ),
+    SuperwowConsumable(
+        name="Swim Speed Potion",
+        price=NoPrice(),
+        spell_aliases=[("uses_line", "Swim Speed Potion")],
+        strategy=SafeStrategy(),
+    ),
+    SuperwowConsumable(
+        name="Tasty Summer Treat",
+        price=NoPrice(),
+        spell_aliases=[("uses_line", "Tasty Summer Treat")],
+        strategy=SafeStrategy(),
+    ),
+    SuperwowConsumable(
+        name="Toasted Smorc",
+        price=NoPrice(),
+        spell_aliases=[("uses_line", "Toasted Smorc")],
+        strategy=SafeStrategy(),
+    ),
+    SuperwowConsumable(
+        name="Volatile Concoction",
+        price=NoPrice(),
+        spell_aliases=[("uses_line", "Volatile Concoction")],
+        strategy=SafeStrategy(),
+    ),
+    SuperwowConsumable(
+        name="Watered-down Beer",
+        price=NoPrice(),
+        spell_aliases=[("uses_line", "Watered-down Beer")],
+        strategy=SafeStrategy(),
     ),
 ]
 
@@ -1847,6 +2430,21 @@ def healpot_lookup(amount):
     if 69 <= amount <= 91:
         return "Healing Potion - Minor"
     return "Healing Potion - unknown"
+
+
+def manapot_lookup(mana):
+    consumable = "Restore Mana (mana potion)"
+    if 1350 <= mana <= 2250:
+        consumable = "Mana Potion - Major"
+    elif 900 <= mana <= 1500:
+        consumable = "Mana Potion - Superior"
+    elif 700 <= mana <= 900:
+        consumable = "Mana Potion - Greater"
+    elif 280 <= mana <= 360:
+        consumable = "Mana Potion - Lesser"
+    elif 140 <= mana <= 180:
+        consumable = "Mana Potion - Minor"
+    return consumable
 
 
 class LogParser:
@@ -3294,7 +3892,10 @@ def parse_line2(app, line):
             spellname = subtree.children[-1].value
             if consumable_item := RAWSPELLNAME2CONSUMABLE.get((subtree.data, spellname)):
                 app.player[name][consumable_item.name] += 1
-
+            if spellname == "Restore Mana":
+                mana = int(subtree.children[1].value)
+                consumable = manapot_lookup(mana)
+                app.player[name][consumable] += 1
             return True
         elif subtree.data == "drains_mana_line":
             return True
