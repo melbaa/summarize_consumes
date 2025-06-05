@@ -3,7 +3,7 @@ from melbalabs.summarize_consumes.main import NAME2CONSUMABLE
 from melbalabs.summarize_consumes.main import USES_CONSUMABLE_RENAME
 from melbalabs.summarize_consumes.main import all_defined_consumable_items
 
-from melbalabs.summarize_consumes.consumable import PriceFromComponents
+from melbalabs.summarize_consumes.consumable import OverwriteStrategy, PriceFromComponents
 from melbalabs.summarize_consumes.consumable import DirectPrice
 from melbalabs.summarize_consumes.consumable import SuperwowConsumable
 
@@ -332,7 +332,11 @@ def test_sanity1():
         assert name in NAME2CONSUMABLE
         assert NAME2CONSUMABLE[name].price.itemid == NAME2ITEMID[name]
 
-
+def test_sanity2():
+    for consumable in all_defined_consumable_items:
+        if not isinstance(consumable, SuperwowConsumable): continue
+        if not isinstance(consumable.strategy, OverwriteStrategy): continue
+        assert consumable.strategy.target_consumable_name in NAME2CONSUMABLE
 
 
 def test_sanity5():

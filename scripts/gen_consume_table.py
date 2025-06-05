@@ -24,7 +24,7 @@ def main():
             elif isinstance(consumable.price, PriceFromComponents):
                 components = []
                 for component, count in consumable.price.components:
-                    components.append(f"- {count}x {component.name}")
+                    components.append(f"{count} x {component.name}")
                 price_str = "<br>".join(components)
                 if consumable.price.charges > 1:
                     charges_str = str(consumable.price.charges)

@@ -763,13 +763,23 @@ all_defined_consumable_items: List[Consumable] = [
         spell_aliases=[("gains_line", "Lucidity Potion"), ("uses_line", "Lucidity Potion")],
         strategy=EnhanceStrategy(),
     ),
-    Consumable(name="Mana Potion - Greater", price=DirectPrice(itemid=6149)),
-    Consumable(name="Mana Potion - Superior", price=DirectPrice(itemid=13443)),
+    SuperwowConsumable(
+        name="Mana Potion - Greater",
+        price=DirectPrice(itemid=6149),
+        spell_aliases=[("uses_line", "Greater Mana Potion")],
+        strategy=OverwriteStrategy(target_consumable_name="Restore Mana (mana potion)"),
+    ),
+    SuperwowConsumable(
+        name="Mana Potion - Superior",
+        price=DirectPrice(itemid=13443),
+        spell_aliases=[("uses_line", "Superior Mana Potion")],
+        strategy=OverwriteStrategy(target_consumable_name="Restore Mana (mana potion)"),
+    ),
     SuperwowConsumable(
         name="Mana Potion - Major",
         price=DirectPrice(itemid=13444),
         spell_aliases=[("uses_line", "Major Mana Potion")],
-        strategy=EnhanceStrategy(),
+        strategy=OverwriteStrategy(target_consumable_name="Restore Mana (mana potion)"),
     ),
     SuperwowConsumable(
         name="Healing Potion - Major",
@@ -826,7 +836,6 @@ all_defined_consumable_items: List[Consumable] = [
         ],
         strategy=EnhanceStrategy(),
     ),
-
     SuperwowConsumable(
         name="Dragonbreath Chili",
         price=DirectPrice(itemid=12217),
@@ -974,16 +983,23 @@ all_defined_consumable_items: List[Consumable] = [
     SuperwowConsumable(
         name="Elixir of Greater Intellect",
         price=DirectPrice(itemid=9179),
-        spell_aliases=[("gains_line", "Greater Intellect"), ('uses_line', 'Elixir of Greater Intellect')],
+        spell_aliases=[
+            ("gains_line", "Greater Intellect"),
+            ("uses_line", "Elixir of Greater Intellect"),
+        ],
         strategy=EnhanceStrategy(),
+    ),
+    Consumable(
+        name='Restore Mana (mana potion)',
+        price=NoPrice(),
+        spell_aliases=[("gains_mana_line", "Restore Mana")],
     ),
     SuperwowConsumable(
-        name="Combat Mana Potion",
+        name="Mana Potion - Combat",
         price=DirectPrice(itemid=18841),
         spell_aliases=[("uses_line", "Combat Mana Potion")],
-        strategy=EnhanceStrategy(),
+        strategy=OverwriteStrategy(target_consumable_name="Restore Mana (mana potion)"),
     ),
-    
     SuperwowConsumable(
         name="Rejuvenation Potion - Major",
         price=DirectPrice(itemid=18253),
@@ -1125,6 +1141,13 @@ all_defined_consumable_items: List[Consumable] = [
         spell_aliases=[("uses_line", "Nightfin Soup")],
         strategy=OverwriteStrategy(target_consumable_name="Mana Regeneration (food or mageblood)"),
     ),
+    SuperwowConsumable(
+        name="Weak Troll's Blood Potion",
+        price=DirectPrice(itemid=3382),
+        spell_aliases=[("uses_line", "Weak Trolls Blood Potion")],
+        strategy=OverwriteStrategy(target_consumable_name="Regeneration"),
+    ),
+    
     SuperwowConsumable(
         name="Major Troll's Blood Potion",
         price=DirectPrice(itemid=20004),
@@ -1298,6 +1321,18 @@ all_defined_consumable_items: List[Consumable] = [
         name="Stamina",
         price=NoPrice(),
         spell_aliases=[("gains_line", "Stamina")],
+    ),
+    Consumable(
+        name="Spirit",
+        price=NoPrice(),
+    ),
+    Consumable(
+        name="Armor",
+        price=NoPrice(),
+    ),
+    Consumable(
+        name="Intellect",
+        price=NoPrice(),
     ),
     Consumable(
         name="Fire Protection",
@@ -1799,22 +1834,6 @@ def healpot_lookup(amount):
         return "Healing Potion - Minor"
     return "Healing Potion - unknown"
 
-
-def manapot_lookup(mana):
-    consumable = "Restore Mana (mana potion)"
-    if 1350 <= mana <= 2250:
-        consumable = "Mana Potion - Major"
-    elif 900 <= mana <= 1500:
-        consumable = "Mana Potion - Superior"
-    elif 700 <= mana <= 900:
-        consumable = "Mana Potion - Greater"
-    elif 455 <= mana <= 585:
-        consumable = "Mana Potion - 455 to 585"
-    elif 280 <= mana <= 360:
-        consumable = "Mana Potion - Lesser"
-    elif 140 <= mana <= 180:
-        consumable = "Mana Potion - Minor"
-    return consumable
 
 
 class LogParser:
@@ -3262,10 +3281,6 @@ def parse_line2(app, line):
             spellname = subtree.children[-1].value
             if consumable_item := RAWSPELLNAME2CONSUMABLE.get((subtree.data, spellname)):
                 app.player[name][consumable_item.name] += 1
-            elif spellname == "Restore Mana":
-                mana = int(subtree.children[1].value)
-                consumable = manapot_lookup(mana)
-                app.player[name][consumable] += 1
 
             return True
         elif subtree.data == "drains_mana_line":
