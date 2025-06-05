@@ -1147,7 +1147,7 @@ all_defined_consumable_items: List[Consumable] = [
         spell_aliases=[("uses_line", "Weak Trolls Blood Potion")],
         strategy=OverwriteStrategy(target_consumable_name="Regeneration"),
     ),
-    
+
     SuperwowConsumable(
         name="Major Troll's Blood Potion",
         price=DirectPrice(itemid=20004),
@@ -4012,6 +4012,14 @@ class MergeSuperwowConsumables:
         if self.logfile:
             print("writing superwow merge to", self.filename)
 
+        # note that both player and player_superwow map a canonical consumable
+        # name to its count. you can investigate eg. the uses_line and
+        # gains_line code to convince yourself it's true
+        #
+        # so the c and c_swow names are only different in how they are used.
+        # c is used for the native counts in player
+        # c_swow is used for the superwow counts in player_superwow
+
         for player in self.player_superwow:
             consumables_swow = set(self.player_superwow[player])
             consumables = set(self.player[player])
@@ -4031,15 +4039,8 @@ class MergeSuperwowConsumables:
                 elif isinstance(consumable, SuperwowConsumable) and isinstance(
                     consumable.strategy, EnhanceStrategy
                 ):
-                    # will try to merge counts, but keep the existing names from the native client
-                    c = consumable.name
-                    # if c not in consumables:
-                    #    self.log(f"mismatch from {c_swow} to {c}. {player} {c} is not in consumables")
-                    if self.player[player].get(c, 0) > self.player_superwow[player][c_swow]:
-                        self.log(f"skipping. superwow has less? {player} {c} > {c_swow}")
-                        continue
 
-                    self.player[player][c] = self.player_superwow[player][c_swow]
+                    self.player[player][c_swow] = max(self.player_superwow[player][c_swow], self.player[player][c_swow])
                     del self.player_superwow[player][c_swow]
 
                 elif isinstance(consumable, SuperwowConsumable) and isinstance(
