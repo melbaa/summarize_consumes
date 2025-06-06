@@ -115,8 +115,12 @@ class EnhanceStrategy(MergeStrategy):
 
 @dataclass(frozen=True)
 class OverwriteStrategy(MergeStrategy):
-    """Superwow consumable overwrites a (potentially differently named) native consumable.
-    Used to resolve ambiguous native consumables."""
+    """
+    Superwow consumable overwrites a (potentially differently named) native consumable.
+    Used to resolve ambiguous native consumables.
+    Target can be a self reference
+    Ambiguous consumables, by definition, can be targeted by multiple other consumables.
+    """
 
     target_consumable_name: str  # The canonical name of the native consumable to overwrite.
 

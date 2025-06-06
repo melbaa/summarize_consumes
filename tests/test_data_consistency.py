@@ -355,10 +355,18 @@ def test_sanity1():
         assert NAME2CONSUMABLE[name].price.itemid == NAME2ITEMID[name]
 
 def test_sanity2():
+    targets = []
+
+    # target is a valid consumable
+    
     for consumable in all_defined_consumable_items:
         if not isinstance(consumable, SuperwowConsumable): continue
         if not isinstance(consumable.strategy, OverwriteStrategy): continue
         assert consumable.strategy.target_consumable_name in NAME2CONSUMABLE
+        targets.append(consumable.strategy.target_consumable_name)
+    
+    
+        
 
 def test_sanity3():
     # special handling

@@ -4634,6 +4634,12 @@ class MergeSuperwowConsumables:
         # so the c and c_swow names are only different in how they are used.
         # c is used for the native counts in player
         # c_swow is used for the superwow counts in player_superwow
+        #
+        # it follows that when c == c_swow, we are looking at the same consumable,
+        # but with data from the native and superwow logs respectively.
+        # so when c != c_swow, we are comparing different consumables. probably
+        # an ambiguous one and a more specific superwow one.
+
 
         for player in self.player_superwow:
             consumables_swow = set(self.player_superwow[player])
@@ -4662,8 +4668,7 @@ class MergeSuperwowConsumables:
                         # will try to delete the native counts with the old name and use the new name coming from superwow
                         # eg. the prot pots have non-specific native names, but with superwow the specific name shows up
                         c = consumable.strategy.target_consumable_name
-                        # if c not in consumables:
-                        #    self.log(f"mismatch from {c_swow} to {c}. {player} {c} is not in consumables")
+
                         if (
                             c != c_swow
                             and self.player[player].get(c, 0) > self.player_superwow[player][c_swow]
