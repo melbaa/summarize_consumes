@@ -1,5 +1,5 @@
-Teldelar  1465431
-  Healing Touch  1095889
+Teldelar  1467254
+  Healing Touch  1097712
   Rejuvenation  152760
   Regrowth  143054
   Swiftmend  70212
@@ -10,13 +10,13 @@ Druindy  1277369
   Rejuvenation  30851
   Swiftmend  16088
   Tea with Sugar  1427
-Shumy  1148656
+Shumy  1149122
   Healing Wave  631429
-  Chain Heal  420892
+  Chain Heal  421358
   Lesser Healing Wave  89998
   Earth Shield  6337
-Geniesham  1073455
-  Chain Heal  912087
+Geniesham  1078550
+  Chain Heal  917182
   Healing Wave  160145
   Lesser Healing Wave  1223
 Morinethar  1035555
@@ -30,8 +30,8 @@ Daenshoo  1004905
   Rejuvenation  143937
   Swiftmend  75099
   Regrowth  30144
-Kazgrun  934145
-  Chain Heal  792009
+Kazgrun  935393
+  Chain Heal  793257
   Lesser Healing Wave  129692
   Healing Wave  11014
   Earth Shield  1430

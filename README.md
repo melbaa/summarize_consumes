@@ -467,3 +467,27 @@ Include basic runtime info in the output (project version, python version etc), 
 
 The linux binaries should be usable on older installs. Aim for 5+ years.
 
+# Parsing Notes
+
+The syntax can be very ambiguous and open-ended. We don't know all variable length names of players, NPCs, pets, spells and the structure of all log lines, because all those things are dynamic and can change patch to patch.
+
+The approach that has worked well so far is to take a certain log message and be very specific about parsing exactly that and not much else. Work defensively slowly expanding the set of parsed messages.
+
+Ambiguity example: `on` shows up both inside the spell name and as a token separating the spell name and player name.  
+Player casts Lay on Hands on Player.
+
+The second part is optional. Both of those are valid.  
+Player casts Spell on Player.
+Player casts Spell.
+
+More ambiguity. `'s` works the same way as part of a name or as its own token.  
+4/21 21:01:38.861  Psykhe 's Tea with Sugar heals Psykhe for 1613.  
+4/12 20:11:17.188  Psykhe begins to cast Kreeg's Stout Beatdown.
+
+A lot of punctuation.  
+Ragnaros casts Melt Weapon on Psykhe: Iblis, Blade of the Fallen Seraph damaged.
+
+Those are different spells. A rare case of significant trailing whitespace.  
+4/11 22:44:54.456  Player gains Shadow Protection (1).  
+4/11 23:40:19.784  Player gains Shadow Protection  (1).  
+

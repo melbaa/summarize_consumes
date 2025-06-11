@@ -71,15 +71,15 @@ Sunor  945899
   Tea with Sugar  18103
   Renew  14745
   Pain Spike  1233
-Windfurytotm  772993
+Windfurytotm  773585
   Chain Heal  481495
   Healing Wave  181114
-  Lesser Healing Wave  87862
+  Lesser Healing Wave  88454
   Tea with Sugar  17588
   Earth Shield  3255
   Healing Potion  1679
-Rossol  694853
-  Vampiric Embrace  664260
+Rossol  701922
+  Vampiric Embrace  671329
   Devouring Plague  19532
   Pain Spike  3922
   Major Healthstone  3000

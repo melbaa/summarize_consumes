@@ -156,7 +156,7 @@ Nehelenia  2764138
   Jewel of Wild Magics: Arcane  7408
   Shoot  2137
   reflect  93
-Freedlock  2600509
+Freedlock  2611357
   Shadow Bolt  1574962
   Corruption  433848
   Curse of Agony  234818
@@ -165,6 +165,7 @@ Freedlock  2600509
   Searing Pain  64697
   Firebolt  29675
   Death Coil  14440
+  Auto Attack (pet)  10848
   Drain Soul  10786
   Siphon Life  10330
   Rain of Fire  9060
@@ -348,6 +349,20 @@ Adriana  1915190
   Shadow Word: Pain  363939
   Pain Spike  44705
   Holy Nova  24909
+Minoas  1817016
+  Auto Shot  609174
+  Steady Shot  527159
+  Multi-Shot  389178
+  Auto Attack (pet)  87590
+  Piercing Shots  78892
+  Arcane Shot  56360
+  Extra Shot  28397
+  Aimed Shot  19545
+  Volley  16955
+  Negative Charge  2900
+  hit  713
+  Bite  103
+  Greater Blessing of Sanctuary  50
 Imul  1773342
   Moonfire  561317
   Wrath  432826
@@ -372,19 +387,6 @@ Eleae  1741483
   Moonfire  2593
   Negative Charge  1500
   Insect Swarm  146
-Minoas  1729426
-  Auto Shot  609174
-  Steady Shot  527159
-  Multi-Shot  389178
-  Piercing Shots  78892
-  Arcane Shot  56360
-  Extra Shot  28397
-  Aimed Shot  19545
-  Volley  16955
-  Negative Charge  2900
-  hit  713
-  Bite  103
-  Greater Blessing of Sanctuary  50
 Gholmes  1565125
   Arcane Missiles  785982
   Arcane Rupture  371112
@@ -419,11 +421,12 @@ Martlflash  1435766
   Holy Wrath  2543
   Hammer of Wrath  1789
   Negative Charge  900
-Cleanskill  1179375
+Cleanskill  1219882
   hit  490347
   Earth Shock  320145
   Stormstrike  212509
   Lightning Strike  115379
+  Lightning Strike (nature)  40507
   Attack  16665
   Lightning Shield  9172
   Flame Shock  6895
@@ -456,12 +459,13 @@ Randgriz  88945
   Shoot  1102
   Pain Spike  531
   hit  121
-Adya  71934
+Adya  78258
   Smite  30377
   Holy Fire  12675
   Holy Nova  10454
   Shadow Word: Pain  9274
   Mind Blast  7762
+  Auto Attack (pet)  6324
   Shoot  1392
 Yuyi  61262
   Smite  40261

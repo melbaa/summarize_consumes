@@ -27,7 +27,7 @@ def test_lark_contextual_lexer(app):
     lines = """4/21 21:01:38.861  Psykhe 's Tea with Sugar heals Psykhe for 1613.
 """
     lines = lines.splitlines(keepends=True)
-    assert len(app.parser.parser.parser.parser.parse_table.states)
+    assert len(app.parser.lark_parser.parser.parser.parser.parse_table.states)
 
 
 def test_lark_contextual_lexer2():
@@ -1709,6 +1709,7 @@ def test_dmgstore(app):
 4/21 20:28:26.317  Obsidian Eradicator suffers 81 Physical damage from Agonist 's Deep Wound.
 10/29 20:01:38.278  Palapus reflects 35 Holy damage to Molten Giant.
 2/3 22:40:48.259  Kel'Thuzad 's Spirit Link causes Cracklinoats 27 damage.
+10/20 20:04:05.389  Anubisath Sentinel suffers 287 Shadow damage from Rossol 's Shadow Word: Pain.
 """
     lines = lines.splitlines(keepends=True)
     for line in lines:
@@ -1719,6 +1720,7 @@ def test_dmgstore(app):
     assert store[('Agonist', 'Obsidian Eradicator', 'Deep Wound')].dmg == 81
     assert store[('Palapus', 'Molten Giant', 'reflect')].dmg == 35
     assert store[("Kel'Thuzad", 'Cracklinoats', 'Spirit Link')].dmg == 27
+    assert store[("Rossol", "Anubisath Sentinel", 'Shadow Word: Pain')].dmg == 287
 
 def test_durloss(app):
     lines = """

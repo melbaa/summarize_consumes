@@ -27,8 +27,8 @@ Lyahsunsworn  1109612
   Holy Shock (heal)  45023
   Judgement of Light  1418
   Seal of Light  470
-Niviri  1073597
-  Healing Touch  796421
+Niviri  1074741
+  Healing Touch  797565
   Rejuvenation  136903
   Regrowth  98307
   Swiftmend  38849

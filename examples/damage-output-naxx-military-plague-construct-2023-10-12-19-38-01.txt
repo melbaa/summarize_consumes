@@ -350,11 +350,11 @@ Bloxie  1000729
   Fire Shield  2784
   Holy Shock (dmg)  2328
   Holy Wrath  1980
-Rossol  938240
+Rossol  937696
   Mind Flay  379425
   Shadow Word: Pain  337102
   Mind Blast  152152
-  Devouring Plague  27296
+  Devouring Plague  26752
   Shoot  25114
   Pain Spike  15367
   hit  1226

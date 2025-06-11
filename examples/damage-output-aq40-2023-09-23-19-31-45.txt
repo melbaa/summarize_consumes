@@ -1,6 +1,6 @@
-Psykhe  2456475
-  hit  1303261
-  Heroic Strike  572138
+Psykhe  2457261
+  hit  1304027
+  Heroic Strike  572158
   Bloodthirst  342395
   Whirlwind  95156
   Execute  62698
@@ -417,8 +417,8 @@ Bigjelly  334091
   Flame Shock  3199
   Frost Shock  2696
   Earth Shock  511
-Melbaxd  225463
-  Holy Nova  225061
+Melbaxd  225563
+  Holy Nova  225161
   hit  310
   Shoot  92
 Bloxie  64552

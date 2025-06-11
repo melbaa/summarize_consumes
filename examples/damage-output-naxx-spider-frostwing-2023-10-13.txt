@@ -206,8 +206,8 @@ Paris  850905
   Hammer of Wrath  2142
   Thorium Shield Spike  1216
   Greater Blessing of Sanctuary  70
-Psykhe  841606
-  hit  394473
+Psykhe  842010
+  hit  394877
   Heroic Strike  239654
   Bloodthirst  133247
   Execute  25321
