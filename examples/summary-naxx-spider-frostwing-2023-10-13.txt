@@ -514,6 +514,8 @@ Yis deaths:1
    Tea with Sugar 2   (55s 18c)
 
    total spent: 17g 88s 58c
+brennanheart deaths:0
+   <nothing found>
 
 
 Sunder Armor Summary (trash and boss counts)
@@ -1208,10 +1210,11 @@ Class Detection
    Windfurytotm shaman
    Xanadun warlock
    Yis hunter
+   brennanheart unknown
 
 
 Tech
    known consumables 302
    log size 22.6 MB
    log lines 299509
-   skipped log lines 145 (0.05%)
+   skipped log lines 74 (0.02%)

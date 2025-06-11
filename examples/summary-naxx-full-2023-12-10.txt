@@ -1305,4 +1305,4 @@ Tech
    known consumables 302
    log size 45.1 MB
    log lines 615266
-   skipped log lines 20 (0.00%)
+   skipped log lines 18 (0.00%)

@@ -232,7 +232,7 @@ python -m venv venv
 | Gift of Friendship - Thunder Bluff (stam) |  |  |
 | Gift of Friendship - Undercity (int) |  |  |
 | Gilneas Hot Stew | [84041](https://database.turtle-wow.org/?item=84041) |  |
-| Gizzard Gum (Spiritual Dominaiton) | 10 x Vulture Gizzard<br>2 x Snickerfang Jowl |  |
+| Gizzard Gum (Spiritual Domination) | 10 x Vulture Gizzard<br>2 x Snickerfang Jowl |  |
 | Goblin Brainwashing Device |  |  |
 | Goblin Sapper Charge | [10646](https://database.turtle-wow.org/?item=10646) |  |
 | Gordok Green Grog |  |  |

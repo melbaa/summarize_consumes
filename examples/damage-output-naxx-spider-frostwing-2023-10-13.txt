@@ -426,6 +426,10 @@ Teldelar  9210
   Moonfire  1654
   hit  425
   Wrath  257
+brennanheart  3350
+  hit  2896
+  Bite  411
+  Greater Blessing of Sanctuary  43
 Lyahsunsworn  3234
   hit  3040
   reflect  156

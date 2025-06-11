@@ -379,6 +379,55 @@ class Parser2:
                     return Tree(data='line', children=[timestamp, subtree])
 
 
+                p_gains = line.find(' gains ', p_ts_end)
+
+                # The end of a gains_line is very specific: " (#)."
+                p_paren_open = line.rfind(' (', p_gains)
+                p_paren_close = line.find(').', p_paren_open)
+
+                if p_gains != -1 and p_paren_open != -1 and p_paren_close != -1:
+                    timestamp = self.parse_ts(line[:p_ts_end])
+
+                    # The name is between the timestamp and " gains ".
+                    name = line[p_ts_end + 2 : p_gains]
+
+                    # The spellname is between " gains " and the " (".
+                    # This correctly captures trailing spaces, like in "Shadow Protection  ".
+                    spellname = line[p_gains + 7 : p_paren_open] # 7 is len(' gains ')
+
+                    # The stackcount is the number between the parentheses.
+                    stackcount = line[p_paren_open + 2 : p_paren_close] # +2 skips " ("
+
+                    subtree = Tree(data='gains_line', children=[
+                        Token('t', name),
+                        Token('t', spellname),
+                        Token('t', stackcount)
+                    ])
+
+                    return Tree(data='line', children=[timestamp, subtree])
+
+
+                action_phrase = ' begins to cast '
+                p_action = line.find(action_phrase, p_ts_end)
+
+                if p_action != -1:
+                    timestamp = self.parse_ts(line[:p_ts_end])
+
+                    # The caster's name is between the timestamp and the anchor phrase.
+                    caster_name = line[p_ts_end + 2 : p_action]
+
+                    # The spell name is everything after the anchor phrase, with the
+                    # final period and whitespace stripped off.
+                    spell_name = line[p_action + len(action_phrase):].rstrip('.\n ')
+
+                    subtree = Tree(data='begins_to_cast_line', children=[
+                        Token('t', caster_name),
+                        Token('t', spell_name)
+                    ])
+
+                    return Tree(data='line', children=[timestamp, subtree])
+
+
         except Exception:
             self.excnum += 1
 
