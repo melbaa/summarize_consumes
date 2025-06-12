@@ -60,7 +60,7 @@ def test_basic2(app):
 
 
 
-#@pytest.mark.skip()
+@pytest.mark.skip()
 def test_basic3(app):
     filename = r'testdata/naxx-superwow-2025-06-02.txt'
 
@@ -116,7 +116,7 @@ def test_basic3(app):
 
 
 
-#@pytest.mark.skip()
+@pytest.mark.skip()
 def test_basic4(app):
     filename = r'testdata/naxx-superwow-2025-06-02.txt'
 

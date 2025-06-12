@@ -542,7 +542,7 @@ Yis deaths:5
    Spirit of Zanza 2   (3g 89s 70c)
 
    total spent: 34g 67s 21c
-brennanheart deaths:0
+brennanheart deaths:2
    <nothing found>
 
 
@@ -985,4 +985,4 @@ Tech
    known consumables 302
    log size 34.9 MB
    log lines 467300
-   skipped log lines 26 (0.01%)
+   skipped log lines 11 (0.00%)

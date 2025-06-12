@@ -270,7 +270,7 @@ Yis deaths:1
    Tea with Sugar 1   (27s 59c)
 
    total spent: 5g 18c
-brennanheart deaths:0
+brennanheart deaths:6
    <nothing found>
 
 
@@ -702,4 +702,4 @@ Tech
    known consumables 302
    log size 25.0 MB
    log lines 332366
-   skipped log lines 230 (0.07%)
+   skipped log lines 219 (0.07%)

@@ -443,7 +443,7 @@ Yis deaths:3
    Nature Protection 4 
 
    total spent: 7g 1s 67c
-brennanheart deaths:0
+brennanheart deaths:1
    <nothing found>
 
 
@@ -913,4 +913,4 @@ Tech
    known consumables 302
    log size 22.0 MB
    log lines 292920
-   skipped log lines 32 (0.01%)
+   skipped log lines 30 (0.01%)
