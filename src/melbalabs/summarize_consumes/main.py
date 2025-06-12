@@ -82,7 +82,7 @@ class TreeTransformer(lark.Transformer):
 
 
 @functools.cache
-def create_parser(grammar: str, debug):
+def create_parser(grammar: str, debug, unparsed_logger):
     parser = lark.Lark(
         grammar,
         parser="lalr",
@@ -92,19 +92,40 @@ def create_parser(grammar: str, debug):
         transformer=TreeTransformer(),
     )
 
-    return Parser2(lark_parser=parser)
+    return Parser2(lark_parser=parser, unparsed_logger=unparsed_logger)
 
 
 class Parser2:
-    def __init__(self, lark_parser):
+    def __init__(self, lark_parser, unparsed_logger):
         self.lark_parser = lark_parser
         self.excnum = 0
+        self.unparsed_logger = unparsed_logger
 
     def parse_ts(self, timestamp_str):
-        date_part, time_part = timestamp_str.split()
-        month, day = date_part.split("/")
-        hour, minute, sec_ms = time_part.split(":")
-        sec, ms = sec_ms.split(".")
+        # 6/1 18:31:36.197  ...
+
+        p_space = timestamp_str.find(' ')
+        p_slash = timestamp_str.find('/')
+        p_colon1 = timestamp_str.find(':')
+        p_colon2 = timestamp_str.find(':', p_colon1 + 1)
+        p_period = timestamp_str.find('.')
+
+        if -1 in (p_slash, p_space, p_colon1, p_colon2, p_period):
+            raise ValueError('missing timestamp delimiter')
+
+        if not (p_slash < p_space < p_colon1 < p_colon2 < p_period):
+            raise ValueError('invalid timestamp delimiter')
+
+        month = timestamp_str[:p_slash]
+        day = timestamp_str[p_slash + 1 : p_space]
+        hour = timestamp_str[p_space + 1 : p_colon1]
+        minute = timestamp_str[p_colon1 + 1 : p_colon2]
+        sec = timestamp_str[p_colon2 + 1 : p_period]
+        ms = timestamp_str[p_period + 1:]
+
+        for part in (month, day, hour, minute, sec, ms):
+            if not part.isdigit():
+                raise ValueError('timestamp')
 
         timestamp = Tree(
             data="timestamp",
@@ -434,9 +455,226 @@ class Parser2:
 
                     return Tree(data="line", children=[timestamp, subtree])
 
+
+                action_phrase = ' is afflicted by '
+                p_action = line.find(action_phrase, p_ts_end)
+
+                # The line must end with " (#)."
+                p_paren_open = line.rfind(' (', p_action)
+                p_paren_close = line.find(').', p_paren_open)
+
+                # If all anchors are found in the correct order, we have a match.
+                if p_action != -1 and p_paren_open != -1 and p_paren_close != -1:
+                    timestamp = self.parse_ts(line[:p_ts_end])
+
+                    # The targetname is between the timestamp and the action phrase.
+                    targetname = line[p_ts_end + 2 : p_action]
+
+                    # The spellname is everything between the action phrase and the final " (#)".
+                    spellname = line[p_action + len(action_phrase) : p_paren_open]
+
+                    subtree = Tree(data='afflicted_line', children=[
+                        Token('t', targetname),
+                        Token('t', spellname)
+                    ])
+
+                    return Tree(data='line', children=[timestamp, subtree])
+
+
+                p_casts = line.find(' casts ', p_ts_end)
+
+                if p_casts != -1:
+                    timestamp = self.parse_ts(line[:p_ts_end])
+
+                    # Caster is always present and in the same spot.
+                    caster_name = line[p_ts_end + 2 : p_casts]
+
+                    # Now we determine the structure based on the optional parts.
+                    p_on = line.find(' on ', p_casts)
+
+                    spell_name = None
+                    target_name = None
+
+                    if p_on != -1:
+                        # A target is present
+                        # The spell is between " casts " and " on ".
+                        spell_name = line[p_casts + 7 : p_on] # 7 is len(' casts ')
+
+                        # Now check if the special "damaged" case exists.
+                        # The "damaged" phrase replaces the final period.
+                        p_damaged = line.find(' damaged.', p_casts)
+                        if p_damaged != -1 and line.find(':', p_on) != -1:
+                             # For "on Target: ... damaged.", the target is between " on " and ":".
+                            p_colon = line.find(':', p_on)
+                            target_name = line[p_on + 4 : p_colon] # 4 is len(' on ')
+                        else:
+                            # For "on Target.", the target is between " on " and the end.
+                            target_name = line[p_on + 4:].rstrip('.\n ')
+
+                    else:
+                        # No target is present
+                        # The spell is everything after " casts " to the end.
+                        spell_name = line[p_casts + 7:].rstrip('.\n ')
+
+                    children = [
+                        Token('t', caster_name),
+                        Token('t', spell_name)
+                    ]
+                    if target_name:
+                        children.append(Token('t', target_name))
+
+                    subtree = Tree(data='casts_line', children=children)
+
+                    return Tree(data='line', children=[timestamp, subtree])
+
+
+                # already have this
+                # p_gains = line.find(' gains ', p_ts_end)
+
+                # We will find the anchors in order.
+                p_extra = line.find(' extra attack', p_gains) # Note: no 's' here
+                p_through = line.find(' through ', p_extra)
+
+                # If all three anchors are found in a valid sequence...
+                if p_gains != -1 and p_extra != -1 and p_through != -1:
+                    timestamp = self.parse_ts(line[:p_ts_end])
+
+                    # The name is between the timestamp and " gains ".
+                    name = line[p_ts_end + 2 : p_gains]
+
+                    # The number of attacks is between " gains " and " extra attack".
+                    howmany = line[p_gains + 7 : p_extra] # 7 is len(' gains ')
+
+                    # The source is everything after " through " to the end.
+                    source = line[p_through + 9:].rstrip('.\n ') # 9 is len(' through ')
+
+                    # Construct the tree exactly as the consumer expects.
+                    subtree = Tree(data='gains_extra_attacks_line', children=[
+                        Token('t', name),
+                        Token('t', howmany),
+                        Token('t', source)
+                    ])
+
+                    return Tree(data='line', children=[timestamp, subtree])
+
+
+                # already have this
+                # p_gains = line.find(' gains ', p_ts_end)
+                p_rage_from = line.find(' Rage from ', p_gains)
+                p_s = line.find(" 's ", p_rage_from)
+
+                # If all anchors are found, we have a match.
+                if p_gains != -1 and p_rage_from != -1 and p_s != -1:
+                    timestamp = self.parse_ts(line[:p_ts_end])
+
+                    # Slice out the 4 required pieces of data.
+                    recipient_name = line[p_ts_end + 2 : p_gains]
+                    rage_amount = line[p_gains + 7 : p_rage_from]      # len(' gains ') == 7
+                    caster_name = line[p_rage_from + 11 : p_s]        # len(' Rage from ') == 11
+
+                    # Spell name is from after " 's " to the final period.
+                    # Using rfind('.') is robust against spells with periods in their name.
+                    p_period = line.rfind('.', p_s)
+                    spell_name = line[p_s + 4 : p_period]             # len(" 's ") == 4
+
+                    # Construct the tree with 4 children, as expected by the consumer.
+                    subtree = Tree(data='gains_rage_line', children=[
+                        Token('t', recipient_name),
+                        Token('t', rage_amount),
+                        Token('t', caster_name),
+                        Token('t', spell_name)
+                    ])
+
+                    return Tree(data='line', children=[timestamp, subtree])
+
+
+                # already have this
+                # p_gains = line.find(' gains ', p_ts_end)
+                p_health_from = line.find(' health from ', p_gains) # The only changed anchor
+                p_s = line.find(" 's ", p_health_from)
+
+                # If all anchors are found, we have a match.
+                if p_gains != -1 and p_health_from != -1 and p_s != -1:
+                    timestamp = self.parse_ts(line[:p_ts_end])
+
+                    # Slice out the 4 required pieces of data.
+                    target_name = line[p_ts_end + 2 : p_gains]
+                    health_amount = line[p_gains + 7 : p_health_from]  # len(' gains ') == 7
+                    caster_name = line[p_health_from + 13 : p_s]     # len(' health from ') == 13
+
+                    p_period = line.rfind('.', p_s)
+                    spell_name = line[p_s + 4 : p_period]             # len(" 's ") == 4
+
+                    # Construct the tree with 4 children, as expected by the consumer.
+                    subtree = Tree(data='gains_health_line', children=[
+                        Token('t', target_name),
+                        Token('t', health_amount),
+                        Token('t', caster_name),
+                        Token('t', spell_name)
+                    ])
+
+                    return Tree(data='line', children=[timestamp, subtree])
+
+
+                # already have this
+                # p_gains = line.find(' gains ', p_ts_end)
+                p_energy_from = line.find(' Energy from ', p_gains) # The only changed anchor
+                p_s = line.find(" 's ", p_energy_from)
+
+                # If all anchors are found, we have a match.
+                if p_gains != -1 and p_energy_from != -1 and p_s != -1:
+                    timestamp = self.parse_ts(line[:p_ts_end])
+
+                    # Slice out the 4 required pieces of data.
+                    recipient_name = line[p_ts_end + 2 : p_gains]
+                    energy_amount = line[p_gains + 7 : p_energy_from] # len(' gains ') == 7
+                    caster_name = line[p_energy_from + 13 : p_s]    # len(' Energy from ') == 13
+
+                    p_period = line.rfind('.', p_s)
+                    spell_name = line[p_s + 4 : p_period]            # len(" 's ") == 4
+
+                    # Construct the tree with 4 children, as expected.
+                    subtree = Tree(data='gains_energy_line', children=[
+                        Token('t', recipient_name),
+                        Token('t', energy_amount),
+                        Token('t', caster_name),
+                        Token('t', spell_name)
+                    ])
+
+                    return Tree(data='line', children=[timestamp, subtree])
+
+
+                p_s = line.find(" 's ", p_ts_end)
+                p_resisted = line.find(' was resisted by ', p_s)
+
+                # If both anchors are found, we have a match.
+                if p_s != -1 and p_resisted != -1:
+                    timestamp = self.parse_ts(line[:p_ts_end])
+
+                    # Slice out the 3 required pieces of data from between the anchors.
+                    caster_name = line[p_ts_end + 2 : p_s]
+                    spell_name = line[p_s + 4 : p_resisted]
+
+                    # Target name is everything after the second anchor, stripped of the final period.
+                    target_name = line[p_resisted + 17:].rstrip('.\n ') # 17 is len(' was resisted by ')
+
+                    # Construct the tree with 3 children, as expected by the consumer.
+                    subtree = Tree(data='resist_line', children=[
+                        Token('t', caster_name),
+                        Token('t', spell_name),
+                        Token('t', target_name)
+                    ])
+
+                    return Tree(data='line', children=[timestamp, subtree])
+
+
+
+
+
         except Exception:
             self.excnum += 1
 
+        self.unparsed_logger.log(line)
         return self.lark_parser.parse(line)
 
 
@@ -457,6 +695,19 @@ def dl_price_data(prices_server):
         return None
 
 
+@functools.cache
+def create_unparsed_loggers(expert_log_unparsed_lines):
+    if expert_log_unparsed_lines:
+        unparsed = UnparsedLogger(filename="unparsed.txt")
+        unparsed_fast = UnparsedLogger(filename="unparsed-fast.txt")
+    else:
+        unparsed = NullLogger(filename="unparsed.txt")
+        unparsed_fast = NullLogger(filename="unparsed-fast.txt")
+    return unparsed, unparsed_fast
+
+
+
+
 def create_app(
     time_start,
     expert_log_unparsed_lines,
@@ -473,7 +724,10 @@ def create_app(
         lark.logger.setLevel(logging.DEBUG)
         lark_debug = True
 
-    app.parser = create_parser(grammar=grammar.grammar, debug=lark_debug)
+
+    app.unparsed_logger, app.unparsed_logger_fast = create_unparsed_loggers(expert_log_unparsed_lines)
+
+    app.parser = create_parser(grammar=grammar.grammar, debug=lark_debug, unparsed_logger=app.unparsed_logger_fast)
 
     if expert_write_lalr_states:
 
@@ -494,11 +748,6 @@ def create_app(
             print("writing lalr table to", filename)
 
         feature()
-
-    if expert_log_unparsed_lines:
-        app.unparsed_logger = UnparsedLogger(filename="unparsed.txt")
-    else:
-        app.unparsed_logger = NullLogger(filename="unparsed.txt")
 
     # player - consumable - count
     app.player = collections.defaultdict(lambda: collections.defaultdict(int))
@@ -4638,6 +4887,7 @@ def parse_log(app, filename):
         app.techinfo.set_skipped_line_count(skiplinecount)
 
         app.unparsed_logger.flush()
+        app.unparsed_logger_fast.flush()
 
 
 def generate_output(app):

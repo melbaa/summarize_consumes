@@ -1774,4 +1774,16 @@ def test_urlparse(app):
         assert filename == filename2
 
 
+def test_invalid_input(app):
+    lines = """
+9/23 16:59/23 17:02:57.511  Psykhe hits Alzzin the Wildshaper for 111.
+1  Psykhe hits Alzzin the Wildshaper for 111.
+"""
+
+    match = 0
+    lines = lines.splitlines(keepends=True)
+    for line in lines:
+        match += parse_line(app, line)
+    assert not match
+
 

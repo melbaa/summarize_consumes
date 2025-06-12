@@ -516,6 +516,7 @@ Starr deaths:2
 Starraven deaths:1
    Blessed Wizard Oil 2   (10g 99s 96c)
    Dreamtonic 4   (7g 9s 20c)
+   Emerald Blessing 1 
    Fire Protection 1 
    Flask of Supreme Power 1   (49g 89s 72c)
    Frost Protection 3 
@@ -1116,4 +1117,4 @@ Tech
    known consumables 302
    log size 29.1 MB
    log lines 413920
-   skipped log lines 568 (0.14%)
+   skipped log lines 567 (0.14%)

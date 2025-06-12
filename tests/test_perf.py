@@ -60,7 +60,7 @@ def test_basic2(app):
 
 
 
-@pytest.mark.skip()
+#@pytest.mark.skip()
 def test_basic3(app):
     filename = r'testdata/naxx-superwow-2025-06-02.txt'
 
@@ -82,11 +82,9 @@ def test_basic3(app):
     stats = pstats.Stats(profiler)
     stats.sort_stats('cumulative')
 
-    import pdb;pdb.set_trace()
-    pass
+    stats.print_stats(100)
 
     r"""
-    stats.print_stats(20)
          242636180 function calls (242631756 primitive calls) in 167.183 seconds
 
    Ordered by: cumulative time
@@ -118,7 +116,7 @@ def test_basic3(app):
 
 
 
-@pytest.mark.skip()
+#@pytest.mark.skip()
 def test_basic4(app):
     filename = r'testdata/naxx-superwow-2025-06-02.txt'
 
@@ -149,51 +147,54 @@ def test_basic4(app):
     r"""
 
 
-is_destroyed_line: 0.099ms avg, 4 lines
-is_dismissed_line: 0.113ms avg, 4 lines
-pet_begins_eating_line: 0.098ms avg, 5 lines
-equipped_durability_loss: 0.087ms avg, 6 lines
-block_ability_line: 0.149ms avg, 7 lines
-interrupts_line: 0.104ms avg, 9 lines
-performs_line: 0.102ms avg, 9 lines
+
+fails_to_dispel_line: 0.094ms avg, 1 lines
+is_destroyed_line: 0.100ms avg, 4 lines
+is_dismissed_line: 0.122ms avg, 4 lines
+pet_begins_eating_line: 0.100ms avg, 5 lines
+equipped_durability_loss: 0.072ms avg, 6 lines
+block_ability_line: 0.109ms avg, 7 lines
+interrupts_line: 0.154ms avg, 9 lines
+performs_line: 0.107ms avg, 9 lines
 is_killed_line: 0.096ms avg, 27 lines
-immune_line: 0.087ms avg, 28 lines
-gains_happiness_line: 0.137ms avg, 29 lines
-is_immune_ability_line: 0.125ms avg, 30 lines
-was_evaded_line: 0.122ms avg, 33 lines
-creates_line: 0.103ms avg, 34 lines
-falls_line: 0.088ms avg, 39 lines
-misses_ability_line: 0.122ms avg, 71 lines
-slain_line: 0.107ms avg, 140 lines
-performs_on_line: 0.118ms avg, 242 lines
-combatant_info_line: 0.082ms avg, 584 lines
-parry_ability_line: 0.120ms avg, 692 lines
-immune_ability_line: 0.125ms avg, 738 lines
-removed_line: 0.102ms avg, 760 lines
-causes_damage_line: 0.116ms avg, 810 lines
-dodge_ability_line: 0.121ms avg, 1027 lines
+immune_line: 0.116ms avg, 28 lines
+gains_happiness_line: 0.119ms avg, 29 lines
+is_immune_ability_line: 0.116ms avg, 30 lines
+was_evaded_line: 0.124ms avg, 33 lines
+creates_line: 0.113ms avg, 34 lines
+falls_line: 0.104ms avg, 39 lines
+misses_ability_line: 0.123ms avg, 71 lines
+slain_line: 0.109ms avg, 140 lines
+performs_on_line: 0.120ms avg, 242 lines
+combatant_info_line: 0.100ms avg, 584 lines
+parry_ability_line: 0.121ms avg, 692 lines
+immune_ability_line: 0.118ms avg, 738 lines
+removed_line: 0.099ms avg, 760 lines
+causes_damage_line: 0.112ms avg, 810 lines
+dodge_ability_line: 0.118ms avg, 1027 lines
 begins_to_perform_line: 0.105ms avg, 1061 lines
-reflects_damage_line: 0.124ms avg, 1143 lines
-parry_line: 0.106ms avg, 1156 lines
-dies_line: 0.089ms avg, 1266 lines
-misses_line: 0.105ms avg, 1990 lines
-dodges_line: 0.105ms avg, 2530 lines
-uses_line: 0.103ms avg, 3163 lines
-resist_line: 0.121ms avg, 3208 lines
-gains_energy_line: 0.130ms avg, 3701 lines
-gains_health_line: 0.124ms avg, 3872 lines
-gains_rage_line: 0.128ms avg, 5680 lines
-gains_extra_attacks_line: 0.118ms avg, 5771 lines
+reflects_damage_line: 0.125ms avg, 1143 lines
+parry_line: 0.104ms avg, 1156 lines
+dies_line: 0.095ms avg, 1266 lines
+misses_line: 0.104ms avg, 1990 lines
+dodges_line: 0.104ms avg, 2530 lines
+uses_line: 0.107ms avg, 3163 lines
+resist_line: 0.119ms avg, 3208 lines
+gains_energy_line: 0.128ms avg, 3701 lines
+gains_health_line: 0.127ms avg, 3872 lines
+gains_rage_line: 0.126ms avg, 5680 lines
+gains_extra_attacks_line: 0.116ms avg, 5771 lines
 casts_line: 0.116ms avg, 9447 lines
-afflicted_line: 0.103ms avg, 17241 lines
+afflicted_line: 0.014ms avg, 17243 lines
 begins_to_cast_line: 0.013ms avg, 19222 lines
 hits_autoattack_line: 0.013ms avg, 33271 lines
-gains_line: 0.013ms avg, 40019 lines
-suffers_line: 0.015ms avg, 40398 lines
-fades_line: 0.011ms avg, 41059 lines
-heals_line: 0.013ms avg, 43326 lines
-hits_ability_line: 0.014ms avg, 83261 lines
-gains_mana_line: 0.011ms avg, 109936 lines
+gains_line: 0.014ms avg, 40019 lines
+suffers_line: 0.016ms avg, 40398 lines
+fades_line: 0.012ms avg, 41059 lines
+heals_line: 0.014ms avg, 43326 lines
+hits_ability_line: 0.015ms avg, 83261 lines
+gains_mana_line: 0.012ms avg, 109936 lines
+
 
     """
 
