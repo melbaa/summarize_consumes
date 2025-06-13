@@ -443,8 +443,6 @@ Yis deaths:3
    Nature Protection 4 
 
    total spent: 7g 1s 67c
-brennanheart deaths:1
-   <nothing found>
 
 
 Sunder Armor Summary (trash and boss counts)
@@ -859,6 +857,7 @@ Pets
    JedGau owned by Hrin
    Kotick owned by Chan
    POLOSATIK owned by Berserkss
+   brennanheart owned by Smahingbolt
    Unknown owned by Alexhunt
 
 
@@ -906,11 +905,10 @@ Class Detection
    Tockra warrior
    Xanadun warlock
    Yis hunter
-   brennanheart unknown
 
 
 Tech
    known consumables 302
    log size 22.0 MB
    log lines 292920
-   skipped log lines 27 (0.01%)
+   skipped log lines 22 (0.01%)

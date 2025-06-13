@@ -81,8 +81,14 @@ class TreeTransformer(lark.Transformer):
         return lark.Token("INT_T", args[2:-1])
 
 
+class MockLarkParser:
+    def parse(self, line):
+        raise LarkError("unknown line")
+
+
 @functools.cache
 def create_parser(grammar: str, debug, unparsed_logger):
+    """
     parser = lark.Lark(
         grammar,
         parser="lalr",
@@ -91,12 +97,14 @@ def create_parser(grammar: str, debug, unparsed_logger):
         strict=True,
         transformer=TreeTransformer(),
     )
+    """
+    parser = MockLarkParser()
 
     return Parser2(lark_parser=parser, unparsed_logger=unparsed_logger)
 
 
 class MyToken:
-    __slots__ = ('type', 'value')
+    __slots__ = ("type", "value")
 
     def __init__(self, type_name, value):
         self.type = type_name
@@ -111,6 +119,7 @@ class MyToken:
     def __repr__(self):
         return f"MyToken({self.type!r}, {self.value!r})"
 
+
 class Parser2:
     def __init__(self, lark_parser, unparsed_logger):
         self.lark_parser = lark_parser
@@ -123,6 +132,103 @@ class Parser2:
         self.timestamp_tokens = [MyToken("t", "") for _ in range(6)]
         self.timestamp_tree = Tree("timestamp", children=self.timestamp_tokens)
 
+        # shared token cache
+        self.name_token = MyToken("t", "")
+        self.mana_token = MyToken("t", "")
+        self.spellname_token = MyToken("t", "")
+        self.damage_token = MyToken("t", "")
+        self.targetname_token = MyToken("t", "")
+        self.stackcount_token = MyToken("t", "")
+        self.spell_damage_type_token = MyToken("t", "")
+        self.heal_amount_token = MyToken("t", "")
+        self.heal_crit_token = MyToken("HEAL_CRIT", "")
+
+        # gains_mana_line cache
+        subtree = Tree(
+            data="gains_mana_line",
+            children=[self.name_token, self.mana_token, self.spellname_token],
+        )
+        self.gains_mana_line_tree = Tree(data="line", children=[self.timestamp_tree, subtree])
+
+        # hits_ability_line cache
+        subtree = Tree(
+            data="hits_ability_line",
+            children=[
+                self.name_token,
+                self.spellname_token,
+                self.targetname_token,
+                self.damage_token,
+                self.spell_damage_type_token,
+            ],
+        )
+        self.hits_ability_line_tree = Tree(data="line", children=[self.timestamp_tree, subtree])
+
+        # hits_autoattack_line cache
+        subtree = Tree(
+            data="hits_autoattack_line",
+            children=[
+                self.name_token,
+                self.targetname_token,
+                self.damage_token,
+            ],
+        )
+        self.hits_autoattack_line_tree = Tree(data="line", children=[self.timestamp_tree, subtree])
+
+        # gains_line cache
+        subtree = Tree(
+            data="gains_line",
+            children=[
+                self.name_token,
+                self.spellname_token,
+                self.stackcount_token,
+            ],
+        )
+        self.gains_line_tree = Tree(data="line", children=[self.timestamp_tree, subtree])
+
+        # heals_line cache
+        subtree = Tree(
+            data="heals_line",
+            children=[
+                self.name_token,
+                self.spellname_token,
+                self.heal_crit_token,
+                self.targetname_token,
+                self.heal_amount_token,
+            ],
+        )
+        self.heals_line_tree = Tree(data="line", children=[self.timestamp_tree, subtree])
+
+        # fades_line cache
+        subtree = Tree(data="fades_line", children=[self.spellname_token, self.targetname_token])
+        self.fades_line_tree = Tree(data="line", children=[self.timestamp_tree, subtree])
+
+        # suffers_line cache (WITH source)
+        source_subtree = Tree(
+            data="suffers_line_source",
+            children=[
+                self.spell_damage_type_token,
+                self.name_token,  # castername
+                self.spellname_token,
+            ],
+        )
+        subtree = Tree(
+            data="suffers_line", children=[self.targetname_token, self.damage_token, source_subtree]
+        )
+        self.suffers_line_source_tree = Tree(data="line", children=[self.timestamp_tree, subtree])
+
+        # suffers_line cache (NO source)
+        nosource_subtree = Tree(
+            data="suffers_line_nosource", children=[self.spell_damage_type_token]
+        )
+        subtree = Tree(
+            data="suffers_line",
+            children=[self.targetname_token, self.damage_token, nosource_subtree],
+        )
+        self.suffers_line_nosource_tree = Tree(data="line", children=[self.timestamp_tree, subtree])
+
+        # begins_to_cast_line cache
+        subtree = Tree(data="begins_to_cast_line", children=[self.name_token, self.spellname_token])
+        self.begins_to_cast_line_tree = Tree(data="line", children=[self.timestamp_tree, subtree])
 
     def parse_ts(self, line, p_ts_end):
         # 6/1 18:31:36.197  ...
@@ -137,6 +243,26 @@ class Parser2:
             self.timestamp_tokens[i].value = value
 
         return self.timestamp_tree
+
+    def parse_consolidated_pet(self, pet_string: str):
+        """Parses a single 'PET: ...' substring."""
+
+        # We don't need the timestamp, so we find the first '&' to skip it.
+        p_first_amp = pet_string.find("&")
+        if p_first_amp == -1:
+            return None
+
+        # Now find the second '&' which separates the name from the pet name.
+        p_second_amp = pet_string.find("&", p_first_amp + 1)
+        if p_second_amp == -1:
+            return None
+
+        # Slice out the name and pet name.
+        name = pet_string[p_first_amp + 1 : p_second_amp]
+        petname = pet_string[p_second_amp + 1 :].strip()  # strip() for safety
+
+        # Return the subtree for this pet entry.
+        return Tree(data="consolidated_pet", children=[Token("t", name), Token("t", petname)])
 
     def parse(self, line, p_ts_end):
         """
@@ -163,20 +289,17 @@ class Parser2:
                 mana = line[p_gains + 7 : p_mana_from]
 
                 # len(' Mana from ') == 11
-                castername = line[p_mana_from + 11 : p_s]
+                # castername = line[p_mana_from + 11 : p_s]  # don't need this currently
 
                 # len(" 's ") == 4. The -2 strips the final period '.\n'
                 spellname = line[p_s + 4 : -2]
 
-                timestamp_str = line[:p_ts_end]
-                timestamp = self.parse_ts(line, p_ts_end)
+                _ = self.parse_ts(line, p_ts_end)  # magic cached reference
 
-                name = Token("t", name)
-                mana = Token("t", mana)
-                spellname = Token("t", spellname)
-                subtree = Tree(data="gains_mana_line", children=[name, mana, spellname])
-                tree = Tree(data="line", children=[timestamp, subtree])
-                return tree
+                self.name_token.value = name  # magic cached reference
+                self.mana_token.value = mana  # magic cached reference
+                self.spellname_token.value = spellname  # magic cached reference
+                return self.gains_mana_line_tree  # magic cached reference
 
             # It has already been determined NOT to be a 'Mana from' event.
             # we'll look for an attack or ability line
@@ -219,8 +342,8 @@ class Parser2:
                 if not damage_amount.isdigit():
                     raise ValueError("invalid number?")
 
-                damage_type_str = None
-                # there's text after the dmgnum and it's not in parens
+                damage_type_str = ""
+                # there's text after the damage_amount and it's not in parens
                 if p_space != -1:
                     # According to the grammar, the type must be followed by " damage".
                     # We find the start of that phrase to define the end of our type word.
@@ -231,41 +354,28 @@ class Parser2:
                         # ...then the damage type is the slice between the first space and " damage".
                         damage_type_str = line[p_space + 1 : p_damage_word]
 
-                damage_type_node = None
-                if damage_type_str:
-                    damage_type_node = Tree(
-                        data="damage_type", children=[Token("t", damage_type_str)]
-                    )
-
                 # having a " 's " between the timestamp and action means it's an ability
                 p_s = line.find(" 's ", p_ts_end, p_action)
                 if p_s != -1:  # It's a hits_ability_line
-                    caster_name = line[p_ts_end + 2 : p_s]
-                    spell_name = line[p_s + 4 : p_action]
-                    target_name = line[p_action + len(action_verb) + 2 : p_for]
-                    subtree = Tree(
-                        data="hits_ability_line",
-                        children=[
-                            Token("t", caster_name),
-                            Token("t", spell_name),
-                            Token("t", target_name),
-                            Token("t", damage_amount),
-                            damage_type_node,
-                        ],
-                    )
+                    name = line[p_ts_end + 2 : p_s]
+                    spellname = line[p_s + 4 : p_action]
+                    targetname = line[p_action + len(action_verb) + 2 : p_for]
+
+                    self.name_token.value = name  # magic cached reference
+                    self.spellname_token.value = spellname  # magic cached reference
+                    self.targetname_token.value = targetname  # magic cached reference
+                    self.damage_token.value = damage_amount  # magic cached reference
+                    self.spell_damage_type_token.value = damage_type_str  # magic cached reference
+                    return self.hits_ability_line_tree  # magic cached reference
+
                 else:  # It's a hits_autoattack_line
                     caster_name = line[p_ts_end + 2 : p_action]
                     target_name = line[p_action + len(action_verb) + 2 : p_for]
-                    subtree = Tree(
-                        data="hits_autoattack_line",
-                        children=[
-                            Token("t", caster_name),
-                            Token("t", target_name),
-                            Token("t", damage_amount),
-                        ],
-                    )
 
-                return Tree(data="line", children=[timestamp, subtree])
+                    self.name_token.value = caster_name  # magic cached reference
+                    self.targetname_token.value = target_name  # magic cached reference
+                    self.damage_token.value = damage_amount  # magic cached reference
+                    return self.hits_autoattack_line_tree  # magic cached reference
 
             # 12/13 14:20:41.781  BudwiserHL 's Holy Light heals Pitbound for 2166.
             # 12/14 01:27:54.282  NimpheraFH 's Flash Heal heals Didja for 1074.
@@ -273,12 +383,12 @@ class Parser2:
             # 12/14 01:28:02.673  NimpheraPH 's Prayer of Healing critically heals Krrom for 1564.
             # 12/14 01:28:02.673  NimpheraH 's Heal critically heals Krrom for 1564.
 
-            is_crit = True
+            crit_token_value = "critically"
             action_verb = " critically heals "
             p_action = line.find(action_verb, p_ts_end)
 
             if p_action == -1:
-                is_crit = False
+                crit_token_value = ""
                 action_verb = " heals "
                 p_action = line.find(action_verb, p_ts_end)
 
@@ -300,29 +410,12 @@ class Parser2:
                 p_num_end = p_period
                 amount = line[p_num_start:p_num_end]
 
-                if is_crit:
-                    subtree = Tree(
-                        data="heals_line",
-                        children=[
-                            Token("t", caster_name),
-                            Token("t", spell_name),
-                            Token("HEAL_CRIT", "critically"),  # The special crit marker
-                            Token("t", target_name),
-                            Token("t", amount),
-                        ],
-                    )
-                else:
-                    subtree = Tree(
-                        data="heals_line",
-                        children=[
-                            Token("t", caster_name),
-                            Token("t", spell_name),
-                            Token("t", target_name),  # Note the position
-                            Token("t", amount),
-                        ],
-                    )
-
-                return Tree(data="line", children=[timestamp, subtree])
+                self.name_token.value = caster_name  # magic cached reference
+                self.spellname_token.value = spell_name  # magic cached reference
+                self.heal_crit_token.value = crit_token_value  # magic cached reference
+                self.targetname_token.value = target_name  # magic cached reference
+                self.heal_amount_token.value = amount  # magic cached reference
+                return self.heals_line_tree  # magic cached reference
 
             p_fades = line.find(" fades from ", p_ts_end)
 
@@ -336,11 +429,9 @@ class Parser2:
                 # We can use rstrip to clean the period and any trailing newline/space.
                 targetname = line[p_fades + 12 :].rstrip(".\n ")  # 12 is len(' fades from ')
 
-                subtree = Tree(
-                    data="fades_line", children=[Token("t", spellname), Token("t", targetname)]
-                )
-
-                return Tree(data="line", children=[timestamp, subtree])
+                self.spellname_token.value = spellname  # magic cached reference
+                self.targetname_token.value = targetname  # magic cached reference
+                return self.fades_line_tree  # magic cached reference
 
             p_suffers = line.find(" suffers ", p_ts_end)
 
@@ -354,6 +445,9 @@ class Parser2:
                 p_num_start = p_suffers + 9  # len(' suffers ')
                 p_num_end = line.find(" ", p_num_start)
                 amount = line[p_num_start:p_num_end]
+
+                self.targetname_token.value = targetname  # magic cached reference
+                self.damage_token.value = amount  # magic cached reference
 
                 # figure out if there's a source
                 # The source is indicated by the phrase " damage from ".
@@ -373,19 +467,10 @@ class Parser2:
                     castername = line[p_s_start:p_s]
                     spellname = line[p_s + 4 : p_period]
 
-                    source_subtree = Tree(
-                        data="suffers_line_source",
-                        children=[
-                            Token("t", damage_type),
-                            Token("t", castername),
-                            Token("t", spellname),
-                        ],
-                    )
-
-                    subtree = Tree(
-                        data="suffers_line",
-                        children=[Token("t", targetname), Token("t", amount), source_subtree],
-                    )
+                    self.spell_damage_type_token.value = damage_type  # magic cached reference
+                    self.name_token.value = castername  # magic cached reference
+                    self.spellname_token.value = spellname  # magic cached reference
+                    return self.suffers_line_source_tree  # magic cached reference
 
                 else:
                     # No source is present
@@ -395,17 +480,8 @@ class Parser2:
 
                     damage_type = line[p_points + 11 : p_damage_word]
 
-                    # The consumer expects a subtree even for no source.
-                    nosource_subtree = Tree(
-                        data="suffers_line_nosource", children=[Token("t", damage_type)]
-                    )
-
-                    subtree = Tree(
-                        data="suffers_line",
-                        children=[Token("t", targetname), Token("t", amount), nosource_subtree],
-                    )
-
-                return Tree(data="line", children=[timestamp, subtree])
+                    self.spell_damage_type_token.value = damage_type  # magic cached reference
+                    return self.suffers_line_nosource_tree  # magic cached reference
 
             p_gains = line.find(" gains ", p_ts_end)
 
@@ -426,12 +502,10 @@ class Parser2:
                 # The stackcount is the number between the parentheses.
                 stackcount = line[p_paren_open + 2 : p_paren_close]  # +2 skips " ("
 
-                subtree = Tree(
-                    data="gains_line",
-                    children=[Token("t", name), Token("t", spellname), Token("t", stackcount)],
-                )
-
-                return Tree(data="line", children=[timestamp, subtree])
+                self.name_token.value = name  # magic cached reference
+                self.spellname_token.value = spellname  # magic cached reference
+                self.stackcount_token.value = stackcount  # magic cached reference
+                return self.gains_line_tree
 
             action_phrase = " begins to cast "
             p_action = line.find(action_phrase, p_ts_end)
@@ -446,12 +520,10 @@ class Parser2:
                 # final period and whitespace stripped off.
                 spell_name = line[p_action + len(action_phrase) :].rstrip(".\n ")
 
-                subtree = Tree(
-                    data="begins_to_cast_line",
-                    children=[Token("t", caster_name), Token("t", spell_name)],
-                )
+                self.name_token.value = caster_name  # magic cached reference
+                self.spellname_token.value = spell_name  # magic cached reference
 
-                return Tree(data="line", children=[timestamp, subtree])
+                return self.begins_to_cast_line_tree  # magic cached reference
 
             action_phrase = " is afflicted by "
             p_action = line.find(action_phrase, p_ts_end)
@@ -819,9 +891,7 @@ class Parser2:
 
             # Find all the anchors in sequential order.
             p_reflects = line.find(" reflects ", p_ts_end)
-            p_damage_to = line.find(
-                " damage to ", p_reflects
-            )  # Changed anchor name for clarity
+            p_damage_to = line.find(" damage to ", p_reflects)  # Changed anchor name for clarity
 
             # If both anchors are found, we have a match.
             if p_reflects != -1 and p_damage_to != -1:
@@ -964,10 +1034,9 @@ class Parser2:
 
                     return Tree(data="line", children=[timestamp, subtree])
 
-
             anchor1 = " 's "
-            anchor2 = ' fails. '
-            final_anchor = ' is immune.\n'
+            anchor2 = " fails. "
+            final_anchor = " is immune.\n"
 
             if line.endswith(final_anchor):
                 p_anchor1 = line.find(anchor1, p_ts_end)
@@ -983,30 +1052,20 @@ class Parser2:
                     target_end = -len(final_anchor)
                     target_name = line[target_start:target_end]
 
-                    subtree = Tree(data='immune_ability_line', children=[
-                        Token('t', caster_name),
-                        Token('t', spell_name),
-                        Token('t', target_name)
-                    ])
+                    subtree = Tree(
+                        data="immune_ability_line",
+                        children=[
+                            Token("t", caster_name),
+                            Token("t", spell_name),
+                            Token("t", target_name),
+                        ],
+                    )
 
-                    return Tree(data='line', children=[timestamp, subtree])
-
-
-
-            """
-            anchor = 'COMBATANT_INFO: '
-            if line.find(anchor, p_ts_end + 2, p_ts_end + 2 + 16) != -1:
-                timestamp = self.parse_ts(line, p_ts_end)
-                subtree = Tree(data='combatant_info_line', children=[])
-                return Tree(data='line', children=[
-                    timestamp, subtree
-                ])  # not processed
-            """
-
+                    return Tree(data="line", children=[timestamp, subtree])
 
             # Find the two key anchors in sequential order.
             p_s = line.find(" 's ", p_ts_end)
-            p_parried = line.find(' was parried by ', p_s)
+            p_parried = line.find(" was parried by ", p_s)
 
             # If both anchors are found, we have a match.
             if p_s != -1 and p_parried != -1:
@@ -1017,22 +1076,23 @@ class Parser2:
                 spell_name = line[p_s + 4 : p_parried]
 
                 # Target name is after the second anchor, with ".\n" removed.
-                target_start = p_parried + 16 # len(' was parried by ')
-                target_end = -2                # Removes exactly ".\n"
+                target_start = p_parried + 16  # len(' was parried by ')
+                target_end = -2  # Removes exactly ".\n"
                 target_name = line[target_start:target_end]
 
-                subtree = Tree(data='parry_ability_line', children=[
-                    Token('t', caster_name),
-                    Token('t', spell_name),
-                    Token('t', target_name)
-                ])
+                subtree = Tree(
+                    data="parry_ability_line",
+                    children=[
+                        Token("t", caster_name),
+                        Token("t", spell_name),
+                        Token("t", target_name),
+                    ],
+                )
 
-                return Tree(data='line', children=[timestamp, subtree])
+                return Tree(data="line", children=[timestamp, subtree])
 
-
-
-            middle_anchor = ' attacks but '
-            final_anchor_with_newline = ' is immune.\n'
+            middle_anchor = " attacks but "
+            final_anchor_with_newline = " is immune.\n"
 
             # First, use a fast check to see if the line ends correctly.
             if line.endswith(final_anchor_with_newline):
@@ -1052,19 +1112,17 @@ class Parser2:
                     target_end = -len(final_anchor_with_newline)
                     target = line[target_start:target_end]
 
-                    subtree = Tree(data='immune_line', children=[
-                        Token('t', attacker),
-                        Token('t', target)
-                    ])
+                    subtree = Tree(
+                        data="immune_line", children=[Token("t", attacker), Token("t", target)]
+                    )
 
-                    return Tree(data='line', children=[timestamp, subtree])
+                    return Tree(data="line", children=[timestamp, subtree])
 
-
-            p_performs = line.find(' performs ', p_ts_end)
+            p_performs = line.find(" performs ", p_ts_end)
 
             if p_performs != -1:
                 # A "performs" action was found. Now check for the "on" to disambiguate.
-                p_on = line.find(' on ', p_performs)
+                p_on = line.find(" on ", p_performs)
 
                 if p_on != -1:
                     # performs_on_line (most specific)
@@ -1072,14 +1130,17 @@ class Parser2:
 
                     performer = line[p_ts_end + 2 : p_performs]
                     spellname = line[p_performs + 10 : p_on]  # len(' performs ')
-                    targetname = line[p_on + 4 : -2]           # len(' on '), removes ".\n"
+                    targetname = line[p_on + 4 : -2]  # len(' on '), removes ".\n"
 
-                    subtree = Tree(data='performs_on_line', children=[
-                        Token('t', performer),
-                        Token('t', spellname),
-                        Token('t', targetname)
-                    ])
-                    return Tree(data='line', children=[timestamp, subtree])
+                    subtree = Tree(
+                        data="performs_on_line",
+                        children=[
+                            Token("t", performer),
+                            Token("t", spellname),
+                            Token("t", targetname),
+                        ],
+                    )
+                    return Tree(data="line", children=[timestamp, subtree])
 
                 else:
                     # performs_line (less specific, potentially dangerous)
@@ -1088,19 +1149,16 @@ class Parser2:
                     timestamp = self.parse_ts(line, p_ts_end)
 
                     performer = line[p_ts_end + 2 : p_performs]
-                    spellname = line[p_performs + 10 : -2] # len(' performs '), removes ".\n"
+                    spellname = line[p_performs + 10 : -2]  # len(' performs '), removes ".\n"
 
-                    subtree = Tree(data='performs_line', children=[
-                        Token('t', performer),
-                        Token('t', spellname)
-                    ])
-                    return Tree(data='line', children=[timestamp, subtree])
+                    subtree = Tree(
+                        data="performs_line",
+                        children=[Token("t", performer), Token("t", spellname)],
+                    )
+                    return Tree(data="line", children=[timestamp, subtree])
 
-
-
-
-            middle_anchor = ' falls and loses '
-            final_anchor_with_newline = ' health.\n'
+            middle_anchor = " falls and loses "
+            final_anchor_with_newline = " health.\n"
 
             # Use a fast check on the line's ending to pre-filter.
             if line.endswith(final_anchor_with_newline):
@@ -1112,22 +1170,17 @@ class Parser2:
 
                     name = line[p_ts_end + 2 : p_middle]
 
-                    # The amount is between the middle anchor and the final anchor.
                     amount_start = p_middle + len(middle_anchor)
                     amount_end = -len(final_anchor_with_newline)
                     amount = line[amount_start:amount_end]
 
-                    # Construct the simple two-child tree.
-                    subtree = Tree(data='falls_line', children=[
-                        Token('t', name),
-                        Token('t', amount)
-                    ])
+                    subtree = Tree(
+                        data="falls_line", children=[Token("t", name), Token("t", amount)]
+                    )
 
-                    return Tree(data='line', children=[timestamp, subtree])
+                    return Tree(data="line", children=[timestamp, subtree])
 
-
-
-            anchor1 = ' is immune to '
+            anchor1 = " is immune to "
             anchor2 = " 's "
 
             p_anchor1 = line.find(anchor1, p_ts_end)
@@ -1137,29 +1190,29 @@ class Parser2:
             if p_anchor1 != -1 and p_anchor2 != -1:
                 timestamp = self.parse_ts(line, p_ts_end)
 
-
                 target_name = line[p_ts_end + 2 : p_anchor1]
 
                 caster_name = line[p_anchor1 + len(anchor1) : p_anchor2]
 
                 # It's after the second anchor, with the final ".\n" removed.
                 spell_start = p_anchor2 + len(anchor2)
-                spell_end = -2 # Removes exactly ".\n"
+                spell_end = -2  # Removes exactly ".\n"
                 spell_name = line[spell_start:spell_end]
 
                 # Construct the tree with 3 children in the correct order.
-                subtree = Tree(data='is_immune_ability_line', children=[
-                    Token('t', target_name),
-                    Token('t', caster_name),
-                    Token('t', spell_name)
-                ])
+                subtree = Tree(
+                    data="is_immune_ability_line",
+                    children=[
+                        Token("t", target_name),
+                        Token("t", caster_name),
+                        Token("t", spell_name),
+                    ],
+                )
 
-                return Tree(data='line', children=[timestamp, subtree])
-
-
+                return Tree(data="line", children=[timestamp, subtree])
 
             p_s = line.find(" 's ", p_ts_end)
-            p_evaded = line.find(' was evaded by ', p_s)
+            p_evaded = line.find(" was evaded by ", p_s)
 
             if p_s != -1 and p_evaded != -1:
                 timestamp = self.parse_ts(line, p_ts_end)
@@ -1167,19 +1220,380 @@ class Parser2:
                 caster_name = line[p_ts_end + 2 : p_s]
                 spell_name = line[p_s + 4 : p_evaded]
 
-                target_start = p_evaded + 15 # len(' was evaded by ')
-                target_end = -2               # Removes exactly ".\n"
+                target_start = p_evaded + 15  # len(' was evaded by ')
+                target_end = -2  # Removes exactly ".\n"
                 target_name = line[target_start:target_end]
 
-                subtree = Tree(data='was_evaded_line', children=[
-                    Token('t', caster_name),
-                    Token('t', spell_name),
-                    Token('t', target_name)
-                ])
+                subtree = Tree(
+                    data="was_evaded_line",
+                    children=[
+                        Token("t", caster_name),
+                        Token("t", spell_name),
+                        Token("t", target_name),
+                    ],
+                )
 
-                return Tree(data='line', children=[timestamp, subtree])
+                return Tree(data="line", children=[timestamp, subtree])
 
+            consolidated_anchor = "CONSOLIDATED: "
+            p_consolidated = line.find(consolidated_anchor, p_ts_end)
 
+            if p_consolidated != -1:
+                # We have a CONSOLIDATED line.
+                timestamp = self.parse_ts(line, p_ts_end)
+
+                # Get the entire block of consolidated data.
+                data_block = line[p_consolidated + len(consolidated_anchor) :]
+
+                # Split the block into individual cases using "{" as the delimiter.
+                cases = data_block.split("{")
+
+                pet_entries = []
+                for case_str in cases:
+                    # For each case, check if it's a PET entry.
+                    if case_str.startswith("PET: "):
+                        pet_tree = self.parse_consolidated_pet(case_str)
+                        if pet_tree:
+                            pet_entries.append(pet_tree)
+
+                subtree = Tree(data="consolidated_line", children=pet_entries)
+                return Tree(data="line", children=[timestamp, subtree])
+
+            p_s = line.find(" 's ", p_ts_end)
+            p_absorbed = line.find(" is absorbed by ", p_s)
+
+            # If both anchors are found, we have a match.
+            if p_s != -1 and p_absorbed != -1:
+                timestamp = self.parse_ts(line, p_ts_end)
+
+                caster_name = line[p_ts_end + 2 : p_s]
+                spell_name = line[p_s + 4 : p_absorbed]
+
+                target_start = p_absorbed + 16  # len(' is absorbed by ')
+                target_end = -2  # Removes exactly ".\n"
+                target_name = line[target_start:target_end]
+
+                subtree = Tree(
+                    data="is_absorbed_ability_line",
+                    children=[
+                        Token("t", caster_name),
+                        Token("t", spell_name),
+                        Token("t", target_name),
+                    ],
+                )
+
+                return Tree(data="line", children=[timestamp, subtree])
+
+            p_absorbs = line.find(" absorbs ", p_ts_end)
+            p_s = line.find(" 's ", p_absorbs)
+
+            # If both anchors are found, we have a match.
+            if p_absorbs != -1 and p_s != -1:
+                timestamp = self.parse_ts(line, p_ts_end)
+
+                absorber_name = line[p_ts_end + 2 : p_absorbs]
+
+                caster_name = line[p_absorbs + 9 : p_s]  # 9 is len(' absorbs ')
+
+                # It's after the second anchor, with the final ".\n" removed.
+                spell_start = p_s + 4  # len(" 's ")
+                spell_end = -2  # Removes exactly ".\n"
+                spell_name = line[spell_start:spell_end]
+
+                subtree = Tree(
+                    data="absorbs_ability_line",
+                    children=[
+                        Token("t", absorber_name),
+                        Token("t", caster_name),
+                        Token("t", spell_name),
+                    ],
+                )
+
+                return Tree(data="line", children=[timestamp, subtree])
+
+            middle_anchor = " is slain by "
+            p_slain = line.find(middle_anchor, p_ts_end)
+
+            if p_slain != -1:
+                last_char = line[-2]  # newline at end
+
+                if last_char == "." or last_char == "!":
+                    # We have a confirmed match.
+                    timestamp = self.parse_ts(line, p_ts_end)
+
+                    # The victim's name is between the timestamp and the middle anchor.
+                    victim = line[p_ts_end + 2 : p_slain]
+
+                    # The slayer's name is after the anchor. We can use rstrip to
+                    # cleanly remove any combination of '.', '!', and whitespace.
+                    slayer_start = p_slain + len(middle_anchor)
+                    slayer = line[slayer_start:-2]
+
+                    subtree = Tree(
+                        data="slain_line", children=[Token("t", victim), Token("t", slayer)]
+                    )
+
+                    return Tree(data="line", children=[timestamp, subtree])
+
+            action_phrase = " creates "
+            p_action = line.find(action_phrase, p_ts_end)
+
+            if p_action != -1 and line.endswith(".\n"):
+                timestamp = self.parse_ts(line, p_ts_end)
+
+                creator_name = line[p_ts_end + 2 : p_action]
+
+                item_start = p_action + len(action_phrase)
+                item_end = -2  # Removes exactly ".\n"
+                item_name = line[item_start:item_end]
+
+                subtree = Tree(
+                    data="creates_line", children=[Token("t", creator_name), Token("t", item_name)]
+                )
+
+                return Tree(data="line", children=[timestamp, subtree])
+
+            middle_anchor = " is killed by "
+            p_killed = line.find(middle_anchor, p_ts_end)
+
+            if p_killed != -1 and line.endswith(".\n"):
+                timestamp = self.parse_ts(line, p_ts_end)
+
+                victim = line[p_ts_end + 2 : p_killed]
+
+                killer_start = p_killed + len(middle_anchor)
+                killer_end = -2  # Removes exactly ".\n"
+                killer = line[killer_start:killer_end]
+
+                subtree = Tree(
+                    data="is_killed_line", children=[Token("t", victim), Token("t", killer)]
+                )
+
+                return Tree(data="line", children=[timestamp, subtree])
+
+            final_anchor_with_newline = " is destroyed.\n"
+
+            if line.endswith(final_anchor_with_newline):
+                timestamp = self.parse_ts(line, p_ts_end)
+
+                # The entity's name is between the timestamp and the start of our known suffix.
+                # A negative slice is the cleanest way to remove the suffix.
+                name_start = p_ts_end + 2
+                name_end = -len(final_anchor_with_newline)
+                entity_name = line[name_start:name_end]
+
+                subtree = Tree(data="is_destroyed_line", children=[Token("t", entity_name)])
+
+                return Tree(data="line", children=[timestamp, subtree])
+
+            p_s = line.find(" 's ", p_ts_end)
+            p_reflected = line.find(" is reflected back by ", p_s)
+
+            # If both anchors are found, we have a match.
+            if p_s != -1 and p_reflected != -1:
+                timestamp = self.parse_ts(line, p_ts_end)
+
+                caster_name = line[p_ts_end + 2 : p_s]
+                spell_name = line[p_s + 4 : p_reflected]
+
+                reflector_start = p_reflected + 20  # len(' is reflected back by ')
+                reflector_end = -2  # Removes exactly ".\n"
+                reflector_name = line[reflector_start:reflector_end]
+
+                subtree = Tree(
+                    data="is_reflected_back_line",
+                    children=[
+                        Token("t", caster_name),
+                        Token("t", spell_name),
+                        Token("t", reflector_name),
+                    ],
+                )
+
+                return Tree(data="line", children=[timestamp, subtree])
+
+            if line.find("COMBATANT_INFO: ", p_ts_end + 2, p_ts_end + 2 + 16) != -1:
+                timestamp = self.parse_ts(line, p_ts_end)
+                subtree = Tree(data="combatant_info_line", children=[])
+                return Tree(data="line", children=[timestamp, subtree])
+
+            if line.find("NONE", p_ts_end + 2, p_ts_end + 2 + 4) != -1:
+                timestamp = self.parse_ts(line, p_ts_end)
+                subtree = Tree(data="none_line", children=[])
+                return Tree(data="line", children=[timestamp, subtree])
+
+            if line.find(" fails to dispel ", p_ts_end + 2) != -1:
+                timestamp = self.parse_ts(line, p_ts_end)
+                subtree = Tree(data="fails_to_dispel_line", children=[])
+                return Tree(data="line", children=[timestamp, subtree])
+
+            if line.find(" health for swimming in lava.", p_ts_end + 2) != -1:
+                timestamp = self.parse_ts(line, p_ts_end)
+                subtree = Tree(data="lava_line", children=[])
+                return Tree(data="line", children=[timestamp, subtree])
+
+            if line.find(" slays ", p_ts_end + 2) != -1 and line.endswith("!\n"):
+                timestamp = self.parse_ts(line, p_ts_end)
+                subtree = Tree(data="slays_line", children=[])
+                return Tree(data="line", children=[timestamp, subtree])
+
+            if line.find(" pet begins eating a ", p_ts_end + 2) != -1:
+                timestamp = self.parse_ts(line, p_ts_end)
+                subtree = Tree(data="pet_begins_eating_line", children=[])
+                return Tree(data="line", children=[timestamp, subtree])
+
+            if line.endswith(" 's equipped items suffer a 10% durability loss.\n"):
+                timestamp = self.parse_ts(line, p_ts_end)
+                subtree = Tree(data="equipped_durability_loss_line", children=[])
+                return Tree(data="line", children=[timestamp, subtree])
+
+            p_s = line.find(" 's ", p_ts_end)
+            p_blocked = line.find(" was blocked by ", p_s)
+
+            if p_s != -1 and p_blocked != -1:
+                timestamp = self.parse_ts(line, p_ts_end)
+
+                caster_name = line[p_ts_end + 2 : p_s]
+                spell_name = line[p_s + 4 : p_blocked]
+
+                blocker_start = p_blocked + 16  # len(' was blocked by ')
+                blocker_end = -2  # Removes exactly ".\n"
+                blocker_name = line[blocker_start:blocker_end]
+
+                subtree = Tree(
+                    data="block_ability_line",
+                    children=[
+                        Token("t", caster_name),
+                        Token("t", spell_name),
+                        Token("t", blocker_name),
+                    ],
+                )
+
+                return Tree(data="line", children=[timestamp, subtree])
+
+            middle_anchor = " attacks. "
+            final_anchor_with_newline = " blocks.\n"
+
+            if line.endswith(final_anchor_with_newline):
+                p_attacks = line.find(middle_anchor, p_ts_end)
+
+                if p_attacks != -1:
+                    timestamp = self.parse_ts(line, p_ts_end)
+
+                    attacker = line[p_ts_end + 2 : p_attacks]
+
+                    blocker_start = p_attacks + len(middle_anchor)
+                    blocker_end = -len(final_anchor_with_newline)
+                    blocker = line[blocker_start:blocker_end]
+
+                    subtree = Tree(
+                        data="block_line", children=[Token("t", attacker), Token("t", blocker)]
+                    )
+
+                    return Tree(data="line", children=[timestamp, subtree])
+
+            p_interrupts = line.find(" interrupts ", p_ts_end)
+            p_s = line.find(" 's ", p_interrupts)
+
+            # If both anchors are found, we have a match.
+            if p_interrupts != -1 and p_s != -1:
+                timestamp = self.parse_ts(line, p_ts_end)
+
+                interrupter_name = line[p_ts_end + 2 : p_interrupts]
+
+                target_name = line[p_interrupts + 12 : p_s]  # 12 is len(' interrupts ')
+
+                spell_start = p_s + 4  # len(" 's ")
+                spell_end = -2  # Removes exactly ".\n"
+                spell_name = line[spell_start:spell_end]
+
+                subtree = Tree(
+                    data="interrupts_line",
+                    children=[
+                        Token("t", interrupter_name),
+                        Token("t", target_name),
+                        Token("t", spell_name),
+                    ],
+                )
+
+                return Tree(data="line", children=[timestamp, subtree])
+
+            middle_anchor = " attacks. "
+            final_anchor_with_newline = " absorbs all the damage.\n"
+
+            if line.endswith(final_anchor_with_newline):
+                # If it does, find the middle anchor.
+                p_attacks = line.find(middle_anchor, p_ts_end)
+
+                if p_attacks != -1:
+                    timestamp = self.parse_ts(line, p_ts_end)
+
+                    attacker = line[p_ts_end + 2 : p_attacks]
+
+                    absorber_start = p_attacks + len(middle_anchor)
+                    absorber_end = -len(final_anchor_with_newline)
+                    absorber = line[absorber_start:absorber_end]
+
+                    subtree = Tree(
+                        data="absorbs_all_line",
+                        children=[Token("t", attacker), Token("t", absorber)],
+                    )
+
+                    return Tree(data="line", children=[timestamp, subtree])
+
+            anchor1 = " gains "
+            anchor2 = " Happiness from "
+            final_anchor_with_newline = " 's Feed Pet Effect.\n"
+
+            if line.endswith(final_anchor_with_newline):
+                p_anchor1 = line.find(anchor1, p_ts_end)
+                p_anchor2 = line.find(anchor2, p_anchor1)
+
+                if p_anchor1 != -1 and p_anchor2 != -1:
+                    timestamp = self.parse_ts(line, p_ts_end)
+
+                    pet_name = line[p_ts_end + 2 : p_anchor1]
+
+                    amount = line[p_anchor1 + len(anchor1) : p_anchor2]
+
+                    owner_start = p_anchor2 + len(anchor2)
+                    owner_end = -len(final_anchor_with_newline)
+                    owner_name = line[owner_start:owner_end]
+
+                    subtree = Tree(
+                        data="gains_happiness_line",
+                        children=[Token("t", pet_name), Token("t", amount), Token("t", owner_name)],
+                    )
+
+                    return Tree(data="line", children=[timestamp, subtree])
+
+            final_anchor = " is dismissed.\n"
+
+            if line.endswith(final_anchor):
+                # The key is finding the possessive "'s" before the final phrase.
+                p_dismissed = line.rfind(" is dismissed.")
+                p_s = line.rfind("'s", p_ts_end, p_dismissed)
+
+                if p_s != -1:
+                    timestamp = self.parse_ts(line, p_ts_end)
+
+                    # Check if the character *before* the apostrophe is a space.
+                    if line[p_s - 1] == " ":
+                        # Case: "Pitsharp 's"
+                        # The owner name ends one character before the space.
+                        owner_name = line[p_ts_end + 2 : p_s - 1]
+                    else:
+                        # Case: "Leyzara's"
+                        # The owner name ends right at the apostrophe.
+                        owner_name = line[p_ts_end + 2 : p_s]
+                    pet_start = p_s + 3  # Skips over "'s "
+
+                    pet_name = line[pet_start:p_dismissed]
+
+                    subtree = Tree(
+                        data="is_dismissed_line",
+                        children=[Token("t", owner_name), Token("t", pet_name)],
+                    )
+                    return Tree(data="line", children=[timestamp, subtree])
 
         except Exception:
             self.excnum += 1
@@ -4862,9 +5276,6 @@ def parse_line(app, line):
         if p_ts_end == -1:
             return False
 
-        if line.find('COMBATANT_INFO: ', p_ts_end + 2, p_ts_end + 2 + 16) != -1:
-            return True # don't need those currently
-
         tree = app.parser.parse(line, p_ts_end)
         return parse_line2(app, line, tree)
 
@@ -4974,17 +5385,13 @@ def parse_line2(app, line, tree):
 
         return True
     elif subtree.data == "heals_line":
-        is_crit = subtree.children[2].type == "HEAL_CRIT"
+        is_crit = subtree.children[2].value == "critically"
 
         name = subtree.children[0].value
         spellname = subtree.children[1].value
 
-        if is_crit:
-            targetname = subtree.children[3].value
-            amount = int(subtree.children[4].value)
-        else:
-            targetname = subtree.children[2].value
-            amount = int(subtree.children[3].value)
+        targetname = subtree.children[3].value
+        amount = int(subtree.children[4].value)
 
         spellname = rename_spell(spellname, line_type=subtree.data)
 
@@ -5101,7 +5508,7 @@ def parse_line2(app, line, tree):
         if targetname == "Viscidus":
             app.viscidus.found()
             spell_damage_type = subtree.children[4]
-            if spell_damage_type and spell_damage_type.children[0].value == "Frost":
+            if spell_damage_type.value == "Frost":
                 app.viscidus.add(name, spellname)
 
         if targetname == "Princess Huhuran":

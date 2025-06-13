@@ -514,8 +514,6 @@ Yis deaths:1
    Tea with Sugar 2   (55s 18c)
 
    total spent: 17g 88s 58c
-brennanheart deaths:3
-   <nothing found>
 
 
 Sunder Armor Summary (trash and boss counts)
@@ -1161,6 +1159,7 @@ Pets
    Fiertevere owned by Dregoth
    Betwena owned by Xanadun
    BATMAN owned by Berserkss
+   brennanheart owned by Smahingbolt
    Chotik owned by Falcula
    Naxxramas Worshipper owned by Arzetlam
    Rat owned by Yis
@@ -1210,11 +1209,10 @@ Class Detection
    Windfurytotm shaman
    Xanadun warlock
    Yis hunter
-   brennanheart unknown
 
 
 Tech
    known consumables 302
    log size 22.6 MB
    log lines 299509
-   skipped log lines 47 (0.02%)
+   skipped log lines 3 (0.00%)

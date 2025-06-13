@@ -270,8 +270,6 @@ Yis deaths:1
    Tea with Sugar 1   (27s 59c)
 
    total spent: 5g 18c
-brennanheart deaths:6
-   <nothing found>
 
 
 Sunder Armor Summary (trash and boss counts)
@@ -644,6 +642,7 @@ Pets
    Razorgore the Untamed owned by Illasei
    Razorgore the Untamed owned by Sunor
    Kotick owned by Chan
+   brennanheart owned by Smahingbolt
    Cat owned by Simplezz
 
 
@@ -695,11 +694,10 @@ Class Detection
    Windfurytotm shaman
    Xanadun warlock
    Yis hunter
-   brennanheart unknown
 
 
 Tech
    known consumables 302
    log size 25.0 MB
    log lines 332366
-   skipped log lines 216 (0.06%)
+   skipped log lines 149 (0.04%)

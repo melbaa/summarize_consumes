@@ -23,6 +23,7 @@ def test_lark_basic_lexer():
     for token in lark.lex(lines[0]):
         pass
 
+@pytest.mark.skip('not using lark anymore')
 def test_lark_contextual_lexer(app):
     lines = """4/21 21:01:38.861  Psykhe 's Tea with Sugar heals Psykhe for 1613.
 """
@@ -30,6 +31,7 @@ def test_lark_contextual_lexer(app):
     assert len(app.parser.lark_parser.parser.parser.parser.parse_table.states)
 
 
+@pytest.mark.skip('not using lark anymore')
 def test_lark_contextual_lexer2():
     lines = """
 """
@@ -50,6 +52,7 @@ def test_lark_contextual_lexer2():
     #result = parser.parse(lines[0])
     #assert result
 
+@pytest.mark.skip('not using lark anymore')
 def test_lark_whitespace():
     lines = """a .
 a  .
@@ -82,6 +85,7 @@ DOT: "."
     assert res3.children[1] == '.'
 
 
+@pytest.mark.skip('not using lark anymore')
 def test_lark_optional(app):
     lines = """a
 a b
@@ -1733,6 +1737,8 @@ def test_durloss(app):
     assert match == 1
 
 
+
+@pytest.mark.skip('not using lark anymore')
 def test_crash_log(app, caplog):
     lines = """
 11/2 22:17:49.752  Cabum is dismissed.

@@ -494,6 +494,3 @@ Lyahsunsworn  6204
   hit  4766
   Positive Charge  1425
   reflect  13
-brennanheart  4355
-  hit  3709
-  Bite  646

@@ -407,9 +407,6 @@ Teldelar  5025
   hit  1082
   Moonfire  570
   Insect Swarm  220
-brennanheart  4173
-  hit  3763
-  Bite  410
 Shumy  3063
   Earth Shock  1695
   Chain Lightning  1368
