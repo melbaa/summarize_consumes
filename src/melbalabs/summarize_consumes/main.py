@@ -925,7 +925,6 @@ class Parser2:
                 target_name = line[p_causes + 8 : p_last_space]  # len(' causes ')
                 amount = line[p_last_space + 1 : p_damage_word]
 
-                # Construct the tree with 4 children, as expected by the consumer.
                 subtree = Tree(
                     data="causes_damage_line",
                     children=[
@@ -1097,6 +1096,88 @@ class Parser2:
                     ])
                     return Tree(data='line', children=[timestamp, subtree])
 
+
+
+
+            middle_anchor = ' falls and loses '
+            final_anchor_with_newline = ' health.\n'
+
+            # Use a fast check on the line's ending to pre-filter.
+            if line.endswith(final_anchor_with_newline):
+                # If the end matches, now find the middle anchor.
+                p_middle = line.find(middle_anchor, p_ts_end)
+
+                if p_middle != -1:
+                    timestamp = self.parse_ts(line, p_ts_end)
+
+                    name = line[p_ts_end + 2 : p_middle]
+
+                    # The amount is between the middle anchor and the final anchor.
+                    amount_start = p_middle + len(middle_anchor)
+                    amount_end = -len(final_anchor_with_newline)
+                    amount = line[amount_start:amount_end]
+
+                    # Construct the simple two-child tree.
+                    subtree = Tree(data='falls_line', children=[
+                        Token('t', name),
+                        Token('t', amount)
+                    ])
+
+                    return Tree(data='line', children=[timestamp, subtree])
+
+
+
+            anchor1 = ' is immune to '
+            anchor2 = " 's "
+
+            p_anchor1 = line.find(anchor1, p_ts_end)
+            p_anchor2 = line.find(anchor2, p_anchor1)
+
+            # If both anchors are found in the correct order, we have a match.
+            if p_anchor1 != -1 and p_anchor2 != -1:
+                timestamp = self.parse_ts(line, p_ts_end)
+
+
+                target_name = line[p_ts_end + 2 : p_anchor1]
+
+                caster_name = line[p_anchor1 + len(anchor1) : p_anchor2]
+
+                # It's after the second anchor, with the final ".\n" removed.
+                spell_start = p_anchor2 + len(anchor2)
+                spell_end = -2 # Removes exactly ".\n"
+                spell_name = line[spell_start:spell_end]
+
+                # Construct the tree with 3 children in the correct order.
+                subtree = Tree(data='is_immune_ability_line', children=[
+                    Token('t', target_name),
+                    Token('t', caster_name),
+                    Token('t', spell_name)
+                ])
+
+                return Tree(data='line', children=[timestamp, subtree])
+
+
+
+            p_s = line.find(" 's ", p_ts_end)
+            p_evaded = line.find(' was evaded by ', p_s)
+
+            if p_s != -1 and p_evaded != -1:
+                timestamp = self.parse_ts(line, p_ts_end)
+
+                caster_name = line[p_ts_end + 2 : p_s]
+                spell_name = line[p_s + 4 : p_evaded]
+
+                target_start = p_evaded + 15 # len(' was evaded by ')
+                target_end = -2               # Removes exactly ".\n"
+                target_name = line[target_start:target_end]
+
+                subtree = Tree(data='was_evaded_line', children=[
+                    Token('t', caster_name),
+                    Token('t', spell_name),
+                    Token('t', target_name)
+                ])
+
+                return Tree(data='line', children=[timestamp, subtree])
 
 
 
@@ -5297,7 +5378,7 @@ def parse_line2(app, line, tree):
         if spellname == "Wild Polymorph":
             app.nef_wild_polymorph.add(line)
         return True
-    elif subtree.data == "equipped_durability_loss":
+    elif subtree.data == "equipped_durability_loss_line":
         return True
 
     return False
