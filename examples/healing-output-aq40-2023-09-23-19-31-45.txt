@@ -16,8 +16,8 @@ Daenshoo  1254133
   Tea with Sugar  4313
   Major Healthstone  1200
   Judgement of Light  547
-Melbaxd  1199099
-  Flash Heal  832637
+Melbaxd  1199874
+  Flash Heal  833412
   Renew  278678
   Holy Nova  85918
   Heal  1866

@@ -43,7 +43,9 @@ def test_basic2(app):
             pass
 
             try:
-                tree = app.parser.parse(line)
+                p_ts_end = line.find('  ')
+                if p_ts_end == -1: continue
+                tree = app.parser.parse(line, p_ts_end)
             except lark.LarkError:
                 pass
 
@@ -60,7 +62,7 @@ def test_basic2(app):
 
 
 
-@pytest.mark.skip()
+#@pytest.mark.skip()
 def test_basic3(app):
     filename = r'testdata/naxx-superwow-2025-06-02.txt'
 
@@ -71,7 +73,9 @@ def test_basic3(app):
     with io.open(filename, encoding="utf8") as f:
         for line in f:
             try:
-                tree = app.parser.parse(line)
+                p_ts_end = line.find('  ')
+                if p_ts_end == -1: continue
+                tree = app.parser.parse(line, p_ts_end)
             except lark.LarkError:
                 pass
 
@@ -116,16 +120,19 @@ def test_basic3(app):
 
 
 
-@pytest.mark.skip()
+#@pytest.mark.skip()
 def test_basic4(app):
     filename = r'testdata/naxx-superwow-2025-06-02.txt'
+    filename = r'testperfdata/kara40-superwow-07-06-2025.txt'
 
     line_times = defaultdict(list)
     with io.open(filename, encoding="utf8") as f:
         for line in f:
             start = time.perf_counter()
+            p_ts_end = line.find('  ')
+            if p_ts_end == -1: continue
             try:
-                tree = app.parser.parse(line)
+                tree = app.parser.parse(line, p_ts_end)
                 subtree = tree.children[1]
                 elapsed = time.perf_counter() - start
                 line_type = subtree.data
@@ -137,7 +144,10 @@ def test_basic4(app):
     alltimes = []
     for line_type, times in line_times.items():
         avg_time = sum(times) / len(times)
-        msg = f"{line_type}: {avg_time*1000:.3f}ms avg, {len(times)} lines"
+        avg_time *= 1000
+        msg = f"{line_type}: {avg_time:.3f}ms avg, {len(times)} lines"
+        if avg_time > 0.02:
+            msg += '        < ---- BAD'
         alltimes.append((len(times), msg))
 
     for lentimes, msg in sorted(alltimes):
