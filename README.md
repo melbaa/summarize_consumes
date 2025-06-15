@@ -415,7 +415,7 @@ python -m venv venv
 
 
 
-# High level design decisions
+# High-level design decisions
 
 Provide prebuilt binaries - the project must be usable by people with no python knowledege and no python installation. Python is an implementation detail.
 
@@ -435,7 +435,7 @@ Keep it convenient. Provide hosting for some of the features
 * pastebin automation to make results sharing easier
 * a web based version usable with a browser
 
-price gathering is a server side process, which is in sync with the consumables that the app knows about. It imports the ITEMID2NAME dictionary as a library, which makes it easier to maintain.
+Price gathering is a server side process, which is in sync with the consumables that the app knows about. It imports the ITEMID2NAME dictionary as a library, which makes it easier to maintain.
 
 Feature flags for convenience.
 
@@ -467,6 +467,33 @@ Include basic runtime info in the output (project version, python version etc), 
 
 The linux binaries should be usable on older installs. Aim for 5+ years.
 
+# Low-level design decisions
+
+## optimizations applied
+A lot of the data is in dictionaries for fast lookups.
+
+Custom parser written for each specific line type, no external libraries. Previously used pyparsing, lark (earley), lark (lalr), regexes. Their high flexibily and generality comes at the price that it's not obvious how to create high performance parsers. They were extremely useful for early iteration and understanding the problem better.
+
+Most frequent lines are parsed first
+
+As little string copying as possible - avoid temporary copies from split(), strip(), rstrip()
+
+As little function calls as possible. Assume the parser will process 500k lines. The function call overhead adds up very quickly. Eg at some point during a single run, there were 242,636,180 function calls.
+
+Avoid python code, try to use the functions written in C. Examples are str.find() and re.match(). Be careful with the regex library, as it can create too many temporary match objects.
+
+Memory pressure is reduced by using/reusing pre-created object caches. This is neither threadsafe nor safe for mutable operations and can cause aliasing issues.
+
+## optimizations skipped
+"have you tried rewriting it in rust?". Valid, but too much work. Can't easily migrate gradually either.
+
+More native C/rust/zig/SIMD/whatever libraries. It makes the project too hard to iterate on and to distribute, due to a much more complex build process + maintenance. The webassembly version is a big issue.
+
+Threading and multiprocessing. The webassembly version would require it's own implementation
+
+
+
+
 # Parsing Notes
 
 The syntax can be very ambiguous and open-ended. We don't know all variable length names of players, NPCs, pets, spells and the structure of all log lines, because all those things are dynamic and can change patch to patch.
@@ -495,7 +522,7 @@ A lot of punctuation.
 Ragnaros casts Melt Weapon on Psykhe: Iblis, Blade of the Fallen Seraph damaged.
 ```
 
-Those are different spells. A rare case of significant trailing whitespace.  
+Those are different spells. A rare case of significant trailing whitespace.
 ```
 4/11 22:44:54.456  Player gains Shadow Protection (1).  
 4/11 23:40:19.784  Player gains Shadow Protection  (1).  

@@ -230,6 +230,14 @@ class Parser2:
         subtree = Tree(data="begins_to_cast_line", children=[self.name_token, self.spellname_token])
         self.begins_to_cast_line_tree = Tree(data="line", children=[self.timestamp_tree, subtree])
 
+        # afflicted_line cache
+        subtree = Tree(
+            data="afflicted_line",
+            children=[self.targetname_token, self.spellname_token],
+        )
+
+        self.afflicted_line_tree = Tree(data="line", children=[self.timestamp_tree, subtree])
+
     def parse_ts(self, line, p_ts_end):
         # 6/1 18:31:36.197  ...
 
@@ -426,8 +434,8 @@ class Parser2:
                 spellname = line[p_ts_end + 2 : p_fades]
 
                 # The targetname is between the anchor and the final period.
-                # We can use rstrip to clean the period and any trailing newline/space.
-                targetname = line[p_fades + 12 :].rstrip(".\n ")  # 12 is len(' fades from ')
+                # 12 is len(' fades from '); -2 is .\n
+                targetname = line[p_fades + 12 : -2]
 
                 self.spellname_token.value = spellname  # magic cached reference
                 self.targetname_token.value = targetname  # magic cached reference
@@ -459,29 +467,34 @@ class Parser2:
 
                     # Find the 's marker to separate caster and spell.
                     p_s_start = p_from + 13  # len(' damage from ')
-                    p_s = line.find(" 's ", p_s_start)
 
-                    # The final period marks the end of the spell.
-                    p_period = line.rfind(".", p_s)
+                    for suffix in (" 's ", "'s "):
+                        # try to parse 6/14 22:02:29.549  Magn suffers 528 Shadow damage from Ima'ghaol, Herald of Desolation's Aura of Agony.
+                        p_s = line.find(suffix, p_s_start)
+                        if p_s != -1:
+                            # The final period marks the end of the spell.
+                            p_period = line.rfind(".", p_s)
 
-                    castername = line[p_s_start:p_s]
-                    spellname = line[p_s + 4 : p_period]
+                            castername = line[p_s_start:p_s]
+                            spellname = line[p_s + len(suffix) : p_period]
 
-                    self.spell_damage_type_token.value = damage_type  # magic cached reference
-                    self.name_token.value = castername  # magic cached reference
-                    self.spellname_token.value = spellname  # magic cached reference
-                    return self.suffers_line_source_tree  # magic cached reference
+                            # magic cached reference
+                            self.spell_damage_type_token.value = damage_type
+                            self.name_token.value = castername  # magic cached reference
+                            self.spellname_token.value = spellname  # magic cached reference
+                            return self.suffers_line_source_tree  # magic cached reference
 
                 else:
                     # No source is present
                     # In this case, the grammar is "... points of [type] damage."
                     p_points = line.find(" points of ", p_num_end)
-                    p_damage_word = line.find(" damage.", p_points)
+                    if p_points != -1:
+                        p_damage_word = line.find(" damage.", p_points)
 
-                    damage_type = line[p_points + 11 : p_damage_word]
+                        damage_type = line[p_points + 11 : p_damage_word]
 
-                    self.spell_damage_type_token.value = damage_type  # magic cached reference
-                    return self.suffers_line_nosource_tree  # magic cached reference
+                        self.spell_damage_type_token.value = damage_type  # magic cached reference
+                        return self.suffers_line_nosource_tree  # magic cached reference
 
             p_gains = line.find(" gains ", p_ts_end)
 
@@ -516,9 +529,7 @@ class Parser2:
                 # The caster's name is between the timestamp and the anchor phrase.
                 caster_name = line[p_ts_end + 2 : p_action]
 
-                # The spell name is everything after the anchor phrase, with the
-                # final period and whitespace stripped off.
-                spell_name = line[p_action + len(action_phrase) :].rstrip(".\n ")
+                spell_name = line[p_action + len(action_phrase) : -2]
 
                 self.name_token.value = caster_name  # magic cached reference
                 self.spellname_token.value = spell_name  # magic cached reference
@@ -542,12 +553,9 @@ class Parser2:
                 # The spellname is everything between the action phrase and the final " (#)".
                 spellname = line[p_action + len(action_phrase) : p_paren_open]
 
-                subtree = Tree(
-                    data="afflicted_line",
-                    children=[Token("t", targetname), Token("t", spellname)],
-                )
-
-                return Tree(data="line", children=[timestamp, subtree])
+                self.targetname_token.value = targetname  # magic cached reference
+                self.spellname_token.value = spellname  # magic cached reference
+                return self.afflicted_line_tree  # magic cached reference
 
             p_casts = line.find(" casts ", p_ts_end)
 
@@ -577,12 +585,12 @@ class Parser2:
                         target_name = line[p_on + 4 : p_colon]  # 4 is len(' on ')
                     else:
                         # For "on Target.", the target is between " on " and the end.
-                        target_name = line[p_on + 4 :].rstrip(".\n ")
+                        target_name = line[p_on + 4 : -2]
 
                 else:
                     # No target is present
                     # The spell is everything after " casts " to the end.
-                    spell_name = line[p_casts + 7 :].rstrip(".\n ")
+                    spell_name = line[p_casts + 7 : -2]
 
                 children = [Token("t", caster_name), Token("t", spell_name)]
                 if target_name:
@@ -610,7 +618,7 @@ class Parser2:
                 howmany = line[p_gains + 7 : p_extra]  # 7 is len(' gains ')
 
                 # The source is everything after " through " to the end.
-                source = line[p_through + 9 :].rstrip(".\n ")  # 9 is len(' through ')
+                source = line[p_through + 9 : -2]  # 9 is len(' through ')
 
                 # Construct the tree exactly as the consumer expects.
                 subtree = Tree(
@@ -723,10 +731,7 @@ class Parser2:
                 caster_name = line[p_ts_end + 2 : p_s]
                 spell_name = line[p_s + 4 : p_resisted]
 
-                # Target name is everything after the second anchor, stripped of the final period.
-                target_name = line[p_resisted + 17 :].rstrip(
-                    ".\n "
-                )  # 17 is len(' was resisted by ')
+                target_name = line[p_resisted + 17 : -2]  # 17 is len(' was resisted by ')
 
                 # Construct the tree with 3 children, as expected by the consumer.
                 subtree = Tree(
@@ -760,11 +765,11 @@ class Parser2:
                     spell_name = line[p_uses + 6 : p_on]  # 6 is len(' uses ')
 
                     # The target name is after " on " to the end of the line.
-                    target_name = line[p_on + 4 :].rstrip(".\n ")  # 4 is len(' on ')
+                    target_name = line[p_on + 4 : -2]  # 4 is len(' on ')
                 else:
                     # PATTERN WITHOUT A TARGET
                     # The item/spell name is simply everything after " uses ".
-                    spell_name = line[p_uses + 6 :].rstrip(".\n ")
+                    spell_name = line[p_uses + 6 : -2]
 
                 # Build the tree with 2 or 3 children depending on what was found.
                 children = [Token("t", user_name), Token("t", spell_name)]
@@ -818,7 +823,7 @@ class Parser2:
 
                     caster_name = line[p_ts_end + 2 : p_s]
                     spell_name = line[p_s + 4 : p_verb]
-                    target_name = line[p_verb + verb_len :].rstrip(".\n\r ")
+                    target_name = line[p_verb + verb_len : -2]
 
                     subtree = Tree(
                         data="misses_ability_line",
@@ -838,7 +843,7 @@ class Parser2:
                     timestamp = self.parse_ts(line, p_ts_end)
 
                     attacker = line[p_ts_end + 2 : p_misses]
-                    target = line[p_misses + 8 :].rstrip(".\n\r ")  # len(' misses ')
+                    target = line[p_misses + 8 : -2]  # len(' misses ')
 
                     subtree = Tree(
                         data="misses_line", children=[Token("t", attacker), Token("t", target)]
@@ -1324,8 +1329,7 @@ class Parser2:
                     # The victim's name is between the timestamp and the middle anchor.
                     victim = line[p_ts_end + 2 : p_slain]
 
-                    # The slayer's name is after the anchor. We can use rstrip to
-                    # cleanly remove any combination of '.', '!', and whitespace.
+                    # cleanly remove any combination of '.', '!'
                     slayer_start = p_slain + len(middle_anchor)
                     slayer = line[slayer_start:-2]
 

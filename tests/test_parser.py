@@ -695,6 +695,14 @@ def test_beamchain(app):
 
 def test_suffers_line(app):
     lines = """
+
+
+11/11 22:47:07.685  Chromatic Drakonid suffers 20 Nature damage from Illasei 's Deadly Poison V. (20 resisted)
+
+6/14 22:02:29.549  Magn suffers 528 Shadow damage from Ima'ghaol, Herald of Desolation's Aura of Agony.
+6/14 22:02:29.549  MagnTest suffers 529 Shadow damage from Ima'ghaol, Herald of Desolation 's Aura of Agony.
+
+6/14 19:27:04.079  Cleva suffers 3027 Frost damage from Ley-Watcher Incantagos 's Blizzard.
 4/3 22:39:20.049  Manascale Ley-Seeker (Ley-Watcher Incantagos) suffers 109 Nature damage from Gees 's Serpent Sting.
 
 10/20 20:04:05.389  Anubisath Sentinel suffers 60 Nature damage from Jaekta 's Potent Venom.
@@ -719,7 +727,14 @@ def test_suffers_line(app):
     match = 0
     for line in lines:
         match += parse_line(app, line)
-    assert match == 13
+    assert match == 17
+
+    store = app.dmgstore.store_ability
+    assert store[('Ley-Watcher Incantagos', 'Cleva', 'Blizzard')].dmg == 3027
+    assert store[("Ima'ghaol, Herald of Desolation", 'Magn', 'Aura of Agony')].dmg == 528
+    assert store[("Ima'ghaol, Herald of Desolation", 'MagnTest', 'Aura of Agony')].dmg == 529
+    assert store[("Illasei", 'Chromatic Drakonid', 'Deadly Poison V')].dmg == 20
+
 
 
 def test_nef_corrupted_healing(app):
