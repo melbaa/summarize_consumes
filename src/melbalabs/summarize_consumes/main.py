@@ -20,16 +20,15 @@ from pathlib import Path
 from typing import Dict
 from typing import List
 from typing import Tuple
+from typing import Optional
 from uuid import uuid4
 
 import humanize
-import lark
 import requests
 from plotly import graph_objects as go
 from plotly.subplots import make_subplots
 from typing_extensions import Self
-from lark.lexer import Token
-from lark.tree import Tree
+
 
 from melbalabs.summarize_consumes import grammar
 from melbalabs.summarize_consumes.consumable import Consumable
@@ -44,7 +43,10 @@ from melbalabs.summarize_consumes.consumable import NoPrice
 import melbalabs.summarize_consumes.package as package
 
 
-LarkError = lark.LarkError
+class ParserError(Exception):
+    pass
+
+
 CURRENT_YEAR = datetime.datetime.now().year
 
 
@@ -70,40 +72,19 @@ class App:
     pass
 
 
-class TreeTransformer(lark.Transformer):
-    def multiword(self, args):
-        result = ""
-        for arg in args:
-            result += arg
-        return lark.Token("MULTIWORD_T", result)
-
-    def PARENS_INT(self, args):
-        return lark.Token("INT_T", args[2:-1])
-
-
-class MockLarkParser:
+class FallbackParser:
     def parse(self, line):
-        raise LarkError("unknown line")
+        raise ParserError("unknown line")
 
 
 @functools.cache
 def create_parser(grammar: str, debug, unparsed_logger):
-    """
-    parser = lark.Lark(
-        grammar,
-        parser="lalr",
-        debug=debug,
-        # ambiguity='explicit',  # not in lalr
-        strict=True,
-        transformer=TreeTransformer(),
-    )
-    """
-    parser = MockLarkParser()
+    fallback_parser = FallbackParser()
 
-    return Parser2(lark_parser=parser, unparsed_logger=unparsed_logger)
+    return Parser2(fallback_parser=fallback_parser, unparsed_logger=unparsed_logger)
 
 
-class MyToken:
+class Token:
     __slots__ = ("type", "value")
 
     def __init__(self, type_name, value):
@@ -117,31 +98,39 @@ class MyToken:
         return int(self.value)
 
     def __repr__(self):
-        return f"MyToken({self.type!r}, {self.value!r})"
+        return f"{self.__class__.__name__}({self.type!r}, {self.value!r})"
+
+
+class Tree:
+    __slots__ = ("data", "children")
+
+    def __init__(self, data, children):
+        self.data = data
+        self.children = children
 
 
 class Parser2:
-    def __init__(self, lark_parser, unparsed_logger):
-        self.lark_parser = lark_parser
+    def __init__(self, fallback_parser, unparsed_logger):
+        self.fallback_parser = fallback_parser
         self.excnum = 0
         self.unparsed_logger = unparsed_logger
 
         # The regex already ensures these are digits, so the isdigit() loop is no longer needed.
         self.TIMESTAMP_PATTERN = re.compile(r"(\d+)/(\d+) (\d+):(\d+):(\d+)\.(\d+)")
 
-        self.timestamp_tokens = [MyToken("t", "") for _ in range(6)]
+        self.timestamp_tokens = [Token("t", "") for _ in range(6)]
         self.timestamp_tree = Tree("timestamp", children=self.timestamp_tokens)
 
         # shared token cache
-        self.name_token = MyToken("t", "")
-        self.mana_token = MyToken("t", "")
-        self.spellname_token = MyToken("t", "")
-        self.damage_token = MyToken("t", "")
-        self.targetname_token = MyToken("t", "")
-        self.stackcount_token = MyToken("t", "")
-        self.spell_damage_type_token = MyToken("t", "")
-        self.heal_amount_token = MyToken("t", "")
-        self.heal_crit_token = MyToken("HEAL_CRIT", "")
+        self.name_token = Token("t", "")
+        self.mana_token = Token("t", "")
+        self.spellname_token = Token("t", "")
+        self.damage_token = Token("t", "")
+        self.targetname_token = Token("t", "")
+        self.stackcount_token = Token("t", "")
+        self.spell_damage_type_token = Token("t", "")
+        self.heal_amount_token = Token("t", "")
+        self.heal_crit_token = Token("HEAL_CRIT", "")
 
         # gains_mana_line cache
         subtree = Tree(
@@ -272,9 +261,10 @@ class Parser2:
         # Return the subtree for this pet entry.
         return Tree(data="consolidated_pet", children=[Token("t", name), Token("t", petname)])
 
-    def parse(self, line, p_ts_end):
+    def parse(self, line, p_ts_end) -> Optional[Tree]:
         """
         assumes p_ts_end != -1
+        throws ValueError when it sees invalid syntax
         """
         try:
             p_mana_from = line.find(" Mana from ", p_ts_end)
@@ -1599,11 +1589,15 @@ class Parser2:
                     )
                     return Tree(data="line", children=[timestamp, subtree])
 
-        except Exception:
+        except Exception as e:
             self.excnum += 1
+            msg = f"{e} {line} \n"
+            self.unparsed_logger.log(msg)
 
-        self.unparsed_logger.log(line)
-        return self.lark_parser.parse(line)
+        # no fallbacks anymore
+        # return self.fallback_parser.parse(line)
+
+        return None
 
 
 @functools.cache
@@ -1645,17 +1639,16 @@ def create_app(
 ):
     app = App()
 
-    lark_debug = False
+    parser_debug = False
     if expert_log_unparsed_lines or expert_write_lalr_states:
-        lark.logger.setLevel(logging.DEBUG)
-        lark_debug = True
+        parser_debug = True
 
     app.unparsed_logger, app.unparsed_logger_fast = create_unparsed_loggers(
         expert_log_unparsed_lines
     )
 
     app.parser = create_parser(
-        grammar=grammar.grammar, debug=lark_debug, unparsed_logger=app.unparsed_logger_fast
+        grammar=grammar.grammar, debug=parser_debug, unparsed_logger=app.unparsed_logger_fast
     )
 
     if expert_write_lalr_states:
@@ -5281,9 +5274,12 @@ def parse_line(app, line):
             return False
 
         tree = app.parser.parse(line, p_ts_end)
+        if not tree:
+            return False
+
         return parse_line2(app, line, tree)
 
-    except LarkError:
+    except ParserError:
         # parse errors ignored to try different strategies
         # print(line)
         # print(app.parser.parse(line))
@@ -5295,7 +5291,7 @@ def parse_line(app, line):
         raise
 
 
-def parse_line2(app, line, tree):
+def parse_line2(app, line, tree: Tree):
     """
     returns True when a match is found, so we can stop trying different parsers
     """

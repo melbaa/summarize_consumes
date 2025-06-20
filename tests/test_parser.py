@@ -1,8 +1,6 @@
 import pytest
 import io
 
-import lark
-
 
 from melbalabs.summarize_consumes.main import parse_line
 from melbalabs.summarize_consumes.main import NAME2ITEMID
@@ -11,102 +9,6 @@ from melbalabs.summarize_consumes.main import PlayerClass
 from melbalabs.summarize_consumes.grammar import grammar
 
 
-@pytest.mark.skip('not using basic lexer; grammar too ambiguous for it')  # pragma: no cover
-def test_lark_basic_lexer():
-    from lark import Lark
-
-    lines = """4/21 21:01:38.861  Psykhe 's Tea with Sugar heals Psykhe for 1613.
-"""
-    lines = lines.splitlines(keepends=True)
-    lark = Lark(grammar, parser=None, lexer='basic')
-    # All tokens: print([t.name for t in self.lark.parser.lexer.tokens])
-    for token in lark.lex(lines[0]):
-        pass
-
-@pytest.mark.skip('not using lark anymore')
-def test_lark_contextual_lexer(app):
-    lines = """4/21 21:01:38.861  Psykhe 's Tea with Sugar heals Psykhe for 1613.
-"""
-    lines = lines.splitlines(keepends=True)
-    assert len(app.parser.lark_parser.parser.parser.parser.parse_table.states)
-
-
-@pytest.mark.skip('not using lark anymore')
-def test_lark_contextual_lexer2():
-    lines = """
-"""
-    grammar = """
-    start: "hi"
-"""
-
-    if 0:
-        parser = lark.Lark(
-            grammar,
-            parser='lalr',
-            debug=True,
-            strict=True,
-        )
-
-
-    lines = lines.splitlines(keepends=True)
-    #result = parser.parse(lines[0])
-    #assert result
-
-@pytest.mark.skip('not using lark anymore')
-def test_lark_whitespace():
-    lines = """a .
-a  .
-a.
-"""
-    from lark import Lark
-    parser = Lark(r"""
-
-start: A_SPACE " " DOT
-    | A " " DOT
-    | A DOT
-
-A_SPACE: /\w+ /
-A: /\w+/
-DOT: "."
-%import common.WS
-%ignore WS
-""")
-    lines = lines.splitlines(keepends=True)
-    res1 = parser.parse(lines[0])
-    assert res1.children[0] == 'a'
-    assert res1.children[1] == '.'
-
-    res2 = parser.parse(lines[1])
-    assert res2.children[0] == 'a '
-    assert res2.children[1] == '.'
-
-    res3 = parser.parse(lines[2])
-    assert res3.children[0] == 'a'
-    assert res3.children[1] == '.'
-
-
-@pytest.mark.skip('not using lark anymore')
-def test_lark_optional(app):
-    lines = """a
-a b
-"""
-    from lark import Lark
-    parser = Lark(r"""
-
-start: a [b]
-a: "a"
-b: "b"
-%import common.WS
-%ignore WS
-""")
-    lines = lines.splitlines(keepends=True)
-    res1 = parser.parse(lines[0])
-    assert res1.children[0].data == 'a'
-    assert res1.children[1] is None
-    assert res1.children[1] is None
-
-    res2 = parser.parse(lines[1])
-    assert res2.children[1].data == 'b'
 
 
 def test_rage_consumable_line(app):
@@ -1751,20 +1653,6 @@ def test_durloss(app):
         match += parse_line(app, line)
     assert match == 1
 
-
-
-@pytest.mark.skip('not using lark anymore')
-def test_crash_log(app, caplog):
-    lines = """
-11/2 22:17:49.752  Cabum is dismissed.
-"""
-    lines = lines.splitlines(keepends=True)
-    match = 0
-    with pytest.raises(Exception) as e:
-        for line in lines:
-            match += parse_line(app, line)
-
-    assert "11/2 22:17:49.752  Cabum is dismissed." in caplog.text
 
 
 

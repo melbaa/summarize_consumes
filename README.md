@@ -472,9 +472,9 @@ The linux binaries should be usable on older installs. Aim for 5+ years.
 ## optimizations applied
 A lot of the data is in dictionaries for fast lookups.
 
-Custom parser written for each specific line type, no external libraries. Previously used pyparsing, lark (earley), lark (lalr), regexes. Their high flexibily and generality comes at the price that it's not obvious how to create high performance parsers. They were extremely useful for early iteration and understanding the problem better.
+Custom parser written for each specific line type, no external libraries. Previously used pyparsing, lark (earley), lark (lalr), regexes. Their high flexibility and generality comes at the price that it's not obvious how to create high performance parsers. They were extremely useful for early iteration and understanding the problem better.
 
-Most frequent lines are parsed first
+Most frequent line types are parsed first
 
 As little string copying as possible - avoid temporary copies from split(), strip(), rstrip()
 

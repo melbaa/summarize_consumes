@@ -6,7 +6,7 @@ import pstats
 from collections import defaultdict
 
 import pytest
-import lark
+
 
 @pytest.mark.skip()
 def test_basic(app):
@@ -40,14 +40,12 @@ def test_basic2(app):
     tracemalloc.start()
     with io.open(filename, encoding="utf8") as f:
         for line in f:
-            pass
-
-            try:
-                p_ts_end = line.find('  ')
-                if p_ts_end == -1: continue
-                tree = app.parser.parse(line, p_ts_end)
-            except lark.LarkError:
-                pass
+            
+            p_ts_end = line.find('  ')
+            if p_ts_end == -1: continue
+            tree = app.parser.parse(line, p_ts_end)
+            if not tree: continue
+        
 
     endts = time.time()
     current, peak = tracemalloc.get_traced_memory()
@@ -72,12 +70,12 @@ def test_basic3(app):
 
     with io.open(filename, encoding="utf8") as f:
         for line in f:
-            try:
-                p_ts_end = line.find('  ')
-                if p_ts_end == -1: continue
-                tree = app.parser.parse(line, p_ts_end)
-            except lark.LarkError:
-                pass
+        
+            p_ts_end = line.find('  ')
+            if p_ts_end == -1: continue
+            tree = app.parser.parse(line, p_ts_end)
+            if not tree: continue
+        
 
     endts = time.time()
     profiler.disable()
@@ -131,16 +129,14 @@ def test_basic4(app):
             start = time.perf_counter()
             p_ts_end = line.find('  ')
             if p_ts_end == -1: continue
-            try:
-                tree = app.parser.parse(line, p_ts_end)
-                subtree = tree.children[1]
-                elapsed = time.perf_counter() - start
-                line_type = subtree.data
+            tree = app.parser.parse(line, p_ts_end)
+            if not tree: continue
+            subtree = tree.children[1]
+            elapsed = time.perf_counter() - start
+            line_type = subtree.data
 
-                line_times[line_type].append(elapsed)
-            except lark.LarkError:
-                pass
-
+            line_times[line_type].append(elapsed)
+        
     alltimes = []
     for line_type, times in line_times.items():
         avg_time = sum(times) / len(times)
@@ -156,58 +152,155 @@ def test_basic4(app):
 
     r"""
 
-
-
-fails_to_dispel_line: 0.094ms avg, 1 lines
-is_destroyed_line: 0.100ms avg, 4 lines
-is_dismissed_line: 0.122ms avg, 4 lines
-pet_begins_eating_line: 0.100ms avg, 5 lines
-equipped_durability_loss: 0.072ms avg, 6 lines
-block_ability_line: 0.109ms avg, 7 lines
-interrupts_line: 0.154ms avg, 9 lines
-performs_line: 0.107ms avg, 9 lines
-is_killed_line: 0.096ms avg, 27 lines
-immune_line: 0.116ms avg, 28 lines
-gains_happiness_line: 0.119ms avg, 29 lines
-is_immune_ability_line: 0.116ms avg, 30 lines
-was_evaded_line: 0.124ms avg, 33 lines
-creates_line: 0.113ms avg, 34 lines
-falls_line: 0.104ms avg, 39 lines
-misses_ability_line: 0.123ms avg, 71 lines
-slain_line: 0.109ms avg, 140 lines
-performs_on_line: 0.120ms avg, 242 lines
-combatant_info_line: 0.100ms avg, 584 lines
-parry_ability_line: 0.121ms avg, 692 lines
-immune_ability_line: 0.118ms avg, 738 lines
-removed_line: 0.099ms avg, 760 lines
-causes_damage_line: 0.112ms avg, 810 lines
-dodge_ability_line: 0.118ms avg, 1027 lines
-begins_to_perform_line: 0.105ms avg, 1061 lines
-reflects_damage_line: 0.125ms avg, 1143 lines
-parry_line: 0.104ms avg, 1156 lines
-dies_line: 0.095ms avg, 1266 lines
-misses_line: 0.104ms avg, 1990 lines
-dodges_line: 0.104ms avg, 2530 lines
-uses_line: 0.107ms avg, 3163 lines
-resist_line: 0.119ms avg, 3208 lines
-gains_energy_line: 0.128ms avg, 3701 lines
-gains_health_line: 0.127ms avg, 3872 lines
-gains_rage_line: 0.126ms avg, 5680 lines
-gains_extra_attacks_line: 0.116ms avg, 5771 lines
-casts_line: 0.116ms avg, 9447 lines
-afflicted_line: 0.014ms avg, 17243 lines
-begins_to_cast_line: 0.013ms avg, 19222 lines
-hits_autoattack_line: 0.013ms avg, 33271 lines
-gains_line: 0.014ms avg, 40019 lines
-suffers_line: 0.016ms avg, 40398 lines
-fades_line: 0.012ms avg, 41059 lines
-heals_line: 0.014ms avg, 43326 lines
-hits_ability_line: 0.015ms avg, 83261 lines
-gains_mana_line: 0.012ms avg, 109936 lines
-
+tests/test_perf.py::test_basic4 fails_to_dispel_line: 0.015ms avg, 1 lines
+is_killed_line: 0.014ms avg, 3 lines
+block_ability_line: 0.017ms avg, 4 lines
+is_destroyed_line: 0.013ms avg, 8 lines
+was_evaded_line: 0.013ms avg, 10 lines
+equipped_durability_loss_line: 0.017ms avg, 12 lines
+interrupts_line: 0.017ms avg, 13 lines
+is_reflected_back_line: 0.014ms avg, 55 lines
+is_immune_ability_line: 0.012ms avg, 58 lines
+causes_damage_line: 0.011ms avg, 81 lines
+creates_line: 0.013ms avg, 82 lines
+slain_line: 0.013ms avg, 113 lines
+misses_ability_line: 0.009ms avg, 114 lines
+falls_line: 0.011ms avg, 125 lines
+begins_to_perform_line: 0.010ms avg, 153 lines
+performs_on_line: 0.013ms avg, 329 lines
+immune_line: 0.012ms avg, 569 lines
+removed_line: 0.012ms avg, 1177 lines
+parry_ability_line: 0.012ms avg, 1183 lines
+dies_line: 0.009ms avg, 1431 lines
+dodge_ability_line: 0.011ms avg, 1525 lines
+combatant_info_line: 0.019ms avg, 1618 lines
+parry_line: 0.010ms avg, 1821 lines
+reflects_damage_line: 0.011ms avg, 2122 lines
+immune_ability_line: 0.015ms avg, 2656 lines
+dodges_line: 0.009ms avg, 3102 lines
+misses_line: 0.009ms avg, 3527 lines
+gains_energy_line: 0.009ms avg, 3960 lines
+uses_line: 0.009ms avg, 5101 lines
+resist_line: 0.008ms avg, 7501 lines
+gains_extra_attacks_line: 0.007ms avg, 7819 lines
+gains_rage_line: 0.008ms avg, 12756 lines
+casts_line: 0.008ms avg, 16925 lines
+gains_health_line: 0.009ms avg, 18176 lines
+afflicted_line: 0.005ms avg, 20359 lines
+begins_to_cast_line: 0.005ms avg, 24774 lines
+suffers_line: 0.006ms avg, 36617 lines
+heals_line: 0.004ms avg, 47223 lines
+hits_autoattack_line: 0.004ms avg, 51016 lines
+fades_line: 0.004ms avg, 57770 lines
+gains_line: 0.005ms avg, 59728 lines
+gains_mana_line: 0.003ms avg, 111084 lines
+hits_ability_line: 0.004ms avg, 159598 lines
 
     """
 
 
+def f1(val):
+    return True, val
 
 
+class Result:
+    __slots__ = ('success', 'value')
+    def __init__(self):
+        self.success = False
+        self.value = None
+
+result_cache = Result()
+
+def f2(val):
+    result_cache.success = True
+    result_cache.value = val
+    return result_cache
+
+def f3(val):
+    raise ValueError('oops')
+
+@pytest.mark.skip()
+def test_tuple_return():
+
+    profiler = cProfile.Profile()
+    profiler.enable()
+
+    for i in range(50_000_000):
+        success, val = f1(i)
+
+    profiler.disable()
+
+    stats = pstats.Stats(profiler)
+    stats.sort_stats('cumulative')
+    stats.print_stats(100)
+
+    r"""
+
+
+tests/test_perf.py::test_tuple_return          50000001 function calls in 6.582 seconds
+
+   Ordered by: cumulative time
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+ 50000000    6.582    0.000    6.582    0.000 Y:\turtle_client_116\Interface\AddOns\summarize_consumes\tests\test_perf.py:212(f1)
+        1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}
+    """
+
+@pytest.mark.skip()
+def test_cache_result_return():
+
+    profiler = cProfile.Profile()
+    profiler.enable()
+
+    for i in range(50_000_000):
+        retval = f2(i)
+
+
+    profiler.disable()
+
+    stats = pstats.Stats(profiler)
+    stats.sort_stats('cumulative')
+    stats.print_stats(100)
+
+    r"""
+tests/test_perf.py::test_cache_result_return          50000001 function calls in 7.557 seconds
+
+   Ordered by: cumulative time
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+ 50000000    7.557    0.000    7.557    0.000 Y:\turtle_client_116\Interface\AddOns\summarize_consumes\tests\test_perf.py:224(f2)
+        1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}
+
+
+    """
+
+@pytest.mark.skip()
+def test_exc_result():
+
+
+    profiler = cProfile.Profile()
+    profiler.enable()
+
+    for i in range(50_000_000):
+        try:
+            f3(i)
+        except ValueError as e:
+            pass
+
+    profiler.disable()
+
+    stats = pstats.Stats(profiler)
+    stats.sort_stats('cumulative')
+    stats.print_stats(100)
+
+    r"""
+
+tests/test_perf.py::test_exc_result          50000001 function calls in 16.903 seconds
+
+   Ordered by: cumulative time
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+ 50000000   16.902    0.000   16.902    0.000 Y:\turtle_client_116\Interface\AddOns\summarize_consumes\tests\test_perf.py:229(f3)
+        1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}
+
+    """

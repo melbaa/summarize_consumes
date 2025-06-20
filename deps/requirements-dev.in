@@ -1,7 +1,5 @@
 pytest
-invoke
 colorama; platform_system=='Windows'
-pip-tools
 bumpver>=2024.1130
 coverage
 # nox
