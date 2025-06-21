@@ -2,11 +2,11 @@ from melbalabs.summarize_consumes.main import NAME2ITEMID
 from melbalabs.summarize_consumes.main import NAME2CONSUMABLE
 from melbalabs.summarize_consumes.main import RAWSPELLNAME2CONSUMABLE
 from melbalabs.summarize_consumes.main import USES_CONSUMABLE_RENAME
-from melbalabs.summarize_consumes.main import all_defined_consumable_items
+from melbalabs.summarize_consumes.consumable_db import all_defined_consumable_items
 
-from melbalabs.summarize_consumes.consumable import OverwriteStrategy, PriceFromComponents
-from melbalabs.summarize_consumes.consumable import DirectPrice
-from melbalabs.summarize_consumes.consumable import SuperwowConsumable
+from melbalabs.summarize_consumes.consumable_model import OverwriteStrategy, PriceFromComponents
+from melbalabs.summarize_consumes.consumable_model import DirectPrice
+from melbalabs.summarize_consumes.consumable_model import SuperwowConsumable
 
 
 
