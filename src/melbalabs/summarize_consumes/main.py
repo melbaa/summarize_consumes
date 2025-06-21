@@ -1635,13 +1635,12 @@ def create_app(
     prices_server,
     expert_disable_web_prices,
     expert_deterministic_logs,
-    expert_write_lalr_states,
     expert_log_superwow_merge,
 ):
     app = App()
 
     parser_debug = False
-    if expert_log_unparsed_lines or expert_write_lalr_states:
+    if expert_log_unparsed_lines:
         parser_debug = True
 
     app.unparsed_logger, app.unparsed_logger_fast = create_unparsed_loggers(
@@ -1651,26 +1650,6 @@ def create_app(
     app.parser = create_parser(
         grammar=grammar.grammar, debug=parser_debug, unparsed_logger=app.unparsed_logger_fast
     )
-
-    if expert_write_lalr_states:
-
-        def feature():
-            parser = app.parser
-            states = parser.parser.parser.parser.parse_table.states
-            filename = "lalr-states.txt"
-            with open(filename, "w") as f:
-                for terminal in parser.terminals:
-                    print("  ", terminal.name, f"'{terminal.pattern.value}'", file=f)
-                print(file=f)
-
-                for state, actions in states.items():
-                    print(state, file=f)
-                    for token, (action, arg) in actions.items():
-                        print("  ", token, action, arg, file=f)
-                    print(file=f)
-            print("writing lalr table to", filename)
-
-        feature()
 
     # player - consumable - count
     app.player = collections.defaultdict(lambda: collections.defaultdict(int))
@@ -4105,7 +4084,6 @@ def get_user_input(argv):
         action="store_true",
         help="disable environmental outputs",
     )
-    parser.add_argument("--expert-write-lalr-states", action="store_true")
     parser.add_argument("--expert-log-superwow-merge", action="store_true")
 
     args = parser.parse_args(argv)
@@ -4371,7 +4349,6 @@ def main(argv):
         prices_server=args.prices_server,
         expert_disable_web_prices=args.expert_disable_web_prices,
         expert_deterministic_logs=args.expert_deterministic_logs,
-        expert_write_lalr_states=args.expert_write_lalr_states,
         expert_log_superwow_merge=args.expert_log_superwow_merge,
     )
 

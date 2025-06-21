@@ -14,7 +14,6 @@ def app():
         prices_server=prices_server,
         expert_disable_web_prices=False,
         expert_deterministic_logs=True,
-        expert_write_lalr_states=False,
         expert_log_superwow_merge=False,
     )
 
@@ -28,7 +27,6 @@ def app_log_merge():
         prices_server=prices_server,
         expert_disable_web_prices=False,
         expert_deterministic_logs=True,
-        expert_write_lalr_states=False,
         expert_log_superwow_merge=True,
     )
 
@@ -43,7 +41,6 @@ def app_nondeterministic():
         prices_server=prices_server,
         expert_disable_web_prices=False,
         expert_deterministic_logs=False,
-        expert_write_lalr_states=False,
         expert_log_superwow_merge=False,
     )
 
