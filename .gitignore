@@ -1,5 +1,8 @@
 # project-related
-/examples/test_log*.txt
+/examples/*.txt
+/examples/*.csv
+/testdata/*.txt
+/testperfdata/*.txt
 /*.csv
 /*.html
 **/prices.py

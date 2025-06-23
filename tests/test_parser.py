@@ -6,7 +6,6 @@ from melbalabs.summarize_consumes.main import parse_line
 from melbalabs.summarize_consumes.main import NAME2ITEMID
 from melbalabs.summarize_consumes.main import PlayerClass
 
-from melbalabs.summarize_consumes.grammar import grammar
 
 
 
@@ -1117,7 +1116,7 @@ def test_wild_polymorph(app):
 """
 
     # too spammy
-    spammy = """
+    """
 11/11 22:48:05.162  Psykhe is afflicted by Wild Polymorph (1).
 11/11 22:48:05.194  Coldbeer is afflicted by Wild Polymorph (1).
 11/11 22:48:07.996  Psykhe 's Wild Polymorph is removed.

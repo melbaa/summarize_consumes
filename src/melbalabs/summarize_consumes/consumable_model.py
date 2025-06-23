@@ -82,6 +82,7 @@ class Consumable:
     price: Union[NoPrice, DirectPrice, PriceFromComponents]
 
     # maps line_type, spellname to the consumable
+    # with this you can map multiple names to the same consumable
     spell_aliases: List[Tuple[str, str]] = field(default_factory=list)
 
 

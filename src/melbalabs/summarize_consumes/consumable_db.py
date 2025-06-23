@@ -244,7 +244,11 @@ all_defined_consumable_items: List[Consumable] = [
     SuperwowConsumable(
         name="Tea with Sugar",
         price=PriceFromComponents(components=[(_small_dream_shard, 1 / 5)]),
-        spell_aliases=[("heals_line", "Tea"), ("uses_line", "Tea with Sugar")],
+        spell_aliases=[
+            ("heals_line", "Tea"),
+            ("uses_line", "Tea with Sugar"),
+            ("uses_line", "Tea With Sugar"),  # old name
+        ],
         strategy=OverwriteStrategy(target_consumable_name="Tea with Sugar"),
     ),
     Consumable(
@@ -1883,5 +1887,3 @@ all_defined_consumable_items: List[Consumable] = [
         strategy=SafeStrategy(),
     ),
 ]
-
-
