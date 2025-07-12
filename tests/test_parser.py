@@ -558,6 +558,7 @@ def test_huhuran(app):
 10/6 21:06:09.376  Rhudaur casts Death by Peasant.
 10/6 21:06:09.376  Jaekta casts Death by Peasant.
 10/6 21:06:10.027  Psykhe casts Death by Peasant.
+10/6 21:06:10.027  Psykhe casts Death by Peasant.
 10/6 21:06:14.089  Killanime casts Death by Peasant.
 10/6 21:06:16.497  Iniri casts Death by Peasant.
 4/13 21:11:02.121  Princess Huhuran dies.
@@ -565,7 +566,9 @@ def test_huhuran(app):
     lines = lines.splitlines(keepends=True)
     for line in lines:
         parse_line(app, line)
-    assert len(app.huhuran.log) == 18
+    assert len(app.huhuran.log) == 19
+    assert app.spell_count.counts['Death by Peasant']['Iniri'] == 1
+    assert app.spell_count.counts['Death by Peasant']['Psykhe'] == 2
 
 def test_beamchain(app):
     lines = """
@@ -1299,6 +1302,9 @@ def test_cooldown_summary(app):
 2/8 10:33:14.532  Martl casts Sunder Armor on Thaddius.
 3/23 19:06:36.405  Psykhe gains Sweeping Strikes (1).
 4/12 21:06:21.521  Tekn casts Sunder Armor.
+4/12 21:06:21.521  Tekn casts Elunes Guardian.
+4/12 21:06:21.521  Tekn casts Remains of Overwhelming Power.
+4/12 21:06:21.521  Tekn casts Jewel of Wild Magics.
 """
     lines = lines.splitlines(keepends=True)
     for line in lines:
@@ -1306,7 +1312,9 @@ def test_cooldown_summary(app):
     output = io.StringIO()
     app.cooldown_summary.print(output)
 
-
+    assert app.spell_count.counts['Jewel of Wild Magics']['Tekn'] == 1
+    assert app.spell_count.counts['Remains of Overwhelming Power']['Tekn'] == 1
+    assert app.spell_count.counts['Elunes Guardian']['Tekn'] == 1
     assert app.spell_count.counts['Sunder Armor']['Tekn'] == 1
     assert app.spell_count.counts['Sweeping Strikes']['Psykhe'] == 1
     assert app.spell_count.counts['Sunder Armor (boss)']['Martl'] == 1

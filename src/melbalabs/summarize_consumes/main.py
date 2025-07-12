@@ -437,6 +437,10 @@ TRINKET_SPELL = [
     "Immune Fear/Polymorph/Snare",
     "Immune Fear/Polymorph/Stun",
     "Immune Root/Snare/Stun",
+    "Death by Peasant",
+    "Jewel of Wild Magics",
+    "Remains of Overwhelming Power",
+    "Elunes Guardian",
 ]
 RENAME_TRINKET_SPELL = {
     "Unstable Power": "Zandalarian Hero Charm",
@@ -453,6 +457,7 @@ RENAME_TRINKET_SPELL = {
     "Immune Fear/Polymorph/Snare": "Insignia of the Alliance/Horde",
     "Immune Fear/Polymorph/Stun": "Insignia of the Alliance/Horde",
     "Immune Root/Snare/Stun": "Insignia of the Alliance/Horde",
+    "Elunes Guardian": "The Scythe of Elune",
 }
 for spell in itertools.chain(TRINKET_SPELL, RACIAL_SPELL, sorted(RECEIVE_BUFF_SPELL)):
     for clsorder in CDSPELL_CLASS:
@@ -1338,6 +1343,10 @@ LINE2SPELLCAST = {
         "Redemption",
         "Resurrection",
         "Rebirth",
+        "Death by Peasant",  # trinket
+        "Jewel of Wild Magics",  # trinket
+        "Remains of Overwhelming Power",  # trinket
+        "Elunes Guardian",  # trinket
         "Sunder Armor",  # superwow
         "Sunder Armor (boss)",  # rename, superwow
         "Blood Fury",  # superwow, spellid 23234
@@ -1677,6 +1686,7 @@ UNIQUE_LINE2SPELL2CLASS: Dict[str, Dict[str, PlayerClass]] = {
         "Redemption": PlayerClass.PALADIN,
         "Resurrection": PlayerClass.PRIEST,
         "Rebirth": PlayerClass.DRUID,
+        "Sunder Armor": PlayerClass.WARRIOR,
     },
 }
 
