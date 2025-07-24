@@ -499,6 +499,13 @@ Cooldown Summary
          Seryah 10
          Rhudaur 6
          Everglow 3
+      Barov Peasant Caller
+         Tockra 1
+         Psykhe 1
+         Obbi 1
+         Melevolence 1
+         Jaekta 1
+         Everglow 1
       Berserking
          Psykhe 31
    Mage
@@ -517,6 +524,8 @@ Cooldown Summary
          Shrimpshark 15
       Mind Quickening Gem
          Bruceweed 6
+      Barov Peasant Caller
+         Nmsj 1
       Stoneform
          Seath 5
    Shaman
@@ -573,6 +582,8 @@ Cooldown Summary
          Niviri 21
       Zandalarian Hero Charm
          Teldelar 34
+      Barov Peasant Caller
+         Niviri 1
       War Stomp
          Daenshoo 1
    Priest
@@ -624,11 +635,16 @@ Cooldown Summary
          Illasei 26
          Killanime 20
          Brocula 13
+      Barov Peasant Caller
+         Killanime 1
+         Iniri 1
       Will of the Forsaken
          Brocula 1
    Warlock
       Talisman of Ephemeral Power
          Xanadun 21
+      Barov Peasant Caller
+         Dregoth 1
       Will of the Forsaken
          Xanadun 2
          Dregoth 2

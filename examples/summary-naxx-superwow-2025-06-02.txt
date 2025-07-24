@@ -448,7 +448,6 @@ Martlflash deaths:4
 
    total spent: 119g 83s 50c
 Minoas deaths:3
-   Combat Healing Potion 2 
    Conjured Mana Orange 9 
    Consecrated Sharpening Stone 6   (24g 59s 94c)
    Danonzo's Tel'Abim Surprise 10 

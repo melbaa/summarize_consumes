@@ -46,7 +46,7 @@ Daenae  2286521
   Tea with Sugar  6927
   First Aid  3250
   Major Healthstone  1200
-  Healing Potion  849
+  Healing Potion - Superior  849
 Jarnp  2268248
   Flash Heal  1243320
   Greater Heal  686811
@@ -62,7 +62,7 @@ Shumy  2197332
   Earth Shield  25386
   Tea with Sugar  4617
   First Aid  4000
-  Healing Potion  1534
+  Healing Potion - Major  1534
 Arzetlam  1863169
   Flash Heal  733038
   Greater Heal  561025
@@ -103,13 +103,13 @@ Windfurytotm  573080
   Major Healthstone  4200
   Holy Strength  3224
   Earth Shield  2919
-  Healing Potion  2389
+  Healing Potion - Superior  2389
 Faradin  430678
   Holy Light  336420
   Flash of Light  67823
   Holy Strength  9217
   Lay on Hands  8701
-  Healing Potion  5791
+  Healing Potion - Major  5791
   Judgement of Light  2538
   Seal of Light  188
 Everran  219024
@@ -119,7 +119,7 @@ Everran  219024
   Judgement of Light  23841
   Major Healthstone  3600
   First Aid  2000
-  Healing Potion  819
+  Healing Potion - Superior  819
 Bloxie  160544
   Healing Circle  49417
   Flash of Light  43571
@@ -129,7 +129,7 @@ Bloxie  160544
   Lay on Hands  9241
   Holy Strength  7934
   First Aid  5250
-  Healing Potion  1384
+  Healing Potion - Major  1384
   Major Healthstone  1200
 Charmia  112988
   Frenzied Regeneration  68326
@@ -146,7 +146,7 @@ Getterfour  106567
   Tea with Sugar  12117
   Lay on Hands  5941
   Major Healthstone  3600
-  Healing Potion  1176
+  Healing Potion - Major  1176
 Srj  102341
   Invigorate  36911
   Judgement of Light  29974
@@ -167,7 +167,7 @@ Killanime  85683
   Holy Strength  16338
   First Aid  9000
   Major Healthstone  3600
-  Healing Potion  1656
+  Healing Potion - Major  1656
 Dyrachyo  77294
   Bloodthirst  33140
   Holy Strength  20688
@@ -184,7 +184,7 @@ Paris  65918
   Holy Strength  33181
   Holy Light  14167
   Judgement of Light  13143
-  Healing Potion  3627
+  Healing Potion - Major  3627
   Major Healthstone  1800
 Illasei  61949
   Judgement of Light  25110
@@ -192,12 +192,12 @@ Illasei  61949
   First Aid  9250
   Heroism  5515
   Major Healthstone  4800
-  Healing Potion  1125
+  Healing Potion - Major  1125
 Bubasita  60586
   Bloodthirst  16790
   Judgement of Light  12820
   Holy Strength  10582
-  Healing Potion  10194
+  Healing Potion - Major  10194
   First Aid  6000
   Major Healthstone  4200
 Jaekta  59654
@@ -213,7 +213,7 @@ Maryhuff  57681
   Holy Strength  12553
   Major Healthstone  6600
   First Aid  2250
-  Healing Potion  1771
+  Healing Potion - Major  1771
 Iniri  56650
   Judgement of Light  20447
   Invigorate  18400
@@ -230,7 +230,7 @@ Dregoth  38891
   Major Healthstone  10080
   First Aid  5750
   Tea with Sugar  3079
-  Healing Potion  2161
+  Healing Potion - Major  2161
 Wicks  29817
   Judgement of Light  10282
   Rejuvenation  9881
@@ -249,12 +249,13 @@ Rhudaur  23566
 Seath  22067
   Major Healthstone  10200
   First Aid  7000
-  Healing Potion  3118
+  Healing Potion - Major  2316
   Whipper Root Tuber  1749
+  Healing Potion - Superior  802
 Hrin  20779
   Mend Pet  10780
   First Aid  3750
-  Healing Potion  3249
+  Healing Potion - Major  3249
   Major Healthstone  3000
 Mupsi  17083
   Invigorate  9162
@@ -269,10 +270,10 @@ Berserkss  15428
   First Aid  7000
   Major Healthstone  4800
   Mend Pet  2450
-  Healing Potion  1178
+  Healing Potion - Major  1178
 Yis  15404
   First Aid  9750
-  Healing Potion  3254
+  Healing Potion - Major  3254
   Major Healthstone  2400
 Imhungry  14327
   Invigorate  7110

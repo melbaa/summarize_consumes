@@ -321,7 +321,7 @@ for item in all_defined_consumable_items:
 RENAME_SPELL = {
     ("hits_ability_line", "Holy Shock"): "Holy Shock (dmg)",
     ("heals_line", "Holy Shock"): "Holy Shock (heal)",
-    ("heals_line", "Tea"): "Tea with Sugar",
+    ("heals_line", "Tea"): "Tea with Sugar",  # rename spell to consumable name for clarity
     ("gains_rage_line", "Blood Fury"): "Gri'lek's Charm of Might",
 }
 
@@ -437,7 +437,6 @@ TRINKET_SPELL = [
     "Immune Fear/Polymorph/Snare",
     "Immune Fear/Polymorph/Stun",
     "Immune Root/Snare/Stun",
-    "Death by Peasant",
     "Jewel of Wild Magics",
     "Remains of Overwhelming Power",
     "Elunes Guardian",
@@ -524,6 +523,8 @@ def healpot_lookup(amount):
         return "Healing Potion - Superior"
     if 454 <= amount <= 586:
         return "Healing Potion - Greater"
+    if 279 <= amount <= 362:
+        return "Healing Potion"
     if 139 <= amount <= 181:
         return "Healing Potion - Lesser"
     if 69 <= amount <= 91:
@@ -539,6 +540,8 @@ def manapot_lookup(mana):
         consumable = "Mana Potion - Superior"
     elif 700 <= mana <= 900:
         consumable = "Mana Potion - Greater"
+    elif 454 <= mana <= 587:
+        consumable = "Mana Potion"
     elif 280 <= mana <= 360:
         consumable = "Mana Potion - Lesser"
     elif 140 <= mana <= 180:
@@ -1980,22 +1983,25 @@ def process_tree(app, line, tree: Tree):
 
         spellname = rename_spell(spellname, line_type=subtree.data)
 
+        # rename
+        if spellname == "Healing Potion":
+            if is_crit:
+                spellname = healpot_lookup(amount / 1.5)
+            else:
+                spellname = healpot_lookup(amount)
+
+        # rename
+        if spellname == "Rejuvenation Potion":
+            if amount > 500:
+                spellname = "Major Rejuvenation Potion"
+            else:
+                spellname = "Minor Rejuvenation Potion"
+
         app.class_detection.detect(line_type=subtree.data, name=name, spell=spellname)
         app.spell_count.add(line_type=subtree.data, name=name, spell=spellname)
 
-        if spellname == "Tea with Sugar":
-            app.player[name]["Tea with Sugar"] += 1
-        elif spellname == "Healing Potion":
-            if is_crit:
-                consumable = healpot_lookup(amount / 1.5)
-            else:
-                consumable = healpot_lookup(amount)
-            app.player[name][consumable] += 1
-        elif spellname == "Rejuvenation Potion":
-            if amount > 500:
-                app.player[name]["Rejuvenation Potion - Major"] += 1
-            else:
-                app.player[name]["Rejuvenation Potion - Minor"] += 1
+        if consumable_item := RAWSPELLNAME2CONSUMABLE.get((subtree.data, spellname)):
+            app.player[name][consumable_item.name] += 1
 
         app.healstore.add(name, targetname, spellname, amount, timestamp_unix)
         return True
@@ -2003,12 +2009,15 @@ def process_tree(app, line, tree: Tree):
     elif subtree.data == "gains_mana_line":
         name = subtree.children[0].value
         spellname = subtree.children[-1].value
-        if consumable_item := RAWSPELLNAME2CONSUMABLE.get((subtree.data, spellname)):
-            app.player[name][consumable_item.name] += 1
+
+        # rename
         if spellname == "Restore Mana":
             mana = int(subtree.children[1].value)
-            consumable = manapot_lookup(mana)
-            app.player[name][consumable] += 1
+            spellname = manapot_lookup(mana)
+
+        if consumable_item := RAWSPELLNAME2CONSUMABLE.get((subtree.data, spellname)):
+            app.player[name][consumable_item.name] += 1
+
         return True
     elif subtree.data == "drains_mana_line":
         return True
@@ -2742,7 +2751,7 @@ class MergeSuperwowConsumables:
         #
         # it follows that when c == c_swow, we are looking at the same consumable,
         # but with data from the native and superwow logs respectively.
-        # so when c != c_swow, we are comparing different consumables. probably
+        # so when c != c_swow, we are comparing different consumables. possibly
         # an ambiguous one and a more specific superwow one.
 
         for player in self.player_superwow:

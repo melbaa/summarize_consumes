@@ -246,6 +246,7 @@ all_defined_consumable_items: List[Consumable] = [
         price=PriceFromComponents(components=[(_small_dream_shard, 1 / 5)]),
         spell_aliases=[
             ("heals_line", "Tea"),
+            ("heals_line", "Tea with Sugar"),
             ("uses_line", "Tea with Sugar"),
             ("uses_line", "Tea With Sugar"),  # old name
         ],
@@ -486,36 +487,51 @@ all_defined_consumable_items: List[Consumable] = [
     Consumable(
         name="Restore Mana (mana potion)",
         price=NoPrice(),
-        # special handling, no need to match
+        spell_aliases=[
+            ("gains_mana_line", "Restore Mana (mana potion)"),
+        ],
     ),
     SuperwowConsumable(
         name="Mana Potion - Minor",
         price=NoPrice(),
-        spell_aliases=[("uses_line", "Minor Mana Potion")],
+        spell_aliases=[
+            ("gains_mana_line", "Mana Potion - Minor"),
+            ("uses_line", "Minor Mana Potion"),
+        ],
         strategy=OverwriteStrategy(target_consumable_name="Restore Mana (mana potion)"),
     ),
     SuperwowConsumable(
         name="Mana Potion - Lesser",
         price=NoPrice(),
-        spell_aliases=[("uses_line", "Full Moonshine")],  # small inaccuracy in logger
+        spell_aliases=[
+            ("gains_mana_line", "Mana Potion - Lesser"),
+            ("uses_line", "Full Moonshine"),  # small inaccuracy in logger
+        ],
         strategy=OverwriteStrategy(target_consumable_name="Restore Mana (mana potion)"),
     ),
     SuperwowConsumable(
         name="Mana Potion",
         price=DirectPrice(itemid=3827),
-        spell_aliases=[("uses_line", "Mana Potion")],
+        spell_aliases=[
+            ("gains_mana_line", "Mana Potion"),
+            ("uses_line", "Mana Potion"),
+        ],
         strategy=OverwriteStrategy(target_consumable_name="Restore Mana (mana potion)"),
     ),
     SuperwowConsumable(
         name="Mana Potion - Greater",
         price=DirectPrice(itemid=6149),
-        spell_aliases=[("uses_line", "Greater Mana Potion")],
+        spell_aliases=[
+            ("gains_mana_line", "Mana Potion - Greater"),
+            ("uses_line", "Greater Mana Potion"),
+        ],
         strategy=OverwriteStrategy(target_consumable_name="Restore Mana (mana potion)"),
     ),
     SuperwowConsumable(
         name="Mana Potion - Superior",
         price=DirectPrice(itemid=13443),
         spell_aliases=[
+            ("gains_mana_line", "Mana Potion - Superior"),
             ("uses_line", "Superior Mana Potion"),
             ("uses_line", "Combat Mana Potion"),
         ],
@@ -524,16 +540,76 @@ all_defined_consumable_items: List[Consumable] = [
     SuperwowConsumable(
         name="Mana Potion - Major",
         price=DirectPrice(itemid=13444),
-        spell_aliases=[("uses_line", "Major Mana Potion")],
+        spell_aliases=[
+            ("gains_mana_line", "Mana Potion - Major"),
+            ("uses_line", "Major Mana Potion"),
+            ("uses_line", "Diet McWeaksauce"),
+        ],
         strategy=OverwriteStrategy(target_consumable_name="Restore Mana (mana potion)"),
     ),
     SuperwowConsumable(
         name="Healing Potion - Major",
         price=DirectPrice(itemid=13446),
-        spell_aliases=[("uses_line", "Major Healing Potion")],
-        strategy=EnhanceStrategy(),
+        spell_aliases=[
+            ("heals_line", "Healing Potion - Major"),
+            ("uses_line", "Major Healing Potion"),
+        ],
+        strategy=OverwriteStrategy(target_consumable_name="Healing Potion - unknown"),
     ),
-    Consumable(name="Healing Potion - Superior", price=DirectPrice(itemid=3928)),
+    SuperwowConsumable(
+        name="Healing Potion - Superior",
+        price=DirectPrice(itemid=3928),
+        spell_aliases=[
+            ("heals_line", "Healing Potion - Superior"),
+            ("uses_line", "Combat Healing Potion"),
+            ("uses_line", "Superior Healing Potion"),
+        ],
+        strategy=OverwriteStrategy(target_consumable_name="Healing Potion - unknown"),
+    ),
+    SuperwowConsumable(
+        name="Healing Potion - Greater",
+        price=NoPrice(),
+        spell_aliases=[
+            ("heals_line", "Healing Potion - Greater"),
+            ("uses_line", "Greater Healing Potion"),
+        ],
+        strategy=OverwriteStrategy(target_consumable_name="Healing Potion - unknown"),
+    ),
+    SuperwowConsumable(
+        name="Healing Potion",
+        price=NoPrice(),
+        spell_aliases=[
+            ("heals_line", "Healing Potion"),
+            ("uses_line", "Healing Potion"),
+        ],
+        strategy=OverwriteStrategy(target_consumable_name="Healing Potion - unknown"),
+    ),
+    SuperwowConsumable(
+        name="Healing Potion - Lesser",
+        price=NoPrice(),
+        spell_aliases=[
+            ("heals_line", "Healing Potion - Lesser"),
+            ("uses_line", "Lesser Healing Potion"),
+            ("uses_line", "Discolored Healing Potion"),
+        ],
+        strategy=OverwriteStrategy(target_consumable_name="Healing Potion - unknown"),
+    ),
+    SuperwowConsumable(
+        name="Healing Potion - Minor",
+        price=NoPrice(),
+        spell_aliases=[
+            ("heals_line", "Healing Potion - Minor"),
+            ("uses_line", "Minor Healing Potion"),
+        ],
+        strategy=OverwriteStrategy(target_consumable_name="Healing Potion - unknown"),
+    ),
+    Consumable(
+        name="Healing Potion - unknown",
+        price=NoPrice(),
+        spell_aliases=[
+            ("heals_line", "Healing Potion - unknown"),
+        ],
+    ),
     SuperwowConsumable(
         name="Elixir of Giants",
         price=DirectPrice(itemid=9206),
@@ -738,13 +814,19 @@ all_defined_consumable_items: List[Consumable] = [
     SuperwowConsumable(
         name="Rejuvenation Potion - Major",
         price=DirectPrice(itemid=18253),
-        spell_aliases=[("uses_line", "Major Rejuvenation Potion")],
+        spell_aliases=[
+            ("heals_line", "Major Rejuvenation Potion"),
+            ("uses_line", "Major Rejuvenation Potion"),
+        ],
         strategy=EnhanceStrategy(),
     ),
     SuperwowConsumable(
         name="Rejuvenation Potion - Minor",
         price=DirectPrice(itemid=2456),
-        spell_aliases=[("uses_line", "Minor Rejuvenation Potion")],
+        spell_aliases=[
+            ("heals_line", "Minor Rejuvenation Potion"),
+            ("uses_line", "Minor Rejuvenation Potion"),
+        ],
         strategy=EnhanceStrategy(),
     ),
     SuperwowConsumable(
@@ -1395,12 +1477,6 @@ all_defined_consumable_items: List[Consumable] = [
         strategy=SafeStrategy(),
     ),
     SuperwowConsumable(
-        name="Combat Healing Potion",
-        price=NoPrice(),
-        spell_aliases=[("uses_line", "Combat Healing Potion")],
-        strategy=SafeStrategy(),
-    ),
-    SuperwowConsumable(
         name="Cowardly Flight Potion",
         price=NoPrice(),  # useless
         spell_aliases=[("uses_line", "Cowardly Flight Potion")],
@@ -1440,12 +1516,6 @@ all_defined_consumable_items: List[Consumable] = [
         name="Dig Rat Stew",
         price=NoPrice(),  # useless
         spell_aliases=[("uses_line", "Dig Rat Stew")],
-        strategy=SafeStrategy(),
-    ),
-    SuperwowConsumable(
-        name="Discolored Healing Potion",
-        price=NoPrice(),  # useless
-        spell_aliases=[("uses_line", "Discolored Healing Potion")],
         strategy=SafeStrategy(),
     ),
     SuperwowConsumable(
@@ -1593,12 +1663,6 @@ all_defined_consumable_items: List[Consumable] = [
         strategy=SafeStrategy(),
     ),
     SuperwowConsumable(
-        name="Greater Healing Potion",
-        price=NoPrice(),  # TODO
-        spell_aliases=[("uses_line", "Greater Healing Potion")],
-        strategy=SafeStrategy(),
-    ),
-    SuperwowConsumable(
         name="Green Garden Tea",
         price=NoPrice(),
         spell_aliases=[("uses_line", "Green Garden Tea")],
@@ -1608,12 +1672,6 @@ all_defined_consumable_items: List[Consumable] = [
         name="Handful of Rose Petals",
         price=NoPrice(),
         spell_aliases=[("uses_line", "Handful of Rose Petals")],
-        strategy=SafeStrategy(),
-    ),
-    SuperwowConsumable(
-        name="Healing Potion",
-        price=NoPrice(),  # TODO
-        spell_aliases=[("uses_line", "Healing Potion")],
         strategy=SafeStrategy(),
     ),
     SuperwowConsumable(
@@ -1674,12 +1732,6 @@ all_defined_consumable_items: List[Consumable] = [
         name="Mightfish Steak",
         price=NoPrice(),  # TODO
         spell_aliases=[("uses_line", "Mightfish Steak")],
-        strategy=SafeStrategy(),
-    ),
-    SuperwowConsumable(
-        name="Minor Healing Potion",
-        price=NoPrice(),  # TODO
-        spell_aliases=[("uses_line", "Minor Healing Potion")],
         strategy=SafeStrategy(),
     ),
     SuperwowConsumable(

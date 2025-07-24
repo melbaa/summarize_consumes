@@ -11,7 +11,7 @@ Druindy  1312459
   Rejuvenation  87879
   Regrowth  66315
   Swiftmend  12586
-  Healing Potion  1692
+  Healing Potion - Major  1692
   Major Healthstone  1200
   Judgement of Light  648
 Geniesham  1158085
@@ -96,7 +96,7 @@ Illasei  32982
   Holy Strength  6992
   Judgement of Light  5455
   First Aid  2500
-  Healing Potion  1372
+  Healing Potion - Major  1372
   Major Healthstone  1200
 Everglow  29589
   Bloodthirst  16380
@@ -107,7 +107,7 @@ Everglow  29589
 Platedps  28346
   Bloodthirst  14190
   Holy Strength  6260
-  Healing Potion  3457
+  Healing Potion - Major  3457
   Judgement of Light  2899
   Major Healthstone  1200
   First Aid  340
@@ -127,7 +127,7 @@ Few  18931
   First Aid  7750
   Judgement of Light  4502
   Major Healthstone  3600
-  Healing Potion  3079
+  Healing Potion - Major  3079
 Aphorodite  18609
   Holy Strength  10758
   Judgement of Light  5351
@@ -136,7 +136,7 @@ Shrimpshark  15008
   Tea with Sugar  15008
 Yis  10441
   Tea with Sugar  2868
-  Healing Potion  2611
+  Healing Potion - Major  2611
   First Aid  2250
   Mend Pet  1512
   Major Healthstone  1200
@@ -147,7 +147,7 @@ Shuly  9998
   Drain Life  339
 Windfurytotm  9893
   Tea with Sugar  5542
-  Healing Potion  1729
+  Healing Potion - Major  1729
   Healing Wave  1465
   Holy Strength  752
   Judgement of Light  405
@@ -158,13 +158,13 @@ Gack  6974
   Lesser Healing Wave  5302
   Healing Wave  1672
 Syjlas  6338
-  Healing Potion  4588
+  Healing Potion - Major  4588
   First Aid  1750
 Berserkss  4700
   First Aid  3500
   Major Healthstone  1200
 Roshane  2694
-  Healing Potion  1494
+  Healing Potion - Major  1494
   Major Healthstone  1200
 Mezmeris  2400
   Major Healthstone  2400

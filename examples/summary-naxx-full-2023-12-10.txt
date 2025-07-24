@@ -796,6 +796,8 @@ Cooldown Summary
          Aquatic 14
          Shreked 7
          Sunwelp 2
+      Barov Peasant Caller
+         Zedog 1
       Berserking
          Sunwelp 33
       Will of the Forsaken

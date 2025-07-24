@@ -435,6 +435,8 @@ Cooldown Summary
          Immunium 7
          Xiaofeigunn 4
          Aquatic 3
+      Barov Peasant Caller
+         Aquatic 1
    Shaman
       Nature's Swiftness
          Interlan 10
@@ -569,6 +571,9 @@ Cooldown Summary
       Zandalarian Hero Charm
          Bobsterr 5
          Martlflash 1
+      Barov Peasant Caller
+         Martlflash 2
+         Goldengoose 1
    Rogue
       Adrenaline Rush
          Mcstabbys 4

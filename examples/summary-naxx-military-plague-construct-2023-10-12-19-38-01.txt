@@ -434,9 +434,9 @@ Smahingbolt deaths:5
    Consecrated Sharpening Stone 2   (8g 19s 98c)
    Elixir of the Mongoose 5   (7g 49s 20c)
    Fire Protection 3 
+   Mana Potion 1 
    Mana Potion - Major 1   (1g 72s 91c)
    Nature Protection 3 
-   Restore Mana (mana potion) 1 
    Rumsey Rum Black Label 2   (79s 94c)
 
    total spent: 18g 22s 3c

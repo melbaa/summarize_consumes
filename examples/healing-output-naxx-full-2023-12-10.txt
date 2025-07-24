@@ -75,7 +75,7 @@ Zdraxus  1902202
   Renew  8750
   Pain Spike  3304
   Tea with Sugar  1333
-  Healing Potion  769
+  Healing Potion - Superior  769
 Ergofobia  1766096
   Chain Heal  1311204
   Lesser Healing Wave  258835
@@ -129,14 +129,14 @@ Littlelnnos  113550
   Holy Strength  15813
   Major Healthstone  5400
   First Aid  5000
-  Healing Potion  4747
+  Healing Potion - Major  4747
   Drain Life  1009
 Drapes  107591
   Bloodthirst  40790
   Judgement of Light  30973
   Holy Strength  23457
   Major Healthstone  6000
-  Healing Potion  2535
+  Healing Potion - Major  2535
   First Aid  2500
   Tea with Sugar  1336
 Deathstruck  106449
@@ -144,13 +144,13 @@ Deathstruck  106449
   Bloodthirst  36555
   Holy Strength  24097
   Major Healthstone  3600
-  Healing Potion  1188
+  Healing Potion - Major  1188
 Psykhe  104461
   Bloodthirst  38000
   Judgement of Light  35692
   Holy Strength  22689
   First Aid  3000
-  Healing Potion  2232
+  Healing Potion - Major  2232
   Tea with Sugar  1648
   Major Healthstone  1200
 Martl  103711
@@ -172,7 +172,7 @@ Vallcow  97134
   Major Healthstone  9600
   Holy Strength  9573
   First Aid  2000
-  Healing Potion  1511
+  Healing Potion - Major  1511
 Melriel  89923
   Bloodthirst  36340
   Judgement of Light  35316
@@ -186,7 +186,7 @@ Supal  89312
   Drain Life  5885
   Holy Light  4203
   Life Steal  3704
-  Healing Potion  1140
+  Healing Potion - Major  1140
 Cracklinoats  78965
   Lesser Healing Wave  25423
   Earth Shield  14100
@@ -195,7 +195,7 @@ Cracklinoats  78965
   Major Healthstone  7200
   Chain Heal  3639
   Healing Wave  1761
-  Healing Potion  1296
+  Healing Potion - Major  1296
 Pitbound  68318
   Bloodthirst  31235
   Judgement of Light  23968
@@ -217,7 +217,7 @@ Azot  61684
   Death Coil  17157
   Major Healthstone  5280
   First Aid  3250
-  Healing Potion  3047
+  Healing Potion - Major  3047
   Drain Life  462
 Abstractz  51864
   Tea with Sugar  36335
@@ -227,30 +227,30 @@ Abstractz  51864
 Atriana  49878
   Judgement of Light  25651
   Invigorate  19060
-  Healing Potion  2277
+  Healing Potion - Major  2277
   Tea with Sugar  1690
   Major Healthstone  1200
 Titicacal  36708
   Vampirism  27873
-  Healing Potion  3343
+  Healing Potion - Major  3343
   First Aid  3000
   Major Healthstone  1800
   Death Coil  692
 Sunwelp  36350
   Tea with Sugar  32678
   First Aid  2000
-  Healing Potion  1672
+  Healing Potion - Major  1672
 Starraven  34571
   Tea with Sugar  13719
   Regrowth  8127
   Rejuvenation  5166
   Healing Touch  4363
-  Healing Potion  3196
+  Healing Potion - Superior  3196
 Shreked  13158
   Tea with Sugar  6193
   First Aid  2750
   Major Healthstone  2400
-  Healing Potion  1815
+  Healing Potion - Major  1815
 Baalfyr  11619
   Bloodthirst  7580
   Holy Strength  3917
@@ -265,12 +265,12 @@ Ratthew  8036
 Dhallya  6693
   Tea with Sugar  2109
   First Aid  2000
-  Healing Potion  1323
+  Healing Potion - Major  1323
   Major Healthstone  1200
   Judgement of Light  61
 Babystone  4860
   Tea with Sugar  2155
-  Healing Potion  1705
+  Healing Potion - Major  1705
   First Aid  1000
 Aquatic  2750
   First Aid  2750

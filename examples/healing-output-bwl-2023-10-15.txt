@@ -75,7 +75,7 @@ Sunor  247437
 Bever  189708
   Vampiric Embrace  179422
   Devouring Plague  8557
-  Healing Potion  1729
+  Healing Potion - Major  1729
 Psykhe  98610
   Bloodthirst  43752
   Shadow of Ebonroc  25000
@@ -113,12 +113,12 @@ Ionize  35583
   Chain Heal  5145
   Healing Wave  5048
   Lesser Healing Wave  2845
-  Healing Potion  1535
+  Healing Potion - Major  1535
 Maryhuff  30993
   Bloodthirst  14120
   Holy Strength  7688
   Judgement of Light  3294
-  Healing Potion  2539
+  Healing Potion - Major  2539
   Tea with Sugar  2152
   Major Healthstone  1200
 Iniri  30304
@@ -135,7 +135,7 @@ Windfurytotm  27678
 Montford  23308
   Bloodthirst  19860
   Judgement of Light  2644
-  Healing Potion  804
+  Healing Potion - Superior  804
 Nightleaf  22812
   Regrowth  18579
   Judgement of Light  3233
@@ -180,7 +180,7 @@ Charmia  7387
   Frenzied Regeneration  6655
   Judgement of Light  732
 Shrimpshark  3189
-  Healing Potion  1659
+  Healing Potion - Major  1659
   Tea with Sugar  1530
 Chan  2425
   Mend Pet  1225
@@ -191,12 +191,12 @@ Smahingbolt  2400
   Major Healthstone  2400
 Simplezz  2367
   Mend Pet  1236
-  Healing Potion  1131
+  Healing Potion - Greater  1131
 Yis  2287
   Major Healthstone  1200
   Tea with Sugar  1087
 Storkie  1988
-  Healing Potion  1095
+  Healing Potion - Superior  1095
   Blood Craze  893
 Tlw  1918
   Tea with Sugar  1168

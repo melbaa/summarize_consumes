@@ -135,7 +135,7 @@ Jinp  101156
   Judgement of Light  54289
   Invigorate  30171
   Holy Strength  11679
-  Healing Potion  2617
+  Healing Potion - Major  2617
   Major Healthstone  2400
 Freedlock  101063
   Felstone  36745
@@ -149,14 +149,14 @@ Kilgasm  80855
   Judgement of Light  42267
   Blood Craze  12533
   Holy Strength  12010
-  Healing Potion  5679
+  Healing Potion - Major  5679
   Major Healthstone  4800
   Tea with Sugar  3566
 Teawon  80590
   Judgement of Light  49592
   Invigorate  20741
   Holy Strength  7799
-  Healing Potion  1258
+  Healing Potion - Major  1258
   Major Healthstone  1200
 Tiogar  80307
   Judgement of Light  53622
@@ -172,13 +172,13 @@ Adm  74504
   Judgement of Light  52022
   Holy Strength  10878
   Major Healthstone  6000
-  Healing Potion  5604
+  Healing Potion - Major  5604
 Magn  74491
   Judgement of Light  46429
   Blood Craze  10181
   Holy Strength  9884
   Tea with Sugar  3771
-  Healing Potion  1526
+  Healing Potion - Major  1526
   First Aid  1500
   Major Healthstone  1200
 Eleae  67228
@@ -217,7 +217,8 @@ Cheesebreath  24016
   Swiftmend  1797
 Minoas  12404
   Tea with Sugar  7302
-  Healing Potion  4392
+  Healing Potion - Major  2765
+  Healing Potion - Superior  1627
   Rejuvenation  710
 Manadevil  6760
   Major Healthstone  3600
@@ -225,7 +226,7 @@ Manadevil  6760
 Imul  5894
   Tea with Sugar  5894
 Nehelenia  5466
-  Healing Potion  3568
+  Healing Potion - Major  3568
   Tea with Sugar  1898
 Gholmes  1281
   Major Healthstone  1200

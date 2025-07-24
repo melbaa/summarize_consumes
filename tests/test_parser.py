@@ -121,14 +121,69 @@ def test_dies_line(app):
 
 def test_healpot_line(app):
     lines = """
+4/5 20:46:53.177  Both 's Healing Potion heals Both for 1628.
+4/5 20:46:53.177  Both uses Major Healing Potion.
+
+4/5 20:46:53.177  Native 's Healing Potion heals Native for 1628.
+
+4/5 20:46:53.177  Swow uses Major Healing Potion.
+
+4/5 20:57:27.357  Unknown 's Healing Potion critically heals Unknown for 1.
+4/5 20:57:27.357  Unknown uses Major Healing Potion.
+
 4/5 20:46:53.177  Macc 's Healing Potion heals Macc for 1628.
 4/5 20:57:27.357  Srj 's Healing Potion critically heals Srj for 2173.
+
 """
     lines = lines.splitlines(keepends=True)
     for line in lines:
         parse_line(app, line)
+
+    # both native and superwow detect what it is
+    assert app.player['Both']['Healing Potion - Major'] == 1
+    assert app.player_superwow['Both']['Healing Potion - Major'] == 1
+
+    # only native detect
+    assert app.player['Native']['Healing Potion - Major'] == 1
+    assert app.player_superwow['Native'].get('Healing Potion - Major', 0) == 0
+
+    # only swow detect
+    assert app.player['Swow']['Healing Potion - Major'] == 0
+    assert app.player_superwow['Swow']['Healing Potion - Major'] == 1
+
+    # unknown resolves to Major
+    assert app.player['Unknown']['Healing Potion - unknown'] == 1
+    assert app.player_superwow['Unknown']['Healing Potion - Major'] == 1
+
+    # rando other data, no change
     assert app.player['Macc']['Healing Potion - Major'] == 1
+    assert app.player_superwow['Macc'].get('Healing Potion - Major', 0) == 0
+
     assert app.player['Srj']['Healing Potion - Major'] == 1
+    assert app.player_superwow['Srj'].get('Healing Potion - Major', 0) == 0
+
+    app.merge_superwow_consumables.merge()
+
+    assert app.player['Both']['Healing Potion - Major'] == 1
+    assert app.player_superwow['Both']['Healing Potion - Major'] == 0
+
+    assert app.player['Native']['Healing Potion - Major'] == 1
+    assert app.player_superwow['Native']['Healing Potion - Major'] == 0
+
+    assert app.player['Swow']['Healing Potion - Major'] == 1
+    assert app.player_superwow['Swow']['Healing Potion - Major'] == 0
+
+    assert app.player['Unknown']['Healing Potion - unknown'] == 0
+    assert app.player['Unknown']['Healing Potion - Major'] == 1
+    assert app.player_superwow['Unknown']['Healing Potion - Major'] == 0
+
+
+    assert app.player['Macc']['Healing Potion - Major'] == 1
+    assert app.player_superwow['Macc']['Healing Potion - Major'] == 0
+    assert app.player['Srj']['Healing Potion - Major'] == 1
+    assert app.player_superwow['Srj']['Healing Potion - Major'] == 0
+
+
 
 def test_manapot_line(app):
     lines = """
@@ -142,6 +197,7 @@ def test_manapot_line(app):
     assert app.player['Ikoretta']['Mana Potion - Major'] == 1
     assert app.player['Smahingbolt']['Mana Potion - Major'] == 1
     assert app.player['Magikal']['Mana Potion - Major'] == 1
+
 
 def test_manarune_line(app):
     lines = """

@@ -138,7 +138,6 @@ python -m venv venv
 | Buttermilk Delight |  |  |
 | Catseye Elixir |  |  |
 | Cleaning Cloth |  |  |
-| Combat Healing Potion |  |  |
 | Conjured Crystal Water |  |  |
 | Conjured Mana Orange |  |  |
 | Consecrated Sharpening Stone | [23122](https://database.turtle-wow.org/?item=23122) |  |
@@ -164,7 +163,6 @@ python -m venv venv
 | Dense Sharpening Stone | [12404](https://database.turtle-wow.org/?item=12404) |  |
 | Dense Weightstone | [12643](https://database.turtle-wow.org/?item=12643) |  |
 | Dig Rat Stew |  |  |
-| Discolored Healing Potion |  |  |
 | Dragonbreath Chili | [12217](https://database.turtle-wow.org/?item=12217) |  |
 | Dreamless Sleep Potion | [12190](https://database.turtle-wow.org/?item=12190) |  |
 | Dreamshard Elixir | [61224](https://database.turtle-wow.org/?item=61224) |  |
@@ -244,7 +242,6 @@ python -m venv venv
 | Greater Dreamless Sleep Potion | [20002](https://database.turtle-wow.org/?item=20002) |  |
 | Greater Fire Protection Potion | [13457](https://database.turtle-wow.org/?item=13457) |  |
 | Greater Frost Protection Potion | [13456](https://database.turtle-wow.org/?item=13456) |  |
-| Greater Healing Potion |  |  |
 | Greater Holy Protection Potion | [13460](https://database.turtle-wow.org/?item=13460) |  |
 | Greater Nature Protection Potion | [13458](https://database.turtle-wow.org/?item=13458) |  |
 | Greater Shadow Protection Potion | [13459](https://database.turtle-wow.org/?item=13459) |  |
@@ -256,8 +253,12 @@ python -m venv venv
 | Handful of Rose Petals |  |  |
 | Hardened Mushroom | [51717](https://database.turtle-wow.org/?item=51717) |  |
 | Healing Potion |  |  |
+| Healing Potion - Greater |  |  |
+| Healing Potion - Lesser |  |  |
 | Healing Potion - Major | [13446](https://database.turtle-wow.org/?item=13446) |  |
+| Healing Potion - Minor |  |  |
 | Healing Potion - Superior | [3928](https://database.turtle-wow.org/?item=3928) |  |
+| Healing Potion - unknown |  |  |
 | Heavy Runecloth Bandage |  |  |
 | Highpeak Thistle |  |  |
 | Holy Protection |  |  |
@@ -312,7 +313,6 @@ python -m venv venv
 | Mightfish Steak |  |  |
 | Mighty Rage Potion | [13442](https://database.turtle-wow.org/?item=13442) |  |
 | Mighty Troll's Blood Potion | [3826](https://database.turtle-wow.org/?item=3826) |  |
-| Minor Healing Potion |  |  |
 | Minor Magic Resistance Potion |  |  |
 | Morning Glory Dew |  |  |
 | Mug of Shimmer Stout |  |  |
@@ -454,8 +454,6 @@ Features with very verbose output write their own files. Pastebins limit payload
 
 Parse log lines correctly and completely. No partial parses. Skip unknown syntax and report it.
 
-Prefer to use a parser framework as it's easier to maintain. The syntax is simple enough to allow it.
-
 The mental model for processing should be in multiple stages.
 * data parsing
 * counting, aggregating, processing the data
@@ -511,7 +509,7 @@ Player casts Spell on Player.
 Player casts Spell.
 ```
 
-More ambiguity. `'s` works the same way as part of a name or as its own token.  
+More ambiguity. `'s` shows up as part of a name or as its own token.  
 ```
 4/21 21:01:38.861  Psykhe 's Tea with Sugar heals Psykhe for 1613.  
 4/12 20:11:17.188  Psykhe begins to cast Kreeg's Stout Beatdown.

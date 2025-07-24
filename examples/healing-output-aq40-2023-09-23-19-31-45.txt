@@ -50,7 +50,7 @@ Bloxie  777309
   Lay on Hands  10682
   Tea with Sugar  5202
   Judgement of Light  2897
-  Healing Potion  2606
+  Healing Potion - Major  2606
   Major Healthstone  1200
 Palkensen  753284
   Chain Heal  340267
@@ -116,14 +116,14 @@ Melevolence  45570
   Bloodthirst  15520
   Judgement of Light  10915
   Holy Strength  7598
-  Healing Potion  4937
+  Healing Potion - Major  4937
   Major Healthstone  3600
   First Aid  3000
 Maryhuff  45213
   Judgement of Light  15471
   Bloodthirst  12200
   Holy Strength  7243
-  Healing Potion  4599
+  Healing Potion - Major  4599
   Major Healthstone  4200
   First Aid  1500
 Illasei  43905
@@ -132,7 +132,7 @@ Illasei  43905
   Heroism  5650
   Major Healthstone  5400
   First Aid  3000
-  Healing Potion  1231
+  Healing Potion - Major  1231
 Jaekta  43549
   Bloodthirst  12950
   Judgement of Light  11252
@@ -163,11 +163,11 @@ Iniri  38008
   Invigorate  12996
   Holy Strength  4423
   Major Healthstone  3600
-  Healing Potion  1292
+  Healing Potion - Major  1292
 Obbi  36072
   Judgement of Light  13354
   Bloodthirst  8618
-  Healing Potion  5913
+  Healing Potion - Major  5913
   Major Healthstone  4800
   Holy Strength  3387
 Everglow  35963
@@ -176,7 +176,7 @@ Everglow  35963
   Judgement of Light  6841
   First Aid  4000
   Major Healthstone  3600
-  Healing Potion  2540
+  Healing Potion - Major  2540
   Diamond Flask  150
 Seryah  34237
   Judgement of Light  11033
@@ -188,19 +188,19 @@ Xanadun  30295
   Death Coil  12451
   Major Healthstone  7800
   First Aid  5500
-  Healing Potion  3080
+  Healing Potion - Major  3080
   Tea with Sugar  1292
   Drain Life  172
 Brocula  29210
   Judgement of Light  17725
   Major Healthstone  9000
-  Healing Potion  1509
+  Healing Potion - Superior  1509
   Holy Strength  806
   First Aid  170
 Isimona  25841
   Fel Stamina  9011
   Tea with Sugar  5977
-  Healing Potion  4759
+  Healing Potion - Major  4759
   Death Coil  4476
   Major Healthstone  1200
   Drain Life  276
@@ -215,7 +215,8 @@ Bubasita  22365
   Judgement of Light  11138
   Bloodthirst  5380
   Major Healthstone  4200
-  Healing Potion  1397
+  Healing Potion - Superior  786
+  Healing Potion - unknown  611
   First Aid  250
 Dregoth  20023
   Major Healthstone  10320
@@ -225,9 +226,9 @@ Dregoth  20023
 Seath  18217
   First Aid  8750
   Major Healthstone  7800
-  Healing Potion  1667
+  Healing Potion - Major  1667
 Chan  15285
-  Healing Potion  4913
+  Healing Potion - Major  4913
   Judgement of Light  3027
   Major Healthstone  3000
   First Aid  1750
@@ -235,7 +236,7 @@ Chan  15285
   Mend Pet  1225
 Shrimpshark  14626
   Tea with Sugar  10431
-  Healing Potion  2373
+  Healing Potion - Major  2373
   Major Healthstone  1200
   First Aid  500
   Judgement of Light  122
@@ -243,29 +244,29 @@ Smahingbolt  11839
   Major Healthstone  6600
   First Aid  2750
   Judgement of Light  1380
-  Healing Potion  1109
+  Healing Potion - Major  1109
 Yis  11124
   Judgement of Light  4630
-  Healing Potion  3794
+  Healing Potion - Major  3794
   First Aid  1500
   Major Healthstone  1200
 Hrin  10874
   Judgement of Light  5525
   Major Healthstone  2400
-  Healing Potion  1730
+  Healing Potion - Major  1730
   Tea with Sugar  1219
 Bruceweed  7665
   Tea with Sugar  4156
   Major Healthstone  1200
-  Healing Potion  1187
+  Healing Potion - Major  1187
   First Aid  1000
   Judgement of Light  122
 Nmsj  7016
-  Healing Potion  5816
+  Healing Potion - Superior  5816
   Major Healthstone  1200
 Berserkss  4643
   Major Healthstone  2400
-  Healing Potion  1816
+  Healing Potion - Major  1816
   Judgement of Light  427
 Thorshifter  1261
   Major Healthstone  1200

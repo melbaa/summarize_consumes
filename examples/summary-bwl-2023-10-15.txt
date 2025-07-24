@@ -173,7 +173,7 @@ Niviri deaths:1
 
    total spent: 2g 93s 61c
 Ovski deaths:0
-   Restore Mana (mana potion) 1 
+   Mana Potion 1 
 Psykhe deaths:4
    Elixir of Greater Agility 2   (41s 38c)
    Elixir of Superior Defense 1   (2g 26s 42c)

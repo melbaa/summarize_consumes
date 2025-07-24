@@ -43,13 +43,13 @@ Sunpriest  291749
 Blindie  62470
   Holy Nova  52698
   Tea with Sugar  6078
-  Healing Potion  1634
+  Healing Potion - Major  1634
   Flash Heal  1130
   Renew  930
 Goldengoose  50434
   Holy Light  32637
   Flash of Light  11592
-  Healing Potion  3561
+  Healing Potion - Major  3561
   Tea with Sugar  1424
   Judgement of Light  1220
 Lycel  29851
@@ -90,7 +90,7 @@ Vallcow  21419
 Starraven  20702
   Tea with Sugar  13019
   Regrowth  5229
-  Healing Potion  2454
+  Healing Potion - Superior  2454
 Sabroso  19354
   Bloodthirst  11680
   Holy Strength  4441
@@ -101,7 +101,7 @@ Pitbound  17622
   Judgement of Light  2440
 Catajumbo  16711
   Chain Heal  8939
-  Healing Potion  4631
+  Healing Potion - Major  4631
   Holy Strength  1921
   Judgement of Light  1220
 Adachisakura  15504
@@ -147,6 +147,6 @@ Dhallya  2928
 Spankys  2867
   Judgement of Light  2867
 Immunium  1507
-  Healing Potion  1507
+  Healing Potion - Major  1507
 Shreked  1000
   First Aid  1000
