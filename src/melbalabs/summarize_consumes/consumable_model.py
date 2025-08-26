@@ -83,6 +83,7 @@ class Consumable:
 
     # maps line_type, spellname to the consumable
     # with this you can map multiple names to the same consumable
+    # in other words, this renames from log names to the canonical name
     spell_aliases: List[Tuple[str, str]] = field(default_factory=list)
 
 

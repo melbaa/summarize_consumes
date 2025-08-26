@@ -1938,4 +1938,22 @@ all_defined_consumable_items: List[Consumable] = [
         spell_aliases=[("uses_line", "Watered-down Beer")],
         strategy=SafeStrategy(),
     ),
+    SuperwowConsumable(
+        name="Concoction of the Emerald Mongoose",
+        price=DirectPrice(itemid=47410),
+        spell_aliases=[("uses_line", "Concoction of the Emerald Mongoose")],
+        strategy=SafeStrategy(),
+    ),
+    SuperwowConsumable(
+        name="Concoction of the Arcane Giant",
+        price=DirectPrice(itemid=47412),
+        spell_aliases=[("uses_line", "Concoction of the Arcane Giant")],
+        strategy=SafeStrategy(),
+    ),
+    SuperwowConsumable(
+        name="Concoction of the Dreamwater",
+        price=DirectPrice(itemid=47414),
+        spell_aliases=[("uses_line", "Concoction of the Dreamwater")],
+        strategy=SafeStrategy(),
+    ),
 ]

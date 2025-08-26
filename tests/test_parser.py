@@ -328,11 +328,19 @@ def test_uses_consumables(app_log_merge):
 6/1 18:30:49.698  Bcube gains Rage of Ages (1).
 6/1 19:30:12.337  Bcube uses Rage of Ages.
 6/1 20:26:37.476  Bcube uses Rage of Ages.
+6/1 20:26:37.476  Bcube uses Concoction of the Emerald Mongoose.
+6/1 20:26:37.476  Bcube uses Concoction of the Arcane Giant.
+6/1 20:26:37.476  Bcube uses Concoction of the Dreamwater.
+
 """
     lines = lines.splitlines(keepends=True)
     for line in lines:
         parse_line(app, line)
 
+
+    for name in {'Concoction of the Emerald Mongoose', 'Concoction of the Arcane Giant', 'Concoction of the Dreamwater'}:
+        assert app.player['Bcube'][name] == 0
+        assert app.player_superwow['Bcube'][name] == 1
 
     assert app.player['Bcube']["Rage of Ages (ROIDS)"] == 1
     assert app.player_superwow['Bcube']["Rage of Ages (ROIDS)"] == 3
@@ -371,9 +379,12 @@ def test_uses_consumables(app_log_merge):
     app.merge_superwow_consumables.merge()
 
 
+    for name in {'Concoction of the Emerald Mongoose', 'Concoction of the Arcane Giant', 'Concoction of the Dreamwater'}:
+        assert app.player['Bcube'][name] == 1
+        assert app.player_superwow['Bcube'][name] == 0
+
     assert app.player['Bcube']["Rage of Ages (ROIDS)"] == 3
     assert app.player_superwow['Bcube']["Rage of Ages (ROIDS)"] == 0
-
 
     assert app.player['Gregory']["Juju Power"] == 1
     assert app.player_superwow['Gregory']["Juju Power"] == 0

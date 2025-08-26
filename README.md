@@ -138,6 +138,9 @@ python -m venv venv
 | Buttermilk Delight |  |  |
 | Catseye Elixir |  |  |
 | Cleaning Cloth |  |  |
+| Concoction of the Arcane Giant | [47412](https://database.turtle-wow.org/?item=47412) |  |
+| Concoction of the Dreamwater | [47414](https://database.turtle-wow.org/?item=47414) |  |
+| Concoction of the Emerald Mongoose | [47410](https://database.turtle-wow.org/?item=47410) |  |
 | Conjured Crystal Water |  |  |
 | Conjured Mana Orange |  |  |
 | Consecrated Sharpening Stone | [23122](https://database.turtle-wow.org/?item=23122) |  |
