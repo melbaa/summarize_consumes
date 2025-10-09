@@ -2331,6 +2331,8 @@ def process_tree(app, line, tree: Tree):
         spellname = subtree.children[-1].value
         app.class_detection.detect(line_type=subtree.data, name=name, spell=spellname)
         app.spell_count.add(line_type=subtree.data, name=name, spell=spellname)
+        if consumable_item := RAWSPELLNAME2CONSUMABLE.get((subtree.data, spellname)):
+            app.player[name][consumable_item.name] += 1
         return True
     elif subtree.data == "gains_extra_attacks_line":
         name = subtree.children[0].value

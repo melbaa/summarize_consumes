@@ -166,6 +166,7 @@ python -m venv venv
 | Dense Sharpening Stone | [12404](https://database.turtle-wow.org/?item=12404) |  |
 | Dense Weightstone | [12643](https://database.turtle-wow.org/?item=12643) |  |
 | Dig Rat Stew |  |  |
+| Dissolvent Poison II | [54010](https://database.turtle-wow.org/?item=54010) |  |
 | Dragonbreath Chili | [12217](https://database.turtle-wow.org/?item=12217) |  |
 | Dreamless Sleep Potion | [12190](https://database.turtle-wow.org/?item=12190) |  |
 | Dreamshard Elixir | [61224](https://database.turtle-wow.org/?item=61224) |  |

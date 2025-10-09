@@ -868,6 +868,11 @@ all_defined_consumable_items: List[Consumable] = [
         spell_aliases=[("casts_line", "Anti-Venom"), ("uses_line", "Anti-Venom")],
         strategy=EnhanceStrategy(),
     ),
+    Consumable(
+        name="Dissolvent Poison II",
+        price=DirectPrice(itemid=54010),
+        spell_aliases=[("begins_to_perform_line", "Dissolvent Poison II")],
+    ),
     SuperwowConsumable(
         name="Dark Rune",
         price=DirectPrice(itemid=20520),

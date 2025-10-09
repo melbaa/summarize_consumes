@@ -1,7 +1,6 @@
 import pytest
 import io
 
-
 from melbalabs.summarize_consumes.main import parse_line
 from melbalabs.summarize_consumes.main import NAME2ITEMID
 from melbalabs.summarize_consumes.main import PlayerClass
@@ -947,6 +946,17 @@ def test_performs_line(app):
     assert match == 7
     assert app.player['Raibagz']['Powerful Smelling Salts'] == 1
 
+def test_begins_to_perform_line(app):
+    lines = """
+10/9 22:14:01.397  Redmoon begins to perform Dissolvent Poison II.
+"""
+    lines = lines.splitlines(keepends=True)
+    match = 0
+    for line in lines:
+        match += parse_line(app, line)
+    assert match == 1
+    assert app.player['Redmoon']['Dissolvent Poison II'] == 1
+
 def test_gains_extra_attacks_line(app):
     lines = """
 10/29 20:01:39.421  Srj gains 1 extra attacks through Sword Specialization.
@@ -1768,5 +1778,3 @@ def test_invalid_input(app):
     for line in lines:
         match += parse_line(app, line)
     assert not match
-
-
