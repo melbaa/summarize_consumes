@@ -81,6 +81,7 @@ def dl_price_data(prices_server):
         URLS = {
             "nord": "https://melbalabs.com/static/twowprices.json",
             "telabim": "https://melbalabs.com/static/twowprices-telabim.json",
+            "ambershire": "https://gist.githubusercontent.com/whtmst/7d240b57d8f85029d33629ad4a86a2dd/raw/c5e11696815f2eea7e67416ed818b1f1231a95eb/ambershire-prices.json",
         }
         url = URLS[prices_server]
         resp = requests.get(url, timeout=30)
@@ -2535,7 +2536,7 @@ def get_user_input(argv):
 
     parser.add_argument(
         "--prices-server",
-        choices=["nord", "telabim"],
+        choices=["nord", "telabim", "ambershire"],
         default="nord",
         help="specify which server price data to use",
     )
