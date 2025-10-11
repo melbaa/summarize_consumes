@@ -92,16 +92,25 @@ class ConsumableAnalyzer:
                 if i > 50000:  # Ограничим для скорости
                     break
                     
-                # Ищем имена игроков
-                if any(x in line for x in ['SPELL_', 'SWING_', 'ENCHANT_', 'RANGE_', 'DAMAGE_']):
+                # Ищем имена игроков - улучшенный парсинг
+                if any(x in line for x in ['SPELL_', 'SWING_', 'ENCHANT_', 'RANGE_', 'DAMAGE_', 'PARTY_']):
+                    # Пробуем разные способы парсинга
                     parts = line.split(',')
                     if len(parts) > 2:
-                        player_name = parts[1].strip().strip('"').strip()
-                        if (player_name and len(player_name) > 1 and 
-                            player_name != 'YOU' and 
-                            player_name != 'Environment' and
-                            not player_name.startswith('0x')):
-                            players.add(player_name)
+                        # Пробуем разные позиции для имени игрока
+                        for pos in [1, 2, 3]:
+                            if pos < len(parts):
+                                player_name = parts[pos].strip().strip('"').strip("'").strip()
+                                if (player_name and 
+                                    len(player_name) > 1 and 
+                                    len(player_name) < 20 and
+                                    player_name != 'YOU' and 
+                                    player_name != 'Environment' and
+                                    not player_name.startswith('0x') and
+                                    not player_name.isdigit() and
+                                    ' ' not in player_name):
+                                    players.add(player_name)
+                                    break
                 
                 # Ищем использование зелий
                 line_lower = line.lower()
@@ -122,35 +131,40 @@ class ConsumableAnalyzer:
             # Сортируем игроков по алфавиту
             sorted_players = sorted(players)
             
-            # Создаём отчёт
-            report = f"""🐢 Turtle WoW Consumables Analysis - Ambershire Server
-Version: {self.version}
-
-📊 LOG SUMMARY:
-File size: {file_size}
-Total lines: {total_lines}
-Players detected: {len(sorted_players)}
-
-👥 PLAYERS FOUND:
-{', '.join(sorted_players[:25])}{'...' if len(sorted_players) > 25 else ''}
-
-💊 CONSUMABLE USAGE:
-{self.format_consumable_usage(consumable_usage)}
-
-💰 PRICE DATA:
-Items loaded: {len(self.price_db.prices) if prices_loaded else 0}
-Price status: {'✓ Live prices loaded' if prices_loaded else '✗ Prices unavailable'}
-Last update: {self.price_db.timestamp or 'Unknown'}
-
-⚙️ TECHNICAL INFO:
-This is the independent Ambershire-only version
-Running on GitHub Pages - No external dependencies
-
-📝 NOTES:
-- Shows basic log analysis with consumable detection
-- Using live Ambershire price data from our repository
-- Full detailed analysis coming soon!"""
+            # Создаём отчёт БЕЗ эмодзи для совместимости
+            report_lines = []
+            report_lines.append("Turtle WoW Consumables Analysis - Ambershire Server")
+            report_lines.append(f"Version: {self.version}")
+            report_lines.append("")
+            report_lines.append("LOG SUMMARY:")
+            report_lines.append(f"File size: {file_size}")
+            report_lines.append(f"Total lines: {total_lines}")
+            report_lines.append(f"Players detected: {len(sorted_players)}")
+            report_lines.append("")
+            report_lines.append("PLAYERS FOUND:")
+            if sorted_players:
+                report_lines.push(sorted_players.slice(0, 25).join(', ') + (sorted_players.length > 25 ? '...' : ''))
+            else:
+                report_lines.push("No players detected - check log format")
+            report_lines.append("")
+            report_lines.append("CONSUMABLE USAGE:")
+            report_lines.push(this.format_consumable_usage(consumable_usage))
+            report_lines.append("")
+            report_lines.append("PRICE DATA:")
+            report_lines.append(f"Items loaded: {len(self.price_db.prices) if prices_loaded else 0}")
+            report_lines.append(f"Price status: {'Live prices loaded' if prices_loaded else 'Prices unavailable'}")
+            report_lines.append(f"Last update: {self.price_db.timestamp or 'Unknown'}")
+            report_lines.append("")
+            report_lines.append("TECHNICAL INFO:")
+            report_lines.append("This is the independent Ambershire-only version")
+            report_lines.append("Running on GitHub Pages - No external dependencies")
+            report_lines.append("")
+            report_lines.append("NOTES:")
+            report_lines.append("- Shows basic log analysis with consumable detection")
+            report_lines.append("- Using live Ambershire price data from our repository")
+            report_lines.append("- Full detailed analysis coming soon!")
             
+            report = report_lines.join('\\n')
             print("✓ Analysis complete!")
             return report
             
@@ -176,7 +190,7 @@ analyzer = ConsumableAnalyzer()
 def process_log_file(log_content):
     """Основная функция для обработки лога Амбершира"""
     result = analyzer.analyze_log(log_content)
-    print(f"Process result type: {type(result)}, value: {result}")
+    print(f"Process result type: {type(result)}")
     return result
 
 print("✓ Ambershire analyzer ready!")
@@ -189,11 +203,11 @@ print("✓ Ambershire analyzer ready!")
         // Тестируем загрузку
         const testResult = await self.pyodide.runPythonAsync(`
             try:
-                test_result = f"✓ Ambershire analyzer loaded! Version: {analyzer.version}"
+                test_result = "✓ Ambershire analyzer loaded! Version: " + analyzer.version
                 print("Test result:", test_result)
                 test_result
             except Exception as e:
-                error_msg = f"✗ Error: {str(e)}"
+                error_msg = "✗ Error: " + str(e)
                 print("Test error:", error_msg)
                 error_msg
         `);
@@ -224,30 +238,33 @@ self.onmessage = async (event) => {
             try:
                 log_text = ${JSON.stringify(text)}
                 result = process_log_file(log_text)
-                print("Final result:", result)
+                print("Final result length:", len(result) if result else 0)
                 
-                # Явно возвращаем результат
+                # Явно возвращаем результат как строку
                 if result is None:
                     result = "Error: Analysis returned None"
                 
-                # Убедимся что это строка
-                str(result)
+                # Убедимся что это строка и она не пустая
+                if result and len(result) > 0:
+                    str(result)
+                else:
+                    "Error: Empty result"
             except Exception as e:
                 import traceback
-                error_msg = f"Processing error: {str(e)}\\n{traceback.format_exc()}"
+                error_msg = "Processing error: " + str(e) + "\\n" + traceback.format_exc()
                 print("Final error:", error_msg)
                 error_msg
         `);
         
-        console.log("Analysis result received:", analysisResult);
+        console.log("Analysis result received:", typeof analysisResult, analysisResult);
         
         self.postMessage({type:'doneprocessing'});
         
-        // Убедимся что результат есть
-        if (analysisResult && analysisResult !== "undefined" && analysisResult !== "None") {
+        // Убедимся что результат есть и он не undefined
+        if (analysisResult !== undefined && analysisResult !== null && analysisResult !== "undefined") {
             output_append('summaryoutput', analysisResult);
         } else {
-            output_append('summaryoutput', "Error: No valid analysis result received. Check console for details.");
+            output_append('summaryoutput', "Analysis completed but no result was returned. Check browser console for details.");
         }
         
         inputelem_show();
