@@ -168,13 +168,13 @@ class ConsumableAnalyzer:
             report_lines.append("- Using live Ambershire price data from our repository")
             report_lines.append("- Full detailed analysis coming soon!")
             
-            report = '\\n'.join(report_lines)
-            print("✓ Analysis complete!")
+            report = '\\\\n'.join(report_lines)
+            print("✓ Analysis complete! Report length:", len(report))
             return report
             
         except Exception as e:
             import traceback
-            error_msg = f"Analysis error: {str(e)}\\n{traceback.format_exc()}"
+            error_msg = f"Analysis error: {str(e)}\\\\n{traceback.format_exc()}"
             print(error_msg)
             return error_msg
 
@@ -186,7 +186,7 @@ class ConsumableAnalyzer:
         result = []
         for item, count in sorted(usage_dict.items(), key=lambda x: x[1], reverse=True):
             result.append(f"   {item}: {count} uses")
-        return '\\n'.join(result)
+        return '\\\\n'.join(result)
 
 # Создаём глобальный анализатор
 analyzer = ConsumableAnalyzer()
@@ -194,8 +194,13 @@ analyzer = ConsumableAnalyzer()
 def process_log_file(log_content):
     """Основная функция для обработки лога Амбершира"""
     result = analyzer.analyze_log(log_content)
-    print(f"Process result type: {type(result)}")
-    return result
+    print(f"Process result type: {type(result)}, length: {len(result) if result else 0}")
+    
+    # Записываем результат в файл чтобы избежать проблем с возвратом
+    with open('/analysis_result.txt', 'w', encoding='utf-8') as f:
+        f.write(result if result else "No result")
+    
+    return "SUCCESS"  # Возвращаем простой статус
 
 print("✓ Ambershire analyzer ready!")
 `;
@@ -208,7 +213,7 @@ print("✓ Ambershire analyzer ready!")
         const testResult = await self.pyodide.runPythonAsync(`
             try:
                 test_result = "✓ Ambershire analyzer loaded! Version: " + analyzer.version
-                print("Test result:", testResult)
+                print("Test:", test_result)
                 test_result
             except Exception as e:
                 error_msg = "✗ Error: " + str(e)
@@ -236,39 +241,42 @@ self.onmessage = async (event) => {
         status_append(`processing ${file.name} for Ambershire server...`);
         console.log("Starting analysis for file:", file.name, "size:", text.length);
 
-        // Используем наш анализатор с правильным возвратом значения
-        const analysisResult = await self.pyodide.runPythonAsync(`
-            import json
+        // Запускаем анализ и записываем результат в файл
+        const processStatus = await self.pyodide.runPythonAsync(`
             try:
                 log_text = ${JSON.stringify(text)}
-                result = process_log_file(log_text)
-                print("Final result length:", len(result) if result else 0)
-                
-                # Явно возвращаем результат как строку
-                if result is None:
-                    result = "Error: Analysis returned None"
-                
-                # Убедимся что это строка и она не пустая
-                if result and len(result) > 0:
-                    str(result)
-                else:
-                    "Error: Empty result"
+                status = process_log_file(log_text)
+                print("Process status:", status)
+                status
             except Exception as e:
                 import traceback
-                error_msg = "Processing error: " + str(e) + "\\n" + traceback.format_exc()
+                error_msg = "Processing error: " + str(e) + "\\\\n" + traceback.format_exc()
                 print("Final error:", error_msg)
-                error_msg
+                # Записываем ошибку в файл
+                with open('/analysis_result.txt', 'w', encoding='utf-8') as f:
+                    f.write(error_msg)
+                "ERROR"
         `);
         
-        console.log("Analysis result received:", typeof analysisResult, analysisResult);
+        console.log("Process status:", processStatus);
+        
+        // Читаем результат из файла
+        let analysisResult;
+        try {
+            analysisResult = self.pyodide.FS.readFile("/analysis_result.txt", { encoding: "utf8" });
+            console.log("Analysis result from file:", analysisResult.length, "characters");
+        } catch (fileError) {
+            analysisResult = "Error reading result file: " + fileError.message;
+            console.error("File read error:", fileError);
+        }
         
         self.postMessage({type:'doneprocessing'});
         
-        // Убедимся что результат есть и он не undefined
-        if (analysisResult !== undefined && analysisResult !== null && analysisResult !== "undefined") {
+        // Выводим результат
+        if (analysisResult && analysisResult.length > 0) {
             output_append('summaryoutput', analysisResult);
         } else {
-            output_append('summaryoutput', "Analysis completed but no result was returned. Check browser console for details.");
+            output_append('summaryoutput', "Analysis completed but result is empty. Check browser console for details.");
         }
         
         inputelem_show();
