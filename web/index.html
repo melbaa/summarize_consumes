@@ -2,10 +2,16 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Turtle WoW Consumables Analyzer</title>
+  <title>Turtle WoW Ambershire Consumables Analyzer</title>
   <link href="style.css" rel="stylesheet" />
 </head>
 <body>
+    <h1>🐢 Turtle WoW Consumables Analyzer</h1>
+    <div style="background: #e7f3ff; padding: 10px; border-radius: 5px; margin: 10px 0;">
+        <strong>Ambershire Server - Independent Version</strong><br>
+        Running on GitHub Pages - No external dependencies
+    </div>
+    
     <pre id="statusoutput"></pre>
     <div id="inputcontainer"></div>
     <br>
@@ -41,7 +47,6 @@
 
     <script>
         var worker;
-        var servers = ['nord', 'telabim', 'ambershire'];  // ДОБАВИЛ AMBERSHIRE
 
         async function main(){
             status_append("loading runtime ...");
@@ -55,9 +60,6 @@
 
         async function read_text(event) {
             const file = event.target.files.item(0);
-            for(var server of servers) {
-                if (document.getElementById('server-' + server).checked) break;
-            }
 
             status_append('file selected. starting processing ...');
             output_reset('summaryoutput');
@@ -72,7 +74,8 @@
             elem_hide('endoutput');
             inputelem_hide();
 
-            worker.postMessage({server: server, file: file});
+            // Всегда используем Амбершир
+            worker.postMessage({server: 'ambershire', file: file});
         }
 
         function status_append(txt) {
@@ -131,28 +134,13 @@
         function inputelem_show() {
             var inputcontainer = document.getElementById('inputcontainer');
 
-            var rflabel = document.createElement('span');
-            rflabel.textContent = 'select a server';
-            inputcontainer.appendChild(rflabel);
-
-            servers.forEach((server) => {
-                var radio = document.createElement('input');
-                radio.type = 'radio';
-                radio.value = server;
-                radio.name = 'server-opt';
-                radio.id = 'server-' + server;
-                if (server === 'nord') radio.checked = true;
-
-                var label = document.createElement('label');
-                label.for = 'server-' + server;
-                label.textContent = server;
-
-                inputcontainer.appendChild(radio);
-                inputcontainer.appendChild(label);
-            });
+            var serverInfo = document.createElement('div');
+            serverInfo.innerHTML = '<strong>Server: Ambershire</strong><br>';
+            serverInfo.innerHTML += '<em>Independent version - No external dependencies</em>';
+            inputcontainer.appendChild(serverInfo);
 
             var descr = document.createElement('div');
-            descr.innerText = 'select a plain text log file, eg WoWCombatLog.txt'
+            descr.innerText = 'select a plain text log file, eg WoWCombatLog.txt';
             inputcontainer.appendChild(descr);
 
             var inputel = document.createElement('input');
