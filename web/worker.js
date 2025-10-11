@@ -88,27 +88,39 @@ class ConsumableAnalyzer:
             consumable_usage = {}
             
             # Простые паттерны для потребляемых предметов
-            for line in lines[:10000]:  # Проверяем первые 10000 строк для скорости
+            for i, line in enumerate(lines):
+                if i > 50000:  # Ограничим для скорости
+                    break
+                    
                 # Ищем имена игроков
-                if 'SPELL_' in line or 'SWING_' in line or 'ENCHANT_' in line:
+                if any(x in line for x in ['SPELL_', 'SWING_', 'ENCHANT_', 'RANGE_', 'DAMAGE_']):
                     parts = line.split(',')
                     if len(parts) > 2:
-                        player_name = parts[1].strip()
-                        if player_name and len(player_name) > 1 and player_name != 'YOU':
+                        player_name = parts[1].strip().strip('"').strip()
+                        if (player_name and len(player_name) > 1 and 
+                            player_name != 'YOU' and 
+                            player_name != 'Environment' and
+                            not player_name.startswith('0x')):
                             players.add(player_name)
                 
                 # Ищем использование зелий
-                if 'potion' in line.lower() or 'elixir' in line.lower() or 'flask' in line.lower():
-                    if 'Major Mana Potion' in line:
+                line_lower = line.lower()
+                if any(x in line_lower for x in ['potion', 'elixir', 'flask', 'scroll', 'food']):
+                    if 'major mana potion' in line_lower:
                         consumable_usage['Major Mana Potion'] = consumable_usage.get('Major Mana Potion', 0) + 1
-                    elif 'Major Healing Potion' in line:
+                    elif 'major healing potion' in line_lower:
                         consumable_usage['Major Healing Potion'] = consumable_usage.get('Major Healing Potion', 0) + 1
-                    elif 'Elixir of the Mongoose' in line:
+                    elif 'elixir of the mongoose' in line_lower:
                         consumable_usage['Elixir of the Mongoose'] = consumable_usage.get('Elixir of the Mongoose', 0) + 1
-                    elif 'Flask of' in line:
+                    elif 'flask of' in line_lower:
                         consumable_usage['Flask'] = consumable_usage.get('Flask', 0) + 1
-                    elif 'Elixir' in line:
+                    elif 'elixir' in line_lower:
                         consumable_usage['Other Elixirs'] = consumable_usage.get('Other Elixirs', 0) + 1
+                    elif 'scroll' in line_lower:
+                        consumable_usage['Scrolls'] = consumable_usage.get('Scrolls', 0) + 1
+            
+            # Сортируем игроков по алфавиту
+            sorted_players = sorted(players)
             
             # Создаём отчёт
             report = f"""🐢 Turtle WoW Consumables Analysis - Ambershire Server
@@ -117,10 +129,10 @@ Version: {self.version}
 📊 LOG SUMMARY:
 File size: {file_size}
 Total lines: {total_lines}
-Players detected: {len(players)}
+Players detected: {len(sorted_players)}
 
 👥 PLAYERS FOUND:
-{', '.join(sorted(players)[:20])}{'...' if len(players) > 20 else ''}
+{', '.join(sorted_players[:25])}{'...' if len(sorted_players) > 25 else ''}
 
 💊 CONSUMABLE USAGE:
 {self.format_consumable_usage(consumable_usage)}
@@ -143,7 +155,8 @@ Running on GitHub Pages - No external dependencies
             return report
             
         except Exception as e:
-            error_msg = f"Analysis error: {str(e)}"
+            import traceback
+            error_msg = f"Analysis error: {str(e)}\\n{traceback.format_exc()}"
             print(error_msg)
             return error_msg
 
@@ -162,7 +175,9 @@ analyzer = ConsumableAnalyzer()
 
 def process_log_file(log_content):
     """Основная функция для обработки лога Амбершира"""
-    return analyzer.analyze_log(log_content)
+    result = analyzer.analyze_log(log_content)
+    print(f"Process result type: {type(result)}, value: {result}")
+    return result
 
 print("✓ Ambershire analyzer ready!")
 `;
@@ -175,10 +190,12 @@ print("✓ Ambershire analyzer ready!")
         const testResult = await self.pyodide.runPythonAsync(`
             try:
                 test_result = f"✓ Ambershire analyzer loaded! Version: {analyzer.version}"
-                print(test_result)
+                print("Test result:", test_result)
                 test_result
             except Exception as e:
-                f"✗ Error: {str(e)}"
+                error_msg = f"✗ Error: {str(e)}"
+                print("Test error:", error_msg)
+                error_msg
         `);
         
         console.log("Python initialization:", testResult);
@@ -199,27 +216,38 @@ self.onmessage = async (event) => {
         const text = await file.text();
 
         status_append(`processing ${file.name} for Ambershire server...`);
+        console.log("Starting analysis for file:", file.name, "size:", text.length);
 
-        // Используем наш анализатор
+        // Используем наш анализатор с правильным возвратом значения
         const analysisResult = await self.pyodide.runPythonAsync(`
+            import json
             try:
-                result = process_log_file(${JSON.stringify(text)})
+                log_text = ${JSON.stringify(text)}
+                result = process_log_file(log_text)
+                print("Final result:", result)
+                
+                # Явно возвращаем результат
                 if result is None:
-                    result = "Error: Analysis returned no result"
-                result
+                    result = "Error: Analysis returned None"
+                
+                # Убедимся что это строка
+                str(result)
             except Exception as e:
-                f"Processing error: {str(e)}"
+                import traceback
+                error_msg = f"Processing error: {str(e)}\\n{traceback.format_exc()}"
+                print("Final error:", error_msg)
+                error_msg
         `);
         
-        console.log("Analysis result:", analysisResult);
+        console.log("Analysis result received:", analysisResult);
         
         self.postMessage({type:'doneprocessing'});
         
-        // Убедимся что результат не undefined
-        if (analysisResult !== undefined && analysisResult !== null) {
+        // Убедимся что результат есть
+        if (analysisResult && analysisResult !== "undefined" && analysisResult !== "None") {
             output_append('summaryoutput', analysisResult);
         } else {
-            output_append('summaryoutput', "Error: No analysis result received");
+            output_append('summaryoutput', "Error: No valid analysis result received. Check console for details.");
         }
         
         inputelem_show();
