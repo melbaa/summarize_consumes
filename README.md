@@ -529,3 +529,23 @@ Those are different spells. A rare case of significant trailing whitespace.
 4/11 22:44:54.456  Player gains Shadow Protection (1).  
 4/11 23:40:19.784  Player gains Shadow Protection  (1).  
 ```
+
+# Contributing price lists
+This project does not and will not deal with gathering prices.
+
+You have to gather the prices and publish a public price list in the correct format somewhere. It's up to you to figure out how to do it. Then it's extremely easy to add it as a data source.
+
+https://github.com/melbaa/summarize_consumes/blob/5aad5c6c0ea717971da6c9396c16956c23bda688/src/melbalabs/summarize_consumes/main.py#L79
+https://github.com/melbaa/summarize_consumes/blob/5aad5c6c0ea717971da6c9396c16956c23bda688/src/melbalabs/summarize_consumes/main.py#L2536-L2540
+
+Useful to undestand
+https://github.com/melbaa/summarize_consumes/blob/5aad5c6c0ea717971da6c9396c16956c23bda688/src/melbalabs/summarize_consumes/main.py#L1118
+https://github.com/melbaa/summarize_consumes/blob/5aad5c6c0ea717971da6c9396c16956c23bda688/src/melbalabs/summarize_consumes/main.py#L342-L343
+
+Best case you use this project's code itself as a library to get the list of consumables or you'll always be out of sync.
+```
+from melbalabs.summarize_consumes.main import ITEMID2NAME
+for itemid in ITEMID2NAME
+   price = get_price(itemid=itemid)
+   ...
+```
