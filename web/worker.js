@@ -143,12 +143,16 @@ class ConsumableAnalyzer:
             report_lines.append("")
             report_lines.append("PLAYERS FOUND:")
             if sorted_players:
-                report_lines.push(sorted_players.slice(0, 25).join(', ') + (sorted_players.length > 25 ? '...' : ''))
+                # Показываем только первых 25 игроков
+                players_display = ', '.join(sorted_players[:25])
+                if len(sorted_players) > 25:
+                    players_display += '...'
+                report_lines.append(players_display)
             else:
-                report_lines.push("No players detected - check log format")
+                report_lines.append("No players detected - check log format")
             report_lines.append("")
             report_lines.append("CONSUMABLE USAGE:")
-            report_lines.push(this.format_consumable_usage(consumable_usage))
+            report_lines.append(self.format_consumable_usage(consumable_usage))
             report_lines.append("")
             report_lines.append("PRICE DATA:")
             report_lines.append(f"Items loaded: {len(self.price_db.prices) if prices_loaded else 0}")
@@ -164,7 +168,7 @@ class ConsumableAnalyzer:
             report_lines.append("- Using live Ambershire price data from our repository")
             report_lines.append("- Full detailed analysis coming soon!")
             
-            report = report_lines.join('\\n')
+            report = '\\n'.join(report_lines)
             print("✓ Analysis complete!")
             return report
             
@@ -204,7 +208,7 @@ print("✓ Ambershire analyzer ready!")
         const testResult = await self.pyodide.runPythonAsync(`
             try:
                 test_result = "✓ Ambershire analyzer loaded! Version: " + analyzer.version
-                print("Test result:", test_result)
+                print("Test result:", testResult)
                 test_result
             except Exception as e:
                 error_msg = "✗ Error: " + str(e)
