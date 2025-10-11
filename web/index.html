@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Turtle WoW Consumables Analyzer</title>
+  <link href="style.css" rel="stylesheet" />
+</head>
+<body>
+    <pre id="statusoutput"></pre>
+    <div id="inputcontainer"></div>
+    <br>
+    <br>
+    <div id="nav" class="hidden">
+        Navigation<br>
+        <a href="#summaryhdr">Summary</a><br>
+        <a href="#damagehdr">Damage Done</a><br>
+        <a href="#healinghdr">Healing and Overhealing Done</a><br>
+        <a href="#damagetakenhdr">Damage Taken</a><br>
+    </div>
+    <br>
+    <br>
+    <div id="summaryhdr" class="hidden">
+        <a href="#">Summary</a>
+    </div>
+    <pre id="summaryoutput"></pre>
+    <div id="damagehdr" class="hidden">
+        <a href="#">Damage Done</a>
+    </div>
+    <pre id="damageoutput"></pre>
+    <div id="healinghdr" class="hidden">
+        <a href="#">Healing and Overhealing Done</a>
+    </div>
+    <pre id="healingoutput"></pre>
+    <div id="damagetakenhdr" class="hidden">
+        <a href="#">Damage Taken</a>
+    </div>
+    <pre id="damagetakenoutput"></pre>
+    <div id="endoutput" class="hidden">
+        <a href="#">(back to top)</a>
+    </div>
+
+    <script>
+        var worker;
+        var servers = ['nord', 'telabim', 'ambershire'];  // ДОБАВИЛ AMBERSHIRE
+
+        async function main(){
+            status_append("loading runtime ...");
+            worker = new Worker("worker.js");
+            worker.onmessage = worker_onmessage;
+            worker.onerror = worker_onerror;
+            worker.onmessageerror = worker_onmessageerror;
+
+            inputelem_show();
+        }
+
+        async function read_text(event) {
+            const file = event.target.files.item(0);
+            for(var server of servers) {
+                if (document.getElementById('server-' + server).checked) break;
+            }
+
+            status_append('file selected. starting processing ...');
+            output_reset('summaryoutput');
+            output_reset('damageoutput');
+            output_reset('healingoutput');
+            output_reset('damagetakenoutput');
+            elem_hide('nav');
+            elem_hide('summaryhdr');
+            elem_hide('damagehdr');
+            elem_hide('healinghdr');
+            elem_hide('damagetakenhdr');
+            elem_hide('endoutput');
+            inputelem_hide();
+
+            worker.postMessage({server: server, file: file});
+        }
+
+        function status_append(txt) {
+            output_append('statusoutput', txt);
+        }
+
+        function output_append(eleid, txt) {
+            document.getElementById(eleid).innerText += '\n' + txt
+        }
+
+        function output_reset(eleid) {
+            document.getElementById(eleid).innerText = '';
+        }
+
+        function worker_onmessage(event) {
+            let message = event.data;
+            if (message.type === 'statusoutputappend') {
+                status_append(message.data);
+            } else if (message.type === 'summaryoutputappend') {
+                output_append('summaryoutput', message.data);
+            } else if (message.type === 'damageoutputappend') {
+                output_append('damageoutput', message.data);
+            } else if (message.type === 'healingoutputappend') {
+                output_append('healingoutput', message.data);
+            } else if (message.type === 'damagetakenoutputappend') {
+                output_append('damagetakenoutput', message.data);
+            } else if (message.type === 'inputshow') {
+                inputelem_show();
+            } else if (message.type === 'doneprocessing') {
+                status_append('done processing.');
+                elem_show('nav');
+                elem_show('summaryhdr');
+                elem_show('damagehdr');
+                elem_show('healinghdr');
+                elem_show('damagetakenhdr');
+                elem_show('endoutput');
+            } else if (message.type === 'loadliberror') {
+                inputelem_hide();
+                status_append(message.data);
+                status_append('failed loading libraries :(');
+                status_append('refresh to try again');
+            } else {
+                status_append(`unknown worker message type ${message.type}`);
+            }
+        }
+
+        function worker_onerror(event) {
+            status_append(`worker error ${event} ${event.data}`);
+            status_append(`${event.message} ${event.filename} ${event.lineno}`);
+        }
+
+        function worker_onmessageerror(event) {
+            status_append(`worker messageerror ${event.message} ${event.filename} ${event.lineno}`);
+        }
+
+        function inputelem_show() {
+            var inputcontainer = document.getElementById('inputcontainer');
+
+            var rflabel = document.createElement('span');
+            rflabel.textContent = 'select a server';
+            inputcontainer.appendChild(rflabel);
+
+            servers.forEach((server) => {
+                var radio = document.createElement('input');
+                radio.type = 'radio';
+                radio.value = server;
+                radio.name = 'server-opt';
+                radio.id = 'server-' + server;
+                if (server === 'nord') radio.checked = true;
+
+                var label = document.createElement('label');
+                label.for = 'server-' + server;
+                label.textContent = server;
+
+                inputcontainer.appendChild(radio);
+                inputcontainer.appendChild(label);
+            });
+
+            var descr = document.createElement('div');
+            descr.innerText = 'select a plain text log file, eg WoWCombatLog.txt'
+            inputcontainer.appendChild(descr);
+
+            var inputel = document.createElement('input');
+            inputel.type = "file";
+            inputel.onchange = read_text;
+            inputcontainer.appendChild(inputel);
+        }
+
+        function inputelem_hide() {
+            document.getElementById('inputcontainer').replaceChildren();
+        }
+
+        function elem_hide(eleid) {
+            document.getElementById(eleid).classList.add("hidden");
+        }
+
+        function elem_show(eleid) {
+            document.getElementById(eleid).classList.remove("hidden");
+        }
+
+        main();
+    </script>
+</body>
+</html>
