@@ -30,7 +30,6 @@ import json
 import re
 import time
 from datetime import datetime
-from typing import Dict, List, Optional, Set
 import requests
 from humanize import naturalsize
 
@@ -50,6 +49,7 @@ class PriceDatabase:
     def load_ambershire_prices(self):
         """Загружаем цены для Амбершира"""
         try:
+            print("Loading Ambershire prices...")
             response = requests.get(AMBERSHIRE_PRICE_URL, timeout=10)
             if response.status_code == 200:
                 self.prices = response.json()
@@ -70,44 +70,45 @@ class ConsumableAnalyzer:
     def analyze_log(self, log_content):
         """Анализируем лог для Амбершира"""
         try:
+            print("Starting log analysis...")
+            
             # Загружаем цены Амбершира
-            if not self.price_db.load_ambershire_prices():
-                return "Error: Could not load Ambershire prices. Please try again later."
+            print("Loading price data...")
+            prices_loaded = self.price_db.load_ambershire_prices()
             
             # Базовый анализ лога
             lines = log_content.split('\\n')
             total_lines = len(lines)
             file_size = naturalsize(len(log_content))
             
+            print(f"Analyzing {total_lines} lines ({file_size})...")
+            
             # Ищем имена игроков в логе
             players = set()
             consumable_usage = {}
             
             # Простые паттерны для потребляемых предметов
-            consumable_patterns = {
-                'potion': r'Your (.*) (potion|elixir|flask)',
-                'food': r'You gain (.*) from (.*)',
-                'scroll': r'You gain (.*) from (.*) scroll'
-            }
-            
-            for line in lines[:5000]:  # Проверяем первые 5000 строк для скорости
-                if 'YOU' in line or 'You' in line:
-                    # Ищем использование зелий
-                    if 'potion' in line.lower() or 'elixir' in line.lower():
-                        if 'Major Mana Potion' in line:
-                            consumable_usage['Major Mana Potion'] = consumable_usage.get('Major Mana Potion', 0) + 1
-                        elif 'Major Healing Potion' in line:
-                            consumable_usage['Major Healing Potion'] = consumable_usage.get('Major Healing Potion', 0) + 1
-                        elif 'Elixir' in line:
-                            consumable_usage['Elixir'] = consumable_usage.get('Elixir', 0) + 1
-                
+            for line in lines[:10000]:  # Проверяем первые 10000 строк для скорости
                 # Ищем имена игроков
-                if 'SPELL_' in line or 'SWING_' in line:
+                if 'SPELL_' in line or 'SWING_' in line or 'ENCHANT_' in line:
                     parts = line.split(',')
                     if len(parts) > 2:
                         player_name = parts[1].strip()
-                        if player_name and len(player_name) > 1:
+                        if player_name and len(player_name) > 1 and player_name != 'YOU':
                             players.add(player_name)
+                
+                # Ищем использование зелий
+                if 'potion' in line.lower() or 'elixir' in line.lower() or 'flask' in line.lower():
+                    if 'Major Mana Potion' in line:
+                        consumable_usage['Major Mana Potion'] = consumable_usage.get('Major Mana Potion', 0) + 1
+                    elif 'Major Healing Potion' in line:
+                        consumable_usage['Major Healing Potion'] = consumable_usage.get('Major Healing Potion', 0) + 1
+                    elif 'Elixir of the Mongoose' in line:
+                        consumable_usage['Elixir of the Mongoose'] = consumable_usage.get('Elixir of the Mongoose', 0) + 1
+                    elif 'Flask of' in line:
+                        consumable_usage['Flask'] = consumable_usage.get('Flask', 0) + 1
+                    elif 'Elixir' in line:
+                        consumable_usage['Other Elixirs'] = consumable_usage.get('Other Elixirs', 0) + 1
             
             # Создаём отчёт
             report = f"""🐢 Turtle WoW Consumables Analysis - Ambershire Server
@@ -119,39 +120,42 @@ Total lines: {total_lines}
 Players detected: {len(players)}
 
 👥 PLAYERS FOUND:
-{', '.join(sorted(players)[:15])}{'...' if len(players) > 15 else ''}
+{', '.join(sorted(players)[:20])}{'...' if len(players) > 20 else ''}
 
-💊 CONSUMABLE USAGE (preliminary):
-{format_consumable_usage(consumable_usage)}
+💊 CONSUMABLE USAGE:
+{self.format_consumable_usage(consumable_usage)}
 
 💰 PRICE DATA:
-Items loaded: {len(self.price_db.prices)}
+Items loaded: {len(self.price_db.prices) if prices_loaded else 0}
+Price status: {'✓ Live prices loaded' if prices_loaded else '✗ Prices unavailable'}
 Last update: {self.price_db.timestamp or 'Unknown'}
 
 ⚙️ TECHNICAL INFO:
 This is the independent Ambershire-only version
 Running on GitHub Pages - No external dependencies
-Full consumable analysis coming soon!
 
 📝 NOTES:
-- Currently shows basic log analysis
-- Full consumable tracking in development
-- Using live Ambershire price data from our repository"""
-
+- Shows basic log analysis with consumable detection
+- Using live Ambershire price data from our repository
+- Full detailed analysis coming soon!"""
+            
+            print("✓ Analysis complete!")
             return report
             
         except Exception as e:
-            return f"Analysis error: {str(e)}"
+            error_msg = f"Analysis error: {str(e)}"
+            print(error_msg)
+            return error_msg
 
-def format_consumable_usage(usage_dict):
-    """Форматируем использование потребляемых предметов"""
-    if not usage_dict:
-        return "   No consumables detected in sampled log data"
-    
-    result = []
-    for item, count in usage_dict.items():
-        result.append(f"   {item}: {count} uses")
-    return '\\n'.join(result)
+    def format_consumable_usage(self, usage_dict):
+        """Форматируем использование потребляемых предметов"""
+        if not usage_dict:
+            return "   No consumables detected in log data"
+        
+        result = []
+        for item, count in sorted(usage_dict.items(), key=lambda x: x[1], reverse=True):
+            result.append(f"   {item}: {count} uses")
+        return '\\n'.join(result)
 
 # Создаём глобальный анализатор
 analyzer = ConsumableAnalyzer()
@@ -178,7 +182,6 @@ print("✓ Ambershire analyzer ready!")
         `);
         
         console.log("Python initialization:", testResult);
-        status_append(testResult);
         
     } catch (error) {
         throw new Error(`Failed to initialize Python: ${error}`);
@@ -197,21 +200,33 @@ self.onmessage = async (event) => {
 
         status_append(`processing ${file.name} for Ambershire server...`);
 
-        // Используем наш анализатор (игнорируем server параметр - всегда Амбершир)
+        // Используем наш анализатор
         const analysisResult = await self.pyodide.runPythonAsync(`
             try:
                 result = process_log_file(${JSON.stringify(text)})
+                if result is None:
+                    result = "Error: Analysis returned no result"
                 result
             except Exception as e:
                 f"Processing error: {str(e)}"
         `);
         
+        console.log("Analysis result:", analysisResult);
+        
         self.postMessage({type:'doneprocessing'});
-        output_append('summaryoutput', analysisResult);
+        
+        // Убедимся что результат не undefined
+        if (analysisResult !== undefined && analysisResult !== null) {
+            output_append('summaryoutput', analysisResult);
+        } else {
+            output_append('summaryoutput', "Error: No analysis result received");
+        }
+        
         inputelem_show();
         
     } catch (error) {
         const errorMsg = `Error: ${error.message}`;
+        console.error("Worker error:", error);
         status_append(errorMsg);
         output_append('summaryoutput', errorMsg);
         inputelem_show();
@@ -224,7 +239,7 @@ function status_append(txt) {
 
 function output_append(eleid, txt) {
     let msgtype = eleid + 'append'
-    self.postMessage({type:msgtype, data:txt});
+    self.postMessage({type:msgtype, data: txt || "Empty result"});
 }
 
 function inputelem_show() {
