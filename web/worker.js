@@ -6,34 +6,53 @@ async function loadPyodideAndPackages() {
     try {
         status_append("runtime loaded. installing libraries ...");
 
-        // Используем RAW GitHub URL для доступа к файлам
-        let baseUrl = "https://raw.githubusercontent.com/whtmst/summarize_consumes/main/web/";
-        
-        const versionResponse = await fetch(baseUrl + 'current_version.txt');
-        if (!versionResponse.ok) {
-            throw new Error(`Failed to load current_version.txt: ${versionResponse.statusText}`);
-        }
-        const pkgVersion = (await versionResponse.text()).trim();
-
-        let packageurl = baseUrl + `melbalabs_summarize_consumes-${pkgVersion}-py3-none-any.whl`;
-
+        // Устанавливаем зависимости
         await self.pyodide.runPythonAsync(`
             import micropip
-            packageurl = '${packageurl}'
-            await micropip.install(packageurl)
-        `)
+            # Устанавливаем необходимые пакеты
+            await micropip.install(['requests', 'humanize', 'plotly'])
+        `);
+
+        // Загружаем код напрямую из репозитория
+        await loadPythonCode();
         
-        let pkginfo = self.pyodide.pyimport("melbalabs.summarize_consumes.package");
-        status_append(`installed ${pkginfo.PROJECT_NAME} ${pkginfo.VERSION}`);
+        status_append("✓ All packages and code loaded successfully!");
     } catch (err) {
         self.postMessage({type:'loadliberror', data:err.message});
         throw err;
     }
 }
 
+async function loadPythonCode() {
+    const baseUrl = "https://raw.githubusercontent.com/whtmst/summarize_consumes/main/src/melbalabs/summarize_consumes/";
+    
+    // Загружаем все необходимые Python файлы
+    const files = [
+        '__init__.py',
+        'consumable_db.py', 
+        'consumable_model.py',
+        'grammar.py',
+        'main.py',
+        'package.py',
+        'parser.py'
+    ];
+
+    for (const file of files) {
+        const response = await fetch(baseUrl + file);
+        if (!response.ok) {
+            throw new Error(`Failed to load ${file}: ${response.statusText}`);
+        }
+        const code = await response.text();
+        
+        // Выполняем код в Pyodide
+        await self.pyodide.runPythonAsync(code);
+    }
+}
+
 let pyodideReadyPromise = loadPyodideAndPackages();
 status_append('worker started');
 
+// Остальной код без изменений...
 self.onmessage = async (event) => {
     await pyodideReadyPromise;
 
