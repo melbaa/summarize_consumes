@@ -6,13 +6,13 @@ async function loadPyodideAndPackages() {
     try {
         status_append("runtime loaded. installing libraries ...");
 
-        // Устанавливаем ВСЕ необходимые зависимости
+        // Устанавливаем только необходимые зависимости
         await self.pyodide.runPythonAsync(`
             import micropip
-            await micropip.install(['requests', 'humanize', 'plotly', 'tenacity', 'typing-extensions'])
+            await micropip.install(['requests', 'humanize'])
         `);
 
-        // Загружаем ВЕСЬ наш Python код
+        // Загружаем наш Python код
         await loadCompletePythonCode();
         
         status_append("✓ All packages and code loaded successfully!");
@@ -24,50 +24,42 @@ async function loadPyodideAndPackages() {
 }
 
 async function loadCompletePythonCode() {
-    // ВЕСЬ код summarize_consumes в одном файле
     const pythonCode = `
-# === TURTLE WOW CONSUMABLES ANALYZER - INDEPENDENT VERSION ===
+# === TURTLE WOW CONSUMABLES ANALYZER - AMBERSHIRE VERSION ===
 import json
 import re
 import time
-import urllib.parse
-from datetime import datetime, timedelta
-from typing import Dict, List, Optional, Set, Tuple, Any, Union
+from datetime import datetime
+from typing import Dict, List, Optional, Set
 import requests
 from humanize import naturalsize
 
-print("✓ Starting Turtle WoW Consumables Analyzer...")
+print("✓ Starting Turtle WoW Ambershire Consumables Analyzer...")
 
-# Константы и настройки
-PROJECT_NAME = "melbalabs.summarize_consumes"
-VERSION = "2025.1121.independent"
+# Константы
+VERSION = "2025.1121.ambershire"
 
-# URL для цен (используем НАШИ собственные)
-PRICE_URLS = {
-    "nord": "https://raw.githubusercontent.com/whtmst/twow-ambershire-prices/main/nord-prices.json",
-    "telabim": "https://raw.githubusercontent.com/whtmst/twow-ambershire-prices/main/telabim-prices.json", 
-    "ambershire": "https://raw.githubusercontent.com/whtmst/twow-ambershire-prices/main/ambershire-prices-full.json"
-}
+# ТОЛЬКО наш URL для цен Амбершира
+AMBERSHIRE_PRICE_URL = "https://raw.githubusercontent.com/whtmst/twow-ambershire-prices/main/ambershire-prices-full.json"
 
 class PriceDatabase:
     def __init__(self):
         self.prices = {}
         self.timestamp = None
         
-    def load_prices(self, server):
-        """Загружаем цены для указанного сервера"""
+    def load_ambershire_prices(self):
+        """Загружаем цены для Амбершира"""
         try:
-            url = PRICE_URLS.get(server)
-            if not url:
-                return False
-                
-            response = requests.get(url, timeout=10)
+            response = requests.get(AMBERSHIRE_PRICE_URL, timeout=10)
             if response.status_code == 200:
                 self.prices = response.json()
                 self.timestamp = datetime.now().isoformat()
+                print(f"✓ Loaded Ambershire prices: {len(self.prices)} items")
                 return True
+            else:
+                print(f"✗ Failed to load prices: HTTP {response.status_code}")
         except Exception as e:
-            print(f"Error loading prices: {e}")
+            print(f"✗ Error loading prices: {e}")
         return False
 
 class ConsumableAnalyzer:
@@ -75,12 +67,12 @@ class ConsumableAnalyzer:
         self.price_db = PriceDatabase()
         self.version = VERSION
         
-    def analyze_log(self, log_content, server):
-        """Анализируем лог и возвращаем результат"""
+    def analyze_log(self, log_content):
+        """Анализируем лог для Амбершира"""
         try:
-            # Загружаем цены для сервера
-            if not self.price_db.load_prices(server):
-                return f"Error: Could not load prices for server '{server}'"
+            # Загружаем цены Амбершира
+            if not self.price_db.load_ambershire_prices():
+                return "Error: Could not load Ambershire prices. Please try again later."
             
             # Базовый анализ лога
             lines = log_content.split('\\n')
@@ -89,68 +81,100 @@ class ConsumableAnalyzer:
             
             # Ищем имена игроков в логе
             players = set()
-            for line in lines[:1000]:  # Проверяем первые 1000 строк
-                if ',' in line:
+            consumable_usage = {}
+            
+            # Простые паттерны для потребляемых предметов
+            consumable_patterns = {
+                'potion': r'Your (.*) (potion|elixir|flask)',
+                'food': r'You gain (.*) from (.*)',
+                'scroll': r'You gain (.*) from (.*) scroll'
+            }
+            
+            for line in lines[:5000]:  # Проверяем первые 5000 строк для скорости
+                if 'YOU' in line or 'You' in line:
+                    # Ищем использование зелий
+                    if 'potion' in line.lower() or 'elixir' in line.lower():
+                        if 'Major Mana Potion' in line:
+                            consumable_usage['Major Mana Potion'] = consumable_usage.get('Major Mana Potion', 0) + 1
+                        elif 'Major Healing Potion' in line:
+                            consumable_usage['Major Healing Potion'] = consumable_usage.get('Major Healing Potion', 0) + 1
+                        elif 'Elixir' in line:
+                            consumable_usage['Elixir'] = consumable_usage.get('Elixir', 0) + 1
+                
+                # Ищем имена игроков
+                if 'SPELL_' in line or 'SWING_' in line:
                     parts = line.split(',')
-                    if len(parts) > 1:
-                        # Пытаемся найти имя игрока
-                        player_match = re.search(r'^([A-Za-z]+)', parts[1])
-                        if player_match:
-                            players.add(player_match.group(1))
+                    if len(parts) > 2:
+                        player_name = parts[1].strip()
+                        if player_name and len(player_name) > 1:
+                            players.add(player_name)
             
-            # Создаём базовый отчёт
-            report = f"""Turtle WoW Consumables Analysis - Independent Version
-Server: {server}
-Log size: {file_size}
+            # Создаём отчёт
+            report = f"""🐢 Turtle WoW Consumables Analysis - Ambershire Server
+Version: {self.version}
+
+📊 LOG SUMMARY:
+File size: {file_size}
 Total lines: {total_lines}
-Players found: {', '.join(sorted(players)[:10])}{'...' if len(players) > 10 else ''}
+Players detected: {len(players)}
 
-=== CONSUMABLE USAGE ===
-[Full analysis will be implemented here]
+👥 PLAYERS FOUND:
+{', '.join(sorted(players)[:15])}{'...' if len(players) > 15 else ''}
 
-=== DAMAGE SUMMARY ===
-[Damage analysis will be implemented here]
+💊 CONSUMABLE USAGE (preliminary):
+{format_consumable_usage(consumable_usage)}
 
-=== HEALING SUMMARY ===  
-[Healing analysis will be implemented here]
+💰 PRICE DATA:
+Items loaded: {len(self.price_db.prices)}
+Last update: {self.price_db.timestamp or 'Unknown'}
 
-=== TECHNICAL INFO ===
-Analyzer version: {self.version}
-Prices loaded: {'Yes' if self.price_db.prices else 'No'}
-Prices timestamp: {self.price_db.timestamp or 'N/A'}
+⚙️ TECHNICAL INFO:
+This is the independent Ambershire-only version
+Running on GitHub Pages - No external dependencies
+Full consumable analysis coming soon!
 
-Note: This is the independent version running on GitHub Pages.
-Full consumable tracking coming soon!"""
-            
+📝 NOTES:
+- Currently shows basic log analysis
+- Full consumable tracking in development
+- Using live Ambershire price data from our repository"""
+
             return report
             
         except Exception as e:
             return f"Analysis error: {str(e)}"
 
+def format_consumable_usage(usage_dict):
+    """Форматируем использование потребляемых предметов"""
+    if not usage_dict:
+        return "   No consumables detected in sampled log data"
+    
+    result = []
+    for item, count in usage_dict.items():
+        result.append(f"   {item}: {count} uses")
+    return '\\n'.join(result)
+
 # Создаём глобальный анализатор
 analyzer = ConsumableAnalyzer()
 
-def process_log_file(log_content, server):
-    """Основная функция для обработки лога"""
-    return analyzer.analyze_log(log_content, server)
+def process_log_file(log_content):
+    """Основная функция для обработки лога Амбершира"""
+    return analyzer.analyze_log(log_content)
 
-print("✓ Python analyzer ready!")
+print("✓ Ambershire analyzer ready!")
 `;
 
     try {
-        // Выполняем ВЕСЬ Python код
+        // Выполняем Python код
         await self.pyodide.runPythonAsync(pythonCode);
         
-        // Тестируем что код работает
+        // Тестируем загрузку
         const testResult = await self.pyodide.runPythonAsync(`
             try:
-                # Тестовый вызов
-                test_log = "TEST LOG LINE\\n"
-                test_result = f"✓ Python code loaded successfully! Version: {analyzer.version}"
+                test_result = f"✓ Ambershire analyzer loaded! Version: {analyzer.version}"
                 print(test_result)
                 test_result
             except Exception as e:
-                f"✗ Error in Python code: {str(e)}"
+                f"✗ Error: {str(e)}"
         `);
         
         console.log("Python initialization:", testResult);
@@ -171,12 +195,12 @@ self.onmessage = async (event) => {
         const {server, file} = event.data;
         const text = await file.text();
 
-        status_append(`processing ${file.name} for ${server} server...`);
+        status_append(`processing ${file.name} for Ambershire server...`);
 
-        // Используем НАШ анализатор
+        // Используем наш анализатор (игнорируем server параметр - всегда Амбершир)
         const analysisResult = await self.pyodide.runPythonAsync(`
             try:
-                result = process_log_file(${JSON.stringify(text)}, ${JSON.stringify(server)})
+                result = process_log_file(${JSON.stringify(text)})
                 result
             except Exception as e:
                 f"Processing error: {str(e)}"
