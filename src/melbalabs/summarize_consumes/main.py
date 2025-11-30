@@ -441,6 +441,7 @@ TRINKET_SPELL = [
     "Jewel of Wild Magics",
     "Remains of Overwhelming Power",
     "Elunes Guardian",
+    "Molten Power",
 ]
 RENAME_TRINKET_SPELL = {
     "Unstable Power": "Zandalarian Hero Charm",
@@ -458,6 +459,7 @@ RENAME_TRINKET_SPELL = {
     "Immune Fear/Polymorph/Stun": "Insignia of the Alliance/Horde",
     "Immune Root/Snare/Stun": "Insignia of the Alliance/Horde",
     "Elunes Guardian": "The Scythe of Elune",
+    "Molten Power": "Molten Emberstone",
 }
 for spell in itertools.chain(TRINKET_SPELL, RACIAL_SPELL, sorted(RECEIVE_BUFF_SPELL)):
     for clsorder in CDSPELL_CLASS:
@@ -1324,6 +1326,7 @@ LINE2SPELLCAST = {
         "Power Infusion",
         "Bloodlust",
         "Chastise Haste",
+        "Molten Power",
     },
     "gains_rage_line": {
         "Gri'lek's Charm of Might",

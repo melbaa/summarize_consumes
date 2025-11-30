@@ -1382,6 +1382,7 @@ def test_cooldown_summary(app):
 4/12 21:06:21.521  Tekn casts Elunes Guardian.
 4/12 21:06:21.521  Tekn casts Remains of Overwhelming Power.
 4/12 21:06:21.521  Tekn casts Jewel of Wild Magics.
+11/14 20:50:22.588  Gorgun gains Molten Power (1).
 """
     lines = lines.splitlines(keepends=True)
     for line in lines:
@@ -1389,6 +1390,7 @@ def test_cooldown_summary(app):
     output = io.StringIO()
     app.cooldown_summary.print(output)
 
+    assert app.spell_count.counts['Molten Power']['Gorgun'] == 1
     assert app.spell_count.counts['Jewel of Wild Magics']['Tekn'] == 1
     assert app.spell_count.counts['Remains of Overwhelming Power']['Tekn'] == 1
     assert app.spell_count.counts['Elunes Guardian']['Tekn'] == 1
