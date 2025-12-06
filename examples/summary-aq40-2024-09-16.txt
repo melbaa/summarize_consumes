@@ -647,6 +647,13 @@ Proc Summary
       Flowest 5
       Clapya 3
       Interlan 1
+   Unbridled Wrath
+      Psykhe 284 for 284 rage
+      Pitbound 264 for 264 rage
+      Sabroso 245 for 245 rage
+      Magn 241 for 241 rage
+      Zloveleen 189 for 189 rage
+      Richardtater 174 for 174 rage
    Vengeance
       Goldengoose 68
       Bobsterr 65
@@ -841,7 +848,7 @@ Class Detection
 
 
 Tech
-   known consumables 302
+   known consumables 306
    log size 13.4 MB
    log lines 178954
    skipped log lines 0 (0.00%)

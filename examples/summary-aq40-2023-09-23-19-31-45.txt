@@ -706,6 +706,17 @@ Proc Summary
       Teldelar 77
       Daenshoo 63
       Charmia 13
+   Unbridled Wrath
+      Maryhuff 406 for 406 rage
+      Melevolence 350 for 350 rage
+      Obbi 341 for 341 rage
+      Jaekta 327 for 327 rage
+      Dyrachyo 310 for 310 rage
+      Rhudaur 274 for 274 rage
+      Bubasita 272 for 272 rage
+      Tockra 253 for 253 rage
+      Seryah 205 for 205 rage
+      Everglow 5 for 5 rage
    Vengeance
       Getterfour 119
       Loyola 111
@@ -924,7 +935,7 @@ Class Detection
 
 
 Tech
-   known consumables 302
+   known consumables 306
    log size 22.0 MB
    log lines 292920
    skipped log lines 22 (0.01%)

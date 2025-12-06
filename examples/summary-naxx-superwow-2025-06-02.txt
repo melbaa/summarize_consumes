@@ -1016,6 +1016,10 @@ Proc Summary
       Doelfinest 87
    Stormcaller's Wrath
       Jagdar 21
+   Unbridled Wrath
+      Turborevenge 455 for 910 rage
+      Magn 135 for 135 rage
+      Psykhe 17 for 17 rage
    Vengeance
       Bcube 119
       Doelfinest 72
@@ -1423,7 +1427,7 @@ Class Detection
 
 
 Tech
-   known consumables 302
+   known consumables 306
    log size 34.2 MB
    log lines 477531
    skipped log lines 405 (0.08%)

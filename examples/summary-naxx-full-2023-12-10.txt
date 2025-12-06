@@ -1017,6 +1017,17 @@ Proc Summary
       Valurian 63
    Spell Blasting
       Supal 5
+   Unbridled Wrath
+      Vallcow 929 for 929 rage
+      Squirreled 906 for 906 rage
+      Pitbound 906 for 906 rage
+      Psykhe 857 for 857 rage
+      Deathstruck 814 for 814 rage
+      Drapes 751 for 751 rage
+      Littlelnnos 708 for 708 rage
+      Melriel 671 for 671 rage
+      Martl 642 for 642 rage
+      Baalfyr 150 for 150 rage
    Vengeance
       Deemonk 245
       Mombat 221
@@ -1304,7 +1315,7 @@ Class Detection
 
 
 Tech
-   known consumables 302
+   known consumables 306
    log size 45.1 MB
    log lines 615266
    skipped log lines 17 (0.00%)

@@ -767,6 +767,13 @@ Proc Summary
    Nature's Grace
       Druindy 170
       Teldelar 167
+   Unbridled Wrath
+      Maryhuff 632 for 632 rage
+      Dyrachyo 532 for 532 rage
+      Jaekta 478 for 478 rage
+      Bubasita 407 for 407 rage
+      Rhudaur 213 for 213 rage
+      Melevolence 37 for 37 rage
    Vengeance
       Paris 195
       Getterfour 177
@@ -980,7 +987,7 @@ Class Detection
 
 
 Tech
-   known consumables 302
+   known consumables 306
    log size 34.9 MB
    log lines 467300
    skipped log lines 7 (0.00%)

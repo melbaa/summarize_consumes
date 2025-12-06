@@ -870,6 +870,13 @@ Proc Summary
    Spell Blasting
       Supal 111
       Xelya 68
+   Unbridled Wrath
+      Pitbound 677 for 677 rage
+      Ruwusz 529 for 1058 rage
+      Zloveleen 471 for 824 rage
+      Squirreled 290 for 291 rage
+      Saberslash 98 for 187 rage
+      Martl 11 for 11 rage
    Vengeance
       Bolyarka 114
    Extra Attacks
@@ -1114,7 +1121,7 @@ Class Detection
 
 
 Tech
-   known consumables 302
+   known consumables 306
    log size 29.1 MB
    log lines 413920
    skipped log lines 567 (0.14%)

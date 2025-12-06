@@ -1619,6 +1619,8 @@ def test_proc_count(app):
 2/4 20:42:25.033  Abstractz gains Clearcasting (2).
 2/4 20:46:00.878  Pikachurin gains Vengeance (1).
 2/4 20:48:08.252  Starraven gains Nature's Grace (1).
+4/19 21:10:19.076  Warrior gains 1 Rage from Warrior 's Unbridled Wrath.
+4/19 21:10:20.076  Warrior gains 2 Rage from Warrior 's Unbridled Wrath.
 """
     lines = lines.splitlines(keepends=True)
     for line in lines:
@@ -1634,6 +1636,9 @@ def test_proc_count(app):
 
     assert app.proc_count.counts_extra_attacks['Hand of Justice']['Rila'] == 1
     assert app.proc_count.counts_extra_attacks['Windfury Weapon']['Cracklinoats'] == 2
+
+    assert app.proc_count.counts['Unbridled Wrath']['Warrior'] == 2
+    assert app.proc_count.amount_unbirdled_wrath['Warrior'] ==  3
 
 
 def test_annihilator(app):
@@ -1780,3 +1785,5 @@ def test_invalid_input(app):
     for line in lines:
         match += parse_line(app, line)
     assert not match
+
+

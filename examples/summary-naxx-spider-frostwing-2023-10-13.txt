@@ -723,6 +723,14 @@ Proc Summary
       Druindy 117
       Teldelar 110
       Niviri 65
+   Unbridled Wrath
+      Rhudaur 381 for 381 rage
+      Maryhuff 380 for 380 rage
+      Melevolence 366 for 366 rage
+      Dyrachyo 287 for 287 rage
+      Everglow 249 for 249 rage
+      Jaekta 216 for 216 rage
+      Obbi 191 for 191 rage
    Vengeance
       Paris 117
       Getterfour 97
@@ -1212,7 +1220,7 @@ Class Detection
 
 
 Tech
-   known consumables 302
+   known consumables 306
    log size 22.6 MB
    log lines 299509
    skipped log lines 3 (0.00%)

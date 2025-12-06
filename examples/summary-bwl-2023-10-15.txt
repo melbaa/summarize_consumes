@@ -546,6 +546,13 @@ Proc Summary
       Niviri 7
    Stormcaller's Wrath
       Ionize 101
+   Unbridled Wrath
+      Montford 439 for 439 rage
+      Dyrachyo 370 for 370 rage
+      Maryhuff 355 for 355 rage
+      Bubasita 270 for 270 rage
+      Edmonnd 267 for 267 rage
+      Everglow 209 for 209 rage
    Vengeance
       Getterfour 96
       Bloxie 89
@@ -697,7 +704,7 @@ Class Detection
 
 
 Tech
-   known consumables 302
+   known consumables 306
    log size 25.0 MB
    log lines 332366
    skipped log lines 149 (0.04%)

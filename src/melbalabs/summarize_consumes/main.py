@@ -1242,6 +1242,7 @@ class ProcSummary:
         # spell - player - count
         self.counts = proc_count.counts
         self.counts_extra_attacks = proc_count.counts_extra_attacks
+        self.amount_unbirdled_wrath = proc_count.amount_unbirdled_wrath
         self.player = player
 
     def print(self, output):
@@ -1259,7 +1260,11 @@ class ProcSummary:
                 continue
             print("  ", proc, file=output)
             for total, name in data:
-                print("  ", "  ", name, total, file=output)
+                line = f"      {name} {total}"
+                if proc == "Unbridled Wrath":
+                    uw_amount = self.amount_unbirdled_wrath[name]
+                    line += f" for {uw_amount} rage"
+                print(line, file=output)
 
         # extra attacks
         print("  ", "Extra Attacks", file=output)
@@ -1402,6 +1407,9 @@ LINE2PROC = {
         "Vengeance",
         "Nature's Grace",
     },
+    "gains_rage_line": {
+        "Unbridled Wrath",
+    },
 }
 
 
@@ -1415,6 +1423,9 @@ class ProcCount:
         # source - name - count
         self.counts_extra_attacks = collections.defaultdict(lambda: collections.defaultdict(int))
 
+        # name - amount
+        self.amount_unbirdled_wrath = collections.defaultdict(int)
+
     def add(self, line_type, name, spell):
         if line_type not in LINE2PROC:
             return
@@ -1424,6 +1435,9 @@ class ProcCount:
 
     def add_extra_attacks(self, howmany, source, name):
         self.counts_extra_attacks[source][name] += howmany
+
+    def add_unbirdled_wrath(self, amount, name):
+        self.amount_unbirdled_wrath[name] += amount
 
 
 class Currency(int):
@@ -1932,6 +1946,12 @@ def process_tree(app, line, tree: Tree):
 
         spellname = rename_spell(spellname, line_type=subtree.data)
         app.spell_count.add(line_type=subtree.data, name=name, spell=spellname)
+        app.proc_count.add(line_type=subtree.data, name=name, spell=spellname)
+
+        if spellname == "Unbridled Wrath":
+            amount = int(subtree.children[1].value)
+            app.proc_count.add_unbirdled_wrath(amount=amount, name=name)
+
 
         if consumable_item := RAWSPELLNAME2CONSUMABLE.get((subtree.data, spellname)):
             app.player[name][consumable_item.name] += 1

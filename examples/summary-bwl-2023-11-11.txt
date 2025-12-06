@@ -415,6 +415,12 @@ Proc Summary
       Daenshoo 49
    Spell Blasting
       Roshane 68
+   Unbridled Wrath
+      Subarach 376 for 376 rage
+      Dyrachyo 338 for 338 rage
+      Pieshka 329 for 329 rage
+      Platedps 204 for 204 rage
+      Everglow 32 for 32 rage
    Vengeance
       Aphorodite 108
       Bloxie 80
@@ -672,7 +678,7 @@ Class Detection
 
 
 Tech
-   known consumables 302
+   known consumables 306
    log size 16.7 MB
    log lines 218793
    skipped log lines 2 (0.00%)
