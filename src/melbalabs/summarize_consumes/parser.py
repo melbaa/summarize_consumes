@@ -303,9 +303,10 @@ class Parser2:
 
                 else:  # It's a hits_autoattack_line
                     # 2/9 21:47:33.736  Flamewaker Elite hits Supal for 399. (146 blocked)
-                    if "blocked)" in line:
+
+                    if line.find("blocked)", p_num_end) != -1:
                         action_value = "block"
-                    elif "(glancing)" in line:
+                    elif line.find("(glancing)", p_num_end) != -1:
                         action_value = "glance"
                     else:
                         action_value = action_verb
