@@ -1638,7 +1638,7 @@ def test_proc_count(app):
     assert app.proc_count.counts_extra_attacks['Windfury Weapon']['Cracklinoats'] == 2
 
     assert app.proc_count.counts['Unbridled Wrath']['Warrior'] == 2
-    assert app.proc_count.amount_unbirdled_wrath['Warrior'] ==  3
+    assert app.proc_count.amount_unbridled_wrath['Warrior'] ==  3
 
 
 def test_annihilator(app):

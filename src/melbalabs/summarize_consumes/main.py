@@ -1242,7 +1242,7 @@ class ProcSummary:
         # spell - player - count
         self.counts = proc_count.counts
         self.counts_extra_attacks = proc_count.counts_extra_attacks
-        self.amount_unbirdled_wrath = proc_count.amount_unbirdled_wrath
+        self.amount_unbridled_wrath = proc_count.amount_unbridled_wrath
         self.player = player
 
     def print(self, output):
@@ -1262,7 +1262,7 @@ class ProcSummary:
             for total, name in data:
                 line = f"      {name} {total}"
                 if proc == "Unbridled Wrath":
-                    uw_amount = self.amount_unbirdled_wrath[name]
+                    uw_amount = self.amount_unbridled_wrath[name]
                     line += f" for {uw_amount} rage"
                 print(line, file=output)
 
@@ -1424,7 +1424,7 @@ class ProcCount:
         self.counts_extra_attacks = collections.defaultdict(lambda: collections.defaultdict(int))
 
         # name - amount
-        self.amount_unbirdled_wrath = collections.defaultdict(int)
+        self.amount_unbridled_wrath = collections.defaultdict(int)
 
     def add(self, line_type, name, spell):
         if line_type not in LINE2PROC:
@@ -1436,8 +1436,8 @@ class ProcCount:
     def add_extra_attacks(self, howmany, source, name):
         self.counts_extra_attacks[source][name] += howmany
 
-    def add_unbirdled_wrath(self, amount, name):
-        self.amount_unbirdled_wrath[name] += amount
+    def add_unbridled_wrath(self, amount, name):
+        self.amount_unbridled_wrath[name] += amount
 
 
 class Currency(int):
@@ -1950,8 +1950,7 @@ def process_tree(app, line, tree: Tree):
 
         if spellname == "Unbridled Wrath":
             amount = int(subtree.children[1].value)
-            app.proc_count.add_unbirdled_wrath(amount=amount, name=name)
-
+            app.proc_count.add_unbridled_wrath(amount=amount, name=name)
 
         if consumable_item := RAWSPELLNAME2CONSUMABLE.get((subtree.data, spellname)):
             app.player[name][consumable_item.name] += 1
