@@ -42,6 +42,8 @@ from melbalabs.summarize_consumes.consumable_db import all_defined_consumable_it
 from melbalabs.summarize_consumes.parser import Parser2
 from melbalabs.summarize_consumes.parser import Tree
 from melbalabs.summarize_consumes.parser import ParserError
+from melbalabs.summarize_consumes.parser import TreeType
+from melbalabs.summarize_consumes.parser import ActionValue
 import melbalabs.summarize_consumes.package as package
 
 
@@ -314,7 +316,7 @@ class HitsConsumable:
 
 NAME2CONSUMABLE: Dict[str, Consumable] = {item.name: item for item in all_defined_consumable_items}
 
-RAWSPELLNAME2CONSUMABLE: Dict[Tuple[str, str], Consumable] = {}
+RAWSPELLNAME2CONSUMABLE: Dict[Tuple[TreeType, str], Consumable] = {}
 for item in all_defined_consumable_items:
     for line_type, raw_spellname in item.spell_aliases:
         key = (line_type, raw_spellname)
@@ -327,10 +329,10 @@ for item in all_defined_consumable_items:
 
 
 RENAME_SPELL = {
-    ("hits_ability_line", "Holy Shock"): "Holy Shock (dmg)",
-    ("heals_line", "Holy Shock"): "Holy Shock (heal)",
-    ("heals_line", "Tea"): "Tea with Sugar",  # rename spell to consumable name for clarity
-    ("gains_rage_line", "Blood Fury"): "Gri'lek's Charm of Might",
+    (TreeType.HITS_ABILITY_LINE, "Holy Shock"): "Holy Shock (dmg)",
+    (TreeType.HEALS_LINE, "Holy Shock"): "Holy Shock (heal)",
+    (TreeType.HEALS_LINE, "Tea"): "Tea with Sugar",  # rename spell to consumable name for clarity
+    (TreeType.GAINS_RAGE_LINE, "Blood Fury"): "Gri'lek's Charm of Might",
 }
 
 
@@ -1379,10 +1381,10 @@ class ProcSummary:
 # count unique casts, the player using their spell. not the lingering buff/debuff procs
 # eg count a totem being dropped, not the buff procs it gives after that
 LINE2SPELLCAST = {
-    "afflicted_line": {
+    TreeType.AFFLICTED_LINE: {
         "Death Wish",
     },
-    "gains_line": {
+    TreeType.GAINS_LINE: {
         "Immune Charm/Fear/Stun",
         "Immune Charm/Fear/Polymorph",
         "Immune Fear/Polymorph/Snare",
@@ -1425,15 +1427,15 @@ LINE2SPELLCAST = {
         "Chastise Haste",
         "Molten Power",
     },
-    "gains_rage_line": {
+    TreeType.GAINS_RAGE_LINE: {
         "Gri'lek's Charm of Might",
     },
-    "heals_line": {
+    TreeType.HEALS_LINE: {
         "Holy Shock (heal)",
         "Desperate Prayer",
         "Swiftmend",
     },
-    "casts_line": {
+    TreeType.CASTS_LINE: {
         "Windfury Totem",
         "Mana Tide Totem",
         "Grace of Air Totem",
@@ -1455,12 +1457,12 @@ LINE2SPELLCAST = {
         "Sunder Armor (boss)",  # rename, superwow
         "Blood Fury",  # superwow, spellid 23234
     },
-    "hits_ability_line": {
+    TreeType.HITS_ABILITY_LINE: {
         "Sinister Strike",
         "Scorch",
         "Holy Shock (dmg)",
     },
-    "begins_to_perform_line": {
+    TreeType.BEGINS_TO_PERFORM_LINE: {
         "War Stomp",
     },
 }
@@ -1481,7 +1483,7 @@ class SpellCount:
     def add_stackcount(self, line_type, name, spell, stackcount):
         if (
             spell in {"Combustion", "Unstable Power", "Jom Gabbar"}
-            and line_type == "gains_line"
+            and line_type == TreeType.GAINS_LINE
             and stackcount != 1
         ):
             return
@@ -1489,7 +1491,7 @@ class SpellCount:
 
 
 LINE2PROC = {
-    "gains_line": {
+    TreeType.GAINS_LINE: {
         "Enrage",
         "Flurry",
         "Elemental Devastation",
@@ -1499,7 +1501,7 @@ LINE2PROC = {
         "Vengeance",
         "Nature's Grace",
     },
-    "gains_rage_line": {
+    TreeType.GAINS_RAGE_LINE: {
         "Unbridled Wrath",
     },
 }
@@ -1712,11 +1714,11 @@ class PrintConsumableTotalsCsv:
 # line type -> spell -> PlayerClass
 # shouldn't need to be an exhaustive list, only the most common
 # unique spells, no ambiguity
-UNIQUE_LINE2SPELL2CLASS: Dict[str, Dict[str, PlayerClass]] = {
-    "afflicted_line": {
+UNIQUE_LINE2SPELL2CLASS: Dict[TreeType, Dict[str, PlayerClass]] = {
+    TreeType.AFFLICTED_LINE: {
         "Death Wish": PlayerClass.WARRIOR,
     },
-    "gains_line": {
+    TreeType.GAINS_LINE: {
         "Recklessness": PlayerClass.WARRIOR,
         "Shield Wall": PlayerClass.WARRIOR,
         "Bloodrage": PlayerClass.WARRIOR,
@@ -1730,7 +1732,7 @@ UNIQUE_LINE2SPELL2CLASS: Dict[str, Dict[str, PlayerClass]] = {
         "Seal of Command": PlayerClass.PALADIN,
         "Seal of Righteousness": PlayerClass.PALADIN,
     },
-    "heals_line": {
+    TreeType.HEALS_LINE: {
         "Flash of Light": PlayerClass.PALADIN,
         "Holy Light": PlayerClass.PALADIN,
         "Holy Shock (heal)": PlayerClass.PALADIN,
@@ -1739,7 +1741,7 @@ UNIQUE_LINE2SPELL2CLASS: Dict[str, Dict[str, PlayerClass]] = {
         "Greater Heal": PlayerClass.PRIEST,
         "Prayer of Healing": PlayerClass.PRIEST,
     },
-    "hits_ability_line": {
+    TreeType.HITS_ABILITY_LINE: {
         "Cleave": PlayerClass.WARRIOR,
         "Whirlwind": PlayerClass.WARRIOR,
         "Bloodthirst": PlayerClass.WARRIOR,
@@ -1756,11 +1758,11 @@ UNIQUE_LINE2SPELL2CLASS: Dict[str, Dict[str, PlayerClass]] = {
         "Multi-Shot": PlayerClass.HUNTER,
         "Holy Shock (dmg)": PlayerClass.PALADIN,
     },
-    "gains_health_line": {
+    TreeType.GAINS_HEALTH_LINE: {
         "Rejuvenation": PlayerClass.DRUID,
         "Regrowth": PlayerClass.DRUID,
     },
-    "begins_to_cast_line": {
+    TreeType.BEGINS_TO_CAST_LINE: {
         "Shadow Bolt": PlayerClass.WARLOCK,
         "Rejuvenation": PlayerClass.DRUID,
         "Regrowth": PlayerClass.DRUID,
@@ -1781,11 +1783,11 @@ UNIQUE_LINE2SPELL2CLASS: Dict[str, Dict[str, PlayerClass]] = {
         "Flash of Light": PlayerClass.PALADIN,
         "Holy Light": PlayerClass.PALADIN,
     },
-    "begins_to_perform_line": {
+    TreeType.BEGINS_TO_PERFORM_LINE: {
         "Auto Shot": PlayerClass.HUNTER,
         "Trueshot": PlayerClass.HUNTER,
     },
-    "casts_line": {
+    TreeType.CASTS_LINE: {
         "Windfury Totem": PlayerClass.SHAMAN,
         "Mana Tide Totem": PlayerClass.SHAMAN,
         "Grace of Air Totem": PlayerClass.SHAMAN,
@@ -2001,7 +2003,7 @@ def process_tree(app, line, tree: Tree):
 
     # inline everything to reduce funcalls
     # for same reason not using visitors to traverse the parse tree
-    if subtree.data == "gains_line":
+    if subtree.data == TreeType.GAINS_LINE:
         name = subtree.children[0].value
         spellname = subtree.children[1].value
         stackcount = int(subtree.children[2].value)
@@ -2032,7 +2034,7 @@ def process_tree(app, line, tree: Tree):
             app.gluth.add(line)
 
         return True
-    elif subtree.data == "gains_rage_line":
+    elif subtree.data == TreeType.GAINS_RAGE_LINE:
         name = subtree.children[0].value
         spellname = subtree.children[3].value
 
@@ -2047,9 +2049,9 @@ def process_tree(app, line, tree: Tree):
         if consumable_item := RAWSPELLNAME2CONSUMABLE.get((subtree.data, spellname)):
             app.player[name][consumable_item.name] += 1
         return True
-    elif subtree.data == "gains_energy_line":
+    elif subtree.data == TreeType.GAINS_ENERGY_LINE:
         return True
-    elif subtree.data == "gains_health_line":
+    elif subtree.data == TreeType.GAINS_HEALTH_LINE:
         targetname = subtree.children[0].value
         amount = int(subtree.children[1].value)
         name = subtree.children[2].value
@@ -2059,7 +2061,7 @@ def process_tree(app, line, tree: Tree):
 
         app.healstore.add(name, targetname, spellname, amount, timestamp_unix)
         return True
-    elif subtree.data == "uses_line":
+    elif subtree.data == TreeType.USES_LINE:
         name = subtree.children[0].value
         spellname = subtree.children[1].value
 
@@ -2077,7 +2079,7 @@ def process_tree(app, line, tree: Tree):
         app.player_superwow_unknown[name][spellname] += 1
         return True
 
-    elif subtree.data == "dies_line":
+    elif subtree.data == TreeType.DIES_LINE:
         name = subtree.children[0].value
         app.death_count[name] += 1
 
@@ -2087,7 +2089,7 @@ def process_tree(app, line, tree: Tree):
             app.gluth.add(line)
 
         return True
-    elif subtree.data == "heals_line":
+    elif subtree.data == TreeType.HEALS_LINE:
         is_crit = subtree.children[2].value == "critically"
 
         name = subtree.children[0].value
@@ -2121,7 +2123,7 @@ def process_tree(app, line, tree: Tree):
         app.healstore.add(name, targetname, spellname, amount, timestamp_unix)
         return True
 
-    elif subtree.data == "gains_mana_line":
+    elif subtree.data == TreeType.GAINS_MANA_LINE:
         name = subtree.children[0].value
         spellname = subtree.children[-1].value
 
@@ -2134,11 +2136,11 @@ def process_tree(app, line, tree: Tree):
             app.player[name][consumable_item.name] += 1
 
         return True
-    elif subtree.data == "drains_mana_line":
+    elif subtree.data == TreeType.DRAINS_MANA_LINE:
         return True
-    elif subtree.data == "drains_mana_line2":
+    elif subtree.data == TreeType.DRAINS_MANA_LINE2:
         return True
-    elif subtree.data == "begins_to_cast_line":
+    elif subtree.data == TreeType.BEGINS_TO_CAST_LINE:
         name = subtree.children[0].value
         spellname = subtree.children[-1].value
 
@@ -2151,7 +2153,7 @@ def process_tree(app, line, tree: Tree):
             app.kt_frostbolt.begins_to_cast(line)
 
         return True
-    elif subtree.data == "casts_line":
+    elif subtree.data == TreeType.CASTS_LINE:
         name = subtree.children[0].value
         spellname = subtree.children[1].value
         if consumable_item := RAWSPELLNAME2CONSUMABLE.get((subtree.data, spellname)):
@@ -2187,11 +2189,11 @@ def process_tree(app, line, tree: Tree):
             app.kt_shadowfissure.add(line)
 
         return True
-    elif subtree.data == "combatant_info_line":
+    elif subtree.data == TreeType.COMBATANT_INFO_LINE:
         return True
-    elif subtree.data == "consolidated_line":
+    elif subtree.data == TreeType.CONSOLIDATED_LINE:
         for entry in subtree.children:
-            if entry.data == "consolidated_pet":
+            if entry.data == TreeType.CONSOLIDATED_PET:
                 name = entry.children[0].value
                 petname = entry.children[1].value
                 app.pet_handler.add(name, petname)
@@ -2200,7 +2202,7 @@ def process_tree(app, line, tree: Tree):
                 # parse but ignore the other consolidated entries
                 pass
         return True
-    elif subtree.data == "hits_ability_line":
+    elif subtree.data == TreeType.HITS_ABILITY_LINE:
         name = subtree.children[0].value
         spellname = subtree.children[1].value
         targetname = subtree.children[2].value
@@ -2252,7 +2254,7 @@ def process_tree(app, line, tree: Tree):
         app.dmgtakenstore.add(name, targetname, spellname, amount, timestamp_unix)
 
         return True
-    elif subtree.data == "hits_autoattack_line":
+    elif subtree.data == TreeType.HITS_AUTOATTACK_LINE:
         name = subtree.children[0].value
         target = subtree.children[1].value
         amount = int(subtree.children[2].value)
@@ -2264,19 +2266,19 @@ def process_tree(app, line, tree: Tree):
         if name == "Guardian of Icecrown":
             app.kt_guardian.add(line)
 
-        if action_verb == "hits":
+        if action_verb == ActionValue.HITS:
             app.auto_attack_stats.add_hit(name)
-        elif action_verb == "block":
+        elif action_verb == ActionValue.BLOCK:
             app.auto_attack_stats.add_block(name)
-        elif action_verb == "crits":
+        elif action_verb == ActionValue.CRITS:
             app.auto_attack_stats.add_crit(name)
-        elif action_verb == "glance":
+        elif action_verb == ActionValue.GLANCE:
             app.auto_attack_stats.add_glance(name)
         else:
             return False
 
         return True
-    elif subtree.data == "parry_ability_line":
+    elif subtree.data == TreeType.PARRY_ABILITY_LINE:
         name = subtree.children[0].value
         spellname = subtree.children[1].value
         targetname = subtree.children[2].value
@@ -2285,28 +2287,28 @@ def process_tree(app, line, tree: Tree):
             app.kt_frostbolt.parry(line)
 
         return True
-    elif subtree.data == "parry_line":
+    elif subtree.data == TreeType.PARRY_LINE:
         name = subtree.children[0].value
         app.auto_attack_stats.add_parry(name)
         return True
-    elif subtree.data == "block_line":
+    elif subtree.data == TreeType.BLOCK_LINE:
         name = subtree.children[0].value
         app.auto_attack_stats.add_block(name)
         return True
-    elif subtree.data == "misses_line":
+    elif subtree.data == TreeType.MISSES_LINE:
         name = subtree.children[0].value
         app.auto_attack_stats.add_miss(name)
         return True
-    elif subtree.data == "dodges_line":
+    elif subtree.data == TreeType.DODGES_LINE:
         name = subtree.children[0].value
         app.auto_attack_stats.add_dodge(name)
         return True
-    elif subtree.data == "block_ability_line":
+    elif subtree.data == TreeType.BLOCK_ABILITY_LINE:
         return True
-    elif subtree.data == "interrupts_line":
+    elif subtree.data == TreeType.INTERRUPTS_LINE:
         return True
 
-    elif subtree.data == "resist_line":
+    elif subtree.data == TreeType.RESIST_LINE:
         name = subtree.children[0].value
         spellname = subtree.children[1].value
         targetname = subtree.children[2].value
@@ -2327,7 +2329,7 @@ def process_tree(app, line, tree: Tree):
             app.kt_frostbolt.parry(line)
 
         return True
-    elif subtree.data == "immune_ability_line":
+    elif subtree.data == TreeType.IMMUNE_ABILITY_LINE:
         name = subtree.children[0].value
         spellname = subtree.children[1].value
 
@@ -2335,7 +2337,7 @@ def process_tree(app, line, tree: Tree):
             app.hits_consumable.update(name, spellname, timestamp_unix)
 
         return True
-    elif subtree.data == "is_immune_ability_line":
+    elif subtree.data == TreeType.IS_IMMUNE_ABILITY_LINE:
         targetname = subtree.children[0].value
         name = subtree.children[1].value
         spellname = subtree.children[2].value
@@ -2343,9 +2345,9 @@ def process_tree(app, line, tree: Tree):
             app.hits_consumable.update(name, spellname, timestamp_unix)
         return True
 
-    elif subtree.data == "immune_line":
+    elif subtree.data == TreeType.IMMUNE_LINE:
         return True
-    elif subtree.data == "afflicted_line":
+    elif subtree.data == TreeType.AFFLICTED_LINE:
         targetname = subtree.children[0].value
         spellname = subtree.children[1].value
 
@@ -2363,9 +2365,9 @@ def process_tree(app, line, tree: Tree):
             app.kt_guardian.add(line)
 
         return True
-    elif subtree.data == "is_destroyed_line":
+    elif subtree.data == TreeType.IS_DESTROYED_LINE:
         return True
-    elif subtree.data == "is_absorbed_ability_line":
+    elif subtree.data == TreeType.IS_ABSORBED_ABILITY_LINE:
         name = subtree.children[0].value
         spellname = subtree.children[1].value
 
@@ -2382,37 +2384,37 @@ def process_tree(app, line, tree: Tree):
             app.kt_frostblast.add(line)
 
         return True
-    elif subtree.data == "absorbs_ability_line":
+    elif subtree.data == TreeType.ABSORBS_ABILITY_LINE:
         targetname = subtree.children[0].value
         name = subtree.children[1].value
         spellname = subtree.children[2].value
         if spellname == "Corrupted Healing":
             app.nef_corrupted_healing.add(line)
         return True
-    elif subtree.data == "absorbs_all_line":
+    elif subtree.data == TreeType.ABSORBS_ALL_LINE:
         return True
-    elif subtree.data == "fails_to_dispel_line":
+    elif subtree.data == TreeType.FAILS_TO_DISPEL_LINE:
         return True
-    elif subtree.data == "pet_begins_eating_line":
+    elif subtree.data == TreeType.PET_BEGINS_EATING_LINE:
         return True
-    elif subtree.data == "is_dismissed_line":
+    elif subtree.data == TreeType.IS_DISMISSED_LINE:
         name = subtree.children[0].value
         petname = subtree.children[1].value
         app.pet_handler.add(name, petname)
         return True
-    elif subtree.data == "is_dismissed_line2":
+    elif subtree.data == TreeType.IS_DISMISSED_LINE2:
         name, petname = subtree.children[0].value.split(" ", 1)
         if name[-2:] == "'s":
             name = name[:-2]
         app.pet_handler.add(name, petname)
         return True
-    elif subtree.data == "gains_happiness_line":
+    elif subtree.data == TreeType.GAINS_HAPPINESS_LINE:
         petname = subtree.children[0].value
         amount = subtree.children[1].value
         name = subtree.children[2].value
         app.pet_handler.add(name, petname)
         return True
-    elif subtree.data == "removed_line":
+    elif subtree.data == TreeType.REMOVED_LINE:
         name = subtree.children[0].value
         spellname = subtree.children[1].value
 
@@ -2423,10 +2425,10 @@ def process_tree(app, line, tree: Tree):
             app.gluth.add(line)
 
         return True
-    elif subtree.data == "suffers_line":
+    elif subtree.data == TreeType.SUFFERS_LINE:
         targetname = subtree.children[0].value
         amount = int(subtree.children[1])
-        if subtree.children[2].data == "suffers_line_source":
+        if subtree.children[2].data == TreeType.SUFFERS_LINE_SOURCE:
             name = subtree.children[2].children[1].value
             spellname = subtree.children[2].children[2].value
 
@@ -2440,7 +2442,7 @@ def process_tree(app, line, tree: Tree):
             pass
 
         return True
-    elif subtree.data == "fades_line":
+    elif subtree.data == TreeType.FADES_LINE:
         spellname = subtree.children[0].value
         targetname = subtree.children[1].value
 
@@ -2450,13 +2452,13 @@ def process_tree(app, line, tree: Tree):
             app.kt_guardian.add(line)
 
         return True
-    elif subtree.data == "slain_line":
+    elif subtree.data == TreeType.SLAIN_LINE:
         return True
-    elif subtree.data == "creates_line":
+    elif subtree.data == TreeType.CREATES_LINE:
         return True
-    elif subtree.data == "is_killed_line":
+    elif subtree.data == TreeType.IS_KILLED_LINE:
         return True
-    elif subtree.data == "performs_on_line":
+    elif subtree.data == TreeType.PERFORMS_ON_LINE:
         name = subtree.children[0].value
         spellname = subtree.children[1].value
         targetname = subtree.children[2].value
@@ -2465,9 +2467,9 @@ def process_tree(app, line, tree: Tree):
             app.player[name][consumable_item.name] += 1
 
         return True
-    elif subtree.data == "performs_line":
+    elif subtree.data == TreeType.PERFORMS_LINE:
         return True
-    elif subtree.data == "begins_to_perform_line":
+    elif subtree.data == TreeType.BEGINS_TO_PERFORM_LINE:
         name = subtree.children[0].value
         spellname = subtree.children[-1].value
         app.class_detection.detect(line_type=subtree.data, name=name, spell=spellname)
@@ -2475,24 +2477,24 @@ def process_tree(app, line, tree: Tree):
         if consumable_item := RAWSPELLNAME2CONSUMABLE.get((subtree.data, spellname)):
             app.player[name][consumable_item.name] += 1
         return True
-    elif subtree.data == "gains_extra_attacks_line":
+    elif subtree.data == TreeType.GAINS_EXTRA_ATTACKS_LINE:
         name = subtree.children[0].value
         howmany = int(subtree.children[1].value)
         source = subtree.children[2].value
         app.proc_count.add_extra_attacks(howmany=howmany, name=name, source=source)
         return True
-    elif subtree.data == "dodges_line":
+    elif subtree.data == TreeType.DODGES_LINE:
         return True
-    elif subtree.data == "dodge_ability_line":
+    elif subtree.data == TreeType.DODGE_ABILITY_LINE:
         return True
-    elif subtree.data == "reflects_damage_line":
+    elif subtree.data == TreeType.REFLECTS_DAMAGE_LINE:
         name = subtree.children[0].value
         amount = int(subtree.children[1].value)
         target = subtree.children[3].value
         app.dmgstore.add(name, target, "reflect", amount, timestamp_unix)
         app.dmgtakenstore.add(name, target, "reflect", amount, timestamp_unix)
         return True
-    elif subtree.data == "causes_damage_line":
+    elif subtree.data == TreeType.CAUSES_DAMAGE_LINE:
         name = subtree.children[0].value
         spellname = subtree.children[1].value
         target = subtree.children[2].value
@@ -2500,21 +2502,21 @@ def process_tree(app, line, tree: Tree):
         app.dmgstore.add(name, target, spellname, amount, timestamp_unix)
         app.dmgtakenstore.add(name, target, spellname, amount, timestamp_unix)
         return True
-    elif subtree.data == "is_reflected_back_line":
+    elif subtree.data == TreeType.IS_REFLECTED_BACK_LINE:
         return True
-    elif subtree.data == "misses_line":
+    elif subtree.data == TreeType.MISSES_LINE:
         return True
-    elif subtree.data == "misses_ability_line":
+    elif subtree.data == TreeType.MISSES_ABILITY_LINE:
         return True
-    elif subtree.data == "falls_line":
+    elif subtree.data == TreeType.FALLS_LINE:
         return True
-    elif subtree.data == "none_line":
+    elif subtree.data == TreeType.NONE_LINE:
         return True
-    elif subtree.data == "lava_line":
+    elif subtree.data == TreeType.LAVA_LINE:
         return True
-    elif subtree.data == "slays_line":
+    elif subtree.data == TreeType.SLAYS_LINE:
         return True
-    elif subtree.data == "was_evaded_line":
+    elif subtree.data == TreeType.WAS_EVADED_LINE:
         name = subtree.children[0].value
         spellname = subtree.children[1].value
         targetname = subtree.children[2].value
@@ -2522,7 +2524,7 @@ def process_tree(app, line, tree: Tree):
         if spellname == "Wild Polymorph":
             app.nef_wild_polymorph.add(line)
         return True
-    elif subtree.data == "equipped_durability_loss_line":
+    elif subtree.data == TreeType.EQUIPPED_DURABILITY_LOSS_LINE:
         return True
 
     return False
