@@ -154,6 +154,9 @@ def create_app(
     app.proc_count = ProcCount()
     app.proc_summary = ProcSummary(proc_count=app.proc_count, player=app.player)
 
+    app.auto_attack_stats = AutoAttackStats()
+    app.auto_attack_summary = AutoAttackSummary(stats=app.auto_attack_stats, player=app.player)
+
     # player - consumable - unix_timestamp
     app.last_hit_cache = collections.defaultdict(lambda: collections.defaultdict(float))
 
@@ -1043,6 +1046,8 @@ class Techinfo:
         if time_end is None:
             time_end = time.time()
         time_delta = time_end - self.time_start
+        if time_delta == 0:
+            time_delta = 0.00000001  # too fast sometimes
         print("\n\nTech", file=output)
         if not self.expert_deterministic_logs:
             print("  ", f"project version {self.package_version}", file=output)
@@ -1235,6 +1240,73 @@ class CooldownSummary:
                 print("  ", "  ", spell, file=output)
                 for total, name in data:
                     print("  ", "  ", "  ", name, total, file=output)
+
+
+class AutoAttackStats:
+    def __init__(self):
+        # player -> stat -> count
+        self.stats = collections.defaultdict(lambda: collections.defaultdict(int))
+
+    def add_hit(self, attacker):
+        self.stats[attacker]["swings"] += 1
+        self.stats[attacker]["hits"] += 1
+
+    def add_crit(self, attacker):
+        self.stats[attacker]["swings"] += 1
+        self.stats[attacker]["crits"] += 1
+
+    def add_glance(self, attacker):
+        self.stats[attacker]["swings"] += 1
+        self.stats[attacker]["glances"] += 1
+
+    def add_parry(self, attacker):
+        self.stats[attacker]["swings"] += 1
+        self.stats[attacker]["parries"] += 1
+
+    def add_dodge(self, attacker):
+        self.stats[attacker]["swings"] += 1
+        self.stats[attacker]["dodges"] += 1
+
+    def add_miss(self, attacker):
+        self.stats[attacker]["swings"] += 1
+        self.stats[attacker]["misses"] += 1
+
+    def add_block(self, attacker):
+        self.stats[attacker]["swings"] += 1
+        self.stats[attacker]["blocks"] += 1
+
+
+class AutoAttackSummary:
+    def __init__(self, stats, player):
+        self.stats = stats
+        self.player = player
+
+    def print(self, output):
+        print("\n\nAuto Attack Summary", file=output)
+
+        for name in sorted(self.stats.stats):
+            data = self.stats.stats[name]
+            swings = data["swings"]
+            if swings == 0:
+                continue
+
+            # check if it's a player
+            if name not in self.player:
+                continue
+
+            def fmt(key):
+                count = data[key]
+                if count == 0:
+                    return None
+                pct = (count / swings) * 100
+                return f"      {key} {count}   ({pct:.1f}%)"
+
+            print(f"   {name} swings {swings}", file=output)
+
+            for key in ["hits", "crits", "parries", "misses", "dodges", "blocks", "glances"]:
+                line = fmt(key)
+                if line:
+                    print(line, file=output)
 
 
 class ProcSummary:
@@ -2164,11 +2236,25 @@ def process_tree(app, line, tree: Tree):
         name = subtree.children[0].value
         target = subtree.children[1].value
         amount = int(subtree.children[2].value)
+        action_verb = subtree.children[3].value
+
+        app.dmgstore.add(name, target, "hit", amount, timestamp_unix)
+        app.dmgtakenstore.add(name, target, "hit", amount, timestamp_unix)
 
         if name == "Guardian of Icecrown":
             app.kt_guardian.add(line)
-        app.dmgstore.add(name, target, "hit", amount, timestamp_unix)
-        app.dmgtakenstore.add(name, target, "hit", amount, timestamp_unix)
+
+        if action_verb == "hits":
+            app.auto_attack_stats.add_hit(name)
+        elif action_verb == "block":
+            app.auto_attack_stats.add_block(name)
+        elif action_verb == "crits":
+            app.auto_attack_stats.add_crit(name)
+        elif action_verb == "glance":
+            app.auto_attack_stats.add_glance(name)
+        else:
+            return False
+
         return True
     elif subtree.data == "parry_ability_line":
         name = subtree.children[0].value
@@ -2180,8 +2266,20 @@ def process_tree(app, line, tree: Tree):
 
         return True
     elif subtree.data == "parry_line":
+        name = subtree.children[0].value
+        app.auto_attack_stats.add_parry(name)
         return True
     elif subtree.data == "block_line":
+        name = subtree.children[0].value
+        app.auto_attack_stats.add_block(name)
+        return True
+    elif subtree.data == "misses_line":
+        name = subtree.children[0].value
+        app.auto_attack_stats.add_miss(name)
+        return True
+    elif subtree.data == "dodges_line":
+        name = subtree.children[0].value
+        app.auto_attack_stats.add_dodge(name)
         return True
     elif subtree.data == "block_ability_line":
         return True
@@ -2472,6 +2570,7 @@ def generate_output(app):
     app.sunder_armor_summary.print(output)
     app.cooldown_summary.print(output)
     app.proc_summary.print(output)
+    app.auto_attack_summary.print(output)
 
     # app.dmgstore.print_alphabetic(output)
 

@@ -56,6 +56,7 @@ class Parser2:
         self.spell_damage_type_token = Token("t", "")
         self.heal_amount_token = Token("t", "")
         self.heal_crit_token = Token("HEAL_CRIT", "")
+        self.action_token = Token("t", "")
 
         # gains_mana_line cache
         subtree = Tree(
@@ -84,6 +85,7 @@ class Parser2:
                 self.name_token,
                 self.targetname_token,
                 self.damage_token,
+                self.action_token,
             ],
         )
         self.hits_autoattack_line_tree = Tree(data="line", children=[self.timestamp_tree, subtree])
@@ -151,6 +153,13 @@ class Parser2:
         )
 
         self.afflicted_line_tree = Tree(data="line", children=[self.timestamp_tree, subtree])
+
+        # block_line cache
+        subtree = Tree(
+            data="block_line",
+            children=[self.name_token, self.targetname_token],  # reuse tokens
+        )
+        self.block_line_tree = Tree(data="line", children=[self.timestamp_tree, subtree])
 
     def parse_ts(self, line, p_ts_end):
         # 6/1 18:31:36.197  ...
@@ -293,12 +302,21 @@ class Parser2:
                     return self.hits_ability_line_tree  # magic cached reference
 
                 else:  # It's a hits_autoattack_line
+                    # 2/9 21:47:33.736  Flamewaker Elite hits Supal for 399. (146 blocked)
+                    if "blocked)" in line:
+                        action_value = "block"
+                    elif "(glancing)" in line:
+                        action_value = "glance"
+                    else:
+                        action_value = action_verb
+
                     caster_name = line[p_ts_end + 2 : p_action]
                     target_name = line[p_action + len(action_verb) + 2 : p_for]
 
                     self.name_token.value = caster_name  # magic cached reference
                     self.targetname_token.value = target_name  # magic cached reference
                     self.damage_token.value = damage_amount  # magic cached reference
+                    self.action_token.value = action_value  # magic cached reference
                     return self.hits_autoattack_line_tree  # magic cached reference
 
             # 12/13 14:20:41.781  BudwiserHL 's Holy Light heals Pitbound for 2166.
@@ -806,6 +824,25 @@ class Parser2:
                     # Construct the simple two-child tree.
                     subtree = Tree(
                         data="parry_line", children=[Token("t", attacker), Token("t", parrier)]
+                    )
+
+                    return Tree(data="line", children=[timestamp, subtree])
+
+            blocks_anchor = " blocks.\n"
+            if line.endswith(blocks_anchor):
+                middle_anchor = " attacks. "
+                p_attacks = line.find(middle_anchor, p_ts_end)
+
+                if p_attacks != -1:
+                    timestamp = self.parse_ts(line, p_ts_end)
+
+                    attacker = line[p_ts_end + 2 : p_attacks]
+                    blocker_start = p_attacks + len(middle_anchor)
+                    blocker_end = -len(blocks_anchor)
+                    blocker = line[blocker_start:blocker_end]
+
+                    subtree = Tree(
+                        data="block_line", children=[Token("t", attacker), Token("t", blocker)]
                     )
 
                     return Tree(data="line", children=[timestamp, subtree])
