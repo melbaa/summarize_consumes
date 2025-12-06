@@ -1,7 +1,7 @@
 
 import pytest
 import io
-from melbalabs.summarize_consumes.main import parse_line, AutoAttackStats, AutoAttackSummary
+from melbalabs.summarize_consumes.main import parse_line, AutoAttackStats, AutoAttackSummary, PlayerClass
 
 def test_auto_attack_stats(app):
     lines = """
@@ -16,6 +16,8 @@ def test_auto_attack_stats(app):
 4/14 21:49:18.460  PlayerMixed hits Target for 100.
 4/14 21:49:18.461  PlayerMixed crits Target for 200.
 4/14 21:49:18.462  PlayerMixed hits Target for 50. (glancing)
+4/14 21:49:18.101  PlayerBigSwings hits Target for 100.
+4/14 21:49:18.102  PlayerBigSwings hits Target for 100.
 
 # Players must consume something to be tracked
 4/14 21:49:18.000  PlayerHits 's Goblin Sapper Charge hits Target for 500.
@@ -27,6 +29,7 @@ def test_auto_attack_stats(app):
 4/14 21:49:18.006  PlayerDodges 's Goblin Sapper Charge hits Target for 500.
 4/14 21:49:18.007  PlayerMisses 's Goblin Sapper Charge hits Target for 500.
 4/14 21:49:18.008  PlayerMixed 's Goblin Sapper Charge hits Target for 500.
+4/14 21:49:18.009  PlayerBigSwings 's Goblin Sapper Charge hits Target for 500.
 
 
 """
@@ -35,7 +38,6 @@ def test_auto_attack_stats(app):
 
     stats = app.auto_attack_stats.stats
 
-    # Verify Counts
     assert stats["PlayerHits"]["hits"] == 1
     assert stats["PlayerHits"]["swings"] == 1
 
@@ -65,20 +67,36 @@ def test_auto_attack_stats(app):
     assert stats["PlayerMixed"]["glances"] == 1
     assert stats["PlayerMixed"]["swings"] == 3
 
+
+    app.class_detection.store["PlayerHits"] = PlayerClass.WARRIOR
+    app.class_detection.store["PlayerBigSwings"] = PlayerClass.WARRIOR
+    app.class_detection.store["PlayerCrits"] = PlayerClass.ROGUE
+    app.class_detection.store["PlayerGlances"] = PlayerClass.WARRIOR
+    app.class_detection.store["PlayerPartBlock"] = PlayerClass.WARRIOR
+    app.class_detection.store["PlayerFullBlock"] = PlayerClass.WARRIOR
+    app.class_detection.store["PlayerParries"] = PlayerClass.WARRIOR
+    app.class_detection.store["PlayerDodges"] = PlayerClass.WARRIOR
+    app.class_detection.store["PlayerMisses"] = PlayerClass.WARRIOR
+    app.class_detection.store["PlayerMixed"] = PlayerClass.ROGUE
+
     output = io.StringIO()
     app.auto_attack_summary.print(output)
     content = output.getvalue()
 
-    assert "   PlayerHits swings 1" in content
-    assert "      hits 1   (100.0%)" in content
 
-    assert "   PlayerCrits swings 1" in content
-    assert "      crits 1   (100.0%)" in content
+    assert "      PlayerBigSwings swings 2" in content
+    assert "         hits 2   (100.0%)" in content
 
-    assert "   PlayerGlances swings 1" in content
-    assert "      glances 1   (100.0%)" in content
+    assert "      PlayerHits swings 1" in content
+    assert "         hits 1   (100.0%)" in content
+    assert "      PlayerGlances swings 1" in content
+
+    assert "   Rogue" in content
+    assert "      PlayerCrits swings 1" in content
+    assert "         crits 1   (100.0%)" in content
     
-    assert "   PlayerMixed swings 3" in content
-    assert "      hits 1   (33.3%)" in content
-    assert "      crits 1   (33.3%)" in content
-    assert "      glances 1   (33.3%)" in content
+
+    assert "      PlayerMixed swings 3" in content
+    assert "         hits 1   (33.3%)" in content
+    assert "         crits 1   (33.3%)" in content
+    assert "         glances 1   (33.3%)" in content

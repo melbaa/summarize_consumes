@@ -155,7 +155,11 @@ def create_app(
     app.proc_summary = ProcSummary(proc_count=app.proc_count, player=app.player)
 
     app.auto_attack_stats = AutoAttackStats()
-    app.auto_attack_summary = AutoAttackSummary(stats=app.auto_attack_stats, player=app.player)
+    app.auto_attack_summary = AutoAttackSummary(
+        stats=app.auto_attack_stats,
+        player=app.player,
+        class_detection=app.class_detection,
+    )
 
     # player - consumable - unix_timestamp
     app.last_hit_cache = collections.defaultdict(lambda: collections.defaultdict(float))
@@ -1277,36 +1281,52 @@ class AutoAttackStats:
 
 
 class AutoAttackSummary:
-    def __init__(self, stats, player):
+    def __init__(self, stats, player, class_detection):
         self.stats = stats
         self.player = player
+        self.class_detection = class_detection
 
     def print(self, output):
         print("\n\nAuto Attack Summary", file=output)
 
-        for name in sorted(self.stats.stats):
-            data = self.stats.stats[name]
-            swings = data["swings"]
-            if swings == 0:
+        all_names = sorted(self.stats.stats)
+
+        for player_class in PlayerClass:
+            # check if we have any players for this class
+            class_players = []
+            for name in all_names:
+                if name not in self.player:
+                    continue
+                if not self.class_detection.is_class(player_class, name):
+                    continue
+                class_players.append(name)
+
+            if not class_players:
                 continue
 
-            # check if it's a player
-            if name not in self.player:
-                continue
+            class_players.sort(key=lambda n: self.stats.stats[n]["swings"], reverse=True)
 
-            def fmt(key):
-                count = data[key]
-                if count == 0:
-                    return None
-                pct = (count / swings) * 100
-                return f"      {key} {count}   ({pct:.1f}%)"
+            print(f"   {player_class.value.capitalize()}", file=output)
 
-            print(f"   {name} swings {swings}", file=output)
+            for name in class_players:
+                data = self.stats.stats[name]
+                swings = data["swings"]
+                if swings == 0:
+                    continue
 
-            for key in ["hits", "crits", "parries", "misses", "dodges", "blocks", "glances"]:
-                line = fmt(key)
-                if line:
-                    print(line, file=output)
+                def fmt(key):
+                    count = data[key]
+                    if count == 0:
+                        return None
+                    pct = (count / swings) * 100
+                    return f"         {key} {count}   ({pct:.1f}%)"
+
+                print(f"      {name} swings {swings}", file=output)
+
+                for key in ["hits", "crits", "parries", "misses", "dodges", "blocks", "glances"]:
+                    line = fmt(key)
+                    if line:
+                        print(line, file=output)
 
 
 class ProcSummary:
