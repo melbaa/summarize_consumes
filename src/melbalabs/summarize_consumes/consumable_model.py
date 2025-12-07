@@ -1,8 +1,12 @@
 from dataclasses import dataclass
 from dataclasses import field
-from typing import List
+from typing import List, Union
 from typing import Tuple
-from typing import Union
+
+from melbalabs.summarize_consumes.entity_model import Component, SpellAliasComponent
+from melbalabs.summarize_consumes.entity_model import Entity
+
+
 
 """
 types of consumables by availability in combat log
@@ -54,6 +58,8 @@ class ChargeValidation:
 
 @dataclass(frozen=True, kw_only=True)
 class DirectPrice(ChargeValidation):
+    """ base item / non-component item """
+
     itemid: int
 
     # Number of charges the item has (e.g. oils have 5 charges)
@@ -66,57 +72,32 @@ class DirectPrice(ChargeValidation):
 
 
 @dataclass(frozen=True, kw_only=True)
-class PriceFromComponents(ChargeValidation):
+class PriceFromIngredients(ChargeValidation):
     charges: int = 1
 
-    components: List[Tuple["Consumable", float]] = field(default_factory=list)
-
-
-@dataclass(frozen=True, kw_only=True)
-class Consumable:
-    """Models consumables"""
-
-    # The canonical name of the consumable (what shows in the report output)
-    name: str
-
-    price: Union[NoPrice, DirectPrice, PriceFromComponents]
-
-    # maps line_type, spellname to the consumable
-    # with this you can map multiple names to the same consumable
-    # in other words, this renames from log names to the canonical name
-    spell_aliases: List[Tuple[str, str]] = field(default_factory=list)
+    ingredients: List[Tuple[Entity, float]] = field(default_factory=list)
 
 
 @dataclass(frozen=True)
-class MergeStrategy:
-    """Base class for defining how Superwow consumables merge with native logs."""
-
-    pass
-
-
-@dataclass(frozen=True)
-class IgnoreStrategy(MergeStrategy):
+class IgnoreStrategyComponent(Component):
     """Ignore this Superwow consumable."""
-
     pass
 
 
 @dataclass(frozen=True)
-class SafeStrategy(MergeStrategy):
+class SafeStrategyComponent(Component):
     """Add this Superwow consumable. No complex merging."""
-
     pass
 
 
 @dataclass(frozen=True)
-class EnhanceStrategy(MergeStrategy):
+class EnhanceStrategyComponent(Component):
     """Enhance native counts with Superwow counts. Takes max of the two."""
-
     pass
 
 
 @dataclass(frozen=True)
-class OverwriteStrategy(MergeStrategy):
+class OverwriteStrategyComponent(Component):
     """
     Superwow consumable overwrites a (potentially differently named) native consumable.
     Used to resolve ambiguous native consumables.
@@ -127,6 +108,42 @@ class OverwriteStrategy(MergeStrategy):
     target_consumable_name: str  # The canonical name of the native consumable to overwrite.
 
 
-@dataclass(frozen=True, kw_only=True)
-class SuperwowConsumable(Consumable):
-    strategy: MergeStrategy
+@dataclass
+class PriceComponent(Component):
+    price: Union[NoPrice, DirectPrice, PriceFromIngredients]
+
+
+@dataclass
+class SuperwowComponent(Component):
+    """Marker component for all Superwow consumables. Used as catch-all when merging"""
+    pass
+
+class ConsumableComponent(Component):
+    pass
+
+
+def SuperwowConsumable(name, price, spell_aliases, strategy):
+    """Creates a superwow consumable with a strategy component and a marker component."""
+    return Entity(
+        name,
+        components=[
+            PriceComponent(price=price),
+            SpellAliasComponent(spell_aliases=spell_aliases),
+            strategy,
+            SuperwowComponent(),
+            ConsumableComponent(),
+        ],
+    )
+
+
+def Consumable(name, price, spell_aliases=None):
+    components = [PriceComponent(price=price), ConsumableComponent()]
+    if spell_aliases:
+        components.append(SpellAliasComponent(spell_aliases=spell_aliases))
+    return Entity(name, components=components)
+
+
+def Ingredient(name, price):
+    """Creates a base ingredient entity for pricing purposes."""
+    return Entity(name, components=[PriceComponent(price=price)])
+

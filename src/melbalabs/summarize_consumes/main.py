@@ -5,7 +5,6 @@ import dataclasses
 import datetime
 import functools
 import io
-import itertools
 import json
 import logging
 import os
@@ -15,7 +14,6 @@ import webbrowser
 import sys
 import zipfile
 from datetime import datetime as dt
-from enum import Enum
 from pathlib import Path
 from typing import Dict
 from typing import List
@@ -28,17 +26,28 @@ from plotly import graph_objects as go
 from plotly.subplots import make_subplots
 from typing_extensions import Self
 
-
-from melbalabs.summarize_consumes.consumable_model import Consumable
-from melbalabs.summarize_consumes.consumable_model import SuperwowConsumable
-from melbalabs.summarize_consumes.consumable_model import IgnoreStrategy
-from melbalabs.summarize_consumes.consumable_model import SafeStrategy
-from melbalabs.summarize_consumes.consumable_model import EnhanceStrategy
-from melbalabs.summarize_consumes.consumable_model import OverwriteStrategy
+from melbalabs.summarize_consumes.consumable_model import IgnoreStrategyComponent
+from melbalabs.summarize_consumes.consumable_model import SafeStrategyComponent
+from melbalabs.summarize_consumes.consumable_model import EnhanceStrategyComponent
+from melbalabs.summarize_consumes.consumable_model import OverwriteStrategyComponent
+from melbalabs.summarize_consumes.consumable_model import ConsumableComponent
 from melbalabs.summarize_consumes.consumable_model import DirectPrice
-from melbalabs.summarize_consumes.consumable_model import PriceFromComponents
+from melbalabs.summarize_consumes.consumable_model import PriceFromIngredients
 from melbalabs.summarize_consumes.consumable_model import NoPrice
 from melbalabs.summarize_consumes.consumable_db import all_defined_consumable_items
+from melbalabs.summarize_consumes.entity_model import get_entities_with_component
+from melbalabs.summarize_consumes.entity_model import get_entities_with_components
+from melbalabs.summarize_consumes.entity_model import PlayerClass
+from melbalabs.summarize_consumes.entity_model import Entity
+from melbalabs.summarize_consumes.consumable_model import PriceComponent
+from melbalabs.summarize_consumes.entity_model import SpellAliasComponent
+from melbalabs.summarize_consumes.consumable_model import SuperwowComponent
+from melbalabs.summarize_consumes.entity_model import InterruptSpellComponent
+from melbalabs.summarize_consumes.entity_model import TrinketComponent
+from melbalabs.summarize_consumes.entity_model import RacialSpellComponent
+from melbalabs.summarize_consumes.entity_model import ReceiveBuffSpellComponent
+from melbalabs.summarize_consumes.entity_model import ClassCooldownComponent
+from melbalabs.summarize_consumes.entity_db import TRINKET_RENAME
 from melbalabs.summarize_consumes.parser import Parser2
 from melbalabs.summarize_consumes.parser import Tree
 from melbalabs.summarize_consumes.parser import ParserError
@@ -48,24 +57,6 @@ import melbalabs.summarize_consumes.package as package
 
 
 CURRENT_YEAR = datetime.datetime.now().year
-
-
-class PlayerClass(Enum):
-    DRUID = "druid"
-    HUNTER = "hunter"
-    MAGE = "mage"
-    PALADIN = "paladin"
-    PRIEST = "priest"
-    ROGUE = "rogue"
-    SHAMAN = "shaman"
-    WARLOCK = "warlock"
-    WARRIOR = "warrior"
-    UNKNOWN = "unknown"
-
-    @classmethod
-    def from_string(cls, class_string: str) -> "PlayerClass":
-        # lowercase is the only extra processing. everything else should be an error
-        return cls(class_string.lower())
 
 
 class App:
@@ -314,11 +305,12 @@ class HitsConsumable:
             raise RuntimeError("fixme")
 
 
-NAME2CONSUMABLE: Dict[str, Consumable] = {item.name: item for item in all_defined_consumable_items}
+NAME2CONSUMABLE: Dict[str, Entity] = {item.name: item for item in all_defined_consumable_items}
 
-RAWSPELLNAME2CONSUMABLE: Dict[Tuple[TreeType, str], Consumable] = {}
-for item in all_defined_consumable_items:
-    for line_type, raw_spellname in item.spell_aliases:
+RAWSPELLNAME2CONSUMABLE: Dict[Tuple[TreeType, str], Entity] = dict()
+for item, (tag, alias_comp) in get_entities_with_components(ConsumableComponent, SpellAliasComponent):
+    # Only entities with spell aliases can be parsed from logs.
+    for line_type, raw_spellname in alias_comp.spell_aliases:
         key = (line_type, raw_spellname)
         if key in RAWSPELLNAME2CONSUMABLE:
             raise ValueError(
@@ -332,7 +324,7 @@ RENAME_SPELL = {
     (TreeType.HITS_ABILITY_LINE, "Holy Shock"): "Holy Shock (dmg)",
     (TreeType.HEALS_LINE, "Holy Shock"): "Holy Shock (heal)",
     (TreeType.HEALS_LINE, "Tea"): "Tea with Sugar",  # rename spell to consumable name for clarity
-    (TreeType.GAINS_RAGE_LINE, "Blood Fury"): "Gri'lek's Charm of Might",
+    (TreeType.GAINS_RAGE_LINE, "Blood Fury"): "Blood Fury (trinket)",
 }
 
 
@@ -342,138 +334,49 @@ def rename_spell(spell, line_type):
 
 
 # careful. not everything needs an itemid
-NAME2ITEMID = {
-    consumable.name: consumable.price.itemid
-    for consumable in all_defined_consumable_items
-    if isinstance(consumable.price, DirectPrice)
-}
+NAME2ITEMID = {}
+for item, price_comp in get_entities_with_component(PriceComponent):
+    if isinstance(price_comp.price, DirectPrice):
+        NAME2ITEMID[item.name] = price_comp.price.itemid
+
+
+
 
 
 # used for pricing
 ITEMID2NAME = {value: key for key, value in NAME2ITEMID.items()}
 
 
-INTERRUPT_SPELLS = {
-    "Kick",
-    "Pummel",
-    "Shield Bash",
-    "Earth Shock",
-}
+INTERRUPT_SPELLS = {entity.name for entity, _ in get_entities_with_component(InterruptSpellComponent)}
+TRINKET_SPELL = [entity.name for entity, _ in get_entities_with_component(TrinketComponent)]
+RACIAL_SPELL = [entity.name for entity, _ in get_entities_with_component(RacialSpellComponent)]
+RECEIVE_BUFF_SPELL = {entity.name for entity, _ in get_entities_with_component(ReceiveBuffSpellComponent)}
+
+def build_cdspell_class():
+    """
+    Returns list in the old format: [[PlayerClass, [spell_names]], ...]
+    Includes trinkets, racials, and receive buffs appended to each class.
+    """
+    class_spells = collections.defaultdict(list)
+    for entity, comp in get_entities_with_component(ClassCooldownComponent):
+        for pc in comp.player_classes:
+            class_spells[pc].append(entity.name)
+
+    shared_spells = TRINKET_SPELL + RACIAL_SPELL + sorted(RECEIVE_BUFF_SPELL)
+
+    result = []
+    for pc in [PlayerClass.WARRIOR, PlayerClass.MAGE, PlayerClass.SHAMAN,
+               PlayerClass.DRUID, PlayerClass.PRIEST, PlayerClass.PALADIN,
+               PlayerClass.ROGUE, PlayerClass.WARLOCK, PlayerClass.HUNTER]:
+        spells = class_spells[pc] + shared_spells
+        result.append([pc, spells])
+
+    return result
+
+CDSPELL_CLASS = build_cdspell_class()
+RENAME_TRINKET_SPELL = TRINKET_RENAME
 
 
-CDSPELL_CLASS = [
-    [
-        PlayerClass.WARRIOR,
-        [
-            "Death Wish",
-            "Sweeping Strikes",
-            "Shield Wall",
-            "Recklessness",
-            "Bloodrage",
-        ],
-    ],
-    [PlayerClass.MAGE, ["Combustion", "Scorch"]],
-    [
-        PlayerClass.SHAMAN,
-        [
-            "Nature's Swiftness",
-            "Windfury Totem",
-            "Mana Tide Totem",
-            "Grace of Air Totem",
-            "Tranquil Air Totem",
-            "Strength of Earth Totem",
-            "Mana Spring Totem",
-            "Searing Totem",
-            "Fire Nova Totem",
-            "Magma Totem",
-            "Ancestral Spirit",
-        ],
-    ],
-    [PlayerClass.DRUID, ["Nature's Swiftness", "Rebirth", "Swiftmend"]],
-    [
-        PlayerClass.PRIEST,
-        [
-            "Inner Focus",
-            "Resurrection",
-        ],
-    ],
-    [
-        PlayerClass.PALADIN,
-        ["Divine Favor", "Holy Shock (heal)", "Holy Shock (dmg)", "Redemption"],
-    ],
-    [
-        PlayerClass.ROGUE,
-        [
-            "Adrenaline Rush",
-            "Blade Flurry",
-        ],
-    ],
-    [PlayerClass.WARLOCK, []],
-    [PlayerClass.HUNTER, ["Rapid Fire"]],
-]
-
-
-RECEIVE_BUFF_SPELL = {
-    "Power Infusion",
-    "Bloodlust",
-    "Chastise Haste",
-}
-RACIAL_SPELL = [
-    "Blood Fury",
-    "Berserking",
-    "Stoneform",
-    "Desperate Prayer",
-    "Will of the Forsaken",
-    "War Stomp",
-]
-TRINKET_SPELL = [
-    "Kiss of the Spider",
-    "Slayer's Crest",
-    "Jom Gabbar",
-    "Badge of the Swarmguard",
-    "Earthstrike",
-    "Diamond Flask",
-    "Gri'lek's Charm of Might",
-    "The Eye of the Dead",
-    "Healing of the Ages",
-    "Essence of Sapphiron",
-    "Ephemeral Power",
-    "Unstable Power",
-    "Mind Quickening",
-    "Nature Aligned",
-    "Death by Peasant",
-    "Immune Charm/Fear/Stun",
-    "Immune Charm/Fear/Polymorph",
-    "Immune Fear/Polymorph/Snare",
-    "Immune Fear/Polymorph/Stun",
-    "Immune Root/Snare/Stun",
-    "Jewel of Wild Magics",
-    "Remains of Overwhelming Power",
-    "Elunes Guardian",
-    "Molten Power",
-]
-RENAME_TRINKET_SPELL = {
-    "Unstable Power": "Zandalarian Hero Charm",
-    "Ephemeral Power": "Talisman of Ephemeral Power",
-    "Essence of Sapphiron": "The Restrained Essence of Sapphiron",
-    "Mind Quickening": "Mind Quickening Gem",
-    "Nature Aligned": "Natural Alignment Crystal",
-    "Death by Peasant": "Barov Peasant Caller",
-    "Healing of the Ages": "Hibernation Crystal",
-    "Rapid Healing": "Hazza'rah's Charm of Healing",
-    "Chromatic Infusion": "Draconic Infused Emblem",
-    "Immune Charm/Fear/Stun": "Insignia of the Alliance/Horde",
-    "Immune Charm/Fear/Polymorph": "Insignia of the Alliance/Horde",
-    "Immune Fear/Polymorph/Snare": "Insignia of the Alliance/Horde",
-    "Immune Fear/Polymorph/Stun": "Insignia of the Alliance/Horde",
-    "Immune Root/Snare/Stun": "Insignia of the Alliance/Horde",
-    "Elunes Guardian": "The Scythe of Elune",
-    "Molten Power": "Molten Emberstone",
-}
-for spell in itertools.chain(TRINKET_SPELL, RACIAL_SPELL, sorted(RECEIVE_BUFF_SPELL)):
-    for clsorder in CDSPELL_CLASS:
-        spells = clsorder[1]
-        spells.append(spell)
 
 
 BUFF_SPELL = {
@@ -1428,7 +1331,7 @@ LINE2SPELLCAST = {
         "Molten Power",
     },
     TreeType.GAINS_RAGE_LINE: {
-        "Gri'lek's Charm of Might",
+        "Blood Fury (trinket)",
     },
     TreeType.HEALS_LINE: {
         "Holy Shock (heal)",
@@ -1626,41 +1529,42 @@ class ConsumablesAccumulator:
     data: List[ConsumablesEntry] = dataclasses.field(default_factory=list)
 
     def get_consumable_price(self, consumable_name: str) -> Currency:
-        consumable = NAME2CONSUMABLE.get(consumable_name)
-
         price = Currency(0)
-        if not consumable:
-            # logging.warning(f"Consumable '{consumable_name}' not defined.")
+        spell = NAME2CONSUMABLE.get(consumable_name)
+        if not spell:
             return price
 
-        if isinstance(consumable.price, NoPrice):
+        price_comps = spell.get_components(PriceComponent)
+        if not price_comps:
+            return price
+        item_price_info = price_comps[0].price
+
+        if isinstance(item_price_info, NoPrice):
             return price
 
         # Determine the list of items whose direct itemid-based price we need to sum up.
         # For a crafted item, these are its components.
         # For a base item, it's the item itself.
-        components_to_price: List[Tuple[Consumable, float]]
+        ingredients_to_price: List[Tuple[Entity, float]]
+        item_charges = item_price_info.charges
 
-        item_charges = consumable.price.charges
+        if isinstance(item_price_info, PriceFromIngredients):
+            ingredients_to_price = item_price_info.ingredients
+        elif isinstance(item_price_info, DirectPrice):
+            ingredients_to_price = [(spell, 1.0)]
+        else:
+            raise RuntimeError("this should be unreachable, NoPrice should be handled already")
 
-        if isinstance(consumable.price, PriceFromComponents):
-            components_to_price = consumable.price.components
-        elif isinstance(
-            consumable.price, DirectPrice
-        ):  # It's a base item (or has no defined components)
-            components_to_price = [(consumable, 1.0)]
-        else:  # Should not happen if NoPrice is handled
-            raise RuntimeError("this should be unreachable")
-
-        for base_item, quantity in components_to_price:
-            if not isinstance(base_item.price, DirectPrice) or not base_item.price.itemid:
-                # This item/component doesn't have an itemID to look up.
-                # logging.debug(f"Item '{base_item.name}' has no itemid for pricing.")
+        for ingredient, quantity in ingredients_to_price:
+            ingredient_price_comps = ingredient.get_components(PriceComponent)
+            if not ingredient_price_comps or not isinstance(
+                ingredient_price_comps[0].price, DirectPrice
+            ):
                 continue
+            ingredient_price_info = ingredient_price_comps[0].price
 
-            unit_price = self.pricedb.lookup(base_item.price.itemid)
+            unit_price = self.pricedb.lookup(ingredient_price_info.itemid)
             if unit_price is None:
-                # logging.debug(f"Price not found for item '{base_item.name}' (ID: {base_item.price.itemid}).")
                 continue
 
             price += int(unit_price * quantity)
@@ -2066,14 +1970,13 @@ def process_tree(app, line, tree: Tree):
         spellname = subtree.children[1].value
 
         consumable_item = RAWSPELLNAME2CONSUMABLE.get((subtree.data, spellname))
-        if consumable_item and isinstance(consumable_item, SuperwowConsumable):
-            if isinstance(consumable_item.strategy, IgnoreStrategy):
+        if consumable_item:
+            # Check if this is a superwow consumable
+            if consumable_item.has_component(IgnoreStrategyComponent):
                 return True  # Parsed and explicitly ignored
-
-            # For all other strategies (Safe, Enhance, Overwrite, or any future ones)
-            # on a SuperwowConsumable, add it to player_superwow for merging.
-            app.player_superwow[name][consumable_item.name] += 1
-            return True  # Parsed and staged for merge
+            if consumable_item.has_component(SuperwowComponent):
+                app.player_superwow[name][consumable_item.name] += 1
+                return True  # Parsed and staged for merge
 
         # If RAWSPELLNAME2CONSUMABLE.get found nothing or not a superwow consumable
         app.player_superwow_unknown[name][spellname] += 1
@@ -2904,50 +2807,50 @@ class MergeSuperwowConsumables:
             consumables_swow = set(self.player_superwow[player])
             consumables = set(self.player[player])
             for c_swow in consumables_swow:
-                consumable = NAME2CONSUMABLE.get(c_swow)
+                spell = NAME2CONSUMABLE.get(c_swow)
+                if spell is None:
+                    self.log(f"impossible! consumable not found {c_swow}")
+                    continue
 
-                match consumable:
-                    case None:
-                        self.log(f"impossible! consumable not found {c_swow}")
-                        continue
+                if spell.has_component(SafeStrategyComponent):
+                    if self.player[player].get(c_swow, 0):
+                        self.log(f"impossible! consumable not safe {spell}")
+                    self.player[player][c_swow] = self.player_superwow[player][c_swow]
+                    del self.player_superwow[player][c_swow]
 
-                    case SuperwowConsumable(strategy=SafeStrategy()):
-                        if self.player[player].get(c_swow, 0):
-                            self.log(f"impossible! consumable not safe {consumable}")
+                elif spell.has_component(EnhanceStrategyComponent):
+                    self.player[player][c_swow] = max(
+                        self.player_superwow[player][c_swow], self.player[player][c_swow]
+                    )
+                    del self.player_superwow[player][c_swow]
+
+                elif spell.has_component(OverwriteStrategyComponent):
+                    # will try to delete the native counts with the old name and use the new name coming from superwow
+                    # eg. the prot pots have non-specific native names, but with superwow the specific name shows up
+                    strategy_comp = spell.get_components(OverwriteStrategyComponent)[0]
+                    target_name = strategy_comp.target_consumable_name
+
+                    if (
+                        target_name != c_swow
+                        and self.player[player].get(target_name, 0) > self.player_superwow[player][c_swow]
+                    ):
+                        self.log(f"partial merge (overwrite). {player} {target_name} > {c_swow}")
+
+                        remain = self.player[player][target_name] - self.player_superwow[player][c_swow]
+                        self.player[player][target_name] = remain
                         self.player[player][c_swow] = self.player_superwow[player][c_swow]
                         del self.player_superwow[player][c_swow]
 
-                    case SuperwowConsumable(strategy=EnhanceStrategy()):
-                        self.player[player][c_swow] = max(
-                            self.player_superwow[player][c_swow], self.player[player][c_swow]
-                        )
-                        del self.player_superwow[player][c_swow]
-
-                    case SuperwowConsumable(strategy=OverwriteStrategy(target_consumable_name=c)):
-                        # will try to delete the native counts with the old name and use the new name coming from superwow
-                        # eg. the prot pots have non-specific native names, but with superwow the specific name shows up
-                        c = consumable.strategy.target_consumable_name
-
-                        if (
-                            c != c_swow
-                            and self.player[player].get(c, 0) > self.player_superwow[player][c_swow]
-                        ):
-                            self.log(f"partial merge (overwrite). {player} {c} > {c_swow}")
-
-                            remain = self.player[player][c] - self.player_superwow[player][c_swow]
-                            self.player[player][c] = remain
-                            self.player[player][c_swow] = self.player_superwow[player][c_swow]
-                            del self.player_superwow[player][c_swow]
-
-                            continue
-
-                        self.player[player].pop(c, None)  # might not exist
-                        self.player[player][c_swow] = self.player_superwow[player][c_swow]
-                        del self.player_superwow[player][c_swow]
-
-                    case _:
-                        self.log(f"{c_swow} not known??")
                         continue
+
+                    self.player[player].pop(target_name, None)  # might not exist
+                    self.player[player][c_swow] = self.player_superwow[player][c_swow]
+                    del self.player_superwow[player][c_swow]
+
+                else:
+                    self.log(f"{c_swow} not known??")
+                    continue
+
 
         all_unknown = set()
         for player, consumables in self.player_superwow_unknown.items():
@@ -2991,6 +2894,8 @@ def main(argv):
     parse_log(app, filename=logpath)
 
     output = generate_output(app)
+    
+
 
     if args.write_consumable_totals_csv:
 

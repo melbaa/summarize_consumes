@@ -1,11 +1,15 @@
 from melbalabs.summarize_consumes.main import NAME2ITEMID
 from melbalabs.summarize_consumes.main import NAME2CONSUMABLE
+from melbalabs.summarize_consumes.main import get_entities_with_component
 from melbalabs.summarize_consumes.main import RAWSPELLNAME2CONSUMABLE
 
 from melbalabs.summarize_consumes.consumable_db import all_defined_consumable_items
 
-from melbalabs.summarize_consumes.consumable_model import OverwriteStrategy
-from melbalabs.summarize_consumes.consumable_model import SuperwowConsumable
+from melbalabs.summarize_consumes.consumable_model import OverwriteStrategyComponent
+from melbalabs.summarize_consumes.consumable_model import PriceComponent
+from melbalabs.summarize_consumes.entity_model import SpellAliasComponent
+from melbalabs.summarize_consumes.parser import TreeType
+
 
 
 
@@ -322,8 +326,8 @@ def test_consumes_exist():
 
     RAWSPELLNAMES = set()
     # build cache of all raw spellnames
-    for consumable in all_defined_consumable_items:
-        for line_type, rawspellname in consumable.spell_aliases:
+    for spell, alias_comp in get_entities_with_component(SpellAliasComponent):
+        for line_type, rawspellname in alias_comp.spell_aliases:
             RAWSPELLNAMES.add(rawspellname)
 
 
@@ -347,31 +351,30 @@ def test_consumes_exist():
 
 
 def test_sanity1():
-
     for name in NAME2ITEMID:
         assert name in NAME2CONSUMABLE
-        assert NAME2CONSUMABLE[name].price.itemid == NAME2ITEMID[name]
+        spell = NAME2CONSUMABLE[name]
+        price_comp = spell.get_components(PriceComponent)[0]
+        assert price_comp.price.itemid == NAME2ITEMID[name]
+
 
 def test_sanity2():
     targets = []
 
     # target is a valid consumable
-    
-    for consumable in all_defined_consumable_items:
-        if not isinstance(consumable, SuperwowConsumable): continue
-        if not isinstance(consumable.strategy, OverwriteStrategy): continue
-        assert consumable.strategy.target_consumable_name in NAME2CONSUMABLE
-        targets.append(consumable.strategy.target_consumable_name)
-    
-    
-        
+    for item, strategy_comp in get_entities_with_component(OverwriteStrategyComponent):
+        target_name = strategy_comp.target_consumable_name
+        assert target_name in NAME2CONSUMABLE
+        targets.append(target_name)
+
+
+
 
 def test_sanity3():
     # special handling
-    assert RAWSPELLNAME2CONSUMABLE.get(('gains_mana_line', 'Restore Mana')) is None
+    assert RAWSPELLNAME2CONSUMABLE.get((TreeType.GAINS_MANA_LINE, 'Restore Mana')) is None
 
 
 def test_sanity5():
     uniq = len(set(consumable.name for consumable in all_defined_consumable_items))
     len(all_defined_consumable_items) == uniq
-

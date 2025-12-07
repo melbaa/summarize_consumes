@@ -748,6 +748,8 @@ Cooldown Summary
          Psykhe 49
          Baalfyr 15
          Pitbound 13
+      Gri'lek's Charm of Might
+         Squirreled 13
       Kiss of the Spider
          Vallcow 23
          Melriel 11
@@ -762,8 +764,6 @@ Cooldown Summary
       Earthstrike
          Squirreled 12
          Drapes 3
-      Gri'lek's Charm of Might
-         Squirreled 13
       Berserking
          Psykhe 7
       Bloodlust (received)

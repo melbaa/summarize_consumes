@@ -1410,7 +1410,7 @@ def test_cooldown_summary(app):
     assert app.spell_count.counts['The Eye of the Dead']['Interlani'] == 1
     assert app.spell_count.counts["Bloodlust"]['Murto'] == 1
     assert app.spell_count.counts["Power Infusion"]['Nerilen'] == 1
-    assert app.spell_count.counts["Gri'lek's Charm of Might"]['Squirreled'] == 1
+    assert app.spell_count.counts["Blood Fury (trinket)"]['Squirreled'] == 1
     assert app.spell_count.counts['Diamond Flask']['Ler'] == 1
     assert app.spell_count.counts['Ancestral Spirit']['Ionize'] == 1
     assert app.spell_count.counts['Resurrection']['Melbaxd'] == 1
@@ -1460,6 +1460,7 @@ def test_cooldown_summary(app):
 
 
     # assert output.getvalue() == '\n\nCooldown Usage\n   Death Wish\n      Pitbound 1\n   Recklessness\n      Martl 1\n'
+    
     pass
 
 def test_spellcount_stackcount(app):

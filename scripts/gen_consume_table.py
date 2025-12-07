@@ -2,7 +2,7 @@
 import argparse
 from pathlib import Path
 from melbalabs.summarize_consumes.consumable_model import DirectPrice
-from melbalabs.summarize_consumes.consumable_model import PriceFromComponents
+from melbalabs.summarize_consumes.consumable_model import PriceFromIngredients
 from melbalabs.summarize_consumes.consumable_db import all_defined_consumable_items
 
 def main():
@@ -22,9 +22,9 @@ def main():
                 price_str = f"[{consumable.price.itemid}](https://database.turtle-wow.org/?item={consumable.price.itemid})"
                 if consumable.price.charges > 1:
                     charges_str = str(consumable.price.charges)
-            elif isinstance(consumable.price, PriceFromComponents):
+            elif isinstance(consumable.price, PriceFromIngredients):
                 components = []
-                for component, count in consumable.price.components:
+                for component, count in consumable.price.ingredients:
                     components.append(f"{count} x {component.name}")
                 price_str = "<br>".join(components)
                 if consumable.price.charges > 1:

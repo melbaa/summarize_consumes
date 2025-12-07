@@ -678,6 +678,8 @@ Cooldown Summary
          Martl 39
          Psykhe 36
          Pitbound 8
+      Gri'lek's Charm of Might
+         Squirreled 1
       Kiss of the Spider
          Saberslash 29
          Zloveleen 23
@@ -699,8 +701,6 @@ Cooldown Summary
       Diamond Flask
          Zloveleen 5
          Saberslash 1
-      Gri'lek's Charm of Might
-         Squirreled 1
       Berserking
          Psykhe 18
       Chastise Haste (received)
