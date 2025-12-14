@@ -24,8 +24,6 @@ class PlayerClass(Enum):
         return cls(class_string.lower())
 
 
-
-
 class Component:
     pass
 
@@ -36,10 +34,13 @@ C = TypeVar("C", bound=Component)
 COMPONENT_REGISTRY: Dict[Type[C], Dict["Entity", C]] = collections.defaultdict(dict)
 
 ENTITY_UNIQUE_CONSTRAINT: Set[str] = set()
+
+
 def entity_unique_constraint(name: str):
     if name in ENTITY_UNIQUE_CONSTRAINT:
         raise ValueError(f"Duplicate entity name: {name}")
     ENTITY_UNIQUE_CONSTRAINT.add(name)
+
 
 class Entity:
     def __init__(self, name: str, components: List[Component]):
@@ -69,29 +70,27 @@ def get_entities_with_component(component_type: Type[C]) -> ItemsView[Entity, C]
     return COMPONENT_REGISTRY[component_type].items()
 
 
-def get_entities_with_components(*component_types: Type[Component]) -> List[Tuple[Entity, List[Component]]]:
-
+def get_entities_with_components(
+    *component_types: Type[Component],
+) -> List[Tuple[Entity, List[Component]]]:
     if not component_types:
         return []
 
     # intersecting a small set against a large one is much faster than vice versa.
     sorted_types = sorted(component_types, key=lambda t: len(COMPONENT_REGISTRY[t]))
-    
+
     candidates = COMPONENT_REGISTRY[sorted_types[0]].keys()
 
     # dict_keys supports &
     for c_type in sorted_types[1:]:
         candidates &= COMPONENT_REGISTRY[c_type].keys()
 
-    
     results = []
     for entity in candidates:
         comps = [COMPONENT_REGISTRY[t][entity] for t in component_types]
         results.append((entity, comps))
-    
+
     return results
-
-
 
 
 @dataclass
@@ -117,6 +116,7 @@ class BuffSpellComponent(Component):
 @dataclass
 class ClassCooldownComponent(Component):
     """For CDSPELL_CLASS lists - class spells with cooldowns."""
+
     player_classes: List[PlayerClass]
 
 
@@ -125,11 +125,15 @@ class ReceiveBuffSpellComponent(Component):
     pass
 
 
-SPELL_ALIAS_UNIQUE_CONSTRAINT : Set[Tuple[TreeType, str]] = set()
+SPELL_ALIAS_UNIQUE_CONSTRAINT: Set[Tuple[TreeType, str]] = set()
+
+
 def spell_alias_unique_constraint(alias: Tuple[TreeType, str]):
     if alias in SPELL_ALIAS_UNIQUE_CONSTRAINT:
         raise ValueError(f"Duplicate spell alias: {alias}")
     SPELL_ALIAS_UNIQUE_CONSTRAINT.add(alias)
+
+
 @dataclass
 class SpellAliasComponent(Component):
     # the aliases are used to map log names to this instance
@@ -140,4 +144,3 @@ class SpellAliasComponent(Component):
         for alias in self.spell_aliases:
             if alias in SPELL_ALIAS_UNIQUE_CONSTRAINT:
                 spell_alias_unique_constraint(alias)
-

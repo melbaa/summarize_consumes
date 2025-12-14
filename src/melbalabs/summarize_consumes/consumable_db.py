@@ -972,7 +972,9 @@ all_defined_consumable_items: List[Entity] = [
         name="Mageblood Potion",
         price=DirectPrice(itemid=20007),
         spell_aliases=[(TreeType.USES_LINE, "Mageblood Potion")],
-        strategy=OverwriteStrategyComponent(target_consumable_name="Mana Regeneration (food or mageblood)"),
+        strategy=OverwriteStrategyComponent(
+            target_consumable_name="Mana Regeneration (food or mageblood)"
+        ),
     ),
     SuperwowConsumable(
         name="Danonzo's Tel'Abim Surprise",
@@ -1050,7 +1052,9 @@ all_defined_consumable_items: List[Entity] = [
         name="Nightfin Soup",
         price=DirectPrice(itemid=13931),
         spell_aliases=[(TreeType.USES_LINE, "Nightfin Soup")],
-        strategy=OverwriteStrategyComponent(target_consumable_name="Mana Regeneration (food or mageblood)"),
+        strategy=OverwriteStrategyComponent(
+            target_consumable_name="Mana Regeneration (food or mageblood)"
+        ),
     ),
     SuperwowConsumable(
         name="Weak Troll's Blood Potion",

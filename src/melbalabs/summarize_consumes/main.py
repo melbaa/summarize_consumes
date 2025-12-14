@@ -308,7 +308,9 @@ class HitsConsumable:
 NAME2CONSUMABLE: Dict[str, Entity] = {item.name: item for item in all_defined_consumable_items}
 
 RAWSPELLNAME2CONSUMABLE: Dict[Tuple[TreeType, str], Entity] = dict()
-for item, (tag, alias_comp) in get_entities_with_components(ConsumableComponent, SpellAliasComponent):
+for item, (tag, alias_comp) in get_entities_with_components(
+    ConsumableComponent, SpellAliasComponent
+):
     # Only entities with spell aliases can be parsed from logs.
     for line_type, raw_spellname in alias_comp.spell_aliases:
         key = (line_type, raw_spellname)
@@ -340,17 +342,19 @@ for item, price_comp in get_entities_with_component(PriceComponent):
         NAME2ITEMID[item.name] = price_comp.price.itemid
 
 
-
-
-
 # used for pricing
 ITEMID2NAME = {value: key for key, value in NAME2ITEMID.items()}
 
 
-INTERRUPT_SPELLS = {entity.name for entity, _ in get_entities_with_component(InterruptSpellComponent)}
+INTERRUPT_SPELLS = {
+    entity.name for entity, _ in get_entities_with_component(InterruptSpellComponent)
+}
 TRINKET_SPELL = [entity.name for entity, _ in get_entities_with_component(TrinketComponent)]
 RACIAL_SPELL = [entity.name for entity, _ in get_entities_with_component(RacialSpellComponent)]
-RECEIVE_BUFF_SPELL = {entity.name for entity, _ in get_entities_with_component(ReceiveBuffSpellComponent)}
+RECEIVE_BUFF_SPELL = {
+    entity.name for entity, _ in get_entities_with_component(ReceiveBuffSpellComponent)
+}
+
 
 def build_cdspell_class():
     """
@@ -365,18 +369,25 @@ def build_cdspell_class():
     shared_spells = TRINKET_SPELL + RACIAL_SPELL + sorted(RECEIVE_BUFF_SPELL)
 
     result = []
-    for pc in [PlayerClass.WARRIOR, PlayerClass.MAGE, PlayerClass.SHAMAN,
-               PlayerClass.DRUID, PlayerClass.PRIEST, PlayerClass.PALADIN,
-               PlayerClass.ROGUE, PlayerClass.WARLOCK, PlayerClass.HUNTER]:
+    for pc in [
+        PlayerClass.WARRIOR,
+        PlayerClass.MAGE,
+        PlayerClass.SHAMAN,
+        PlayerClass.DRUID,
+        PlayerClass.PRIEST,
+        PlayerClass.PALADIN,
+        PlayerClass.ROGUE,
+        PlayerClass.WARLOCK,
+        PlayerClass.HUNTER,
+    ]:
         spells = class_spells[pc] + shared_spells
         result.append([pc, spells])
 
     return result
 
+
 CDSPELL_CLASS = build_cdspell_class()
 RENAME_TRINKET_SPELL = TRINKET_RENAME
-
-
 
 
 BUFF_SPELL = {
@@ -2832,11 +2843,14 @@ class MergeSuperwowConsumables:
 
                     if (
                         target_name != c_swow
-                        and self.player[player].get(target_name, 0) > self.player_superwow[player][c_swow]
+                        and self.player[player].get(target_name, 0)
+                        > self.player_superwow[player][c_swow]
                     ):
                         self.log(f"partial merge (overwrite). {player} {target_name} > {c_swow}")
 
-                        remain = self.player[player][target_name] - self.player_superwow[player][c_swow]
+                        remain = (
+                            self.player[player][target_name] - self.player_superwow[player][c_swow]
+                        )
                         self.player[player][target_name] = remain
                         self.player[player][c_swow] = self.player_superwow[player][c_swow]
                         del self.player_superwow[player][c_swow]
@@ -2850,7 +2864,6 @@ class MergeSuperwowConsumables:
                 else:
                     self.log(f"{c_swow} not known??")
                     continue
-
 
         all_unknown = set()
         for player, consumables in self.player_superwow_unknown.items():
@@ -2894,8 +2907,6 @@ def main(argv):
     parse_log(app, filename=logpath)
 
     output = generate_output(app)
-    
-
 
     if args.write_consumable_totals_csv:
 

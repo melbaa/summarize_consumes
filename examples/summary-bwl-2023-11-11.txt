@@ -256,6 +256,8 @@ Cooldown Summary
          Redzeus 5
       Insignia of the Alliance/Horde
          Ridea 1
+      Draconic Infused Emblem
+         Coldbeer 1
       Berserking
          Redzeus 6
    Shaman
@@ -326,6 +328,8 @@ Cooldown Summary
          Sunor 20
       Zandalarian Hero Charm
          Sunor 1
+      Hazza'rah's Charm of Healing
+         Arzetlam 3
       Will of the Forsaken
          Arzetlam 1
       Power Infusion (received)

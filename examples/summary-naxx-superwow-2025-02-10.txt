@@ -786,6 +786,8 @@ Cooldown Summary
          Randgriz 3
       Zandalarian Hero Charm
          Suigetsu 5
+      Hazza'rah's Charm of Healing
+         Randgriz 8
       Stoneform
          Suigetsu 4
       Desperate Prayer

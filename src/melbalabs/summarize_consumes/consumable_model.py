@@ -7,7 +7,6 @@ from melbalabs.summarize_consumes.entity_model import Component, SpellAliasCompo
 from melbalabs.summarize_consumes.entity_model import Entity
 
 
-
 """
 types of consumables by availability in combat log
 * not in combat log at all. they are base components for pricing other consumables
@@ -58,7 +57,7 @@ class ChargeValidation:
 
 @dataclass(frozen=True, kw_only=True)
 class DirectPrice(ChargeValidation):
-    """ base item / non-component item """
+    """base item / non-component item"""
 
     itemid: int
 
@@ -81,18 +80,21 @@ class PriceFromIngredients(ChargeValidation):
 @dataclass(frozen=True)
 class IgnoreStrategyComponent(Component):
     """Ignore this Superwow consumable."""
+
     pass
 
 
 @dataclass(frozen=True)
 class SafeStrategyComponent(Component):
     """Add this Superwow consumable. No complex merging."""
+
     pass
 
 
 @dataclass(frozen=True)
 class EnhanceStrategyComponent(Component):
     """Enhance native counts with Superwow counts. Takes max of the two."""
+
     pass
 
 
@@ -116,7 +118,9 @@ class PriceComponent(Component):
 @dataclass
 class SuperwowComponent(Component):
     """Marker component for all Superwow consumables. Used as catch-all when merging"""
+
     pass
+
 
 class ConsumableComponent(Component):
     pass
@@ -146,4 +150,3 @@ def Consumable(name, price, spell_aliases=None):
 def Ingredient(name, price):
     """Creates a base ingredient entity for pricing purposes."""
     return Entity(name, components=[PriceComponent(price=price)])
-

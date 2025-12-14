@@ -896,6 +896,8 @@ Cooldown Summary
          Cheesebreath 32
       Zandalarian Hero Charm
          Valurian 3
+      Draconic Infused Emblem
+         Valurian 2
       Power Infusion (received)
          Cheesebreath 1
    Priest
@@ -915,6 +917,8 @@ Cooldown Summary
          Suigetsu 18
          Ancst 7
          Sanwen 4
+      Hazza'rah's Charm of Healing
+         Sanwen 27
       Stoneform
          Suigetsu 6
       Desperate Prayer

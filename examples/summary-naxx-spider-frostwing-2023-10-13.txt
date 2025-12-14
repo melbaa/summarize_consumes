@@ -645,6 +645,8 @@ Cooldown Summary
          Jarnp 17
          Sunor 12
          Rossol 10
+      Hazza'rah's Charm of Healing
+         Arzetlam 5
       Power Infusion (received)
          Sunor 17
    Paladin

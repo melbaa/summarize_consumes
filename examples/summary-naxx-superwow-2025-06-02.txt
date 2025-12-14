@@ -918,6 +918,8 @@ Cooldown Summary
       The Eye of the Dead
          Randgriz 13
          Pristitute 3
+      Hazza'rah's Charm of Healing
+         Randgriz 9
       Desperate Prayer
          Adya 2
          Yuyi 1

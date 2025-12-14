@@ -2,6 +2,7 @@
 Central spell database using component model.
 All spells with their properties defined in one place.
 """
+
 from melbalabs.summarize_consumes.entity_model import Entity
 from melbalabs.summarize_consumes.entity_model import PlayerClass
 from melbalabs.summarize_consumes.entity_model import TrinketComponent
@@ -9,8 +10,6 @@ from melbalabs.summarize_consumes.entity_model import InterruptSpellComponent
 from melbalabs.summarize_consumes.entity_model import RacialSpellComponent
 from melbalabs.summarize_consumes.entity_model import ClassCooldownComponent
 from melbalabs.summarize_consumes.entity_model import ReceiveBuffSpellComponent
-from melbalabs.summarize_consumes.entity_model import SpellAliasComponent
-from melbalabs.summarize_consumes.parser import TreeType
 
 
 # spell name -> item name map
@@ -36,22 +35,16 @@ TRINKET_RENAME = {
 
 
 all_entities = [
-
     Entity("Kick", [InterruptSpellComponent()]),
     Entity("Pummel", [InterruptSpellComponent()]),
     Entity("Shield Bash", [InterruptSpellComponent()]),
     Entity("Earth Shock", [InterruptSpellComponent()]),
-
-
     Entity("Blood Fury", [RacialSpellComponent()]),
     Entity("Berserking", [RacialSpellComponent()]),
     Entity("Stoneform", [RacialSpellComponent()]),
     Entity("Desperate Prayer", [RacialSpellComponent()]),
     Entity("Will of the Forsaken", [RacialSpellComponent()]),
     Entity("War Stomp", [RacialSpellComponent()]),
-
-
-
     Entity("Blood Fury (trinket)", [TrinketComponent()]),
     Entity("Kiss of the Spider", [TrinketComponent()]),
     Entity("Slayer's Crest", [TrinketComponent()]),
@@ -76,23 +69,24 @@ all_entities = [
     Entity("Remains of Overwhelming Power", [TrinketComponent()]),
     Entity("Elunes Guardian", [TrinketComponent()]),
     Entity("Molten Power", [TrinketComponent()]),
-
+    Entity("Rapid Healing", [TrinketComponent()]),
+    Entity("Chromatic Infusion", [TrinketComponent()]),
     Entity("Power Infusion", [ReceiveBuffSpellComponent()]),
     Entity("Bloodlust", [ReceiveBuffSpellComponent()]),
     Entity("Chastise Haste", [ReceiveBuffSpellComponent()]),
-
     Entity("Death Wish", [ClassCooldownComponent([PlayerClass.WARRIOR])]),
     Entity("Sweeping Strikes", [ClassCooldownComponent([PlayerClass.WARRIOR])]),
     Entity("Shield Wall", [ClassCooldownComponent([PlayerClass.WARRIOR])]),
     Entity("Recklessness", [ClassCooldownComponent([PlayerClass.WARRIOR])]),
     Entity("Bloodrage", [ClassCooldownComponent([PlayerClass.WARRIOR])]),
-
     Entity("Combustion", [ClassCooldownComponent([PlayerClass.MAGE])]),
     Entity("Scorch", [ClassCooldownComponent([PlayerClass.MAGE])]),
-
-    Entity("Nature's Swiftness", [
-        ClassCooldownComponent([PlayerClass.SHAMAN, PlayerClass.DRUID]),  # shared spell
-    ]),
+    Entity(
+        "Nature's Swiftness",
+        [
+            ClassCooldownComponent([PlayerClass.SHAMAN, PlayerClass.DRUID]),  # shared spell
+        ],
+    ),
     Entity("Windfury Totem", [ClassCooldownComponent([PlayerClass.SHAMAN])]),
     Entity("Mana Tide Totem", [ClassCooldownComponent([PlayerClass.SHAMAN])]),
     Entity("Grace of Air Totem", [ClassCooldownComponent([PlayerClass.SHAMAN])]),
@@ -103,21 +97,15 @@ all_entities = [
     Entity("Fire Nova Totem", [ClassCooldownComponent([PlayerClass.SHAMAN])]),
     Entity("Magma Totem", [ClassCooldownComponent([PlayerClass.SHAMAN])]),
     Entity("Ancestral Spirit", [ClassCooldownComponent([PlayerClass.SHAMAN])]),
-
     Entity("Rebirth", [ClassCooldownComponent([PlayerClass.DRUID])]),
     Entity("Swiftmend", [ClassCooldownComponent([PlayerClass.DRUID])]),
-
     Entity("Inner Focus", [ClassCooldownComponent([PlayerClass.PRIEST])]),
     Entity("Resurrection", [ClassCooldownComponent([PlayerClass.PRIEST])]),
-
-
     Entity("Divine Favor", [ClassCooldownComponent([PlayerClass.PALADIN])]),
     Entity("Holy Shock (heal)", [ClassCooldownComponent([PlayerClass.PALADIN])]),
     Entity("Holy Shock (dmg)", [ClassCooldownComponent([PlayerClass.PALADIN])]),
     Entity("Redemption", [ClassCooldownComponent([PlayerClass.PALADIN])]),
-
     Entity("Adrenaline Rush", [ClassCooldownComponent([PlayerClass.ROGUE])]),
     Entity("Blade Flurry", [ClassCooldownComponent([PlayerClass.ROGUE])]),
-
     Entity("Rapid Fire", [ClassCooldownComponent([PlayerClass.HUNTER])]),
 ]
