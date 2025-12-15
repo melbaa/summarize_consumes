@@ -643,31 +643,6 @@ Sunder Armor Summary (trash and boss counts)
 
 Cooldown Summary
    Warrior
-      Death Wish
-         Sabroso 23
-         Psykhe 19
-         Rila 16
-         Saberslash 14
-         Martl 14
-         Squirreled 12
-         Pitbound 9
-         Zloveleen 4
-      Sweeping Strikes
-         Zloveleen 48
-         Ruwusz 41
-         Saberslash 19
-      Shield Wall
-         Zloveleen 1
-         Squirreled 1
-      Recklessness
-         Sabroso 4
-         Ruwusz 4
-         Saberslash 3
-         Rila 3
-         Psykhe 3
-         Pitbound 3
-         Martl 3
-         Zloveleen 2
       Bloodrage
          Ruwusz 67
          Zloveleen 55
@@ -678,8 +653,41 @@ Cooldown Summary
          Martl 39
          Psykhe 36
          Pitbound 8
+      Death Wish
+         Sabroso 23
+         Psykhe 19
+         Rila 16
+         Saberslash 14
+         Martl 14
+         Squirreled 12
+         Pitbound 9
+         Zloveleen 4
+      Recklessness
+         Sabroso 4
+         Ruwusz 4
+         Saberslash 3
+         Rila 3
+         Psykhe 3
+         Pitbound 3
+         Martl 3
+         Zloveleen 2
+      Shield Wall
+         Zloveleen 1
+         Squirreled 1
+      Sweeping Strikes
+         Zloveleen 48
+         Ruwusz 41
+         Saberslash 19
+      Badge of the Swarmguard
+         Zloveleen 12
+         Psykhe 12
+         Sabroso 7
+         Rila 3
       Gri'lek's Charm of Might
          Squirreled 1
+      Diamond Flask
+         Zloveleen 5
+         Saberslash 1
       Kiss of the Spider
          Saberslash 29
          Zloveleen 23
@@ -693,14 +701,6 @@ Cooldown Summary
          Psykhe 10
          Sabroso 9
          Saberslash 6
-      Badge of the Swarmguard
-         Zloveleen 12
-         Psykhe 12
-         Sabroso 7
-         Rila 3
-      Diamond Flask
-         Zloveleen 5
-         Saberslash 1
       Berserking
          Psykhe 18
       Chastise Haste (received)
@@ -720,41 +720,41 @@ Cooldown Summary
          Nehelenia 1
          Mosquitowins 1
    Shaman
-      Nature's Swiftness
-         Interlan 18
-         Snega 13
-         Bobbywf 10
-         Selverslip 7
-      Windfury Totem
-         Interlan 121
-         Selverslip 115
-         Snega 109
-         Bobbywf 100
-      Tranquil Air Totem
-         Clapya 96
-      Strength of Earth Totem
-         Selverslip 116
-         Snega 109
-         Bobbywf 102
-         Interlan 99
-         Clapya 75
+      Ancestral Spirit
+         Clapya 5
+         Interlan 4
+         Snega 2
+         Selverslip 2
       Mana Spring Totem
          Snega 107
          Bobbywf 104
          Selverslip 88
          Interlan 60
          Clapya 40
-      Ancestral Spirit
+      Nature's Swiftness
+         Interlan 18
+         Snega 13
+         Bobbywf 10
+         Selverslip 7
+      Strength of Earth Totem
+         Selverslip 116
+         Snega 109
+         Bobbywf 102
+         Interlan 99
+         Clapya 75
+      Tranquil Air Totem
+         Clapya 96
+      Windfury Totem
+         Interlan 121
+         Selverslip 115
+         Snega 109
+         Bobbywf 100
+      Natural Alignment Crystal
          Clapya 5
-         Interlan 4
-         Snega 2
          Selverslip 2
       Zandalarian Hero Charm
          Bobbywf 9
          Selverslip 5
-      Natural Alignment Crystal
-         Clapya 5
-         Selverslip 2
       Berserking
          Interlan 14
          Clapya 14
@@ -765,10 +765,10 @@ Cooldown Summary
          Eleae 1
       Swiftmend
          Aveenna 88
-      Slayer's Crest
-         Shape 2
       The Restrained Essence of Sapphiron
          Starraven 41
+      Slayer's Crest
+         Shape 2
       War Stomp
          Shape 3
    Priest
@@ -781,17 +781,17 @@ Cooldown Summary
          Randgriz 3
          Pristitute 2
          Suigetsu 1
+      Hazza'rah's Charm of Healing
+         Randgriz 8
       The Eye of the Dead
          Pristitute 8
          Randgriz 3
       Zandalarian Hero Charm
          Suigetsu 5
-      Hazza'rah's Charm of Healing
-         Randgriz 8
-      Stoneform
-         Suigetsu 4
       Desperate Prayer
          Starr 3
+      Stoneform
+         Suigetsu 4
    Paladin
       Holy Shock (heal)
          Shizumo 81
@@ -800,21 +800,21 @@ Cooldown Summary
          Jocaste 6
          Xelya 3
          Supal 1
-      The Eye of the Dead
-         Jocaste 6
       The Restrained Essence of Sapphiron
          Xelya 7
+      The Eye of the Dead
+         Jocaste 6
    Rogue
       Adrenaline Rush
          Jinp 18
       Blade Flurry
          Jinp 31
+      Badge of the Swarmguard
+         Jinp 1
       Kiss of the Spider
          Jinp 27
       Slayer's Crest
          Jinp 19
-      Badge of the Swarmguard
-         Jinp 1
    Warlock
       The Restrained Essence of Sapphiron
          Adachisakura 1
@@ -824,15 +824,15 @@ Cooldown Summary
       Rapid Fire
          Minoas 17
          Spankys 11
-      Slayer's Crest
-         Spankys 23
-      Jom Gabbar
-         Minoas 5
-         Spankys 1
       Badge of the Swarmguard
          Spankys 13
       Earthstrike
          Minoas 4
+      Jom Gabbar
+         Minoas 5
+         Spankys 1
+      Slayer's Crest
+         Spankys 23
 
 
 Proc Summary

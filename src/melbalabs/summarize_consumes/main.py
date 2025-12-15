@@ -43,8 +43,9 @@ from melbalabs.summarize_consumes.consumable_model import PriceComponent
 from melbalabs.summarize_consumes.entity_model import SpellAliasComponent
 from melbalabs.summarize_consumes.consumable_model import SuperwowComponent
 from melbalabs.summarize_consumes.entity_model import InterruptSpellComponent
-from melbalabs.summarize_consumes.entity_model import TrinketSpellComponent
+
 from melbalabs.summarize_consumes.entity_model import RacialSpellComponent
+from melbalabs.summarize_consumes.entity_model import TrinketComponent
 from melbalabs.summarize_consumes.entity_model import ReceiveBuffSpellComponent
 from melbalabs.summarize_consumes.entity_model import ClassCooldownComponent
 from melbalabs.summarize_consumes.entity_db import TRINKET_RENAME
@@ -349,7 +350,11 @@ ITEMID2NAME = {value: key for key, value in NAME2ITEMID.items()}
 INTERRUPT_SPELLS = {
     entity.name for entity, _ in get_entities_with_component(InterruptSpellComponent)
 }
-TRINKET_SPELL = [entity.name for entity, _ in get_entities_with_component(TrinketSpellComponent)]
+TRINKET_SPELL = []
+for _, trinket_comp in get_entities_with_component(TrinketComponent):
+    TRINKET_SPELL.extend(trinket_comp.triggered_by_spells)
+TRINKET_SPELL = list(set(TRINKET_SPELL))
+
 RACIAL_SPELL = [entity.name for entity, _ in get_entities_with_component(RacialSpellComponent)]
 RECEIVE_BUFF_SPELL = {
     entity.name for entity, _ in get_entities_with_component(ReceiveBuffSpellComponent)
@@ -366,7 +371,7 @@ def build_cdspell_class():
         for pc in comp.player_classes:
             class_spells[pc].append(entity.name)
 
-    shared_spells = TRINKET_SPELL + RACIAL_SPELL + sorted(RECEIVE_BUFF_SPELL)
+    shared_spells = sorted(TRINKET_SPELL) + sorted(RACIAL_SPELL) + sorted(RECEIVE_BUFF_SPELL)
 
     result = []
     for pc in [
@@ -380,7 +385,7 @@ def build_cdspell_class():
         PlayerClass.WARLOCK,
         PlayerClass.HUNTER,
     ]:
-        spells = class_spells[pc] + shared_spells
+        spells = sorted(class_spells[pc]) + shared_spells
         result.append([pc, spells])
 
     return result

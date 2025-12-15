@@ -451,32 +451,6 @@ Sunder Armor Summary (trash and boss counts)
 
 Cooldown Summary
    Warrior
-      Death Wish
-         Psykhe 34
-         Dyrachyo 22
-         Maryhuff 17
-         Seryah 12
-         Jaekta 10
-         Everglow 8
-         Bubasita 8
-         Obbi 6
-         Rhudaur 5
-         Tockra 4
-         Melevolence 4
-      Shield Wall
-         Jaekta 3
-         Tockra 1
-         Psykhe 1
-         Melevolence 1
-      Recklessness
-         Seryah 3
-         Psykhe 3
-         Dyrachyo 3
-         Everglow 2
-         Tockra 1
-         Rhudaur 1
-         Obbi 1
-         Bubasita 1
       Bloodrage
          Psykhe 97
          Jaekta 63
@@ -489,16 +463,34 @@ Cooldown Summary
          Melevolence 44
          Bubasita 43
          Rhudaur 35
-      Kiss of the Spider
-         Dyrachyo 31
-         Jaekta 19
+      Death Wish
+         Psykhe 34
+         Dyrachyo 22
+         Maryhuff 17
+         Seryah 12
+         Jaekta 10
+         Everglow 8
+         Bubasita 8
+         Obbi 6
+         Rhudaur 5
+         Tockra 4
+         Melevolence 4
+      Recklessness
+         Seryah 3
+         Psykhe 3
+         Dyrachyo 3
+         Everglow 2
+         Tockra 1
+         Rhudaur 1
+         Obbi 1
+         Bubasita 1
+      Shield Wall
+         Jaekta 3
+         Tockra 1
+         Psykhe 1
+         Melevolence 1
       Badge of the Swarmguard
          Dyrachyo 4
-      Diamond Flask
-         Psykhe 12
-         Seryah 10
-         Rhudaur 6
-         Everglow 3
       Barov Peasant Caller
          Tockra 1
          Psykhe 1
@@ -506,6 +498,14 @@ Cooldown Summary
          Melevolence 1
          Jaekta 1
          Everglow 1
+      Diamond Flask
+         Psykhe 12
+         Seryah 10
+         Rhudaur 6
+         Everglow 3
+      Kiss of the Spider
+         Dyrachyo 31
+         Jaekta 19
       Berserking
          Psykhe 31
    Mage
@@ -517,50 +517,50 @@ Cooldown Summary
          Nmsj 238
          Shrimpshark 150
          Bruceweed 93
+      Barov Peasant Caller
+         Nmsj 1
       Talisman of Ephemeral Power
          Bruceweed 3
+      Mind Quickening Gem
+         Bruceweed 6
       Zandalarian Hero Charm
          Seath 23
          Shrimpshark 15
-      Mind Quickening Gem
-         Bruceweed 6
-      Barov Peasant Caller
-         Nmsj 1
       Stoneform
          Seath 5
    Shaman
+      Ancestral Spirit
+         Palkensen 27
+         Bigjelly 1
+      Fire Nova Totem
+         Bigjelly 15
+      Grace of Air Totem
+         Bigjelly 1
+      Magma Totem
+         Bigjelly 3
+      Mana Spring Totem
+         Palkensen 57
+         Bigjelly 7
+         Shumy 4
+      Mana Tide Totem
+         Palkensen 7
+         Shumy 1
       Nature's Swiftness
          Palkensen 10
          Bigjelly 9
          Shumy 1
-      Windfury Totem
-         Palkensen 155
-         Bigjelly 58
-         Shumy 6
-      Mana Tide Totem
-         Palkensen 7
-         Shumy 1
-      Grace of Air Totem
+      Searing Totem
+         Shumy 2
+         Palkensen 2
          Bigjelly 1
       Strength of Earth Totem
          Palkensen 65
          Bigjelly 18
          Shumy 4
-      Mana Spring Totem
-         Palkensen 57
-         Bigjelly 7
-         Shumy 4
-      Searing Totem
-         Shumy 2
-         Palkensen 2
-         Bigjelly 1
-      Fire Nova Totem
-         Bigjelly 15
-      Magma Totem
-         Bigjelly 3
-      Ancestral Spirit
-         Palkensen 27
-         Bigjelly 1
+      Windfury Totem
+         Palkensen 155
+         Bigjelly 58
+         Shumy 6
       Zandalarian Hero Charm
          Bigjelly 16
       Berserking
@@ -580,10 +580,10 @@ Cooldown Summary
          Daenshoo 55
          Teldelar 32
          Niviri 21
-      Zandalarian Hero Charm
-         Teldelar 34
       Barov Peasant Caller
          Niviri 1
+      Zandalarian Hero Charm
+         Teldelar 34
       War Stomp
          Daenshoo 1
    Priest
@@ -594,10 +594,10 @@ Cooldown Summary
       Resurrection
          Sunor 7
          Daenae 5
-      The Eye of the Dead
-         Melbaxd 18
       Talisman of Ephemeral Power
          Sunor 35
+      The Eye of the Dead
+         Melbaxd 18
       Zandalarian Hero Charm
          Sunor 2
       Will of the Forsaken
@@ -609,23 +609,23 @@ Cooldown Summary
          Lyahsunsworn 22
          Faradin 9
          Bloxie 6
-      Holy Shock (heal)
-         Lyahsunsworn 41
-         Bloxie 32
       Holy Shock (dmg)
          Bloxie 9
          Lyahsunsworn 2
          Faradin 1
+      Holy Shock (heal)
+         Lyahsunsworn 41
+         Bloxie 32
       Redemption
          Getterfour 14
          Bloxie 12
          Lyahsunsworn 9
          Loyola 8
+      Insignia of the Alliance/Horde
+         Bloxie 2
       Zandalarian Hero Charm
          Lyahsunsworn 24
          Getterfour 7
-      Insignia of the Alliance/Horde
-         Bloxie 2
    Rogue
       Adrenaline Rush
          Killanime 12
@@ -641,10 +641,10 @@ Cooldown Summary
       Will of the Forsaken
          Brocula 1
    Warlock
-      Talisman of Ephemeral Power
-         Xanadun 21
       Barov Peasant Caller
          Dregoth 1
+      Talisman of Ephemeral Power
+         Xanadun 21
       Will of the Forsaken
          Xanadun 2
          Dregoth 2

@@ -94,8 +94,8 @@ def get_entities_with_components(
 
 
 @dataclass
-class TrinketSpellComponent(Component):
-    pass
+class TrinketComponent(Component):
+    triggered_by_spells: List[str] = field(default_factory=list)
 
 
 @dataclass

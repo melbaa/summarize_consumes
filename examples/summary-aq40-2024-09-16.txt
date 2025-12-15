@@ -376,6 +376,14 @@ Sunder Armor Summary (trash and boss counts)
 
 Cooldown Summary
    Warrior
+      Bloodrage
+         Sabroso 30
+         Zloveleen 29
+         Vallcow 26
+         Magn 23
+         Psykhe 13
+         Richardtater 12
+         Pitbound 11
       Death Wish
          Psykhe 12
          Zloveleen 11
@@ -392,27 +400,19 @@ Cooldown Summary
          Sabroso 1
          Pitbound 1
          Magn 1
-      Bloodrage
-         Sabroso 30
-         Zloveleen 29
-         Vallcow 26
-         Magn 23
-         Psykhe 13
-         Richardtater 12
-         Pitbound 11
+      Badge of the Swarmguard
+         Zloveleen 11
+         Psykhe 7
+      Earthstrike
+         Magn 9
+      Jom Gabbar
+         Sabroso 2
       Kiss of the Spider
          Psykhe 15
          Pitbound 12
          Vallcow 8
       Slayer's Crest
          Psykhe 11
-      Jom Gabbar
-         Sabroso 2
-      Badge of the Swarmguard
-         Zloveleen 11
-         Psykhe 7
-      Earthstrike
-         Magn 9
       Berserking
          Psykhe 12
          Magn 6
@@ -430,47 +430,38 @@ Cooldown Summary
          Aquatic 77
          Shreked 70
          Immunium 1
+      Barov Peasant Caller
+         Aquatic 1
       Mind Quickening Gem
          Shreked 7
          Immunium 7
          Xiaofeigunn 4
          Aquatic 3
-      Barov Peasant Caller
-         Aquatic 1
    Shaman
-      Nature's Swiftness
-         Interlan 10
-         Ostkastare 9
-      Windfury Totem
-         Ratthew 96
-         Flowest 87
-         Cracklinoats 39
-         Catajumbo 35
-         Yakub 11
-         Clapya 6
-         Ostkastare 4
-         Interlan 4
-      Mana Tide Totem
-         Interlan 4
+      Ancestral Spirit
+         Flowest 6
+         Interlan 5
+         Yakub 2
          Ostkastare 2
+         Catajumbo 2
+         Cracklinoats 1
+         Clapya 1
+      Fire Nova Totem
+         Catajumbo 10
+         Ratthew 7
+         Cracklinoats 6
+         Flowest 2
+         Ostkastare 1
       Grace of Air Totem
          Ratthew 77
          Flowest 55
          Interlan 41
          Cracklinoats 1
-      Tranquil Air Totem
-         Clapya 34
-         Yakub 21
-         Ostkastare 14
-      Strength of Earth Totem
-         Interlan 44
-         Ratthew 40
-         Cracklinoats 40
-         Flowest 29
-         Catajumbo 28
-         Yakub 10
-         Clapya 6
-         Ostkastare 4
+      Magma Totem
+         Catajumbo 4
+         Ratthew 1
+         Flowest 1
+         Cracklinoats 1
       Mana Spring Totem
          Interlan 43
          Flowest 33
@@ -480,36 +471,45 @@ Cooldown Summary
          Ostkastare 21
          Ratthew 17
          Cracklinoats 2
+      Mana Tide Totem
+         Interlan 4
+         Ostkastare 2
+      Nature's Swiftness
+         Interlan 10
+         Ostkastare 9
       Searing Totem
          Cracklinoats 11
          Catajumbo 7
          Ostkastare 5
          Yakub 1
-      Fire Nova Totem
-         Catajumbo 10
-         Ratthew 7
-         Cracklinoats 6
-         Flowest 2
-         Ostkastare 1
-      Magma Totem
-         Catajumbo 4
-         Ratthew 1
-         Flowest 1
-         Cracklinoats 1
-      Ancestral Spirit
-         Flowest 6
-         Interlan 5
-         Yakub 2
-         Ostkastare 2
-         Catajumbo 2
-         Cracklinoats 1
-         Clapya 1
+      Strength of Earth Totem
+         Interlan 44
+         Ratthew 40
+         Cracklinoats 40
+         Flowest 29
+         Catajumbo 28
+         Yakub 10
+         Clapya 6
+         Ostkastare 4
+      Tranquil Air Totem
+         Clapya 34
+         Yakub 21
+         Ostkastare 14
+      Windfury Totem
+         Ratthew 96
+         Flowest 87
+         Cracklinoats 39
+         Catajumbo 35
+         Yakub 11
+         Clapya 6
+         Ostkastare 4
+         Interlan 4
+      Natural Alignment Crystal
+         Clapya 3
       Slayer's Crest
          Ratthew 8
       The Eye of the Dead
          Yakub 13
-      Natural Alignment Crystal
-         Clapya 3
       Berserking
          Interlan 9
          Clapya 9
@@ -541,10 +541,10 @@ Cooldown Summary
          Zdraxus 2
          Sunpriest 2
          Blindie 1
-      The Restrained Essence of Sapphiron
-         Zdraxus 10
       Talisman of Ephemeral Power
          Sunpriest 21
+      The Restrained Essence of Sapphiron
+         Zdraxus 10
       Will of the Forsaken
          Sunpriest 2
          Zdraxus 1
@@ -556,24 +556,24 @@ Cooldown Summary
    Paladin
       Divine Favor
          Jocaste 4
-      Holy Shock (heal)
-         Martlflash 20
-         Jocaste 8
       Holy Shock (dmg)
          Martlflash 5
          Jocaste 1
+      Holy Shock (heal)
+         Martlflash 20
+         Jocaste 8
       Redemption
          Jocaste 6
          Goldengoose 3
          Martlflash 2
+      Barov Peasant Caller
+         Martlflash 2
+         Goldengoose 1
       The Eye of the Dead
          Jocaste 3
       Zandalarian Hero Charm
          Bobsterr 5
          Martlflash 1
-      Barov Peasant Caller
-         Martlflash 2
-         Goldengoose 1
    Rogue
       Adrenaline Rush
          Mcstabbys 4
@@ -590,14 +590,14 @@ Cooldown Summary
          Murto 7
          Spankys 6
          Dhallya 4
-      Slayer's Crest
-         Spankys 13
-         Dhallya 4
-      Jom Gabbar
-         Dhallya 1
       Badge of the Swarmguard
          Spankys 10
          Dhallya 1
+      Jom Gabbar
+         Dhallya 1
+      Slayer's Crest
+         Spankys 13
+         Dhallya 4
       Berserking
          Spankys 7
 

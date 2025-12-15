@@ -278,26 +278,6 @@ Sunder Armor Summary (trash and boss counts)
 
 Cooldown Summary
    Warrior
-      Death Wish
-         Maryhuff 22
-         Psykhe 19
-         Dyrachyo 14
-         Montford 9
-         Bubasita 8
-         Edmonnd 6
-         Everglow 2
-      Sweeping Strikes
-         Storkie 20
-      Shield Wall
-         Psykhe 1
-         Edmonnd 1
-      Recklessness
-         Maryhuff 2
-         Dyrachyo 2
-         Psykhe 1
-         Montford 1
-         Everglow 1
-         Bubasita 1
       Bloodrage
          Psykhe 72
          Dyrachyo 57
@@ -307,6 +287,26 @@ Cooldown Summary
          Bubasita 35
          Storkie 34
          Everglow 34
+      Death Wish
+         Maryhuff 22
+         Psykhe 19
+         Dyrachyo 14
+         Montford 9
+         Bubasita 8
+         Edmonnd 6
+         Everglow 2
+      Recklessness
+         Maryhuff 2
+         Dyrachyo 2
+         Psykhe 1
+         Montford 1
+         Everglow 1
+         Bubasita 1
+      Shield Wall
+         Psykhe 1
+         Edmonnd 1
+      Sweeping Strikes
+         Storkie 20
       Kiss of the Spider
          Dyrachyo 28
       Berserking
@@ -323,68 +323,12 @@ Cooldown Summary
          Steinberg 49
       Talisman of Ephemeral Power
          Tlw 4
+      Insignia of the Alliance/Horde
+         Ridea 2
       Zandalarian Hero Charm
          Shrimpshark 15
          Steinberg 10
-      Insignia of the Alliance/Horde
-         Ridea 2
    Shaman
-      Nature's Swiftness
-         Shumy 13
-         Bigjelly 6
-         Geniesham 5
-         Kazgrun 3
-      Windfury Totem
-         Windfurytotm 126
-         Stormsnake 94
-         Geniesham 58
-         Kazgrun 34
-         Shumy 13
-         Ionize 12
-      Mana Tide Totem
-         Geniesham 4
-         Shumy 3
-         Kazgrun 2
-      Grace of Air Totem
-         Stormsnake 60
-         Windfurytotm 29
-         Kazgrun 4
-      Tranquil Air Totem
-         Ionize 50
-         Bigjelly 21
-         Shumy 19
-         Kazgrun 11
-      Strength of Earth Totem
-         Windfurytotm 89
-         Geniesham 48
-         Kazgrun 37
-         Stormsnake 35
-         Shumy 13
-         Ionize 11
-      Mana Spring Totem
-         Geniesham 58
-         Ionize 45
-         Shumy 37
-         Kazgrun 32
-         Bigjelly 22
-         Windfurytotm 14
-         Stormsnake 8
-      Searing Totem
-         Stormsnake 28
-         Bigjelly 15
-         Ionize 11
-         Shumy 6
-      Fire Nova Totem
-         Ionize 20
-         Stormsnake 8
-         Bigjelly 8
-         Kazgrun 1
-      Magma Totem
-         Ionize 7
-         Windfurytotm 4
-         Bigjelly 2
-         Stormsnake 1
-         Kazgrun 1
       Ancestral Spirit
          Shumy 12
          Ionize 7
@@ -393,11 +337,67 @@ Cooldown Summary
          Windfurytotm 2
          Geniesham 2
          Bigjelly 1
+      Fire Nova Totem
+         Ionize 20
+         Stormsnake 8
+         Bigjelly 8
+         Kazgrun 1
+      Grace of Air Totem
+         Stormsnake 60
+         Windfurytotm 29
+         Kazgrun 4
+      Magma Totem
+         Ionize 7
+         Windfurytotm 4
+         Bigjelly 2
+         Stormsnake 1
+         Kazgrun 1
+      Mana Spring Totem
+         Geniesham 58
+         Ionize 45
+         Shumy 37
+         Kazgrun 32
+         Bigjelly 22
+         Windfurytotm 14
+         Stormsnake 8
+      Mana Tide Totem
+         Geniesham 4
+         Shumy 3
+         Kazgrun 2
+      Nature's Swiftness
+         Shumy 13
+         Bigjelly 6
+         Geniesham 5
+         Kazgrun 3
+      Searing Totem
+         Stormsnake 28
+         Bigjelly 15
+         Ionize 11
+         Shumy 6
+      Strength of Earth Totem
+         Windfurytotm 89
+         Geniesham 48
+         Kazgrun 37
+         Stormsnake 35
+         Shumy 13
+         Ionize 11
+      Tranquil Air Totem
+         Ionize 50
+         Bigjelly 21
+         Shumy 19
+         Kazgrun 11
+      Windfury Totem
+         Windfurytotm 126
+         Stormsnake 94
+         Geniesham 58
+         Kazgrun 34
+         Shumy 13
+         Ionize 12
+      Natural Alignment Crystal
+         Bigjelly 11
       Zandalarian Hero Charm
          Ionize 24
          Geniesham 13
-      Natural Alignment Crystal
-         Bigjelly 11
       Berserking
          Ionize 19
          Geniesham 13
@@ -442,17 +442,17 @@ Cooldown Summary
          Jarnp 6
          Rossol 5
          Melbaxd 1
-      The Eye of the Dead
-         Melbaxd 12
       Talisman of Ephemeral Power
          Sunor 31
+      The Eye of the Dead
+         Melbaxd 12
       Zandalarian Hero Charm
          Rossol 12
          Jarnp 9
          Sunor 1
-      Stoneform
-         Ovski 1
       Desperate Prayer
+         Ovski 1
+      Stoneform
          Ovski 1
       Will of the Forsaken
          Jarnp 2
@@ -463,23 +463,23 @@ Cooldown Summary
          Morinethar 27
          Alderheim 12
          Bloxie 5
+      Holy Shock (dmg)
+         Bloxie 13
       Holy Shock (heal)
          Alderheim 35
          Morinethar 17
-      Holy Shock (dmg)
-         Bloxie 13
       Redemption
          Bloxie 11
          Morinethar 5
          Getterfour 3
          Christella 2
          Alderheim 1
+      Insignia of the Alliance/Horde
+         Bloxie 1
       Kiss of the Spider
          Getterfour 13
       Zandalarian Hero Charm
          Bloxie 6
-      Insignia of the Alliance/Horde
-         Bloxie 1
       Bloodlust (received)
          Bloxie 2
    Rogue

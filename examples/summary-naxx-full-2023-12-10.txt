@@ -714,29 +714,6 @@ Sunder Armor Summary (trash and boss counts)
 
 Cooldown Summary
    Warrior
-      Death Wish
-         Deathstruck 31
-         Drapes 30
-         Littlelnnos 27
-         Melriel 25
-         Martl 21
-         Psykhe 20
-         Squirreled 16
-         Vallcow 10
-         Pitbound 6
-         Baalfyr 3
-      Shield Wall
-         Pitbound 2
-         Vallcow 1
-      Recklessness
-         Martl 6
-         Deathstruck 5
-         Melriel 4
-         Littlelnnos 4
-         Drapes 4
-         Psykhe 3
-         Vallcow 1
-         Baalfyr 1
       Bloodrage
          Drapes 99
          Vallcow 83
@@ -748,22 +725,45 @@ Cooldown Summary
          Psykhe 49
          Baalfyr 15
          Pitbound 13
+      Death Wish
+         Deathstruck 31
+         Drapes 30
+         Littlelnnos 27
+         Melriel 25
+         Martl 21
+         Psykhe 20
+         Squirreled 16
+         Vallcow 10
+         Pitbound 6
+         Baalfyr 3
+      Recklessness
+         Martl 6
+         Deathstruck 5
+         Melriel 4
+         Littlelnnos 4
+         Drapes 4
+         Psykhe 3
+         Vallcow 1
+         Baalfyr 1
+      Shield Wall
+         Pitbound 2
+         Vallcow 1
+      Badge of the Swarmguard
+         Drapes 30
+         Martl 21
+         Deathstruck 21
+         Littlelnnos 20
       Gri'lek's Charm of Might
          Squirreled 13
+      Earthstrike
+         Squirreled 12
+         Drapes 3
       Kiss of the Spider
          Vallcow 23
          Melriel 11
       Slayer's Crest
          Deathstruck 42
          Drapes 30
-      Badge of the Swarmguard
-         Drapes 30
-         Martl 21
-         Deathstruck 21
-         Littlelnnos 20
-      Earthstrike
-         Squirreled 12
-         Drapes 3
       Berserking
          Psykhe 7
       Bloodlust (received)
@@ -785,19 +785,19 @@ Cooldown Summary
          Sunwelp 257
          Aquatic 198
          Ryx 57
+      Barov Peasant Caller
+         Zedog 1
+      Talisman of Ephemeral Power
+         Shreked 3
       The Restrained Essence of Sapphiron
          Sunwelp 30
          Shreked 21
-      Talisman of Ephemeral Power
-         Shreked 3
-      Zandalarian Hero Charm
-         Shreked 3
       Mind Quickening Gem
          Aquatic 14
          Shreked 7
          Sunwelp 2
-      Barov Peasant Caller
-         Zedog 1
+      Zandalarian Hero Charm
+         Shreked 3
       Berserking
          Sunwelp 33
       Will of the Forsaken
@@ -807,36 +807,24 @@ Cooldown Summary
          Sunwelp 16
          Shreked 1
    Shaman
-      Nature's Swiftness
-         Yakub 23
-         Ergofobia 15
-         Seidhkona 3
-      Windfury Totem
-         Cracklinoats 167
-         Abstractz 113
-         Seidhkona 94
-         Ratthew 69
-         Yakub 12
-         Ergofobia 9
-      Mana Tide Totem
-         Yakub 13
-         Ergofobia 13
+      Ancestral Spirit
+         Yakub 6
+         Cracklinoats 6
+         Abstractz 4
          Seidhkona 2
+      Fire Nova Totem
+         Cracklinoats 16
+         Ergofobia 12
+         Ratthew 2
       Grace of Air Totem
          Ergofobia 103
          Ratthew 65
          Cracklinoats 24
          Yakub 8
-      Tranquil Air Totem
-         Yakub 122
-         Ergofobia 2
-      Strength of Earth Totem
-         Cracklinoats 116
-         Ergofobia 81
-         Abstractz 81
-         Seidhkona 13
-         Ratthew 11
-         Yakub 10
+      Magma Totem
+         Cracklinoats 11
+         Ergofobia 5
+         Seidhkona 3
       Mana Spring Totem
          Yakub 131
          Abstractz 106
@@ -844,6 +832,14 @@ Cooldown Summary
          Seidhkona 81
          Ratthew 7
          Cracklinoats 6
+      Mana Tide Totem
+         Yakub 13
+         Ergofobia 13
+         Seidhkona 2
+      Nature's Swiftness
+         Yakub 23
+         Ergofobia 15
+         Seidhkona 3
       Searing Totem
          Cracklinoats 30
          Ergofobia 24
@@ -851,25 +847,29 @@ Cooldown Summary
          Yakub 9
          Ratthew 9
          Abstractz 5
-      Fire Nova Totem
-         Cracklinoats 16
-         Ergofobia 12
-         Ratthew 2
-      Magma Totem
-         Cracklinoats 11
-         Ergofobia 5
-         Seidhkona 3
-      Ancestral Spirit
-         Yakub 6
-         Cracklinoats 6
-         Abstractz 4
-         Seidhkona 2
+      Strength of Earth Totem
+         Cracklinoats 116
+         Ergofobia 81
+         Abstractz 81
+         Seidhkona 13
+         Ratthew 11
+         Yakub 10
+      Tranquil Air Totem
+         Yakub 122
+         Ergofobia 2
+      Windfury Totem
+         Cracklinoats 167
+         Abstractz 113
+         Seidhkona 94
+         Ratthew 69
+         Yakub 12
+         Ergofobia 9
       Talisman of Ephemeral Power
          Abstractz 2
-      Zandalarian Hero Charm
-         Yakub 22
       Natural Alignment Crystal
          Abstractz 8
+      Zandalarian Hero Charm
+         Yakub 22
       Berserking
          Yakub 25
          Abstractz 23
@@ -892,12 +892,12 @@ Cooldown Summary
       Swiftmend
          Valurian 43
          Almouty 40
+      Draconic Infused Emblem
+         Valurian 2
       The Restrained Essence of Sapphiron
          Cheesebreath 32
       Zandalarian Hero Charm
          Valurian 3
-      Draconic Infused Emblem
-         Valurian 2
       Power Infusion (received)
          Cheesebreath 1
    Priest
@@ -913,15 +913,15 @@ Cooldown Summary
          Zdraxus 4
       The Restrained Essence of Sapphiron
          Zdraxus 36
+      Hazza'rah's Charm of Healing
+         Sanwen 27
       Zandalarian Hero Charm
          Suigetsu 18
          Ancst 7
          Sanwen 4
-      Hazza'rah's Charm of Healing
-         Sanwen 27
-      Stoneform
-         Suigetsu 6
       Desperate Prayer
+         Suigetsu 6
+      Stoneform
          Suigetsu 6
       Will of the Forsaken
          Zdraxus 1
@@ -932,14 +932,14 @@ Cooldown Summary
          Bobsterr 33
          Interlani 13
          Jocaste 7
-      Holy Shock (heal)
-         Interlani 152
-         Bobsterr 130
-         Jocaste 11
       Holy Shock (dmg)
          Bobsterr 7
          Jocaste 1
          Interlani 1
+      Holy Shock (heal)
+         Interlani 152
+         Bobsterr 130
+         Jocaste 11
       Redemption
          Interlani 12
          Supal 6
@@ -967,15 +967,15 @@ Cooldown Summary
       Rapid Fire
          Babystone 19
          Dhallya 16
-      Slayer's Crest
-         Dhallya 36
-      Jom Gabbar
-         Dhallya 14
       Badge of the Swarmguard
          Babystone 18
          Dhallya 14
       Earthstrike
          Babystone 18
+      Jom Gabbar
+         Dhallya 14
+      Slayer's Crest
+         Dhallya 36
 
 
 Proc Summary

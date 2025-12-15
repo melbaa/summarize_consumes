@@ -211,6 +211,13 @@ Sunder Armor Summary (trash and boss counts)
 
 Cooldown Summary
    Warrior
+      Bloodrage
+         Dyrachyo 60
+         Everglow 47
+         Psykhe 30
+         Pieshka 26
+         Subarach 23
+         Platedps 3
       Death Wish
          Platedps 16
          Dyrachyo 14
@@ -224,17 +231,10 @@ Cooldown Summary
          Subarach 1
          Psykhe 1
          Everglow 1
-      Bloodrage
-         Dyrachyo 60
-         Everglow 47
-         Psykhe 30
-         Pieshka 26
-         Subarach 23
-         Platedps 3
-      Kiss of the Spider
-         Dyrachyo 26
       Diamond Flask
          Pieshka 11
+      Kiss of the Spider
+         Dyrachyo 26
       Berserking
          Psykhe 16
       Will of the Forsaken
@@ -247,44 +247,44 @@ Cooldown Summary
          Coldbeer 34
          Roshane 30
          Shrimpshark 15
+      Draconic Infused Emblem
+         Coldbeer 1
       Talisman of Ephemeral Power
          Syjlas 16
          Shrimpshark 15
-      Zandalarian Hero Charm
-         Shrimpshark 7
-      Mind Quickening Gem
-         Redzeus 5
       Insignia of the Alliance/Horde
          Ridea 1
-      Draconic Infused Emblem
-         Coldbeer 1
+      Mind Quickening Gem
+         Redzeus 5
+      Zandalarian Hero Charm
+         Shrimpshark 7
       Berserking
          Redzeus 6
    Shaman
-      Nature's Swiftness
-         Geniesham 10
-      Windfury Totem
-         Geniesham 52
-         Gack 52
-         Windfurytotm 12
-      Mana Tide Totem
-         Geniesham 3
-      Strength of Earth Totem
-         Geniesham 50
-         Gack 49
-         Windfurytotm 6
-      Mana Spring Totem
-         Gack 68
-         Geniesham 57
-      Searing Totem
-         Geniesham 1
+      Ancestral Spirit
+         Geniesham 12
+         Gack 6
       Fire Nova Totem
          Gack 1
       Magma Totem
          Windfurytotm 2
-      Ancestral Spirit
-         Geniesham 12
-         Gack 6
+      Mana Spring Totem
+         Gack 68
+         Geniesham 57
+      Mana Tide Totem
+         Geniesham 3
+      Nature's Swiftness
+         Geniesham 10
+      Searing Totem
+         Geniesham 1
+      Strength of Earth Totem
+         Geniesham 50
+         Gack 49
+         Windfurytotm 6
+      Windfury Totem
+         Geniesham 52
+         Gack 52
+         Windfurytotm 12
       Zandalarian Hero Charm
          Geniesham 9
       Berserking
@@ -326,10 +326,10 @@ Cooldown Summary
          Airin 2
       Talisman of Ephemeral Power
          Sunor 20
-      Zandalarian Hero Charm
-         Sunor 1
       Hazza'rah's Charm of Healing
          Arzetlam 3
+      Zandalarian Hero Charm
+         Sunor 1
       Will of the Forsaken
          Arzetlam 1
       Power Infusion (received)
@@ -339,11 +339,11 @@ Cooldown Summary
       Divine Favor
          Lyahsunsworn 14
          Bloxie 6
+      Holy Shock (dmg)
+         Bloxie 15
       Holy Shock (heal)
          Lyahsunsworn 15
          Bloxie 2
-      Holy Shock (dmg)
-         Bloxie 15
       Redemption
          Bloxie 7
          Aphorodite 4
@@ -375,10 +375,10 @@ Cooldown Summary
          Chan 7
          Berserkss 3
          Fflur 1
-      Jom Gabbar
-         Yis 2
       Earthstrike
          Yis 8
+      Jom Gabbar
+         Yis 2
       Berserking
          Yis 9
          Berserkss 1

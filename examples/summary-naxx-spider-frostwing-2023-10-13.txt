@@ -522,27 +522,6 @@ Sunder Armor Summary (trash and boss counts)
 
 Cooldown Summary
    Warrior
-      Death Wish
-         Maryhuff 17
-         Dyrachyo 12
-         Melevolence 7
-         Rhudaur 6
-         Jaekta 3
-         Psykhe 2
-         Obbi 1
-         Everglow 1
-      Sweeping Strikes
-         Rhudaur 2
-      Shield Wall
-         Jaekta 1
-         Everglow 1
-      Recklessness
-         Alpra 4
-         Dyrachyo 3
-         Rhudaur 2
-         Obbi 1
-         Jaekta 1
-         Everglow 1
       Bloodrage
          Alpra 64
          Jaekta 61
@@ -553,12 +532,33 @@ Cooldown Summary
          Melevolence 44
          Psykhe 28
          Obbi 23
-      Kiss of the Spider
-         Dyrachyo 24
-         Jaekta 6
+      Death Wish
+         Maryhuff 17
+         Dyrachyo 12
+         Melevolence 7
+         Rhudaur 6
+         Jaekta 3
+         Psykhe 2
+         Obbi 1
+         Everglow 1
+      Recklessness
+         Alpra 4
+         Dyrachyo 3
+         Rhudaur 2
+         Obbi 1
+         Jaekta 1
+         Everglow 1
+      Shield Wall
+         Jaekta 1
+         Everglow 1
+      Sweeping Strikes
+         Rhudaur 2
       Diamond Flask
          Melevolence 3
          Everglow 1
+      Kiss of the Spider
+         Dyrachyo 24
+         Jaekta 6
       Berserking
          Psykhe 11
    Mage
@@ -572,36 +572,36 @@ Cooldown Summary
          Shrimpshark 250
          Bruceweed 94
          Seath 76
+      Mind Quickening Gem
+         Bruceweed 4
       Zandalarian Hero Charm
          Seath 17
          Shrimpshark 15
-      Mind Quickening Gem
-         Bruceweed 4
       Berserking
          Tlw 14
       Stoneform
          Seath 4
    Shaman
-      Nature's Swiftness
-         Windfurytotm 15
-         Shumy 12
-      Windfury Totem
-         Windfurytotm 85
-         Shumy 51
-      Mana Tide Totem
-         Windfurytotm 6
-         Shumy 3
-      Strength of Earth Totem
-         Windfurytotm 80
-         Shumy 42
-      Mana Spring Totem
-         Windfurytotm 81
-         Shumy 44
-      Searing Totem
-         Shumy 2
       Ancestral Spirit
          Shumy 7
          Windfurytotm 2
+      Mana Spring Totem
+         Windfurytotm 81
+         Shumy 44
+      Mana Tide Totem
+         Windfurytotm 6
+         Shumy 3
+      Nature's Swiftness
+         Windfurytotm 15
+         Shumy 12
+      Searing Totem
+         Shumy 2
+      Strength of Earth Totem
+         Windfurytotm 80
+         Shumy 42
+      Windfury Totem
+         Windfurytotm 85
+         Shumy 51
    Druid
       Nature's Swiftness
          Teldelar 26
@@ -641,12 +641,12 @@ Cooldown Summary
          Rossol 1
       Talisman of Ephemeral Power
          Sunor 19
+      Hazza'rah's Charm of Healing
+         Arzetlam 5
       Zandalarian Hero Charm
          Jarnp 17
          Sunor 12
          Rossol 10
-      Hazza'rah's Charm of Healing
-         Arzetlam 5
       Power Infusion (received)
          Sunor 17
    Paladin

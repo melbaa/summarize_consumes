@@ -550,22 +550,6 @@ Sunder Armor Summary (trash and boss counts)
 
 Cooldown Summary
    Warrior
-      Death Wish
-         Maryhuff 30
-         Dyrachyo 23
-         Jaekta 9
-         Bubasita 9
-         Psykhe 4
-         Rhudaur 2
-      Shield Wall
-         Psykhe 2
-         Jaekta 2
-      Recklessness
-         Dyrachyo 3
-         Rhudaur 1
-         Psykhe 1
-         Maryhuff 1
-         Bubasita 1
       Bloodrage
          Jaekta 101
          Dyrachyo 90
@@ -574,6 +558,22 @@ Cooldown Summary
          Psykhe 46
          Rhudaur 31
          Melevolence 8
+      Death Wish
+         Maryhuff 30
+         Dyrachyo 23
+         Jaekta 9
+         Bubasita 9
+         Psykhe 4
+         Rhudaur 2
+      Recklessness
+         Dyrachyo 3
+         Rhudaur 1
+         Psykhe 1
+         Maryhuff 1
+         Bubasita 1
+      Shield Wall
+         Psykhe 2
+         Jaekta 2
       Kiss of the Spider
          Dyrachyo 41
          Jaekta 22
@@ -596,11 +596,11 @@ Cooldown Summary
          Bruceweed 70
       Talisman of Ephemeral Power
          Bruceweed 3
-      Zandalarian Hero Charm
-         Seath 31
       Mind Quickening Gem
          Redzeus 12
          Bruceweed 9
+      Zandalarian Hero Charm
+         Seath 31
       Berserking
          Redzeus 14
          Tlw 13
@@ -609,34 +609,34 @@ Cooldown Summary
       Power Infusion (received)
          Bruceweed 2
    Shaman
-      Nature's Swiftness
-         Shumy 16
-         Windfurytotm 9
-      Windfury Totem
-         Windfurytotm 173
-         Shumy 78
-      Mana Tide Totem
-         Windfurytotm 4
-         Shumy 4
-      Grace of Air Totem
-         Windfurytotm 20
-         Shumy 11
-      Strength of Earth Totem
-         Windfurytotm 133
-         Shumy 53
-      Mana Spring Totem
-         Shumy 67
-         Windfurytotm 60
-      Searing Totem
-         Shumy 17
-      Fire Nova Totem
-         Shumy 1
-      Magma Totem
-         Windfurytotm 4
-         Shumy 2
       Ancestral Spirit
          Shumy 19
          Windfurytotm 11
+      Fire Nova Totem
+         Shumy 1
+      Grace of Air Totem
+         Windfurytotm 20
+         Shumy 11
+      Magma Totem
+         Windfurytotm 4
+         Shumy 2
+      Mana Spring Totem
+         Shumy 67
+         Windfurytotm 60
+      Mana Tide Totem
+         Windfurytotm 4
+         Shumy 4
+      Nature's Swiftness
+         Shumy 16
+         Windfurytotm 9
+      Searing Totem
+         Shumy 17
+      Strength of Earth Totem
+         Windfurytotm 133
+         Shumy 53
+      Windfury Totem
+         Windfurytotm 173
+         Shumy 78
       Bloodlust (received)
          Windfurytotm 1
    Druid
@@ -677,12 +677,12 @@ Cooldown Summary
          Rossol 10
       Talisman of Ephemeral Power
          Sunor 49
+      Hazza'rah's Charm of Healing
+         Arzetlam 8
       Zandalarian Hero Charm
          Jarnp 29
          Rossol 16
          Sunor 9
-      Hazza'rah's Charm of Healing
-         Arzetlam 8
       Will of the Forsaken
          Jarnp 1
       Power Infusion (received)
@@ -691,11 +691,11 @@ Cooldown Summary
       Divine Favor
          Lyahsunsworn 23
          Faradin 8
-      Holy Shock (heal)
-         Lyahsunsworn 37
       Holy Shock (dmg)
          Faradin 4
          Bloxie 3
+      Holy Shock (heal)
+         Lyahsunsworn 37
       Redemption
          Paris 15
          Getterfour 15

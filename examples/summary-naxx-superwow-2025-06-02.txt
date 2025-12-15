@@ -777,42 +777,42 @@ Sunder Armor Summary (trash and boss counts)
 
 Cooldown Summary
    Warrior
-      Death Wish
-         Psykhe 19
-         Tiogar 16
-         Kilgasm 15
-         Magn 12
-         Turborevenge 1
-      Sweeping Strikes
-         Turborevenge 48
-      Recklessness
-         Psykhe 3
-         Turborevenge 2
-         Tiogar 2
-         Kilgasm 2
       Bloodrage
          Turborevenge 73
          Kilgasm 59
          Tiogar 55
          Magn 24
          Psykhe 21
+      Death Wish
+         Psykhe 19
+         Tiogar 16
+         Kilgasm 15
+         Magn 12
+         Turborevenge 1
+      Recklessness
+         Psykhe 3
+         Turborevenge 2
+         Tiogar 2
+         Kilgasm 2
+      Sweeping Strikes
+         Turborevenge 48
+      Badge of the Swarmguard
+         Psykhe 6
+      Diamond Flask
+         Turborevenge 13
+      Earthstrike
+         Kilgasm 2
       Kiss of the Spider
          Psykhe 19
          Kilgasm 17
          Magn 12
       Slayer's Crest
          Psykhe 5
-      Badge of the Swarmguard
-         Psykhe 6
-      Earthstrike
-         Kilgasm 2
-      Diamond Flask
-         Turborevenge 13
-      Blood Fury
-         Turborevenge 22
       Berserking
          Psykhe 13
          Magn 10
+      Blood Fury
+         Turborevenge 22
       War Stomp
          Kilgasm 12
       Bloodlust (received)
@@ -827,25 +827,18 @@ Cooldown Summary
          Tinerispew 11
          Nehelenia 5
    Shaman
-      Nature's Swiftness
-         Oileri 26
-         Snega 24
-         Jagdar 15
-         Selverslip 10
-      Windfury Totem
-         Selverslip 144
-         Snega 120
-         Jagdar 100
-         Cleanskill 85
-      Tranquil Air Totem
-         Oileri 111
-         Clapya 98
-      Strength of Earth Totem
-         Selverslip 134
-         Snega 115
-         Jagdar 100
-         Cleanskill 81
-         Oileri 1
+      Ancestral Spirit
+         Jagdar 12
+         Oileri 10
+         Clapya 5
+         Snega 4
+         Selverslip 3
+      Fire Nova Totem
+         Snega 2
+         Jagdar 2
+      Magma Totem
+         Cleanskill 3
+         Snega 1
       Mana Spring Totem
          Oileri 125
          Selverslip 121
@@ -853,29 +846,36 @@ Cooldown Summary
          Jagdar 106
          Clapya 84
          Cleanskill 33
+      Nature's Swiftness
+         Oileri 26
+         Snega 24
+         Jagdar 15
+         Selverslip 10
       Searing Totem
          Cleanskill 21
          Oileri 2
-      Fire Nova Totem
-         Snega 2
-         Jagdar 2
-      Magma Totem
-         Cleanskill 3
-         Snega 1
-      Ancestral Spirit
-         Jagdar 12
-         Oileri 10
-         Clapya 5
-         Snega 4
-         Selverslip 3
+      Strength of Earth Totem
+         Selverslip 134
+         Snega 115
+         Jagdar 100
+         Cleanskill 81
+         Oileri 1
+      Tranquil Air Totem
+         Oileri 111
+         Clapya 98
+      Windfury Totem
+         Selverslip 144
+         Snega 120
+         Jagdar 100
+         Cleanskill 85
+      Natural Alignment Crystal
+         Clapya 4
       The Eye of the Dead
          Snega 23
          Selverslip 20
          Jagdar 7
       Zandalarian Hero Charm
          Oileri 26
-      Natural Alignment Crystal
-         Clapya 4
       Berserking
          Clapya 18
          Cleanskill 13
@@ -894,15 +894,15 @@ Cooldown Summary
       Swiftmend
          Moossiss 6
          Cheesebreath 1
+      Talisman of Ephemeral Power
+         Imul 11
+      The Restrained Essence of Sapphiron
+         Cheesebreath 15
       Kiss of the Spider
          Shape 4
          Eleae 4
       Slayer's Crest
          Shape 3
-      The Restrained Essence of Sapphiron
-         Cheesebreath 15
-      Talisman of Ephemeral Power
-         Imul 11
    Priest
       Inner Focus
          Oivse 17
@@ -915,11 +915,11 @@ Cooldown Summary
          Randgriz 6
          Adriana 2
          Yuyi 1
+      Hazza'rah's Charm of Healing
+         Randgriz 9
       The Eye of the Dead
          Randgriz 13
          Pristitute 3
-      Hazza'rah's Charm of Healing
-         Randgriz 9
       Desperate Prayer
          Adya 2
          Yuyi 1
@@ -930,10 +930,10 @@ Cooldown Summary
          Interlani 13
          Xelya 2
          Doelfinest 1
-      The Eye of the Dead
-         Interlani 14
       The Restrained Essence of Sapphiron
          Xelya 14
+      The Eye of the Dead
+         Interlani 14
       Zandalarian Hero Charm
          Martlflash 12
       Stoneform
@@ -949,13 +949,13 @@ Cooldown Summary
          Lorrah 35
          Adm 19
          Teawon 14
+      Badge of the Swarmguard
+         Lorrah 21
+         Jinp 1
       Kiss of the Spider
          Jinp 23
       Slayer's Crest
          Jinp 19
-      Badge of the Swarmguard
-         Lorrah 21
-         Jinp 1
       Will of the Forsaken
          Teawon 5
       Bloodlust (received)
@@ -972,10 +972,10 @@ Cooldown Summary
    Hunter
       Rapid Fire
          Minoas 17
-      Jom Gabbar
-         Minoas 1
       Earthstrike
          Minoas 3
+      Jom Gabbar
+         Minoas 1
 
 
 Proc Summary
