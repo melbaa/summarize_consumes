@@ -94,7 +94,7 @@ def get_entities_with_components(
 
 
 @dataclass
-class TrinketComponent(Component):
+class TrinketSpellComponent(Component):
     pass
 
 

@@ -43,7 +43,7 @@ from melbalabs.summarize_consumes.consumable_model import PriceComponent
 from melbalabs.summarize_consumes.entity_model import SpellAliasComponent
 from melbalabs.summarize_consumes.consumable_model import SuperwowComponent
 from melbalabs.summarize_consumes.entity_model import InterruptSpellComponent
-from melbalabs.summarize_consumes.entity_model import TrinketComponent
+from melbalabs.summarize_consumes.entity_model import TrinketSpellComponent
 from melbalabs.summarize_consumes.entity_model import RacialSpellComponent
 from melbalabs.summarize_consumes.entity_model import ReceiveBuffSpellComponent
 from melbalabs.summarize_consumes.entity_model import ClassCooldownComponent
@@ -349,7 +349,7 @@ ITEMID2NAME = {value: key for key, value in NAME2ITEMID.items()}
 INTERRUPT_SPELLS = {
     entity.name for entity, _ in get_entities_with_component(InterruptSpellComponent)
 }
-TRINKET_SPELL = [entity.name for entity, _ in get_entities_with_component(TrinketComponent)]
+TRINKET_SPELL = [entity.name for entity, _ in get_entities_with_component(TrinketSpellComponent)]
 RACIAL_SPELL = [entity.name for entity, _ in get_entities_with_component(RacialSpellComponent)]
 RECEIVE_BUFF_SPELL = {
     entity.name for entity, _ in get_entities_with_component(ReceiveBuffSpellComponent)
