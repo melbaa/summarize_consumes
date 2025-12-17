@@ -18,6 +18,7 @@ from pathlib import Path
 from typing import Dict
 from typing import List
 from typing import Tuple
+from typing import NewType
 from uuid import uuid4
 
 import humanize
@@ -306,7 +307,11 @@ class HitsConsumable:
             raise RuntimeError("fixme")
 
 
-NAME2CONSUMABLE: Dict[str, Entity] = {item.name: item for item in all_defined_consumable_items}
+NAME2CONSUMABLE: Dict[str, Entity] = {}
+for entity, _ in get_entities_with_component(ConsumableComponent):
+    if entity.name in NAME2CONSUMABLE:
+        raise ValueError(f"Duplicate consumable name: {entity.name}")
+    NAME2CONSUMABLE[entity.name] = entity
 
 RAWSPELLNAME2CONSUMABLE: Dict[Tuple[TreeType, str], Entity] = dict()
 for item, (tag, alias_comp) in get_entities_with_components(
@@ -323,15 +328,23 @@ for item, (tag, alias_comp) in get_entities_with_components(
         RAWSPELLNAME2CONSUMABLE[key] = item
 
 
-RENAME_SPELL = {
-    (TreeType.HITS_ABILITY_LINE, "Holy Shock"): "Holy Shock (dmg)",
-    (TreeType.HEALS_LINE, "Holy Shock"): "Holy Shock (heal)",
-    (TreeType.HEALS_LINE, "Tea"): "Tea with Sugar",  # rename spell to consumable name for clarity
-    (TreeType.GAINS_RAGE_LINE, "Blood Fury"): "Blood Fury (trinket)",
-}
+def get_spell_rename_map():
+    rename_map = {}
+    for entity, alias_comp in get_entities_with_component(SpellAliasComponent):
+        for line_type, raw_name in alias_comp.spell_aliases:
+            # Map (LineType, RawName) -> Canonical Name
+            rename_map[(line_type, raw_name)] = entity.name
+    return rename_map
 
 
-def rename_spell(spell, line_type):
+RENAME_SPELL = get_spell_rename_map()
+
+
+
+
+# Define your types
+CanonicalName = NewType('CanonicalName', str)
+def rename_spell(spell: str, line_type: TreeType) -> CanonicalName:
     rename = RENAME_SPELL.get((line_type, spell))
     return rename or spell
 
@@ -1958,11 +1971,11 @@ def process_tree(app, line, tree: Tree):
         name = subtree.children[0].value
         spellname = subtree.children[3].value
 
-        spellname = rename_spell(spellname, line_type=subtree.data)
-        app.spell_count.add(line_type=subtree.data, name=name, spell=spellname)
-        app.proc_count.add(line_type=subtree.data, name=name, spell=spellname)
+        spellname_canonical = rename_spell(spellname, line_type=subtree.data)
+        app.spell_count.add(line_type=subtree.data, name=name, spell=spellname_canonical)
+        app.proc_count.add(line_type=subtree.data, name=name, spell=spellname_canonical)
 
-        if spellname == "Unbridled Wrath":
+        if spellname_canonical == "Unbridled Wrath":
             amount = int(subtree.children[1].value)
             app.proc_count.add_unbridled_wrath(amount=amount, name=name)
 

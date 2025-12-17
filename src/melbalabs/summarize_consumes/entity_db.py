@@ -5,10 +5,15 @@ from melbalabs.summarize_consumes.entity_model import InterruptSpellComponent
 from melbalabs.summarize_consumes.entity_model import RacialSpellComponent
 from melbalabs.summarize_consumes.entity_model import ClassCooldownComponent
 from melbalabs.summarize_consumes.entity_model import ReceiveBuffSpellComponent
+from melbalabs.summarize_consumes.entity_model import SpellAliasComponent
 from melbalabs.summarize_consumes.entity_model import get_entities_with_component
+from melbalabs.summarize_consumes.parser import TreeType
 
 
-_blood_fury_trinket = Entity("Blood Fury (trinket)", [])
+_blood_fury_trinket = Entity(
+    "Blood Fury (trinket)",
+    [SpellAliasComponent([(TreeType.GAINS_RAGE_LINE, "Blood Fury")])],
+)
 _healing_of_the_ages = Entity("Healing of the Ages", [])
 _essence_of_sapphiron = Entity("Essence of Sapphiron", [])
 _ephemeral_power = Entity("Ephemeral Power", [])
@@ -152,8 +157,20 @@ all_entities = [
     Entity("Inner Focus", [ClassCooldownComponent([PlayerClass.PRIEST])]),
     Entity("Resurrection", [ClassCooldownComponent([PlayerClass.PRIEST])]),
     Entity("Divine Favor", [ClassCooldownComponent([PlayerClass.PALADIN])]),
-    Entity("Holy Shock (heal)", [ClassCooldownComponent([PlayerClass.PALADIN])]),
-    Entity("Holy Shock (dmg)", [ClassCooldownComponent([PlayerClass.PALADIN])]),
+    Entity(
+        "Holy Shock (heal)",
+        [
+            ClassCooldownComponent([PlayerClass.PALADIN]),
+            SpellAliasComponent([(TreeType.HEALS_LINE, "Holy Shock")]),
+        ],
+    ),
+    Entity(
+        "Holy Shock (dmg)",
+        [
+            ClassCooldownComponent([PlayerClass.PALADIN]),
+            SpellAliasComponent([(TreeType.HITS_ABILITY_LINE, "Holy Shock")]),
+        ],
+    ),
     Entity("Redemption", [ClassCooldownComponent([PlayerClass.PALADIN])]),
     Entity("Adrenaline Rush", [ClassCooldownComponent([PlayerClass.ROGUE])]),
     Entity("Blade Flurry", [ClassCooldownComponent([PlayerClass.ROGUE])]),
