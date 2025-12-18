@@ -1,3 +1,4 @@
+from melbalabs.summarize_consumes.entity_model import TrackProcComponent
 from melbalabs.summarize_consumes.entity_model import TrackSpellCastComponent
 import argparse
 import collections
@@ -1345,21 +1346,21 @@ class SpellCount:
         self.add(line_type=line_type, name=name, spell=spell)
 
 
-LINE2PROC = {
-    TreeType.GAINS_LINE: {
-        "Enrage",
-        "Flurry",
-        "Elemental Devastation",
-        "Stormcaller's Wrath",
-        "Spell Blasting",
-        "Clearcasting",
-        "Vengeance",
-        "Nature's Grace",
-    },
-    TreeType.GAINS_RAGE_LINE: {
-        "Unbridled Wrath",
-    },
-}
+LINE2PROC = {}
+
+
+for entity, (tag, alias_comp) in get_entities_with_components(
+    TrackProcComponent, SpellAliasComponent
+):
+    for line_type, raw_spellname in alias_comp.spell_aliases:
+        key = (line_type, raw_spellname)
+        if key in LINE2PROC:
+            raise ValueError(
+                f"duplicate spell alias. tried to add {key} for {entity.name}"
+                f" but {key} already added"
+            )
+        LINE2PROC[key] = entity.name
+
 
 
 class ProcCount:
@@ -1376,11 +1377,12 @@ class ProcCount:
         self.amount_unbridled_wrath = collections.defaultdict(int)
 
     def add(self, line_type, name, spell):
-        if line_type not in LINE2PROC:
+        key = (line_type, spell)
+        if key not in LINE2PROC:
             return
-        if spell not in LINE2PROC[line_type]:
-            return
-        self.counts[spell][name] += 1
+        spellname_canonical = LINE2PROC[key]
+        self.counts[spellname_canonical][name] += 1
+        
 
     def add_extra_attacks(self, howmany, source, name):
         self.counts_extra_attacks[source][name] += howmany

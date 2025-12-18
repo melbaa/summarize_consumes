@@ -1,3 +1,4 @@
+from melbalabs.summarize_consumes.entity_model import TrackProcComponent
 from melbalabs.summarize_consumes.entity_model import TrackSpellCastComponent
 from melbalabs.summarize_consumes.entity_model import Entity
 from melbalabs.summarize_consumes.entity_model import PlayerClass
@@ -612,6 +613,69 @@ all_entities = [
         [
             SpellAliasComponent([(TreeType.GAINS_LINE, "Cold Blood")]),
             TrackSpellCastComponent(),
+        ],
+    ),
+    Entity(
+        "Enrage",
+        [
+            SpellAliasComponent([(TreeType.GAINS_LINE, "Enrage")]),
+            TrackProcComponent(),
+        ],
+    ),
+    Entity(
+        "Flurry",
+        [
+            SpellAliasComponent([(TreeType.GAINS_LINE, "Flurry")]),
+            TrackProcComponent(),
+        ],
+    ),
+    Entity(
+        "Elemental Devastation",
+        [
+            SpellAliasComponent([(TreeType.GAINS_LINE, "Elemental Devastation")]),
+            TrackProcComponent(),
+        ],
+    ),
+    Entity(
+        "Stormcaller's Wrath",
+        [
+            SpellAliasComponent([(TreeType.GAINS_LINE, "Stormcaller's Wrath")]),
+            TrackProcComponent(),
+        ],
+    ),
+    Entity(
+        "Spell Blasting",
+        [
+            SpellAliasComponent([(TreeType.GAINS_LINE, "Spell Blasting")]),
+            TrackProcComponent(),
+        ],
+    ),
+    Entity(
+        "Clearcasting",
+        [
+            SpellAliasComponent([(TreeType.GAINS_LINE, "Clearcasting")]),
+            TrackProcComponent(),
+        ],
+    ),
+    Entity(
+        "Vengeance",
+        [
+            SpellAliasComponent([(TreeType.GAINS_LINE, "Vengeance")]),
+            TrackProcComponent(),
+        ],
+    ),
+    Entity(
+        "Nature's Grace",
+        [
+            SpellAliasComponent([(TreeType.GAINS_LINE, "Nature's Grace")]),
+            TrackProcComponent(),
+        ],
+    ),
+    Entity(
+        "Unbridled Wrath",
+        [
+            SpellAliasComponent([(TreeType.GAINS_RAGE_LINE, "Unbridled Wrath")]),
+            TrackProcComponent(),
         ],
     ),
 ]
