@@ -1,4 +1,5 @@
 from typing import Tuple, Type, TypeVar, List, Set, Dict, ItemsView
+from typing import NewType
 from enum import Enum
 from dataclasses import dataclass, field
 import collections
@@ -24,6 +25,9 @@ class PlayerClass(Enum):
         return cls(class_string.lower())
 
 
+CanonicalName = NewType("CanonicalName", str)
+
+
 class Component:
     pass
 
@@ -33,10 +37,10 @@ C = TypeVar("C", bound=Component)
 
 COMPONENT_REGISTRY: Dict[Type[C], Dict["Entity", C]] = collections.defaultdict(dict)
 
-ENTITY_UNIQUE_CONSTRAINT: Set[str] = set()
+ENTITY_UNIQUE_CONSTRAINT: Set[CanonicalName] = set()
 
 
-def entity_unique_constraint(name: str):
+def entity_unique_constraint(name: CanonicalName):
     if name in ENTITY_UNIQUE_CONSTRAINT:
         raise ValueError(f"Duplicate entity name: {name}")
     ENTITY_UNIQUE_CONSTRAINT.add(name)
@@ -44,6 +48,7 @@ def entity_unique_constraint(name: str):
 
 class Entity:
     def __init__(self, name: str, components: List[Component]):
+        name = CanonicalName(name)
         entity_unique_constraint(name)
         self.name = name  # The canonical name (what shows in the report output)
         self._components: List[Component] = list(components)
@@ -144,3 +149,11 @@ class SpellAliasComponent(Component):
         for alias in self.spell_aliases:
             if alias in SPELL_ALIAS_UNIQUE_CONSTRAINT:
                 spell_alias_unique_constraint(alias)
+
+@dataclass
+class TrackSpellCastComponent(Component):
+    pass
+
+@dataclass
+class TrackProcComponent(Component):
+    pass

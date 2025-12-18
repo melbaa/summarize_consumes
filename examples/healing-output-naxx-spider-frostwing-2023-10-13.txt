@@ -29,7 +29,7 @@ Niviri  1354611
   Rejuvenation  172311
   Swiftmend  30526
   Tea with Sugar  8004
-  Major Rejuvenation Potion  3244
+  Rejuvenation Potion - Major  3244
 Shumy  1329860
   Healing Wave  680589
   Chain Heal  475547

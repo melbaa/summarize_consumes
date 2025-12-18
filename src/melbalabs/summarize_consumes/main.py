@@ -1,3 +1,4 @@
+from melbalabs.summarize_consumes.entity_model import TrackSpellCastComponent
 import argparse
 import collections
 import csv
@@ -18,7 +19,6 @@ from pathlib import Path
 from typing import Dict
 from typing import List
 from typing import Tuple
-from typing import NewType
 from uuid import uuid4
 
 import humanize
@@ -40,6 +40,7 @@ from melbalabs.summarize_consumes.entity_model import get_entities_with_componen
 from melbalabs.summarize_consumes.entity_model import get_entities_with_components
 from melbalabs.summarize_consumes.entity_model import PlayerClass
 from melbalabs.summarize_consumes.entity_model import Entity
+from melbalabs.summarize_consumes.entity_model import CanonicalName
 from melbalabs.summarize_consumes.consumable_model import PriceComponent
 from melbalabs.summarize_consumes.entity_model import SpellAliasComponent
 from melbalabs.summarize_consumes.consumable_model import SuperwowComponent
@@ -329,10 +330,9 @@ for item, (tag, alias_comp) in get_entities_with_components(
 
 
 def get_spell_rename_map():
-    rename_map = {}
+    rename_map: Dict[Tuple[TreeType, str], CanonicalName] = {}
     for entity, alias_comp in get_entities_with_component(SpellAliasComponent):
         for line_type, raw_name in alias_comp.spell_aliases:
-            # Map (LineType, RawName) -> Canonical Name
             rename_map[(line_type, raw_name)] = entity.name
     return rename_map
 
@@ -340,11 +340,7 @@ def get_spell_rename_map():
 RENAME_SPELL = get_spell_rename_map()
 
 
-
-
-# Define your types
-CanonicalName = NewType('CanonicalName', str)
-def rename_spell(spell: str, line_type: TreeType) -> CanonicalName:
+def rename_spell(spell: str, line_type: TreeType):
     rename = RENAME_SPELL.get((line_type, spell))
     return rename or spell
 
@@ -1312,92 +1308,19 @@ class ProcSummary:
 
 # count unique casts, the player using their spell. not the lingering buff/debuff procs
 # eg count a totem being dropped, not the buff procs it gives after that
-LINE2SPELLCAST = {
-    TreeType.AFFLICTED_LINE: {
-        "Death Wish",
-    },
-    TreeType.GAINS_LINE: {
-        "Immune Charm/Fear/Stun",
-        "Immune Charm/Fear/Polymorph",
-        "Immune Fear/Polymorph/Snare",
-        "Immune Fear/Polymorph/Stun",
-        "Immune Root/Snare/Stun",
-        "Will of the Forsaken",
-        "Bloodrage",
-        "Recklessness",
-        "Shield Wall",
-        "Sweeping Strikes",
-        "Elemental Mastery",
-        "Inner Focus",
-        "Rapid Healing",
-        "Chromatic Infusion",
-        "Combustion",
-        "Adrenaline Rush",  # careful with hunters
-        "Cold Blood",
-        "Blade Flurry",
-        "Nature's Swiftness",  # sham and druid
-        "Rapid Fire",
-        "The Eye of the Dead",
-        "Healing of the Ages",
-        "Earthstrike",
-        "Diamond Flask",
-        "Kiss of the Spider",
-        "Slayer's Crest",
-        "Jom Gabbar",
-        "Badge of the Swarmguard",
-        "Essence of Sapphiron",
-        "Ephemeral Power",
-        "Unstable Power",
-        "Mind Quickening",
-        "Nature Aligned",
-        "Divine Favor",
-        "Berserking",
-        "Stoneform",
-        # buffs received
-        "Power Infusion",
-        "Bloodlust",
-        "Chastise Haste",
-        "Molten Power",
-    },
-    TreeType.GAINS_RAGE_LINE: {
-        "Blood Fury (trinket)",
-    },
-    TreeType.HEALS_LINE: {
-        "Holy Shock (heal)",
-        "Desperate Prayer",
-        "Swiftmend",
-    },
-    TreeType.CASTS_LINE: {
-        "Windfury Totem",
-        "Mana Tide Totem",
-        "Grace of Air Totem",
-        "Tranquil Air Totem",
-        "Strength of Earth Totem",
-        "Mana Spring Totem",
-        "Searing Totem",
-        "Fire Nova Totem",
-        "Magma Totem",
-        "Ancestral Spirit",
-        "Redemption",
-        "Resurrection",
-        "Rebirth",
-        "Death by Peasant",  # trinket
-        "Jewel of Wild Magics",  # trinket
-        "Remains of Overwhelming Power",  # trinket
-        "Elunes Guardian",  # trinket
-        "Sunder Armor",  # superwow
-        "Sunder Armor (boss)",  # rename, superwow
-        "Blood Fury",  # superwow, spellid 23234
-    },
-    TreeType.HITS_ABILITY_LINE: {
-        "Sinister Strike",
-        "Scorch",
-        "Holy Shock (dmg)",
-    },
-    TreeType.BEGINS_TO_PERFORM_LINE: {
-        "War Stomp",
-    },
-}
+LINE2SPELLCAST = {}
+
+for entity, (tag, alias_comp) in get_entities_with_components(
+    TrackSpellCastComponent, SpellAliasComponent
+):
+    for line_type, raw_spellname in alias_comp.spell_aliases:
+        key = (line_type, raw_spellname)
+        if key in LINE2SPELLCAST:
+            raise ValueError(
+                f"duplicate spell alias. tried to add {key} for {entity.name}"
+                f" but {key} already added"
+            )
+        LINE2SPELLCAST[key] = entity.name
 
 
 class SpellCount:
@@ -1406,11 +1329,11 @@ class SpellCount:
         self.counts = collections.defaultdict(lambda: collections.defaultdict(int))
 
     def add(self, line_type, name, spell):
-        if line_type not in LINE2SPELLCAST:
+        key = (line_type, spell)
+        if key not in LINE2SPELLCAST:
             return
-        if spell not in LINE2SPELLCAST[line_type]:
-            return
-        self.counts[spell][name] += 1
+        spellname_canonical = LINE2SPELLCAST[key]
+        self.counts[spellname_canonical][name] += 1
 
     def add_stackcount(self, line_type, name, spell, stackcount):
         if (
@@ -1971,11 +1894,10 @@ def process_tree(app, line, tree: Tree):
         name = subtree.children[0].value
         spellname = subtree.children[3].value
 
-        spellname_canonical = rename_spell(spellname, line_type=subtree.data)
-        app.spell_count.add(line_type=subtree.data, name=name, spell=spellname_canonical)
-        app.proc_count.add(line_type=subtree.data, name=name, spell=spellname_canonical)
+        app.spell_count.add(line_type=subtree.data, name=name, spell=spellname)
+        app.proc_count.add(line_type=subtree.data, name=name, spell=spellname)
 
-        if spellname_canonical == "Unbridled Wrath":
+        if spellname == "Unbridled Wrath":
             amount = int(subtree.children[1].value)
             app.proc_count.add_unbridled_wrath(amount=amount, name=name)
 
@@ -2030,8 +1952,6 @@ def process_tree(app, line, tree: Tree):
         targetname = subtree.children[3].value
         amount = int(subtree.children[4].value)
 
-        spellname = rename_spell(spellname, line_type=subtree.data)
-
         # rename
         if spellname == "Healing Potion":
             if is_crit:
@@ -2046,13 +1966,15 @@ def process_tree(app, line, tree: Tree):
             else:
                 spellname = "Minor Rejuvenation Potion"
 
+        spellname_canonical = rename_spell(spellname, line_type=subtree.data)
+
         app.class_detection.detect(line_type=subtree.data, name=name, spell=spellname)
         app.spell_count.add(line_type=subtree.data, name=name, spell=spellname)
 
         if consumable_item := RAWSPELLNAME2CONSUMABLE.get((subtree.data, spellname)):
             app.player[name][consumable_item.name] += 1
 
-        app.healstore.add(name, targetname, spellname, amount, timestamp_unix)
+        app.healstore.add(name, targetname, spellname_canonical, amount, timestamp_unix)
         return True
 
     elif subtree.data == TreeType.GAINS_MANA_LINE:
@@ -2140,7 +2062,7 @@ def process_tree(app, line, tree: Tree):
         targetname = subtree.children[2].value
         amount = int(subtree.children[3].value)
 
-        spellname = rename_spell(spellname, line_type=subtree.data)
+        spellname_canonical = rename_spell(spellname, line_type=subtree.data)
 
         app.class_detection.detect(line_type=subtree.data, name=name, spell=spellname)
         app.spell_count.add(line_type=subtree.data, name=name, spell=spellname)
@@ -2182,8 +2104,8 @@ def process_tree(app, line, tree: Tree):
         if name == "Shadow Fissure" and spellname == "Void Blast":
             app.kt_shadowfissure.add(line)
 
-        app.dmgstore.add(name, targetname, spellname, amount, timestamp_unix)
-        app.dmgtakenstore.add(name, targetname, spellname, amount, timestamp_unix)
+        app.dmgstore.add(name, targetname, spellname_canonical, amount, timestamp_unix)
+        app.dmgtakenstore.add(name, targetname, spellname_canonical, amount, timestamp_unix)
 
         return True
     elif subtree.data == TreeType.HITS_AUTOATTACK_LINE:
