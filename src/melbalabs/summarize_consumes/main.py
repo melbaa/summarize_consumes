@@ -61,9 +61,6 @@ from melbalabs.summarize_consumes.parser import ActionValue
 import melbalabs.summarize_consumes.package as package
 
 
-CURRENT_YEAR = datetime.datetime.now().year
-
-
 class App:
     pass
 
@@ -71,6 +68,56 @@ class App:
 @functools.cache
 def create_parser(debug, unparsed_logger):
     return Parser2(unparsed_logger=unparsed_logger)
+
+
+class FastTimestampParser:
+    def __init__(self):
+        now = datetime.datetime.now()
+        self.current_year = now.year
+        self.system_month = now.month
+
+        self.last_month_seen = None
+
+        # (year, month, day) -> float timestamp
+        self._day_cache = {}
+
+    def get_initial_year(self, log_month: int) -> int:
+        if log_month > self.system_month:
+            return self.current_year - 1
+        return self.current_year
+
+    def parse(self, timestamp_token) -> float:
+        month, day, hour, minute, sec, ms = timestamp_token.children
+        month = int(month)
+        day = int(day)
+
+        # first run, initialize year
+        if self.last_month_seen is None:
+            self.current_year = self.get_initial_year(month)
+            self.last_month_seen = month
+
+        # date rolls forward, cache invalidates
+        if self.last_month_seen == 12 and month == 1:
+            self.current_year += 1
+            self._day_cache.clear()
+        # date rolls backward, cache invalidates
+        elif self.last_month_seen == 1 and month == 12:
+            self.current_year -= 1
+            self._day_cache.clear()
+
+        self.last_month_seen = month
+
+        # one datetime object per day
+        cache_key = (self.current_year, month, day)
+        day_base = self._day_cache.get(cache_key)
+
+        if day_base is None:
+            day_base = dt(
+                year=self.current_year, month=month, day=day, tzinfo=datetime.timezone.utc
+            ).timestamp()
+            self._day_cache[cache_key] = day_base
+
+        return day_base + (int(hour) * 3600) + (int(minute) * 60) + int(sec) + (int(ms) / 1000.0)
 
 
 @functools.cache
@@ -120,6 +167,7 @@ def create_app(
         expert_log_unparsed_lines
     )
 
+    app.timestamp_parser = FastTimestampParser()
     app.parser = create_parser(
         debug=parser_debug,
         unparsed_logger=app.unparsed_logger_fast,
@@ -253,27 +301,6 @@ def create_app(
     return app
 
 
-def parse_ts2unixtime(timestamp):
-    month, day, hour, minute, sec, ms = timestamp.children
-    month = int(month)
-    day = int(day)
-    hour = int(hour)
-    minute = int(minute)
-    sec = int(sec)
-    ms = int(ms)
-    timestamp = dt(
-        year=CURRENT_YEAR,
-        month=month,
-        day=day,
-        hour=hour,
-        minute=minute,
-        second=sec,
-        tzinfo=datetime.timezone.utc,
-    )
-    unixtime = timestamp.timestamp()  # seconds
-    return unixtime
-
-
 def check_existing_file(file: Path, delete: bool = False) -> None:
     """Check if file exist and deletes it when forced to.
 
@@ -289,10 +316,11 @@ def check_existing_file(file: Path, delete: bool = False) -> None:
 
 
 class HitsConsumable:
+    LATENCY = 1  # client logs timestamps can be behind due to lag
     COOLDOWNS = {
-        "Dragonbreath Chili": 10 * 60,
-        "Goblin Sapper Charge": 5 * 60,
-        "Stratholme Holy Water": 1 * 60,
+        "Dragonbreath Chili": 10 * 60 - LATENCY,
+        "Goblin Sapper Charge": 5 * 60 - LATENCY,
+        "Stratholme Holy Water": 1 * 60 - LATENCY,
     }
 
     def __init__(self, player, last_hit_cache):
@@ -1773,7 +1801,7 @@ def process_tree(app, line, tree: Tree):
     timestamp = tree.children[0]
     subtree = tree.children[1]
 
-    timestamp_unix = parse_ts2unixtime(timestamp)
+    timestamp_unix = app.timestamp_parser.parse(timestamp)
 
     # inline everything to reduce funcalls
     # for same reason not using visitors to traverse the parse tree
