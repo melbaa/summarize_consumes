@@ -334,8 +334,8 @@ class HitsConsumable:
             self.player[name][consumable] += 1
             self.last_hit_cache[name][consumable] = timestamp_unix
         elif delta < 0:
-            # probably a new year, will ignore for now
-            raise RuntimeError("fixme")
+            # out of order lines? not worth crashing for
+            pass
 
 
 NAME2CONSUMABLE: Dict[str, Entity] = {}

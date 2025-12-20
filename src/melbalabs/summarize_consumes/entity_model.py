@@ -150,9 +150,11 @@ class SpellAliasComponent(Component):
             if alias in SPELL_ALIAS_UNIQUE_CONSTRAINT:
                 spell_alias_unique_constraint(alias)
 
+
 @dataclass
 class TrackSpellCastComponent(Component):
     pass
+
 
 @dataclass
 class TrackProcComponent(Component):
