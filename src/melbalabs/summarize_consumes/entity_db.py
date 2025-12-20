@@ -1,3 +1,4 @@
+from melbalabs.summarize_consumes.entity_model import ClassDetectionComponent
 from melbalabs.summarize_consumes.entity_model import TrackProcComponent
 from melbalabs.summarize_consumes.entity_model import TrackSpellCastComponent
 from melbalabs.summarize_consumes.entity_model import Entity
@@ -352,6 +353,10 @@ all_entities = [
             # superwow
             TrackSpellCastComponent(),
             SpellAliasComponent([(TreeType.CASTS_LINE, "Sunder Armor")]),
+            ClassDetectionComponent(
+                PlayerClass.WARRIOR,
+                triggered_by=[(TreeType.CASTS_LINE, "Sunder Armor")],
+            ),
         ],
     ),
     Entity(
@@ -368,6 +373,10 @@ all_entities = [
             ClassCooldownComponent([PlayerClass.WARRIOR]),
             SpellAliasComponent([(TreeType.AFFLICTED_LINE, "Death Wish")]),
             TrackSpellCastComponent(),
+            ClassDetectionComponent(
+                PlayerClass.WARRIOR,
+                triggered_by=[(TreeType.AFFLICTED_LINE, "Death Wish")],
+            ),
         ],
     ),
     Entity(
@@ -376,6 +385,10 @@ all_entities = [
             ClassCooldownComponent([PlayerClass.WARRIOR]),
             SpellAliasComponent([(TreeType.GAINS_LINE, "Sweeping Strikes")]),
             TrackSpellCastComponent(),
+            ClassDetectionComponent(
+                PlayerClass.WARRIOR,
+                triggered_by=[(TreeType.GAINS_LINE, "Sweeping Strikes")],
+            ),
         ],
     ),
     Entity(
@@ -384,6 +397,9 @@ all_entities = [
             ClassCooldownComponent([PlayerClass.WARRIOR]),
             SpellAliasComponent([(TreeType.GAINS_LINE, "Shield Wall")]),
             TrackSpellCastComponent(),
+            ClassDetectionComponent(
+                PlayerClass.WARRIOR, triggered_by=[(TreeType.GAINS_LINE, "Shield Wall")]
+            ),
         ],
     ),
     Entity(
@@ -392,6 +408,10 @@ all_entities = [
             ClassCooldownComponent([PlayerClass.WARRIOR]),
             SpellAliasComponent([(TreeType.GAINS_LINE, "Recklessness")]),
             TrackSpellCastComponent(),
+            ClassDetectionComponent(
+                PlayerClass.WARRIOR,
+                triggered_by=[(TreeType.GAINS_LINE, "Recklessness")],
+            ),
         ],
     ),
     Entity(
@@ -400,6 +420,9 @@ all_entities = [
             ClassCooldownComponent([PlayerClass.WARRIOR]),
             SpellAliasComponent([(TreeType.GAINS_LINE, "Bloodrage")]),
             TrackSpellCastComponent(),
+            ClassDetectionComponent(
+                PlayerClass.WARRIOR, triggered_by=[(TreeType.GAINS_LINE, "Bloodrage")]
+            ),
         ],
     ),
     Entity(
@@ -408,6 +431,9 @@ all_entities = [
             ClassCooldownComponent([PlayerClass.MAGE]),
             SpellAliasComponent([(TreeType.GAINS_LINE, "Combustion")]),
             TrackSpellCastComponent(),
+            ClassDetectionComponent(
+                PlayerClass.MAGE, triggered_by=[(TreeType.GAINS_LINE, "Combustion")]
+            ),
         ],
     ),
     Entity(
@@ -416,6 +442,13 @@ all_entities = [
             ClassCooldownComponent([PlayerClass.MAGE]),
             TrackSpellCastComponent(),
             SpellAliasComponent([(TreeType.HITS_ABILITY_LINE, "Scorch")]),
+            ClassDetectionComponent(
+                PlayerClass.MAGE,
+                triggered_by=[
+                    (TreeType.HITS_ABILITY_LINE, "Scorch"),
+                    (TreeType.BEGINS_TO_CAST_LINE, "Scorch"),
+                ],
+            ),
         ],
     ),
     Entity(
@@ -432,6 +465,10 @@ all_entities = [
             ClassCooldownComponent([PlayerClass.SHAMAN]),
             SpellAliasComponent([(TreeType.CASTS_LINE, "Windfury Totem")]),
             TrackSpellCastComponent(),
+            ClassDetectionComponent(
+                PlayerClass.SHAMAN,
+                triggered_by=[(TreeType.CASTS_LINE, "Windfury Totem")],
+            ),
         ],
     ),
     Entity(
@@ -440,6 +477,10 @@ all_entities = [
             ClassCooldownComponent([PlayerClass.SHAMAN]),
             SpellAliasComponent([(TreeType.CASTS_LINE, "Mana Tide Totem")]),
             TrackSpellCastComponent(),
+            ClassDetectionComponent(
+                PlayerClass.SHAMAN,
+                triggered_by=[(TreeType.CASTS_LINE, "Mana Tide Totem")],
+            ),
         ],
     ),
     Entity(
@@ -448,6 +489,10 @@ all_entities = [
             ClassCooldownComponent([PlayerClass.SHAMAN]),
             SpellAliasComponent([(TreeType.CASTS_LINE, "Grace of Air Totem")]),
             TrackSpellCastComponent(),
+            ClassDetectionComponent(
+                PlayerClass.SHAMAN,
+                triggered_by=[(TreeType.CASTS_LINE, "Grace of Air Totem")],
+            ),
         ],
     ),
     Entity(
@@ -456,6 +501,10 @@ all_entities = [
             ClassCooldownComponent([PlayerClass.SHAMAN]),
             SpellAliasComponent([(TreeType.CASTS_LINE, "Tranquil Air Totem")]),
             TrackSpellCastComponent(),
+            ClassDetectionComponent(
+                PlayerClass.SHAMAN,
+                triggered_by=[(TreeType.CASTS_LINE, "Tranquil Air Totem")],
+            ),
         ],
     ),
     Entity(
@@ -464,6 +513,10 @@ all_entities = [
             ClassCooldownComponent([PlayerClass.SHAMAN]),
             SpellAliasComponent([(TreeType.CASTS_LINE, "Strength of Earth Totem")]),
             TrackSpellCastComponent(),
+            ClassDetectionComponent(
+                PlayerClass.SHAMAN,
+                triggered_by=[(TreeType.CASTS_LINE, "Strength of Earth Totem")],
+            ),
         ],
     ),
     Entity(
@@ -472,6 +525,10 @@ all_entities = [
             ClassCooldownComponent([PlayerClass.SHAMAN]),
             SpellAliasComponent([(TreeType.CASTS_LINE, "Mana Spring Totem")]),
             TrackSpellCastComponent(),
+            ClassDetectionComponent(
+                PlayerClass.SHAMAN,
+                triggered_by=[(TreeType.CASTS_LINE, "Mana Spring Totem")],
+            ),
         ],
     ),
     Entity(
@@ -480,6 +537,10 @@ all_entities = [
             ClassCooldownComponent([PlayerClass.SHAMAN]),
             SpellAliasComponent([(TreeType.CASTS_LINE, "Searing Totem")]),
             TrackSpellCastComponent(),
+            ClassDetectionComponent(
+                PlayerClass.SHAMAN,
+                triggered_by=[(TreeType.CASTS_LINE, "Searing Totem")],
+            ),
         ],
     ),
     Entity(
@@ -488,6 +549,10 @@ all_entities = [
             ClassCooldownComponent([PlayerClass.SHAMAN]),
             SpellAliasComponent([(TreeType.CASTS_LINE, "Fire Nova Totem")]),
             TrackSpellCastComponent(),
+            ClassDetectionComponent(
+                PlayerClass.SHAMAN,
+                triggered_by=[(TreeType.CASTS_LINE, "Fire Nova Totem")],
+            ),
         ],
     ),
     Entity(
@@ -496,6 +561,10 @@ all_entities = [
             ClassCooldownComponent([PlayerClass.SHAMAN]),
             SpellAliasComponent([(TreeType.CASTS_LINE, "Magma Totem")]),
             TrackSpellCastComponent(),
+            ClassDetectionComponent(
+                PlayerClass.SHAMAN,
+                triggered_by=[(TreeType.CASTS_LINE, "Magma Totem")],
+            ),
         ],
     ),
     Entity(
@@ -504,6 +573,10 @@ all_entities = [
             ClassCooldownComponent([PlayerClass.SHAMAN]),
             SpellAliasComponent([(TreeType.CASTS_LINE, "Ancestral Spirit")]),
             TrackSpellCastComponent(),
+            ClassDetectionComponent(
+                PlayerClass.SHAMAN,
+                triggered_by=[(TreeType.CASTS_LINE, "Ancestral Spirit")],
+            ),
         ],
     ),
     Entity(
@@ -512,6 +585,9 @@ all_entities = [
             ClassCooldownComponent([PlayerClass.DRUID]),
             SpellAliasComponent([(TreeType.CASTS_LINE, "Rebirth")]),
             TrackSpellCastComponent(),
+            ClassDetectionComponent(
+                PlayerClass.DRUID, triggered_by=[(TreeType.CASTS_LINE, "Rebirth")]
+            ),
         ],
     ),
     Entity(
@@ -536,6 +612,10 @@ all_entities = [
             ClassCooldownComponent([PlayerClass.PRIEST]),
             SpellAliasComponent([(TreeType.CASTS_LINE, "Resurrection")]),
             TrackSpellCastComponent(),
+            ClassDetectionComponent(
+                PlayerClass.PRIEST,
+                triggered_by=[(TreeType.CASTS_LINE, "Resurrection")],
+            ),
         ],
     ),
     Entity(
@@ -544,6 +624,10 @@ all_entities = [
             ClassCooldownComponent([PlayerClass.PALADIN]),
             SpellAliasComponent([(TreeType.GAINS_LINE, "Divine Favor")]),
             TrackSpellCastComponent(),
+            ClassDetectionComponent(
+                PlayerClass.PALADIN,
+                triggered_by=[(TreeType.GAINS_LINE, "Divine Favor")],
+            ),
         ],
     ),
     Entity(
@@ -552,6 +636,10 @@ all_entities = [
             ClassCooldownComponent([PlayerClass.PALADIN]),
             SpellAliasComponent([(TreeType.HEALS_LINE, "Holy Shock")]),
             TrackSpellCastComponent(),
+            ClassDetectionComponent(
+                PlayerClass.PALADIN,
+                triggered_by=[(TreeType.HEALS_LINE, "Holy Shock")],
+            ),
         ],
     ),
     Entity(
@@ -560,6 +648,10 @@ all_entities = [
             ClassCooldownComponent([PlayerClass.PALADIN]),
             SpellAliasComponent([(TreeType.HITS_ABILITY_LINE, "Holy Shock")]),
             TrackSpellCastComponent(),
+            ClassDetectionComponent(
+                PlayerClass.PALADIN,
+                triggered_by=[(TreeType.HITS_ABILITY_LINE, "Holy Shock")],
+            ),
         ],
     ),
     Entity(
@@ -568,6 +660,9 @@ all_entities = [
             ClassCooldownComponent([PlayerClass.PALADIN]),
             SpellAliasComponent([(TreeType.CASTS_LINE, "Redemption")]),
             TrackSpellCastComponent(),
+            ClassDetectionComponent(
+                PlayerClass.PALADIN, triggered_by=[(TreeType.CASTS_LINE, "Redemption")]
+            ),
         ],
     ),
     Entity(
@@ -576,6 +671,10 @@ all_entities = [
             ClassCooldownComponent([PlayerClass.ROGUE]),
             SpellAliasComponent([(TreeType.GAINS_LINE, "Adrenaline Rush")]),
             TrackSpellCastComponent(),
+            ClassDetectionComponent(
+                PlayerClass.ROGUE,
+                triggered_by=[(TreeType.GAINS_LINE, "Adrenaline Rush")],
+            ),
         ],
     ),
     Entity(
@@ -584,6 +683,9 @@ all_entities = [
             ClassCooldownComponent([PlayerClass.ROGUE]),
             SpellAliasComponent([(TreeType.GAINS_LINE, "Blade Flurry")]),
             TrackSpellCastComponent(),
+            ClassDetectionComponent(
+                PlayerClass.ROGUE, triggered_by=[(TreeType.GAINS_LINE, "Blade Flurry")]
+            ),
         ],
     ),
     Entity(
@@ -591,6 +693,10 @@ all_entities = [
         [
             TrackSpellCastComponent(),
             SpellAliasComponent([(TreeType.HITS_ABILITY_LINE, "Sinister Strike")]),
+            ClassDetectionComponent(
+                PlayerClass.ROGUE,
+                triggered_by=[(TreeType.HITS_ABILITY_LINE, "Sinister Strike")],
+            ),
         ],
     ),
     Entity(
@@ -613,6 +719,9 @@ all_entities = [
         [
             SpellAliasComponent([(TreeType.GAINS_LINE, "Cold Blood")]),
             TrackSpellCastComponent(),
+            ClassDetectionComponent(
+                PlayerClass.ROGUE, triggered_by=[(TreeType.GAINS_LINE, "Cold Blood")]
+            ),
         ],
     ),
     Entity(
@@ -676,6 +785,345 @@ all_entities = [
         [
             SpellAliasComponent([(TreeType.GAINS_RAGE_LINE, "Unbridled Wrath")]),
             TrackProcComponent(),
+        ],
+    ),
+    Entity(
+        "Cleave",
+        [
+            SpellAliasComponent([(TreeType.HITS_ABILITY_LINE, "Cleave")]),
+            ClassDetectionComponent(
+                PlayerClass.WARRIOR, triggered_by=[(TreeType.HITS_ABILITY_LINE, "Cleave")]
+            ),
+        ],
+    ),
+    Entity(
+        "Whirlwind",
+        [
+            SpellAliasComponent([(TreeType.HITS_ABILITY_LINE, "Whirlwind")]),
+            ClassDetectionComponent(
+                PlayerClass.WARRIOR,
+                triggered_by=[(TreeType.HITS_ABILITY_LINE, "Whirlwind")],
+            ),
+        ],
+    ),
+    Entity(
+        "Bloodthirst",
+        [
+            SpellAliasComponent([(TreeType.HITS_ABILITY_LINE, "Bloodthirst")]),
+            ClassDetectionComponent(
+                PlayerClass.WARRIOR,
+                triggered_by=[(TreeType.HITS_ABILITY_LINE, "Bloodthirst")],
+            ),
+        ],
+    ),
+    Entity(
+        "Heroic Strike",
+        [
+            SpellAliasComponent([(TreeType.HITS_ABILITY_LINE, "Heroic Strike")]),
+            ClassDetectionComponent(
+                PlayerClass.WARRIOR,
+                triggered_by=[(TreeType.HITS_ABILITY_LINE, "Heroic Strike")],
+            ),
+        ],
+    ),
+    Entity(
+        "Slice and Dice",
+        [
+            SpellAliasComponent([(TreeType.GAINS_LINE, "Slice and Dice")]),
+            ClassDetectionComponent(
+                PlayerClass.ROGUE, triggered_by=[(TreeType.GAINS_LINE, "Slice and Dice")]
+            ),
+        ],
+    ),
+    Entity(
+        "Seal of Command",
+        [
+            SpellAliasComponent([(TreeType.GAINS_LINE, "Seal of Command")]),
+            ClassDetectionComponent(
+                PlayerClass.PALADIN,
+                triggered_by=[(TreeType.GAINS_LINE, "Seal of Command")],
+            ),
+        ],
+    ),
+    Entity(
+        "Seal of Righteousness",
+        [
+            SpellAliasComponent([(TreeType.GAINS_LINE, "Seal of Righteousness")]),
+            ClassDetectionComponent(
+                PlayerClass.PALADIN,
+                triggered_by=[(TreeType.GAINS_LINE, "Seal of Righteousness")],
+            ),
+        ],
+    ),
+    Entity(
+        "Flash of Light",
+        [
+            SpellAliasComponent([(TreeType.HEALS_LINE, "Flash of Light")]),
+            ClassDetectionComponent(
+                PlayerClass.PALADIN,
+                triggered_by=[
+                    (TreeType.HEALS_LINE, "Flash of Light"),
+                    (TreeType.BEGINS_TO_CAST_LINE, "Flash of Light"),
+                ],
+            ),
+        ],
+    ),
+    Entity(
+        "Holy Light",
+        [
+            SpellAliasComponent([(TreeType.HEALS_LINE, "Holy Light")]),
+            ClassDetectionComponent(
+                PlayerClass.PALADIN,
+                triggered_by=[
+                    (TreeType.HEALS_LINE, "Holy Light"),
+                    (TreeType.BEGINS_TO_CAST_LINE, "Holy Light"),
+                ],
+            ),
+        ],
+    ),
+    Entity(
+        "Heal",
+        [
+            SpellAliasComponent([(TreeType.HEALS_LINE, "Heal")]),
+            ClassDetectionComponent(
+                PlayerClass.PRIEST,
+                triggered_by=[
+                    (TreeType.HEALS_LINE, "Heal"),
+                    (TreeType.BEGINS_TO_CAST_LINE, "Heal"),
+                ],
+            ),
+        ],
+    ),
+    Entity(
+        "Flash Heal",
+        [
+            SpellAliasComponent([(TreeType.HEALS_LINE, "Flash Heal")]),
+            ClassDetectionComponent(
+                PlayerClass.PRIEST,
+                triggered_by=[
+                    (TreeType.HEALS_LINE, "Flash Heal"),
+                    (TreeType.BEGINS_TO_CAST_LINE, "Flash Heal"),
+                ],
+            ),
+        ],
+    ),
+    Entity(
+        "Greater Heal",
+        [
+            SpellAliasComponent([(TreeType.HEALS_LINE, "Greater Heal")]),
+            ClassDetectionComponent(
+                PlayerClass.PRIEST,
+                triggered_by=[
+                    (TreeType.HEALS_LINE, "Greater Heal"),
+                    (TreeType.BEGINS_TO_CAST_LINE, "Greater Heal"),
+                ],
+            ),
+        ],
+    ),
+    Entity(
+        "Prayer of Healing",
+        [
+            SpellAliasComponent([(TreeType.HEALS_LINE, "Prayer of Healing")]),
+            ClassDetectionComponent(
+                PlayerClass.PRIEST,
+                triggered_by=[
+                    (TreeType.HEALS_LINE, "Prayer of Healing"),
+                    (TreeType.BEGINS_TO_CAST_LINE, "Prayer of Healing"),
+                ],
+            ),
+        ],
+    ),
+    Entity(
+        "Mind Blast",
+        [
+            SpellAliasComponent([(TreeType.HITS_ABILITY_LINE, "Mind Blast")]),
+            ClassDetectionComponent(
+                PlayerClass.PRIEST,
+                triggered_by=[
+                    (TreeType.HITS_ABILITY_LINE, "Mind Blast"),
+                    (TreeType.BEGINS_TO_CAST_LINE, "Mind Blast"),
+                ],
+            ),
+        ],
+    ),
+    Entity(
+        "Smite",
+        [
+            ClassDetectionComponent(
+                PlayerClass.PRIEST,
+                triggered_by=[(TreeType.BEGINS_TO_CAST_LINE, "Smite")],
+            ),
+        ],
+    ),
+    Entity(
+        "Rejuvenation",
+        [
+            SpellAliasComponent([(TreeType.GAINS_HEALTH_LINE, "Rejuvenation")]),
+            ClassDetectionComponent(
+                PlayerClass.DRUID,
+                triggered_by=[
+                    (TreeType.GAINS_HEALTH_LINE, "Rejuvenation"),
+                    (TreeType.BEGINS_TO_CAST_LINE, "Rejuvenation"),
+                ],
+            ),
+        ],
+    ),
+    Entity(
+        "Regrowth",
+        [
+            SpellAliasComponent([(TreeType.GAINS_HEALTH_LINE, "Regrowth")]),
+            ClassDetectionComponent(
+                PlayerClass.DRUID,
+                triggered_by=[
+                    (TreeType.GAINS_HEALTH_LINE, "Regrowth"),
+                    (TreeType.BEGINS_TO_CAST_LINE, "Regrowth"),
+                ],
+            ),
+        ],
+    ),
+    Entity(
+        "Starfire",
+        [
+            SpellAliasComponent([(TreeType.HITS_ABILITY_LINE, "Starfire")]),
+            ClassDetectionComponent(
+                PlayerClass.DRUID,
+                triggered_by=[(TreeType.HITS_ABILITY_LINE, "Starfire")],
+            ),
+        ],
+    ),
+    Entity(
+        "Moonfire",
+        [
+            SpellAliasComponent([(TreeType.HITS_ABILITY_LINE, "Moonfire")]),
+            ClassDetectionComponent(
+                PlayerClass.DRUID,
+                triggered_by=[(TreeType.HITS_ABILITY_LINE, "Moonfire")],
+            ),
+        ],
+    ),
+    Entity(
+        "Wrath",
+        [
+            SpellAliasComponent([(TreeType.HITS_ABILITY_LINE, "Wrath")]),
+            ClassDetectionComponent(
+                PlayerClass.DRUID,
+                triggered_by=[
+                    (TreeType.HITS_ABILITY_LINE, "Wrath"),
+                    (TreeType.BEGINS_TO_CAST_LINE, "Wrath"),
+                ],
+            ),
+        ],
+    ),
+    Entity(
+        "Arcane Explosion",
+        [
+            SpellAliasComponent([(TreeType.HITS_ABILITY_LINE, "Arcane Explosion")]),
+            ClassDetectionComponent(
+                PlayerClass.MAGE,
+                triggered_by=[(TreeType.HITS_ABILITY_LINE, "Arcane Explosion")],
+            ),
+        ],
+    ),
+    Entity(
+        "Fire Blast",
+        [
+            SpellAliasComponent([(TreeType.HITS_ABILITY_LINE, "Fire Blast")]),
+            ClassDetectionComponent(
+                PlayerClass.MAGE,
+                triggered_by=[(TreeType.HITS_ABILITY_LINE, "Fire Blast")],
+            ),
+        ],
+    ),
+    Entity(
+        "Fireball",
+        [
+            ClassDetectionComponent(
+                PlayerClass.MAGE,
+                triggered_by=[(TreeType.BEGINS_TO_CAST_LINE, "Fireball")],
+            ),
+        ],
+    ),
+    Entity(
+        "Polymorph",
+        [
+            ClassDetectionComponent(
+                PlayerClass.MAGE,
+                triggered_by=[(TreeType.BEGINS_TO_CAST_LINE, "Polymorph")],
+            ),
+        ],
+    ),
+    Entity(
+        "Shadow Bolt",
+        [
+            SpellAliasComponent([(TreeType.HITS_ABILITY_LINE, "Shadow Bolt")]),
+            ClassDetectionComponent(
+                PlayerClass.WARLOCK,
+                triggered_by=[
+                    (TreeType.HITS_ABILITY_LINE, "Shadow Bolt"),
+                    (TreeType.BEGINS_TO_CAST_LINE, "Shadow Bolt"),
+                ],
+            ),
+        ],
+    ),
+    Entity(
+        "Arcane Shot",
+        [
+            SpellAliasComponent([(TreeType.HITS_ABILITY_LINE, "Arcane Shot")]),
+            ClassDetectionComponent(
+                PlayerClass.HUNTER,
+                triggered_by=[(TreeType.HITS_ABILITY_LINE, "Arcane Shot")],
+            ),
+        ],
+    ),
+    Entity(
+        "Multi-Shot",
+        [
+            SpellAliasComponent([(TreeType.HITS_ABILITY_LINE, "Multi-Shot")]),
+            ClassDetectionComponent(
+                PlayerClass.HUNTER,
+                triggered_by=[
+                    (TreeType.HITS_ABILITY_LINE, "Multi-Shot"),
+                    (TreeType.BEGINS_TO_CAST_LINE, "Multi-Shot"),
+                ],
+            ),
+        ],
+    ),
+    Entity(
+        "Auto Shot",
+        [
+            SpellAliasComponent([(TreeType.BEGINS_TO_PERFORM_LINE, "Auto Shot")]),
+            ClassDetectionComponent(
+                PlayerClass.HUNTER,
+                triggered_by=[(TreeType.BEGINS_TO_PERFORM_LINE, "Auto Shot")],
+            ),
+        ],
+    ),
+    Entity(
+        "Trueshot",
+        [
+            SpellAliasComponent([(TreeType.BEGINS_TO_PERFORM_LINE, "Trueshot")]),
+            ClassDetectionComponent(
+                PlayerClass.HUNTER,
+                triggered_by=[(TreeType.BEGINS_TO_PERFORM_LINE, "Trueshot")],
+            ),
+        ],
+    ),
+    Entity(
+        "Chain Heal",
+        [
+            ClassDetectionComponent(
+                PlayerClass.SHAMAN,
+                triggered_by=[(TreeType.BEGINS_TO_CAST_LINE, "Chain Heal")],
+            ),
+        ],
+    ),
+    Entity(
+        "Lesser Healing Wave",
+        [
+            ClassDetectionComponent(
+                PlayerClass.SHAMAN,
+                triggered_by=[(TreeType.BEGINS_TO_CAST_LINE, "Lesser Healing Wave")],
+            ),
         ],
     ),
 ]

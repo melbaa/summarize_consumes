@@ -157,3 +157,9 @@ class TrackSpellCastComponent(Component):
 @dataclass
 class TrackProcComponent(Component):
     pass
+
+
+@dataclass
+class ClassDetectionComponent(Component):
+    player_class: PlayerClass
+    triggered_by: List[Tuple[TreeType, str]] = field(default_factory=list)

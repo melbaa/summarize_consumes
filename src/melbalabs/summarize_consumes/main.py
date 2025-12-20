@@ -1,3 +1,4 @@
+from melbalabs.summarize_consumes.entity_model import ClassDetectionComponent
 from melbalabs.summarize_consumes.entity_model import TrackProcComponent
 from melbalabs.summarize_consumes.entity_model import TrackSpellCastComponent
 import argparse
@@ -1362,7 +1363,6 @@ for entity, (tag, alias_comp) in get_entities_with_components(
         LINE2PROC[key] = entity.name
 
 
-
 class ProcCount:
     def __init__(
         self,
@@ -1382,7 +1382,6 @@ class ProcCount:
             return
         spellname_canonical = LINE2PROC[key]
         self.counts[spellname_canonical][name] += 1
-        
 
     def add_extra_attacks(self, howmany, source, name):
         self.counts_extra_attacks[source][name] += howmany
@@ -1569,99 +1568,20 @@ class PrintConsumableTotalsCsv:
             writer.writerow([player.name, player.total_spent, player.deaths])
 
 
-# line type -> spell -> PlayerClass
 # shouldn't need to be an exhaustive list, only the most common
 # unique spells, no ambiguity
-UNIQUE_LINE2SPELL2CLASS: Dict[TreeType, Dict[str, PlayerClass]] = {
-    TreeType.AFFLICTED_LINE: {
-        "Death Wish": PlayerClass.WARRIOR,
-    },
-    TreeType.GAINS_LINE: {
-        "Recklessness": PlayerClass.WARRIOR,
-        "Shield Wall": PlayerClass.WARRIOR,
-        "Bloodrage": PlayerClass.WARRIOR,
-        "Sweeping Strikes": PlayerClass.WARRIOR,
-        "Combustion": PlayerClass.MAGE,
-        "Adrenaline Rush": PlayerClass.ROGUE,
-        "Blade Flurry": PlayerClass.ROGUE,
-        "Cold Blood": PlayerClass.ROGUE,
-        "Slice and Dice": PlayerClass.ROGUE,
-        "Divine Favor": PlayerClass.PALADIN,
-        "Seal of Command": PlayerClass.PALADIN,
-        "Seal of Righteousness": PlayerClass.PALADIN,
-    },
-    TreeType.HEALS_LINE: {
-        "Flash of Light": PlayerClass.PALADIN,
-        "Holy Light": PlayerClass.PALADIN,
-        "Holy Shock (heal)": PlayerClass.PALADIN,
-        "Heal": PlayerClass.PRIEST,
-        "Flash Heal": PlayerClass.PRIEST,
-        "Greater Heal": PlayerClass.PRIEST,
-        "Prayer of Healing": PlayerClass.PRIEST,
-    },
-    TreeType.HITS_ABILITY_LINE: {
-        "Cleave": PlayerClass.WARRIOR,
-        "Whirlwind": PlayerClass.WARRIOR,
-        "Bloodthirst": PlayerClass.WARRIOR,
-        "Heroic Strike": PlayerClass.WARRIOR,
-        "Sinister Strike": PlayerClass.ROGUE,
-        "Arcane Explosion": PlayerClass.MAGE,
-        "Fire Blast": PlayerClass.MAGE,
-        "Starfire": PlayerClass.DRUID,
-        "Moonfire": PlayerClass.DRUID,
-        "Wrath": PlayerClass.DRUID,
-        "Shadow Bolt": PlayerClass.WARLOCK,
-        "Mind Blast": PlayerClass.PRIEST,
-        "Arcane Shot": PlayerClass.HUNTER,
-        "Multi-Shot": PlayerClass.HUNTER,
-        "Holy Shock (dmg)": PlayerClass.PALADIN,
-    },
-    TreeType.GAINS_HEALTH_LINE: {
-        "Rejuvenation": PlayerClass.DRUID,
-        "Regrowth": PlayerClass.DRUID,
-    },
-    TreeType.BEGINS_TO_CAST_LINE: {
-        "Shadow Bolt": PlayerClass.WARLOCK,
-        "Rejuvenation": PlayerClass.DRUID,
-        "Regrowth": PlayerClass.DRUID,
-        "Wrath": PlayerClass.DRUID,
-        # frostbolt not unique enough probably, eg frost oils
-        "Fireball": PlayerClass.MAGE,
-        "Scorch": PlayerClass.MAGE,
-        "Polymorph": PlayerClass.MAGE,
-        "Chain Heal": PlayerClass.SHAMAN,
-        "Lesser Healing Wave": PlayerClass.SHAMAN,
-        "Mind Blast": PlayerClass.PRIEST,
-        "Smite": PlayerClass.PRIEST,
-        "Heal": PlayerClass.PRIEST,
-        "Flash Heal": PlayerClass.PRIEST,
-        "Greater Heal": PlayerClass.PRIEST,
-        "Prayer of Healing": PlayerClass.PRIEST,
-        "Multi-Shot": PlayerClass.HUNTER,
-        "Flash of Light": PlayerClass.PALADIN,
-        "Holy Light": PlayerClass.PALADIN,
-    },
-    TreeType.BEGINS_TO_PERFORM_LINE: {
-        "Auto Shot": PlayerClass.HUNTER,
-        "Trueshot": PlayerClass.HUNTER,
-    },
-    TreeType.CASTS_LINE: {
-        "Windfury Totem": PlayerClass.SHAMAN,
-        "Mana Tide Totem": PlayerClass.SHAMAN,
-        "Grace of Air Totem": PlayerClass.SHAMAN,
-        "Tranquil Air Totem": PlayerClass.SHAMAN,
-        "Strength of Earth Totem": PlayerClass.SHAMAN,
-        "Mana Spring Totem": PlayerClass.SHAMAN,
-        "Searing Totem": PlayerClass.SHAMAN,
-        "Fire Nova Totem": PlayerClass.SHAMAN,
-        "Magma Totem": PlayerClass.SHAMAN,
-        "Ancestral Spirit": PlayerClass.SHAMAN,
-        "Redemption": PlayerClass.PALADIN,
-        "Resurrection": PlayerClass.PRIEST,
-        "Rebirth": PlayerClass.DRUID,
-        "Sunder Armor": PlayerClass.WARRIOR,
-    },
-}
+UNIQUE_LINE2SPELL2CLASS = {}
+
+for entity, (det_comp,) in get_entities_with_components(ClassDetectionComponent):
+    player_class = det_comp.player_class
+    for line_type, raw_spellname in det_comp.triggered_by:
+        key = (line_type, raw_spellname)
+        if key in UNIQUE_LINE2SPELL2CLASS:
+            raise ValueError(
+                f"duplicate spell alias. tried to add {key} for {player_class}"
+                f" but {key} already added"
+            )
+        UNIQUE_LINE2SPELL2CLASS[key] = player_class
 
 
 class ClassDetection:
@@ -1681,13 +1601,9 @@ class ClassDetection:
         return self.store[name] is cls
 
     def detect(self, line_type: str, name: str, spell: str):
-        if line_type not in UNIQUE_LINE2SPELL2CLASS:
+        if (line_type, spell) not in UNIQUE_LINE2SPELL2CLASS:
             return
-        spell2class = UNIQUE_LINE2SPELL2CLASS[line_type]
-        if spell not in spell2class:
-            return
-
-        detected_class: PlayerClass = spell2class[spell]
+        detected_class = UNIQUE_LINE2SPELL2CLASS[line_type, spell]
 
         if name not in self.store:
             self.store[name] = detected_class
