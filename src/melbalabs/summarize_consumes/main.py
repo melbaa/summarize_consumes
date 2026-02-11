@@ -802,12 +802,13 @@ class DmgstoreEntry:
 
 
 class TimelineEntry:
-    def __init__(self, timestamp_unix, source, target, spellname, event_type):
+    def __init__(self, timestamp_unix, source, target, spellname, event_type, amount=0):
         self.timestamp_unix = timestamp_unix
         self.source = source
         self.target = target
         self.spellname = spellname
         self.event_type = event_type
+        self.amount = amount
 
 
 class AbilityTimeline:
@@ -827,7 +828,7 @@ class AbilityTimeline:
     def is_important(self, spellname):
         return spellname in self._important_spells
 
-    def add(self, source, target, spellname, event_type, timestamp_unix):
+    def add(self, source, target, spellname, event_type, timestamp_unix, amount=0):
         keep = False
         if target in self.known_targets:
             keep = True
@@ -844,6 +845,7 @@ class AbilityTimeline:
                 target=target,
                 spellname=spellname,
                 event_type=event_type,
+                amount=amount,
             )
         )
 
@@ -896,7 +898,7 @@ class AbilityTimeline:
                     closest_boss_entry = boss_events[idx - 1]
 
             # if within 30s, keep it and reassign target
-            if closest_boss_entry and min_diff <= 30.0:
+            if closest_boss_entry and min_diff <= 15.0:
                 entry.target = closest_boss_entry.target
                 final_entries.append(entry)
 
@@ -919,21 +921,20 @@ class AbilityTimeline:
             print(f"\n\nAbility Timeline for {target} ({duration:.1f}s)", file=output)
 
             # identify all players involved
-            sorted_players = list(set(e.source for e in entries if e.source in self.player))
+            players_involved = list(set(e.source for e in entries if e.source in self.player))
 
-            def get_dmg(p):
+            def get_player_target_dmg(p):
                 return self.dmgstore.store_target[(p, target)].dmg
 
-            sorted_players.sort(key=get_dmg, reverse=True)
+            # sort players by damage to this target
+            players_involved.sort(key=get_player_target_dmg, reverse=True)
 
             # print header (time scale)
-            # let's map time to x-axis 0..100 roughly.
-
             width = 120
             scale = width / duration
 
             # Name                 0....+....10...+....20...
-            print(f"{'Player':<20} Time (seconds) ->", file=output)
+            print(f"{'Player / Spell':<30} Time (seconds) ->", file=output)
 
             # create a time axis string
             axis = " " * (width + 1)
@@ -949,44 +950,51 @@ class AbilityTimeline:
                     else:
                         if pos < width and axis_list[pos] == " ":
                             axis_list[pos] = "'"
-            print(" " * 20 + "".join(axis_list), file=output)
+            print(" " * 30 + "".join(axis_list), file=output)
 
-            for player in sorted_players:
+            # Calculate "impact damage" for sorting: damage to ANY target during this time window
+            # This ensures sorting matches the player's total contribution during the encounter.
+            impact_damage = collections.defaultdict(lambda: collections.defaultdict(int))
+            for e in final_entries:
+                if start_time <= e.timestamp_unix <= end_time:
+                    impact_damage[e.source][e.spellname] += e.amount
+
+            for player in players_involved:
                 player_entries = [e for e in entries if e.source == player]
+                if not player_entries:
+                    continue
 
-                # Multi-row logic
-                rows = []
+                print(f"{player}", file=output)
 
-                def get_row(row_idx):
-                    while len(rows) <= row_idx:
-                        rows.append([" "] * (width + 1))
-                    return rows[row_idx]
-
+                # group by spell (only for display - i.e. items hit on THIS target)
+                by_spell = collections.defaultdict(list)
                 for e in player_entries:
-                    relative_time = e.timestamp_unix - start_time
-                    pos = int(relative_time * scale)
+                    by_spell[e.spellname].append(e)
 
-                    if 0 <= pos < width:
-                        marker = e.spellname[0]
+                # sort spells: important first, then by impact damage
+                def get_spell_priority(spellname):
+                    is_imp = self.is_important(spellname)
+                    priority = 0 if is_imp else 1
 
-                        # Find the first row where this position is empty
-                        row_idx = 0
-                        placed = False
-                        while not placed:
-                            current_row = get_row(row_idx)
-                            if current_row[pos] == " ":
-                                current_row[pos] = marker
-                                placed = True
-                            else:
-                                row_idx += 1
+                    # Use the encounter-wide damage for this window
+                    dmg = impact_damage[player][spellname]
 
-                # Print rows
-                if not rows:
-                    print(f"{player:<20}" + " " * width, file=output)
-                else:
-                    for i, row in enumerate(rows):
-                        prefix = f"{player:<20}" if i == 0 else " " * 20
-                        print(prefix + "".join(row), file=output)
+                    return (priority, -dmg)
+
+                sorted_spells = sorted(by_spell.keys(), key=get_spell_priority)
+
+                for spellname in sorted_spells:
+                    spell_entries = by_spell[spellname]
+
+                    # build the row string
+                    row = [" "] * (width + 1)
+                    for e in spell_entries:
+                        relative_time = e.timestamp_unix - start_time
+                        pos = int(relative_time * scale)
+                        if 0 <= pos < width:
+                            row[pos] = "x"
+
+                    print(f"  {spellname:<28}" + "".join(row), file=output)
 
 
 class Dmgstore2:
@@ -2253,9 +2261,10 @@ def process_tree(app, line, tree: Tree):
         app.ability_timeline.add(
             source=name,
             target=targetname,
-            spellname=spellname,
+            spellname=spellname_canonical,
             event_type=subtree.data,
             timestamp_unix=timestamp_unix,
+            amount=amount,
         )
 
         if spellname in app.hits_consumable.COOLDOWNS:
@@ -2409,6 +2418,16 @@ def process_tree(app, line, tree: Tree):
         if targetname == "Guardian of Icecrown":
             app.kt_guardian.add(line)
 
+        spellname_canonical = rename_spell(spellname, line_type=subtree.data)
+        app.ability_timeline.add(
+            source=targetname,
+            target=targetname,
+            spellname=spellname_canonical,
+            event_type=subtree.data,
+            timestamp_unix=timestamp_unix,
+            amount=0,
+        )
+
         return True
     elif subtree.data == TreeType.IS_DESTROYED_LINE:
         return True
@@ -2482,6 +2501,16 @@ def process_tree(app, line, tree: Tree):
 
             app.dmgstore.add(name, targetname, spellname, amount, timestamp_unix)
             app.dmgtakenstore.add(name, targetname, spellname, amount, timestamp_unix)
+
+            spellname_canonical = rename_spell(spellname, line_type=subtree.data)
+            app.ability_timeline.add(
+                source=name,
+                target=targetname,
+                spellname=spellname_canonical,
+                event_type=subtree.data,
+                timestamp_unix=timestamp_unix,
+                amount=amount,
+            )
         else:
             # nosource
             pass
@@ -2546,6 +2575,16 @@ def process_tree(app, line, tree: Tree):
         amount = int(subtree.children[3].value)
         app.dmgstore.add(name, target, spellname, amount, timestamp_unix)
         app.dmgtakenstore.add(name, target, spellname, amount, timestamp_unix)
+
+        spellname_canonical = rename_spell(spellname, line_type=subtree.data)
+        app.ability_timeline.add(
+            source=name,
+            target=target,
+            spellname=spellname_canonical,
+            event_type=subtree.data,
+            timestamp_unix=timestamp_unix,
+            amount=amount,
+        )
         return True
     elif subtree.data == TreeType.IS_REFLECTED_BACK_LINE:
         return True
