@@ -285,6 +285,12 @@ def create_app(
         allow_selfdmg=True,
     )
 
+    app.ability_timeline = AbilityTimeline(
+        known_targets=KNOWN_BOSS_NAMES,
+        player=app.player,
+        dmgstore=app.dmgstore,
+    )
+
     app.techinfo = Techinfo(
         time_start=time_start,
         prices_last_update=app.pricedb.last_update,
@@ -789,6 +795,129 @@ class DmgstoreEntry:
         self.hits = 0
         self.uses = 0
         self.last_ts = 0
+
+
+class TimelineEntry:
+    def __init__(self, timestamp_unix, source, target, spellname, event_type):
+        self.timestamp_unix = timestamp_unix
+        self.source = source
+        self.target = target
+        self.spellname = spellname
+        self.event_type = event_type
+
+
+class AbilityTimeline:
+    def __init__(self, known_targets, player, dmgstore):
+        self.entries = []
+        self.known_targets = known_targets
+        self.player = player
+        self.dmgstore = dmgstore
+
+    def add(self, source, target, spellname, event_type, timestamp_unix):
+        if target not in self.known_targets:
+            return
+
+        self.entries.append(
+            TimelineEntry(
+                timestamp_unix=timestamp_unix,
+                source=source,
+                target=target,
+                spellname=spellname,
+                event_type=event_type,
+            )
+        )
+
+    def print(self, output):
+        if not self.entries:
+            return
+
+        # grouping by target
+        by_target = collections.defaultdict(list)
+        for entry in self.entries:
+            by_target[entry.target].append(entry)
+
+        for target, entries in by_target.items():
+            # sort entries by timestamp
+            entries.sort(key=lambda e: e.timestamp_unix)
+
+            start_time = entries[0].timestamp_unix
+            end_time = entries[-1].timestamp_unix
+            duration = end_time - start_time
+
+            if duration <= 0:
+                duration = 1
+
+            print(f"\n\nAbility Timeline for {target} ({duration:.1f}s)", file=output)
+
+            # identify all players involved
+            sorted_players = list(set(e.source for e in entries if e.source in self.player))
+
+            def get_dmg(p):
+                return self.dmgstore.store_target[(p, target)].dmg
+
+            sorted_players.sort(key=get_dmg, reverse=True)
+
+            # print header (time scale)
+            # let's map time to x-axis 0..100 roughly.
+
+            width = 120
+            scale = width / duration
+
+            # Name                 0....+....10...+....20...
+            print(f"{'Player':<20} Time (seconds) ->", file=output)
+
+            # create a time axis string
+            axis = " " * (width + 1)
+            axis_list = list(axis)
+            for i in range(0, int(duration) + 5, 5):
+                pos = int(i * scale)
+                if pos < width:
+                    if i % 10 == 0:
+                        s = str(i)
+                        for k, c in enumerate(s):
+                            if pos + k < width:
+                                axis_list[pos + k] = c
+                    else:
+                        if pos < width and axis_list[pos] == " ":
+                            axis_list[pos] = "'"
+            print(" " * 20 + "".join(axis_list), file=output)
+
+            for player in sorted_players:
+                player_entries = [e for e in entries if e.source == player]
+
+                # Multi-row logic
+                rows = []
+
+                def get_row(row_idx):
+                    while len(rows) <= row_idx:
+                        rows.append([" "] * (width + 1))
+                    return rows[row_idx]
+
+                for e in player_entries:
+                    relative_time = e.timestamp_unix - start_time
+                    pos = int(relative_time * scale)
+
+                    if 0 <= pos < width:
+                        marker = e.spellname[0]
+
+                        # Find the first row where this position is empty
+                        row_idx = 0
+                        placed = False
+                        while not placed:
+                            current_row = get_row(row_idx)
+                            if current_row[pos] == " ":
+                                current_row[pos] = marker
+                                placed = True
+                            else:
+                                row_idx += 1
+
+                # Print rows
+                if not rows:
+                    print(f"{player:<20}" + " " * width, file=output)
+                else:
+                    for i, row in enumerate(rows):
+                        prefix = f"{player:<20}" if i == 0 else " " * 20
+                        print(prefix + "".join(row), file=output)
 
 
 class Dmgstore2:
@@ -1980,6 +2109,14 @@ def process_tree(app, line, tree: Tree):
         if len(subtree.children) == 3:
             targetname = subtree.children[2].value
 
+            app.ability_timeline.add(
+                source=name,
+                target=targetname,
+                spellname=spellname,
+                event_type=subtree.data,
+                timestamp_unix=timestamp_unix,
+            )
+
             if spellname == "Tranquilizing Shot" and targetname == "Princess Huhuran":
                 app.huhuran.add(line)
             if spellname == "Tranquilizing Shot" and targetname == "Gluth":
@@ -2012,6 +2149,13 @@ def process_tree(app, line, tree: Tree):
 
         app.class_detection.detect(line_type=subtree.data, name=name, spell=spellname)
         app.spell_count.add(line_type=subtree.data, name=name, spell=spellname)
+        app.ability_timeline.add(
+            source=name,
+            target=targetname,
+            spellname=spellname,
+            event_type=subtree.data,
+            timestamp_unix=timestamp_unix,
+        )
 
         if spellname in app.hits_consumable.COOLDOWNS:
             app.hits_consumable.update(name, spellname, timestamp_unix)
@@ -2416,6 +2560,9 @@ def generate_output(app):
 
     app.pet_handler.print(output)
     app.class_detection.print(output)
+
+    app.ability_timeline.print(output)
+
     app.techinfo.print(output)
 
     return output
