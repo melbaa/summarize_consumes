@@ -2,6 +2,7 @@ from melbalabs.summarize_consumes.entity_model import ClassDetectionComponent
 from melbalabs.summarize_consumes.entity_model import TrackProcComponent
 from melbalabs.summarize_consumes.entity_model import TrackSpellCastComponent
 import argparse
+import bisect
 import collections
 import csv
 import dataclasses
@@ -289,6 +290,7 @@ def create_app(
         known_targets=KNOWN_BOSS_NAMES,
         player=app.player,
         dmgstore=app.dmgstore,
+        cdspell_class=CDSPELL_CLASS,
     )
 
     app.techinfo = Techinfo(
@@ -398,7 +400,9 @@ INTERRUPT_SPELLS = {
 TRINKET_SPELL = []
 for _, trinket_comp in get_entities_with_component(TrinketComponent):
     TRINKET_SPELL.extend(trinket_comp.triggered_by_spells)
-TRINKET_SPELL = list(set(TRINKET_SPELL))
+TRINKET_SPELL_SET = set(TRINKET_SPELL)
+TRINKET_SPELL = list(TRINKET_SPELL_SET)
+
 
 RACIAL_SPELL = [entity.name for entity, _ in get_entities_with_component(RacialSpellComponent)]
 RECEIVE_BUFF_SPELL = {
@@ -807,14 +811,30 @@ class TimelineEntry:
 
 
 class AbilityTimeline:
-    def __init__(self, known_targets, player, dmgstore):
+    def __init__(self, known_targets, player, dmgstore, cdspell_class):
         self.entries = []
         self.known_targets = known_targets
         self.player = player
         self.dmgstore = dmgstore
+        self.cdspell_class = cdspell_class
+
+        # build a fast lookup set of important spells
+        self._important_spells = set()
+        for _, spells in cdspell_class:
+            for spell in spells:
+                self._important_spells.add(spell)
+
+    def is_important(self, spellname):
+        return spellname in self._important_spells
 
     def add(self, source, target, spellname, event_type, timestamp_unix):
-        if target not in self.known_targets:
+        keep = False
+        if target in self.known_targets:
+            keep = True
+        elif source in self.player and self.is_important(spellname):
+            keep = True
+
+        if not keep:
             return
 
         self.entries.append(
@@ -831,9 +851,58 @@ class AbilityTimeline:
         if not self.entries:
             return
 
+        # re-assign targets for important spells that are self-cast
+        # or cast on non-boss targets
+        # we want to group them with the boss fight they belong to
+        # so we look for the closest boss event and steal its target
+
+        boss_events = []
+        for entry in self.entries:
+            if entry.target in self.known_targets:
+                boss_events.append(entry)
+
+        boss_events.sort(key=lambda e: e.timestamp_unix)
+        boss_event_timestamps = [e.timestamp_unix for e in boss_events]
+
+        final_entries = []
+
+        for entry in self.entries:
+            if entry.target in self.known_targets:
+                final_entries.append(entry)
+                continue
+
+            if not boss_events:
+                # no boss events at all, skip this entry as it cannot be assigned
+                continue
+
+            # find closest boss event
+            idx = bisect.bisect_left(boss_event_timestamps, entry.timestamp_unix)
+
+            closest_boss_entry = None
+            min_diff = float("inf")
+
+            # check candidate at idx
+            if idx < len(boss_events):
+                diff = abs(entry.timestamp_unix - boss_events[idx].timestamp_unix)
+                if diff < min_diff:
+                    min_diff = diff
+                    closest_boss_entry = boss_events[idx]
+
+            # check candidate at idx-1
+            if idx > 0:
+                diff = abs(entry.timestamp_unix - boss_events[idx - 1].timestamp_unix)
+                if diff < min_diff:
+                    min_diff = diff
+                    closest_boss_entry = boss_events[idx - 1]
+
+            # if within 30s, keep it and reassign target
+            if closest_boss_entry and min_diff <= 30.0:
+                entry.target = closest_boss_entry.target
+                final_entries.append(entry)
+
         # grouping by target
         by_target = collections.defaultdict(list)
-        for entry in self.entries:
+        for entry in final_entries:
             by_target[entry.target].append(entry)
 
         for target, entries in by_target.items():
@@ -1954,6 +2023,9 @@ def process_tree(app, line, tree: Tree):
         if spellname in BUFF_SPELL:
             app.player_detect[name].add("buff: " + spellname)
 
+        if spellname in TRINKET_SPELL_SET:
+            app.player_detect[name].add("trinket: " + spellname)
+
         if spellname == "Armor Shatter":
             app.annihilator.add(line)
         if spellname == "Flame Buffet":
@@ -1963,6 +2035,15 @@ def process_tree(app, line, tree: Tree):
             app.huhuran.add(line)
         if name == "Gluth" and spellname == "Frenzy":
             app.gluth.add(line)
+
+        spellname_canonical = rename_spell(spellname, subtree.data)
+        app.ability_timeline.add(
+            source=name,
+            target=name,
+            spellname=spellname_canonical,
+            event_type=subtree.data,
+            timestamp_unix=timestamp_unix,
+        )
 
         return True
     elif subtree.data == TreeType.GAINS_RAGE_LINE:
@@ -1975,6 +2056,15 @@ def process_tree(app, line, tree: Tree):
         if spellname == "Unbridled Wrath":
             amount = int(subtree.children[1].value)
             app.proc_count.add_unbridled_wrath(amount=amount, name=name)
+
+        spellname_canonical = rename_spell(spellname, subtree.data)
+        app.ability_timeline.add(
+            source=name,
+            target=name,
+            spellname=spellname_canonical,
+            event_type=subtree.data,
+            timestamp_unix=timestamp_unix,
+        )
 
         if consumable_item := RAWSPELLNAME2CONSUMABLE.get((subtree.data, spellname)):
             app.player[name][consumable_item.name] += 1
@@ -2106,13 +2196,15 @@ def process_tree(app, line, tree: Tree):
         if spellname == "Death by Peasant":
             app.huhuran.add(line)
 
+        spellname_canonical = rename_spell(spellname, subtree.data)
+
         if len(subtree.children) == 3:
             targetname = subtree.children[2].value
 
             app.ability_timeline.add(
                 source=name,
                 target=targetname,
-                spellname=spellname,
+                spellname=spellname_canonical,
                 event_type=subtree.data,
                 timestamp_unix=timestamp_unix,
             )
@@ -2121,6 +2213,15 @@ def process_tree(app, line, tree: Tree):
                 app.huhuran.add(line)
             if spellname == "Tranquilizing Shot" and targetname == "Gluth":
                 app.gluth.add(line)
+        else:
+            # self cast or no target
+            app.ability_timeline.add(
+                source=name,
+                target=name,
+                spellname=spellname_canonical,
+                event_type=subtree.data,
+                timestamp_unix=timestamp_unix,
+            )
 
         if name == "Kel'Thuzad" and spellname == "Shadow Fissure":
             app.kt_shadowfissure.add(line)
