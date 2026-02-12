@@ -1,8 +1,4 @@
-from melbalabs.summarize_consumes.entity_model import ClassDetectionComponent
-from melbalabs.summarize_consumes.entity_model import TrackProcComponent
-from melbalabs.summarize_consumes.entity_model import TrackSpellCastComponent
 import argparse
-import bisect
 import collections
 import csv
 import dataclasses
@@ -41,6 +37,9 @@ from melbalabs.summarize_consumes.consumable_model import NoPrice
 from melbalabs.summarize_consumes.consumable_db import all_defined_consumable_items
 from melbalabs.summarize_consumes.entity_model import get_entities_with_component
 from melbalabs.summarize_consumes.entity_model import get_entities_with_components
+from melbalabs.summarize_consumes.entity_model import ClassDetectionComponent
+from melbalabs.summarize_consumes.entity_model import TrackProcComponent
+from melbalabs.summarize_consumes.entity_model import TrackSpellCastComponent
 from melbalabs.summarize_consumes.entity_model import PlayerClass
 from melbalabs.summarize_consumes.entity_model import Entity
 from melbalabs.summarize_consumes.entity_model import CanonicalName
@@ -58,6 +57,7 @@ from melbalabs.summarize_consumes.parser import Parser2
 from melbalabs.summarize_consumes.parser import Tree
 from melbalabs.summarize_consumes.parser import ParserError
 from melbalabs.summarize_consumes.parser import TreeType
+from melbalabs.summarize_consumes.timeline import AbilityTimeline
 from melbalabs.summarize_consumes.parser import ActionValue
 import melbalabs.summarize_consumes.package as package
 
@@ -287,7 +287,7 @@ def create_app(
     )
 
     app.ability_timeline = AbilityTimeline(
-        known_targets=KNOWN_BOSS_NAMES,
+        known_boss_names=KNOWN_BOSS_NAMES,
         player=app.player,
         dmgstore=app.dmgstore,
         cdspell_class=CDSPELL_CLASS,
@@ -799,202 +799,6 @@ class DmgstoreEntry:
         self.hits = 0
         self.uses = 0
         self.last_ts = 0
-
-
-class TimelineEntry:
-    def __init__(self, timestamp_unix, source, target, spellname, event_type, amount=0):
-        self.timestamp_unix = timestamp_unix
-        self.source = source
-        self.target = target
-        self.spellname = spellname
-        self.event_type = event_type
-        self.amount = amount
-
-
-class AbilityTimeline:
-    def __init__(self, known_targets, player, dmgstore, cdspell_class):
-        self.entries = []
-        self.known_targets = known_targets
-        self.player = player
-        self.dmgstore = dmgstore
-        self.cdspell_class = cdspell_class
-
-        # build a fast lookup set of important spells
-        self._important_spells = set()
-        for _, spells in cdspell_class:
-            for spell in spells:
-                self._important_spells.add(spell)
-
-    def is_important(self, spellname):
-        return spellname in self._important_spells
-
-    def add(self, source, target, spellname, event_type, timestamp_unix, amount=0):
-        keep = False
-        if target in self.known_targets:
-            keep = True
-        elif source in self.player and self.is_important(spellname):
-            keep = True
-
-        if not keep:
-            return
-
-        self.entries.append(
-            TimelineEntry(
-                timestamp_unix=timestamp_unix,
-                source=source,
-                target=target,
-                spellname=spellname,
-                event_type=event_type,
-                amount=amount,
-            )
-        )
-
-    def print(self, output):
-        if not self.entries:
-            return
-
-        # re-assign targets for important spells that are self-cast
-        # or cast on non-boss targets
-        # we want to group them with the boss fight they belong to
-        # so we look for the closest boss event and steal its target
-
-        boss_events = []
-        for entry in self.entries:
-            if entry.target in self.known_targets:
-                boss_events.append(entry)
-
-        boss_events.sort(key=lambda e: e.timestamp_unix)
-        boss_event_timestamps = [e.timestamp_unix for e in boss_events]
-
-        final_entries = []
-
-        for entry in self.entries:
-            if entry.target in self.known_targets:
-                final_entries.append(entry)
-                continue
-
-            if not boss_events:
-                # no boss events at all, skip this entry as it cannot be assigned
-                continue
-
-            # find closest boss event
-            idx = bisect.bisect_left(boss_event_timestamps, entry.timestamp_unix)
-
-            closest_boss_entry = None
-            min_diff = float("inf")
-
-            # check candidate at idx
-            if idx < len(boss_events):
-                diff = abs(entry.timestamp_unix - boss_events[idx].timestamp_unix)
-                if diff < min_diff:
-                    min_diff = diff
-                    closest_boss_entry = boss_events[idx]
-
-            # check candidate at idx-1
-            if idx > 0:
-                diff = abs(entry.timestamp_unix - boss_events[idx - 1].timestamp_unix)
-                if diff < min_diff:
-                    min_diff = diff
-                    closest_boss_entry = boss_events[idx - 1]
-
-            # if within 30s, keep it and reassign target
-            if closest_boss_entry and min_diff <= 15.0:
-                entry.target = closest_boss_entry.target
-                final_entries.append(entry)
-
-        # grouping by target
-        by_target = collections.defaultdict(list)
-        for entry in final_entries:
-            by_target[entry.target].append(entry)
-
-        for target, entries in by_target.items():
-            # sort entries by timestamp
-            entries.sort(key=lambda e: e.timestamp_unix)
-
-            start_time = entries[0].timestamp_unix
-            end_time = entries[-1].timestamp_unix
-            duration = end_time - start_time
-
-            if duration <= 0:
-                duration = 1
-
-            print(f"\n\nAbility Timeline for {target} ({duration:.1f}s)", file=output)
-
-            # identify all players involved
-            players_involved = list(set(e.source for e in entries if e.source in self.player))
-
-            def get_player_target_dmg(p):
-                return self.dmgstore.store_target[(p, target)].dmg
-
-            # sort players by damage to this target
-            players_involved.sort(key=get_player_target_dmg, reverse=True)
-
-            # print header (time scale)
-            width = 120
-            scale = width / duration
-
-            # Name                 0....+....10...+....20...
-            print(f"{'Player / Spell':<30} Time (seconds) ->", file=output)
-
-            # create a time axis string
-            axis = " " * (width + 1)
-            axis_list = list(axis)
-            for i in range(0, int(duration) + 5, 5):
-                pos = int(i * scale)
-                if pos < width:
-                    if i % 10 == 0:
-                        s = str(i)
-                        for k, c in enumerate(s):
-                            if pos + k < width:
-                                axis_list[pos + k] = c
-                    else:
-                        if pos < width and axis_list[pos] == " ":
-                            axis_list[pos] = "'"
-            print(" " * 30 + "".join(axis_list), file=output)
-
-            # Calculate "impact damage" for sorting: damage to ANY target during this time window
-            # This ensures sorting matches the player's total contribution during the encounter.
-            impact_damage = collections.defaultdict(lambda: collections.defaultdict(int))
-            for e in final_entries:
-                if start_time <= e.timestamp_unix <= end_time:
-                    impact_damage[e.source][e.spellname] += e.amount
-
-            for player in players_involved:
-                player_entries = [e for e in entries if e.source == player]
-                if not player_entries:
-                    continue
-
-                print(f"{player}", file=output)
-
-                # group by spell (only for display - i.e. items hit on THIS target)
-                by_spell = collections.defaultdict(list)
-                for e in player_entries:
-                    by_spell[e.spellname].append(e)
-
-                # sort spells: important first, then by impact damage
-                def get_spell_priority(spellname):
-                    is_imp = self.is_important(spellname)
-                    priority = 0 if is_imp else 1
-
-                    # Use the encounter-wide damage for this window
-                    dmg = impact_damage[player][spellname]
-
-                    return (priority, -dmg)
-
-                sorted_spells = sorted(by_spell.keys(), key=get_spell_priority)
-
-                for spellname in sorted_spells:
-                    spell_entries = by_spell[spellname]
-
-                    # build the row string
-                    row = [" "] * (width + 1)
-                    for e in spell_entries:
-                        relative_time = e.timestamp_unix - start_time
-                        pos = int(relative_time * scale)
-                        if 0 <= pos < width:
-                            row[pos] = "x"
-
-                    print(f"  {spellname:<28}" + "".join(row), file=output)
 
 
 class Dmgstore2:
@@ -2049,8 +1853,9 @@ def process_tree(app, line, tree: Tree):
             source=name,
             target=name,
             spellname=spellname_canonical,
-            event_type=subtree.data,
+            line_type=subtree.data,
             timestamp_unix=timestamp_unix,
+            amount=0,
         )
 
         return True
@@ -2070,8 +1875,9 @@ def process_tree(app, line, tree: Tree):
             source=name,
             target=name,
             spellname=spellname_canonical,
-            event_type=subtree.data,
+            line_type=subtree.data,
             timestamp_unix=timestamp_unix,
+            amount=0,
         )
 
         if consumable_item := RAWSPELLNAME2CONSUMABLE.get((subtree.data, spellname)):
@@ -2213,8 +2019,9 @@ def process_tree(app, line, tree: Tree):
                 source=name,
                 target=targetname,
                 spellname=spellname_canonical,
-                event_type=subtree.data,
+                line_type=subtree.data,
                 timestamp_unix=timestamp_unix,
+                amount=0,
             )
 
             if spellname == "Tranquilizing Shot" and targetname == "Princess Huhuran":
@@ -2227,8 +2034,9 @@ def process_tree(app, line, tree: Tree):
                 source=name,
                 target=name,
                 spellname=spellname_canonical,
-                event_type=subtree.data,
+                line_type=subtree.data,
                 timestamp_unix=timestamp_unix,
+                amount=0,
             )
 
         if name == "Kel'Thuzad" and spellname == "Shadow Fissure":
@@ -2262,7 +2070,7 @@ def process_tree(app, line, tree: Tree):
             source=name,
             target=targetname,
             spellname=spellname_canonical,
-            event_type=subtree.data,
+            line_type=subtree.data,
             timestamp_unix=timestamp_unix,
             amount=amount,
         )
@@ -2423,7 +2231,7 @@ def process_tree(app, line, tree: Tree):
             source=targetname,
             target=targetname,
             spellname=spellname_canonical,
-            event_type=subtree.data,
+            line_type=subtree.data,
             timestamp_unix=timestamp_unix,
             amount=0,
         )
@@ -2507,7 +2315,7 @@ def process_tree(app, line, tree: Tree):
                 source=name,
                 target=targetname,
                 spellname=spellname_canonical,
-                event_type=subtree.data,
+                line_type=subtree.data,
                 timestamp_unix=timestamp_unix,
                 amount=amount,
             )
@@ -2581,7 +2389,7 @@ def process_tree(app, line, tree: Tree):
             source=name,
             target=target,
             spellname=spellname_canonical,
-            event_type=subtree.data,
+            line_type=subtree.data,
             timestamp_unix=timestamp_unix,
             amount=amount,
         )
