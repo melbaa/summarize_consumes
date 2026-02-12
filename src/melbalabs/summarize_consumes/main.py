@@ -2343,7 +2343,6 @@ def process_tree(app, line, tree: Tree):
             amount=0,
         )
 
-
         return True
     elif subtree.data == TreeType.SLAIN_LINE:
         return True
@@ -2520,8 +2519,6 @@ def generate_output(app):
     app.pet_handler.print(output)
     app.class_detection.print(output)
 
-    app.ability_timeline.print(output)
-
     app.techinfo.print(output)
 
     return output
@@ -2581,6 +2578,11 @@ def get_user_input(argv):
         "--write-damage-taken-output",
         action="store_true",
         help="writes output to damage-taken-output.txt",
+    )
+    parser.add_argument(
+        "--ability-timeline",
+        action="store_true",
+        help="writes output to ability-timeline.txt",
     )
 
     parser.add_argument(
@@ -2966,6 +2968,20 @@ def main(argv):
             filename = "damage-taken-output.txt"
             with open(filename, "wb") as f:
                 print("writing damage taken output to", filename)
+                f.write(output.getvalue().encode("utf8"))
+                if args.pastebin:
+                    upload_pastebin(output)
+
+        feature()
+
+    if args.ability_timeline:
+
+        def feature():
+            output = io.StringIO()
+            app.ability_timeline.print(output)
+            filename = "ability-timeline.txt"
+            with open(filename, "wb") as f:
+                print("writing ability timeline output to", filename)
                 f.write(output.getvalue().encode("utf8"))
                 if args.pastebin:
                     upload_pastebin(output)

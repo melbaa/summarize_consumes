@@ -75,9 +75,9 @@ class AbilityTimeline:
         by_target = collections.defaultdict(list)
 
         for entry in self.entries:
-            target = None
+            candidate_target = None
             if entry.target in self.known_boss_names:
-                target = entry.target
+                candidate_target = entry.target
             elif self.boss_entries:
                 # find closest boss event
                 idx = bisect.bisect_left(boss_event_timestamps, entry.timestamp_unix)
@@ -96,26 +96,26 @@ class AbilityTimeline:
                         best_boss = self.boss_entries[idx - 1]
 
                 if best_boss:
-                    # check if we are also within 15s of ANY damage entry
-                    # to avoid assigning auras that are far from combat
-                    best_dmg_diff = 15.1
-                    idx_dmg = bisect.bisect_left(damage_event_timestamps, entry.timestamp_unix)
-                    if idx_dmg < len(damage_event_timestamps):
-                        best_dmg_diff = min(
-                            best_dmg_diff,
-                            abs(entry.timestamp_unix - damage_event_timestamps[idx_dmg]),
-                        )
-                    if idx_dmg > 0:
-                        best_dmg_diff = min(
-                            best_dmg_diff,
-                            abs(entry.timestamp_unix - damage_event_timestamps[idx_dmg - 1]),
-                        )
+                    candidate_target = best_boss.target
 
-                    if best_dmg_diff <= 15.0:
-                        target = best_boss.target
+            if candidate_target:
+                # verify we are within 15s of ANY damage entry
+                # to avoid assigning pre-pull casts or long-distance auras
+                best_dmg_diff = 15.1
+                idx_dmg = bisect.bisect_left(damage_event_timestamps, entry.timestamp_unix)
+                if idx_dmg < len(damage_event_timestamps):
+                    best_dmg_diff = min(
+                        best_dmg_diff,
+                        abs(entry.timestamp_unix - damage_event_timestamps[idx_dmg]),
+                    )
+                if idx_dmg > 0:
+                    best_dmg_diff = min(
+                        best_dmg_diff,
+                        abs(entry.timestamp_unix - damage_event_timestamps[idx_dmg - 1]),
+                    )
 
-            if target:
-                by_target[target].append(entry)
+                if best_dmg_diff <= 15.0:
+                    by_target[candidate_target].append(entry)
 
         for target, entries in by_target.items():
             # sort entries by timestamp
