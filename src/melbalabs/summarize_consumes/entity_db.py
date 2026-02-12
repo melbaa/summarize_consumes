@@ -1126,6 +1126,14 @@ all_entities = [
             ),
         ],
     ),
+    Entity(
+        "Shield Block",
+        [TrackSpellCastComponent(), SpellAliasComponent([(TreeType.GAINS_LINE, "Shield Block")])],
+    ),
+    Entity(
+        "Berserker Rage",
+        [TrackSpellCastComponent(), SpellAliasComponent([(TreeType.GAINS_LINE, "Berserker Rage")])],
+    ),
 ]
 
 

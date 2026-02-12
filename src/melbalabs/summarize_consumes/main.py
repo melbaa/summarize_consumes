@@ -291,6 +291,7 @@ def create_app(
         player=app.player,
         dmgstore=app.dmgstore,
         cdspell_class=CDSPELL_CLASS,
+        tracked_spells=set(LINE2SPELLCAST.values()),
     )
 
     app.techinfo = Techinfo(

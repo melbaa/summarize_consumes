@@ -14,7 +14,7 @@ class TimelineEntry:
 
 
 class AbilityTimeline:
-    def __init__(self, known_boss_names, player, dmgstore, cdspell_class):
+    def __init__(self, known_boss_names, player, dmgstore, cdspell_class, tracked_spells):
         self.known_boss_names = known_boss_names
         self.player = player
         self.dmgstore = dmgstore
@@ -24,6 +24,9 @@ class AbilityTimeline:
         for _, spells in cdspell_class:
             for spell in spells:
                 self._important_spells.add(spell)
+
+        for spell in tracked_spells:
+            self._important_spells.add(spell)
 
         self.entries = []
         self.boss_entries = []
