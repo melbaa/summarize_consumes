@@ -2333,6 +2333,17 @@ def process_tree(app, line, tree: Tree):
         if targetname == "Guardian of Icecrown":
             app.kt_guardian.add(line)
 
+        spellname_canonical = rename_spell(spellname, line_type=subtree.data)
+        app.ability_timeline.add(
+            source=targetname,
+            target=targetname,
+            spellname=spellname_canonical,
+            line_type=subtree.data,
+            timestamp_unix=timestamp_unix,
+            amount=0,
+        )
+
+
         return True
     elif subtree.data == TreeType.SLAIN_LINE:
         return True

@@ -27,6 +27,7 @@ class AbilityTimeline:
 
         self.entries = []
         self.boss_entries = []
+        self.damage_entries = []
 
     def is_important(self, spellname):
         return spellname in self._important_spells
@@ -52,6 +53,8 @@ class AbilityTimeline:
         self.entries.append(entry)
         if target in self.known_boss_names:
             self.boss_entries.append(entry)
+            if amount > 0:
+                self.damage_entries.append(entry)
 
     def print(self, output):
         if not self.entries:
@@ -64,6 +67,9 @@ class AbilityTimeline:
 
         self.boss_entries.sort(key=lambda e: e.timestamp_unix)
         boss_event_timestamps = [e.timestamp_unix for e in self.boss_entries]
+
+        self.damage_entries.sort(key=lambda e: e.timestamp_unix)
+        damage_event_timestamps = [e.timestamp_unix for e in self.damage_entries]
 
         # group entries by boss target
         by_target = collections.defaultdict(list)
@@ -90,7 +96,23 @@ class AbilityTimeline:
                         best_boss = self.boss_entries[idx - 1]
 
                 if best_boss:
-                    target = best_boss.target
+                    # check if we are also within 15s of ANY damage entry
+                    # to avoid assigning auras that are far from combat
+                    best_dmg_diff = 15.1
+                    idx_dmg = bisect.bisect_left(damage_event_timestamps, entry.timestamp_unix)
+                    if idx_dmg < len(damage_event_timestamps):
+                        best_dmg_diff = min(
+                            best_dmg_diff,
+                            abs(entry.timestamp_unix - damage_event_timestamps[idx_dmg]),
+                        )
+                    if idx_dmg > 0:
+                        best_dmg_diff = min(
+                            best_dmg_diff,
+                            abs(entry.timestamp_unix - damage_event_timestamps[idx_dmg - 1]),
+                        )
+
+                    if best_dmg_diff <= 15.0:
+                        target = best_boss.target
 
             if target:
                 by_target[target].append(entry)
@@ -181,6 +203,11 @@ class AbilityTimeline:
                         relative_time = e.timestamp_unix - start_time
                         pos = int(relative_time * scale)
                         if 0 <= pos < width:
-                            row[pos] = "x"
+                            symbol = "x"
+                            if e.line_type == TreeType.GAINS_LINE:
+                                symbol = "G"
+                            elif e.line_type == TreeType.FADES_LINE:
+                                symbol = "F"
+                            row[pos] = symbol
 
                     print(f"  {spellname:<28}" + "".join(row), file=output)
