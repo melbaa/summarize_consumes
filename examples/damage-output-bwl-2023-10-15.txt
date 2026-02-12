@@ -395,6 +395,23 @@ Jarnp  14649
   Shoot  5636
 Ovski  11271
   Shoot  11271
+Lorternius  10534
+  Holy Strike  3575
+  Eye for an Eye  1884
+  hit  1785
+  Seal of Command  1335
+  Judgement of Command  800
+  Hammer of Wrath  660
+  Crusader Strike  495
+Vegancat  5930
+  hit  1743
+  Shred  1287
+  Maul  1149
+  Savage Bite  635
+  Moonfire  599
+  Claw  205
+  reflect  180
+  Swipe  132
 Daenshoo  5685
   Moonfire  3943
   Shred  881
@@ -413,6 +430,12 @@ Shumy  3063
 Geniesham  2883
   Burning Adrenaline  2705
   hit  178
+Shockoloko  2703
+  hit  1458
+  Earth Shock  551
+  Lightning Shield  462
+  Stormstrike  202
+  Fiery Weapon  30
 Kazgrun  1961
   Frost Shock  1118
   hit  630

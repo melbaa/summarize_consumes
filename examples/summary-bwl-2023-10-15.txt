@@ -136,6 +136,8 @@ Kazgrun deaths:1
    Spirit of Zanza 1   (1g 94s 85c)
 
    total spent: 1g 94s 85c
+Lorternius deaths:2
+   <nothing found>
 Maryhuff deaths:3
    Elixir of the Mongoose 3   (4g 49s 52c)
    Healing Potion - Major 2   (1g 52s 72c)
@@ -191,6 +193,8 @@ Ridea deaths:4
    total spent: 1g 59s 28c
 Rossol deaths:1
    Fire Protection 2 
+Shockoloko deaths:0
+   <nothing found>
 Shrimpshark deaths:2
    Brilliant Wizard Oil 5   (9g 69s 90c)
    Elixir of Fortitude 2   (1g 24s 62c)
@@ -247,6 +251,8 @@ Tlw deaths:2
    Tea with Sugar 1   (27s 59c)
 
    total spent: 2g 50c
+Vegancat deaths:1
+   <nothing found>
 Windfurytotm deaths:3
    Blessed Sunfruit 4 
    Dragonbreath Chili 1   (1g 51s 82c)
@@ -351,6 +357,7 @@ Cooldown Summary
          Windfurytotm 4
          Bigjelly 2
          Stormsnake 1
+         Shockoloko 1
          Kazgrun 1
       Mana Spring Totem
          Geniesham 58
@@ -393,6 +400,8 @@ Cooldown Summary
          Kazgrun 34
          Shumy 13
          Ionize 12
+      Insignia of the Alliance/Horde
+         Shockoloko 1
       Natural Alignment Crystal
          Bigjelly 11
       Zandalarian Hero Charm
@@ -419,6 +428,8 @@ Cooldown Summary
          Teldelar 32
          Niviri 22
          Druindy 8
+      Insignia of the Alliance/Horde
+         Vegancat 1
       The Eye of the Dead
          Teldelar 30
       Zandalarian Hero Charm
@@ -475,6 +486,7 @@ Cooldown Summary
          Christella 2
          Alderheim 1
       Insignia of the Alliance/Horde
+         Lorternius 1
          Bloxie 1
       Kiss of the Spider
          Getterfour 13
@@ -517,6 +529,7 @@ Proc Summary
       Niviri 6
       Tlw 5
       Daenshoo 3
+      Vegancat 2
       Teldelar 2
    Elemental Devastation
       Stormsnake 1
@@ -556,6 +569,7 @@ Proc Summary
    Vengeance
       Getterfour 96
       Bloxie 89
+      Lorternius 3
    Extra Attacks
       Hand of Justice
          Psykhe 58
@@ -589,6 +603,7 @@ Proc Summary
       Windfury Weapon
          Bigjelly 22
          Windfurytotm 18
+         Shockoloko 4
 
 
 Auto Attack Summary
@@ -633,6 +648,9 @@ Auto Attack Summary
          crits 1   (6.7%)
          dodges 1   (6.7%)
          glances 7   (46.7%)
+      Vegancat swings 11
+         hits 8   (72.7%)
+         crits 3   (27.3%)
       Daenshoo swings 9
          hits 6   (66.7%)
          glances 3   (33.3%)
@@ -685,6 +703,9 @@ Auto Attack Summary
          glances 194   (28.9%)
       Alderheim swings 4
          hits 4   (100.0%)
+      Lorternius swings 4
+         hits 3   (75.0%)
+         crits 1   (25.0%)
    Priest
       Rossol swings 22
          hits 14   (63.6%)
@@ -748,6 +769,8 @@ Auto Attack Summary
       Kazgrun swings 6
          hits 3   (50.0%)
          glances 3   (50.0%)
+      Shockoloko swings 5
+         hits 5   (100.0%)
       Geniesham swings 2
          hits 2   (100.0%)
    Warrior
@@ -902,6 +925,7 @@ Class Detection
    Ionize shaman
    Jarnp priest
    Kazgrun shaman
+   Lorternius paladin
    Maryhuff warrior
    Melbaxd priest
    Montford warrior
@@ -912,6 +936,7 @@ Class Detection
    Psykhe warrior
    Ridea mage
    Rossol priest
+   Shockoloko shaman
    Shrimpshark mage
    Shumy shaman
    Simplezz hunter
@@ -923,6 +948,7 @@ Class Detection
    Teldelar druid
    Thorshifter druid
    Tlw mage
+   Vegancat druid
    Windfurytotm shaman
    Xanadun warlock
    Yis hunter

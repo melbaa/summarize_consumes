@@ -179,9 +179,15 @@ Stormsnake  8016
 Charmia  7387
   Frenzied Regeneration  6655
   Judgement of Light  732
+Vegancat  3713
+  Regrowth  2185
+  Rejuvenation  1528
 Shrimpshark  3189
   Healing Potion - Major  1659
   Tea with Sugar  1530
+Shockoloko  3153
+  Lesser Healing Wave  1711
+  Healing Wave  1442
 Chan  2425
   Mend Pet  1225
   Major Healthstone  1200
@@ -203,3 +209,5 @@ Tlw  1918
   First Aid  750
 Christella  1847
   Flash of Light  1847
+Lorternius  710
+  Holy Strength  710
