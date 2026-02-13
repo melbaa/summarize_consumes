@@ -1,5 +1,5 @@
 Dyrachyo  1919269
-  hit  717817
+  Auto Attack  717817
   Execute  300912
   Bloodthirst  279368
   Whirlwind  237071
@@ -10,7 +10,7 @@ Dyrachyo  1919269
   Overpower  5413
   Intercept Stun  281
 Everglow  1288965
-  hit  504731
+  Auto Attack  504731
   Bloodthirst  204018
   Whirlwind  193194
   Heroic Strike  182622
@@ -26,7 +26,7 @@ Everglow  1288965
   Shoot Gun  172
   Revenge  166
 Srj  1261248
-  hit  750730
+  Auto Attack  750730
   Sinister Strike  358934
   Eviscerate  61051
   Blade Flurry  56480
@@ -38,13 +38,13 @@ Yis  1070637
   Trueshot  327283
   Multi-Shot  246917
   Serpent Sting  23591
-  hit  4881
+  Auto Attack  4881
   Volley  3072
   Scatter Shot  871
   Wing Clip  185
   Arcane Shot  177
 Platedps  976072
-  hit  458277
+  Auto Attack  458277
   Execute  155054
   Bloodthirst  153982
   Whirlwind  113856
@@ -68,7 +68,7 @@ Roshane  947926
   Frost Nova  571
   Shoot  157
 Illasei  925311
-  hit  519662
+  Auto Attack  519662
   Sinister Strike  274287
   Eviscerate  60864
   Deadly Poison V  25231
@@ -104,7 +104,7 @@ Shrimpshark  813733
   Blizzard  20385
   Scorch  14826
 Aphorodite  784690
-  hit  408443
+  Auto Attack  408443
   Holy Strike  107397
   Seal of Command  104202
   Crusader Strike  42126
@@ -123,7 +123,7 @@ Chan  763334
   Serpent Sting  26387
   Arcane Shot  21267
   Volley  15524
-  hit  1253
+  Auto Attack  1253
   Explosive Trap Effect  1221
   Immolation Trap Effect  852
   Raptor Strike  499
@@ -136,7 +136,7 @@ Berserkss  717423
   Trueshot  136156
   Serpent Sting  36442
   Volley  8193
-  hit  1926
+  Auto Attack  1926
   Raptor Strike  1904
   Wing Clip  65
 Syjlas  677383
@@ -150,7 +150,7 @@ Syjlas  677383
   Shoot  1682
   Frost Nova  1148
 Psykhe  670792
-  hit  294468
+  Auto Attack  294468
   Heroic Strike  195920
   Bloodthirst  112314
   Brood Power: Bronze  44059
@@ -160,7 +160,7 @@ Psykhe  670792
   Thunder Clap  1319
   Cleave  391
 Bloxie  659796
-  hit  208385
+  Auto Attack  208385
   Consecration  144294
   Holy Strike  85600
   Seal of Righteousness  68433
@@ -180,7 +180,7 @@ Bloxie  659796
   Fire Strike  584
 Few  636794
   Backstab  305333
-  hit  303227
+  Auto Attack  303227
   Deadly Poison V  10541
   Eviscerate  7163
   Blade Flurry  3542
@@ -190,7 +190,7 @@ Few  636794
   Kick  740
 Charmia  632032
   Maul  196598
-  hit  133386
+  Auto Attack  133386
   Savage Bite  76232
   Shred  57367
   Mark of Detonation  55704
@@ -203,7 +203,7 @@ Charmia  632032
   Ferocious Bite  1431
   Hurricane  134
 Pieshka  535594
-  hit  268799
+  Auto Attack  268799
   Bloodthirst  102255
   Execute  53878
   Heroic Strike  43399
@@ -219,10 +219,10 @@ Gack  475723
   Chain Lightning  120592
   Earth Shock  11683
   Frost Shock  913
-  hit  740
+  Auto Attack  740
   Flame Shock  335
 Subarach  447545
-  hit  271480
+  Auto Attack  271480
   Bloodthirst  69693
   Execute  69140
   Whirlwind  21964
@@ -237,13 +237,13 @@ Teldelar  423102
   Moonfire  76937
   Hurricane  32094
   Shred  1675
-  hit  907
+  Auto Attack  907
   Insect Swarm  685
   Ferocious Bite  682
   Wrath  248
 Nightleaf  410938
   Maul  134814
-  hit  103341
+  Auto Attack  103341
   Claw  78321
   Savage Bite  41988
   Ferocious Bite  36731
@@ -270,7 +270,7 @@ Shuly  344084
   Shadowburn  8725
   Drain Soul  598
   Drain Life  339
-  hit  337
+  Auto Attack  337
   Immolate  312
 Mezmeris  335993
   Frostbolt  302080
@@ -294,7 +294,7 @@ Coldbeer  169255
   Frost Nova  1702
   Arcane Explosion  525
 Windfurytotm  165399
-  hit  125579
+  Auto Attack  125579
   Stormstrike  29461
   Frost Shock  5214
   Earth Shock  4149
@@ -304,13 +304,13 @@ Airin  65704
   Holy Nova  25036
 Lyahsunsworn  17642
   Holy Wrath  13832
-  hit  2559
+  Auto Attack  2559
   Consecration  1251
 Geniesham  14191
   Mark of Detonation  14191
 Druindy  9843
   Brood Power: Bronze  8070
-  hit  862
+  Auto Attack  862
   Ferocious Bite  361
   Claw  344
   Rake  155
@@ -320,7 +320,7 @@ Arzetlam  3570
   Shadow Word: Pain  1119
   Devouring Plague  961
 Daenshoo  3284
-  hit  1213
+  Auto Attack  1213
   Shred  1131
   Moonfire  940
 Umbriela  1697

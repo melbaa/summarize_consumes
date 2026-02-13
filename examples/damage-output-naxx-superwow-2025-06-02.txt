@@ -6,13 +6,13 @@ Clapya  3867485
   Stratholme Holy Water  34361
   Goblin Sapper Charge  8361
   Dense Dynamite  3852
-  hit  2976
+  Auto Attack  2976
   Frost Shock  951
   Positive Charge  227
   reflect  169
   Fire Shield  52
 Doelfinest  3789126
-  hit  1192666
+  Auto Attack  1192666
   Seal of Righteousness  561828
   Crusader Strike  439184
   Judgement of Righteousness  422857
@@ -33,7 +33,7 @@ Doelfinest  3789126
   Negative Charge  1500
   Seal of Command  916
 Bcube  3409123
-  hit  868823
+  Auto Attack  868823
   Seal of Righteousness  516900
   Crusader Strike  449019
   Judgement of Righteousness  401547
@@ -51,7 +51,7 @@ Bcube  3409123
   Crystal Charge  940
   Negative Charge  674
 Shape  3323037
-  hit  1146270
+  Auto Attack  1146270
   Claw  524102
   Shred  496346
   Rake  233449
@@ -84,7 +84,7 @@ Manadevil  3120290
   Frost Nova  736
   Erupting Shield  674
 Psykhe  2929783
-  hit  1039470
+  Auto Attack  1039470
   Heroic Strike  486837
   Bloodthirst  421945
   Execute  339846
@@ -102,7 +102,7 @@ Psykhe  2929783
   Greater Blessing of Sanctuary  265
   Intercept Stun  214
 Tiogar  2917609
-  hit  1041924
+  Auto Attack  1041924
   Heroic Strike  426524
   Bloodthirst  419372
   Execute  330642
@@ -116,7 +116,7 @@ Tiogar  2917609
   Hamstring  264
   Intercept Stun  194
 Lorrah  2894291
-  hit  1358868
+  Auto Attack  1358868
   Backstab  580535
   Eviscerate  492255
   Blade Flurry  159237
@@ -130,7 +130,7 @@ Lorrah  2894291
   Shoot Bow  1347
   Kick  431
 Jinp  2872279
-  hit  1425272
+  Auto Attack  1425272
   Eviscerate  947440
   Sinister Strike  215535
   Blade Flurry  161516
@@ -188,10 +188,10 @@ Tinerispew  2568664
   Shard of the Fallen Star  2831
   Erupting Shield  564
   Frost Nova  196
-  hit  175
+  Auto Attack  175
   Shoot  173
 Turborevenge  2496683
-  hit  756780
+  Auto Attack  756780
   Execute  464446
   Mortal Strike  372940
   Whirlwind  314815
@@ -253,9 +253,9 @@ Ryx  2230140
   Fire Blast  28894
   Fireball  8755
   Flamestrike  3241
-  hit  731
+  Auto Attack  731
 Magn  2192119
-  hit  885719
+  Auto Attack  885719
   Heroic Strike  456122
   Bloodthirst  340647
   Cleave  143584
@@ -278,7 +278,7 @@ Magn  2192119
   Thunder Clap  79
   Intercept Stun  39
 Adm  2188107
-  hit  1222472
+  Auto Attack  1222472
   Sinister Strike  598008
   Eviscerate  228405
   Blade Flurry  94084
@@ -290,7 +290,7 @@ Adm  2188107
   Kick  885
   Rupture  401
 Kilgasm  2060896
-  hit  961009
+  Auto Attack  961009
   Bloodthirst  305484
   Heroic Strike  259770
   Execute  212420
@@ -309,7 +309,7 @@ Kilgasm  2060896
   Shield Bash  93
   Thorium Shield Spike  46
 Teawon  2023444
-  hit  1051088
+  Auto Attack  1051088
   Backstab  574102
   Eviscerate  78618
   Surprise Attack  72114
@@ -323,7 +323,7 @@ Teawon  2023444
   Kick  732
 Xelya  1993485
   Holy Strike  390734
-  hit  333388
+  Auto Attack  333388
   Judgement of Righteousness  278708
   Consecration  262006
   Thunderfury  210875
@@ -360,7 +360,7 @@ Minoas  1817016
   Aimed Shot  19545
   Volley  16955
   Negative Charge  2900
-  hit  713
+  Auto Attack  713
   Bite  103
   Greater Blessing of Sanctuary  50
 Imul  1773342
@@ -371,7 +371,7 @@ Imul  1773342
   Insect Swarm  185928
   Positive Charge  4000
 Eleae  1741483
-  hit  462994
+  Auto Attack  462994
   Maul  406983
   Claw  229139
   Swipe  163411
@@ -398,7 +398,7 @@ Gholmes  1565125
   Positive Charge  7600
   Cone of Cold  4651
   Shoot  730
-  hit  109
+  Auto Attack  109
 Cheesebreath  1514860
   Starfire  634528
   Wrath  466548
@@ -407,7 +407,7 @@ Cheesebreath  1514860
   Insect Swarm  79060
 Martlflash  1435766
   Holy Strike  337157
-  hit  329979
+  Auto Attack  329979
   Seal of Righteousness  193468
   Consecration  188743
   Judgement of Righteousness  167415
@@ -422,7 +422,7 @@ Martlflash  1435766
   Hammer of Wrath  1789
   Negative Charge  900
 Cleanskill  1219882
-  hit  490347
+  Auto Attack  490347
   Earth Shock  320145
   Stormstrike  212509
   Lightning Strike  115379
@@ -441,12 +441,12 @@ Jagdar  342911
   Goblin Sapper Charge  10595
   Flame Shock  6649
   Fire Nova  3286
-  hit  1778
+  Auto Attack  1778
   Thorium Grenade  1730
   Flametongue Attack  75
 Interlani  115731
   Holy Strike  43725
-  hit  37472
+  Auto Attack  37472
   Crusader Strike  12200
   Exorcism  12159
   Positive Charge  10140
@@ -458,7 +458,7 @@ Randgriz  88945
   Negative Charge  1500
   Shoot  1102
   Pain Spike  531
-  hit  121
+  Auto Attack  121
 Adya  78258
   Smite  30377
   Holy Fire  12675
@@ -472,7 +472,7 @@ Yuyi  61262
   Enlighten  9638
   Holy Fire  7828
   Shoot  3162
-  hit  373
+  Auto Attack  373
 Pristitute  51171
   Smite  23820
   Enlighten  17588
@@ -488,14 +488,14 @@ Snega  36456
   Positive Charge  2200
   Frost Shock  1853
   Magma Totem  988
-  hit  188
+  Auto Attack  188
   reflect  170
 Moossiss  18546
   Wrath  15404
   Positive Charge  3000
-  hit  142
+  Auto Attack  142
 Selverslip  10406
-  hit  6356
+  Auto Attack  6356
   Earth Shock  2742
   Flame Shock  708
   Flametongue Attack  600
@@ -506,7 +506,7 @@ Tiogar (self damage)  10143
 Oileri  8430
   Lightning Bolt  4879
   Positive Charge  2200
-  hit  727
+  Auto Attack  727
   Stratholme Holy Water  624
 Jinp (self damage)  4765
   Goblin Sapper Charge  4765

@@ -1,5 +1,5 @@
 Psykhe  2457261
-  hit  1304027
+  Auto Attack  1304027
   Heroic Strike  572158
   Bloodthirst  342395
   Whirlwind  95156
@@ -21,10 +21,10 @@ Sunor  1593139
   Shoot  4601
   Holy Fire  3437
   Mana Burn  881
-  hit  633
+  Auto Attack  633
   Pain Spike  582
 Dyrachyo  1468302
-  hit  492906
+  Auto Attack  492906
   Whirlwind  256827
   Bloodthirst  240378
   Execute  169664
@@ -45,11 +45,11 @@ Bruceweed  1429504
   Flamestrike  81815
   Scorch  78866
   Frostbolt  38764
-  hit  212
+  Auto Attack  212
   Shoot  206
 Getterfour  1379718
   Seal of Righteousness  320116
-  hit  266331
+  Auto Attack  266331
   Consecration  240166
   Holy Strike  149945
   Dragonbreath Chili  107878
@@ -68,7 +68,7 @@ Getterfour  1379718
   Poison  200
   reflect  139
 Illasei  1095164
-  hit  589188
+  Auto Attack  589188
   Sinister Strike  316328
   Blade Flurry  62533
   Deadly Poison V  38564
@@ -80,7 +80,7 @@ Illasei  1095164
   Garrote  375
   reflect  288
 Everglow  1089344
-  hit  402102
+  Auto Attack  402102
   Whirlwind  184287
   Bloodthirst  148170
   Execute  94612
@@ -105,9 +105,9 @@ Shrimpshark  1048549
   Blizzard  37396
   Cone of Cold  21202
   Flamestrike  5076
-  hit  100
+  Auto Attack  100
 Maryhuff  971255
-  hit  390480
+  Auto Attack  390480
   Heroic Strike  283033
   Bloodthirst  130780
   Whirlwind  74166
@@ -131,9 +131,9 @@ Xanadun  864952
   Immolate  1591
   Drain Soul  1359
   Drain Life  172
-  hit  15
+  Auto Attack  15
 Killanime  849254
-  hit  440238
+  Auto Attack  440238
   Backstab  337802
   Blade Flurry  42547
   Sinister Strike  19292
@@ -147,7 +147,7 @@ Yis  845121
   Trueshot  250118
   Multi-Shot  184918
   Volley  38172
-  hit  31159
+  Auto Attack  31159
   Serpent Sting  20329
   Frostbolt  512
 Hrin  840102
@@ -155,7 +155,7 @@ Hrin  840102
   Auto Shot  280059
   Multi-Shot  163583
   Volley  35439
-  hit  15458
+  Auto Attack  15458
   Serpent Sting  15260
   Aimed Shot  10543
   Arcane Shot  9369
@@ -164,7 +164,7 @@ Hrin  840102
   Frostbolt  690
   Explosive Trap Effect  405
 Melevolence  805150
-  hit  361092
+  Auto Attack  361092
   Bloodthirst  122739
   Whirlwind  97764
   Heroic Strike  79989
@@ -184,7 +184,7 @@ Melevolence  805150
   Shield Bash  32
   reflect  31
 Jaekta  761005
-  hit  319455
+  Auto Attack  319455
   Heroic Strike  138127
   Bloodthirst  102374
   Thunderfury  78468
@@ -206,7 +206,7 @@ Berserkss  755512
   Aimed Shot  46693
   Serpent Sting  22516
   Arcane Shot  20526
-  hit  13207
+  Auto Attack  13207
   Volley  12663
   Raptor Strike  7375
   Explosive Trap Effect  6787
@@ -241,7 +241,7 @@ Isimona  723413
   Soul Fire  2521
   Drain Life  276
   Drain Soul  250
-  hit  143
+  Auto Attack  143
 Chan  704322
   Auto Shot  270700
   Trueshot  177855
@@ -251,7 +251,7 @@ Chan  704322
   Arcane Shot  15690
   Raptor Strike  11427
   Volley  7776
-  hit  6975
+  Auto Attack  6975
   Explosive Trap Effect  2660
   Wing Clip  2223
   Frostbolt  205
@@ -265,9 +265,9 @@ Seath  702944
   Fireball  2724
   Arcane Missiles  991
   Shoot  591
-  hit  105
+  Auto Attack  105
 Loyola  696655
-  hit  241116
+  Auto Attack  241116
   Holy Strike  221068
   Seal of Command  116971
   Consecration  79203
@@ -281,13 +281,13 @@ Smahingbolt  683365
   Multi-Shot  153298
   Arcane Shot  36338
   Raptor Strike  34366
-  hit  22088
+  Auto Attack  22088
   Serpent Sting  8442
   Aimed Shot  2392
   Mongoose Bite  136
   Frostbolt  95
 Brocula  650175
-  hit  323000
+  Auto Attack  323000
   Backstab  222479
   Sinister Strike  40150
   Blade Flurry  17685
@@ -300,7 +300,7 @@ Brocula  650175
   Gouge  44
 Charmia  627286
   Maul  206075
-  hit  151385
+  Auto Attack  151385
   Shred  124565
   Swipe  38927
   Starfire  38129
@@ -312,7 +312,7 @@ Charmia  627286
   Insect Swarm  3820
   Claw  279
 Iniri  625603
-  hit  308105
+  Auto Attack  308105
   Backstab  228445
   Sinister Strike  41487
   Instant Poison VI  16392
@@ -322,7 +322,7 @@ Iniri  625603
   Frostbolt  1054
   Ambush  678
 Seryah  578991
-  hit  269020
+  Auto Attack  269020
   Execute  88190
   Bloodthirst  80760
   Whirlwind  73102
@@ -343,15 +343,15 @@ Dregoth  565500
   Searing Pain  4040
   Death Coil  3722
   Drain Soul  1101
-  hit  17
+  Auto Attack  17
 Thorshifter  551713
   Starfire  301054
   Wrath  140900
   Hurricane  63166
   Moonfire  46184
-  hit  409
+  Auto Attack  409
 Rhudaur  478887
-  hit  230676
+  Auto Attack  230676
   Bloodthirst  92326
   Whirlwind  57772
   Execute  31824
@@ -363,7 +363,7 @@ Rhudaur  478887
   Hamstring  376
   Intercept Stun  87
 Obbi  415539
-  hit  271057
+  Auto Attack  271057
   Bloodthirst  61183
   Execute  30910
   Heroic Strike  18172
@@ -380,7 +380,7 @@ Obbi  415539
   Intercept Stun  151
   Shield Bash  39
 Bubasita  405423
-  hit  181014
+  Auto Attack  181014
   Heroic Strike  68714
   Bloodthirst  46608
   Execute  43162
@@ -392,7 +392,7 @@ Bubasita  405423
   Intercept Stun  212
   Pummel  96
 Tockra  356930
-  hit  203117
+  Auto Attack  203117
   Bloodthirst  63858
   Heroic Strike  29204
   Cleave  22824
@@ -413,17 +413,17 @@ Tockra  356930
 Bigjelly  334091
   Lightning Bolt  208258
   Chain Lightning  113694
-  hit  5733
+  Auto Attack  5733
   Flame Shock  3199
   Frost Shock  2696
   Earth Shock  511
 Melbaxd  225563
   Holy Nova  225161
-  hit  310
+  Auto Attack  310
   Shoot  92
 Bloxie  64552
   Consecration  21479
-  hit  10233
+  Auto Attack  10233
   Holy Strike  9536
   Holy Shock (dmg)  7551
   Judgement of Righteousness  6591
@@ -434,36 +434,36 @@ Niviri  15717
   Moonfire  8196
   Starfire  3029
   Wrath  2709
-  hit  1052
+  Auto Attack  1052
   Insect Swarm  731
 Shumy  12174
   Lightning Bolt  4975
   Earth Shock  3925
   Chain Lightning  2439
-  hit  835
+  Auto Attack  835
 Lyahsunsworn  10325
-  hit  4993
+  Auto Attack  4993
   Consecration  3585
   Holy Shock (dmg)  1504
   Fiery Weapon  243
 Faradin  8234
   Consecration  2949
-  hit  2527
+  Auto Attack  2527
   Seal of Righteousness  1734
   Holy Shock (dmg)  742
   Crusader Strike  282
 Teldelar  4938
   Plague Effect  4016
   Insect Swarm  368
-  hit  318
+  Auto Attack  318
   Moonfire  236
 Daenae  4677
   Shoot  4234
   Shadow Word: Pain  425
-  hit  18
+  Auto Attack  18
 Palkensen  4635
-  hit  1855
+  Auto Attack  1855
   Lightning Bolt  1576
   Frost Shock  1204
 Daenshoo  2032
-  hit  2032
+  Auto Attack  2032

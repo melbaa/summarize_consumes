@@ -1,5 +1,5 @@
 Dyrachyo  1803460
-  hit  681908
+  Auto Attack  681908
   Heroic Strike  259315
   Execute  257965
   Bloodthirst  244705
@@ -19,7 +19,7 @@ Dyrachyo  1803460
   Mocking Blow  75
   reflect  18
 Getterfour  1471980
-  hit  407788
+  Auto Attack  407788
   Seal of Righteousness  403223
   Holy Strike  193216
   Judgement of Righteousness  124769
@@ -41,7 +41,7 @@ Tlw  1427763
   Flamestrike  33552
   Cone of Cold  20403
   Blizzard  1520
-  hit  134
+  Auto Attack  134
 Sunor  1415794
   Smite  463984
   Holy Nova  352536
@@ -51,7 +51,7 @@ Sunor  1415794
   Pain Spike  17604
   Holy Fire  8075
   Mana Burn  1004
-  hit  539
+  Auto Attack  539
   reflect  130
 Shrimpshark  1376637
   Fireball  372690
@@ -73,7 +73,7 @@ Bruceweed  1352954
   Arcane Explosion  538
   Shoot  527
 Killanime  1342171
-  hit  764406
+  Auto Attack  764406
   Sinister Strike  434287
   Eviscerate  62191
   Electric Discharge  34086
@@ -82,7 +82,7 @@ Killanime  1342171
   Instant Poison VI  5854
   Kick  2581
 Srj  1337431
-  hit  752831
+  Auto Attack  752831
   Sinister Strike  356793
   Blade Flurry  101051
   Eviscerate  71399
@@ -109,9 +109,9 @@ Yis  1162830
   Volley  17212
   Aimed Shot  1880
   Scatter Shot  893
-  hit  836
+  Auto Attack  836
 Rhudaur  1092408
-  hit  444350
+  Auto Attack  444350
   Bloodthirst  219908
   Heroic Strike  149798
   Whirlwind  114101
@@ -136,7 +136,7 @@ Seath  1087332
   Shoot  3688
   Frost Nova  30
 Melevolence  1047369
-  hit  461611
+  Auto Attack  461611
   Bloodthirst  209651
   Heroic Strike  138250
   Whirlwind  101639
@@ -151,7 +151,7 @@ Melevolence  1047369
   Rend  196
 Maryhuff  1034984
   Heroic Strike  359936
-  hit  350428
+  Auto Attack  350428
   Bloodthirst  154899
   Whirlwind  64990
   Execute  61218
@@ -162,7 +162,7 @@ Maryhuff  1034984
   Hamstring  89
   Pummel  29
 Illasei  1005940
-  hit  561165
+  Auto Attack  561165
   Sinister Strike  290259
   Blade Flurry  52470
   Deadly Poison V  36245
@@ -180,7 +180,7 @@ Smahingbolt  956743
   Aimed Shot  10900
   Volley  1782
   Raptor Strike  488
-  hit  347
+  Auto Attack  347
 Berserkss  883095
   Auto Shot  458061
   Trueshot  177796
@@ -190,9 +190,9 @@ Berserkss  883095
   Arcane Shot  26893
   Explosive Trap Effect  3812
   Volley  672
-  hit  149
+  Auto Attack  149
 Paris  850905
-  hit  426906
+  Auto Attack  426906
   Holy Strike  199835
   Seal of Command  111189
   Consecration  39374
@@ -207,7 +207,7 @@ Paris  850905
   Thorium Shield Spike  1216
   Greater Blessing of Sanctuary  70
 Psykhe  842010
-  hit  394877
+  Auto Attack  394877
   Heroic Strike  239654
   Bloodthirst  133247
   Execute  25321
@@ -233,7 +233,7 @@ Dregoth  841041
   Drain Soul  1312
   reflect  351
 Charmia  823896
-  hit  318035
+  Auto Attack  318035
   Shred  257302
   Maul  120830
   Ferocious Bite  49027
@@ -243,7 +243,7 @@ Charmia  823896
   reflect  3819
   Ravage  1617
 Everglow  773249
-  hit  323289
+  Auto Attack  323289
   Heroic Strike  170943
   Bloodthirst  136764
   Cleave  35443
@@ -261,7 +261,7 @@ Everglow  773249
   Shield Bash  137
   Intercept Stun  117
 Jaekta  719618
-  hit  229410
+  Auto Attack  229410
   Heroic Strike  194671
   Bloodthirst  93348
   Thunderfury  89636
@@ -302,7 +302,7 @@ Rossol  622544
   Touch of Weakness  308
   reflect  260
 Loyola  575754
-  hit  248508
+  Auto Attack  248508
   Holy Strike  159346
   Seal of Command  93395
   Consecration  31113
@@ -312,7 +312,7 @@ Loyola  575754
   Judgement of Command  2477
   Hammer of Wrath  951
 Alpra  442571
-  hit  190214
+  Auto Attack  190214
   Heroic Strike  150368
   Execute  65487
   Shield Slam  19150
@@ -325,7 +325,7 @@ Alpra  442571
   Shield Bash  32
   Hamstring  27
 Obbi  407026
-  hit  213678
+  Auto Attack  213678
   Bloodthirst  68998
   Execute  40132
   Heroic Strike  32864
@@ -342,7 +342,7 @@ Obbi  407026
   Overpower  210
   Mocking Blow  68
 Bloxie  357693
-  hit  167688
+  Auto Attack  167688
   Holy Strike  53584
   Seal of Righteousness  42721
   Exorcism  24007
@@ -357,7 +357,7 @@ Bloxie  357693
   Greater Blessing of Sanctuary  310
 Faradin  332795
   Consecration  87151
-  hit  85383
+  Auto Attack  85383
   Holy Strike  57837
   Seal of Righteousness  44941
   Holy Shield  17955
@@ -371,7 +371,7 @@ Faradin  332795
   Hammer of Wrath  866
   Fire Strike  158
 Iniri  332461
-  hit  150754
+  Auto Attack  150754
   Backstab  129171
   Instant Poison VI  14799
   Sinister Strike  12472
@@ -382,7 +382,7 @@ Iniri  332461
 Everran  167179
   Consecration  41611
   Holy Strike  26265
-  hit  20474
+  Auto Attack  20474
   Seal of Righteousness  19356
   Judgement of Righteousness  18839
   Drain Life  18483
@@ -413,7 +413,7 @@ Daenae  50061
 Niviri  30724
   Wrath  19966
   Moonfire  7677
-  hit  1965
+  Auto Attack  1965
   Insect Swarm  1116
 Shumy  17307
   Chain Lightning  8125
@@ -424,19 +424,19 @@ Teldelar  9210
   Insect Swarm  4106
   Starfire  2768
   Moonfire  1654
-  hit  425
+  Auto Attack  425
   Wrath  257
 Lyahsunsworn  3234
-  hit  3040
+  Auto Attack  3040
   reflect  156
   Greater Blessing of Sanctuary  38
 Daenshoo  3173
   Moonfire  2748
-  hit  349
+  Auto Attack  349
   reflect  76
 Druindy  1123
   Wrath  915
-  hit  152
+  Auto Attack  152
   Moonfire  56
 Windfurytotm  149
-  hit  149
+  Auto Attack  149

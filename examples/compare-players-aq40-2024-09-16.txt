@@ -4,6 +4,7 @@ total  dmg:220982 cost:1800 uses:761 hits:762
 
 
 Anubisath Defender   dmg:42090 cost:395 uses:74 hits:74
+Auto Attack   dmg:11139 cost:0 uses:57 hits:57
 Bloodthirst   dmg:10063 cost:90 uses:3 hits:3
 Cleave   dmg:-3911 cost:-60 uses:-3 hits:-3
 Deep Wound   dmg:-1813 cost:0 uses:-8 hits:-8
@@ -12,9 +13,9 @@ Hamstring   dmg:67 cost:20 uses:2 hits:2
 Heroic Strike   dmg:22414 cost:300 uses:20 hits:20
 Slam   dmg:-4840 cost:-60 uses:-4 hits:-4
 Whirlwind   dmg:-1829 cost:0 uses:0 hits:0
-hit   dmg:11139 cost:0 uses:57 hits:57
 
 Anubisath Sentinel   dmg:-19072 cost:-90 uses:31 hits:31
+Auto Attack   dmg:-3216 cost:0 uses:17 hits:17
 Bloodthirst   dmg:-3872 cost:-30 uses:-1 hits:-1
 Deep Wound   dmg:251 cost:0 uses:12 hits:12
 Execute   dmg:-1551 cost:-30 uses:-2 hits:-2
@@ -23,44 +24,44 @@ Heroic Strike   dmg:8464 cost:240 uses:16 hits:16
 Revenge   dmg:362 cost:0 uses:5 hits:5
 Slam   dmg:-12841 cost:-150 uses:-10 hits:-10
 Whirlwind   dmg:-6545 cost:-100 uses:-4 hits:-4
-hit   dmg:-3216 cost:0 uses:17 hits:17
 
 Anubisath Swarmguard   dmg:-2579 cost:25 uses:2 hits:0
+Auto Attack   dmg:-1150 cost:0 uses:-1 hits:-1
 Cleave   dmg:-2717 cost:0 uses:0 hits:-2
 Deep Wound   dmg:266 cost:0 uses:2 hits:2
 Whirlwind   dmg:1022 cost:25 uses:1 hits:1
-hit   dmg:-1150 cost:0 uses:-1 hits:-1
 
 Anubisath Warrior   dmg:3355 cost:-10 uses:10 hits:10
+Auto Attack   dmg:3209 cost:0 uses:10 hits:10
 Bloodthirst   dmg:-80 cost:0 uses:0 hits:0
 Cleave   dmg:-2262 cost:-40 uses:-2 hits:-2
 Execute   dmg:1194 cost:15 uses:1 hits:1
 Heroic Strike   dmg:1011 cost:15 uses:1 hits:1
 Whirlwind   dmg:283 cost:0 uses:0 hits:0
-hit   dmg:3209 cost:0 uses:10 hits:10
 
 Battleguard Sartura   dmg:39375 cost:445 uses:65 hits:66
+Auto Attack   dmg:9682 cost:0 uses:32 hits:32
 Bloodthirst   dmg:2379 cost:60 uses:2 hits:2
 Deep Wound   dmg:234 cost:0 uses:8 hits:8
 Execute   dmg:11517 cost:105 uses:7 hits:7
 Heroic Strike   dmg:12804 cost:180 uses:12 hits:12
 Whirlwind   dmg:2759 cost:100 uses:4 hits:5
-hit   dmg:9682 cost:0 uses:32 hits:32
 
 C'Thun   dmg:68845 cost:710 uses:138 hits:139
+Auto Attack   dmg:24776 cost:0 uses:99 hits:99
 Bloodthirst   dmg:12133 cost:240 uses:8 hits:8
 Deep Wound   dmg:301 cost:0 uses:2 hits:2
 Execute   dmg:9734 cost:105 uses:7 hits:7
 Hamstring   dmg:72 cost:10 uses:1 hits:1
 Heroic Strike   dmg:18358 cost:255 uses:17 hits:17
 Whirlwind   dmg:3471 cost:100 uses:4 hits:5
-hit   dmg:24776 cost:0 uses:99 hits:99
 
 Claw Tentacle   dmg:-37 cost:0 uses:-1 hits:-1
 Deep Wound   dmg:-30 cost:0 uses:-1 hits:-1
 Whirlwind   dmg:-7 cost:0 uses:0 hits:0
 
 Emperor Vek'nilash   dmg:-12272 cost:-145 uses:-6 hits:-4
+Auto Attack   dmg:-926 cost:0 uses:-2 hits:-2
 Bloodthirst   dmg:-565 cost:0 uses:0 hits:0
 Cleave   dmg:-2193 cost:-60 uses:-3 hits:-3
 Deep Wound   dmg:288 cost:0 uses:2 hits:2
@@ -69,17 +70,17 @@ Hamstring   dmg:79 cost:30 uses:3 hits:3
 Heroic Strike   dmg:-9460 cost:-105 uses:-7 hits:-7
 Overpower   dmg:-1396 cost:0 uses:-1 hits:-1
 Whirlwind   dmg:-1494 cost:-100 uses:-4 hits:-2
-hit   dmg:-926 cost:0 uses:-2 hits:-2
 
 Eye Tentacle   dmg:6695 cost:155 uses:15 hits:15
+Auto Attack   dmg:2394 cost:0 uses:8 hits:8
 Bloodthirst   dmg:2049 cost:90 uses:3 hits:3
 Execute   dmg:837 cost:0 uses:0 hits:0
 Heroic Strike   dmg:423 cost:15 uses:1 hits:1
 Pummel   dmg:27 cost:0 uses:1 hits:1
 Whirlwind   dmg:965 cost:50 uses:2 hits:2
-hit   dmg:2394 cost:0 uses:8 hits:8
 
 Eye of C'Thun   dmg:1283 cost:-155 uses:-14 hits:-15
+Auto Attack   dmg:1994 cost:0 uses:-8 hits:-8
 Bloodthirst   dmg:-4355 cost:-120 uses:-4 hits:-4
 Cleave   dmg:591 cost:20 uses:1 hits:1
 Deep Wound   dmg:105 cost:0 uses:1 hits:1
@@ -87,9 +88,9 @@ Execute   dmg:11322 cost:120 uses:8 hits:8
 Hamstring   dmg:-146 cost:-30 uses:-3 hits:-3
 Heroic Strike   dmg:-7621 cost:-120 uses:-8 hits:-8
 Whirlwind   dmg:-607 cost:-25 uses:-1 hits:-2
-hit   dmg:1994 cost:0 uses:-8 hits:-8
 
 Fankriss the Unyielding   dmg:-17855 cost:50 uses:31 hits:29
+Auto Attack   dmg:-3337 cost:0 uses:24 hits:24
 Bloodthirst   dmg:-5875 cost:-60 uses:-2 hits:-2
 Cleave   dmg:-5051 cost:-20 uses:-1 hits:-1
 Deep Wound   dmg:-424 cost:0 uses:2 hits:2
@@ -97,51 +98,51 @@ Execute   dmg:-2231 cost:30 uses:2 hits:2
 Heroic Strike   dmg:6386 cost:105 uses:7 hits:7
 Slam   dmg:-3215 cost:-30 uses:-2 hits:-2
 Whirlwind   dmg:-4108 cost:25 uses:1 hits:-1
-hit   dmg:-3337 cost:0 uses:24 hits:24
 
 Giant Claw Tentacle   dmg:-5530 cost:-100 uses:-3 hits:-3
+Auto Attack   dmg:-902 cost:0 uses:-2 hits:-2
 Bloodthirst   dmg:-1292 cost:-60 uses:-2 hits:-2
 Deep Wound   dmg:149 cost:0 uses:4 hits:4
 Execute   dmg:-2423 cost:-15 uses:-1 hits:-1
 Heroic Strike   dmg:-677 cost:0 uses:0 hits:0
 Intercept Stun   dmg:-37 cost:0 uses:-1 hits:-1
 Whirlwind   dmg:-348 cost:-25 uses:-1 hits:-1
-hit   dmg:-902 cost:0 uses:-2 hits:-2
 
 Giant Eye Tentacle   dmg:4914 cost:100 uses:18 hits:18
+Auto Attack   dmg:2733 cost:0 uses:11 hits:11
 Bloodthirst   dmg:1186 cost:60 uses:2 hits:2
 Heroic Strike   dmg:561 cost:15 uses:1 hits:1
 Intercept Stun   dmg:70 cost:0 uses:2 hits:2
 Pummel   dmg:33 cost:0 uses:1 hits:1
 Whirlwind   dmg:331 cost:25 uses:1 hits:1
-hit   dmg:2733 cost:0 uses:11 hits:11
 
 Glob of Viscidus   dmg:11169 cost:30 uses:21 hits:22
+Auto Attack   dmg:724 cost:0 uses:3 hits:3
 Bloodthirst   dmg:1291 cost:30 uses:1 hits:1
 Deep Wound   dmg:62 cost:0 uses:2 hits:2
 Goblin Sapper Charge   dmg:8915 cost:0 uses:15 hits:15
 Whirlwind   dmg:177 cost:0 uses:0 hits:1
-hit   dmg:724 cost:0 uses:3 hits:3
 
 Lord Kri   dmg:4464 cost:15 uses:-2 hits:-1
+Auto Attack   dmg:86 cost:0 uses:-3 hits:-3
 Bloodthirst   dmg:1502 cost:0 uses:0 hits:0
 Cleave   dmg:-241 cost:0 uses:0 hits:1
 Deep Wound   dmg:30 cost:0 uses:0 hits:0
 Execute   dmg:2728 cost:15 uses:1 hits:1
 Heroic Strike   dmg:220 cost:0 uses:0 hits:0
 Whirlwind   dmg:139 cost:0 uses:0 hits:0
-hit   dmg:86 cost:0 uses:-3 hits:-3
 
 Obsidian Eradicator   dmg:-4909 cost:-45 uses:13 hits:13
+Auto Attack   dmg:-3061 cost:0 uses:16 hits:16
 Bloodthirst   dmg:-1766 cost:-60 uses:-2 hits:-2
 Deep Wound   dmg:-408 cost:0 uses:-2 hits:-2
 Execute   dmg:-414 cost:0 uses:0 hits:0
 Heroic Strike   dmg:2644 cost:30 uses:2 hits:2
 Slam   dmg:-818 cost:-15 uses:-1 hits:-1
 Whirlwind   dmg:-1086 cost:0 uses:0 hits:0
-hit   dmg:-3061 cost:0 uses:16 hits:16
 
 Ouro   dmg:6933 cost:30 uses:6 hits:6
+Auto Attack   dmg:3945 cost:0 uses:2 hits:2
 Bloodthirst   dmg:568 cost:0 uses:0 hits:0
 Deep Wound   dmg:-154 cost:0 uses:-2 hits:-2
 Execute   dmg:-2913 cost:0 uses:0 hits:0
@@ -150,9 +151,9 @@ Heroic Strike   dmg:9182 cost:90 uses:6 hits:6
 Overpower   dmg:-1694 cost:0 uses:-1 hits:-1
 Revenge   dmg:426 cost:0 uses:4 hits:4
 Whirlwind   dmg:-2381 cost:-50 uses:-2 hits:-2
-hit   dmg:3945 cost:0 uses:2 hits:2
 
 Princess Huhuran   dmg:39479 cost:310 uses:46 hits:46
+Auto Attack   dmg:13978 cost:0 uses:32 hits:32
 Bloodthirst   dmg:4893 cost:60 uses:2 hits:2
 Deep Wound   dmg:-862 cost:0 uses:-2 hits:-2
 Execute   dmg:-552 cost:-15 uses:-1 hits:-1
@@ -161,9 +162,9 @@ Heroic Strike   dmg:22418 cost:225 uses:15 hits:15
 Overpower   dmg:-1487 cost:0 uses:-2 hits:-2
 Slam   dmg:-1693 cost:-30 uses:-2 hits:-2
 Whirlwind   dmg:2703 cost:50 uses:2 hits:2
-hit   dmg:13978 cost:0 uses:32 hits:32
 
 Princess Yauj   dmg:4494 cost:-5 uses:7 hits:7
+Auto Attack   dmg:1335 cost:0 uses:6 hits:6
 Bloodthirst   dmg:-1351 cost:-30 uses:-1 hits:-1
 Cleave   dmg:372 cost:20 uses:1 hits:1
 Deep Wound   dmg:44 cost:0 uses:1 hits:1
@@ -171,35 +172,35 @@ Execute   dmg:3035 cost:30 uses:2 hits:2
 Hamstring   dmg:-36 cost:-10 uses:-1 hits:-1
 Heroic Strike   dmg:466 cost:-15 uses:-1 hits:-1
 Whirlwind   dmg:629 cost:0 uses:0 hits:0
-hit   dmg:1335 cost:0 uses:6 hits:6
 
 Qiraji Brainwasher   dmg:-11440 cost:-90 uses:26 hits:25
+Auto Attack   dmg:1374 cost:0 uses:25 hits:25
 Bloodthirst   dmg:-635 cost:0 uses:0 hits:0
 Cleave   dmg:-10564 cost:-120 uses:-6 hits:-7
 Deep Wound   dmg:-217 cost:0 uses:5 hits:5
 Execute   dmg:-2447 cost:-15 uses:-1 hits:-1
 Heroic Strike   dmg:3021 cost:45 uses:3 hits:3
 Whirlwind   dmg:-1972 cost:0 uses:0 hits:0
-hit   dmg:1374 cost:0 uses:25 hits:25
 
 Qiraji Scarab   dmg:-2316 cost:-35 uses:-1 hits:-2
+Auto Attack   dmg:-205 cost:0 uses:-4 hits:-4
 Bloodthirst   dmg:-1625 cost:-60 uses:-2 hits:-2
 Cleave   dmg:-1648 cost:0 uses:0 hits:-2
 Deep Wound   dmg:199 cost:0 uses:4 hits:4
 Intercept Stun   dmg:6 cost:0 uses:0 hits:0
 Whirlwind   dmg:957 cost:25 uses:1 hits:2
-hit   dmg:-205 cost:0 uses:-4 hits:-4
 
 Qiraji Scorpion   dmg:-2170 cost:-25 uses:0 hits:1
+Auto Attack   dmg:-878 cost:0 uses:-2 hits:-2
 Bloodthirst   dmg:-1754 cost:-60 uses:-2 hits:-2
 Cleave   dmg:-85 cost:0 uses:0 hits:0
 Deep Wound   dmg:27 cost:0 uses:4 hits:4
 Execute   dmg:-983 cost:-15 uses:-1 hits:-1
 Intercept Stun   dmg:-38 cost:0 uses:-1 hits:-1
 Whirlwind   dmg:1541 cost:50 uses:2 hits:3
-hit   dmg:-878 cost:0 uses:-2 hits:-2
 
 Sartura's Royal Guard   dmg:567 cost:40 uses:17 hits:18
+Auto Attack   dmg:2934 cost:0 uses:19 hits:19
 Bloodthirst   dmg:1598 cost:30 uses:1 hits:1
 Cleave   dmg:-2510 cost:-20 uses:-1 hits:-2
 Deep Wound   dmg:-1148 cost:0 uses:-5 hits:-5
@@ -208,67 +209,67 @@ Hamstring   dmg:36 cost:10 uses:1 hits:1
 Heroic Strike   dmg:3046 cost:60 uses:4 hits:4
 Intercept Stun   dmg:10 cost:0 uses:0 hits:0
 Whirlwind   dmg:-690 cost:-25 uses:-1 hits:1
-hit   dmg:2934 cost:0 uses:19 hits:19
 
 Spawn of Fankriss   dmg:7531 cost:105 uses:13 hits:13
+Auto Attack   dmg:3208 cost:0 uses:8 hits:8
 Bloodthirst   dmg:1745 cost:30 uses:1 hits:1
 Cleave   dmg:376 cost:20 uses:1 hits:1
 Execute   dmg:1520 cost:30 uses:2 hits:2
 Whirlwind   dmg:682 cost:25 uses:1 hits:1
-hit   dmg:3208 cost:0 uses:8 hits:8
 
 The Prophet Skeram   dmg:9402 cost:90 uses:50 hits:50
+Auto Attack   dmg:4769 cost:0 uses:40 hits:40
 Bloodthirst   dmg:-5794 cost:-120 uses:-4 hits:-4
 Deep Wound   dmg:-782 cost:0 uses:0 hits:0
 Execute   dmg:943 cost:60 uses:4 hits:4
 Heroic Strike   dmg:13529 cost:165 uses:11 hits:11
 Slam   dmg:-1543 cost:-15 uses:-1 hits:-1
 Whirlwind   dmg:-1720 cost:0 uses:0 hits:0
-hit   dmg:4769 cost:0 uses:40 hits:40
 
 Vekniss Borer   dmg:37201 cost:-30 uses:81 hits:79
+Auto Attack   dmg:-805 cost:0 uses:0 hits:0
 Cleave   dmg:-1245 cost:-20 uses:-1 hits:-2
 Goblin Sapper Charge   dmg:41130 cost:0 uses:82 hits:82
 Heroic Strike   dmg:467 cost:15 uses:1 hits:1
 Whirlwind   dmg:-2346 cost:-25 uses:-1 hits:-2
-hit   dmg:-805 cost:0 uses:0 hits:0
 
 Vekniss Drone   dmg:-1380 cost:-30 uses:0 hits:0
+Auto Attack   dmg:2317 cost:0 uses:13 hits:13
 Bloodthirst   dmg:243 cost:0 uses:0 hits:0
 Cleave   dmg:570 cost:0 uses:0 hits:0
 Deep Wound   dmg:-239 cost:0 uses:-1 hits:-1
 Hamstring   dmg:-147 cost:-30 uses:-3 hits:-3
 Whirlwind   dmg:-3854 cost:0 uses:0 hits:0
-hit   dmg:2317 cost:0 uses:13 hits:13
 reflect   dmg:-270 cost:0 uses:-9 hits:-9
 
 Vekniss Guardian   dmg:-11358 cost:-20 uses:15 hits:11
+Auto Attack   dmg:1449 cost:0 uses:22 hits:22
 Bloodthirst   dmg:-1518 cost:-30 uses:-1 hits:-1
 Cleave   dmg:-6123 cost:-40 uses:-2 hits:-5
 Deep Wound   dmg:-3248 cost:0 uses:-4 hits:-4
 Execute   dmg:3390 cost:30 uses:2 hits:2
 Heroic Strike   dmg:2960 cost:45 uses:3 hits:3
 Whirlwind   dmg:-8148 cost:-25 uses:-1 hits:-2
-hit   dmg:1449 cost:0 uses:22 hits:22
 reflect   dmg:-120 cost:0 uses:-4 hits:-4
 
 Vekniss Hatchling   dmg:-2647 cost:-25 uses:-2 hits:-1
+Auto Attack   dmg:1191 cost:0 uses:2 hits:2
 Cleave   dmg:443 cost:0 uses:0 hits:1
 Deep Wound   dmg:-446 cost:0 uses:-2 hits:-2
 Whirlwind   dmg:-3805 cost:-25 uses:-1 hits:-1
-hit   dmg:1191 cost:0 uses:2 hits:2
 reflect   dmg:-30 cost:0 uses:-1 hits:-1
 
 Vekniss Hive Crawler   dmg:32941 cost:275 uses:64 hits:70
+Auto Attack   dmg:18567 cost:0 uses:44 hits:44
 Bloodthirst   dmg:2300 cost:90 uses:3 hits:3
 Cleave   dmg:3536 cost:60 uses:3 hits:5
 Deep Wound   dmg:239 cost:0 uses:7 hits:7
 Execute   dmg:5968 cost:90 uses:6 hits:6
 Slam   dmg:-1666 cost:-15 uses:-1 hits:-1
 Whirlwind   dmg:3997 cost:50 uses:2 hits:6
-hit   dmg:18567 cost:0 uses:44 hits:44
 
 Vekniss Soldier   dmg:-9971 cost:-130 uses:-2 hits:-1
+Auto Attack   dmg:-5475 cost:0 uses:1 hits:1
 Bloodthirst   dmg:984 cost:30 uses:1 hits:1
 Cleave   dmg:-4433 cost:-80 uses:-4 hits:-4
 Deep Wound   dmg:124 cost:0 uses:3 hits:3
@@ -277,47 +278,46 @@ Hamstring   dmg:31 cost:10 uses:1 hits:1
 Heroic Strike   dmg:-715 cost:-15 uses:-1 hits:-1
 Slam   dmg:-945 cost:-15 uses:-1 hits:-1
 Whirlwind   dmg:-807 cost:-75 uses:-3 hits:-2
-hit   dmg:-5475 cost:0 uses:1 hits:1
 
 Vekniss Stinger   dmg:-7334 cost:-55 uses:-4 hits:-7
+Auto Attack   dmg:-2488 cost:0 uses:-2 hits:-2
 Bloodthirst   dmg:-1933 cost:-30 uses:-1 hits:-1
 Cleave   dmg:-799 cost:0 uses:0 hits:-1
 Whirlwind   dmg:-2114 cost:-25 uses:-1 hits:-3
-hit   dmg:-2488 cost:0 uses:-2 hits:-2
 
 Vekniss Warrior   dmg:29 cost:-15 uses:21 hits:21
+Auto Attack   dmg:958 cost:0 uses:14 hits:14
 Bloodthirst   dmg:-1867 cost:-60 uses:-2 hits:-2
 Cleave   dmg:794 cost:20 uses:1 hits:2
 Deep Wound   dmg:316 cost:0 uses:6 hits:6
 Execute   dmg:1031 cost:15 uses:1 hits:1
 Hamstring   dmg:31 cost:10 uses:1 hits:1
 Whirlwind   dmg:-1234 cost:0 uses:0 hits:-1
-hit   dmg:958 cost:0 uses:14 hits:14
 
 Vekniss Wasp   dmg:-5543 cost:-75 uses:-2 hits:-3
+Auto Attack   dmg:-706 cost:0 uses:0 hits:0
 Bloodthirst   dmg:-756 cost:-30 uses:-1 hits:-1
 Cleave   dmg:-1841 cost:-20 uses:-1 hits:-1
 Deep Wound   dmg:-76 cost:0 uses:2 hits:2
 Intercept Stun   dmg:-46 cost:0 uses:-1 hits:-1
 Whirlwind   dmg:-2118 cost:-25 uses:-1 hits:-2
-hit   dmg:-706 cost:0 uses:0 hits:0
 
 Vem   dmg:834 cost:25 uses:3 hits:3
+Auto Attack   dmg:1913 cost:0 uses:4 hits:4
 Bloodthirst   dmg:96 cost:0 uses:0 hits:0
 Deep Wound   dmg:0 cost:0 uses:0 hits:0
 Execute   dmg:2153 cost:0 uses:0 hits:0
 Heroic Strike   dmg:-1584 cost:0 uses:0 hits:0
 Overpower   dmg:-2686 cost:0 uses:-2 hits:-2
 Whirlwind   dmg:942 cost:25 uses:1 hits:1
-hit   dmg:1913 cost:0 uses:4 hits:4
 
 Viscidus   dmg:13764 cost:80 uses:32 hits:32
+Auto Attack   dmg:7841 cost:0 uses:24 hits:24
 Deep Wound   dmg:-23 cost:0 uses:-4 hits:-4
 Execute   dmg:5617 cost:195 uses:13 hits:13
 Frostbolt   dmg:248 cost:0 uses:12 hits:12
 Hamstring   dmg:-183 cost:-140 uses:-14 hits:-14
 Whirlwind   dmg:264 cost:25 uses:1 hits:1
-hit   dmg:7841 cost:0 uses:24 hits:24
 
 Yauj Brood   dmg:2030 cost:0 uses:-1 hits:1
 Cleave   dmg:783 cost:0 uses:0 hits:0

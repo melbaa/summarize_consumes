@@ -14,7 +14,7 @@ Sunwelp  4072505
   Negative Charge  6173
   Frost Nova  1041
 Deathstruck  3995877
-  hit  1415882
+  Auto Attack  1415882
   Heroic Strike  714241
   Bloodthirst  584798
   Whirlwind  517698
@@ -34,7 +34,7 @@ Deathstruck  3995877
   Thunder Clap  523
   Intercept Stun  168
 Martl  3881426
-  hit  1341767
+  Auto Attack  1341767
   Bloodthirst  644698
   Heroic Strike  629068
   Execute  533934
@@ -49,7 +49,7 @@ Martl  3881426
   Shoot Bow  621
   Intercept Stun  182
 Drapes  3814267
-  hit  1335602
+  Auto Attack  1335602
   Heroic Strike  773915
   Bloodthirst  562638
   Execute  413867
@@ -78,7 +78,7 @@ Abstractz  3698055
   Flame Shock  49509
   Goblin Sapper Charge  34893
   Stratholme Holy Water  9682
-  hit  7131
+  Auto Attack  7131
   Lightning Shield  5623
   Negative Charge  4000
   Frost Shock  1982
@@ -112,14 +112,14 @@ Plaguejak  3454896
   Rain of Fire  3377
   Negative Charge  2173
   Shoot  1016
-  hit  377
+  Auto Attack  377
   Drain Soul  243
 Dhallya  3448362
   Auto Shot  1377899
   Trueshot  1214077
   Multi-Shot  678166
   Aimed Shot  57923
-  hit  48164
+  Auto Attack  48164
   Arcane Shot  30105
   Dense Dynamite  16529
   Serpent Sting  12744
@@ -138,7 +138,7 @@ Shreked  3377462
   Pyroblast  45900
   Blizzard  16616
   Shoot  10455
-  hit  1328
+  Auto Attack  1328
 Azot  3190458
   Shadow Bolt  2109501
   Hellfire Effect  508238
@@ -152,9 +152,9 @@ Azot  3190458
   Negative Charge  1877
   Shoot  519
   Drain Life  462
-  hit  232
+  Auto Attack  232
 Psykhe  3141672
-  hit  1269716
+  Auto Attack  1269716
   Heroic Strike  575219
   Bloodthirst  460622
   Execute  450947
@@ -171,7 +171,7 @@ Psykhe  3141672
   Shield Bash  51
   Greater Blessing of Sanctuary  33
 Littlelnnos  3103558
-  hit  1108057
+  Auto Attack  1108057
   Heroic Strike  588977
   Bloodthirst  524203
   Execute  334580
@@ -198,7 +198,7 @@ Babystone  2968368
   Volley  20567
   Dense Dynamite  12616
   Serpent Sting  6221
-  hit  6146
+  Auto Attack  6146
   Arcane Shot  3390
   Goblin Sapper Charge  3040
   Explosive Trap Effect  2256
@@ -206,7 +206,7 @@ Babystone  2968368
   Immolation Trap Effect  426
   Scatter Shot  302
 Melriel  2903673
-  hit  1045278
+  Auto Attack  1045278
   Heroic Strike  514870
   Bloodthirst  459190
   Execute  390959
@@ -224,7 +224,7 @@ Melriel  2903673
   reflect  186
   Mocking Blow  74
 Mombat  2547357
-  hit  713951
+  Auto Attack  713951
   Holy Strike  453201
   Seal of Righteousness  381372
   Consecration  378822
@@ -255,7 +255,7 @@ Titicacal  2529744
   Rain of Fire  5985
   Searing Pain  4404
   Negative Charge  1976
-  hit  923
+  Auto Attack  923
   Death Coil  692
   Drain Soul  148
 Starraven  2416108
@@ -266,11 +266,11 @@ Starraven  2416108
   Insect Swarm  35285
   Goblin Sapper Charge  31963
   Negative Charge  1494
-  hit  769
+  Auto Attack  769
   Spirit Link  142
   reflect  108
 Deemonk  2269413
-  hit  779805
+  Auto Attack  779805
   Holy Strike  495985
   Seal of Command  386189
   Consecration  240089
@@ -282,7 +282,7 @@ Deemonk  2269413
   Holy Wrath  2077
   reflect  358
 Vallcow  2069031
-  hit  842669
+  Auto Attack  842669
   Heroic Strike  555959
   Bloodthirst  329425
   Thunderfury  173407
@@ -297,7 +297,7 @@ Vallcow  2069031
   Shoot Bow  1037
   Spirit Link  31
 Supal  1933910
-  hit  694107
+  Auto Attack  694107
   Holy Strike  397514
   Seal of Command  241648
   Consecration  155374
@@ -317,7 +317,7 @@ Supal  1933910
   Judgement of Command  1749
   Hammer of Wrath  431
 Squirreled  1869182
-  hit  689157
+  Auto Attack  689157
   Heroic Strike  506980
   Bloodthirst  269912
   Thunderfury  197418
@@ -348,7 +348,7 @@ Aquatic  1813310
   Blast Wave  28617
   Cone of Cold  11681
   Shoot  955
-  hit  738
+  Auto Attack  738
 Cheesebreath  1803264
   Starfire  1283161
   Moonfire  256824
@@ -356,7 +356,7 @@ Cheesebreath  1803264
   Wrath  120890
   Insect Swarm  9504
   Positive Charge  2173
-  hit  96
+  Auto Attack  96
 Zdraxus  1765489
   Shadow Word: Pain  663821
   Mind Flay  606805
@@ -365,7 +365,7 @@ Zdraxus  1765489
   Shoot  11290
   Touch of Weakness  1027
 Cracklinoats  1741565
-  hit  1301763
+  Auto Attack  1301763
   Stormstrike  207821
   Fireball  106759
   Flame Shock  102678
@@ -375,7 +375,7 @@ Cracklinoats  1741565
   Frost Shock  646
   reflect  68
 Pitbound  1728501
-  hit  846024
+  Auto Attack  846024
   Heroic Strike  399980
   Bloodthirst  274942
   Execute  88551
@@ -393,7 +393,7 @@ Pitbound  1728501
   Shield Bash  409
   Intercept Stun  38
 Atriana  1495576
-  hit  784462
+  Auto Attack  784462
   Backstab  544870
   Blade Flurry  73225
   Instant Poison VI  56489
@@ -412,9 +412,9 @@ Ryx  888940
   Cone of Cold  34775
   Pyroblast  4241
   Frost Nova  102
-  hit  77
+  Auto Attack  77
 Baalfyr  454171
-  hit  167835
+  Auto Attack  167835
   Whirlwind  71376
   Bloodthirst  64163
   Cleave  59019
@@ -437,7 +437,7 @@ Ancst  389054
   Fire Shield  7175
   Pain Spike  5538
   Devouring Plague  4251
-  hit  310
+  Auto Attack  310
 Suigetsu  319738
   Mind Flay  105672
   Shadow Word: Pain  81571
@@ -448,9 +448,9 @@ Suigetsu  319738
   Pain Spike  4526
   Positive Charge  2000
   Shoot  1952
-  hit  970
+  Auto Attack  970
 Bobsterr  235466
-  hit  62320
+  Auto Attack  62320
   Holy Strike  58589
   Seal of Command  26936
   Drain Life  19966
@@ -481,9 +481,9 @@ Sanwen  185036
   Stratholme Holy Water  1629
   Pain Spike  1590
   Shoot  358
-  hit  157
+  Auto Attack  157
 Ratthew  132359
-  hit  110807
+  Auto Attack  110807
   Stormstrike  19699
   Flame Shock  981
   Frost Shock  545
@@ -495,7 +495,7 @@ Almouty  70621
   Insect Swarm  6750
   Positive Charge  1500
   Hurricane  938
-  hit  361
+  Auto Attack  361
 Seidhkona  53624
   Lightning Bolt  29684
   Flame Shock  6566
@@ -507,13 +507,13 @@ Seidhkona  53624
 Valurian  35002
   Wrath  22169
   Moonfire  10088
-  hit  1792
+  Auto Attack  1792
   Positive Charge  900
   Spirit Link  32
   Swipe  21
 Interlani  34478
   Consecration  10908
-  hit  9263
+  Auto Attack  9263
   Exorcism  5056
   Holy Strike  4955
   Hammer of Wrath  3004
@@ -526,7 +526,7 @@ Jocaste  26805
   Positive Charge  6940
   Holy Strike  6736
   Judgement of Righteousness  4762
-  hit  4256
+  Auto Attack  4256
   Seal of Righteousness  1640
   Hammer of Wrath  1544
   Holy Shock (dmg)  927
@@ -534,11 +534,11 @@ Yakub  23238
   Lightning Bolt  13452
   Chain Lightning  5561
   Positive Charge  2979
-  hit  661
+  Auto Attack  661
   Frost Shock  585
 Ergofobia  18810
   Flame Shock  12438
-  hit  2404
+  Auto Attack  2404
   Negative Charge  2173
   Frost Shock  1129
   Flametongue Attack  666

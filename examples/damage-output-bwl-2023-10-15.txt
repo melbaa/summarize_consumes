@@ -1,5 +1,5 @@
 Dyrachyo  2082545
-  hit  810474
+  Auto Attack  810474
   Execute  305943
   Bloodthirst  295589
   Heroic Strike  272797
@@ -14,7 +14,7 @@ Dyrachyo  2082545
   Intercept Stun  164
   Thorium Shield Spike  129
 Psykhe  1945136
-  hit  977351
+  Auto Attack  977351
   Heroic Strike  542076
   Bloodthirst  276386
   Whirlwind  40347
@@ -38,7 +38,7 @@ Sunor  1370296
   Stratholme Holy Water  16853
   Conflagration  8056
 Getterfour  1205080
-  hit  476118
+  Auto Attack  476118
   Seal of Righteousness  272671
   Holy Strike  154797
   Consecration  106354
@@ -57,7 +57,7 @@ Ionize  1197098
   Earth Shock  50117
   Flame Shock  35452
   Dense Dynamite  19965
-  hit  6736
+  Auto Attack  6736
   Flametongue Attack  5777
   Brood Power: Bronze  5012
   Frostbrand Attack  870
@@ -72,7 +72,7 @@ Shrimpshark  1181734
   Fire Blast  35810
   Blizzard  32650
 Illasei  1116202
-  hit  680555
+  Auto Attack  680555
   Sinister Strike  302702
   Eviscerate  37622
   Deadly Poison V  32001
@@ -83,7 +83,7 @@ Illasei  1116202
   Gouge  103
   Kick  50
 Maryhuff  1105187
-  hit  409046
+  Auto Attack  409046
   Heroic Strike  324903
   Bloodthirst  153342
   Execute  105119
@@ -98,13 +98,13 @@ Yis  1058601
   Auto Shot  440993
   Trueshot  314563
   Multi-Shot  242630
-  hit  26090
+  Auto Attack  26090
   Serpent Sting  19356
   Volley  12503
   Aimed Shot  2268
   Wing Clip  198
 Iniri  1024728
-  hit  516620
+  Auto Attack  516620
   Backstab  410699
   Deadly Poison V  40754
   Eviscerate  39093
@@ -112,7 +112,7 @@ Iniri  1024728
   Ambush  8059
   Kick  51
 Montford  999594
-  hit  461711
+  Auto Attack  461711
   Execute  182195
   Bloodthirst  139572
   Heroic Strike  91493
@@ -131,7 +131,7 @@ Xanadun  898591
   Death Coil  5443
   Drain Soul  2193
 Bubasita  841783
-  hit  362118
+  Auto Attack  362118
   Heroic Strike  120413
   Bloodthirst  119957
   Execute  108894
@@ -150,7 +150,7 @@ Chan  805773
   Aimed Shot  37744
   Arcane Shot  17746
   Stratholme Holy Water  10881
-  hit  4599
+  Auto Attack  4599
   Explosive Trap Effect  3482
   Raptor Strike  1848
   Wing Clip  253
@@ -159,7 +159,7 @@ Smahingbolt  741997
   Trueshot  183579
   Multi-Shot  177227
   Arcane Shot  45103
-  hit  10286
+  Auto Attack  10286
   Raptor Strike  9436
   Serpent Sting  8077
   Volley  5419
@@ -188,7 +188,7 @@ Steinberg  725495
   Frost Nova  1557
   Brood Power: Bronze  747
 Bloxie  711282
-  hit  242867
+  Auto Attack  242867
   Holy Strike  112094
   Consecration  111024
   Seal of Righteousness  87517
@@ -205,7 +205,7 @@ Bloxie  711282
   Fire Strike  1002
   Blessing of Sanctuary  435
 Daenshy  698063
-  hit  212633
+  Auto Attack  212633
   Maul  121912
   Shred  78352
   Claw  59301
@@ -220,7 +220,7 @@ Daenshy  698063
   Moonfire  28
 Charmia  677432
   Maul  241780
-  hit  172641
+  Auto Attack  172641
   Shred  124058
   Brood Power: Bronze  45413
   Rip  43627
@@ -236,10 +236,10 @@ Rossol  626726
   Shoot  24560
   Pain Spike  19317
   Devouring Plague  16710
-  hit  950
+  Auto Attack  950
   Touch of Weakness  310
 Windfurytotm  618176
-  hit  424290
+  Auto Attack  424290
   Stormstrike  102247
   Frost Shock  59427
   Lightning Strike  14064
@@ -255,9 +255,9 @@ Bigjelly  580697
   Frost Shock  11817
   Flame Shock  11308
   Earth Shock  8236
-  hit  5745
+  Auto Attack  5745
 Everglow  560210
-  hit  256455
+  Auto Attack  256455
   Heroic Strike  121607
   Bloodthirst  96236
   Whirlwind  27076
@@ -275,7 +275,7 @@ Everglow  560210
   Intercept Stun  86
   Shield Bash  30
 Edmonnd  533562
-  hit  215699
+  Auto Attack  215699
   Whirlwind  68525
   Cleave  61668
   Execute  54879
@@ -294,11 +294,11 @@ Thorshifter  529644
   Starfire  209528
   Moonfire  84580
   Hurricane  17378
-  hit  1374
+  Auto Attack  1374
   Claw  242
   Rake  90
 Nightleaf  491578
-  hit  206068
+  Auto Attack  206068
   Claw  171368
   Ferocious Bite  77516
   Rip  26280
@@ -310,7 +310,7 @@ Nightleaf  491578
   Swipe  638
   reflect  18
 Storkie  457565
-  hit  167797
+  Auto Attack  167797
   Whirlwind  98673
   Mortal Strike  46096
   Sweeping Strikes  38264
@@ -331,7 +331,7 @@ Storkie  457565
   Rend  29
   Mithril Shield Spike  15
 Stormsnake  259056
-  hit  223410
+  Auto Attack  223410
   Stormstrike  21543
   Earth Shock  11729
   Thorium Grenade  1564
@@ -355,21 +355,21 @@ Bever  190324
   Mind Blast  49861
   Devouring Plague  8557
   Shoot  4134
-  hit  938
+  Auto Attack  938
   reflect  308
   Touch of Weakness  93
 Melbaxd  176152
   Holy Nova  174304
   Shadow Word: Pain  990
   Holy Fire  702
-  hit  156
+  Auto Attack  156
 Tlw  144326
   Frostbolt  64655
   Blizzard  56616
   Cone of Cold  20675
   Fire Blast  1895
   Frost Nova  484
-  hit  1
+  Auto Attack  1
 Simplezz  69603
   Auto Shot  39897
   Multi-Shot  17245
@@ -377,7 +377,7 @@ Simplezz  69603
   Serpent Sting  3276
   Volley  1900
   Arcane Shot  1743
-  hit  553
+  Auto Attack  553
   Raptor Strike  407
   Wing Clip  5
 Niviri  44366
@@ -385,7 +385,7 @@ Niviri  44366
   Wrath  7595
   Stratholme Holy Water  6123
   Moonfire  4822
-  hit  2131
+  Auto Attack  2131
   Claw  1329
 Morinethar  17110
   Holy Wrath  16280
@@ -398,13 +398,13 @@ Ovski  11271
 Lorternius  10534
   Holy Strike  3575
   Eye for an Eye  1884
-  hit  1785
+  Auto Attack  1785
   Seal of Command  1335
   Judgement of Command  800
   Hammer of Wrath  660
   Crusader Strike  495
 Vegancat  5930
-  hit  1743
+  Auto Attack  1743
   Shred  1287
   Maul  1149
   Savage Bite  635
@@ -415,13 +415,13 @@ Vegancat  5930
 Daenshoo  5685
   Moonfire  3943
   Shred  881
-  hit  861
+  Auto Attack  861
 Bananaheal  5223
   Holy Nova  5223
 Teldelar  5025
   Shred  1965
   Rip  1188
-  hit  1082
+  Auto Attack  1082
   Moonfire  570
   Insect Swarm  220
 Shumy  3063
@@ -429,23 +429,23 @@ Shumy  3063
   Chain Lightning  1368
 Geniesham  2883
   Burning Adrenaline  2705
-  hit  178
+  Auto Attack  178
 Shockoloko  2703
-  hit  1458
+  Auto Attack  1458
   Earth Shock  551
   Lightning Shield  462
   Stormstrike  202
   Fiery Weapon  30
 Kazgrun  1961
   Frost Shock  1118
-  hit  630
+  Auto Attack  630
   Earth Shock  213
 Druindy  1861
   Moonfire  687
-  hit  610
+  Auto Attack  610
   Claw  404
   Rake  160
 Alderheim  828
-  hit  387
+  Auto Attack  387
   Holy Strike  349
   reflect  92

@@ -1,5 +1,5 @@
 Saberslash  3582950
-  hit  1160457
+  Auto Attack  1160457
   Execute  510731
   Heroic Strike  507145
   Bloodthirst  406289
@@ -30,7 +30,7 @@ Clapya  3525874
   Goblin Sapper Charge  18083
   Dense Dynamite  8585
   Positive Charge  1800
-  hit  1246
+  Auto Attack  1246
 Adachisakura  3450846
   Shadow Bolt  2146670
   Corruption  436280
@@ -47,9 +47,9 @@ Adachisakura  3450846
   Negative Charge  2000
   Immolate  1322
   Pursuit  269
-  hit  111
+  Auto Attack  111
 Sabroso  3212511
-  hit  1047446
+  Auto Attack  1047446
   Heroic Strike  690200
   Bloodthirst  504452
   Whirlwind  301629
@@ -67,7 +67,7 @@ Sabroso  3212511
   Revenge  127
   Thunder Clap  62
 Psykhe  3026421
-  hit  950645
+  Auto Attack  950645
   Heroic Strike  533022
   Bloodthirst  500068
   Execute  283229
@@ -85,7 +85,7 @@ Psykhe  3026421
   Intercept Stun  273
   Thunder Clap  14
 Zloveleen  2995054
-  hit  762816
+  Auto Attack  762816
   Execute  458376
   Whirlwind  345580
   Heroic Strike  338823
@@ -103,7 +103,7 @@ Zloveleen  2995054
   Intercept Stun  271
   Revenge  106
 Rila  2952688
-  hit  961135
+  Auto Attack  961135
   Bloodthirst  439163
   Heroic Strike  435815
   Execute  301346
@@ -132,7 +132,7 @@ Spankys  2742067
   Claw  30888
   Aimed Shot  16338
   Goblin Sapper Charge  13780
-  hit  9356
+  Auto Attack  9356
   Negative Charge  3890
   Volley  2576
   Bite  1377
@@ -140,7 +140,7 @@ Spankys  2742067
   Serpent Sting  656
   Flametongue Attack  287
 Martl  2690037
-  hit  870644
+  Auto Attack  870644
   Heroic Strike  559782
   Bloodthirst  500367
   Whirlwind  215550
@@ -158,7 +158,7 @@ Martl  2690037
   Intercept Stun  41
 Shape  2600185
   Shred  1026028
-  hit  934965
+  Auto Attack  934965
   Ferocious Bite  290059
   Swipe  56953
   Claw  54364
@@ -190,7 +190,7 @@ Onetwofree  2442888
   Drain Life  3648
   Drain Soul  913
 Ruwusz  2382967
-  hit  673766
+  Auto Attack  673766
   Execute  379556
   Slam  265573
   Mortal Strike  264649
@@ -204,7 +204,7 @@ Ruwusz  2382967
   Overpower  1304
   Intercept Stun  89
 Jinp  2382733
-  hit  1301661
+  Auto Attack  1301661
   Sinister Strike  673588
   Eviscerate  121123
   Blade Flurry  111535
@@ -243,7 +243,7 @@ Starraven  2274107
   Stratholme Holy Water  7447
   Goblin Sapper Charge  4427
 Bolyarka  2128843
-  hit  817176
+  Auto Attack  817176
   Crusader Strike  354876
   Seal of Command  300469
   Judgement of Command  246624
@@ -289,7 +289,7 @@ Nehelenia  1998316
 Supal  1938123
   Holy Strike  369964
   Consecration  353720
-  hit  258176
+  Auto Attack  258176
   Exorcism  194904
   Thunderfury  191151
   Judgement of Righteousness  187084
@@ -323,7 +323,7 @@ Aquatic  1906276
   Frost Nova  1672
   Pet Summoned  676
   Flame Buffet  587
-  hit  88
+  Auto Attack  88
 Suigetsu  1841688
   Mind Flay  782912
   Mind Blast  590128
@@ -334,10 +334,10 @@ Suigetsu  1841688
   Ez-Thro Dynamite  9040
   Fire Shield  3652
   Positive Charge  1900
-  hit  785
+  Auto Attack  785
   Shoot  374
 Eleae  1716933
-  hit  560971
+  Auto Attack  560971
   Shred  511791
   Maul  195031
   Swipe  156549
@@ -349,7 +349,7 @@ Eleae  1716933
   Moonfire  202
   Improved Moonfire  96
 Pitbound  1695086
-  hit  713905
+  Auto Attack  713905
   Heroic Strike  416795
   Bloodthirst  260011
   Execute  78453
@@ -374,11 +374,11 @@ Minoas  1557838
   Arcane Shot  61690
   Piercing Shots  56565
   Volley  22351
-  hit  3270
+  Auto Attack  3270
   Aimed Shot  836
 Squirreled  1394129
   Heroic Strike  484907
-  hit  415000
+  Auto Attack  415000
   Bloodthirst  217058
   Thunderfury  126398
   Cleave  47270
@@ -400,7 +400,7 @@ Squirreled  1394129
   Pet Summoned  48
 Xelya  1350802
   Holy Strike  314015
-  hit  264114
+  Auto Attack  264114
   Consecration  173079
   Judgement of Righteousness  162518
   Seal of Righteousness  125417
@@ -424,7 +424,7 @@ Cheesebreath  1210048
   Hurricane  60817
   Insect Swarm  37560
   Negative Charge  6000
-  hit  213
+  Auto Attack  213
 Tinerispew  1175180
   Arcane Missiles  450986
   Arcane Rupture  149085
@@ -450,7 +450,7 @@ Starr  226860
   Positive Charge  7500
   Shoot  1668
   Intense Pain  571
-  hit  5
+  Auto Attack  5
 Randgriz  47390
   Smite  16389
   Chastise  15581
@@ -472,7 +472,7 @@ Snega  32719
   Frost Shock  1143
 Jocaste  27711
   Exorcism  12075
-  hit  7289
+  Auto Attack  7289
   Holy Strike  4286
   Crusader Strike  3439
   Consecration  622
@@ -483,7 +483,7 @@ Martl (self damage)  23871
 Bobbywf  16930
   Lightning Bolt  16930
 Shizumo  13316
-  hit  5999
+  Auto Attack  5999
   Negative Charge  5674
   Consecration  1643
 Sabroso (self damage)  13024
@@ -497,11 +497,11 @@ Saberslash (self damage)  8586
   Bloodrage  5371
   Goblin Sapper Charge  3215
 Interlan  8466
-  hit  7187
+  Auto Attack  7187
   Flametongue Attack  1164
   Earth Shock  115
 Selverslip  7174
-  hit  2610
+  Auto Attack  2610
   Earth Shock  2318
   Lightning Bolt  1129
   Flametongue Attack  1117

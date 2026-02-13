@@ -1,5 +1,5 @@
 Psykhe  1112927
-  hit  413719
+  Auto Attack  413719
   Heroic Strike  210540
   Bloodthirst  159081
   Execute  149128
@@ -22,7 +22,7 @@ Clapya  926717
   Flame Shock  8890
   Frost Shock  6100
   Fire Shield  4848
-  hit  2948
+  Auto Attack  2948
   Lightning Shield  1995
   Frostbrand Attack  1024
 Shreked  900800
@@ -37,7 +37,7 @@ Shreked  900800
   Pyroblast  5948
   Flamestrike  4097
   Thorium Grenade  4018
-  hit  691
+  Auto Attack  691
   Shoot  481
 Xiaofeigunn  899277
   Fireball  309413
@@ -52,7 +52,7 @@ Xiaofeigunn  899277
   Frostbolt  2861
   Engulfing Shadows  2712
 Zloveleen  891945
-  hit  314352
+  Auto Attack  314352
   Bloodthirst  151089
   Whirlwind  121260
   Heroic Strike  102223
@@ -74,14 +74,14 @@ Starraven  881511
   Insect Swarm  14671
   Goblin Sapper Charge  13697
   Shard of the Fallen Star  2135
-  hit  419
+  Auto Attack  419
   reflect  90
 Spankys  847933
   Auto Shot  340563
   Trueshot  233461
   Multi-Shot  142060
   Goblin Sapper Charge  53347
-  hit  44733
+  Auto Attack  44733
   Arcane Shot  10767
   Lightning Breath  9410
   Serpent Sting  7636
@@ -91,7 +91,7 @@ Spankys  847933
   Explosive Trap Effect  119
   Frostbolt  14
 Sabroso  806345
-  hit  289389
+  Auto Attack  289389
   Heroic Strike  177598
   Bloodthirst  123766
   Whirlwind  81882
@@ -112,14 +112,14 @@ Dirael  783824
   Volley  20184
   Aimed Shot  10883
   Arcane Shot  6065
-  hit  5747
+  Auto Attack  5747
   Raptor Strike  5098
   Explosive Trap Effect  3079
   Serpent Sting  1994
   Wing Clip  1330
   Frost Blast  23
 Bobsterr  750097
-  hit  156013
+  Auto Attack  156013
   Seal of Righteousness  133736
   Holy Strike  113567
   Thunderfury  112817
@@ -140,7 +140,7 @@ Medion  732022
   Curse of Doom  2512
   Shoot  979
   Immolate  873
-  hit  681
+  Auto Attack  681
 Aquatic  729903
   Fireball  317495
   Arcane Explosion  107747
@@ -153,13 +153,13 @@ Aquatic  729903
   Frostbolt  7866
   Cone of Cold  7384
   Arcane Missiles  1876
-  hit  73
+  Auto Attack  73
 Dhallya  668853
   Auto Shot  289132
   Trueshot  231247
   Multi-Shot  124410
   Goblin Sapper Charge  7624
-  hit  5768
+  Auto Attack  5768
   Arcane Shot  4179
   Serpent Sting  2630
   Aimed Shot  1493
@@ -178,12 +178,12 @@ Adachisakura  620766
   Death Coil  2805
   Drain Life  172
   Drain Soul  67
-  hit  39
+  Auto Attack  39
 Murto  605931
   Auto Shot  239920
   Trueshot  183216
   Multi-Shot  120912
-  hit  29466
+  Auto Attack  29466
   Arcane Shot  7883
   Volley  6924
   Screech  6747
@@ -193,7 +193,7 @@ Murto  605931
   Wing Clip  870
   Frostbolt  11
 Vallcow  564510
-  hit  259764
+  Auto Attack  259764
   Heroic Strike  113759
   Bloodthirst  74163
   Thunderfury  37931
@@ -213,7 +213,7 @@ Viridissima  537522
   Hurricane  26175
   Starfire  6694
 Pitbound  529418
-  hit  227391
+  Auto Attack  227391
   Heroic Strike  140470
   Bloodthirst  85154
   Thunderfury  48373
@@ -247,15 +247,15 @@ Blindie  493291
   Shoot  2059
   Touch of Weakness  284
   Reflective Shield  211
-  hit  20
+  Auto Attack  20
 Ratthew  473915
-  hit  373834
+  Auto Attack  373834
   Stormstrike  63574
   Earth Shock  33723
   Frostbrand Attack  2264
   Frost Shock  520
 Magn  468373
-  hit  218435
+  Auto Attack  218435
   Heroic Strike  80337
   Bloodthirst  69083
   Thunderfury  39281
@@ -273,7 +273,7 @@ Magn  468373
   Thorium Shield Spike  51
   Shield Bash  43
 Mcstabbys  464269
-  hit  266796
+  Auto Attack  266796
   Sinister Strike  120937
   Goblin Sapper Charge  44924
   Deadly Poison V  10428
@@ -301,9 +301,9 @@ Zdraxus  440323
   Pain Spike  15994
   Shoot  5983
   Touch of Weakness  265
-  hit  211
+  Auto Attack  211
 Lycel  394378
-  hit  119077
+  Auto Attack  119077
   Shred  117710
   Maul  71104
   Ferocious Bite  40345
@@ -323,10 +323,10 @@ Immunium  384593
   Fireball  1894
   Scorch  724
   Shoot  643
-  hit  41
+  Auto Attack  41
 Goldengoose  355721
   Consecration  100780
-  hit  87685
+  Auto Attack  87685
   Holy Strike  48254
   Seal of Righteousness  39907
   Judgement of Righteousness  30633
@@ -340,14 +340,14 @@ Goldengoose  355721
   Hammer of Wrath  1091
   Frostbolt  354
 Cracklinoats  339985
-  hit  270172
+  Auto Attack  270172
   Stormstrike  55253
   Flame Shock  8551
   Frost Shock  4433
   Frostbrand Attack  1510
   Earth Shock  66
 Pyi  337402
-  hit  164112
+  Auto Attack  164112
   Claw  97240
   Ferocious Bite  50525
   Hurricane  12045
@@ -355,7 +355,7 @@ Pyi  337402
   Shred  3217
   Moonfire  310
 Richardtater  216632
-  hit  121352
+  Auto Attack  121352
   Cleave  38142
   Bloodthirst  36485
   Whirlwind  15129
@@ -363,7 +363,7 @@ Richardtater  216632
   Heroic Strike  139
   Intercept Stun  88
 Catajumbo  179944
-  hit  114416
+  Auto Attack  114416
   Flame Shock  22527
   Earth Shock  20863
   Stormstrike  19785
@@ -375,9 +375,9 @@ Flowest  36873
   Frost Shock  2991
   Earth Shock  2737
   Flame Shock  1446
-  hit  340
+  Auto Attack  340
 Martlflash  12003
-  hit  4172
+  Auto Attack  4172
   Holy Shock (dmg)  2918
   Consecration  2752
   Seal of Righteousness  824
@@ -386,26 +386,26 @@ Martlflash  12003
   Judgement of Righteousness  252
 Ostkastare  10241
   Flame Shock  5926
-  hit  1504
+  Auto Attack  1504
   Lightning Bolt  1229
   Chain Lightning  1101
   Frost Shock  333
   Earth Shock  148
 Interlan  7938
   Lightning Bolt  5241
-  hit  1135
+  Auto Attack  1135
   Frost Shock  939
   Earth Shock  623
 Jocaste  6827
   Consecration  3482
   Holy Strike  1171
   Holy Shock (dmg)  934
-  hit  767
+  Auto Attack  767
   Judgement of Righteousness  300
   Seal of Righteousness  173
 Pristitute  3585
   Shoot  2183
   Smite  1402
 Yakub  557
-  hit  470
+  Auto Attack  470
   Earth Shock  87

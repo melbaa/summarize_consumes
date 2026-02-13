@@ -524,12 +524,14 @@ def test_hits_line(app):
 1/26 21:49:03.473  Flameguard hits Psykhe for 606 Fire damage. (202 resisted)
 2/21 21:20:32.779  Psykhe hits Flamewaker Elite for 333. (glancing) (+15 vulnerability bonus)
 12/20 21:23:43.965  Allaxou hits Flamewaker Elite for 159. (+10 vulnerability bonus) (37 blocked)
+2/12 19:09:53.848  Verzulica 's Felstorm hits Manascale Whelp (Ley-Watcher Incantagos) for 1801 Shadow damage.
 """
     lines = lines.splitlines(keepends=True)
     match = 0
     for line in lines:
         match += parse_line(app, line)
-    assert match == 7
+
+    assert match == 8
 
 
 def test_hits_line2(app):
