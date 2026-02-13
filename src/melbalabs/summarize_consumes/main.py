@@ -152,12 +152,9 @@ def create_unparsed_loggers(expert_log_unparsed_lines):
     return unparsed, unparsed_fast
 
 
-def create_encounter_mobs(write_encounter_mobs_output, known_boss_names, player):
+def create_encounter_mobs(write_encounter_mobs_output, known_bosses, player):
     if write_encounter_mobs_output:
-        return EncounterMobs(
-            known_boss_names=known_boss_names,
-            player=player,
-        )
+        return EncounterMobs(known_bosses=known_bosses, player=player)
     return NullEncounterMobs()
 
 
@@ -299,17 +296,16 @@ def create_app(
     )
 
     app.ability_timeline = AbilityTimeline(
-        known_boss_names=KNOWN_BOSS_NAMES,
+        known_bosses=KNOWN_BOSSES,
         player=app.player,
         dmgstore=app.dmgstore,
         cdspell_class=CDSPELL_CLASS,
         tracked_spells=set(LINE2SPELLCAST.values()),
-        boss_adds=BOSS_ADDS,
     )
 
     app.encounter_mobs = create_encounter_mobs(
         write_encounter_mobs_output=write_encounter_mobs_output,
-        known_boss_names=KNOWN_BOSS_NAMES,
+        known_bosses=KNOWN_BOSSES,
         player=app.player,
     )
 
@@ -490,56 +486,56 @@ ABILITYCOOLDOWN = {
     "Cleave": 1,
 }
 
-KNOWN_BOSS_NAMES = {
+KNOWN_BOSSES = {
     # bwl
-    "Razorgore the Untamed",
-    "Vaelastrasz the Corrupt",
-    "Broodlord Lashlayer",
-    "Firemaw",
-    "Ebonroc",
-    "Flamegor",
-    "Chromaggus",
-    "Nefarian",
+    "Razorgore the Untamed": [],
+    "Vaelastrasz the Corrupt": [],
+    "Broodlord Lashlayer": [],
+    "Firemaw": [],
+    "Ebonroc": [],
+    "Flamegor": [],
+    "Chromaggus": [],
+    "Nefarian": [],
     # aq40
-    "The Prophet Skeram",
-    "Princess Yauj",
-    "Vem",
-    "Lord Kri",
-    "Battleguard Sartura",
-    "Fankriss the Unyielding",
-    "Viscidus",
-    "Princess Huhuran",
-    "Emperor Vek'lor",
-    "Emperor Vek'nilash",
-    "Ouro",
-    "C'Thun",
-    "Eye of C'Thun",
+    "The Prophet Skeram": [],
+    "Princess Yauj": [],
+    "Vem": [],
+    "Lord Kri": [],
+    "Battleguard Sartura": [],
+    "Fankriss the Unyielding": [],
+    "Viscidus": [],
+    "Princess Huhuran": [],
+    "Emperor Vek'lor": [],
+    "Emperor Vek'nilash": [],
+    "Ouro": [],
+    "C'Thun": [],
+    "Eye of C'Thun": [],
     # naxx
-    "Anub'Rekhan",
-    "Grand Widow Faerlina",
-    "Maexxna",
-    "Noth the Plaguebringer",
-    "Heigan the Unclean",
-    "Loatheb",
-    "Patchwerk",
-    "Grobbulus",
-    "Gluth",
-    "Thaddius",
-    "Feugen",
-    "Stalagg",
-    "Instructor Razuvious",
-    "Gothik the Harvester",
-    "Highlord Mograine",
-    "Lady Blaumeux",
-    "Sir Zeliek",
-    "Thane Korth'azz",
-    "Sapphiron",
-    "Kel'Thuzad",
-}
-
-BOSS_ADDS = {
     "Anub'Rekhan": [
         "Crypt Guard",
+    ],
+    "Grand Widow Faerlina": [
+        "Naxxramas Worshipper",
+        "Naxxramas Follower",
+    ],
+    "Maexxna": [
+        "Maexxna Spiderling",
+    ],
+    "Noth the Plaguebringer": [
+        "Plagued Warrior",
+    ],
+    "Heigan the Unclean": [],
+    "Loatheb": [],
+    "Patchwerk": [],
+    "Grobbulus": [
+        "Fallout Slime",
+    ],
+    "Gluth": [],
+    "Thaddius": [],
+    "Feugen": [],
+    "Stalagg": [],
+    "Instructor Razuvious": [
+        "Deathknight Understudy",
     ],
     "Gothik the Harvester": [
         "Spectral Deathknight",
@@ -550,23 +546,11 @@ BOSS_ADDS = {
         "Unrelenting Rider",
         "Unrelenting Trainee",
     ],
-    "Grand Widow Faerlina": [
-        "Naxxramas Worshipper",
-        "Naxxramas Follower",
-    ],
-    "Heigan the Unclean": [],
-    "Instructor Razuvious": [
-        "Deathknight Understudy",
-    ],
-    "Grobbulus": [
-        "Fallout Slime",
-    ],
-    "Maexxna": [
-        "Maexxna Spiderling",
-    ],
-    "Noth the Plaguebringer": [
-        "Plagued Warrior",
-    ],
+    "Highlord Mograine": [],
+    "Lady Blaumeux": [],
+    "Sir Zeliek": [],
+    "Thane Korth'azz": [],
+    "Sapphiron": [],
     "Kel'Thuzad": [
         "Guardian of Icecrown",
         "Soldier of the Frozen Wastes",
@@ -2079,7 +2063,7 @@ def process_tree(app, line, tree: Tree):
                 targetname = "unknown"
             else:
                 targetname = subtree.children[2].value
-            if targetname in KNOWN_BOSS_NAMES:
+            if targetname in KNOWN_BOSSES:
                 spellname += " (boss)"
 
         app.class_detection.detect(line_type=subtree.data, name=name, spell=spellname)

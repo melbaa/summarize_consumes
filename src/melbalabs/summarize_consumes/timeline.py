@@ -24,16 +24,14 @@ class TimelineEntry:
 
 
 class AbilityTimeline:
-    def __init__(
-        self, known_boss_names, player, dmgstore, cdspell_class, tracked_spells, boss_adds
-    ):
-        self.known_boss_names = known_boss_names
+    def __init__(self, known_bosses, player, dmgstore, cdspell_class, tracked_spells):
+        self.known_boss_names = set(known_bosses.keys())
         self.player = player
         self.dmgstore = dmgstore
 
         self.mob_to_boss = {}
 
-        for boss, mobs in boss_adds.items():
+        for boss, mobs in known_bosses.items():
             for mob in mobs:
                 self.mob_to_boss[mob] = boss
 

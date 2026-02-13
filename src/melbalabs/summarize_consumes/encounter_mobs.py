@@ -1,7 +1,12 @@
 class EncounterMobs:
-    def __init__(self, known_boss_names, player):
-        self.known_boss_names = known_boss_names
+    def __init__(self, known_bosses, player):
+        self.known_boss_names = set(known_bosses.keys())
         self.player = player
+        self.mob_to_boss = {}
+        for boss, mobs in known_bosses.items():
+            for mob in mobs:
+                self.mob_to_boss[mob] = boss
+
         self.events = []  # (timestamp, source, target)
         self.boss_timestamps = []  # (timestamp, boss_name)
 
@@ -9,10 +14,19 @@ class EncounterMobs:
         source = source.strip()
         target = target.strip()
         self.events.append((timestamp_unix, source, target))
+
+        boss_name = None
         if source in self.known_boss_names:
-            self.boss_timestamps.append((timestamp_unix, source))
+            boss_name = source
+        elif source in self.mob_to_boss:
+            boss_name = self.mob_to_boss[source]
         elif target in self.known_boss_names:
-            self.boss_timestamps.append((timestamp_unix, target))
+            boss_name = target
+        elif target in self.mob_to_boss:
+            boss_name = self.mob_to_boss[target]
+
+        if boss_name:
+            self.boss_timestamps.append((timestamp_unix, boss_name))
 
     def print(self, output):
         if not self.boss_timestamps:
