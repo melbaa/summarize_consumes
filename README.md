@@ -86,7 +86,7 @@ options:
 
 # Installation
 
-## Using pre-built binary
+## Using a pre-built binary
 
 You can download [an executable from the Releases section](https://github.com/melbaa/summarize_consumes/releases) and save it in your WoW Logs folder.<br>
 The release is automatically generated and you can see exactly how in the [Actions section](https://github.com/melbaa/summarize_consumes/actions).<br>
