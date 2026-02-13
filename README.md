@@ -22,6 +22,7 @@ The summary includes:
   * kt frostblasts
 * pets found
 * classes detected
+* ability timeline
 
 It is assumed that the combat log was generated while a logging addon such as [AdvancedVanillaCombatLog](https://github.com/YamaYAML/LegacyPlayersV4/tree/main/Addons/AdvancedVanillaCombatLog) or [SuperWowCombatLogger](https://github.com/pepopo978/SuperWowCombatLogger) was active.<br>
 Check out [the examples directory](https://github.com/melbaa/summarize_consumes/tree/master/examples) for summaries of various raids.<br>
@@ -30,9 +31,16 @@ Price data via https://www.wowauctions.net/
 
 # Usage
 
-## From the command line
+## Hosted javascript version (simple, nothing to install)
+
+On [melbalabs](https://melbalabs.com/summarize_consumes/) you can find a simple version that analyzes the log in **your** browser. Nothing is sent across the network.
+
+
+
+## From the command line (advanced, requires install)
 ```
 usage: summarize_consumes.exe [-h] [--pastebin] [--open-browser] [--write-summary]
+               [--write-ability-timeline-output]
                [--write-consumable-totals-csv] [--write-damage-output]
                [--write-healing-output] [--write-damage-taken-output]
                [--prices-server {nord,telabim}] [--visualize]
@@ -58,6 +66,8 @@ options:
                         writes output to healing-output.txt
   --write-damage-taken-output
                         writes output to damage-taken-output.txt
+  --write-ability-timeline-output
+                        writes output to ability-timeline.txt
   --prices-server {nord,telabim}
                         specify which server price data to use
   --visualize           Generate visual infographic
@@ -72,10 +82,6 @@ options:
   --expert-deterministic-logs
                         disable environmental outputs
 ```
-
-## Hosted javascript version
-
-On [melbalabs](https://melbalabs.com/summarize_consumes/) you can find a simple version that analyzes the log in **your** browser. Nothing is sent across the network.
 
 
 # Installation

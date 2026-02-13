@@ -2590,7 +2590,7 @@ def get_user_input(argv):
         help="writes output to damage-taken-output.txt",
     )
     parser.add_argument(
-        "--ability-timeline",
+        "--write-ability-timeline-output",
         action="store_true",
         help="writes output to ability-timeline.txt",
     )
@@ -2984,7 +2984,7 @@ def main(argv):
 
         feature()
 
-    if args.ability_timeline:
+    if args.write_ability_timeline_output:
 
         def feature():
             output = io.StringIO()
