@@ -530,7 +530,7 @@ KNOWN_BOSSES = {
     "Grobbulus": [
         "Fallout Slime",
     ],
-    "Gluth": [],
+    "Gluth": [],  # Zombie Chow? kinda whatever
     "Thaddius": [],
     "Feugen": [],
     "Stalagg": [],
