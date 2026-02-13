@@ -58,6 +58,8 @@ from melbalabs.summarize_consumes.parser import Tree
 from melbalabs.summarize_consumes.parser import ParserError
 from melbalabs.summarize_consumes.parser import TreeType
 from melbalabs.summarize_consumes.timeline import AbilityTimeline
+from melbalabs.summarize_consumes.encounter_mobs import EncounterMobs
+from melbalabs.summarize_consumes.encounter_mobs import NullEncounterMobs
 from melbalabs.summarize_consumes.parser import ActionValue
 import melbalabs.summarize_consumes.package as package
 
@@ -150,6 +152,15 @@ def create_unparsed_loggers(expert_log_unparsed_lines):
     return unparsed, unparsed_fast
 
 
+def create_encounter_mobs(write_encounter_mobs_output, known_boss_names, player):
+    if write_encounter_mobs_output:
+        return EncounterMobs(
+            known_boss_names=known_boss_names,
+            player=player,
+        )
+    return NullEncounterMobs()
+
+
 def create_app(
     time_start,
     expert_log_unparsed_lines,
@@ -157,6 +168,7 @@ def create_app(
     expert_disable_web_prices,
     expert_deterministic_logs,
     expert_log_superwow_merge,
+    write_encounter_mobs_output,
 ):
     app = App()
 
@@ -292,6 +304,13 @@ def create_app(
         dmgstore=app.dmgstore,
         cdspell_class=CDSPELL_CLASS,
         tracked_spells=set(LINE2SPELLCAST.values()),
+        boss_adds=BOSS_ADDS,
+    )
+
+    app.encounter_mobs = create_encounter_mobs(
+        write_encounter_mobs_output=write_encounter_mobs_output,
+        known_boss_names=KNOWN_BOSS_NAMES,
+        player=app.player,
     )
 
     app.techinfo = Techinfo(
@@ -472,6 +491,29 @@ ABILITYCOOLDOWN = {
 }
 
 KNOWN_BOSS_NAMES = {
+    # bwl
+    "Razorgore the Untamed",
+    "Vaelastrasz the Corrupt",
+    "Broodlord Lashlayer",
+    "Firemaw",
+    "Ebonroc",
+    "Flamegor",
+    "Chromaggus",
+    "Nefarian",
+    # aq40
+    "The Prophet Skeram",
+    "Princess Yauj",
+    "Vem",
+    "Lord Kri",
+    "Battleguard Sartura",
+    "Fankriss the Unyielding",
+    "Viscidus",
+    "Princess Huhuran",
+    "Emperor Vek'lor",
+    "Emperor Vek'nilash",
+    "Ouro",
+    "C'Thun",
+    "Eye of C'Thun",
     # naxx
     "Anub'Rekhan",
     "Grand Widow Faerlina",
@@ -493,6 +535,44 @@ KNOWN_BOSS_NAMES = {
     "Thane Korth'azz",
     "Sapphiron",
     "Kel'Thuzad",
+}
+
+BOSS_ADDS = {
+    "Anub'Rekhan": [
+        "Crypt Guard",
+    ],
+    "Gothik the Harvester": [
+        "Spectral Deathknight",
+        "Spectral Horse",
+        "Spectral Rider",
+        "Spectral Trainee",
+        "Unrelenting Deathknight",
+        "Unrelenting Rider",
+        "Unrelenting Trainee",
+    ],
+    "Grand Widow Faerlina": [
+        "Naxxramas Worshipper",
+        "Naxxramas Follower",
+    ],
+    "Heigan the Unclean": [],
+    "Instructor Razuvious": [
+        "Deathknight Understudy",
+    ],
+    "Grobbulus": [
+        "Fallout Slime",
+    ],
+    "Maexxna": [
+        "Maexxna Spiderling",
+    ],
+    "Noth the Plaguebringer": [
+        "Plagued Warrior",
+    ],
+    "Kel'Thuzad": [
+        "Guardian of Icecrown",
+        "Soldier of the Frozen Wastes",
+        "Soul Weaver",
+        "Unstoppable Abomination",
+    ],
 }
 
 
@@ -2116,6 +2196,8 @@ def process_tree(app, line, tree: Tree):
         app.dmgstore.add(name, targetname, spellname_canonical, amount, timestamp_unix)
         app.dmgtakenstore.add(name, targetname, spellname_canonical, amount, timestamp_unix)
 
+        app.encounter_mobs.add(source=name, target=targetname, timestamp_unix=timestamp_unix)
+
         return True
     elif subtree.data == TreeType.HITS_AUTOATTACK_LINE:
         name = subtree.children[0].value
@@ -2134,6 +2216,8 @@ def process_tree(app, line, tree: Tree):
             timestamp_unix=timestamp_unix,
             amount=amount,
         )
+
+        app.encounter_mobs.add(source=name, target=target, timestamp_unix=timestamp_unix)
 
         if name == "Guardian of Icecrown":
             app.kt_guardian.add(line)
@@ -2594,6 +2678,11 @@ def get_user_input(argv):
         action="store_true",
         help="writes output to ability-timeline.txt",
     )
+    parser.add_argument(
+        "--write-encounter-mobs-output",
+        action="store_true",
+        help="writes output to encounter-mobs.txt",
+    )
 
     parser.add_argument(
         "--prices-server",
@@ -2904,6 +2993,7 @@ def main(argv):
         expert_disable_web_prices=args.expert_disable_web_prices,
         expert_deterministic_logs=args.expert_deterministic_logs,
         expert_log_superwow_merge=args.expert_log_superwow_merge,
+        write_encounter_mobs_output=args.write_encounter_mobs_output,
     )
 
     logpath = app.log_downloader.try_download(filename=args.logpath)
@@ -2992,6 +3082,20 @@ def main(argv):
             filename = "ability-timeline.txt"
             with open(filename, "wb") as f:
                 print("writing ability timeline output to", filename)
+                f.write(output.getvalue().encode("utf8"))
+                if args.pastebin:
+                    upload_pastebin(output)
+
+        feature()
+
+    if args.write_encounter_mobs_output:
+
+        def feature():
+            output = io.StringIO()
+            app.encounter_mobs.print(output)
+            filename = "encounter-mobs.txt"
+            with open(filename, "wb") as f:
+                print("writing encounter mobs output to", filename)
                 f.write(output.getvalue().encode("utf8"))
                 if args.pastebin:
                     upload_pastebin(output)

@@ -4,20 +4,38 @@ import collections
 
 
 class TimelineEntry:
-    def __init__(self, timestamp_unix, source, target, spellname, line_type, amount):
+    def __init__(
+        self,
+        timestamp_unix,
+        source,
+        target,
+        spellname,
+        line_type,
+        amount,
+        boss_context,
+    ):
         self.timestamp_unix = timestamp_unix
         self.source = source
         self.target = target
         self.spellname = spellname
         self.line_type = line_type
         self.amount = amount
+        self.boss_context = boss_context
 
 
 class AbilityTimeline:
-    def __init__(self, known_boss_names, player, dmgstore, cdspell_class, tracked_spells):
+    def __init__(
+        self, known_boss_names, player, dmgstore, cdspell_class, tracked_spells, boss_adds
+    ):
         self.known_boss_names = known_boss_names
         self.player = player
         self.dmgstore = dmgstore
+
+        self.mob_to_boss = {}
+
+        for boss, mobs in boss_adds.items():
+            for mob in mobs:
+                self.mob_to_boss[mob] = boss
 
         # build a fast lookup set of important spells
         self._important_spells = set()
@@ -36,8 +54,18 @@ class AbilityTimeline:
         return spellname in self._important_spells
 
     def add(self, source, target, spellname, line_type: TreeType, timestamp_unix, amount):
-        keep = False
+        boss_context = None
         if target in self.known_boss_names:
+            boss_context = target
+        elif target in self.mob_to_boss:
+            boss_context = self.mob_to_boss[target]
+        elif source in self.known_boss_names:
+            boss_context = source
+        elif source in self.mob_to_boss:
+            boss_context = self.mob_to_boss[source]
+
+        keep = False
+        if boss_context:
             keep = True
         elif source in self.player and self.is_important(spellname):
             keep = True
@@ -52,11 +80,13 @@ class AbilityTimeline:
             spellname=spellname,
             line_type=line_type,
             amount=amount,
+            boss_context=boss_context,
         )
         self.entries.append(entry)
-        if target in self.known_boss_names:
+        if boss_context:
             self.boss_entries.append(entry)
-            if amount > 0:
+            is_dmg_to_boss = target in self.known_boss_names or target in self.mob_to_boss
+            if amount > 0 and is_dmg_to_boss:
                 self.damage_entries.append(entry)
 
     def print(self, output):
@@ -80,10 +110,8 @@ class AbilityTimeline:
         by_target = collections.defaultdict(list)
 
         for entry in self.entries:
-            candidate_target = None
-            if entry.target in self.known_boss_names:
-                candidate_target = entry.target
-            elif self.boss_entries:
+            candidate_target = entry.boss_context
+            if not candidate_target and self.boss_entries:
                 # find closest boss event
                 idx = bisect.bisect_left(boss_event_timestamps, entry.timestamp_unix)
                 best_boss = None
@@ -101,7 +129,7 @@ class AbilityTimeline:
                         best_boss = self.boss_entries[idx - 1]
 
                 if best_boss:
-                    candidate_target = best_boss.target
+                    candidate_target = best_boss.boss_context
 
             if candidate_target:
                 # verify we are within DIFF_SEC of ANY damage entry
@@ -120,7 +148,8 @@ class AbilityTimeline:
                     )
 
                 if best_dmg_diff <= DIFF_SEC:
-                    if entry.amount == 0 or entry.target == candidate_target:
+                    is_direct_target = entry.boss_context == candidate_target
+                    if entry.amount == 0 or is_direct_target:
                         by_target[candidate_target].append(entry)
 
         for target, entries in by_target.items():
