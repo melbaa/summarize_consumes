@@ -2126,6 +2126,15 @@ def process_tree(app, line, tree: Tree):
         app.dmgstore.add(name, target, "hit", amount, timestamp_unix)
         app.dmgtakenstore.add(name, target, "hit", amount, timestamp_unix)
 
+        app.ability_timeline.add(
+            source=name,
+            target=target,
+            spellname="Auto Attack",
+            line_type=subtree.data,
+            timestamp_unix=timestamp_unix,
+            amount=amount,
+        )
+
         if name == "Guardian of Icecrown":
             app.kt_guardian.add(line)
 
