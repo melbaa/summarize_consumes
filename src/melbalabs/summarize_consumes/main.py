@@ -2180,7 +2180,7 @@ def process_tree(app, line, tree: Tree):
         app.dmgstore.add(name, targetname, spellname_canonical, amount, timestamp_unix)
         app.dmgtakenstore.add(name, targetname, spellname_canonical, amount, timestamp_unix)
 
-        app.encounter_mobs.add(source=name, target=targetname, timestamp_unix=timestamp_unix)
+        # app.encounter_mobs.add(source=name, target=targetname, timestamp_unix=timestamp_unix)
 
         return True
     elif subtree.data == TreeType.HITS_AUTOATTACK_LINE:
@@ -2189,8 +2189,8 @@ def process_tree(app, line, tree: Tree):
         amount = int(subtree.children[2].value)
         action_verb = subtree.children[3].value
 
-        app.dmgstore.add(name, target, "hit", amount, timestamp_unix)
-        app.dmgtakenstore.add(name, target, "hit", amount, timestamp_unix)
+        app.dmgstore.add(name, target, "Auto Attack", amount, timestamp_unix)
+        app.dmgtakenstore.add(name, target, "Auto Attack", amount, timestamp_unix)
 
         app.ability_timeline.add(
             source=name,
@@ -2201,7 +2201,7 @@ def process_tree(app, line, tree: Tree):
             amount=amount,
         )
 
-        app.encounter_mobs.add(source=name, target=target, timestamp_unix=timestamp_unix)
+        # app.encounter_mobs.add(source=name, target=target, timestamp_unix=timestamp_unix)
 
         if name == "Guardian of Icecrown":
             app.kt_guardian.add(line)

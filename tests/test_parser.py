@@ -6,9 +6,6 @@ from melbalabs.summarize_consumes.main import NAME2ITEMID
 from melbalabs.summarize_consumes.main import PlayerClass
 
 
-
-
-
 def test_rage_consumable_line(app):
     lines = """
 4/14 13:55:49.949  Jaekta gains 10 Rage from Jaekta 's Berserker Rage Effect.
@@ -19,8 +16,9 @@ def test_rage_consumable_line(app):
     lines = lines.splitlines(keepends=True)
     for line in lines:
         parse_line(app, line)
-    for pot in ['Great Rage Potion', 'Mighty Rage Potion', 'Rage Potion']:
-        assert app.player['Dragoon'][pot] == 1
+    for pot in ["Great Rage Potion", "Mighty Rage Potion", "Rage Potion"]:
+        assert app.player["Dragoon"][pot] == 1
+
 
 def test_tea_with_sugar_line(app):
     lines = """
@@ -34,15 +32,15 @@ def test_tea_with_sugar_line(app):
     lines = lines.splitlines(keepends=True)
     for line in lines:
         parse_line(app, line)
-    assert app.player['Psykhe']['Tea with Sugar'] == 2
-    assert app.player['Shumy']['Tea with Sugar'] == 0
-    assert app.player['Elieena']['Tea with Sugar'] == 1
+    assert app.player["Psykhe"]["Tea with Sugar"] == 2
+    assert app.player["Shumy"]["Tea with Sugar"] == 0
+    assert app.player["Elieena"]["Tea with Sugar"] == 1
 
-    assert app.player['Levaen']['Tea with Sugar'] == 1
-    assert app.player_superwow['Levaen']['Tea with Sugar'] == 1
+    assert app.player["Levaen"]["Tea with Sugar"] == 1
+    assert app.player_superwow["Levaen"]["Tea with Sugar"] == 1
     app.merge_superwow_consumables.merge()
-    assert app.player['Levaen']['Tea with Sugar'] == 1
-    assert app.player_superwow['Levaen']['Tea with Sugar'] == 0
+    assert app.player["Levaen"]["Tea with Sugar"] == 1
+    assert app.player_superwow["Levaen"]["Tea with Sugar"] == 0
 
 
 def test_gains_line(app):
@@ -54,9 +52,6 @@ def test_gains_line(app):
     for line in lines:
         match += parse_line(app, line)
     assert match == 1
-
-
-
 
 
 def test_gains_consumable_line(app):
@@ -77,18 +72,18 @@ def test_gains_consumable_line(app):
     lines = lines.splitlines(keepends=True)
     for line in lines:
         parse_line(app, line)
-    assert app.player['Turkishboss']['Bloodkelp Elixir of Resistance'] == 1
-    assert app.player['Turkishboss']['Fire-toasted Bun'] == 1
-    assert app.player['Xelya']['Lucidity Potion'] == 1
-    assert app.player['Kuroiyuusha']['Fire-toasted Bun'] == 1
-    assert app.player['Rando']['Greater Arcane Elixir'] == 1
-    assert app.player['Rando']['Arcane Elixir'] == 1
-    assert app.player['Rando']['Elixir of Fortitude'] == 1
-    assert app.player['Rando']['Increased Stamina'] == 0
-    assert app.player['Psykhe']['Shadow Protection'] == 1
-    assert app.player['Axe']['Gift of Arthas'] == 0
-    assert app.player['Unholy Axe']['Gift of Arthas'] == 0
-    assert app.player['Squirreled']['Elixir of Brute Force'] == 1
+    assert app.player["Turkishboss"]["Bloodkelp Elixir of Resistance"] == 1
+    assert app.player["Turkishboss"]["Fire-toasted Bun"] == 1
+    assert app.player["Xelya"]["Lucidity Potion"] == 1
+    assert app.player["Kuroiyuusha"]["Fire-toasted Bun"] == 1
+    assert app.player["Rando"]["Greater Arcane Elixir"] == 1
+    assert app.player["Rando"]["Arcane Elixir"] == 1
+    assert app.player["Rando"]["Elixir of Fortitude"] == 1
+    assert app.player["Rando"]["Increased Stamina"] == 0
+    assert app.player["Psykhe"]["Shadow Protection"] == 1
+    assert app.player["Axe"]["Gift of Arthas"] == 0
+    assert app.player["Unholy Axe"]["Gift of Arthas"] == 0
+    assert app.player["Squirreled"]["Elixir of Brute Force"] == 1
 
 
 def test_buff_line(app):
@@ -102,8 +97,9 @@ def test_buff_line(app):
     for line in lines:
         parse_line(app, line)
 
-    for name in {'Niviri', 'Ikoretta', 'Samet', 'Charmia'}:
+    for name in {"Niviri", "Ikoretta", "Samet", "Charmia"}:
         assert name in app.player_detect
+
 
 def test_dies_line(app):
     lines = """
@@ -114,9 +110,10 @@ def test_dies_line(app):
     lines = lines.splitlines(keepends=True)
     for line in lines:
         parse_line(app, line)
-    assert app.death_count['Nilia'] == 1
-    assert app.death_count['Blackwing Mage'] == 1
-    assert app.death_count['Field Repair Bot 75B'] == 1
+    assert app.death_count["Nilia"] == 1
+    assert app.death_count["Blackwing Mage"] == 1
+    assert app.death_count["Field Repair Bot 75B"] == 1
+
 
 def test_healpot_line(app):
     lines = """
@@ -139,49 +136,47 @@ def test_healpot_line(app):
         parse_line(app, line)
 
     # both native and superwow detect what it is
-    assert app.player['Both']['Healing Potion - Major'] == 1
-    assert app.player_superwow['Both']['Healing Potion - Major'] == 1
+    assert app.player["Both"]["Healing Potion - Major"] == 1
+    assert app.player_superwow["Both"]["Healing Potion - Major"] == 1
 
     # only native detect
-    assert app.player['Native']['Healing Potion - Major'] == 1
-    assert app.player_superwow['Native'].get('Healing Potion - Major', 0) == 0
+    assert app.player["Native"]["Healing Potion - Major"] == 1
+    assert app.player_superwow["Native"].get("Healing Potion - Major", 0) == 0
 
     # only swow detect
-    assert app.player['Swow']['Healing Potion - Major'] == 0
-    assert app.player_superwow['Swow']['Healing Potion - Major'] == 1
+    assert app.player["Swow"]["Healing Potion - Major"] == 0
+    assert app.player_superwow["Swow"]["Healing Potion - Major"] == 1
 
     # unknown resolves to Major
-    assert app.player['Unknown']['Healing Potion - unknown'] == 1
-    assert app.player_superwow['Unknown']['Healing Potion - Major'] == 1
+    assert app.player["Unknown"]["Healing Potion - unknown"] == 1
+    assert app.player_superwow["Unknown"]["Healing Potion - Major"] == 1
 
     # rando other data, no change
-    assert app.player['Macc']['Healing Potion - Major'] == 1
-    assert app.player_superwow['Macc'].get('Healing Potion - Major', 0) == 0
+    assert app.player["Macc"]["Healing Potion - Major"] == 1
+    assert app.player_superwow["Macc"].get("Healing Potion - Major", 0) == 0
 
-    assert app.player['Srj']['Healing Potion - Major'] == 1
-    assert app.player_superwow['Srj'].get('Healing Potion - Major', 0) == 0
+    assert app.player["Srj"]["Healing Potion - Major"] == 1
+    assert app.player_superwow["Srj"].get("Healing Potion - Major", 0) == 0
 
     app.merge_superwow_consumables.merge()
 
-    assert app.player['Both']['Healing Potion - Major'] == 1
-    assert app.player_superwow['Both']['Healing Potion - Major'] == 0
+    assert app.player["Both"]["Healing Potion - Major"] == 1
+    assert app.player_superwow["Both"]["Healing Potion - Major"] == 0
 
-    assert app.player['Native']['Healing Potion - Major'] == 1
-    assert app.player_superwow['Native']['Healing Potion - Major'] == 0
+    assert app.player["Native"]["Healing Potion - Major"] == 1
+    assert app.player_superwow["Native"]["Healing Potion - Major"] == 0
 
-    assert app.player['Swow']['Healing Potion - Major'] == 1
-    assert app.player_superwow['Swow']['Healing Potion - Major'] == 0
+    assert app.player["Swow"]["Healing Potion - Major"] == 1
+    assert app.player_superwow["Swow"]["Healing Potion - Major"] == 0
 
-    assert app.player['Unknown']['Healing Potion - unknown'] == 0
-    assert app.player['Unknown']['Healing Potion - Major'] == 1
-    assert app.player_superwow['Unknown']['Healing Potion - Major'] == 0
+    assert app.player["Unknown"]["Healing Potion - unknown"] == 0
+    assert app.player["Unknown"]["Healing Potion - Major"] == 1
+    assert app.player_superwow["Unknown"]["Healing Potion - Major"] == 0
 
-
-    assert app.player['Macc']['Healing Potion - Major'] == 1
-    assert app.player_superwow['Macc']['Healing Potion - Major'] == 0
-    assert app.player['Srj']['Healing Potion - Major'] == 1
-    assert app.player_superwow['Srj']['Healing Potion - Major'] == 0
-
+    assert app.player["Macc"]["Healing Potion - Major"] == 1
+    assert app.player_superwow["Macc"]["Healing Potion - Major"] == 0
+    assert app.player["Srj"]["Healing Potion - Major"] == 1
+    assert app.player_superwow["Srj"]["Healing Potion - Major"] == 0
 
 
 def test_manapot_line(app):
@@ -193,9 +188,9 @@ def test_manapot_line(app):
     lines = lines.splitlines(keepends=True)
     for line in lines:
         parse_line(app, line)
-    assert app.player['Ikoretta']['Mana Potion - Major'] == 1
-    assert app.player['Smahingbolt']['Mana Potion - Major'] == 1
-    assert app.player['Magikal']['Mana Potion - Major'] == 1
+    assert app.player["Ikoretta"]["Mana Potion - Major"] == 1
+    assert app.player["Smahingbolt"]["Mana Potion - Major"] == 1
+    assert app.player["Magikal"]["Mana Potion - Major"] == 1
 
 
 def test_manarune_line(app):
@@ -210,9 +205,10 @@ def test_manarune_line(app):
     lines = lines.splitlines(keepends=True)
     for line in lines:
         parse_line(app, line)
-    assert app.player['Getterfour']['Demonic Rune'] == 1
-    assert app.player['Ionize']['Dark Rune'] == 1
-    assert app.player['Badmanaz']['Demonic Rune'] == 1
+    assert app.player["Getterfour"]["Demonic Rune"] == 1
+    assert app.player["Ionize"]["Dark Rune"] == 1
+    assert app.player["Badmanaz"]["Demonic Rune"] == 1
+
 
 def test_drains_mana_line(app):
     lines = """
@@ -224,7 +220,6 @@ def test_drains_mana_line(app):
     for line in lines:
         match += parse_line(app, line)
     assert match == 2
-
 
 
 def test_begins_to_cast_line(app):
@@ -249,10 +244,11 @@ def test_begins_to_cast_line(app):
     lines = lines.splitlines(keepends=True)
     for line in lines:
         parse_line(app, line)
-    assert app.player['Hammerlammy']['Consecrated Sharpening Stone'] == 1
-    assert app.player['Nethrion']['Consecrated Sharpening Stone'] == 2
-    assert app.player['Bruceweed']["Kreeg's Stout Beatdown"] == 3
-    assert app.player['Exeggute']['Elemental Sharpening Stone'] == 1
+    assert app.player["Hammerlammy"]["Consecrated Sharpening Stone"] == 1
+    assert app.player["Nethrion"]["Consecrated Sharpening Stone"] == 2
+    assert app.player["Bruceweed"]["Kreeg's Stout Beatdown"] == 3
+    assert app.player["Exeggute"]["Elemental Sharpening Stone"] == 1
+
 
 def test_casts_melt_weapon(app):
     lines = """
@@ -269,7 +265,6 @@ def test_casts_melt_weapon(app):
     assert match == 5
 
 
-
 def test_casts_consumable_line(app):
     lines = """
 6/28 22:16:50.836  Faradin casts Advanced Target Dummy.
@@ -284,14 +279,11 @@ def test_casts_consumable_line(app):
     lines = lines.splitlines(keepends=True)
     for line in lines:
         parse_line(app, line)
-    assert app.player['Isilja']["Emerald Blessing"] == 1
-    assert app.player['Faradin']["Advanced Target Dummy"] == 1
-    assert app.player['FaradinMW']["Masterwork Target Dummy"] == 1
-    assert app.player['Psykhe']["Powerful Anti-Venom"] == 1
-    assert app.player['Doombabe']["Jungle Remedy"] == 2
-
-
-
+    assert app.player["Isilja"]["Emerald Blessing"] == 1
+    assert app.player["Faradin"]["Advanced Target Dummy"] == 1
+    assert app.player["FaradinMW"]["Masterwork Target Dummy"] == 1
+    assert app.player["Psykhe"]["Powerful Anti-Venom"] == 1
+    assert app.player["Doombabe"]["Jungle Remedy"] == 2
 
 
 def test_uses_consumables(app_log_merge):
@@ -336,87 +328,93 @@ def test_uses_consumables(app_log_merge):
     for line in lines:
         parse_line(app, line)
 
+    for name in {
+        "Concoction of the Emerald Mongoose",
+        "Concoction of the Arcane Giant",
+        "Concoction of the Dreamwater",
+    }:
+        assert app.player["Bcube"][name] == 0
+        assert app.player_superwow["Bcube"][name] == 1
 
-    for name in {'Concoction of the Emerald Mongoose', 'Concoction of the Arcane Giant', 'Concoction of the Dreamwater'}:
-        assert app.player['Bcube'][name] == 0
-        assert app.player_superwow['Bcube'][name] == 1
+    assert app.player["Bcube"]["Rage of Ages (ROIDS)"] == 1
+    assert app.player_superwow["Bcube"]["Rage of Ages (ROIDS)"] == 3
 
-    assert app.player['Bcube']["Rage of Ages (ROIDS)"] == 1
-    assert app.player_superwow['Bcube']["Rage of Ages (ROIDS)"] == 3
+    assert app.player["Gregory"]["Juju Power"] == 0
+    assert app.player_superwow["Gregory"]["Juju Power"] == 1
 
-    assert app.player['Gregory']["Juju Power"] == 0
-    assert app.player_superwow['Gregory']["Juju Power"] == 1
+    assert app.player["Anarion"]["Juju Ember"] == 0
+    assert app.player_superwow["Anarion"]["Juju Ember"] == 1
 
-    assert app.player['Anarion']["Juju Ember"] == 0
-    assert app.player_superwow['Anarion']["Juju Ember"] == 1
+    assert app.player["Tnu"]["Danonzo's Tel'Abim Medley"] == 0
+    assert app.player_superwow["Tnu"]["Danonzo's Tel'Abim Medley"] == 1
 
-    assert app.player['Tnu']["Danonzo's Tel'Abim Medley"] == 0
-    assert app.player_superwow['Tnu']["Danonzo's Tel'Abim Medley"] == 1
+    assert app.player["Murdinn"]["Hourglass Sand"] == 0
+    assert app.player_superwow["Murdinn"]["Hourglass Sand"] == 1
 
-    assert app.player['Murdinn']["Hourglass Sand"] == 0
-    assert app.player_superwow['Murdinn']["Hourglass Sand"] == 1
+    assert app.player["Murdinn"]["Kreeg's Stout Beatdown"] == 1
+    assert app.player_superwow["Murdinn"]["Kreeg's Stout Beatdown"] == 2
 
-    assert app.player['Murdinn']["Kreeg's Stout Beatdown"] == 1
-    assert app.player_superwow['Murdinn']["Kreeg's Stout Beatdown"] == 2
+    assert app.player["Angrycat"]["Flask of Chromatic Resistance"] == 1
+    assert app.player_superwow["Angrycat"]["Flask of Chromatic Resistance"] == 2
 
-    assert app.player['Angrycat']['Flask of Chromatic Resistance'] == 1
-    assert app.player_superwow['Angrycat']['Flask of Chromatic Resistance'] == 2
+    assert app.player["Doomfully"]["Shadow Protection"] == 4
 
-    assert app.player['Doomfully']['Shadow Protection'] == 4
+    assert app.player["Corta"]["Fire Protection"] == 2
+    assert app.player["Corta"]["Greater Fire Protection Potion"] == 0
+    assert app.player_superwow["Corta"]["Greater Fire Protection Potion"] == 1
 
-    assert app.player['Corta']['Fire Protection'] == 2
-    assert app.player['Corta']['Greater Fire Protection Potion'] == 0
-    assert app.player_superwow['Corta']['Greater Fire Protection Potion'] == 1
+    assert app.player["Chocolandra"]["Arcane Protection"] == 1
+    assert app.player_superwow["Chocolandra"]["Greater Arcane Protection Potion"] == 1
 
-    assert app.player['Chocolandra']['Arcane Protection'] == 1
-    assert app.player_superwow['Chocolandra']['Greater Arcane Protection Potion'] == 1
-
-    assert app.player['Akanamu']['Dreamshard Elixir'] == 1
-    assert app.player_superwow['Akanamu']['Dreamshard Elixir'] == 1
-
+    assert app.player["Akanamu"]["Dreamshard Elixir"] == 1
+    assert app.player_superwow["Akanamu"]["Dreamshard Elixir"] == 1
 
     app.merge_superwow_consumables.merge()
 
+    for name in {
+        "Concoction of the Emerald Mongoose",
+        "Concoction of the Arcane Giant",
+        "Concoction of the Dreamwater",
+    }:
+        assert app.player["Bcube"][name] == 1
+        assert app.player_superwow["Bcube"][name] == 0
 
-    for name in {'Concoction of the Emerald Mongoose', 'Concoction of the Arcane Giant', 'Concoction of the Dreamwater'}:
-        assert app.player['Bcube'][name] == 1
-        assert app.player_superwow['Bcube'][name] == 0
+    assert app.player["Bcube"]["Rage of Ages (ROIDS)"] == 3
+    assert app.player_superwow["Bcube"]["Rage of Ages (ROIDS)"] == 0
 
-    assert app.player['Bcube']["Rage of Ages (ROIDS)"] == 3
-    assert app.player_superwow['Bcube']["Rage of Ages (ROIDS)"] == 0
+    assert app.player["Gregory"]["Juju Power"] == 1
+    assert app.player_superwow["Gregory"]["Juju Power"] == 0
 
-    assert app.player['Gregory']["Juju Power"] == 1
-    assert app.player_superwow['Gregory']["Juju Power"] == 0
+    assert app.player["Anarion"]["Juju Ember"] == 1
+    assert app.player_superwow["Anarion"]["Juju Ember"] == 0
 
-    assert app.player['Anarion']["Juju Ember"] == 1
-    assert app.player_superwow['Anarion']["Juju Ember"] == 0
+    assert app.player["Tnu"]["Danonzo's Tel'Abim Medley"] == 1
+    assert app.player_superwow["Tnu"]["Danonzo's Tel'Abim Medley"] == 0
 
-    assert app.player['Tnu']["Danonzo's Tel'Abim Medley"] == 1
-    assert app.player_superwow['Tnu']["Danonzo's Tel'Abim Medley"] == 0
+    assert app.player["Murdinn"]["Hourglass Sand"] == 1
+    assert app.player_superwow["Murdinn"]["Hourglass Sand"] == 0
 
-    assert app.player['Murdinn']["Hourglass Sand"] == 1
-    assert app.player_superwow['Murdinn']["Hourglass Sand"] == 0
+    assert app.player["Murdinn"]["Kreeg's Stout Beatdown"] == 2
+    assert app.player_superwow["Murdinn"]["Kreeg's Stout Beatdown"] == 0
 
-    assert app.player['Murdinn']["Kreeg's Stout Beatdown"] == 2
-    assert app.player_superwow['Murdinn']["Kreeg's Stout Beatdown"] == 0
+    assert app.player["Angrycat"]["Flask of Chromatic Resistance"] == 2
+    assert app.player_superwow["Angrycat"]["Flask of Chromatic Resistance"] == 0
 
-    assert app.player['Angrycat']['Flask of Chromatic Resistance'] == 2
-    assert app.player_superwow['Angrycat']['Flask of Chromatic Resistance'] == 0
+    assert app.player["Doomfully"]["Shadow Protection"] == 0
+    assert app.player["Doomfully"]["Greater Shadow Protection Potion"] == 3
+    assert app.player["Doomfully"]["Shadow Protection Potion"] == 1
 
-    assert app.player['Doomfully']['Shadow Protection'] == 0
-    assert app.player['Doomfully']['Greater Shadow Protection Potion'] == 3
-    assert app.player['Doomfully']['Shadow Protection Potion'] == 1
+    assert app.player["Corta"]["Fire Protection"] == 1
+    assert app.player["Corta"]["Greater Fire Protection Potion"] == 1
+    assert app.player_superwow["Corta"]["Greater Fire Protection Potion"] == 0
 
-    assert app.player['Corta']['Fire Protection'] == 1
-    assert app.player['Corta']['Greater Fire Protection Potion'] == 1
-    assert app.player_superwow['Corta']['Greater Fire Protection Potion'] == 0
+    assert app.player["Chocolandra"]["Greater Arcane Protection Potion"] == 1
+    assert app.player["Chocolandra"]["Arcane Protection"] == 0
+    assert app.player_superwow["Chocolandra"]["Greater Arcane Protection Potion"] == 0
 
-    assert app.player['Chocolandra']['Greater Arcane Protection Potion'] == 1
-    assert app.player['Chocolandra']['Arcane Protection'] == 0
-    assert app.player_superwow['Chocolandra']['Greater Arcane Protection Potion'] == 0
+    assert app.player["Akanamu"]["Dreamshard Elixir"] == 1
+    assert app.player_superwow["Akanamu"]["Dreamshard Elixir"] == 0
 
-    assert app.player['Akanamu']['Dreamshard Elixir'] == 1
-    assert app.player_superwow['Akanamu']['Dreamshard Elixir'] == 0
 
 def test_uses_consumable_ignore_line(app):
     lines = """
@@ -453,12 +451,13 @@ def test_hits_consumable_line(app):
     match = 0
     for line in lines:
         match += parse_line(app, line)
-    assert app.player['Getterfour']["Dragonbreath Chili"] == 2
-    assert app.player['Srj']["Dragonbreath Chili"] == 1
-    assert app.player['Abstractz']["Goblin Sapper Charge"] == 1
-    assert app.player['Ionize']['Stratholme Holy Water'] == 2
-    assert app.player['Samain']['Stratholme Holy Water'] == 1
+    assert app.player["Getterfour"]["Dragonbreath Chili"] == 2
+    assert app.player["Srj"]["Dragonbreath Chili"] == 1
+    assert app.player["Abstractz"]["Goblin Sapper Charge"] == 1
+    assert app.player["Ionize"]["Stratholme Holy Water"] == 2
+    assert app.player["Samain"]["Stratholme Holy Water"] == 1
     assert match == 14
+
 
 def test_consolidated_line(app):
     lines = """
@@ -480,18 +479,27 @@ def test_consolidated_line(app):
     match = 0
     for line in lines:
         match += parse_line(app, line)
-    assert app.pet_handler.store['Doombabe'] == {'Khuujhom', 'Khuujhomv2', 'Khuujhomv3'}
-    assert app.player_detect['Doombabe'] == {'pet: Khuujhom', 'pet: Khuujhomv2', 'pet: Khuujhomv3'}
+    assert app.pet_handler.store["Doombabe"] == {"Khuujhom", "Khuujhomv2", "Khuujhomv3"}
+    assert app.player_detect["Doombabe"] == {"pet: Khuujhom", "pet: Khuujhomv2", "pet: Khuujhomv3"}
 
-    assert app.pet_handler.store['Arzetlam'] == {'Deathknight Understudy'}
-    assert app.player_detect['Arzetlam'] == {'pet: Deathknight Understudy'}
+    assert app.pet_handler.store["Arzetlam"] == {"Deathknight Understudy"}
+    assert app.player_detect["Arzetlam"] == {"pet: Deathknight Understudy"}
     assert match == 13
 
-    assert set(app.pet_handler.get_all_pets()) == {'Deathknight Understudy', 'Khuujhom', 'Khuujhomv2', 'Khuujhomv3'}
+    assert set(app.pet_handler.get_all_pets()) == {
+        "Deathknight Understudy",
+        "Khuujhom",
+        "Khuujhomv2",
+        "Khuujhomv3",
+    }
 
     output = io.StringIO()
     app.pet_handler.print(output)
-    assert output.getvalue() == '\n\nPets\n   Deathknight Understudy owned by Arzetlam\n   Khuujhom owned by Doombabe\n   Khuujhomv2 owned by Doombabe\n   Khuujhomv3 owned by Doombabe\n'
+    assert (
+        output.getvalue()
+        == "\n\nPets\n   Deathknight Understudy owned by Arzetlam\n   Khuujhom owned by Doombabe\n   Khuujhomv2 owned by Doombabe\n   Khuujhomv3 owned by Doombabe\n"
+    )
+
 
 def test_combatant_info_line(app):
     lines = """
@@ -505,6 +513,7 @@ def test_combatant_info_line(app):
     for line in lines:
         match += parse_line(app, line)
     assert match == 4
+
 
 def test_hits_line(app):
     lines = """
@@ -522,6 +531,7 @@ def test_hits_line(app):
         match += parse_line(app, line)
     assert match == 7
 
+
 def test_hits_line2(app):
     lines = """
 10/15 20:10:30.145  Jaekta hits Core Hound for 1. (glancing) (11 resisted) (189 absorbed)
@@ -537,6 +547,7 @@ def test_hits_line2(app):
     for line in lines:
         match += parse_line(app, line)
     assert match == 7
+
 
 def test_hits_line3(app):
     lines = """
@@ -591,6 +602,7 @@ def test_kt_frostblast(app):
         parse_line(app, line)
     assert len(app.kt_frostblast.log) == 9
 
+
 def test_kt_shadowfissure(app):
     lines = """
 10/19 22:27:40.741  Kel'Thuzad casts Shadow Fissure.
@@ -633,8 +645,9 @@ def test_huhuran(app):
     for line in lines:
         parse_line(app, line)
     assert len(app.huhuran.log) == 19
-    assert app.spell_count.counts['Death by Peasant']['Iniri'] == 1
-    assert app.spell_count.counts['Death by Peasant']['Psykhe'] == 2
+    assert app.spell_count.counts["Death by Peasant"]["Iniri"] == 1
+    assert app.spell_count.counts["Death by Peasant"]["Psykhe"] == 2
+
 
 def test_beamchain(app):
     lines = """
@@ -660,7 +673,10 @@ def test_beamchain(app):
     output = io.StringIO()
     app.cthun_chain.print(output)
     app.fourhm_chain.print(output)
-    assert output.getvalue() == "\n\nC'Thun Chain Log (2+)\n\n   9/8 23:07:23.048  Eye of C'Thun 's Eye Beam was resisted by Getterfour.\n   9/8 23:07:23.048  Eye of C'Thun 's Eye Beam was resisted by Getterfour.\n\n\n4HM Zeliek Chain Log (4+)\n\n   9/20 22:51:04.622  Sir Zeliek 's Holy Wrath is absorbed by Exeggute.\n   9/20 22:51:04.622  Sir Zeliek 's Holy Wrath is absorbed by Exeggute.\n   9/20 22:51:04.622  Sir Zeliek 's Holy Wrath is absorbed by Exeggute.\n   9/20 22:51:04.622  Sir Zeliek 's Holy Wrath is absorbed by Exeggute.\n"
+    assert (
+        output.getvalue()
+        == "\n\nC'Thun Chain Log (2+)\n\n   9/8 23:07:23.048  Eye of C'Thun 's Eye Beam was resisted by Getterfour.\n   9/8 23:07:23.048  Eye of C'Thun 's Eye Beam was resisted by Getterfour.\n\n\n4HM Zeliek Chain Log (4+)\n\n   9/20 22:51:04.622  Sir Zeliek 's Holy Wrath is absorbed by Exeggute.\n   9/20 22:51:04.622  Sir Zeliek 's Holy Wrath is absorbed by Exeggute.\n   9/20 22:51:04.622  Sir Zeliek 's Holy Wrath is absorbed by Exeggute.\n   9/20 22:51:04.622  Sir Zeliek 's Holy Wrath is absorbed by Exeggute.\n"
+    )
 
 
 def test_suffers_line(app):
@@ -700,11 +716,10 @@ def test_suffers_line(app):
     assert match == 17
 
     store = app.dmgstore.store_ability
-    assert store[('Ley-Watcher Incantagos', 'Cleva', 'Blizzard')].dmg == 3027
-    assert store[("Ima'ghaol, Herald of Desolation", 'Magn', 'Aura of Agony')].dmg == 528
-    assert store[("Ima'ghaol, Herald of Desolation", 'MagnTest', 'Aura of Agony')].dmg == 529
-    assert store[("Illasei", 'Chromatic Drakonid', 'Deadly Poison V')].dmg == 20
-
+    assert store[("Ley-Watcher Incantagos", "Cleva", "Blizzard")].dmg == 3027
+    assert store[("Ima'ghaol, Herald of Desolation", "Magn", "Aura of Agony")].dmg == 528
+    assert store[("Ima'ghaol, Herald of Desolation", "MagnTest", "Aura of Agony")].dmg == 529
+    assert store[("Illasei", "Chromatic Drakonid", "Deadly Poison V")].dmg == 20
 
 
 def test_nef_corrupted_healing(app):
@@ -719,6 +734,7 @@ def test_nef_corrupted_healing(app):
     for line in lines:
         parse_line(app, line)
     assert len(app.nef_corrupted_healing.log) == 5
+
 
 def test_gluth(app):
     lines = """
@@ -742,34 +758,36 @@ def test_gluth(app):
         parse_line(app, line)
     assert len(app.gluth.log) == 10
 
+
 def test_consumable_report(app):
-    app.player['Psykhe']['Flask of the Titans'] = 3
-    app.player['Psykhe']['Elixir of the Mongoose'] = 3
-    app.player['Psykhe']['Rage of Ages (ROIDS)'] = 3
-    app.player['Psykhe']['Wizard Oil'] = 1
-    app.player['Psykhe']['Brilliant Wizard Oil'] = 1
-    app.player['Psykhe']['Dark Rune'] = 1
-    app.player['Psykhe']['Tea with Sugar'] = 1
+    app.player["Psykhe"]["Flask of the Titans"] = 3
+    app.player["Psykhe"]["Elixir of the Mongoose"] = 3
+    app.player["Psykhe"]["Rage of Ages (ROIDS)"] = 3
+    app.player["Psykhe"]["Wizard Oil"] = 1
+    app.player["Psykhe"]["Brilliant Wizard Oil"] = 1
+    app.player["Psykhe"]["Dark Rune"] = 1
+    app.player["Psykhe"]["Tea with Sugar"] = 1
 
     output = io.StringIO()
-    app.pricedb.data[NAME2ITEMID['Flask of the Titans']] = 3000000
-    app.pricedb.data[NAME2ITEMID['Elixir of the Mongoose']] = 30000
-    app.pricedb.data[NAME2ITEMID['Scorpok Pincer']] = 1
-    app.pricedb.data[NAME2ITEMID['Blasted Boar Lung']] = 2
-    app.pricedb.data[NAME2ITEMID['Snickerfang Jowl']] = 3
-    app.pricedb.data[NAME2ITEMID['Wizard Oil']] = 5
-    app.pricedb.data[NAME2ITEMID['Brilliant Wizard Oil']] = 50
-    app.pricedb.data[NAME2ITEMID['Dark Rune']] = 4
-    app.pricedb.data[NAME2ITEMID['Small Dream Shard']] = 10
+    app.pricedb.data[NAME2ITEMID["Flask of the Titans"]] = 3000000
+    app.pricedb.data[NAME2ITEMID["Elixir of the Mongoose"]] = 30000
+    app.pricedb.data[NAME2ITEMID["Scorpok Pincer"]] = 1
+    app.pricedb.data[NAME2ITEMID["Blasted Boar Lung"]] = 2
+    app.pricedb.data[NAME2ITEMID["Snickerfang Jowl"]] = 3
+    app.pricedb.data[NAME2ITEMID["Wizard Oil"]] = 5
+    app.pricedb.data[NAME2ITEMID["Brilliant Wizard Oil"]] = 50
+    app.pricedb.data[NAME2ITEMID["Dark Rune"]] = 4
+    app.pricedb.data[NAME2ITEMID["Small Dream Shard"]] = 10
     app.consumables_accumulator.calculate()
     app.print_consumables.print(output)
-    assert output.getvalue() == 'Psykhe deaths:0\n   Brilliant Wizard Oil 1   (10c)\n   Dark Rune 1   (4c)\n   Elixir of the Mongoose 3   (9g)\n   Flask of the Titans 3   (900g)\n   Rage of Ages (ROIDS) 3   (42c)\n   Tea with Sugar 1   (2c)\n   Wizard Oil 1   (1c)\n\n   total spent: 909g 59c\n'
+    assert (
+        output.getvalue()
+        == "Psykhe deaths:0\n   Brilliant Wizard Oil 1   (10c)\n   Dark Rune 1   (4c)\n   Elixir of the Mongoose 3   (9g)\n   Flask of the Titans 3   (900g)\n   Rage of Ages (ROIDS) 3   (42c)\n   Tea with Sugar 1   (2c)\n   Wizard Oil 1   (1c)\n\n   total spent: 909g 59c\n"
+    )
 
     output = io.StringIO()
     app.print_consumable_totals_csv.print(output)
-    assert output.getvalue() == 'Psykhe,9090059,0\r\n'
-
-
+    assert output.getvalue() == "Psykhe,9090059,0\r\n"
 
 
 def test_rejuv_pot(app):
@@ -787,10 +805,11 @@ def test_rejuv_pot(app):
     lines = lines.splitlines(keepends=True)
     for line in lines:
         parse_line(app, line)
-    assert app.player['Sebben']['Rejuvenation Potion - Major'] == 3
-    assert app.player['Arzetlam']['Rejuvenation Potion - Major'] == 1
-    assert app.player['Psykhe']['Rejuvenation Potion - Major'] == 0
-    assert app.player['Psykhe']['Rejuvenation Potion - Minor'] == 1
+    assert app.player["Sebben"]["Rejuvenation Potion - Major"] == 3
+    assert app.player["Arzetlam"]["Rejuvenation Potion - Major"] == 1
+    assert app.player["Psykhe"]["Rejuvenation Potion - Major"] == 0
+    assert app.player["Psykhe"]["Rejuvenation Potion - Minor"] == 1
+
 
 def test_fades_line(app):
     lines = """
@@ -824,6 +843,7 @@ def test_slain_line(app):
         match += parse_line(app, line)
     assert match == 3
 
+
 def test_creates_line(app):
     lines = """
 10/29 19:44:43.785  Tovenares creates Conjured Sparkling Water.
@@ -835,6 +855,7 @@ def test_creates_line(app):
         match += parse_line(app, line)
     assert match == 2
 
+
 def test_is_killed_line(app):
     lines = """
 4/28 14:28:45.871  Gurubashi Bat Rider is killed by Unstable Concoction.
@@ -845,6 +866,7 @@ def test_is_killed_line(app):
     for line in lines:
         match += parse_line(app, line)
     assert match == 2
+
 
 def test_gains_energy_line(app):
     lines = """
@@ -873,6 +895,7 @@ def test_gains_health_line(app):
         match += parse_line(app, line)
     assert match == 2
 
+
 def test_blocked_autoattack(app):
     lines = """
 10/29 21:03:46.392  Jaekta hits Lava Surger for 203. (10 resisted) (31 blocked)
@@ -882,6 +905,7 @@ def test_blocked_autoattack(app):
     for line in lines:
         match += parse_line(app, line)
     assert match == 1
+
 
 def test_blocked_ability(app):
     lines = """
@@ -895,7 +919,6 @@ def test_blocked_ability(app):
     assert match == 2
 
 
-
 def test_paren_word(app):
     lines = """
 10/29 20:19:24.006  Firelord is afflicted by Faerie Fire (Feral) (1).
@@ -905,6 +928,7 @@ def test_paren_word(app):
     for line in lines:
         match += parse_line(app, line)
     assert match == 1
+
 
 def test_dashed_word(app):
     lines = """
@@ -917,6 +941,7 @@ def test_dashed_word(app):
         match += parse_line(app, line)
     assert match == 1
 
+
 def test_is_destroyed_line(app):
     lines = """
 4/19 21:21:30.746  Battle Chicken is destroyed.
@@ -928,6 +953,7 @@ def test_is_destroyed_line(app):
     for line in lines:
         match += parse_line(app, line)
     assert match == 2
+
 
 def test_performs_line(app):
     lines = """
@@ -944,7 +970,8 @@ def test_performs_line(app):
     for line in lines:
         match += parse_line(app, line)
     assert match == 7
-    assert app.player['Raibagz']['Powerful Smelling Salts'] == 1
+    assert app.player["Raibagz"]["Powerful Smelling Salts"] == 1
+
 
 def test_begins_to_perform_line(app):
     lines = """
@@ -955,7 +982,8 @@ def test_begins_to_perform_line(app):
     for line in lines:
         match += parse_line(app, line)
     assert match == 1
-    assert app.player['Redmoon']['Dissolvent Poison II'] == 1
+    assert app.player["Redmoon"]["Dissolvent Poison II"] == 1
+
 
 def test_gains_extra_attacks_line(app):
     lines = """
@@ -969,6 +997,7 @@ def test_gains_extra_attacks_line(app):
     for line in lines:
         match += parse_line(app, line)
     assert match == 4
+
 
 def test_dodges_line(app):
     lines = """
@@ -984,6 +1013,7 @@ def test_dodges_line(app):
         match += parse_line(app, line)
     assert match == 5
 
+
 def test_reflects_line(app):
     lines = """
 10/29 20:01:38.278  Palapus reflects 35 Holy damage to Molten Giant.
@@ -994,6 +1024,7 @@ def test_reflects_line(app):
     for line in lines:
         match += parse_line(app, line)
     assert match == 2
+
 
 def test_is_reflected_back_line(app):
     lines = """
@@ -1006,6 +1037,7 @@ def test_is_reflected_back_line(app):
         match += parse_line(app, line)
     assert match == 2
 
+
 def test_fails_to_dispel_line(app):
     lines = """
 1/26 21:35:06.364  Garr fails to dispel Variusz 's Seal of Command.
@@ -1015,6 +1047,7 @@ def test_fails_to_dispel_line(app):
     for line in lines:
         match += parse_line(app, line)
     assert match == 1
+
 
 def test_misses_line(app):
     lines = """
@@ -1028,6 +1061,7 @@ def test_misses_line(app):
         match += parse_line(app, line)
     assert match == 3
 
+
 def test_parry_lines(app):
     lines = """
 9/28 22:50:24.408  Melevolence 's Pummel was parried by Kel'Thuzad.
@@ -1038,6 +1072,7 @@ def test_parry_lines(app):
     for line in lines:
         match += parse_line(app, line)
     assert match == 2
+
 
 def test_falls_line(app):
     lines = """
@@ -1050,6 +1085,7 @@ def test_falls_line(app):
     for line in lines:
         match += parse_line(app, line)
     assert match == 3
+
 
 def test_none_line(app):
     lines = """
@@ -1065,7 +1101,6 @@ def test_none_line(app):
     assert match == 4
 
 
-
 def test_immune_line(app):
     lines = """
 10/29 20:46:59.833  Jaekta attacks but Lava Elemental is immune.
@@ -1077,6 +1112,7 @@ def test_immune_line(app):
     for line in lines:
         match += parse_line(app, line)
     assert match == 3
+
 
 def test_lava_line(app):
     lines = """
@@ -1091,6 +1127,7 @@ def test_lava_line(app):
         match += parse_line(app, line)
     assert match == 4
 
+
 def test_slays_line(app):
     lines = """
 10/29 20:20:31.006  Psykhe slays Gehennas!
@@ -1101,6 +1138,7 @@ def test_slays_line(app):
     for line in lines:
         match += parse_line(app, line)
     assert match == 2
+
 
 def test_kt_guardian_log(app):
     lines = """
@@ -1118,6 +1156,7 @@ def test_kt_guardian_log(app):
         parse_line(app, line)
     assert len(app.kt_guardian.log) == 6
 
+
 def test_viscidus(app):
     lines = """
 4/13 22:19:02.731  Srj 's Frostbolt hits Viscidus for 16 Frost damage.
@@ -1131,12 +1170,16 @@ def test_viscidus(app):
     lines = lines.splitlines(keepends=True)
     for line in lines:
         parse_line(app, line)
-    assert app.viscidus.counts['Alexjed']['Frostbolt'] == 2
-    assert app.viscidus.counts['Alexjed']['Shoot'] == 1
-    assert app.viscidus.totals['Alexjed'] == 3
+    assert app.viscidus.counts["Alexjed"]["Frostbolt"] == 2
+    assert app.viscidus.counts["Alexjed"]["Shoot"] == 1
+    assert app.viscidus.totals["Alexjed"] == 3
     output = io.StringIO()
     app.viscidus.print(output)
-    assert output.getvalue() == '\n\nViscidus Frost Hits Log\n   Total hits 6\n\n   Alexjed 3\n      Frostbolt 2\n      Shoot 1\n   Srj 1\n      Frostbolt 1\n   Chillz 1\n      Frostbolt 1\n   Bbr 1\n      Shoot 1\n'
+    assert (
+        output.getvalue()
+        == "\n\nViscidus Frost Hits Log\n   Total hits 6\n\n   Alexjed 3\n      Frostbolt 2\n      Shoot 1\n   Srj 1\n      Frostbolt 1\n   Chillz 1\n      Frostbolt 1\n   Bbr 1\n      Shoot 1\n"
+    )
+
 
 def test_techinfo(app):
     lines = """
@@ -1185,6 +1228,7 @@ def test_was_evaded_line(app):
         match += parse_line(app, line)
     assert match == 3
 
+
 def test_wild_polymorph(app):
     lines = """
 11/11 22:47:45.054  Syjlas 's Wild Polymorph was evaded by Teldelar.
@@ -1207,6 +1251,7 @@ def test_wild_polymorph(app):
         parse_line(app, line)
     assert len(app.nef_wild_polymorph.log) == 6
 
+
 def test_block_lines(app):
     lines = """
 11/11 22:31:01.754  Dyrachyo 's Hamstring was blocked by Chromaggus.
@@ -1219,6 +1264,7 @@ def test_block_lines(app):
     for line in lines:
         match += parse_line(app, line)
     assert match == 4
+
 
 def test_interrupts_line(app):
     lines = """
@@ -1245,6 +1291,7 @@ def test_absorbs_lines(app):
         match += parse_line(app, line)
     assert match == 5
 
+
 def test_pet_begins_eating(app):
     lines = """
 11/22 23:02:29.919  Chan's pet begins eating a Roasted Quail.
@@ -1267,6 +1314,7 @@ def test_lay_on_hands(app):
         match += parse_line(app, line)
     assert match == 1
 
+
 def test_gains_happiness(app):
     lines = """
 11/22 23:02:48.712  BATMAN gains 35 Happiness from Berserkss 's Feed Pet Effect.
@@ -1277,8 +1325,9 @@ def test_gains_happiness(app):
     for line in lines:
         match += parse_line(app, line)
     assert match == 2
-    assert app.pet_handler.store['Berserkss'] == {'BATMAN'}
-    assert app.pet_handler.store['Chan'] == {'Kotick'}
+    assert app.pet_handler.store["Berserkss"] == {"BATMAN"}
+    assert app.pet_handler.store["Chan"] == {"Kotick"}
+
 
 def test_is_dismissed(app):
     lines = """
@@ -1291,11 +1340,9 @@ def test_is_dismissed(app):
     for line in lines:
         match += parse_line(app, line)
     assert match == 3
-    assert app.pet_handler.store['Pitsharp'] == {'Wolf'}
-    assert app.pet_handler.store['Minoas'] == {'Thunder'}
-    assert app.pet_handler.store['Leyzara'] == {'Azrael'}
-
-
+    assert app.pet_handler.store["Pitsharp"] == {"Wolf"}
+    assert app.pet_handler.store["Minoas"] == {"Thunder"}
+    assert app.pet_handler.store["Leyzara"] == {"Azrael"}
 
 
 def test_is_immune_ability(app):
@@ -1309,7 +1356,8 @@ def test_is_immune_ability(app):
     for line in lines:
         match += parse_line(app, line)
     assert match == 3
-    assert app.player['Psykhe']["Goblin Sapper Charge"] == 1
+    assert app.player["Psykhe"]["Goblin Sapper Charge"] == 1
+
 
 def test_cooldown_summary(app):
     lines = """
@@ -1390,78 +1438,78 @@ def test_cooldown_summary(app):
     output = io.StringIO()
     app.cooldown_summary.print(output)
 
-    assert app.spell_count.counts['Molten Power']['Gorgun'] == 1
-    assert app.spell_count.counts['Jewel of Wild Magics']['Tekn'] == 1
-    assert app.spell_count.counts['Remains of Overwhelming Power']['Tekn'] == 1
-    assert app.spell_count.counts['Elunes Guardian']['Tekn'] == 1
-    assert app.spell_count.counts['Sunder Armor']['Tekn'] == 1
-    assert app.spell_count.counts['Sweeping Strikes']['Psykhe'] == 1
-    assert app.spell_count.counts['Sunder Armor (boss)']['Martl'] == 1
-    assert app.spell_count.counts['Sunder Armor']['Martl'] == 1
-    assert app.spell_count.counts['Bloodrage']['Bloodragetest'] == 1
-    assert app.spell_count.counts['Chastise Haste']['Murto'] == 1
-    assert app.spell_count.counts['Immune Charm/Fear/Stun']['Starraven'] == 1
-    assert app.spell_count.counts['Rapid Fire']['Babystone'] == 1
-    assert app.spell_count.counts['Chromatic Infusion']['Naonak'] == 1
-    assert app.spell_count.counts['Rapid Healing']['Duplo'] == 1
-    assert app.spell_count.counts['Blood Fury']['Thrunk'] == 1
-    assert app.spell_count.counts['Swiftmend']['Daenshoo'] == 1
-    assert app.spell_count.counts['Healing of the Ages']['Bobsterr'] == 1
-    assert app.spell_count.counts['The Eye of the Dead']['Interlani'] == 1
-    assert app.spell_count.counts["Bloodlust"]['Murto'] == 1
-    assert app.spell_count.counts["Power Infusion"]['Nerilen'] == 1
-    assert app.spell_count.counts["Blood Fury (trinket)"]['Squirreled'] == 1
-    assert app.spell_count.counts['Diamond Flask']['Ler'] == 1
-    assert app.spell_count.counts['Ancestral Spirit']['Ionize'] == 1
-    assert app.spell_count.counts['Resurrection']['Melbaxd'] == 1
-    assert app.spell_count.counts['Redemption']['Interlani'] == 1
-    assert app.spell_count.counts['Rebirth']['Cheshirkot'] == 1
-    assert app.spell_count.counts['War Stomp']['Yamka'] == 1
-    assert app.spell_count.counts['Will of the Forsaken']['Nilia'] == 1
-    assert app.spell_count.counts['Desperate Prayer']['Tsedeq'] == 1
-    assert app.spell_count.counts['Stoneform']['Suigetsu'] == 1
-    assert app.spell_count.counts['Berserking']['Abstractz'] == 1
-    assert app.spell_count.counts['Divine Favor']['Interlani'] == 1
-    assert app.spell_count.counts['Recklessness']['Martl'] == 1
-    assert app.spell_count.counts['Shield Wall']['Martl'] == 1
-    assert app.spell_count.counts['Death Wish']['Pitbound'] == 1
-    assert app.spell_count.counts['Windfury Totem']['Yakub'] == 1
-    assert app.spell_count.counts['Windfury Totem']['Littlelnnos'] == 0  # don't count procs
-    assert app.spell_count.counts['Mana Tide Totem']['Yakub'] == 1
-    assert app.spell_count.counts['Elemental Mastery']['Abstractz'] == 1
-    assert app.spell_count.counts['Inner Focus']['Zdraxus'] == 1
-    assert app.spell_count.counts['Combustion']['Shreked'] == 1
-    assert app.spell_count.counts['Grace of Air Totem']['Ergofobia'] == 1
-    assert app.spell_count.counts['Tranquil Air Totem']['Yakub'] == 1
-    assert app.spell_count.counts['Strength of Earth Totem']['Cracklinoats'] == 1
-    assert app.spell_count.counts['Mana Spring Totem']['Abstractz'] == 1
-    assert app.spell_count.counts['Searing Totem']['Cracklinoats'] == 1
-    assert app.spell_count.counts['Fire Nova Totem']['Cracklinoats'] == 1
-    assert app.spell_count.counts['Magma Totem']['Cracklinoats'] == 1
-    assert app.spell_count.counts['Earthstrike']['Mikkasa'] == 1
-    assert app.spell_count.counts['Adrenaline Rush']['Inshadow'] == 1
-    assert app.spell_count.counts['Adrenaline Rush']['Minoas'] == 0  # don't count procs
-    assert app.spell_count.counts['Blade Flurry']['Twinsin'] == 1
-    assert app.spell_count.counts['Cold Blood']['Raimme'] == 1
-    assert app.spell_count.counts['Sinister Strike']['Emeryn'] == 1
-    assert app.spell_count.counts['Scorch']['Zedog'] == 1
-    assert app.spell_count.counts["Nature's Swiftness"]['Yakub'] == 1
-    assert app.spell_count.counts['Kiss of the Spider']['Vallcow'] == 1
-    assert app.spell_count.counts["Slayer's Crest"]['Vallcow'] == 1
-    assert app.spell_count.counts['Jom Gabbar']['Srj'] == 1
-    assert app.spell_count.counts['Badge of the Swarmguard']['Deathstruck'] == 1
-    assert app.spell_count.counts['Essence of Sapphiron']['Cheesebreath'] == 1
-    assert app.spell_count.counts['Ephemeral Power']['Abstractz'] == 1
-    assert app.spell_count.counts['Unstable Power']['Ancst'] == 1
-    assert app.spell_count.counts['Mind Quickening']['Aquatic'] == 1
-    assert app.spell_count.counts['Nature Aligned']['Abstractz'] == 1
-    assert app.spell_count.counts['Holy Shock (heal)']['Interlani'] == 1
-    assert app.spell_count.counts['Holy Shock (dmg)']['Sempeternal'] == 1
-
+    assert app.spell_count.counts["Molten Power"]["Gorgun"] == 1
+    assert app.spell_count.counts["Jewel of Wild Magics"]["Tekn"] == 1
+    assert app.spell_count.counts["Remains of Overwhelming Power"]["Tekn"] == 1
+    assert app.spell_count.counts["Elunes Guardian"]["Tekn"] == 1
+    assert app.spell_count.counts["Sunder Armor"]["Tekn"] == 1
+    assert app.spell_count.counts["Sweeping Strikes"]["Psykhe"] == 1
+    assert app.spell_count.counts["Sunder Armor (boss)"]["Martl"] == 1
+    assert app.spell_count.counts["Sunder Armor"]["Martl"] == 1
+    assert app.spell_count.counts["Bloodrage"]["Bloodragetest"] == 1
+    assert app.spell_count.counts["Chastise Haste"]["Murto"] == 1
+    assert app.spell_count.counts["Immune Charm/Fear/Stun"]["Starraven"] == 1
+    assert app.spell_count.counts["Rapid Fire"]["Babystone"] == 1
+    assert app.spell_count.counts["Chromatic Infusion"]["Naonak"] == 1
+    assert app.spell_count.counts["Rapid Healing"]["Duplo"] == 1
+    assert app.spell_count.counts["Blood Fury"]["Thrunk"] == 1
+    assert app.spell_count.counts["Swiftmend"]["Daenshoo"] == 1
+    assert app.spell_count.counts["Healing of the Ages"]["Bobsterr"] == 1
+    assert app.spell_count.counts["The Eye of the Dead"]["Interlani"] == 1
+    assert app.spell_count.counts["Bloodlust"]["Murto"] == 1
+    assert app.spell_count.counts["Power Infusion"]["Nerilen"] == 1
+    assert app.spell_count.counts["Blood Fury (trinket)"]["Squirreled"] == 1
+    assert app.spell_count.counts["Diamond Flask"]["Ler"] == 1
+    assert app.spell_count.counts["Ancestral Spirit"]["Ionize"] == 1
+    assert app.spell_count.counts["Resurrection"]["Melbaxd"] == 1
+    assert app.spell_count.counts["Redemption"]["Interlani"] == 1
+    assert app.spell_count.counts["Rebirth"]["Cheshirkot"] == 1
+    assert app.spell_count.counts["War Stomp"]["Yamka"] == 1
+    assert app.spell_count.counts["Will of the Forsaken"]["Nilia"] == 1
+    assert app.spell_count.counts["Desperate Prayer"]["Tsedeq"] == 1
+    assert app.spell_count.counts["Stoneform"]["Suigetsu"] == 1
+    assert app.spell_count.counts["Berserking"]["Abstractz"] == 1
+    assert app.spell_count.counts["Divine Favor"]["Interlani"] == 1
+    assert app.spell_count.counts["Recklessness"]["Martl"] == 1
+    assert app.spell_count.counts["Shield Wall"]["Martl"] == 1
+    assert app.spell_count.counts["Death Wish"]["Pitbound"] == 1
+    assert app.spell_count.counts["Windfury Totem"]["Yakub"] == 1
+    assert app.spell_count.counts["Windfury Totem"]["Littlelnnos"] == 0  # don't count procs
+    assert app.spell_count.counts["Mana Tide Totem"]["Yakub"] == 1
+    assert app.spell_count.counts["Elemental Mastery"]["Abstractz"] == 1
+    assert app.spell_count.counts["Inner Focus"]["Zdraxus"] == 1
+    assert app.spell_count.counts["Combustion"]["Shreked"] == 1
+    assert app.spell_count.counts["Grace of Air Totem"]["Ergofobia"] == 1
+    assert app.spell_count.counts["Tranquil Air Totem"]["Yakub"] == 1
+    assert app.spell_count.counts["Strength of Earth Totem"]["Cracklinoats"] == 1
+    assert app.spell_count.counts["Mana Spring Totem"]["Abstractz"] == 1
+    assert app.spell_count.counts["Searing Totem"]["Cracklinoats"] == 1
+    assert app.spell_count.counts["Fire Nova Totem"]["Cracklinoats"] == 1
+    assert app.spell_count.counts["Magma Totem"]["Cracklinoats"] == 1
+    assert app.spell_count.counts["Earthstrike"]["Mikkasa"] == 1
+    assert app.spell_count.counts["Adrenaline Rush"]["Inshadow"] == 1
+    assert app.spell_count.counts["Adrenaline Rush"]["Minoas"] == 0  # don't count procs
+    assert app.spell_count.counts["Blade Flurry"]["Twinsin"] == 1
+    assert app.spell_count.counts["Cold Blood"]["Raimme"] == 1
+    assert app.spell_count.counts["Sinister Strike"]["Emeryn"] == 1
+    assert app.spell_count.counts["Scorch"]["Zedog"] == 1
+    assert app.spell_count.counts["Nature's Swiftness"]["Yakub"] == 1
+    assert app.spell_count.counts["Kiss of the Spider"]["Vallcow"] == 1
+    assert app.spell_count.counts["Slayer's Crest"]["Vallcow"] == 1
+    assert app.spell_count.counts["Jom Gabbar"]["Srj"] == 1
+    assert app.spell_count.counts["Badge of the Swarmguard"]["Deathstruck"] == 1
+    assert app.spell_count.counts["Essence of Sapphiron"]["Cheesebreath"] == 1
+    assert app.spell_count.counts["Ephemeral Power"]["Abstractz"] == 1
+    assert app.spell_count.counts["Unstable Power"]["Ancst"] == 1
+    assert app.spell_count.counts["Mind Quickening"]["Aquatic"] == 1
+    assert app.spell_count.counts["Nature Aligned"]["Abstractz"] == 1
+    assert app.spell_count.counts["Holy Shock (heal)"]["Interlani"] == 1
+    assert app.spell_count.counts["Holy Shock (dmg)"]["Sempeternal"] == 1
 
     # assert output.getvalue() == '\n\nCooldown Usage\n   Death Wish\n      Pitbound 1\n   Recklessness\n      Martl 1\n'
-    
+
     pass
+
 
 def test_spellcount_stackcount(app):
     lines = """
@@ -1487,8 +1535,8 @@ def test_spellcount_stackcount(app):
     output = io.StringIO()
     app.cooldown_summary.print(output)
 
-    assert app.spell_count.counts["Combustion"]['Ganbatte'] == 1
-    assert app.spell_count.counts["Unstable Power"]['Nerilen'] == 1
+    assert app.spell_count.counts["Combustion"]["Ganbatte"] == 1
+    assert app.spell_count.counts["Unstable Power"]["Nerilen"] == 1
 
 
 def test_class_detection(app):
@@ -1547,67 +1595,57 @@ def test_class_detection(app):
         parse_line(app, line)
 
     assert app.class_detection.store == {
-
-        'SimplezzMS': PlayerClass.HUNTER,
-        'SimplezzAS': PlayerClass.HUNTER,
-        'Babystone': PlayerClass.HUNTER,
-        'BabystoneAS': PlayerClass.HUNTER,
-        'BabystoneTS': PlayerClass.HUNTER,
-
-        'Bever': PlayerClass.PRIEST,
-        'NimpheraFH': PlayerClass.PRIEST,
-        'NimpheraGH': PlayerClass.PRIEST,
-        'NimpheraPH': PlayerClass.PRIEST,
-        'NimpheraH': PlayerClass.PRIEST,
-        'Mindblasttest': PlayerClass.PRIEST,
-        'Nesma': PlayerClass.PRIEST,
-        'Prayer': PlayerClass.PRIEST,
-
-        'BudwiserFL': PlayerClass.PALADIN,
-        'BudwiserHL': PlayerClass.PALADIN,
-        'XelyaSOC': PlayerClass.PALADIN,
-        'XelyaSOR': PlayerClass.PALADIN,
-        'JocasteHL': PlayerClass.PALADIN,
-        'JocasteFL': PlayerClass.PALADIN,
-        'Interlani': PlayerClass.PALADIN,
-
-        'Deathstruck': PlayerClass.WARRIOR,
-        'Squirreled': PlayerClass.WARRIOR,
-        'Martl': PlayerClass.WARRIOR,
-        'Littlelnnos': PlayerClass.WARRIOR,
-        'Wwtest': PlayerClass.WARRIOR,
-        'Cleavetest': PlayerClass.WARRIOR,
-        'Psykhe': PlayerClass.WARRIOR,
-        'Bloodragetest': PlayerClass.WARRIOR,
-
-        'Shreked': PlayerClass.MAGE,
-        'Scorchtest': PlayerClass.MAGE,
-        'Fireballtest': PlayerClass.MAGE,
-        'Polytest': PlayerClass.MAGE,
-        'Arcex': PlayerClass.MAGE,
-        'Firebl': PlayerClass.MAGE,
-
-        'Inshadow': PlayerClass.ROGUE,
-        'Bftest': PlayerClass.ROGUE,
-        'Raimme': PlayerClass.ROGUE,
-        'Emeryn': PlayerClass.ROGUE,
-
-        'Yakub': PlayerClass.SHAMAN,
-        'Seidhkona': PlayerClass.SHAMAN,
-
-        'Azot': PlayerClass.WARLOCK,
-        'Antihum': PlayerClass.WARLOCK,
-
-        'Almouty': PlayerClass.DRUID,
-        'Valurian': PlayerClass.DRUID,
-        'Starfiretest': PlayerClass.DRUID,
-        'Moonfiretest': PlayerClass.DRUID,
-        'Wrathtest': PlayerClass.DRUID,
+        "SimplezzMS": PlayerClass.HUNTER,
+        "SimplezzAS": PlayerClass.HUNTER,
+        "Babystone": PlayerClass.HUNTER,
+        "BabystoneAS": PlayerClass.HUNTER,
+        "BabystoneTS": PlayerClass.HUNTER,
+        "Bever": PlayerClass.PRIEST,
+        "NimpheraFH": PlayerClass.PRIEST,
+        "NimpheraGH": PlayerClass.PRIEST,
+        "NimpheraPH": PlayerClass.PRIEST,
+        "NimpheraH": PlayerClass.PRIEST,
+        "Mindblasttest": PlayerClass.PRIEST,
+        "Nesma": PlayerClass.PRIEST,
+        "Prayer": PlayerClass.PRIEST,
+        "BudwiserFL": PlayerClass.PALADIN,
+        "BudwiserHL": PlayerClass.PALADIN,
+        "XelyaSOC": PlayerClass.PALADIN,
+        "XelyaSOR": PlayerClass.PALADIN,
+        "JocasteHL": PlayerClass.PALADIN,
+        "JocasteFL": PlayerClass.PALADIN,
+        "Interlani": PlayerClass.PALADIN,
+        "Deathstruck": PlayerClass.WARRIOR,
+        "Squirreled": PlayerClass.WARRIOR,
+        "Martl": PlayerClass.WARRIOR,
+        "Littlelnnos": PlayerClass.WARRIOR,
+        "Wwtest": PlayerClass.WARRIOR,
+        "Cleavetest": PlayerClass.WARRIOR,
+        "Psykhe": PlayerClass.WARRIOR,
+        "Bloodragetest": PlayerClass.WARRIOR,
+        "Shreked": PlayerClass.MAGE,
+        "Scorchtest": PlayerClass.MAGE,
+        "Fireballtest": PlayerClass.MAGE,
+        "Polytest": PlayerClass.MAGE,
+        "Arcex": PlayerClass.MAGE,
+        "Firebl": PlayerClass.MAGE,
+        "Inshadow": PlayerClass.ROGUE,
+        "Bftest": PlayerClass.ROGUE,
+        "Raimme": PlayerClass.ROGUE,
+        "Emeryn": PlayerClass.ROGUE,
+        "Yakub": PlayerClass.SHAMAN,
+        "Seidhkona": PlayerClass.SHAMAN,
+        "Azot": PlayerClass.WARLOCK,
+        "Antihum": PlayerClass.WARLOCK,
+        "Almouty": PlayerClass.DRUID,
+        "Valurian": PlayerClass.DRUID,
+        "Starfiretest": PlayerClass.DRUID,
+        "Moonfiretest": PlayerClass.DRUID,
+        "Wrathtest": PlayerClass.DRUID,
     }
 
 
 def test_proc_count(app):
-
     lines = """
 2/4 20:34:07.096  Psykhe gains Flurry (1).
 2/4 20:34:07.129  Shrekedjr gains Enrage (1).
@@ -1626,20 +1664,20 @@ def test_proc_count(app):
     lines = lines.splitlines(keepends=True)
     for line in lines:
         parse_line(app, line)
-    assert app.proc_count.counts["Nature's Grace"]['Starraven'] == 1
-    assert app.proc_count.counts['Vengeance']['Pikachurin'] == 1
-    assert app.proc_count.counts['Clearcasting']['Abstractz'] == 1
-    assert app.proc_count.counts['Spell Blasting']['Supal'] == 1
-    assert app.proc_count.counts["Stormcaller's Wrath"]['Clapya'] == 1
-    assert app.proc_count.counts['Elemental Devastation']['Clapya'] == 1
-    assert app.proc_count.counts['Flurry']['Psykhe'] == 1
-    assert app.proc_count.counts['Enrage']['Shrekedjr'] == 1
+    assert app.proc_count.counts["Nature's Grace"]["Starraven"] == 1
+    assert app.proc_count.counts["Vengeance"]["Pikachurin"] == 1
+    assert app.proc_count.counts["Clearcasting"]["Abstractz"] == 1
+    assert app.proc_count.counts["Spell Blasting"]["Supal"] == 1
+    assert app.proc_count.counts["Stormcaller's Wrath"]["Clapya"] == 1
+    assert app.proc_count.counts["Elemental Devastation"]["Clapya"] == 1
+    assert app.proc_count.counts["Flurry"]["Psykhe"] == 1
+    assert app.proc_count.counts["Enrage"]["Shrekedjr"] == 1
 
-    assert app.proc_count.counts_extra_attacks['Hand of Justice']['Rila'] == 1
-    assert app.proc_count.counts_extra_attacks['Windfury Weapon']['Cracklinoats'] == 2
+    assert app.proc_count.counts_extra_attacks["Hand of Justice"]["Rila"] == 1
+    assert app.proc_count.counts_extra_attacks["Windfury Weapon"]["Cracklinoats"] == 2
 
-    assert app.proc_count.counts['Unbridled Wrath']['Warrior'] == 2
-    assert app.proc_count.amount_unbridled_wrath['Warrior'] ==  3
+    assert app.proc_count.counts["Unbridled Wrath"]["Warrior"] == 2
+    assert app.proc_count.amount_unbridled_wrath["Warrior"] == 3
 
 
 def test_annihilator(app):
@@ -1653,6 +1691,7 @@ def test_annihilator(app):
     for line in lines:
         parse_line(app, line)
     assert len(app.annihilator.log) == 4
+
 
 def test_flamebuffet(app):
     lines = """
@@ -1728,12 +1767,13 @@ def test_dmgstore(app):
     for line in lines:
         parse_line(app, line)
     store = app.dmgstore.store_ability
-    assert store[('Guardian of Icecrown', 'Shumy', 'hit')].dmg == 2200
-    assert store[('Arcanite Dragonling', 'Patchwerk', 'Flame Buffet')].dmg == 476
-    assert store[('Agonist', 'Obsidian Eradicator', 'Deep Wound')].dmg == 81
-    assert store[('Palapus', 'Molten Giant', 'reflect')].dmg == 35
-    assert store[("Kel'Thuzad", 'Cracklinoats', 'Spirit Link')].dmg == 27
-    assert store[("Rossol", "Anubisath Sentinel", 'Shadow Word: Pain')].dmg == 287
+    assert store[("Guardian of Icecrown", "Shumy", "Auto Attack")].dmg == 2200
+    assert store[("Arcanite Dragonling", "Patchwerk", "Flame Buffet")].dmg == 476
+    assert store[("Agonist", "Obsidian Eradicator", "Deep Wound")].dmg == 81
+    assert store[("Palapus", "Molten Giant", "reflect")].dmg == 35
+    assert store[("Kel'Thuzad", "Cracklinoats", "Spirit Link")].dmg == 27
+    assert store[("Rossol", "Anubisath Sentinel", "Shadow Word: Pain")].dmg == 287
+
 
 def test_durloss(app):
     lines = """
@@ -1746,15 +1786,13 @@ def test_durloss(app):
     assert match == 1
 
 
-
-
-@pytest.mark.skip('needs valid logs to test')  # pragma: no cover
+@pytest.mark.skip("needs valid logs to test")  # pragma: no cover
 def test_urlparse(app):
     downloader = app.log_downloader
 
     urls_ok = [
-        'https://turtlogs.com/viewer/8406/base?history_state=1',
-        'https://turtlogs.com/viewer/8406',
+        "https://turtlogs.com/viewer/8406/base?history_state=1",
+        "https://turtlogs.com/viewer/8406",
     ]
 
     for filename in urls_ok:
@@ -1762,12 +1800,10 @@ def test_urlparse(app):
         assert filename2 == app.log_downloader.output_name
         assert filename != filename2
 
-
-
     urls_fail = [
-        'turtlogs.com',
-        'https://turtlogs.com/viewer/',
-        'https://turtlogs.com/viewer',
+        "turtlogs.com",
+        "https://turtlogs.com/viewer/",
+        "https://turtlogs.com/viewer",
     ]
     for filename in urls_fail:
         filename2 = downloader.try_download(filename)
@@ -1786,5 +1822,3 @@ def test_invalid_input(app):
     for line in lines:
         match += parse_line(app, line)
     assert not match
-
-

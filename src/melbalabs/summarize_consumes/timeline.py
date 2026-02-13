@@ -8,7 +8,6 @@ class TimelineEntry:
         self,
         timestamp_unix,
         source,
-        target,
         spellname,
         line_type,
         amount,
@@ -16,7 +15,6 @@ class TimelineEntry:
     ):
         self.timestamp_unix = timestamp_unix
         self.source = source
-        self.target = target
         self.spellname = spellname
         self.line_type = line_type
         self.amount = amount
@@ -74,7 +72,6 @@ class AbilityTimeline:
         entry = TimelineEntry(
             timestamp_unix=timestamp_unix,
             source=source,
-            target=target,
             spellname=spellname,
             line_type=line_type,
             amount=amount,
@@ -89,6 +86,7 @@ class AbilityTimeline:
 
     def print(self, output):
         if not self.entries:
+            print("<nothing found>", file=output)
             return
 
         DIFF_SEC = 15
@@ -104,12 +102,12 @@ class AbilityTimeline:
         self.damage_entries.sort(key=lambda e: e.timestamp_unix)
         damage_event_timestamps = [e.timestamp_unix for e in self.damage_entries]
 
-        # group entries by boss target
-        by_target = collections.defaultdict(list)
+        # group entries by boss context
+        by_boss_context = collections.defaultdict(list)
 
         for entry in self.entries:
-            candidate_target = entry.boss_context
-            if not candidate_target and self.boss_entries:
+            candidate_boss_context = entry.boss_context
+            if not candidate_boss_context and self.boss_entries:
                 # find closest boss event
                 idx = bisect.bisect_left(boss_event_timestamps, entry.timestamp_unix)
                 best_boss = None
@@ -127,9 +125,9 @@ class AbilityTimeline:
                         best_boss = self.boss_entries[idx - 1]
 
                 if best_boss:
-                    candidate_target = best_boss.boss_context
+                    candidate_boss_context = best_boss.boss_context
 
-            if candidate_target:
+            if candidate_boss_context:
                 # verify we are within DIFF_SEC of ANY damage entry
                 # to avoid assigning pre-pull casts
                 best_dmg_diff = DIFF_SEC + 0.1
@@ -146,11 +144,11 @@ class AbilityTimeline:
                     )
 
                 if best_dmg_diff <= DIFF_SEC:
-                    is_direct_target = entry.boss_context == candidate_target
+                    is_direct_target = entry.boss_context == candidate_boss_context
                     if entry.amount == 0 or is_direct_target:
-                        by_target[candidate_target].append(entry)
+                        by_boss_context[candidate_boss_context].append(entry)
 
-        for target, entries in by_target.items():
+        for boss_context, entries in by_boss_context.items():
             # sort entries by timestamp
             entries.sort(key=lambda e: e.timestamp_unix)
 
@@ -161,7 +159,7 @@ class AbilityTimeline:
             if duration <= 0:
                 duration = 1
 
-            print(f"\n\nAbility Timeline for {target} ({duration:.1f}s)", file=output)
+            print(f"\n\nAbility Timeline for {boss_context} ({duration:.1f}s)", file=output)
 
             # identify all players involved
             players_involved = list(set(e.source for e in entries if e.source in self.player))
