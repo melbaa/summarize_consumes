@@ -1,4 +1,4 @@
-from typing import Union
+from typing import Generic, TypeVar, Union
 from typing import List
 import re
 from typing import Optional
@@ -96,13 +96,19 @@ class ActionValue(enum.Enum):
     BLOCK = "block"
     GLANCE = "glance"
 
+TreeTypeVar = TypeVar("TreeTypeVar", bound=Union["Tree", "Token"])
 
-class Tree:
+class Tree(Generic[TreeTypeVar]):
     __slots__ = ("data", "children")
 
-    def __init__(self, data: TreeType, children: List[Union["Tree", Token]]):
+    def __init__(self, data: TreeType, children: List[TreeTypeVar]):
         self.data = data
         self.children = children
+
+class LineTree(Tree[Tree]):
+    pass
+class TimestampTree(Tree[Token]):
+    pass
 
 
 class FallbackParser:
@@ -122,7 +128,7 @@ class Parser2:
         self.TIMESTAMP_PATTERN = re.compile(r"(\d+)/(\d+) (\d+):(\d+):(\d+)\.(\d+)")
 
         self.timestamp_tokens = [Token("t", "") for _ in range(6)]
-        self.timestamp_tree = Tree(TreeType.TIMESTAMP, children=self.timestamp_tokens)
+        self.timestamp_tree = TimestampTree(TreeType.TIMESTAMP, children=self.timestamp_tokens)
 
         # shared token cache
         self.name_token = Token("t", "")
@@ -183,7 +189,7 @@ class Parser2:
                 self.stackcount_token,
             ],
         )
-        self.gains_line_tree = Tree(data=TreeType.LINE, children=[self.timestamp_tree, subtree])
+        self.gains_line_tree = LineTree(data=TreeType.LINE, children=[self.timestamp_tree, subtree])
 
         # heals_line cache
         subtree = Tree(
@@ -196,13 +202,13 @@ class Parser2:
                 self.heal_amount_token,
             ],
         )
-        self.heals_line_tree = Tree(data=TreeType.LINE, children=[self.timestamp_tree, subtree])
+        self.heals_line_tree = LineTree(data=TreeType.LINE, children=[self.timestamp_tree, subtree])
 
         # fades_line cache
         subtree = Tree(
             data=TreeType.FADES_LINE, children=[self.spellname_token, self.targetname_token]
         )
-        self.fades_line_tree = Tree(data=TreeType.LINE, children=[self.timestamp_tree, subtree])
+        self.fades_line_tree = LineTree(data=TreeType.LINE, children=[self.timestamp_tree, subtree])
 
         # suffers_line cache (WITH source)
         source_subtree = Tree(
@@ -247,14 +253,14 @@ class Parser2:
             children=[self.targetname_token, self.spellname_token],
         )
 
-        self.afflicted_line_tree = Tree(data=TreeType.LINE, children=[self.timestamp_tree, subtree])
+        self.afflicted_line_tree = LineTree(data=TreeType.LINE, children=[self.timestamp_tree, subtree])
 
         # block_line cache
         subtree = Tree(
             data=TreeType.BLOCK_LINE,
             children=[self.name_token, self.targetname_token],  # reuse tokens
         )
-        self.block_line_tree = Tree(data=TreeType.LINE, children=[self.timestamp_tree, subtree])
+        self.block_line_tree = LineTree(data=TreeType.LINE, children=[self.timestamp_tree, subtree])
 
     def parse_ts(self, line, p_ts_end):
         # 6/1 18:31:36.197  ...
@@ -292,7 +298,7 @@ class Parser2:
             data=TreeType.CONSOLIDATED_PET, children=[Token("t", name), Token("t", petname)]
         )
 
-    def parse(self, line, p_ts_end) -> Optional[Tree]:
+    def parse(self, line: str, p_ts_end) -> Optional[LineTree]:  # type: ignore
         """
         assumes p_ts_end != -1
         throws ValueError when it sees unexpected syntax
@@ -630,7 +636,7 @@ class Parser2:
 
                 subtree = Tree(data=TreeType.CASTS_LINE, children=children)
 
-                return Tree(data=TreeType.LINE, children=[timestamp, subtree])
+                return LineTree(data=TreeType.LINE, children=[timestamp, subtree])
 
             # already have this
             # p_gains = line.find(' gains ', p_ts_end)
@@ -658,7 +664,7 @@ class Parser2:
                     children=[Token("t", name), Token("t", howmany), Token("t", source)],
                 )
 
-                return Tree(data=TreeType.LINE, children=[timestamp, subtree])
+                return LineTree(data=TreeType.LINE, children=[timestamp, subtree])
 
             # already have this
             # p_gains = line.find(' gains ', p_ts_end)
@@ -690,7 +696,7 @@ class Parser2:
                     ],
                 )
 
-                return Tree(data=TreeType.LINE, children=[timestamp, subtree])
+                return LineTree(data=TreeType.LINE, children=[timestamp, subtree])
 
             # already have this
             # p_gains = line.find(' gains ', p_ts_end)
@@ -720,7 +726,7 @@ class Parser2:
                     ],
                 )
 
-                return Tree(data=TreeType.LINE, children=[timestamp, subtree])
+                return LineTree(data=TreeType.LINE, children=[timestamp, subtree])
 
             # already have this
             # p_gains = line.find(' gains ', p_ts_end)
@@ -750,7 +756,7 @@ class Parser2:
                     ],
                 )
 
-                return Tree(data=TreeType.LINE, children=[timestamp, subtree])
+                return LineTree(data=TreeType.LINE, children=[timestamp, subtree])
 
             p_s = line.find(" 's ", p_ts_end)
             p_resisted = line.find(" was resisted by ", p_s)
@@ -775,7 +781,7 @@ class Parser2:
                     ],
                 )
 
-                return Tree(data=TreeType.LINE, children=[timestamp, subtree])
+                return LineTree(data=TreeType.LINE, children=[timestamp, subtree])
 
             p_uses = line.find(" uses ", p_ts_end)
 
@@ -810,7 +816,7 @@ class Parser2:
 
                 subtree = Tree(data=TreeType.USES_LINE, children=children)
 
-                return Tree(data=TreeType.LINE, children=[timestamp, subtree])
+                return LineTree(data=TreeType.LINE, children=[timestamp, subtree])
 
             anchor1 = " attacks. "
             anchor2 = " dodges."
@@ -834,7 +840,7 @@ class Parser2:
                     data=TreeType.DODGES_LINE, children=[Token("t", attacker), Token("t", dodger)]
                 )
 
-                return Tree(data=TreeType.LINE, children=[timestamp, subtree])
+                return LineTree(data=TreeType.LINE, children=[timestamp, subtree])
 
             # miss ability or autoattacks
             p_s = line.find(" 's ", p_ts_end)
@@ -865,7 +871,7 @@ class Parser2:
                             Token("t", target_name),
                         ],
                     )
-                    return Tree(data=TreeType.LINE, children=[timestamp, subtree])
+                    return LineTree(data=TreeType.LINE, children=[timestamp, subtree])
 
             else:
                 # misses_line
@@ -881,7 +887,7 @@ class Parser2:
                         data=TreeType.MISSES_LINE,
                         children=[Token("t", attacker), Token("t", target)],
                     )
-                    return Tree(data=TreeType.LINE, children=[timestamp, subtree])
+                    return LineTree(data=TreeType.LINE, children=[timestamp, subtree])
 
             anchor = " dies.\n"
 
@@ -898,7 +904,7 @@ class Parser2:
                 # Construct the simple one-child tree.
                 subtree = Tree(data=TreeType.DIES_LINE, children=[Token("t", name)])
 
-                return Tree(data=TreeType.LINE, children=[timestamp, subtree])
+                return LineTree(data=TreeType.LINE, children=[timestamp, subtree])
 
             parries_anchor = " parries.\n"
 
@@ -926,7 +932,7 @@ class Parser2:
                         children=[Token("t", attacker), Token("t", parrier)],
                     )
 
-                    return Tree(data=TreeType.LINE, children=[timestamp, subtree])
+                    return LineTree(data=TreeType.LINE, children=[timestamp, subtree])
 
             blocks_anchor = " blocks.\n"
             if line.endswith(blocks_anchor):
@@ -946,7 +952,7 @@ class Parser2:
                         children=[Token("t", attacker), Token("t", blocker)],
                     )
 
-                    return Tree(data=TreeType.LINE, children=[timestamp, subtree])
+                    return LineTree(data=TreeType.LINE, children=[timestamp, subtree])
 
             # Find all the anchors in sequential order.
             p_reflects = line.find(" reflects ", p_ts_end)
@@ -981,7 +987,7 @@ class Parser2:
                     ],
                 )
 
-                return Tree(data=TreeType.LINE, children=[timestamp, subtree])
+                return LineTree(data=TreeType.LINE, children=[timestamp, subtree])
 
             action_phrase = " begins to perform "
             p_action = line.find(action_phrase, p_ts_end)
@@ -1003,7 +1009,7 @@ class Parser2:
                     children=[Token("t", performer_name), Token("t", action_name)],
                 )
 
-                return Tree(data=TreeType.LINE, children=[timestamp, subtree])
+                return LineTree(data=TreeType.LINE, children=[timestamp, subtree])
 
             # Find the two key anchors in sequential order.
             p_s = line.find(" 's ", p_ts_end)
@@ -1032,7 +1038,7 @@ class Parser2:
                     ],
                 )
 
-                return Tree(data=TreeType.LINE, children=[timestamp, subtree])
+                return LineTree(data=TreeType.LINE, children=[timestamp, subtree])
 
             p_s = line.find(" 's ", p_ts_end)
             p_causes = line.find(" causes ", p_s)
@@ -1064,7 +1070,7 @@ class Parser2:
                     ],
                 )
 
-                return Tree(data=TreeType.LINE, children=[timestamp, subtree])
+                return LineTree(data=TreeType.LINE, children=[timestamp, subtree])
 
             final_anchor = " is removed.\n"
 
@@ -1091,7 +1097,7 @@ class Parser2:
                         children=[Token("t", caster_name), Token("t", spell_name)],
                     )
 
-                    return Tree(data=TreeType.LINE, children=[timestamp, subtree])
+                    return LineTree(data=TreeType.LINE, children=[timestamp, subtree])
 
             anchor1 = " 's "
             anchor2 = " fails. "
@@ -1120,7 +1126,7 @@ class Parser2:
                         ],
                     )
 
-                    return Tree(data=TreeType.LINE, children=[timestamp, subtree])
+                    return LineTree(data=TreeType.LINE, children=[timestamp, subtree])
 
             # Find the two key anchors in sequential order.
             p_s = line.find(" 's ", p_ts_end)
@@ -1148,7 +1154,7 @@ class Parser2:
                     ],
                 )
 
-                return Tree(data=TreeType.LINE, children=[timestamp, subtree])
+                return LineTree(data=TreeType.LINE, children=[timestamp, subtree])
 
             middle_anchor = " attacks but "
             final_anchor_with_newline = " is immune.\n"
@@ -1176,7 +1182,7 @@ class Parser2:
                         children=[Token("t", attacker), Token("t", target)],
                     )
 
-                    return Tree(data=TreeType.LINE, children=[timestamp, subtree])
+                    return LineTree(data=TreeType.LINE, children=[timestamp, subtree])
 
             p_performs = line.find(" performs ", p_ts_end)
 
@@ -1200,7 +1206,7 @@ class Parser2:
                             Token("t", targetname),
                         ],
                     )
-                    return Tree(data=TreeType.LINE, children=[timestamp, subtree])
+                    return LineTree(data=TreeType.LINE, children=[timestamp, subtree])
 
                 else:
                     # performs_line (less specific, potentially dangerous)
@@ -1215,7 +1221,7 @@ class Parser2:
                         data=TreeType.PERFORMS_LINE,
                         children=[Token("t", performer), Token("t", spellname)],
                     )
-                    return Tree(data=TreeType.LINE, children=[timestamp, subtree])
+                    return LineTree(data=TreeType.LINE, children=[timestamp, subtree])
 
             middle_anchor = " falls and loses "
             final_anchor_with_newline = " health.\n"
@@ -1238,7 +1244,7 @@ class Parser2:
                         data=TreeType.FALLS_LINE, children=[Token("t", name), Token("t", amount)]
                     )
 
-                    return Tree(data=TreeType.LINE, children=[timestamp, subtree])
+                    return LineTree(data=TreeType.LINE, children=[timestamp, subtree])
 
             anchor1 = " is immune to "
             anchor2 = " 's "
@@ -1269,7 +1275,7 @@ class Parser2:
                     ],
                 )
 
-                return Tree(data=TreeType.LINE, children=[timestamp, subtree])
+                return LineTree(data=TreeType.LINE, children=[timestamp, subtree])
 
             p_s = line.find(" 's ", p_ts_end)
             p_evaded = line.find(" was evaded by ", p_s)
@@ -1293,7 +1299,7 @@ class Parser2:
                     ],
                 )
 
-                return Tree(data=TreeType.LINE, children=[timestamp, subtree])
+                return LineTree(data=TreeType.LINE, children=[timestamp, subtree])
 
             consolidated_anchor = "CONSOLIDATED: "
             p_consolidated = line.find(consolidated_anchor, p_ts_end)
@@ -1317,7 +1323,7 @@ class Parser2:
                             pet_entries.append(pet_tree)
 
                 subtree = Tree(data=TreeType.CONSOLIDATED_LINE, children=pet_entries)
-                return Tree(data=TreeType.LINE, children=[timestamp, subtree])
+                return LineTree(data=TreeType.LINE, children=[timestamp, subtree])
 
             p_s = line.find(" 's ", p_ts_end)
             p_absorbed = line.find(" is absorbed by ", p_s)
@@ -1342,7 +1348,7 @@ class Parser2:
                     ],
                 )
 
-                return Tree(data=TreeType.LINE, children=[timestamp, subtree])
+                return LineTree(data=TreeType.LINE, children=[timestamp, subtree])
 
             p_absorbs = line.find(" absorbs ", p_ts_end)
             p_s = line.find(" 's ", p_absorbs)
@@ -1369,7 +1375,7 @@ class Parser2:
                     ],
                 )
 
-                return Tree(data=TreeType.LINE, children=[timestamp, subtree])
+                return LineTree(data=TreeType.LINE, children=[timestamp, subtree])
 
             middle_anchor = " is slain by "
             p_slain = line.find(middle_anchor, p_ts_end)
@@ -1392,7 +1398,7 @@ class Parser2:
                         data=TreeType.SLAIN_LINE, children=[Token("t", victim), Token("t", slayer)]
                     )
 
-                    return Tree(data=TreeType.LINE, children=[timestamp, subtree])
+                    return LineTree(data=TreeType.LINE, children=[timestamp, subtree])
 
             action_phrase = " creates "
             p_action = line.find(action_phrase, p_ts_end)
@@ -1411,7 +1417,7 @@ class Parser2:
                     children=[Token("t", creator_name), Token("t", item_name)],
                 )
 
-                return Tree(data=TreeType.LINE, children=[timestamp, subtree])
+                return LineTree(data=TreeType.LINE, children=[timestamp, subtree])
 
             middle_anchor = " is killed by "
             p_killed = line.find(middle_anchor, p_ts_end)
@@ -1429,7 +1435,7 @@ class Parser2:
                     data=TreeType.IS_KILLED_LINE, children=[Token("t", victim), Token("t", killer)]
                 )
 
-                return Tree(data=TreeType.LINE, children=[timestamp, subtree])
+                return LineTree(data=TreeType.LINE, children=[timestamp, subtree])
 
             final_anchor_with_newline = " is destroyed.\n"
 
@@ -1444,7 +1450,7 @@ class Parser2:
 
                 subtree = Tree(data=TreeType.IS_DESTROYED_LINE, children=[Token("t", entity_name)])
 
-                return Tree(data=TreeType.LINE, children=[timestamp, subtree])
+                return LineTree(data=TreeType.LINE, children=[timestamp, subtree])
 
             p_s = line.find(" 's ", p_ts_end)
             p_reflected = line.find(" is reflected back by ", p_s)
@@ -1469,42 +1475,42 @@ class Parser2:
                     ],
                 )
 
-                return Tree(data=TreeType.LINE, children=[timestamp, subtree])
+                return LineTree(data=TreeType.LINE, children=[timestamp, subtree])
 
             if line.find("COMBATANT_INFO: ", p_ts_end + 2, p_ts_end + 2 + 16) != -1:
                 timestamp = self.parse_ts(line, p_ts_end)
                 subtree = Tree(data=TreeType.COMBATANT_INFO_LINE, children=[])
-                return Tree(data=TreeType.LINE, children=[timestamp, subtree])
+                return LineTree(data=TreeType.LINE, children=[timestamp, subtree])
 
             if line.find("NONE", p_ts_end + 2, p_ts_end + 2 + 4) != -1:
                 timestamp = self.parse_ts(line, p_ts_end)
                 subtree = Tree(data=TreeType.NONE_LINE, children=[])
-                return Tree(data=TreeType.LINE, children=[timestamp, subtree])
+                return LineTree(data=TreeType.LINE, children=[timestamp, subtree])
 
             if line.find(" fails to dispel ", p_ts_end + 2) != -1:
                 timestamp = self.parse_ts(line, p_ts_end)
                 subtree = Tree(data=TreeType.FAILS_TO_DISPEL_LINE, children=[])
-                return Tree(data=TreeType.LINE, children=[timestamp, subtree])
+                return LineTree(data=TreeType.LINE, children=[timestamp, subtree])
 
             if line.find(" health for swimming in lava.", p_ts_end + 2) != -1:
                 timestamp = self.parse_ts(line, p_ts_end)
                 subtree = Tree(data=TreeType.LAVA_LINE, children=[])
-                return Tree(data=TreeType.LINE, children=[timestamp, subtree])
+                return LineTree(data=TreeType.LINE, children=[timestamp, subtree])
 
             if line.find(" slays ", p_ts_end + 2) != -1 and line.endswith("!\n"):
                 timestamp = self.parse_ts(line, p_ts_end)
                 subtree = Tree(data=TreeType.SLAYS_LINE, children=[])
-                return Tree(data=TreeType.LINE, children=[timestamp, subtree])
+                return LineTree(data=TreeType.LINE, children=[timestamp, subtree])
 
             if line.find(" pet begins eating a ", p_ts_end + 2) != -1:
                 timestamp = self.parse_ts(line, p_ts_end)
                 subtree = Tree(data=TreeType.PET_BEGINS_EATING_LINE, children=[])
-                return Tree(data=TreeType.LINE, children=[timestamp, subtree])
+                return LineTree(data=TreeType.LINE, children=[timestamp, subtree])
 
             if line.endswith(" 's equipped items suffer a 10% durability loss.\n"):
                 timestamp = self.parse_ts(line, p_ts_end)
                 subtree = Tree(data=TreeType.EQUIPPED_DURABILITY_LOSS_LINE, children=[])
-                return Tree(data=TreeType.LINE, children=[timestamp, subtree])
+                return LineTree(data=TreeType.LINE, children=[timestamp, subtree])
 
             p_s = line.find(" 's ", p_ts_end)
             p_blocked = line.find(" was blocked by ", p_s)
@@ -1528,7 +1534,7 @@ class Parser2:
                     ],
                 )
 
-                return Tree(data=TreeType.LINE, children=[timestamp, subtree])
+                return LineTree(data=TreeType.LINE, children=[timestamp, subtree])
 
             middle_anchor = " attacks. "
             final_anchor_with_newline = " blocks.\n"
@@ -1550,7 +1556,7 @@ class Parser2:
                         children=[Token("t", attacker), Token("t", blocker)],
                     )
 
-                    return Tree(data=TreeType.LINE, children=[timestamp, subtree])
+                    return LineTree(data=TreeType.LINE, children=[timestamp, subtree])
 
             p_interrupts = line.find(" interrupts ", p_ts_end)
             p_s = line.find(" 's ", p_interrupts)
@@ -1576,7 +1582,7 @@ class Parser2:
                     ],
                 )
 
-                return Tree(data=TreeType.LINE, children=[timestamp, subtree])
+                return LineTree(data=TreeType.LINE, children=[timestamp, subtree])
 
             middle_anchor = " attacks. "
             final_anchor_with_newline = " absorbs all the damage.\n"
@@ -1599,7 +1605,7 @@ class Parser2:
                         children=[Token("t", attacker), Token("t", absorber)],
                     )
 
-                    return Tree(data=TreeType.LINE, children=[timestamp, subtree])
+                    return LineTree(data=TreeType.LINE, children=[timestamp, subtree])
 
             anchor1 = " gains "
             anchor2 = " Happiness from "
@@ -1625,7 +1631,7 @@ class Parser2:
                         children=[Token("t", pet_name), Token("t", amount), Token("t", owner_name)],
                     )
 
-                    return Tree(data=TreeType.LINE, children=[timestamp, subtree])
+                    return LineTree(data=TreeType.LINE, children=[timestamp, subtree])
 
             final_anchor = " is dismissed.\n"
 
@@ -1654,7 +1660,7 @@ class Parser2:
                         data=TreeType.IS_DISMISSED_LINE,
                         children=[Token("t", owner_name), Token("t", pet_name)],
                     )
-                    return Tree(data=TreeType.LINE, children=[timestamp, subtree])
+                    return LineTree(data=TreeType.LINE, children=[timestamp, subtree])
 
         except Exception as e:
             msg = f"{e} {line} \n"

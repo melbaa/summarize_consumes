@@ -1,3 +1,4 @@
+from __future__ import annotations
 import argparse
 import collections
 import csv
@@ -53,7 +54,7 @@ from melbalabs.summarize_consumes.entity_model import TrinketComponent
 from melbalabs.summarize_consumes.entity_model import ReceiveBuffSpellComponent
 from melbalabs.summarize_consumes.entity_model import ClassCooldownComponent
 from melbalabs.summarize_consumes.entity_db import TRINKET_RENAME
-from melbalabs.summarize_consumes.parser import Parser2
+from melbalabs.summarize_consumes.parser import LineTree, Parser2
 from melbalabs.summarize_consumes.parser import Tree
 from melbalabs.summarize_consumes.parser import ParserError
 from melbalabs.summarize_consumes.parser import TreeType
@@ -64,8 +65,13 @@ from melbalabs.summarize_consumes.parser import ActionValue
 import melbalabs.summarize_consumes.package as package
 
 
+
 class App:
-    pass
+    unparsed_logger: UnparsedLogger|NullLogger
+    unparsed_logger_fast: UnparsedLogger|NullLogger
+    timestamp_parser: FastTimestampParser
+    #player: Dict[str, Dict[str, int]]
+    parser: Parser2
 
 
 @functools.cache
@@ -396,7 +402,7 @@ RENAME_SPELL = get_spell_rename_map()
 
 def rename_spell(spell: str, line_type: TreeType):
     rename = RENAME_SPELL.get((line_type, spell))
-    return rename or spell
+    return rename or CanonicalName(spell)
 
 
 # careful. not everything needs an itemid
@@ -1901,7 +1907,7 @@ class Infographic:
         print(f"Infographic saved to: {filepath}")
 
 
-def parse_line(app, line):
+def parse_line(app: App, line: str):
     try:
         if line == "\n":
             return False
@@ -1929,7 +1935,7 @@ def parse_line(app, line):
         raise
 
 
-def process_tree(app, line, tree: Tree):
+def process_tree(app: App, line: str, tree: LineTree):
     """
     returns True to mark line as processed
     """
@@ -2513,7 +2519,11 @@ def process_tree(app, line, tree: Tree):
         source = subtree.children[2].value
         app.proc_count.add_extra_attacks(howmany=howmany, name=name, source=source)
         app.ability_timeline.add_extra_attacks(
-            howmany=howmany, name=name, source=source, timestamp_unix=timestamp_unix
+            howmany=howmany,
+            name=name,
+            source=source,
+            line_type=subtree.data,
+            timestamp_unix=timestamp_unix,
         )
         return True
     elif subtree.data == TreeType.DODGES_LINE:
