@@ -55,7 +55,6 @@ from melbalabs.summarize_consumes.entity_model import ReceiveBuffSpellComponent
 from melbalabs.summarize_consumes.entity_model import ClassCooldownComponent
 from melbalabs.summarize_consumes.entity_db import TRINKET_RENAME
 from melbalabs.summarize_consumes.parser import LineTree, Parser2
-from melbalabs.summarize_consumes.parser import Tree
 from melbalabs.summarize_consumes.parser import ParserError
 from melbalabs.summarize_consumes.parser import TreeType
 from melbalabs.summarize_consumes.timeline import AbilityTimeline
@@ -67,11 +66,54 @@ import melbalabs.summarize_consumes.package as package
 
 
 class App:
+    parser: Parser2
     unparsed_logger: UnparsedLogger|NullLogger
     unparsed_logger_fast: UnparsedLogger|NullLogger
     timestamp_parser: FastTimestampParser
-    #player: Dict[str, Dict[str, int]]
-    parser: Parser2
+    player: Dict[str, Dict[str, int]]
+    player_superwow: Dict[str, Dict[str, int]]
+    player_superwow_unknown: Dict[str, Dict[str, int]]
+    merge_superwow_consumables: MergeSuperwowConsumables
+    class_detection: ClassDetection
+    spell_count: SpellCount
+    sunder_armor_summary: SunderArmorSummary
+    cooldown_summary: CooldownSummary
+    proc_count: ProcCount
+    proc_summary: ProcSummary
+    auto_attack_stats: AutoAttackStats
+    auto_attack_summary: AutoAttackSummary
+    last_hit_cache: Dict[str, Dict[str, float]]
+    player_detect: Dict[str, set]
+    pet_handler: PetHandler
+    death_count: Dict[str, int]
+    hits_consumable: HitsConsumable
+    web_price_provider: WebPriceProvider
+    pricedb: PriceDB
+    consumables_accumulator: ConsumablesAccumulator
+    print_consumables: PrintConsumables
+    print_consumable_totals_csv: PrintConsumableTotalsCsv
+    annihilator: Annihilator
+    flamebuffet: FlameBuffet
+    nef_corrupted_healing: NefCorruptedHealing
+    nef_wild_polymorph: NefWildPolymorph
+    viscidus: Viscidus
+    huhuran: Huhuran
+    cthun_chain: BeamChain
+    gluth: Gluth
+    fourhm_chain: BeamChain
+    kt_frostblast: KTFrostblast
+    kt_frostbolt: KTFrostbolt
+    kt_shadowfissure: KTShadowfissure
+    kt_guardian: KTGuardian
+    dmgstore: Dmgstore2
+    dmgtakenstore: Dmgstore2
+    healstore: Dmgstore2
+    ability_timeline: AbilityTimeline
+    encounter_mobs: EncounterMobs|NullEncounterMobs
+    techinfo: Techinfo
+    infographic: Infographic
+    log_downloader: LogDownloader
+    
 
 
 @functools.cache
@@ -331,7 +373,7 @@ def create_app(
     return app
 
 
-def check_existing_file(file: Path, delete: bool = False) -> None:
+def check_existing_file(file: Path, delete: bool = False):
     """Check if file exist and deletes it when forced to.
 
     - file (Path): File location
