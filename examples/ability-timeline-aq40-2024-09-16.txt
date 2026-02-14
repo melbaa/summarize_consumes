@@ -9,7 +9,7 @@ Psykhe (58815)
   Badge of the Swarmguard                                  G                             F                                       
   Recklessness                                               G              F                                                    
   Berserking                                                  G         F                                                        
-  Windfury Totem                                                      F     G F    G F  GF    GF    GF          F    FGF GF      
+  Windfury Totem                                               x     xF     G F    G F  GF    GF    GF       x  Fx   FGF GF      
   Bloodlust                                                                                G                   F                 
   Auto Attack (24676)                                  xxxxx xxxx  xxxxxx   x      x x xx   xxx    xxxxxxx  xxxxxxxxxxxx xx      
   Heroic Strike (14235)                                        xx x xx x    x        x  x                x   x x                 
@@ -57,7 +57,7 @@ Spankys (36407)
   Bite (402)                                                        x                      x                  x                  
   Arcane Shot (384)                                                                                      x       x               
 Bobsterr (34186)
-  Windfury Totem                                               GFGF GF                               GF    G F GF                
+  Windfury Totem                                               GxxFxxF                               GF    G F GF                
   Auto Attack (7968)                                   x   x x xxx xx     x  x x  x  xx x  x  x      x  x  x x x   x xx          
   Thunderfury (7563)                                   x x     xx     x  x   x x   x xx x  xx        x  x  x x x                 
   Seal of Righteousness (7560)                         x x x   xxx xx x   x  x xx x  xx x  x  x      xx x  x x x x x xx          
@@ -103,7 +103,7 @@ Kayax (20280)
   Corruption (732)                                           x  x                                                                
 Pitbound (19297)
   Death Wish                                          x                             F                                            
-  Windfury Totem                                      G F      GF                                 GF G F                         
+  Windfury Totem                                      G F      GF                                xGF G F                         
   Bloodrage                                                   GxxxxxxxxxF                                                        
   Kiss of the Spider                                                                                             G               
   Auto Attack (6179)                                    xxx x xxx x x                         xx xxx x x x xxxx x x  x           
@@ -168,7 +168,7 @@ Magn (16010)
   Bloodthirst (2158)                                              x       x          x                      x                    
 Mcstabbys (14778)
   Sinister Strike (5108)                               xx   xx  x        x                 xx   x                 x      x       
-  Windfury Totem                                                         GFF                                         G F         
+  Windfury Totem                                                         GFF                    x    x               G F         
   Auto Attack (9278)                                   x x xxxxxx    x xxxxx x        xxxxx x x x x             xx x x x x       
   Deadly Poison V (204)                                                 x  x                     x  x  x  x                      
   Kick (98)                                                           x                   x                                      
@@ -208,12 +208,15 @@ Aquatic (4685)
   Ignite (558)                                                            x x                                                    
 Immunium (4440)
   Frostbolt (4440)                                                           x               x  x                    x           
+Flowest
+  Windfury Totem                        x              x        x           x        x       x               x        x          
+  Strength of Earth Totem                              x                                                                         
+  Mana Spring Totem                                     x                                                                        
+  Grace of Air Totem                                          x   x            x       x          x            x        x        
 Ostkastare
   Tranquil Air Totem                                        x                                                                    
   Mana Spring Totem                                         x                                                                    
   Nature's Swiftness                                                        F                                                    
-Pristitute
-  Inner Focus                                                                                                      G  F          
 Yakub
   Tranquil Air Totem                                   x                                                                         
   Mana Spring Totem                                    x                                                                         
@@ -221,11 +224,8 @@ Yakub
   The Eye of the Dead                                                                                                   G        
 Jocaste
   The Eye of the Dead                                                                                                    G       
-Flowest
-  Windfury Totem                        x              x        x           x        x       x               x        x          
-  Strength of Earth Totem                              x                                                                         
-  Mana Spring Totem                                     x                                                                        
-  Grace of Air Totem                                          x   x            x       x          x            x        x        
+Pristitute
+  Inner Focus                                                                                                      G  F          
 Interlan
   Strength of Earth Totem                                x   x                                                                   
   Mana Spring Totem                                       x  x                                                                   
@@ -296,7 +296,7 @@ Clapya (18962)
   Flame Shock (1183)                                                                               x  x  x  x  x                    
   Earth Shock (910)                                                                                                    x            
 Bobsterr (18664)
-  Windfury Totem                                              F                               F    GF   GF G F GG F  GFGF           
+  Windfury Totem                                              F                               F    xF   GF x F GG F  GFGF           
   Auto Attack (5618)                                                                               xx x xx x   xx x xx x            
   Seal of Righteousness (4640)                                                                     xx x xx x   xx x xx x            
   Thunderfury (4050)                                                                            x  x    x      x  xx x x            
@@ -336,7 +336,7 @@ Aquatic (15636)
   Fireball (9643)                                                                                             x xx x xx             
   Ignite (2594)                                                                                      x x                            
 Goldengoose (15431)
-  Windfury Totem                                                                                           GGF         GF           
+  Windfury Totem                                                                                           GGF     x   GF           
   Auto Attack (5045)                                   x  x  x x   x        x    x     x              x    xx x  x x x              
   Holy Strike (2891)                                                      x                         x              x                
   Seal of Righteousness (2372)                                 x   x        x                         x    x  x  x x x              
@@ -450,12 +450,12 @@ Zdraxus (5720)
   Mind Blast (770)                                                                                      x                           
 Ostkastare
   Nature's Swiftness                                                                                  F                             
-Pristitute
-  Inner Focus                                                                                      G   F                            
 Yakub
   Tranquil Air Totem                             x                                                       x                          
   Mana Spring Totem                              x                                                       x                          
   Berserking                                                              F                                                         
+Pristitute
+  Inner Focus                                                                                      G   F                            
 Interlan
   Mana Spring Totem                     x        x                                                      x                           
   Strength of Earth Totem               x        x                                                      x                           
@@ -467,7 +467,7 @@ Player (dmg) / Spell (dmg)               Time (seconds) ->
                                         0    '    10   '    20 
 Psykhe (22158)
   Bloodrage                             xxx xxxxF              
-  Windfury Totem                           G              F    
+  Windfury Totem                        x  G              F  x 
   Berserking                                      G            
   Auto Attack (8068)                    x xx xx xxxxxxxxx x xx 
   Execute (4828)                                          xx x 
@@ -482,7 +482,7 @@ Shreked (20848)
   Ignite (2813)                                           x x  
 Vallcow (20114)
   Bloodrage                             G xxxxxxxxF            
-  Windfury Totem                              F     G          
+  Windfury Totem                            x xx    G    x     
   Death Wish                                         x         
   Kiss of the Spider                                 G         
   Berserker Rage                                            F  
@@ -498,7 +498,7 @@ Aquatic (17889)
   Fireball (7294)                                x xx x x xx x 
 Zloveleen (17664)
   Bloodrage                              Gx x xxx xF           
-  Windfury Totem                                F   F       F  
+  Windfury Totem                             x xF   F       F  
   Berserker Rage                                       G       
   Auto Attack (6733)                       x xxxxxxxxx   xx x  
   Heroic Strike (4094)                           x x  x x      
@@ -526,7 +526,7 @@ Dirael (11510)
   Trueshot (3922)                             x x x  x    x  x 
   Multi-Shot (1309)                       x           x        
 Bobsterr (11478)
-  Windfury Totem                              G   G   G F      
+  Windfury Totem                              Gxx G   G F      
   Auto Attack (2581)                        x xxx x x          
   Dragonbreath Chili (2462)                       x            
   Seal of Righteousness (2231)              x xxx x x x        
@@ -597,6 +597,7 @@ Ratthew (7336)
   Earth Shock (889)                             x          x   
 Mcstabbys (7129)
   Sinister Strike (1573)                 x    x   x            
+  Windfury Totem                            x                  
   Blade Flurry                                             F   
   Auto Attack (5556)                     xx xxxxxxx xxx        
 Zdraxus (7019)
@@ -631,18 +632,18 @@ Richardtater (3389)
   Bloodthirst (561)                                      x     
   Cleave (282)                                        x        
   Deep Wound (40)                                         x    
+Flowest
+  Windfury Totem                        x                      
 Ostkastare
   Tranquil Air Totem                    x                      
   Mana Spring Totem                      x                     
-Yakub
-  The Eye of the Dead                       G                  
-  Berserking                                          G        
 Magn
   Bloodrage                             G xxxxxx xF            
   Windfury Totem                         G F G                 
   Shield Block                                      G   F G F  
-Flowest
-  Windfury Totem                        x                      
+Yakub
+  The Eye of the Dead                       G                  
+  Berserking                                          G        
 Interlan
   Grace of Air Totem                    x                      
 
@@ -652,7 +653,7 @@ Player (dmg) / Spell (dmg)               Time (seconds) ->
                                         0    '    10   '    20   '    30   '    40   '
 Psykhe (21984)
   Bloodrage                               x                                           
-  Windfury Totem                            F               G F            GF   GFG   
+  Windfury Totem                            F               G F            GFx  GFG   
   Kiss of the Spider                         G                                        
   Death Wish                                   x                             F        
   Auto Attack (7903)                                            xxx      x xxxxxxxx   
@@ -664,7 +665,7 @@ Psykhe (21984)
   Deep Wound (90)                                                   x  x              
 Zloveleen (17520)
   Bloodrage                               x x   x                                     
-  Windfury Totem                               G           G      GF      GF  G GF    
+  Windfury Totem                               G           G     xGF      GF  G GF    
   Berserker Rage                                                F                     
   Auto Attack (7817)                                           x xxxx  xxxx xxxxxx    
   Heroic Strike (2706)                                                      x x x     
@@ -686,7 +687,7 @@ Spankys (15322)
   Lightning Breath (310)                                           x            x     
   Bite (128)                                                            x             
 Vallcow (15134)
-  Windfury Totem                           G   F   F    GF        F       F     G F   
+  Windfury Totem                           G   F   F    GF        F      xF     G F   
   Kiss of the Spider                                               F                  
   Death Wish                                                                      F   
   Auto Attack (6242)                                           xx xx   x xxx xxxx x   
@@ -719,7 +720,7 @@ Adachisakura (13836)
   Shadow Bolt (11638)                                                x x  x  x x      
   Corruption (2198)                           x  x  x  x  x  x                        
 Bobsterr (13424)
-  Windfury Totem                                                          GF  G F G   
+  Windfury Totem                                 x                        GF  x FxG   
   Thunderfury (3360)                                                x   x x xxx  x    
   Auto Attack (3093)                                                x x x x   x  xx   
   Seal of Righteousness (2824)                                      x x x x x x  xx   
@@ -744,7 +745,7 @@ Dhallya (11144)
   Trueshot (4345)                                                 x  x x   x x  x     
   Multi-Shot (1340)                        x                            x             
 Magn (11111)
-  Windfury Totem                              F                                       
+  Windfury Totem                            x F                                       
   Auto Attack (5599)                    xx  x xxxx       x  x         x xxxxx xxxx    
   Heroic Strike (2534)                     xx x       x x  x                          
   Bloodthirst (1841)                     x         x     x                            
@@ -753,15 +754,15 @@ Magn (11111)
 Mcstabbys (10828)
   Sinister Strike (3021)                                           xx    x   x    x   
   Blade Flurry                             G                                          
-  Windfury Totem                                                            F   GFG   
+  Windfury Totem                                                           xFx  GFG   
   Auto Attack (6825)                                               x x xxx x xx xxx   
   Eviscerate (676)                                                               x    
   Deadly Poison V (306)                                                 x  x  x  x    
 Pitbound (10506)
   Bloodrage                               x                                           
+  Windfury Totem                                 x                    x      G F GF   
   Death Wish                                                          F               
   Kiss of the Spider                                                     G            
-  Windfury Totem                                                             G F GF   
   Auto Attack (3956)                                           x  xxx x  x xxx x xx   
   Heroic Strike (3316)                                            x      xx xx  xx    
   Bloodthirst (2424)                                                  x      x        
@@ -872,7 +873,7 @@ Shreked (48579)
 Psykhe (47315)
   Kiss of the Spider                                  G              F                                                            
   Death Wish                                           x                             F                                            
-  Windfury Totem                                                          GFGFGF                        GF                 G FG F 
+  Windfury Totem                                              x          xGFGFGF                        GF                 G FG F 
   Berserking                                                                                   G         F                        
   Bloodlust                                                                                          G                   F        
   Berserker Rage                                                                                            G         F           
@@ -970,7 +971,7 @@ Zdraxus (25798)
   Pain Spike (1031)                                                                                                            x  
 Pitbound (25586)
   Bloodrage                                    GxxxxxxxxxF                                                                        
-  Windfury Totem                                GF G F                                      GF    G  F  G F  GF     G F           
+  Windfury Totem                                GF G F                                      GF    GxxF  G F  GF     G F           
   Shield Block                                         G     F                                                                    
   Heroic Strike (10248)                                                              x   x  xx x   x x x  xx  x  x xx     x x  x  
   Auto Attack (8227)                                                              xx  x   x x     x x   x    x  x   x    x   x    
@@ -988,7 +989,7 @@ Vallcow (23750)
 Immunium (23185)
   Frostbolt (23185)                                                                 x x x x  x xx x x     x x  x  x     x x  x    
 Bobsterr (21858)
-  Windfury Totem                                                                                             G  GF     G  F       
+  Windfury Totem                                                                                             Gx GF     G xF       
   Holy Strike (5021)                                                                      x         x           x             x   
   Auto Attack (3752)                                                              x x          x  x   x x x  xx x    x x x        
   Thunderfury (3750)                                                                x             x     xx    x x      x x        
@@ -999,7 +1000,7 @@ Bobsterr (21858)
   Crusader Strike (118)                                                           x                  xx xx x xx      x x x    x   
 Magn (18145)
   Bloodrage                                     x xxx xxxxF                                                                       
-  Windfury Totem                                                                      G F   G F  GF    GF    GF   G G F           
+  Windfury Totem                                                                      G F   GxF  GF    GF    GF   G G F           
   Auto Attack (8655)                                                    x  xxx xx   xxxx xx xxx   xxx xxxx xxxxxxxx x  xxxx xx    
   Bloodthirst (3918)                                                                  x      x         x          x      x        
   Heroic Strike (2892)                                                      x x          x    x  x      x x                       
@@ -1053,27 +1054,27 @@ Catajumbo (348)
   Strength of Earth Totem                            x                                                                            
   Fire Nova Totem                                       x                                                                         
   Auto Attack (348)                                                             x                                                 
-Ostkastare
-  Tranquil Air Totem                             x                                                                                
-  Mana Spring Totem                              x                                                                                
-  Nature's Swiftness                                           G   F                                                              
-Pristitute
-  Inner Focus                                                                       G  F                                          
-Yakub
-  Tranquil Air Totem                           x                                                                                  
-  Mana Spring Totem                            x                                                                                  
-  The Eye of the Dead                             G               F                                                               
-  Berserking                                                  G         F                                                         
-Ratthew
-  Strength of Earth Totem                     x                                                                                   
-  Mana Spring Totem                           x                                                                                   
-  Windfury Totem                              x         x                                                                         
-  Grace of Air Totem                              x                                                                               
 Flowest
   Windfury Totem                        x       x       x            x       x       x       x        x        x       x          
   Strength of Earth Totem                        x                                                                                
   Mana Spring Totem                              x                                                                                
   Grace of Air Totem                               x     x              x      x       x        x        x        x      x        
+Ostkastare
+  Tranquil Air Totem                             x                                                                                
+  Mana Spring Totem                              x                                                                                
+  Nature's Swiftness                                           G   F                                                              
+Yakub
+  Tranquil Air Totem                           x                                                                                  
+  Mana Spring Totem                            x                                                                                  
+  The Eye of the Dead                             G               F                                                               
+  Berserking                                                  G         F                                                         
+Pristitute
+  Inner Focus                                                                       G  F                                          
+Ratthew
+  Strength of Earth Totem                     x                                                                                   
+  Mana Spring Totem                           x                                                                                   
+  Windfury Totem                              x         x                                                                         
+  Grace of Air Totem                              x                                                                               
 Interlan
   Grace of Air Totem                         x                                                                                    
   Mana Spring Totem                          x                                                                                    
@@ -1097,7 +1098,7 @@ Shreked (67813)
   Auto Attack (368)                                           x                                                     
   Arcane Explosion (303)                                                                   x                        
 Sabroso (66824)
-  Windfury Totem                                         GF    F                   G F             G F              
+  Windfury Totem                                         GF    F                   G F             x F              
   Bloodrage                                                  GxxxxxxxxxF                                            
   Death Wish                                                               x                             F          
   Jom Gabbar                                                                     G G G G G G G G G G F              
@@ -1142,7 +1143,7 @@ Spankys (44089)
   Bite (377)                                                       x                       x            x           
   Arcane Shot (242)                                           x                                                     
 Psykhe (41902)
-  Windfury Totem                                           F        F        F      F                       GF      
+  Windfury Totem                                           F        F       xF      F                       GF      
   Kiss of the Spider                                                       G              F                         
   Badge of the Swarmguard                                                  G                             F          
   Berserking                                                                 G         F                            
@@ -1204,7 +1205,7 @@ Dirael (35714)
   Arcane Shot (364)                                                                                    x            
 Pitbound (32438)
   Death Wish                                         x                             F                                
-  Windfury Totem                                            GGFGF    GF   G F     GGF G F     G F                   
+  Windfury Totem                                           xGGFGF    GF   G F     GGF G F  x  GxF                   
   Kiss of the Spider                                            G              F                                    
   Heroic Strike (12601)                                   xx x x   x      x  x xx xx xx  x xx x      x  x           
   Auto Attack (9623)                                  x   x xx xxxx xxxx    xx  x xxx  xx  xxx xxx   x  x           
@@ -1219,7 +1220,7 @@ Viridissima (31872)
   Burning Hatred (3176)                                         x  x  x          x x                                
 Mcstabbys (31659)
   Sinister Strike (10514)                                x xx   xx   x x x x x   x     x   x   x   x    x           
-  Windfury Totem                                         G  F      GF          GF  G F          GF                  
+  Windfury Totem                                         G xF      GF          GF  G F         xGF                  
   Adrenaline Rush                                              G              F                                     
   Blade Flurry                                                      G              F                                
   Auto Attack (16715)                                    xxxxx xxxxx x xxxxx xxxxxxx xxxxxxxx xxxx x x x            
@@ -1227,7 +1228,7 @@ Mcstabbys (31659)
   Deadly Poison V (1960)                                     x  x  x  x  x  x  x  x  x  x  x  x  x  x  x            
   Dream's Herald (258)                                                             xx xxxx xxx xx xx xxxx           
 Bobsterr (31209)
-  Windfury Totem                                         G G G F     G  F   G FG F      GF      GF                  
+  Windfury Totem                                         G G G F     Gx F   x FG F      GF      GF                  
   Auto Attack (8096)                                     x x x x x   xx x x x  x   x          x xx                  
   Holy Strike (6739)                                       x         x           x          x                       
   Seal of Righteousness (6482)                           x x x x x   xx     x  x x x        x x xx                  
@@ -1250,7 +1251,7 @@ Dhallya (26831)
   Trueshot (11250)                                         x  x  x  x x   x x x  x x  x  x     x  x                 
   Multi-Shot (2536)                                         x           x                                           
 Vallcow (25473)
-  Windfury Totem                                           G FGF G   F      GF GF     GF                 GF      F  
+  Windfury Totem                                           GxFGF Gx xF      GF GF     GF                 GF     xF  
   Death Wish                                                   x                             F                      
   Bloodrage                                                          GxxxxxxxxxF                                    
   Berserker Rage                                                               G         F                          
@@ -1290,7 +1291,7 @@ Zdraxus (20741)
   Shadow Word: Pain (4816)                                   x  x  x  x  x  x  x  x                                 
   Auto Attack (74)                                                                                      x           
 Magn (17113)
-  Windfury Totem                                                     G F                                   F  G F   
+  Windfury Totem                                       x             GxF                                   F  G F   
   Bloodrage                                                                                              Gxxxxxxxxx 
   Auto Attack (7045)                                  xx   xxxxx xxxxxx xxx  x      x xxx   x  x                    
   Heroic Strike (4075)                                     x         xx xx   x         x                            
@@ -1346,6 +1347,11 @@ Goldengoose (3450)
   Lightning Strike (24)                                  x x    x      x                        x                   
 Jocaste (408)
   Consecration (408)                                                                xxxx xx                         
+Flowest
+  Windfury Totem                                     x    x        x        x        x        x       x         x   
+  Strength of Earth Totem                                  x                                                        
+  Mana Spring Totem                                        x                                                        
+  Grace of Air Totem                                        x        x         x        x           x    x          
 Ostkastare
   Tranquil Air Totem                                          x                                                     
   Mana Spring Totem                                           x                                                     
@@ -1354,11 +1360,6 @@ Yakub
   Tranquil Air Totem                                   x      x                                                     
   Mana Spring Totem                                     x                                                           
   Berserking                                                                    G         F                         
-Flowest
-  Windfury Totem                                     x    x        x        x        x        x       x         x   
-  Strength of Earth Totem                                  x                                                        
-  Mana Spring Totem                                        x                                                        
-  Grace of Air Totem                                        x        x         x        x           x    x          
 Interlan
   Mana Spring Totem                                        x                                  x                     
   Grace of Air Totem                                       x                                  x                     
@@ -1559,11 +1560,11 @@ Lycel (234)
   Insect Swarm (234)                                xx  xx  x x                                                                     
 Martlflash (110)
   Consecration (110)                                                                          xxxx                                  
-Pristitute
-  Inner Focus                                                    G  F                                                               
 Yakub
   The Eye of the Dead                                   G          F                                                                
   Berserking                                                         G         F                                                    
+Pristitute
+  Inner Focus                                                    G  F                                                               
 Interlan
   Strength of Earth Totem               x                                            x                                              
   Grace of Air Totem                     x                                           x                                              
@@ -1586,7 +1587,7 @@ Psykhe (63653)
   Death Wish                                           x                             F                                   
   Kiss of the Spider                                   G              F                                                  
   Badge of the Swarmguard                               G                             F                                  
-  Windfury Totem                                         GF F        F         GF       GF     GFFF                      
+  Windfury Totem                                         GF F        F         GF      xGF     GFFF x                    
   Berserking                                               G         F                                                   
   Berserker Rage                                                                    G         F                          
   Auto Attack (23305)                                 xxxxxxx xxxxxx xx xxx x  xxx  x x xxx x xxxxx x                    
@@ -1640,8 +1641,8 @@ Murto (41287)
   Tranquilizing Shot                                           x                                                         
 Magn (40477)
   Bloodrage                                          GxxxxxxxxxF                                                         
+  Windfury Totem                                      x   GF                   G F                  GF                   
   Earthstrike                                          G                   F                                             
-  Windfury Totem                                          GF                   G F                  GF                   
   Death Wish                                                                    x                             F          
   Bloodlust                                                                      G                   F                   
   Berserking                                                                     G         F                             
@@ -1728,7 +1729,7 @@ Vallcow (26259)
   Thunderfury (2205)                                         xx          x  x x x      x                                 
   Whirlwind (1843)                                               x          x            x                               
 Bobsterr (24188)
-  Windfury Totem                                                                  GF              GF                     
+  Windfury Totem                                                                  GFx             GF                     
   Unstable Power                                                                   G                   F                 
   Auto Attack (5696)                                     x x x x x            x   x x xx x  x    xx x  x                 
   Seal of Righteousness (4225)                         x x x x x x x          x   x x         x  xx    x x               
@@ -1818,6 +1819,13 @@ Pyi (8775)
   Claw (2700)                                            x  x   x                 xx x                                   
   Ferocious Bite (1826)                                                          x       x                               
   Potent Venom (549)                                       x  x  x                  x  x  x  x  x  x                     
+Goldengoose
+  Death by Peasant                                                                         x                             
+Flowest
+  Windfury Totem                        x              x       x           x         x          x       x                
+  Strength of Earth Totem                              x                                                                 
+  Mana Spring Totem                                     x                                                                
+  Grace of Air Totem                                      x      x            x        x           x                     
 Ostkastare
   Tranquil Air Totem                                 x                                                                   
   Mana Spring Totem                                   x                                                                  
@@ -1826,13 +1834,6 @@ Yakub
   Mana Spring Totem                                     x                                                                
   Berserking                                                  G        F                                                 
   The Eye of the Dead                                         G                    F                                     
-Goldengoose
-  Death by Peasant                                                                         x                             
-Flowest
-  Windfury Totem                        x              x       x           x         x          x       x                
-  Strength of Earth Totem                              x                                                                 
-  Mana Spring Totem                                     x                                                                
-  Grace of Air Totem                                      x      x            x        x           x                     
 Interlan
   Mana Spring Totem                              x                                                                       
   Grace of Air Totem                             x                                                                       
@@ -1845,140 +1846,140 @@ Ability Timeline for Emperor Vek'lor (203.7s)
 Player (dmg) / Spell (dmg)               Time (seconds) ->
                                         0    '    10   '    20   '    30   '    40   '    50   '    60   '    70   '    80   '    90   '    100  '    110  '    120  '    130  '    140  '    150  '    160  '    170  '    180  '    190  '    200 
 Shreked (98070)
-  Scorch (14370)                                                     x  x                x                                    xx x xx                               x  x x                                x x xx x                x                 
+  Scorch (14370)                                                     x  x                x                                    xx x xx                               x   xx                                x x xx x                x                 
   Mind Quickening                                                                                                                    G                                                                                                              
   Combustion                                                                                                                               G  G   F                                                                                                 
-  Fireball (55241)                                                                            x xx xx x x xx x x x x                     x x xx x x xxxx x x x x x            x xx xx xx x x x x                     x xx x x xx xx x x x x  x xx x 
+  Fireball (55241)                                                                            x xx xx x x xx x x x x                     x x xx x x xx x x x x x x            x xx xx xx x x x x                     x x xx x xx xx x x x x  x x xx 
   Ignite (23023)                                                                                x x                                  x x   x x x    x x               x x x x   x x x x x                                                         x 
   Pyroblast (3795)                                                               x  x  x  x  x                                                                                                                                                      
-  Fire Blast (1641)                                                                                                                                                                                                               x                 
+  Fire Blast (1641)                                                                                                                                                                                                                x                
 Starraven (96477)
   Essence of Sapphiron                                                                                                                                                                                                           F                  
-  Wrath (63169)                                                         x x x                     x xx  x x xx  xxx x                   x xxx xxx x x x xx x x               x xx x xx x  x x xx                   x  xx x xx xx x xx x        x x  
-  Moonfire (13539)                                                                           x  x  x  x  x x  x  x  x  x           x  x  x  x  xx  x  x  x  x          x  x  x  x  x x  x  x  x  x               x  x  x  x  x             x  x  x  
+  Wrath (63169)                                                          xx x                     x x x x x xx  xxx x                   x xxx xx xx  xx xx x x               x xx x xx x  x x xx                   x  x xx xx xx x x xx        x x  
+  Moonfire (13539)                                                                           x  x  x  x  x x  x  x  x  x           x  x  x  x  xx  x  x  x  x          x  x  x  x  x x  x  x  x  x                x x   x x   x            x  x  x  
   Starfire (11368)                                                             x  x                                   x  x                                    x                                    x                                                
-  Burning Hatred (8401)                                                   x                         xx                             x    x  x        x                          x          x                                x  x                     
+  Burning Hatred (8401)                                                   x                         x x                            x    x  x         x                         x          x                                x  x                     
 Medion (87710)
   Shadow Bolt (69447)                                                       x  x x  x x           x  x x  x x  x x                          x       x   x  x   x                x     x   x  x x  x  x             x    x  x  x x  x  x             
-  Corruption (15024)                                                     x  x  x  x  x  x      x  x  x  x  x  x                          x  x  x  x  x  x                    x  x  x  x  x  x          x  x  x  x  x  x                 x  x  x x   
+  Corruption (15024)                                                     x  x  x  x  x  x      x  x  x  x  x  x                          x  x  x  x  x  x                    x  x  x  x  x  x          x  x  x  x  x  x                 x  x  x  x  
   Searing Pain (2190)                                                                                                 x  x x                                                                                                                        
   Shadowburn (1049)                                                                                                                                                                                                                          x      
 Clapya (71311)
   Tranquil Air Totem                                 x                                                                           x                                                                                                                  
   Mana Spring Totem                                   x                                                                                                                                            x                                                
-  Lightning Bolt (68855)                                                    x  x x           x x x  x x x x x                              xx  x x x  x x x              x x x    x x  x x x x x              x x x x   x x  xx x x x x        x  x 
+  Lightning Bolt (68855)                                                    x  x x           x  x x x x x x x                              x x x x x  x x x              x x x    x  x x x x x x              x x x x   x x  xx x x x x        x  x 
   Chain Lightning (2456)                                                                                                                                                                                                                            
 Viridissima (66549)
-  Unstable Power                                                                                                                                                                                     F                                              
-  Wrath (44795)                                                             x x xx x x         x     x   x xx x x x       x x         x x xx    xx x x xx  x   x       x    x    x x x x   x x x  xx      x x xx x   x  x  x xx x   xx            x 
-  Insect Swarm (8573)                                                   x x x x x x  x x x x x x     x x x x x x    x x x x x x  x x x x x   x x x x x  x  xx x x x      x x x x x x                x x x x x x  x x x x x x                        
-  Burning Hatred (6900)                                                x    x      x                     x        x       x     x                                           x          x          xx                                              x 
-  Moonfire (6281)                                                      x  x   x  x x x  x  x x   x              x  x  x  x  x    x  x  x  x  x                                                                     x  x  x  x  x            x  x  x 
+  Unstable Power                                                                                                                                                                                      F                                             
+  Wrath (44795)                                                             x x xx x x         x     x   x x xx x x       x x         x x xx    xx x x xx  x   x       x    x     xx x x   x x x  xx      x x xx x   x  x  x xx x   xx            x 
+  Insect Swarm (8573)                                                   x x x x x x  x x x x x x     x  xx  xx x    x x  xx x x   x x x x x  x x x x x   x x xx  x x     x x x x x x                x x x x x x  x x x x x x                        
+  Burning Hatred (6900)                                                 x   x      x                     x        x       x     x                                           x          x          xx                                              x 
+  Moonfire (6281)                                                       x x   x  x x x  x  x  x  x              x  x  x  x  x    x  x  x  x  x                                                                     x  x  x  x  x            x  x  x 
 Zdraxus (62660)
-  Shadow Word: Pain (23072)                                                   x  x  x  x  x  x  x  x       x x   x  x  x  x  x  x              x  x  x  x  x  x  x  x    x  x  x  x  x  x  x  x         x  x  x  x  x x   x  x   x  x  x  x  x  x   
+  Shadow Word: Pain (23072)                                                   x  x  x  x  x  x  x  x       x  x  x  x  x  x  x  x              x  x  x  x  x  x  x  x    x  x  x  x  x  x  x  x         x  x  x  x  x  x  x  x   x  x  x  x  x  x   
   Mind Flay (22546)                                                           xx xx  x                        xx xx  xx   xx                    xx xx xx      xx             xxxx xx    xxxx xxx                xxx   xxxxx xx   xx             xxx 
   Mind Blast (17042)                                                                x                      x            x                      x           x             x            x             x                x              x         x     
 Sunpriest (58138)
   Ephemeral Power                                                                                                                                             G                                                                                     
-  Shadow Word: Pain (19067)                                        x  x  x  x  x  x  x   x  x  x  x  x  x  x   x  x  x  x  x    x  x  x  x  x  x  x  x        x  x  x  x  x  x  x  x               x  x  x  x  x  x  x  x     x  x  x  x  x  x  x   
-  Mind Flay (18500)                                                                            xxx  xxx xxx   xx                      xxxx x   x xxx   xxx                  xxx      xxxxx    xx            xxx  xxxxxx  xxx      xx              x 
-  Mind Blast (17339)                                                  x                  x         x       x                      x          x        x                x        x          x                   x        x        x             x    
-  Devouring Plague (1851)                                           x  x  x   x  x x  x  x                                                                                                                                                          
+  Shadow Word: Pain (19067)                                        x  x  x  x  x  x  x   x  x  x   x x  x  x   x  x  x  x  x    x  x  x  x   x  x  x x        x  x  x  x  x  x  x  x               x  x  x  x  x  x  x  x      x x   x  x  x  x  x  
+  Mind Flay (18500)                                                                            xxx   xx xxx    xx                     xxx xxx  xxxxx   xxx                  xxx      xxxxx    xx            xxx  xxxxxx  xxx      xx              x 
+  Mind Blast (17339)                                                  x                  x         x       x                       x         x        x                 x       x          x                    x       x        x             x    
+  Devouring Plague (1851)                                            x  x  x  x  x  x x   x                                                                                                                                                         
   Pain Spike (1381)                                                                                                                                                                                                           x                     
 Aquatic (49453)
   Scorch (6521)                                                    x x                                                                x                           x   x x                                       x x                                 
   Combustion                                                                                                                                                                     G   G                       F                                      
-  Fireball (19776)                                                                                      x x x x x                                     x x x x x                      x x x x x               x x x x x x xx x x x x x x x x x x x x 
-  Pyroblast (12828)                                                                                  x x  x  x  x                                  x  x  x  x  x                 x  x  x  x  x                                                      
+  Fireball (19776)                                                                                      x x x x x                                     x x x x x                      x x x x x               x x x x x x xx  xx x x x x x x x x x x 
+  Pyroblast (12828)                                                                                  x  x  x  x x                                  x  x  x  x  x                 x  x  x  x  x                                                      
   Ignite (9260)                                                        x x x                                                                                                                                   x x                  x x       x x   
   Fire Blast (1068)                                                                                                                                                                                                                              x  
 Immunium (45690)
-  Mind Quickening                                                                                                                                                  G                                                                                
-  Frostbolt (45690)                                                    x  x  x x     x                           x x                      x x  x  x x  x               x x x x   x x x x x  x   x           x  x x  x  x x     x  x x          x    
+  Mind Quickening                                                                                                                                                   G                                                                               
+  Frostbolt (45690)                                                    x  x  x x     x                           x x                      x x  x  x x  x               x x x x   x x x x x  x   x           x  x x  x  x  x    x  x x          x    
 Blindie (38156)
-  Smite (21828)                                                          x    x x x x            x x x x    x x  x     x x x              x    x x   x x x  x x                      x                                                              
-  Holy Fire (6558)                                                          x x x x x x       x x  xx x x x x x x x x                   x x x x x x                             x x x x x x                                                         
+  Smite (21828)                                                          x    x x x  x           x x x x    x x  x     x x x              x    x x   x x x  x x                      x                                                              
+  Holy Fire (6558)                                                          x x x x x x        xx  x xx x x x x x x x                   x x x x x x                             x x x x x x                                                         
   Shadow Word: Pain (5328)                                             x  x  x  x  x  x                                                x  x  x  x  x  x                      x  x  x  x  x  x                                                       
-  Burning Hatred (4442)                                                  x      x             x             x          x                x                     x                      x                                                              
+  Burning Hatred (4442)                                                  x      x              x            x          x                x                     x                      x                                                              
 Xiaofeigunn (34888)
   Scorch (930)                                                        x                                                                                                                                                                             
   Ignite (15780)                                                                  x x x              x x x x x                                                                                                                                      
   Fireball (14820)                                                                  x x x x xx xx xx x x xx xx x x x x                                                                                                                              
   Pyroblast (3358)                                                              x  x  x  x  x                                                                                                                                                       
 Adachisakura (29747)
-  Searing Pain (29156)                                 x x              x xx x x xx x                                         xx  x x xx x xx xx xx   x x x xx x                                       x x  x xx x xx xx x xx x xx xx               
+  Searing Pain (29156)                                 x x              x xx x x xx x                                         xx  x x xx x xx xx xx    xx x xx x                                       x x  x xx x xx xx x xx x xx xx               
   Death Coil (591)                                   x                                                                                                                                                                                              
 Kayax (16334)
-  Searing Pain (16334)                                                                    x x xx x x   x       xx x  x x x x                                         x x xx x x x x x x   x  x    x                                    x x  xx   xx 
+  Searing Pain (16334)                                                                    x x xx x x   x       xx x   xx x x                                         x x xx x x x x x  x  x  x    x                                    x x  x x  xx 
 Catajumbo (34)
   Searing Totem                                                                                                                                                            x                                   x                                    
   Windfury Totem                                                                                                                                                                                            x                                       
   Strength of Earth Totem                                                                                                                                                                                   x                                       
   Earth Shock (34)                                                          x                                                                                                                                                                       
-Dhallya
-  Slayer's Crest                                                                              G                                                                                                                                                     
-  Rapid Fire                                                                                  G                  F                                                                                                                                  
-Ostkastare
-  Nature's Swiftness                                                                                                                       F                                                                                                        
-Zloveleen
-  Windfury Totem                                                      G      G                                G                                           F                           FF           GF                     G                         
-  Bloodrage                                                                                                                                 x  x   F                                                                    G   xxxx                    
-  Badge of the Swarmguard                                                                                                                                                                                   G                                       
-Sabroso
-  Windfury Totem                        GF                            F                                 F       F                             F         F               F    G     F                                              G                 
-  Death Wish                                                                              x                             F                                                                                                                           
-  Bloodrage                                                                                           x   x   F                                                               x  x    F                                                  x  x   x F 
-  Berserker Rage                                                                                                                                                                   F                                                                
-Yakub
-  The Eye of the Dead                                                                                                           G                                                                                                                   
-Psykhe
-  Death Wish                                                                                   x                                                                                                                                                    
-  Windfury Totem                                                                                    G                                                                       F    F F F   F                                                          
-  Slayer's Crest                                                                                               F                                                                                                                                    
-  Bloodrage                                                                                                                                                        xx    x                                                                   x xx   
-  Berserking                                                                                                                                                                                                G                                       
-Magn
-  Windfury Totem                                                                         G F  GFG                 FG         F                                              F                F    G                                     F           
-  Shield Block                                                                                                 G                                                         F                                                                          
-  Bloodrage                                                                                                                                                                  xx    F                                                                
-Spankys
-  Slayer's Crest                                                                                            F                                                                                                                           F           
-  Berserking                                                                                                                             G        F                                                                                                 
-  Rapid Fire                                                                                                                             G                                                                                                          
-Jocaste
-  The Eye of the Dead                                                                                                                         G         F                                                                                           
-Ratthew
-  Strength of Earth Totem                     x                                                                                                                                                                                                     
-  Mana Spring Totem                           x                                                                                                                                                                                                     
-  Windfury Totem                               x                                                                                                         x                      x                                                                   
-  Grace of Air Totem                                                                             x                                               x                       x                  x                                                       
-Vallcow
-  Bloodrage                                                                    x   xx                                                         x                                                             x      xx                               
-  Berserker Rage                                                                     F                                                                                             F                                                                
-  Windfury Totem                                                                                    G                                                                                        G                                                G   G 
-  Death Wish                                                                                                                                                          x                                                                             
 Goldengoose
   Windfury Totem                                                     GF           F                                                                                                               F                                                 
 Flowest
   Windfury Totem                             x                                                                                                             x                                                                                        
   Strength of Earth Totem                    x                                                                                                             x                                                                                        
   Mana Spring Totem                          x                                                                                                                                                                                                      
-Mcstabbys
-  Windfury Totem                                                                                                                            G             F              F  G                               F               F                 F     
-  Blade Flurry                                                                                                                                 G              F                                                                                     
-  Adrenaline Rush                                                                                                                                        F                                                                                          
-Richardtater
-  Bloodrage                                                            xx                                                                                                                                     G x     x x                           
-  Berserker Rage                                                                                                                                     F                                                                                              
-Bobsterr
-  Windfury Totem                                                                                  G                                                                     G        F G F                            G          G                   G  
 Pitbound
   Bloodrage                                         Gxxxx  x                                                                                                                                                                                        
   Windfury Totem                                                                                                                   GG F F                                                                                                           
   Shield Block                                                                                                                       GF      F             G                                                         F        F                     
+Sabroso
+  Windfury Totem                        GF                            F                                 F       F                             F         F               F    G     F                                              G                 
+  Death Wish                                                                              x                             F                                                                                                                           
+  Bloodrage                                                                                           x   x   F                                                               x  x    F                                                  x  x   x F 
+  Berserker Rage                                                                                                                                                                   F                                                                
+Ostkastare
+  Nature's Swiftness                                                                                                                       F                                                                                                        
+Magn
+  Windfury Totem                                                                         G F  G G               x FG         F                                              F x              F    G                                     F           
+  Shield Block                                                                                                 G                                                         F                                                                          
+  Bloodrage                                                                                                                                                                  xx    F                                                                
+Richardtater
+  Bloodrage                                                            xx                                                                                                                                     G x     x x                           
+  Berserker Rage                                                                                                                                     F                                                                                              
+Vallcow
+  Bloodrage                                                                    x   xx                                                         x                                                             x      xx                               
+  Berserker Rage                                                                     F                                                                                             F                                                                
+  Windfury Totem                                                                                    G                                                                                        G                                                G   G 
+  Death Wish                                                                                                                                                          x                                                                             
 Cracklinoats
   Strength of Earth Totem                                                                        x                                                                                                                                                  
   Windfury Totem                                                                                                                            x                                                                                                x      
+Dhallya
+  Slayer's Crest                                                                              G                                                                                                                                                     
+  Rapid Fire                                                                                  G                  F                                                                                                                                  
+Mcstabbys
+  Windfury Totem                                                                                                                             G           xF              F  G                               F               F                 F     
+  Blade Flurry                                                                                                                                 G              F                                                                                     
+  Adrenaline Rush                                                                                                                                        F                                                                                          
+Spankys
+  Slayer's Crest                                                                                            F                                                                                                                           F           
+  Berserking                                                                                                                             G         F                                                                                                
+  Rapid Fire                                                                                                                             G                                                                                                          
+Bobsterr
+  Windfury Totem                                                                                   G                                                                    G        F G F  x                         G           G                  G  
+Yakub
+  The Eye of the Dead                                                                                                           G                                                                                                                   
+Jocaste
+  The Eye of the Dead                                                                                                                         G         F                                                                                           
+Psykhe
+  Death Wish                                                                                   x                                                                                                                                                    
+  Windfury Totem                                                                                     G                                                                      F    FxF  F  F                                                          
+  Slayer's Crest                                                                                               F                                                                                                                                    
+  Bloodrage                                                                                                                                                        xx    x                                                                    xx x  
+  Berserking                                                                                                                                                                                                G                                       
+Zloveleen
+  Windfury Totem                                                      xG     G                                G                                           F                           FF           GF                     G                         
+  Bloodrage                                                                                                                                 x  x   F                                                                    G   xxxx                    
+  Badge of the Swarmguard                                                                                                                                                                                   G                                       
+Ratthew
+  Strength of Earth Totem                     x                                                                                                                                                                                                     
+  Mana Spring Totem                            x                                                                                                                                                                                                    
+  Windfury Totem                               x                                                                                                         x                       x                                                                  
+  Grace of Air Totem                                                                             x                                               x                       x                  x                                                       
 Interlan
   Windfury Totem                                  x                                                                                                                                                                                                 
   Strength of Earth Totem                         x                                                                                                                                            x                                                    
@@ -1991,7 +1992,7 @@ Player (dmg) / Spell (dmg)               Time (seconds) ->
                                         0    '    10   '    20   '    30   '    40   '    50   '    60   '    70   '    80   '    90   '    100  '    110  '    120  '    130  '    140  '    150  '    160  '    170  '    180  '    190 
 Zloveleen (109997)
   Bloodrage                               GxxxxxxxxxF                                                                  Gxx xx xxx                                                                       xxx    xxF                        
-  Windfury Totem                                      F     F                   GFF           F                                 G F    G             GF            G GGF GF                   G F         F    GF                         
+  Windfury Totem                                      F     F                   GFF          xF                                 G F    G             GF            G GGFxGF                   G F       x F    GF                         
   Berserker Rage                                                                   G         F                                G         F                                                                                                 
   Death Wish                                                                                                                                                                               x                             F                
   Badge of the Swarmguard                                                                                                                                                                                                F                
@@ -2016,7 +2017,7 @@ Dirael (99992)
   Multi-Shot (16685)                              x               x                 x           x             x                x          x            x         x          x               x           x          x          x           
 Psykhe (97725)
   Slayer's Crest                                                          G                                                                                                                        G                  F                   
-  Windfury Totem                                                                   F     F                                                                G    G G G   G                                                      GF G F      
+  Windfury Totem                                                                x  F     F                                                              x G   xG G G   G                                                      GF G F      
   Death Wish                                                                                               F                                                                                                                              
   Kiss of the Spider                                                                                                  G             F                                                                                                     
   Bloodrage                                                                                                                                    Gx  xxxx xF                                                                Gx  x xxxxF     
@@ -2042,7 +2043,7 @@ Spankys (91674)
   Trueshot (31885)                          x      x x   x x x x  x         x  x    x x x x  x  x x  x x    x       x      x x               x         x  x  x  x  x  x     x x x  x            x  x  x  x  x  x  x          x x          
   Multi-Shot (13216)                                   x            x            x            x                         x          x           x           x           x             x           x           x             x              
 Sabroso (91000)
-  Windfury Totem                                   G   GF                            G        G                       G F G          G               G      F   G                                  GFGF          F                        
+  Windfury Totem                                   G  xGF          x                 G        G                       G F G          G               G     xF   G                                  GFGF    x     F                        
   Bloodrage                                                                       Gx xxx xxxx                                                             Gx xx xxxx                                                   G xx xxx x         
   Berserker Rage                                                                                                                                       G                                                                                  
   Auto Attack (28495)                       x xx x xxx xx  xx              x   xxxx  xxx xxxxxxx                      xx xxxx xxxxxxxxx            xxx xxxxxxx xx xxxxxx x               xx xxxxxxxxxxxxx xx xxxxx          x xxx x       
@@ -2065,7 +2066,7 @@ Vallcow (66054)
   Bloodrage                                             Gxxxx xxx F                                                   Gxxxxx xxxF                                                        G  xxxxx  F                                      
   Berserker Rage                                         G                                                                                             G                                       G         F                     G          
   Kiss of the Spider                                                             G              F                                                                                                                         G               
-  Windfury Totem                                                                   F        GF                G F                                             F             F             GF                                  F   F       
+  Windfury Totem                                                                  xF        GF                G F                                            xF  x         xF             GF                                 xF  xF       
   Death Wish                                                                                                                                                                      F                                                       
   Auto Attack (32935)                       x x xx xx xxx xxxx                  xx   x x  xxxxxxx             x x x x xxx xxxxxxxxx xx x                xxx x xxxxxxxx xx xx              xxxxxxx x xxxx  xxxxxxxx           xxxxx        
   Heroic Strike (14601)                        x    xxx       x                     x   xx                         xx xxx x   x     xx                xx     x       x   xxx               xx  xx                            x            
@@ -2079,7 +2080,7 @@ Lycel (61450)
   Savage Bite (456)                                x                                                                                                                                                                                      
 Mcstabbys (57065)
   Sinister Strike (17260)                  x x  xx   x   x                    xx  x  x   x     x                   x  xx  x   x  x xxx  x                x xx x    x     xx             xx    x   x        x  x           xx  x           
-  Windfury Totem                                         G F                      GF                                        F           G             G  GF F                            G    GF       GF G                G              
+  Windfury Totem                                         G F x                    GF                                       xF           G             G  GFxF            x               G    GF       GF G                G              
   Adrenaline Rush                                                                                                       G                                                                                                                 
   Auto Attack (39805)                      x x xxxxx xxxxx   x x              x xxxxxx x xxxxx x                    x xxx xxxxxx xxxxxxxx             x xxxxxxxxxx xxx x x              xxx xxxxx xx xxxxxxxxxxxxx        xx x  xx        
 Cracklinoats (42182)
@@ -2089,7 +2090,7 @@ Cracklinoats (42182)
   Auto Attack (34841)                        x   x         xx                   x  x     x  x                                  x  x  x             xx        x  x      x  x              x x   x   x x  x  x  x             x   x         
   Stormstrike (7341)                           x            x                    x            x                                x                    x           x                                       x                    x            
 Bobsterr (40774)
-  Windfury Totem                                      G GF                        F                                             G G F                   GFG FG G    G FGF  GF                 G F F   G F    F                   F        
+  Windfury Totem                                      G GF                       xF             x                               G G F                 x GFG FG G x  G FGF  GF                 G x F   G F   xF                   F        
   Auto Attack (12096)                              x xx x                        xx x x x   x x x                        xx x x x x   x               x      x x x         x                x x x x   x x x x x                   x       
   Seal of Righteousness (11925)                  x x xx x    x                 x xx x x x x x x x                        x  x x x x   x               x      x x x         x              x x x x x x   x x x x x                 x       
   Holy Strike (10056)                            x           x                 x          x                                       x                            x                          x         x           x                         
@@ -2101,7 +2102,7 @@ Pyi (38867)
   Claw (11857)                               xx  x      x                        x xx x  x x   x x              xx    x         x  x                  x  x  x  x      x   x                  x   x   x      x  x                          
   Ferocious Bite (4961)                            x                                    x                               x                                         x                                     x                                 
 Magn (25871)
-  Windfury Totem                                                                F        G F   G   F      G                                     GF   GF  G G F           G       F                                   G        G F  F      
+  Windfury Totem                                                        x      xF        G F   G x F      G                                     GF   GF  G G F           G      xF                                   G        G Fx F      
   Shield Block                                                                   GF     G  F      F                                                 G               G    F       G F                                         G  F         
   Bloodrage                                                                                                                                            Gxxx  xxxxx                                                                        
   Auto Attack (10885)                                                x  x x x  xx x      x   x x xxxx xxx x                                     x    xx    xxx xxx   xxxxx  xx  x x                                  x        x  x        
@@ -2112,7 +2113,7 @@ Pitbound (25825)
   Bloodrage                             xx xxF                                                                                                                                                                                            
   Shield Block                              G   F                                                                       G                 F                                            G  F     G        G                                
   Kiss of the Spider                          G              F                                                                                                                             G              F                               
-  Windfury Totem                                                                                              G  F    G                                                                GF  GF         F                                   
+  Windfury Totem                                                                                              G xFx   G                                                                GF  GF         F                                   
   Bloodlust                                                                                                         G                   F                                                                                                 
   Heroic Strike (10309)                  x   x  x  x x  x x x   x                                           x x x    xx x x x   x       x    x                                       x  x xx  x    x     x  x  x                          
   Auto Attack (7991)                    x  x     x  x      x x     x                                          x   x x x      x x xx xxxx   x                                           xx    x x xx  xxx   x  x  xxx                      
@@ -2136,43 +2137,43 @@ Catajumbo (16112)
   Auto Attack (14266)                                                           x  x  x xx x  x                         x  x x  x   x                          x x  x  x x                 x         x x  x  x x                 x        
   Stormstrike (1846)                                                                                                    x           x                                 x                    x            x                                 
 Goldengoose (525)
-  Windfury Totem                                G F  G F G F   G                                                                                          GF                   G                                                          
+  Windfury Totem                                G Fx G F G F   G                                                                                          GF                   G                                                          
   Consecration (525)                                xxxxx                                                                                                                                                                                 
-Viridissima
-  Unstable Power                                                                                                                                                G                                                                         
-Ostkastare
-  Tranquil Air Totem                         x                                                                                                                                                                                            
-  Mana Spring Totem                          x                                                                                                                                 x                                                          
-  Mana Tide Totem                                                                                                                                    x                                                                                    
+Shreked
+  Combustion                                                                                                       G   G                                                                                                                  
+  Mind Quickening                                                                                                                      F                                                                                                  
 Blindie
   Power Infusion                                                                                                                                           G                                                                              
-Pristitute
-  Inner Focus                                                                                                                                                                          G  F                                               
-Yakub
-  The Eye of the Dead                                                                                                       F                                                                                                             
-Sunpriest
-  Ephemeral Power                             G              F                                                                                             F                                                                              
-  Inner Focus                                  GF                                                                                                                                                                                         
-Starraven
-  Essence of Sapphiron                             G                    F                                                                                                                   G                                             
-Immunium
-  Mind Quickening                                                                                                                                                     F                                                                   
+Viridissima
+  Unstable Power                                                                                                                                                G                                                                         
 Flowest
   Mana Spring Totem                                                                                                                    x                                                                                                  
   Windfury Totem                                                                                                                                                                                                       x                  
 Aquatic
   Combustion                                                                                                                                                  G                                                                           
+Ostkastare
+  Tranquil Air Totem                         x                                                                                                                                                                                            
+  Mana Spring Totem                          x                                                                                                                                 x                                                          
+  Mana Tide Totem                                                                                                                                    x                                                                                    
 Clapya
   Tranquil Air Totem                                                                                                                                                             x                                                        
   Berserking                                                                                                                                                                                           G         F                        
+Yakub
+  The Eye of the Dead                                                                                                       F                                                                                                             
+Sunpriest
+  Ephemeral Power                             G              F                                                                                             F                                                                              
+  Inner Focus                                  GF                                                                                                                                                                                         
+Pristitute
+  Inner Focus                                                                                                                                                                          G  F                                               
+Immunium
+  Mind Quickening                                                                                                                                                     F                                                                   
 Interlan
   Mana Tide Totem                                                                                                                 x                                                                                                       
   Windfury Totem                                                                                                                                                             x                  x                                         
   Mana Spring Totem                                                                                                                                                                             x                                         
   Strength of Earth Totem                                                                                                                                                                        x                                        
-Shreked
-  Combustion                                                                                                       G   G                                                                                                                  
-  Mind Quickening                                                                                                                      F                                                                                                  
+Starraven
+  Essence of Sapphiron                             G                    F                                                                                                                   G                                             
 
 
 Ability Timeline for Ouro (132.7s)
@@ -2217,7 +2218,7 @@ Psykhe (84559)
   Badge of the Swarmguard                                 G                            F                                                                                     
   Kiss of the Spider                                      G              F                                                                                                   
   Death Wish                                              x                             F                                                                                    
-  Windfury Totem                                           F     G F    GF         GF                                             GF                                         
+  Windfury Totem                                           F     GxF    GF        xGF                                             GF                                         
   Berserking                                                G         F                                                                                                      
   Shield Block                                                                  GF   G F   F                                  G F  G    G    F                               
   Berserker Rage                                                                                             G         F                                                     
@@ -2250,7 +2251,7 @@ Dirael (81009)
 Sabroso (79919)
   Bloodrage                             x xxx xxxF                                                  GxxxxxxxxxF                                                   Gxxxxxxxxx 
   Death Wish                                              x                             F                                                                                    
-  Windfury Totem                                              G F G F  GFG F         G F           GF     G F              G F                GF G F            F GF         
+  Windfury Totem                                              G F G F  GFG F         G F           GF     x F              GxF                GF G F            F GF         
   Auto Attack (27298)                                    xxxxxxxxxxxxxxxxx    xxx xxxx           xxx x    x          xxx xxxxx xx         xx xxxxxxx xx        xxxx          
   Heroic Strike (21420)                                     x x x   x x  x    x x x x            x        x          x x x x  x           x x x    x          x              
   Bloodthirst (16741)                                       x     x      x     x                 x        x          x      x             x        x                         
@@ -2262,7 +2263,7 @@ Zloveleen (77626)
   Bloodrage                                           GxxxxxxxxxF                                                                                              GxxxxxxxxxF   
   Death Wish                                            x                             F                                                                                      
   Badge of the Swarmguard                                G                             F                                                                                     
-  Windfury Totem                                          F  GFGF                                                      F F     GF           G F GFGFGF           F           
+  Windfury Totem                                          F  GFGF                                                      F F     GF           G x GFGFGF           F           
   Auto Attack (25769)                                    xx xxx  x x x xxxx     xxx x xx            x     xx           xxxxx   xx         x  xx xxxxxxxx       xxxx          
   Heroic Strike (16749)                                      x x x x x x x      x     x             x                  x x x x x          x                                  
   Bloodthirst (14757)                                     x      x     x        x      x                  x            x      x           x            x                     
@@ -2309,7 +2310,7 @@ Blindie (56722)
   Shadow Word: Pain (6404)                                        x  x  x  x  x  x                x  x  x  x  x  x   x  x  x  x  x  x                                        
   Shoot (187)                                                                                                                                              x                 
 Bobsterr (56641)
-  Windfury Totem                                           G F     GFGF         G F                      G F GF GF  G F GF    GFGF        G F G F   GF           GF          
+  Windfury Totem                                           G F     GFGF         G F                      x F GF GF  G F GF    GFGF        G F G F   GF          xGF          
   Auto Attack (16592)                                      x x x x x x  x x     x     x            xx x  x x x  xx xx x x x x x x x       x   x x x x           x x          
   Seal of Righteousness (11679)                            x x x x x xx x       x x   x          x xx x  x x    xx xx x x x x x x x x     x   x x x x           x x          
   Thunderfury (10020)                                    x x x  xx x  x   x     x x   x             x x    x    x   x x x     x x x       x   x   x              x           
@@ -2371,7 +2372,7 @@ Magn (43139)
 Mcstabbys (38576)
   Sinister Strike (13170)                              xx x    xx    xx x x       xx             x xx     x            xxx  x                 xxx             xx  x          
   Adrenaline Rush                                           G              F                                                                                                 
-  Windfury Totem                                             GF   GF  F                          F   GF                                                         G F          
+  Windfury Totem                                             GF   GF  F                          F   GF                  x                      x               G F          
   Blade Flurry                                                      G              F                                                                                         
   Auto Attack (23303)                                   x x xxx x x xxxx xxx      xxxx x         x xxx    x x         x xx xxxxx              x x xx          x x  x         
   Deadly Poison V (1165)                                   x  x  x  x  x  x  x  x                     x  x  x  x            x  x  x  x                x  x  x  x             
@@ -2379,7 +2380,7 @@ Mcstabbys (38576)
 Vallcow (38079)
   Bloodrage                                            GxxxxxxxxxF                                                  GxxxxxxxxxF                                              
   Kiss of the Spider                                                    G              F                                                                                     
-  Windfury Totem                                                                                                                                             F               
+  Windfury Totem                                                                                                                                            xF               
   Auto Attack (17340)                                    x xxxxxxxx xx xxxx       xxxxxxxxx   xx    x x xxxxxxx xxx xx  x x     x  xxxx xx  x xxxxx x xx xxx x               
   Heroic Strike (10907)                                           x xx          x  x      x  x     x        x      x   xx          x x      x x      x     xx                
   Bloodthirst (5791)                                               x      x              x                  x                     x     x           x     x                  
@@ -2457,15 +2458,15 @@ Yakub (54)
   Berserking                                                                                            G         F                                                          
   The Eye of the Dead                                                                                    G         F                                                         
   Earth Shock (54)                                     x                                                                                                                     
+Flowest
+  Windfury Totem                                       x         x         x         x        x                x                                                             
+  Strength of Earth Totem                              x                                                                                                                     
+  Grace of Air Totem                                     x          x       x          x        x                                                                            
 Martlflash
   Death by Peasant                         x                                                                                                                                 
 Jocaste
   The Eye of the Dead                                                                                                                  G             F                       
   Divine Favor                                                                                                                                                  G      F     
-Flowest
-  Windfury Totem                                       x         x         x         x        x                x                                                             
-  Strength of Earth Totem                              x                                                                                                                     
-  Grace of Air Totem                                     x          x       x          x        x                                                                            
 Interlan
   Nature's Swiftness                                                                                      G F                                                                
   Berserking                                                                                               G         F                                                       
@@ -2476,7 +2477,7 @@ Player (dmg) / Spell (dmg)               Time (seconds) ->
                                         0    '    10   '    20   '    30   '    40   '    50   '    60   '    70   '    80   '    90   '    100  '    110  ' 
 Psykhe (87715)
   Slayer's Crest                                      G                   F                                                                                  
-  Windfury Totem                                       GF                     G F                  G F                                   GFG  GFGF GG F GF   
+  Windfury Totem                                       GF                     G F                  G F                                   GFGx GFGF GG F GF   
   Death Wish                                              x                             F                                                                    
   Berserking                                                   G         F                                                                                   
   Kiss of the Spider                                                                                         G              F                                
@@ -2509,7 +2510,7 @@ Starraven (67650)
   Moonfire (11955)                                     x  x  x  x  x xx  x  x  x  x        x  x  x  x  xx  x x  x x  x  x  x  x                     x x  x   
   Insect Swarm (2172)                                                                                  x x x         x x x x x x                             
 Bobsterr (63133)
-  Windfury Totem                                                                                           GG G F             GF       G F       GF  GGFG F  
+  Windfury Totem                                                                                           GG G F             GF     x G F       GF  GGFG F  
   Auto Attack (16821)                              x x x x x  x   x x x   x x x x x        x x      xx x   xxxx x x x x x   x x x x x xx x x x x x x xxxx    
   Seal of Righteousness (15510)                  x x x x x x xx   x x x x x x x x x x      x x    x xx x   xxxx x x x   x x x x x x xxxx x   x x x x xxxx    
   Thunderfury (11955)                               xx     x  x  x  x   x x       x        x x         xx  xx x       x xxx   x x    x   xx      x   xx x    
@@ -2523,7 +2524,7 @@ Sabroso (60764)
   Bloodrage                                        GxxxxxxxxxF                                                       GxxxxxxxxxF                             
   Death Wish                                               x                             F                                                                   
   Jom Gabbar                                                G G G G G G G G G G F                                                                            
-  Windfury Totem                                                                                     GF                       G F                     F  G F 
+  Windfury Totem                                                                                    xxF                       G F                     F  G F 
   Heroic Strike (22074)                                x  x x  x        x    x x     x x          x x  x x     x x  x     x     x          x x      x        
   Auto Attack (21465)                           xxxx xxxxx xx xx     x xx x     xxxx xx         x xx xx xx xx x     x   xxx x xx  x      x x xxxxxxx  xxxx   
   Bloodthirst (8325)                                          x       x      x       x               x            x      x      x                            
@@ -2564,7 +2565,7 @@ Vallcow (53589)
   Whirlwind (708)                                                                              x                                                             
 Mcstabbys (52166)
   Sinister Strike (13798)                          xxx  x         x  x x     x  x            xx   xx  x    x  x     x x   x       x  xx   x   x     x x      
-  Windfury Totem                                     GF        GF         GF                  GF                      G F G G F G  FGF        G F  GF        
+  Windfury Totem                                     GF        GF         GF      x           GF                      G F G G F G xFGF        G F  GF        
   Blade Flurry                                                          G              F                                                                     
   Auto Attack (34219)                           x  x x xx x x xxx x xxxxx xxxx xxxx xx      x xx x x  xxxxxxx x  xxxx xxxxx xxx xxxxx x x x xxx xxxxx xx x   
   Deadly Poison V (3335)                                               x  x  x  x  x  x  x  x  x    x  x  x  x   x  x  x  x  x  x  x  x  x  x  x  x  x  x    
@@ -2588,7 +2589,7 @@ Spankys (48095)
   Serpent Sting (603)                                                                                       x  x  x  x  x                                    
 Magn (46078)
   Bloodrage                                        x xxxxxxxxF                                                                                               
-  Windfury Totem                                           GF                   GF                                                       GF                  
+  Windfury Totem                                           GF                   GF                                                  x    GF        x         
   Auto Attack (21873)                         x x x xxx xx xx xxxxx xxx  xxxxxxxx xxxxx               xx   x xx         x   xxxxx  xx xxx   xxx xx xxxxx     
   Bloodthirst (6321)                               x       x            x         x                      x                x       x         x                
   Heroic Strike (5721)                             x         x     xx x  x         x  x                  x                         x         x               
@@ -2678,13 +2679,13 @@ Goldengoose (6007)
   Crusader Strike (300)                                                                                        x  x  x                                       
   Fire Strike (66)                                                                                    x   x  x x x xx x     x                                
   Lightning Strike (44)                                                                               x x x  x x x xx x     x                                
-Yakub
-  Windfury Totem                                     x                                                             x     x                      x            
-  Strength of Earth Totem                             x                                                              x   x                      x            
 Flowest
   Windfury Totem                                 x                                                                    x                                      
   Strength of Earth Totem                         x                                                                   x                                      
   Mana Spring Totem                               x                                                                    x                                     
+Yakub
+  Windfury Totem                                     x                                                             x     x                      x            
+  Strength of Earth Totem                             x                                                              x   x                      x            
 Interlan
   Strength of Earth Totem                     x                                                    x                x                                        
   Mana Spring Totem                           x                                                     x                x                                       
@@ -2701,7 +2702,7 @@ Psykhe (68877)
   Bloodlust                                                                                                                                               G                   F                                                                                                                   G                   
   Recklessness                                                                                                                                             G              F                                                                                                                                           
   Slayer's Crest                                                                                                                                                      G                   F                                                                                                              G            
-  Windfury Totem                                                                                                                                                               F  GF           GF      G F                                                 G F                               F        G FGF  GF       
+  Windfury Totem                                                                                                                                                       x       F  GF           GF      G F                                                 G F                               F        G FGF  GF       
   Auto Attack (24804)                         xx  xxx x  x          xx    x         x               x    x            x xx   x x x x  x              xx xxxxx xxxxx xxxxxxx xxxxx xx xxx xx xxxx xxx x x                   x xxxx x x                   x  x  x                       x  xxxxxxxxxx xx xxxx xx        
   Heroic Strike (18358)                                                                                                                                 x x  x  xxx xx x x x x x x   x      x                                                                                                x                        
   Bloodthirst (12133)                                                                                                                                    x     x     x     x      x      x     x                                                                                          x                           
@@ -2761,7 +2762,7 @@ Clapya (46922)
   Earth Shock (917)                                                                                                                                                                                                                                                                                         x         
 Magn (45819)
   Bloodrage                                  GxxxxxxxxxF                                                     GxxxxxxxxxF                                                            GxxxxxxxxxF                                                                          GxxxxxxxxxF                                  
-  Windfury Totem                                         F                                                                GF             GF                   GF           GGF GF   GF                                                          G F                                                       GFG F       
+  Windfury Totem                                         F                                                                GF             GF                   GF           GGF GF   GF                                                          x F                                                       GFG F       
   Earthstrike                                                                                                G                   F                                                                                                                                       G                   F                        
   Berserking                                                                                                     G         F                                                                                                                                                                           G         F    
   Shield Block                                                                                                           G  F   G    F                                                                                                                                                                                
@@ -2819,7 +2820,7 @@ Zdraxus (31423)
   Shoot (23)                                                                                           xx xx x xx xx                                                                                                                                                                                                  
 Pitbound (30361)
   Bloodrage                                                                                                                             GxxxxxxxxxF                                                                                                                                                                   
-  Windfury Totem                                                                                                                         G F   GF            F            GF         GF    GF                                                                                                                         
+  Windfury Totem                                                                                                                         G F   GF            F            GF         GFx  xGF                                                                                                                         
   Death Wish                                                                                                                                                           x                             F                                                                                                                
   Recklessness                                                                                                                                                          G              F                                                                                                                              
   Kiss of the Spider                                                                                                                                                     G              F                                                                                                                    G        
@@ -2857,7 +2858,7 @@ Sunpriest (29106)
   Mind Blast (6628)                                                                                                                                           x        x                 x                                                                                                     x       x              
   Devouring Plague (2303)                                                                                                                                    x  x  x  x  x  x  x  x                                                                                                                                   
 Goldengoose (26659)
-  Windfury Totem                                                                             GF                                          G F  G   G F  GF    G F    G F     GF           GF                                   GF            G  FGF                                                                    
+  Windfury Totem                                                                             GF                                          G F  Gx xG F  GF  xxG F    G F     GF           GF                                   GF            Gx FGF                                                                    
   Auto Attack (8187)                                                                            x                                                      x x xxx x  x x       x  x  x      x     x          x                 x x x                                                          x    x    x   x            
   Seal of Righteousness (4832)                                                                                                                         x x xxx x  x x       x  x  x      x     x          x                 x                                                                 x x    x   x   x        
   Judgement of Righteousness (4227)                                                                                                                   x             x        x       x         x                                                                                                        x             
@@ -2884,7 +2885,7 @@ Pyi (13954)
 Richardtater (13125)
   Death Wish                                                                                                                   x                             F                                                                                                                                                        
   Berserker Rage                                                                                                                 G         F                        G         F                                            G         F                                                                                
-  Windfury Totem                                                                                                                                  GF                                                                                                                                       G FG  F                    
+  Windfury Totem                                                                                                                                 xGF                                                                                                                                       G FGx F                    
   Bloodrage                                                                                                                                                                        xxxxxxxxx F                                                                                                                        
   Auto Attack (8518)                                                               xx       x  x  x                                                    x   x  xxxxxx   xx x  xx   x x xx x  xxxx  x                            x   x                                            x   x x    xx xx x xx xx xx x         
   Cleave (2760)                                                                                                                                                 x  x      x     x   x  x         x                                                                                x          x    x      x            
@@ -2952,8 +2953,8 @@ Zloveleen (32)
   Auto Attack (28)                                                x  xxxx x x                                                         x                                                                                                                                                                               
   Deep Wound (4)                                                             x  x  x  x                                                                                                                                                                                                                               
 Sabroso (31)
+  Windfury Totem                                 x            GF                                                                                                                                                                                                                                                      
   Bloodrage                                              GxxxxxxxxxF                                                                                                                                                                                                                                                  
-  Windfury Totem                                              GF                                                                                                                                                                                                                                                      
   Auto Attack (31)                          x xxxxx               x x x  xx                                                                                                                                                                                                                                           
 Vallcow (14)
   Bloodrage                                      GxxxxxxxxxF                                                                                                                                                                                                                                                          

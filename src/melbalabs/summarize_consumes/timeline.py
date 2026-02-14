@@ -84,6 +84,23 @@ class AbilityTimeline:
             if amount > 0 and is_dmg_to_boss:
                 self.damage_entries.append(entry)
 
+    def add_extra_attacks(self, howmany, name, source, timestamp_unix):
+        if source != "Windfury Totem":
+            return
+
+        # use the same spellname as the aura so they group together
+        spellname = "Windfury Totem"
+
+        for _ in range(howmany):
+            self.add(
+                source=name,
+                target=name,
+                spellname=spellname,
+                line_type=TreeType.GAINS_EXTRA_ATTACKS_LINE,
+                timestamp_unix=timestamp_unix,
+                amount=0,
+            )
+
     def print(self, output):
         if not self.entries:
             print("<nothing found>", file=output)

@@ -2512,6 +2512,9 @@ def process_tree(app, line, tree: Tree):
         howmany = int(subtree.children[1].value)
         source = subtree.children[2].value
         app.proc_count.add_extra_attacks(howmany=howmany, name=name, source=source)
+        app.ability_timeline.add_extra_attacks(
+            howmany=howmany, name=name, source=source, timestamp_unix=timestamp_unix
+        )
         return True
     elif subtree.data == TreeType.DODGES_LINE:
         return True

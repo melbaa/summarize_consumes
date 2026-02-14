@@ -4,76 +4,76 @@ Ability Timeline for Razorgore the Untamed (314.1s)
 Player (dmg) / Spell (dmg)               Time (seconds) ->
                                         0    '    10   '    20   '    30   '    40   '    50   '    60   '    70   '    80   '    90   '    100  '    110  '    120  '    130  '    140  '    150  '    160  '    170  '    180  '    190  '    200  '    210  '    220  '    230  '    240  '    250  '    260  '    270  '    280  '    290  '    300  '    310  
 Srj (35867)
-  Sinister Strike (11743)                                                                                                                                                                                                                                                                                     x  xxx x  x   x xxx  xx xx   x            x   x      
+  Sinister Strike (11743)                                                                                                                                                                                                                                                                                     x  xx xx  x   x xxx  xx xx   x            x   x      
   Adrenaline Rush                                                                                                                                                                                                                                                                                               G              F                                   
-  Windfury Totem                                                                                                                                                                                                                                                                                                 GFG F G F  FGF    G  F                 F          
+  Windfury Totem                                                                                                                                                                                                                                                                                                 GF GF GxF  FGF    GxxF                 F          
   War Stomp                                                                                                                                                                                                                                                                                                                                    x    F              
-  Auto Attack (20059)                                                                                                                                                                                                                                                                                         xxxxxx xxxx xx xxx xxxxx xxx xxx          x xx       
+  Auto Attack (20059)                                                                                                                                                                                                                                                                                         xxxxx xxxxx xx xxx xxxxx xxx xx x         x xx       
   Eviscerate (3339)                                                                                                                                                                                                                                                                                                      x           x                   x         
-  Deadly Poison V (726)                                                                                                                                                                                                                                                                                            x   x x   x x           x  x  x  x              
+  Deadly Poison V (726)                                                                                                                                                                                                                                                                                             x  x  x  x  x          x  x  x  x              
 Dyrachyo (34412)
-  Windfury Totem                          GF     GF        G F                                                                                                                                                                   G F       G FG F                                                             GG F         GF  G F    G GF G F                     
+  Windfury Totem                          GF     GF        G F                                                                                                                                                                   x F       G FG F                                                             GG F        xGF  G F    G GF G F                     
   Bloodrage                                               GxxxxxxxxxF                                                                                                                              GxxxxxxxxxF                                                                                                               GxxxxxxxxxF                           
   War Stomp                                                                                                                                                                                                                                                                                                       x    F                       x    F              
   Death Wish                                                                                                                                                                                                                                                                                                                     x                             F   
-  Kiss of the Spider                                                                                                                                                                                                                                                                                                               G             F                 
+  Kiss of the Spider                                                                                                                                                                                                                                                                                                               G              F                
   Auto Attack (12341)                                                                                                                                                                                                                                                                                         xx       x   x   x      x x  x           x  x        
   Execute (7034)                                                                                                                                                                                                                                                                                                                                       x xx        
-  Heroic Strike (6414)                                                                                                                                                                                                                                                                                                    x  x    x  x       x                     
+  Heroic Strike (6414)                                                                                                                                                                                                                                                                                                    x   x   x  x       x                     
   Bloodthirst (5827)                                                                                                                                                                                                                                                                                                     x     x      x      x                     
   Whirlwind (2486)                                                                                                                                                                                                                                                                                                        x          x                             
   Hamstring (310)                                                                                                                                                                                                                                                                                                           x x         xx x                       
 Redzeus (28813)
-  Frostbolt (28813)                                                                                                                                                                                                                                                                                               x  x  x  x  xx x x xx x x x x  x x x             
+  Frostbolt (28813)                                                                                                                                                                                                                                                                                                x x  x  x  xx x x xx x  xx x  x x x             
 Yis (27680)
-  Auto Shot (15856)                                                                                                                                                                                                                                                                                               x  x x x x xx  x x  xx   x  x x  x x  x x        
+  Auto Shot (15856)                                                                                                                                                                                                                                                                                                x x x  xx xx  x x  xx   x  x x  x x  x x        
   Trueshot (7714)                                                                                                                                                                                                                                                                                                        x x  x  x x x    x  x x         x  x      
   Multi-Shot (3390)                                                                                                                                                                                                                                                                                                         x           x           x              
   Serpent Sting (720)                                                                                                                                                                                                                                                                                              x  x  x  x  x                         x         
 Illasei (26364)
   Sinister Strike (9393)                                                                                                                                                                                                                                                                                           x   xxxx x  xx x        xx x         x x        
-  Auto Attack (12684)                                                                                                                                                                                                                                                                                              xxxxxxxxxxxxx x xxxx    xx x         x  x       
+  Auto Attack (12684)                                                                                                                                                                                                                                                                                              xxxxxxxxxxxxx x xxxx    xxxx         x  x       
   Eviscerate (2155)                                                                                                                                                                                                                                                                                                           x                          x         
   Instant Poison VI (1095)                                                                                                                                                                                                                                                                                         x x x x  xxx   x  x                             
-  Deadly Poison V (1037)                                                                                                                                                                                                                                                                                                x   x x  x  x   x x  x   x                 
+  Deadly Poison V (1037)                                                                                                                                                                                                                                                                                                 x  x  x x  x   x  x  x  x                 
 Syjlas (24464)
   Ephemeral Power                                                                                                                                                                                                                                                                                               G              F                                   
-  Frostbolt (24464)                                                                                                                                                                                                                                                                                                 x  x   x x  xx   x  x x    x  x x  x  x        
+  Frostbolt (24464)                                                                                                                                                                                                                                                                                                 x  x   x  x xx   x  x  x   x  x x  x  x        
 Aphorodite (24313)
-  Windfury Totem                        GF        GF      G F      G                                                                                                                                      G F                           GFGFG F    G F                                        G F                  G  F GFG F GF  GF G  F GG G F        G F        
+  Windfury Totem                        GF        GF      G F      G                                                                                                                                      G F           x               GFGFG F    G F                                        G F                  Gx F GF GF G FxGF Gx F GxGG F        G F        
   War Stomp                                                                                                                                                                                                                                                                                                                                    x    F              
-  Auto Attack (13706)                                                                                                                                                                                                                                                                                              xx   x x   x  xx  xx   xx x          x   x      
+  Auto Attack (13706)                                                                                                                                                                                                                                                                                              xx   x  x  x  xx  xx   xx x          x   x      
   Seal of Righteousness (4300)                                                                                                                                                                                                                                                                                     xx   x     x  xx  xx   xx x          x   x      
   Holy Strike (3623)                                                                                                                                                                                                                                                                                                    x            x                  x          
   Crusader Strike (1139)                                                                                                                                                                                                                                                                                            x x x     x xx xx x    x x          x  x       
-  Judgement of Righteousness (895)                                                                                                                                                                                                                                                                                        x              x                         
+  Judgement of Righteousness (895)                                                                                                                                                                                                                                                                                         x             x                         
   Consecration (539)                                                                                                                                                                                                                                                                                                       xxxxxxx                                 
-  Lightning Strike (111)                                                                                                                                                                                                                                                                                           xx   x x   x  xx  xx  xxx x          x   x      
+  Lightning Strike (111)                                                                                                                                                                                                                                                                                           xx   x  x  x  xx  xx  xxx x          x   x      
 Sunor (22382)
   Inner Focus                                                                                                                                                                                                                                                                                  F                                                                   
   Power Infusion                                                                                                                                                                                                                                                                                         F                                                         
   Ephemeral Power                                                                                                                                                                                                                                                                                        F                                                         
-  Smite (18989)                                                                                                                                                                                                                                                                                                   x   x  x x x  x x x x    x x  x x                
+  Smite (18989)                                                                                                                                                                                                                                                                                                   x   x  x x  x x x x x    x x  x x                
   Shadow Word: Pain (1904)                                                                                                                                                                                                                                                                                       x  x  x  x  x  x                                  
   Holy Fire (1489)                                                                                                                                                                                                                                                                                                                                         x       
 Shrimpshark (22304)
   Ephemeral Power                                                                                                                                                                                                                                                                                                      G              F                            
   Unstable Power                                                                                                                                                                                                                                                                                                                        G                   F      
-  Frostbolt (22304)                                                                                                                                                                                                                                                                                                        x  x x     x  x  x  x  x x x x   x      
+  Frostbolt (22304)                                                                                                                                                                                                                                                                                                        x  x x     x  x   x x  x x x x   x      
 Berserkss (22037)
-  Auto Shot (10260)                                                                                                                                                                                                                                                                                              x x  x   x  x  x x x x  x  x x  x  x  x  x        
+  Auto Shot (10260)                                                                                                                                                                                                                                                                                              x x  x   x  x  x x x x  x  x x   x x  x  x        
   Multi-Shot (5930)                                                                                                                                                                                                                                                                                                 x            x           x            x        
   Trueshot (4727)                                                                                                                                                                                                                                                                                                  x      x    x        x  x     x    x            
   Serpent Sting (1120)                                                                                                                                                                                                                                                                                                   x  x  x  x   x  x  x  x  x                
 Everglow (19144)
-  Windfury Totem                                        G F                                                                                                                                    G F                                                                                                               G F            GFG F  G FG F                      
+  Windfury Totem                                        x F                                                                                                                                    G F                                                                                                               G F            GFG F  G F GF                      
   Bloodrage                                                                                                                                                                                                       GxxxxxxxxxF                                                                                                                                      
   War Stomp                                                                                                                                                                                                                                                                                                       x    F                                           
   Death Wish                                                                                                                                                                                                                                                                                                                  x                             F      
   Berserker Rage                                                                                                                                                                                                                                                                                                                 G         F                       
-  Auto Attack (10056)                                                                                                                                                                                                                                                                                            x     x  x     x x    x  x     x                  
+  Auto Attack (10056)                                                                                                                                                                                                                                                                                            x     x  x     x x    x  xx    x                  
   Heroic Strike (4569)                                                                                                                                                                                                                                                                                                       x  x      x     x                     
-  Bloodthirst (2428)                                                                                                                                                                                                                                                                                                       x      x       x                        
+  Bloodthirst (2428)                                                                                                                                                                                                                                                                                                       x      x        x                       
   Whirlwind (2091)                                                                                                                                                                                                                                                                                                          x            x                         
 Roshane (17933)
   Arcane Missiles (15251)                                                                                                                                                                                                                                                                                          xxxxxxxxxx   xxxxx xxxxx  xxxxxxxxxxxxxxx       
@@ -84,11 +84,11 @@ Chan (16786)
   Trueshot (4935)                                                                                                                                                                                                                                                                                                         x x    x    x   x   x x    x             
   Multi-Shot (2068)                                                                                                                                                                                                                                                                                                          x          x           x              
   Serpent Sting (1240)                                                                                                                                                                                                                                                                                                   x  x  x  x   x  x  x  x  x       x        
-  Arcane Shot (1026)                                                                                                                                                                                                                                                                                                          x            x     x       x         
+  Arcane Shot (1026)                                                                                                                                                                                                                                                                                                           x           x     x       x         
 Few (16018)
-  Windfury Totem                                                                                                                                                                                                                                                                                                                                        GF         
+  Windfury Totem                                                                                                                                                                                                                                                                                                                                        G F        
   Backstab (8585)                                                                                                                                                                                                                                                                                                 x    x  x x    x     x x              xx         
-  Auto Attack (7172)                                                                                                                                                                                                                                                                                                   x x x xxxxxx x  x xx xx x        xxx        
+  Auto Attack (7172)                                                                                                                                                                                                                                                                                                   x x x x x xx x  x xx xx x        x x        
   Deadly Poison V (170)                                                                                                                                                                                                                                                                                                             x  x  x  x             x       
   Gutgore Ripper (91)                                                                                                                                                                                                                                                                                                    x                                         
 Shuly (15548)
@@ -96,16 +96,16 @@ Shuly (15548)
   Corruption (1628)                                                                                                                                                                                                                                                                                                 x  x  x  x  x  x                  x  x         
   Shadowburn (838)                                                                                                                                                                                                                                                                                                                                         x       
 Teldelar (13301)
-  Starfire (13301)                                                                                                                                                                                                                                                                                              x  x  x   x  x     x     x  x   x  x  x  x         
+  Starfire (13301)                                                                                                                                                                                                                                                                                              x  x  x   x  x     x     x   x  x  x  x  x         
 Bloxie (11386)
-  Windfury Totem                                                                                                                                                                                                                                                                                             G F        GFG F      GF  G F                         
+  Windfury Totem                                                                                                                                                                                                                                                                                             G F        GFxGF      GF  G F                         
   War Stomp                                                                                                                                                                                                                                                                                                                                    x    F              
   Auto Attack (5251)                                                                                                                                                                                                                                                                                         x     x    x x     x  x  xx  x  x                     
   Seal of Righteousness (2132)                                                                                                                                                                                                                                                                                  x  x    x x  x     x  xx  x  x                     
   Holy Strike (1766)                                                                                                                                                                                                                                                                                            x            x                                     
   Judgement of Righteousness (920)                                                                                                                                                                                                                                                                           x                  x                                  
   Consecration (577)                                                                                                                                                                                                                                                                                                                   xxxxx x                     
-  Crusader Strike (512)                                                                                                                                                                                                                                                                                           x   x x    x x   x                               
+  Crusader Strike (512)                                                                                                                                                                                                                                                                                            x  x x    x x   x                               
   Holy Shield (173)                                                                                                                                                                                                                                                                                                         x                                      
   Electric Discharge (55)                                                                                                                                                                                                                                                                                          x                                               
 Psykhe (10896)
@@ -126,17 +126,17 @@ Platedps (9916)
   Death Wish                                                                                                                                                                                                                                                                                                                        x                              
   War Stomp                                                                                                                                                                                                                                                                                                                                    x    F              
   Auto Attack (5408)                                                                                                                                                                                                                                                                                                     x x  x  x  x  x    x                      
-  Bloodthirst (2561)                                                                                                                                                                                                                                                                                                    x              x      x                    
+  Bloodthirst (2561)                                                                                                                                                                                                                                                                                                     x             x      x                    
   Whirlwind (1947)                                                                                                                                                                                                                                                                                                         x              x                        
 Subarach (7778)
-  Auto Attack (3861)                                                                                                                                                                                                                                                                                               x xx  x x x x xx x xx x xxx x        x x        
+  Auto Attack (3861)                                                                                                                                                                                                                                                                                               x xx  x x  xx xx x xx x xxx x        x x        
   Bloodthirst (1530)                                                                                                                                                                                                                                                                                                                x      x                       
   Execute (1486)                                                                                                                                                                                                                                                                                                                                        xx         
   Whirlwind (506)                                                                                                                                                                                                                                                                                                         x            x                           
   Heroic Strike (395)                                                                                                                                                                                                                                                                                                          x                                   
 Nightleaf (7164)
   Auto Attack (3754)                                                                                                                                                                                                                                                                                                   x xxxxxxxxxxxxxx xxx             xxxx       
-  Claw (1866)                                                                                                                                                                                                                                                                                                           x x  x       x                  x          
+  Claw (1866)                                                                                                                                                                                                                                                                                                            xx  x        x                 x          
   Ferocious Bite (1424)                                                                                                                                                                                                                                                                                                          x                        x        
   Rake (120)                                                                                                                                                                                                                                                                                                           x                                           
 Mezmeris (6832)
@@ -152,7 +152,7 @@ Player (dmg) / Spell (dmg)               Time (seconds) ->
                                         0    '    10   '    20   '    30   '    40   '    50   '    60   '    70   '    80   '    90   '    100  ' 
 Dyrachyo (88559)
   Bloodrage                             xxxF                                                                                                       
-  Windfury Totem                                         G F            GG F                   G FGFG F  GF GF GF    GG GFG  F                     
+  Windfury Totem                                         G F            GG F x                 G FGFG F  GF GF GF    GG GFGx F                     
   Death Wish                                                                      x                           F                                    
   Kiss of the Spider                                                                G              F                                               
   Recklessness                                                                         G              F                                            
@@ -174,12 +174,12 @@ Srj (66530)
   Sinister Strike (23962)                             x   xxxxxx  xx xxxxx  xxxx  xx x xxxxx xxx xx xxx xx x  xx  x                                
   Kiss of the Spider                                    G              F                                                                           
   Blade Flurry                                           G              F                                                                          
-  Windfury Totem                                         G  F    FG F            GF  G FG  GF      GF     G F     F                                
+  Windfury Totem                                         GxxF x  FGxF            GF  G FG  GF      GF     G F     F                                
   Auto Attack (31808)                                   xxxxxxxxxxxxx xxxx xxxxx xxx xx xx xxxxx xxx xxxxxx xx x  xx                               
   Eviscerate (8096)                                              x         x     x          x      x      x         x                              
   Deadly Poison V (2664)                                           x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x                                  
 Few (49610)
-  Windfury Totem                                               G F      G FGF   G F GF   GFGF   F     FGF GF                                       
+  Windfury Totem                                               GxF      G FGF   G F GF   GFGF   F     FGF xF                                       
   Backstab (26504)                                          x xxxx   xxxxx  xxxxx   x  xxx x  x x   xxxx x   x x    x                              
   Auto Attack (16367)                                    x x x xxx xx xxx xxxxxxx xxx xx xxxxxxxxx x xxxxxxxxx     xx                              
   Eviscerate (4084)                                                        x      x         x             x                                        
@@ -234,7 +234,7 @@ Pieshka (26718)
   Deep Wound (497)                                                 x  x  x  x   x   x  x  x    x         x  x   x  x   x  x  x  x                  
   Drain Life (57)                                                                                       x                                          
 Everglow (25410)
-  Windfury Totem                                            G F  G FG F                 GF  GF G F        GF                                       
+  Windfury Totem                                            G F  G FG F                 GF xGF G F        GF                                       
   Bloodrage                                                              GxxxxxxxxxF                                                               
   Death Wish                                                                                                x                                      
   Auto Attack (8919)                                     x  x    x  x  x                x  x   x          x  x                                     
@@ -247,7 +247,7 @@ Roshane (25113)
   Arcane Missiles (24543)                                   xxxxx xxxx xxxxxxxxxx  xxxxx xxxxxxxx xxxxx   xxxxx  xx   xxxxxxxxxxxxxx               
   Engulfing Shadows (570)                                     x          x         x          x             x             x                        
 Bloxie (24720)
-  Windfury Totem                                             G FG GF     GG FG F   GG FG F    G F GFG GF       GF                                  
+  Windfury Totem                                             G FG GF     GG FG F   GG FGxF    G F GFG GF       GF                                  
   Auto Attack (9262)                                     x   x  x x x    xx  x  x  xx  xx x  xx  x  x x        x                                   
   Seal of Righteousness (5005)                           x  xx  x x x  x xx  x  x  xx  xx x  xx  x  x x x      x                                   
   Holy Strike (4974)                                        x          x               x                x                                          
@@ -306,24 +306,24 @@ Ability Timeline for Broodlord Lashlayer (103.1s)
 Player (dmg) / Spell (dmg)               Time (seconds) ->
                                         0    '    10   '    20   '    30   '    40   '    50   '    60   '    70   '    80   '    90   '    100 
 Dyrachyo (58333)
-  Windfury Totem                        GF                             G F GF           G FG F            G F                  G  G F       G   
+  Windfury Totem                        GF                             G F GF           G FG F            G F                  G xG F       Gx  
   Bloodrage                                              GxxxxxxxxxF                                                  GxxxxxxxxxF               
   Death Wish                                                                                             x                             F        
   Kiss of the Spider                                                                                                    G              F        
-  Auto Attack (19200)                                       x   x      x   x        x  xx  x          x   x        x    x   x xx xx             
-  Bloodthirst (10697)                                                      x      x     x      x     x      x       x                           
+  Auto Attack (19200)                                        x  x      x   x        x  xx  x          x   x        x    x   x xx xx             
+  Bloodthirst (10697)                                                      x      x     x      x      x     x       x                           
   Heroic Strike (9968)                                              x  x      x  x         x  x           x     x                               
-  Execute (8759)                                                                                                       x   x x x x              
+  Execute (8759)                                                                                                       x    xx x x              
   Whirlwind (6804)                                                 x         x            x            x         x                              
   Deep Wound (2282)                                                    x  x   x    x  x    x      x  x    x         x     x  x  x               
-  Hamstring (623)                                                   x          xx   x      x x                xx     x                          
+  Hamstring (623)                                                   x          xx   x      x x                xx      x                         
 Everglow (56832)
-  Windfury Totem                           G F     G F          GF    GFGF GF            G F                 G F       G F G  F GF              
+  Windfury Totem                           G F     G F          GF    GFGF GF            G F                 G F       G F G x FGF              
   Bloodrage                                                           GxxxxxxxxxF                                                               
   Berserker Rage                                                                           G         F                                          
   Death Wish                                                                                                x                             F     
-  Auto Attack (21179)                                       x   x    xx x  x xx    x     x                x  x     x  xx   x x  x               
-  Heroic Strike (12530)                                            x      x        x  x     x  x x     x        x               x               
+  Auto Attack (21179)                                       x   x     x x  x  x    x     x                x  x     x  xx    xx  x               
+  Heroic Strike (12530)                                            x       x       x  x     x  x x     x        x               x               
   Bloodthirst (11548)                                       x     x        x      x      x       x           x      x          x                
   Execute (5642)                                                                                                       x x x x  x               
   Whirlwind (3900)                                              x           x          x           x           x                                
@@ -333,8 +333,8 @@ Yis (50773)
   Earthstrike                                                    G                   F                                                          
   Rapid Fire                                                      G                  F                                                          
   Berserking                                                      G         F                                                                   
-  Auto Shot (23177)                                            x x   x x x x x x x x x   x   x x x x x x  x x x x x  x x  xx  x  x              
-  Trueshot (19906)                                                    x x x x x   x x      x  x x  x x   x x  xx     x x x x   x  x             
+  Auto Shot (23177)                                            x x   x x x x x x x x x   x   x x x x x x  x x x x x  x x  x x x  x              
+  Trueshot (19906)                                                    x x x x  x  x  x     x  x  x x x   x x  xx     x x x x   x  x             
   Multi-Shot (7120)                                                 x           x           x          x          x         x                   
   Serpent Sting (570)                                         x  x  x  x  x                                                                     
 Shrimpshark (46202)
@@ -342,45 +342,45 @@ Shrimpshark (46202)
   Ephemeral Power                                                          G              F                                                     
   Unstable Power                                                                            G                  F                                
   Frostbolt (44784)                                                    x       xx   x  x x  x  x  x  x x  x  x x  x x  x  x  x  x               
-  Fire Blast (830)                                                                                                               x              
+  Fire Blast (830)                                                                                                                x             
 Redzeus (44802)
-  Frostbolt (43673)                                              x  x  x x x x x x x x x x  x x  x  x x  x x  x  x  x x  x  x x  x              
+  Frostbolt (43673)                                              x  x  x x x x x x x x x x  x  x x  x x  x  x x  x  x x  x  x  x x              
   Fire Blast (1129)                                     x                                                                                       
 Chan (42766)
   Auto Shot (15877)                                             x   x x  x x x  x  x   x   x  x   x  x  x x  x  x   x  x  x   x  x              
-  Aimed Shot (10070)                                               x           x          x          x             x         x                  
+  Aimed Shot (10070)                                               x           x          x          x             x          x                 
   Trueshot (9581)                                                       x x x     x   x       x  x     x x x   x       x        x               
-  Multi-Shot (5438)                                                   x             x          x            x           x                       
+  Multi-Shot (5438)                                                   x             x          x             x          x                       
   Serpent Sting (1800)                                       x   x  x  x  x  x                x  x  x  x  x           x   x  x  x               
 Srj (42567)
   Sinister Strike (13885)                                 xx     xx x x x x  x xx   x   xxxx  x       x   x   x   x   x     x x                 
   Kiss of the Spider                                         G              F                                                                   
   Blade Flurry                                                G              F                                                                  
   Adrenaline Rush                                              G              F                                                                 
-  Windfury Totem                                                   GF                             F   G F             GF      F                 
+  Windfury Totem                                                   GF                             GF  G F             GF      F                 
   Auto Attack (22866)                                     x  x xxxxxx xxxxxx x x  xxx  xx xx x   xx x xxxxxx xx xx xx xxx xxxxx  xx             
   Eviscerate (4056)                                                    x              x           x                               x             
   Deadly Poison V (1760)                                              x  x  x  x  x   x  x  x  x  x  x  x  x  x  x  x     x  x  x               
 Platedps (38067)
-  Windfury Totem                        G F                        GF          G F         GF               GF     G F G F     G F              
+  Windfury Totem                        G F                        GF          x F         GF               GF     G F G F     G F              
   Death Wish                                                                                                    x                             F 
-  Auto Attack (17976)                                           x  x x  x      x    x  x   x x  x  x  x x  xx      x   x  x    x                
+  Auto Attack (17976)                                           x  x x  x      x     x x   x x  x  x  x  x xx      x   x  x    x                
   Execute (7817)                                                                                                       x x  xx   x              
   Bloodthirst (5992)                                               x           x            x        x      x     x                             
   Whirlwind (2434)                                                                 x                    x          x                            
   Heroic Strike (2349)                                                                                        x       x                         
   Deep Wound (1499)                                                x  x    x  x   x  x  x       x        x     x  x      x      x               
 Aphorodite (32086)
-  Windfury Totem                                     GF         GF G F            G G F                         GF           GF  GF             
+  Windfury Totem                                    xGF         G FxGF            G GxF       x                 G F x        GF  GF             
   Auto Attack (14934)                                           x      x        x x xx      x x      x      x  xx  xx      x x  xx              
-  Seal of Command (9262)                                            x                x        x       x     x       x   x        x              
+  Seal of Command (9262)                                            x                x        x       x      x      x   x        x              
   Holy Strike (4022)                                               x                                    x               x                       
-  Crusader Strike (2361)                                      xx   xx x x        xx x xx x  x x      x  x   x x x x x x x    x x x              
-  Judgement of Command (1409)                                   x                        x                x              x                      
-  Lightning Strike (98)                                         x  xx  x          x xx   x  x x      xx x   xx xx  xx   xx x x  xx              
+  Crusader Strike (2361)                                      xx   xx x x        xx x xx x  x x      x   x  x x x x x x x    x x x              
+  Judgement of Command (1409)                                   x                         x               x              x                      
+  Lightning Strike (98)                                         x  xx  x          x xx    x x x      xx x   xx xx  xx   xx x x  xx              
 Syjlas (31855)
   Ephemeral Power                                                         G              F                                                      
-  Frostbolt (30727)                                                  x        x  x  x    xx   x  x x  x  x  x  x  x    x  x x  x  x             
+  Frostbolt (30727)                                                  x         x x  x    xx   x  x x  x  x  x  x  x    x  x x  x  x             
   Fire Blast (1128)                                                                                                               x             
 Sunor (30494)
   Ephemeral Power                               F                                                                           G              F    
@@ -390,63 +390,63 @@ Sunor (30494)
   Shadow Word: Pain (1559)                                    x  x  x  x  x  x                                                                  
 Few (27511)
   Adrenaline Rush                                                 G              F                                                              
-  Backstab (13121)                                              x  x  x      x x  x        x     x    x     xx  x       x       x               
-  Auto Attack (12766)                                         x xx  xxxxxx    x xxx x xxxxxx xxxxxx xxxxxxxx x xxxxxxxxxxx  xxxx x              
+  Backstab (13121)                                              x  x  x       xx  x        x      x   x     xx  x       x       x               
+  Auto Attack (12766)                                         x x x xxxxxx    x xxxxx xxxxxx xxxxxx xxxxxxxx x xxxxxxxxxxx  xxxx x              
   Eviscerate (895)                                                                                                 x                            
   Ambush (638)                                                x                                                                                 
   Gutgore Ripper (91)                                                                                                         x                 
 Berserkss (25361)
-  Auto Shot (14198)                                                              x  x  x x  x x  x  x x  x x  x  x x  x x  x x  x               
-  Trueshot (5193)                                                                   x         x    x         x         x       x                
+  Auto Shot (14198)                                                              x  x  x x  x  x x  x x  x x  x  x x  x x  x x  x               
+  Trueshot (5193)                                                                   x         x    x         x          x      x                
   Multi-Shot (3990)                                                                   x              x            x              x              
   Serpent Sting (1980)                                           x  x  x  x  x             x  x  x  x  x   x  x  x  x  x     x  x               
 Teldelar (23186)
-  Starfire (20606)                                               x    x x  x  x     x   x x  x  x   x  x  x  x  x  x      x                     
+  Starfire (20606)                                                x   x x  x  x     x   x x  x  x   x  x  x  x  x  x      x                     
   Moonfire (2580)                                        x x x  x  x  x  x                                                      x x             
 Psykhe (21896)
-  Windfury Totem                                                G G F              G F      GF  GF    GF       G F   G F                        
+  Windfury Totem                                                G G F              G F     xGF  GF    GF       G F   G F                        
   Berserking                                                                  G         F                                                       
-  Shield Block                                                                                    G     F G F       G   F   G  F                
-  Auto Attack (10075)                                   x xxxx   x x xx   xx x xxxxx xx xxxxxxx x x   x   x x  x           x      x             
+  Shield Block                                                                                    G     F G F        G  F   G  F                
+  Auto Attack (10075)                                   x xxxx   x x x x  xx x xxxxx xx xxx xxx x x   x   x  x x           x      x             
   Heroic Strike (7606)                                          x x                        x xx xx x xxx x xx x      x                          
   Bloodthirst (4091)                                                                    x       x      x      x          x                      
   Revenge (124)                                                                                                      x          x               
 Bloxie (21827)
-  Windfury Totem                        F                           G F   GF   G F   G F       GF     G GF    GFGFGG F   GF                     
-  Auto Attack (8578)                                     x  x       x          x            x xx x    x x  x xx   xx     x  x    x              
-  Seal of Righteousness (4633)                           x  x     x x          x         x  x xx x  x x x    xx   xx  x  x  x    x              
+  Windfury Totem                        F                           G F   GF   G F   G F       GF     G GF   xGFG GG F   G Fx                   
+  Auto Attack (8578)                                     x  x       x          x            x  x x    x x  x xx   xx     x  x    x              
+  Seal of Righteousness (4633)                           x  x     x x          x         x  x  x x  x x x    xx   xx  x  x  x    x              
   Holy Strike (4028)                                              x                      x          x                 x                         
-  Crusader Strike (1708)                              x   x         x x x x  x x   x x        x x    xx xx   xx x xx                            
+  Crusader Strike (1708)                              x   x         x  xx x  x x   x x        x x    xx xx   xx x xx                            
   Judgement of Righteousness (1436)                    x                                         x        x                                     
   Electric Discharge (766)                                                                  x    x         x                     x              
-  Consecration (678)                                            xxxxxxxx                                                                        
+  Consecration (678)                                            xxx xxxx                                                                        
 Gack (21825)
-  Lightning Bolt (18705)                                              x  x x    x x     x x x  x x xx x   x x x x x x x x   x  x x              
+  Lightning Bolt (18705)                                              x  x x    x x     x x x  x x x xx   x x x x x x x x   x  x x              
   Chain Lightning (3120)                                                    x       x                  x                         x              
 Charmia (21304)
-  Maul (13262)                                                x    x x  x x    x  x         x           x x  x x x  x x x  x  x                 
+  Maul (13262)                                                x    x x  x x    x  x         x           x x  x x x  x x x   x x                 
   Savage Bite (5256)                                         x     x     x      x        x       x     x      x              x                  
-  Auto Attack (2190)                                       x                           x x      x    x                          x               
+  Auto Attack (2190)                                       x                           x x       x    x                         x               
   Swipe (596)                                                   x   x            x        x                  x x       x                        
 Roshane (18547)
-  Arcane Missiles (16915)                                                      xxxxx xxxxxxxxxxxxxxx xxxx xxx xxxxxxxxxx xxx x                  
+  Arcane Missiles (16915)                                                      xxxxx xxxxxxxxxxxxxxx xxxx xxxxxxxxxxxxxx xxxxx                  
   Pyroblast (1432)                                                                                                               x              
   Engulfing Shadows (200)                                                                         x               x                             
 Subarach (17919)
-  Auto Attack (10678)                                           xxxxxxx x    xx x  xxx x x xxx x xxxxxxxxx x  xxxx xx xxxx x xx x x             
+  Auto Attack (10678)                                           xxx xxxxx    xx x  xxx x x xxx x xxxxxxxxx x  xxxx xx xxxx xxxx x x             
   Bloodthirst (3143)                                                         x            x      x      x       x     x                         
   Execute (2424)                                                                                                        x    x  x               
   Cleave (888)                                                                x                     x     x  x                                  
-  Whirlwind (786)                                                               x          x          x                                         
+  Whirlwind (786)                                                               x          x           x                                        
 Nightleaf (17829)
-  Claw (6418)                                                  x x      x        xxx  x   x x            x xx        x          x               
-  Auto Attack (5365)                                         xxxxxx    x         xxxxxxxxxxxxxxx       xxxxxxxxxx   x    x    x xxx             
+  Claw (6418)                                                  x x      x        xxx  x   x x            x xx         x         x               
+  Auto Attack (5365)                                         xxxxxx    x         xxxxxxxxxxxxxxx       x xxxxxxxx   x    x     xxxx             
   Rip (2808)                                                            x x x x x x                    x x x x x x                              
   Ferocious Bite (2765)                                                             x                             x               x             
   Rake (473)                                                  x  x  x  x                                      x  x x  x                         
 Pieshka (17747)
   Bloodthirst (6033)                                                   x       x       x     x      x      x       x                            
-  Auto Attack (5889)                                            xxxx         xx      x   xxx xxx x x x xx xx x xx       x        xx             
+  Auto Attack (5889)                                            xxxx         xx      x    x xxxx x x x xx xxxx xx       x        xx             
   Heroic Strike (4194)                                                                 x              x  x     x          x                     
   Execute (600)                                                                                                                 x               
   Deep Wound (599)                                                 x  x   x  x  x  x            x  x              x  x  x   x  x                
@@ -457,14 +457,14 @@ Shuly (14127)
   Shadow Bolt (11886)                                                           x x  x x  x x  x  x x   x x     x       x x                     
   Corruption (2241)                                                      x  x  x  x  x  x                   x  x  x  x  x  x                    
 Mezmeris (13295)
-  Frostbolt (13295)                                                              x  x  x x  x  x  x x  x  x  x x  x    x  x  x                  
+  Frostbolt (13295)                                                              x  x  x x  x  x  x  x x  x  x x  x    x  x  x                  
 Fflur (12823)
-  Auto Shot (7086)                                                     x                   x  x x  x  x  x x  x x  x x  x  x x  x               
+  Auto Shot (7086)                                                     x                   x  x x  x  x  x  x x x  x x  x  x x  x               
   Trueshot (4653)                                                                            x  x     x x x   x   x  x x  x                     
   Multi-Shot (585)                                                     x                                                                        
   Serpent Sting (499)                                                                        x  x  x  x  x                                      
 Illasei (947)
-  Shoot Bow (947)                                                                                  x                     x    x                 
+  Shoot Bow (947)                                                                                  x                     x     x                
 
 
 Ability Timeline for Firemaw (169.2s)
@@ -475,14 +475,14 @@ Srj (85165)
   Blade Flurry                                          G              F                                                                                                                      G              F    
   Kiss of the Spider                                    G              F                                                                                                                      G              F    
   Adrenaline Rush                                          G              F                                                                                                                                       
-  Windfury Totem                                            GF    F G  FGF  GF  F                         GG F       G F                                     G F   G F                                  FGFF      
+  Windfury Totem                                            GF    F Gx FGF  GF  F                         GGxF       G F                                     G F   G F                                  FGFF      
   Auto Attack (50907)                                   xxxxxxxxxxxxxxxx xx xxxxxxxx                    xxxxxx x xxx xxx xx x                       x xx x xxx xxx xx x                    x xxxxxxxxxxxx xx x    
   Eviscerate (8227)                                                x         x                            x                  x                                       x                                   x        
   Deadly Poison V (2104)                                            x  x  x  x  x  x  x  x                        x  x  x  x  x                                 x  x  x  x                    x  x  x  x  x  x    
 Dyrachyo (79333)
+  Windfury Totem                                             x               G F                           G F       G FG F                                                         GF      GF                    
   Kiss of the Spider                                          G             F                                                                                                                                     
   Bloodrage                                                                 GxxxxxxxxxF                                                             GxxxxxxxxxF                                                   
-  Windfury Totem                                                             G F                           G F       G FG F                                                         GF      GF                    
   Death Wish                                                                                                                                                                   x                             F    
   Recklessness                                                                                                                                                                   G              F                 
   Auto Attack (25632)                                     x  x         x    xx                             x     x   x  x                                                           x  x  x x x          x  x     
@@ -501,7 +501,7 @@ Illasei (55837)
   Deadly Poison V (2520)                                       x  x  x  x  x  x  x  x  x  x  x               x  x  x  x  x  x  x                               x x  x  x  x  x                       x  x  x      
   Instant Poison VI (1351)                                 x xx   x      x    x                               x                                         x x         x                                 x           
 Aphorodite (51913)
-  Windfury Totem                                       G F  G GF G F GF                              G F       GF                            G FGF    G G GF                           G F GF                     
+  Windfury Totem                                       G F  G GF G F GF                              G F  x    GF                            G FGF    x G GF                           G F GF                     
   Auto Attack (22102)                                  x    x x  x   x      x                     x  x   xx   xx                         x   x  x  x  x x x                                x  x   x               
   Seal of Command (12773)                               x            x   x  x                         x    x       x                          x x     x  x                                 x      x               
   Holy Strike (11635)                                     x             x                            x            x                          x                                        x                           
@@ -518,7 +518,7 @@ Yis (50074)
   Multi-Shot (9123)                                        x          x                               x           x                                x         x                              x           x         
   Serpent Sting (1200)                                  x  x  x  x  x                                x  x  x  x  x                                                                                                
 Platedps (47705)
-  Windfury Totem                                      GF               GF    G F                           GF  GFGF        G  F                                                                           G FG F  
+  Windfury Totem                                     xGF               GF    G F                           GF  GFGF        G xF                                x                                          G FG F  
   Death Wish                                                                                                                                          x                             F                             
   Auto Attack (22235)                                xx x  x x   x    xx x  xx                      x    x x  xx x         x x   x                     x  x    x x    x    x                      x  x x  x  x    
   Bloodthirst (8688)                                  x         x      x     x                      x          x     x                                  x      x    x      x                                      
@@ -539,7 +539,7 @@ Berserkss (39372)
   Multi-Shot (6723)                                        x                                    x             x                             x           x                               x             x           
   Serpent Sting (3480)                                         x  x    x  x  x  x  x                 x  x  x  x  x  x  x                        x  x  x  x   x  x  x  x  x                  x  x  x  x    x  x    
 Everglow (38925)
-  Windfury Totem                                      GF    GG   F    G F   GF GF       G F    G F        G F                                                                                                     
+  Windfury Totem                                      GF    GG x F    G F   GF GF       G F    G F        G F                                                                                                     
   Bloodrage                                            GxxxxxxxxxF                                                                                                                                                
   Berserker Rage                                                                       G         F                                                                                                                
   Auto Attack (15659)                              x  x    xxx x     xx     x  x  x x   x     xx        x x                                                                                                       
@@ -550,7 +550,7 @@ Everglow (38925)
   Hamstring (303)                                              x      x       x x    x            x                                                                                                               
 Psykhe (37862)
   Bloodrage                             GxxxxxxxxxF                                                                                                                                                               
-  Windfury Totem                               GF   GG F     GF  G F G  FG F        GF   G F                     G F    GF   GF          GGFG  F                    GF          GG   F       GF GF        G F     
+  Windfury Totem                              xGF   GG F     GF  G F G xFG F        GF   G F                     GxF    GF  xGF          GGFGxxF                    GF          GGxx F      xGF GF        G F     
   Berserking                                                              G         F                                                                                                                             
   Shield Block                                                              G  F     G     F     G    F         G  F  G       F        G     F        G     F        G     F  G         F                  G      
   Heroic Strike (15292)                     x x  x  x                   xx xxxx x    x   x x  x x                x x xx                  x     x   x       xxx      x  xx     x x  xx            x xxxx xx  x     
@@ -586,7 +586,7 @@ Fflur (20471)
   Trueshot (9219)                                       x    x  x                     x     x x     x  x  x        x                                x  x  x x  x x                                x   x  x        
   Serpent Sting (1470)                                 x  x  x  x  x                                                                                      x  x  x  x  x                           x  x  x  x      
 Bloxie (16538)
-  Windfury Totem                                                            GF GF         G  F                                                G  F GG FG FGF      G F                                    GF       
+  Windfury Totem                                                            GF GF         Gx F                                                G xF GG FG FGF      G F                                   xGF       
   Auto Attack (11980)                                            x  x  x  x x  x x  x  x  xx  x  x  x    x                    x  x  x  x      x x xxx  x  x     x x                       x  x  x       xx x      
   Holy Strike (1450)                                                                      x                                                                                                                   x   
   Seal of Righteousness (1246)                                            x x  x       x  xx  x                                                                                                               x   
@@ -624,7 +624,7 @@ Player (dmg) / Spell (dmg)               Time (seconds) ->
                                         0    '    10   '    20   '    30   '    40   '    50   '    60   '    70   '    80   '    90   '    100  '    110  
 Dyrachyo (90860)
   Bloodrage                                GxxxxxxxxxF                                                       GxxxxxxxxxF                                   
-  Windfury Totem                                             G F   G FGFGF GG F GF                           G F    GF G F               G  FG FG F GFGGF  
+  Windfury Totem                                             G F   G FGFGF GG F GF                           G F    GF G F               Gx FG Fx F GFGGF  
   Death Wish                                                                                                                x                              
   Kiss of the Spider                                                                                                                 G              F      
   Auto Attack (36916)                             x   x      x     x  x x  xx   x        x   x        x  x  xx     xx  x            x  x xx xx  x  xx xx   
@@ -654,7 +654,7 @@ Illasei (75106)
 Everglow (74469)
   Bloodrage                                   GxxxxxxxxxF                                                  xxxxxxxxxF                                      
   Berserker Rage                                            G        F                       G         F                         G         F               
-  Windfury Totem                                                 G G F        G FGF GF GFG G FGF G F                   GF         GF       G F   F     GF  
+  Windfury Totem                                                 G G F        G FGF GF GFG G FGF GxF                  xGF         GF       G F   F     GF  
   Death Wish                                                                                          x                             F                      
   Auto Attack (29106)                              x    x     x  x x     x  x x     x  x x x  x  xx          x   x    xx          x    x  xx  x  x  x  x   
   Heroic Strike (18083)                               x    x          x             x  x      x  x   x  x x         x    x  x  x     x                     
@@ -678,7 +678,7 @@ Yis (61087)
   Multi-Shot (8988)                                       x          x            x          x          x           x          x          x          x     
   Serpent Sting (600)                              x  x  x  x  x                                                                                           
 Aphorodite (58562)
-  Windfury Totem                                       G FGF  G F  GF   G F G F   G F G F    GF GF       GFG F GFG G G F    GF      GF G F     G FG FG F   
+  Windfury Totem                                       G FGF  G F  GF   G F x F   G F G F    GF GF       GFG F GFG G G F    GF      GF G F     GxFG FG x   
   Auto Attack (30598)                                  x  x   x   xx  x x   x     x   x   x  x  x  x   x x x   x x x x      x  x   xx  x   x   x  x  x x   
   Seal of Command (15080)                                  x  x             x   x     xx         x          x  x             x      x   x   x         x x  
   Holy Strike (6756)                                         x                  x               x                        x             x                   
@@ -686,7 +686,7 @@ Aphorodite (58562)
   Judgement of Command (2409)                                   x                   x            x                        x              x                 
   Lightning Strike (154)                               x   x xx x x   x     x   x x x xx  x  x  xx x     x x   x     x   xx xx x   xx  xxx xx  x  x  xxx   
 Platedps (54553)
-  Windfury Totem                                       G G F      GF    GF                GFGFG F    GF   GF   G F GFGF          GGF           G F   GF    
+  Windfury Totem                                       GxG F      GF    GF                GFGFG F    GF   GF   G F GFGF          GGF           G F   GF    
   Death Wish                                                                                                     x                             F           
   Auto Attack (27192)                         x   x x  xxx  x    xx  x xx     x  x  x  x  x   x x x  x x  x  x x   x x    x  x   xx  x       x x  x  x x   
   Bloodthirst (9095)                                     x      x       x               x     x      x      x      x      x       x     x            x     
@@ -723,7 +723,7 @@ Teldelar (34896)
 Psykhe (33699)
   Bloodrage                                GxxxxxxxxxF                                                                                                     
   Shield Block                                 G     F                                         F                                                           
-  Windfury Totem                                        G F  G  F            G F           GF GGF    G F  GF G F          G F      GF  GF       G FG  F    
+  Windfury Totem                                        G F  G xF            G F           GF GGF    G F  GF G F          G F      GF  GF       G FGx F    
   Auto Attack (15771)                        xx     xxxxx    x xx  x x  x x  x   x x xxx   x  xx  x xx x xxx x  xx    xx xx  xx xx x   x    x xxx  xx x    
   Heroic Strike (10676)                        x x               xx    xx x xx xx x       x x xxx           x x    x x              xx  x  x           xx  
   Bloodthirst (6649)                           x        x      x      x                  x                         x               x                x      
@@ -794,7 +794,7 @@ Player (dmg) / Spell (dmg)               Time (seconds) ->
                                         0    '    10   '    20   '    30   '    40   '    50   '    60   '    70   '    80   '    90   ' 
 Dyrachyo (65131)
   Bloodrage                                             GxxxxxxxxxF                                                   xxxxxxxxxF         
-  Windfury Totem                                                  GF     GF         GG GF         G F     G G F      G F  GG F           
+  Windfury Totem                                                  GF     GF         GG GF         G F     G G F      G F  GG x           
   Kiss of the Spider                                                                                               G              F      
   Auto Attack (31164)                                        x   xx  x   x     x   xx  x        x x     x x x     x  x  x xx x x  x x    
   Execute (12004)                                                                                                       x xx x xx x x    
@@ -808,7 +808,7 @@ Srj (58832)
   Sinister Strike (11557)                                  x   x   x      x xx   x   x     x     x   x   x   x   x     x x   x     x     
   Kiss of the Spider                                         G              F                                                            
   Blade Flurry                                               G              F                                                            
-  Windfury Totem                                              GFGF     F  F  G G F G F      GF           GF  G F       GFF          GF   
+  Windfury Totem                                              GFGF     F  F  G G F G F     xGF           GF  G F       GFF          GF   
   Auto Attack (42298)                                      x xxxxx xxxxx xxxxx x xxxxx xxxxxx x  xx xxxxxx xxxxx  xxxxxxxx xxx xx xxxx   
   Deadly Poison V (2836)                                        x  x  x  x  x  x  x  x  x  x  x  x  x  x  x              x  x  x  x  x   
   Eviscerate (2141)                                                                      x                                       x       
@@ -820,7 +820,7 @@ Sunor (52415)
 Everglow (47650)
   Bloodrage                                                 GxxxxxxxxxF                                                    GxxxxxxxxxF   
   Berserker Rage                                               G         F                    G         F                     G          
-  Windfury Totem                                                           GF                    GFGF        GF G F      GF              
+  Windfury Totem                                                           GF                    GFGF        GF x F      GF              
   Death Wish                                                                                                              x              
   Auto Attack (20344)                                        x  x x  x     x x          x   x  x x x       x x  x      x x x  x  x  x    
   Bloodthirst (8973)                                         x      x      x     x               x       x     x       x                 
@@ -842,7 +842,7 @@ Yis (44633)
   Multi-Shot (6100)                                               x           x            x            x           x          x         
   Tranquilizing Shot                                         x                                        x                                  
 Aphorodite (42182)
-  Windfury Totem                                                            GF G F  G F GF G F G F      GF     G F GF            GFGFG F 
+  Windfury Totem                                                            GF G F  G F GF GxF G F      GF     G FxGF      x     GFGFG F 
   Auto Attack (18495)                                         x      x   x  x      xx      xx  x   x    x  x   x   x  x   xx     x x x   
   Seal of Command (12202)                                         x                         x   x   x  x        x  x   x  x x            
   Holy Strike (6704)                                              x                        x          x           x           x          
@@ -850,7 +850,7 @@ Aphorodite (42182)
   Judgement of Command (1759)                                                x          x       x        x                       x       
   Lightning Strike (112)                                          x  x   x  x      x    x  xx  xx  x   xxx x   xx xx  xx  xxx x  x x x   
 Platedps (40182)
-  Windfury Totem                                              G F     G F       GF          GF  GF    G F         GF    G FG G F         
+  Windfury Totem                                              x F     G F       GF          GF  GF    G F         GF    G FG G F         
   Auto Attack (20592)                                         x  x  x x   x  x  x    x   x     xx x  xx  x    x   x x  xx  x x x x  x    
   Execute (7507)                                                                                                        x  x x xx x x    
   Bloodthirst (7288)                                          x        x      x         x        x      x     x           x              
@@ -923,7 +923,7 @@ Subarach (20336)
 Teldelar (20077)
   Starfire (20077)                                                 x   x  x  x  x    x  x  x  x   x  x   x  x  x  x     x   x  x  x  x   
 Bloxie (18840)
-  Windfury Totem                                                           G G F   G                           G F     G G F GF GF   G F 
+  Windfury Totem                                                x          G G F   G                           G F     G G F GF GF   G F 
   Auto Attack (9498)                                    x  x  x x     x  x x x  x  x          x  x  x  x x  x  x  x    x x   x  x x  x   
   Holy Strike (3323)                                               x               x                           x            x            
   Seal of Righteousness (3098)                                  x  x     x x x     x                                   x x  xx  x x  x   
@@ -954,7 +954,7 @@ Player (dmg) / Spell (dmg)               Time (seconds) ->
                                         0    '    10   '    20   '    30   '    40   '    50   '    60   '    70   '    80   '    90   '    100  '    110  '    120  '    130  '    140  '    150  '    160  '    170  '    180  '    190  '    200  
 Dyrachyo (129246)
   Bloodrage                                   GxxxxxxxxxF                                                  GxxxxxxxxF                                                  GxxxxxxxxxF                                                     GxxxxxxxxxF   
-  Windfury Totem                                G FGF GF  G F            GF    G GF    GF                    GF     GFG F G GF     G G G F    GF GF    G GF            G F        GF                  GG G  F                G G F GF     G F GF     
+  Windfury Totem                                GxFGF GF  G F            GF    G GF    GF                    GF     GFGxF x GF     G G G F    GF GF    G GF            G F        GF                  GG Gx F                GxG F GF     G F GF     
   Kiss of the Spider                                            G              F                                                                                                                    G              F                                 
   Death Wish                                                                                                                                                                                        x                             F                  
   Auto Attack (50383)                           xx   x                  xx     x x     x        x    x     x x  x   x xx  x x      x x x      x  x  x  x x             x  x   x  xx  x  x      x  x   xx xx  x   x      x    x x  xx  x x x  xx      
@@ -983,7 +983,7 @@ Srj (96385)
   Kiss of the Spider                             G                                                                                                                       G              F                                                            
   Blade Flurry                                   G                                                                                                                       G              F                                                            
   Adrenaline Rush                                 G              F                                                                                                                                                                                   
-  Windfury Totem                                        FGF    G    F    GF GF GF         F    GF           F           G F GF      F     GF       GF    GF           GF            GF G F          G F GF     GF                                    
+  Windfury Totem                                        FGF    x    F    GF GF GF         F    GF           F           G F GF      F     GF       GF    GF           GF            GF G F          G F GF     GF                                    
   Bloodlust                                                                                                      G                   F                                                                                                               
   Auto Attack (58578)                          x xxxxxxxxxxxxx x  x x  xxx xxx xxxxx  x   x    x       x xx xxx    x    x xx        x xx xxxx x    x    x         x xx x xxxx xxxxxxx x        x x xx xxx   x xxx x   x          xx x x   x xx       
   Eviscerate (7206)                                       x              x                x                                 x                            x                                                    x                           x          
@@ -992,7 +992,7 @@ Srj (96385)
 Everglow (94330)
   Bloodrage                                          GxxxxxxxxxF                                                 GxxxxxxxxxF                                                  GxxxxxxxxxF                                                 Gxxxxxxxxx 
   Death Wish                                          x                             F                                                                                                                                                                
-  Windfury Totem                                          F                                              GF    GF                  G F    GF                       GF      GF  GF    G F                                                             
+  Windfury Totem                                          F                                              GF    GF                  GxF    GF                       GF      GF  GFx   G F                                                             
   Berserker Rage                                                                                           G         F                         G         F                                        G         F                      G         F       
   Auto Attack (43923)                        x   x x  x   x xx  x           xxx x  x xxx xxx   xx x    x xx x x x  xx xxx x x x    xxx x xxxx   x x  x x          xx   x xxxxxxx x x x  x       x  x x   xx x x x x x x  x  x xxxxx x x xxxx  x      
   Heroic Strike (20480)                           x     x   x x               x x  x    x   x                    x   x   x x  x      x x  x x x x        x           x         x x x   x        x    x                                               
@@ -1029,14 +1029,14 @@ Berserkss (66269)
   Serpent Sting (1293)                                            x  x  x  x  x                 x  x  x  x  x    x   x  x  x   x  x  x  x  x     x  x  x    x  x  x  x  x           x  x  x  x  x             x  x  x  x  x               x  x       
   Tranquilizing Shot                                                                    x                             x                             x                                                           x                             x      
 Few (59840)
-  Windfury Totem                                                           G F      GFGF              G F     G F G  F  G F  GF     F                  G F                  GG F  GF                  F       F    G  F                GF            
+  Windfury Totem                                                           G F      GFGF              G F     G F G xF  G F  GF     F                  G F                  GG F  GF                  F       F    Gx F               xGF            
   Adrenaline Rush                                                                                                                             G              F                                                                                       
   Auto Attack (29548)                                                    x x xxxxxxxxxxx xx xx x      x xxxxxxxxxxx xxxxx    x      x xx x    xx xx xx x            x x    xxx xxxxxxx             x xx xxx x x     x         xxxx    x     x        
   Backstab (29519)                             xx                x       x x           x   x            x x        x                 xx        x  x  x x           x        xx     x               x   x     x      x         x       x    x         
   Deadly Poison V (754)                                                              x  x  x  x  x  x    x  x  x  x  x  x  x           x  x  x  x  x  x  x  x  x  x    x  x  x  x  x  x                    x  x  x  x  x  x  x  x                    
   Gutgore Ripper (19)                                                                    x                                                                                                                                                           
 Platedps (58612)
-  Windfury Totem                                                G F        G F                                   GF                             G FGF                               GF                       G F   GF                                
+  Windfury Totem                                                G F        G F                                  xGF                             G FGF                               GF                       G F   GF                                
   Death Wish                                                                                                                                                                                           x                             F               
   Bloodrage                                                                                                                                                                                                        GxxxxxxxxxF                       
   Auto Attack (29840)                             x   x      x xx       x  x    x   x      x x        x x  x    xx         x       x            x  x  x x  x           x x  x    x  x          x  x    x     x    xx         x   x            x      
@@ -1054,7 +1054,7 @@ Charmia (56351)
 Psykhe (52754)
   Bloodrage                             xxxxxxxxxF                                                       GxxxxxxxxxF                                                               GxxxxxxxxxF                                                       
   Shield Block                               G    F                        G F                   G    G  F G     F   G    FG     F G  F  G    F  G  F G F    G   FG     FG    FG    F   G         FGF    G     F       G    FG  F     G F   GF       
-  Windfury Totem                                       G F           G    F   G   F    GF   GF  GF     GF              G FG FG F          GF     GF   G  F            GF     G FGF                                                                   
+  Windfury Totem                                       GxF           Gxxx F   Gxx F    GF   GF  GF     GF              G FG FG F          GF     GF   Gx F           xGF     G FGF                                                                   
   Berserking                                                                                                                                                       G         F                                                                       
   Heroic Strike (21195)                           x xx  xxx xx  x       x xxxx x  xxx xx x     x xx     x     x x     x   x                x       xx   x x          xx x           x         xx   x      x  x  xx  xx  x    x    x  x  x x xx       
   Auto Attack (16497)                    x xx xxx  x   x          xx xxxx     xxx      x    xx  x   xx x   x   x  x  x x x  xx x xx    x  x x xx x    xx   x  x x xx     xx xx xxx    xxx xx x    x  x x       x           x     x    x              
@@ -1086,7 +1086,7 @@ Windfurytotm (44945)
   Stormstrike (9463)                                            x                                       x                x  x           x                                   x   x                x   x        x                x    x                
   Earth Shock (495)                                               x                                                x      x                                                   x                    x               x            x                    
 Aphorodite (44402)
-  Windfury Totem                                   GF     GFG F G  F        G F GF         GFG F        G F   GF                        GF  GF                     G F    G G GF     G F                   GF                      G F   G  F        
+  Windfury Totem                                   GF    xGFG F Gx F        G F GF         GFGxF        GxF   GF                        GFx GF                     G F    G G GF     G F                   GF                      GxF   Gx F        
   Auto Attack (33256)                             x      xx     xx          x   x  x       x xx         xx    x  x   x  x   x           x x x  x      x            x      x x x      x                    x     x                  xx    xx   x      
   Seal of Command (4167)                           x                            x   x         xx         x   x x             x           x x x  x      x                x             x                          x                        xx         
   Holy Strike (3285)                                  x                   x               x                 x                         x            x                   x                         x                  x              x                 
@@ -1128,7 +1128,7 @@ Roshane (30227)
   Frostbolt (2340)                                                 x                                                                                                                                                                                 
   Engulfing Shadows (175)                                                                                                                          x                     x xx  x x                                    x                              
 Bloxie (22658)
-  Windfury Totem                                                                        G F                           G F G G G  F         G F      GF G F            GG F                                                                           
+  Windfury Totem                                                                        G F                           G F G G Gx F         G F      GF G F            GG F                                                                           
   Auto Attack (17089)                                                    x x x x xx x   x   x             x x x x   x x   x x x            x       x   x              xx       x  x   x             x  x   x    x    x        x     x    x           
   Fireball (1413)                                                                                                                                      x                          xxx x x                  x x x x x x                   x x x       
   Crusader Strike (1330)                                                      x                                            x x x               x       x x         x  xx         x    x x        x     x x                                           
@@ -1151,7 +1151,7 @@ Ability Timeline for Nefarian (325.4s)
 Player (dmg) / Spell (dmg)               Time (seconds) ->
                                         0    '    10   '    20   '    30   '    40   '    50   '    60   '    70   '    80   '    90   '    100  '    110  '    120  '    130  '    140  '    150  '    160  '    170  '    180  '    190  '    200  '    210  '    220  '    230  '    240  '    250  '    260  '    270  '    280  '    290  '    300  '    310  '    320  '
 Dyrachyo (183752)
-  Windfury Totem                                G F G F                     G F          G FG FGF   G F            G F  G F                                                                                  G FGF GF      GF   G F   GF         G F   G FG F        GF            G F  G F  G F GFGF     GGF G FG F   G G GF GF G F      G GF                                
+  Windfury Totem                                G F G F                     G F          G FG FGF   G F            G F  G F                                                                                  G FGF GF      GF   G F   GF         G F   G FG F        GF            G F  G F  G F GFGF     GGF G FG F   GxG GF GF G F      G GF   x                            
   Bloodrage                                                                    GxxxxxxxxxF                                                 GxxxxxxxxxF                                                     GxxxxxxxxxF                                                                                  GxxxxxxxxxF                                                           
   Kiss of the Spider                                                            G              F                                                                                                                                                                              G              F                                                                                
   Berserker Rage                                                                       G         F                    G         F                   G         F                                 G          F                        G         F                                                                       G         F                                             
@@ -1166,7 +1166,7 @@ Dyrachyo (183752)
   Hamstring (1455)                                                              x x   x  x  x x x  xx x   x             x    x            x            x        x x   x                                           xx x  x  x  x         x  x x     x     x                                                                                                                    
 Srj (145369)
   Sinister Strike (40833)                                             x xx   x      x x    x x     x  x  x   x          x xx x       x    x  x         xx  xxx xx  x                                      xx    x  x x   x    x  x     x x   x   x  xx x x  x      x xx  x     x     x              x                          x     x    x     x  x   x       xx  x x        
-  Windfury Totem                          GF                                 G F           G G F   GFG F     G F           G F                              F                                             G F  F  FG F   GFGF    G F       F               F          F      G GF   G F                     G F                     G F GF                      GF            
+  Windfury Totem                          GF                                 G F           G G F   GFGxF     G F           G F                              F                                            xGxF  F  FG F   GFGF    G F       F               F          F      G GF   G F                     G F                     G F GF                      GF            
   Blade Flurry                                                      G              F                                                                                                                        G              F                                                                                                        G              F                          
   Kiss of the Spider                                                 G             F                                                                                                                       G              F                                                                                                         G              F                          
   Will of the Forsaken                                                                                                                            G    F                                                                                                                                                                                      G    F                          
@@ -1176,14 +1176,14 @@ Srj (145369)
   Deadly Poison V (6883)                                                         x  x  x  x  x  x      x  x  x  x  x  x  x  x  x  x  x            x  x  x  x   x  x  x  x                                     x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x              x  x  x  x  x  x           x  x  x  x                     x  x  x  x  x  x  x  x  x  x  x        
 Illasei (119420)
   Sinister Strike (31713)                                           x xx  x    x    x x      xx         xxx x    xxx    x              x                 x x   x x   x  x                                 xx   x  x x      xx    x   x       xxxx x       x     x xx   x                                                       x   x  x    x          xx x  x   x     x       
-  Windfury Totem                        F                                GF    G FG F        F       F      G F         GF                                 GF            GF                                 G F   G F    F GGF      F   F                       G  F G F      GFG F   GF  G F           G F       G F                                           G F  GF       
+  Windfury Totem                        F                                GF    G FG F        F       F      G F         GF                                 GF            GF                                 G F x G F   xF GGF      F   F                       G  F G F      GFG F   GF  GxF           G F       G F                                           G F  GF       
   Adrenaline Rush                                                                                    G              F                                                                                                                                                                                                                                                         
   Blade Flurry                                                                                         G              F                                                                                                                    G              F                                                                                                                   
   Auto Attack (75079)                                               xxxx xxxxx xxxx xxxx     x x xxxxx xxxxxxxxxx xx    xx     xx      x x               xxxxxxxx xxxxxx x                                xxx xxxxxxxxxxxxxxxxxxxx  xxx xxxxxxxxxxxxxxxxxxxxxx xxxxx x x   x                                                   x xxxxxx  xxxxxx       xxx xx      xx xxx      
   Deadly Poison V (6742)                                                x  x  x  x   x  x  x  x     x  x x  x   x  x  x x   x  x                                  x  x  x  x  x  x                            x  x  x  x  x  x  x  x  x  x  x  x  x x   x  x  x  x  x  x  x  x x   x  x                                                     x  x  x  x     x  x  x  x         
   Eviscerate (5886)                                                                                 x                   x                                                                                                               x                                  x                                                                                         x        
 Aphorodite (105647)
-  Windfury Totem                                     G F                  GF G FGF     GF             G GF G F                GF                   GF     GF     GF                                          GFGF            GFG GF    GF          G F    G F  G  F                       G F        GF G F GF G F GF         G F GF    G F  GF       G  F    G F             
+  Windfury Totem                                     GxF                  GF G FGF     GF          x  G GF G F                GF                   GF     GF     GF                                          GFGF            GFG GF    GF          G F    G F  GxxF                       G F        GF G F GF G F GF         G F GF    G F  GF       Gx F    G F             
   Auto Attack (53057)                                                x   xx  x  x  x             x x  x x  x      x         x x         x   x      x  x   x  x   x      x                                 x  x x      x  x   x x x     x  x   x        x  x    xxx      x                 x   x  x   x  x   x  x   x         xx   x  x  x   xx        xx   x  x      x        
   Seal of Command (24707)                                                      x x   x             x x  x           x           x                          x   x                                                x   x  x   x     x                              xx       x                            x   x  x                                x         x   x          x      
   Holy Strike (18776)                                                                 x               x                          x              x                x                                                x                 x                         x                                      x             x              x                   x           x           
@@ -1191,7 +1191,7 @@ Aphorodite (105647)
   Judgement of Command (3639)                                                                           x                                              x          x                                                 x                  x            x            x                                                                                       x           x        
   Lightning Strike (303)                                                 xx  x  xx x xx          x x xx x  x      x x       x x xx      x   x   x  x  xx  xx x   xx     x                                    x xx x   xx x   x x x  x  x      x     x  x  x   xxxx      xx                    x  x   xx x x xx x   x         x    x  x  x   xxx       xxxx xx x   x  x x      
 Everglow (95929)
-  Windfury Totem                        GF                            GF                  GFGF G F                 G F G F  G FGF               G F             GF                                                        G FGF    G F G FGF GF GF   GF GF  GF GF                                                                                                             
+  Windfury Totem                        GF                            GF                  GFGF G F                 G F G F  G FGF               G F             GF                                                        G FGF    G F G FGF GFxGF   GF GF  GFxGF                                                                                                             
   Bloodrage                                                                         GxxxxxxxxxF                                                     GxxxxxxxxxF                                                  Gx xxxxx xxF                                                                                                                                                 
   Berserker Rage                                                                         G         F                   G         F                          G         F                                                            G         F                                                                                                                                
   Death Wish                                                                                                                                                                                                                                                              x                                                                                                   
@@ -1252,7 +1252,7 @@ Psykhe (75455)
   Berserker Rage                                                                G         F                                                 G         F                                           G         F                   G         F                   G         F                                       G         F                                        G          
   Bloodrage                                                                                          GxxxxxxxxxF                                                                                                                          GxxxxxxxxxF                                                                                                                         
   Death Wish                                                                                                   x                             F                                                                                                                                                                                     x                             F            
-  Windfury Totem                                                                                                       G F                            G F                              GF                G   F                                GFG  F  GFG F     GF          G FGF     GF     GF  GF        GF  GF  GF  GF    GFG F GFG FG F  GG FGFG F       GF G FG F GF     
+  Windfury Totem                                                                                                       G F                            G F                             xGF                Gx xF                                GFG xF  GFG F     GF          G FGF     GF     GF  GF        GF  GF  GF  GF    GFG F GFG FG F  GG FGFG F       GF G FGxF GF     
   Recklessness                                                                                                                                                            G              F                                                                                                                                                                                    
   Auto Attack (37045)                                 x x  x   x  xx x     x    x      xxx  x xx  x      x      x   x xx    xx   x xx       xx   x  xxxx x   x  xx  x  x x                               xx x            x xxx xxx   x x x xx xxx x x xxx  xx xxxxx x x   x x  x  xxx   x    xx  x     xx xxxx xxx x  xx   x x xx xx xx xx x xxx x x xx      xxxx xxxx x      
   Heroic Strike (23368)                                  x x     x  x xxxx  xxx       x          x  x xx           x   x  xx   xx      xx x    x  x       x   x   x  x                                        x  x x x xx          xx              x                 x  x  xx   x     xx          x  xx    x        x                x       x    x     xx x           xx     
@@ -1260,7 +1260,7 @@ Psykhe (75455)
   Revenge (1936)                                                      x      x    x    x        x    x                          x      x                              x                                                                                                      x        x          x                               x        x             x        x            
 Pieshka (70446)
   Bloodrage                                                   GxxxxxxxxxF                                                                                                                                                                                                                                GxxxxxxxxxF                                                          
-  Windfury Totem                                                              G F              GF               GF                                                  GF                                                                F    GF            GF        GF      GF                                     F                                       GF       G F        
+  Windfury Totem                                                              G F              GF               GF                                                 xGF                                                                F    GF            GF        GF      GF                                     F                                       GF       G F        
   Death Wish                                                                                                                                      x                             F                                                                                                                                                                                             
   Diamond Flask                                                                                                                                                                                G                                                           F                                                                                                                  
   Recklessness                                                                                                                                                                                                  G              F                                                                                                                                              
@@ -1273,7 +1273,7 @@ Pieshka (70446)
   Wrath (235)                                                                                                      x                                                                                         x                                                                                                                                                                
   Drain Life (103)                                                                                                 x                                                   x                                                                                                                                                                                                      
 Bloxie (68993)
-  Windfury Totem                        G  F       GF                      G F   G F                 G F      G G F       G F                                     G F                                           GFGF      G F                   G  F         G FG FGF GF                                GF                             GF  GFG F        GFG  F  GF GF         
+  Windfury Totem                        Gx F       GF                      G F   G F                 G F      G G F       G F                                     G x                                           xFGF      G F                   G xF         G FG FGF GF                                GF                             GF  GFG F        GFGxxF  GFxGF         
   Auto Attack (31894)                                                  x  xx     x  x  x         x  xx  x  x  x x  x   x  x  x  x     x    x  x          x     x  x x  x                                  x  x  x x  x x  x  x  x     x     x x x x  x  x x  x  x  x  x x                    x                                         x   x x     x  x x xxx   x xx          
   Seal of Righteousness (14301)                                        x  xx  x  x  x  x         x  xx  x     x x  x   x  x  x     x  x    x  x          x  x  x  x x  x                                     x  x x  x x  x  x  x     x  x  x x x x  x  x x  x  x  x  x x                                                              x  xx       x  x x xx    x xx x        
   Holy Strike (11104)                                                         x                               x                    x                        x                                                   x                        x                         x                                                                      x               x          x        
@@ -1282,7 +1282,7 @@ Bloxie (68993)
   Electric Discharge (2738)                                                x        x                         x    x                                           x  x x  x                                  x  x  x                        x      x    x          x  x  x x                                                                                 x                   
   Hammer of Wrath (1005)                                                                                                                                                                                                                                                                                                                                        x             
 Windfurytotm (66970)
-  Windfury Totem                                                       x                                     x                                            x                                                        x           G F                 GF    GF GF            G F                 G F      x     GF                           x                                   
+  Windfury Totem                                                       x                                     x                                            x                                                        x           G F                 GF    GFxGF            G F                 G F      x     GF                           x                                   
   Magma Totem                                                                                                                                                                                                                                                             x                             x                                                                     
   Auto Attack (52749)                                                    x      x     x      x  x  xx x  x  x  x  x         x  x x  x  x x  x  x                x   x  xx                                   x x  x  x x   x x  x  x x  x   x x  x  x  x  x x         x                                                               x  x   x      x  x x     x x  x  x       
   Stormstrike (10888)                                                      x    x       x           x  x                                                   x    x       x                                       x     x               x   x        x                  x                                                                     x         x  x            x       
