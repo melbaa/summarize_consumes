@@ -54,4 +54,7 @@ ignore = ["E701"]
 [tool.ruff.lint.isort]
 force-single-line = true
 
-
+[tool.mypy]
+packages = ["melbalabs.summarize_consumes"]
+check_untyped_defs = true
+namespace_packages = true

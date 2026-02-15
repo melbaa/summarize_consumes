@@ -1,11 +1,12 @@
 from dataclasses import dataclass
 from dataclasses import field
-from typing import List, Union
+from typing import List
 from typing import Tuple
+from typing import Union
 
-from melbalabs.summarize_consumes.entity_model import Component, SpellAliasComponent
+from melbalabs.summarize_consumes.entity_model import Component
 from melbalabs.summarize_consumes.entity_model import Entity
-
+from melbalabs.summarize_consumes.entity_model import SpellAliasComponent
 
 """
 types of consumables by availability in combat log

@@ -1,17 +1,16 @@
-from melbalabs.summarize_consumes.entity_model import ClassDetectionComponent
-from melbalabs.summarize_consumes.entity_model import TrackProcComponent
-from melbalabs.summarize_consumes.entity_model import TrackSpellCastComponent
-from melbalabs.summarize_consumes.entity_model import Entity
-from melbalabs.summarize_consumes.entity_model import PlayerClass
-from melbalabs.summarize_consumes.entity_model import TrinketComponent
-from melbalabs.summarize_consumes.entity_model import InterruptSpellComponent
-from melbalabs.summarize_consumes.entity_model import RacialSpellComponent
 from melbalabs.summarize_consumes.entity_model import ClassCooldownComponent
+from melbalabs.summarize_consumes.entity_model import ClassDetectionComponent
+from melbalabs.summarize_consumes.entity_model import Entity
+from melbalabs.summarize_consumes.entity_model import InterruptSpellComponent
+from melbalabs.summarize_consumes.entity_model import PlayerClass
+from melbalabs.summarize_consumes.entity_model import RacialSpellComponent
 from melbalabs.summarize_consumes.entity_model import ReceiveBuffSpellComponent
 from melbalabs.summarize_consumes.entity_model import SpellAliasComponent
+from melbalabs.summarize_consumes.entity_model import TrackProcComponent
+from melbalabs.summarize_consumes.entity_model import TrackSpellCastComponent
+from melbalabs.summarize_consumes.entity_model import TrinketComponent
 from melbalabs.summarize_consumes.entity_model import get_entities_with_component
 from melbalabs.summarize_consumes.parser import TreeType
-
 
 _blood_fury_trinket = Entity(
     "Blood Fury (trinket)",

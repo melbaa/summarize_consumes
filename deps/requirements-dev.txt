@@ -4,7 +4,12 @@ colorama==0.4.6           # via bumpver, click, pytest, -r deps/requirements-dev
 coverage==7.6.10          # via -r deps/requirements-dev.in
 iniconfig==2.0.0          # via pytest
 lexid==2021.1006          # via bumpver
+librt==0.8.0 ; platform_python_implementation != 'PyPy'  # via mypy
+mypy==1.19.1              # via -r deps/requirements-dev.in
+mypy-extensions==1.1.0    # via mypy
 packaging==24.2           # via pytest, -c deps/requirements.txt
+pathspec==1.0.4           # via mypy
 pluggy==1.3.0             # via pytest
 pytest==7.4.3             # via -r deps/requirements-dev.in
 toml==0.10.2              # via bumpver
+typing-extensions==4.11.0  # via mypy, -c deps/requirements.txt

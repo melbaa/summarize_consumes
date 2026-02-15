@@ -2,4 +2,5 @@ pytest
 colorama; platform_system=='Windows'
 bumpver>=2024.1130
 coverage
+mypy
 # nox

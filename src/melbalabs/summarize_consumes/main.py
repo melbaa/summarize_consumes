@@ -1,4 +1,5 @@
 from __future__ import annotations
+
 import argparse
 import collections
 import csv
@@ -10,9 +11,9 @@ import json
 import logging
 import os
 import re
+import sys
 import time
 import webbrowser
-import sys
 import zipfile
 from datetime import datetime as dt
 from pathlib import Path
@@ -28,44 +29,42 @@ from plotly import graph_objects as go
 from plotly.subplots import make_subplots
 from typing_extensions import Self
 
-from melbalabs.summarize_consumes.consumable_model import IgnoreStrategyComponent
-from melbalabs.summarize_consumes.consumable_model import SafeStrategyComponent
-from melbalabs.summarize_consumes.consumable_model import EnhanceStrategyComponent
-from melbalabs.summarize_consumes.consumable_model import OverwriteStrategyComponent
+import melbalabs.summarize_consumes.package as package
+from melbalabs.summarize_consumes.consumable_db import all_defined_consumable_items
 from melbalabs.summarize_consumes.consumable_model import ConsumableComponent
 from melbalabs.summarize_consumes.consumable_model import DirectPrice
-from melbalabs.summarize_consumes.consumable_model import PriceFromIngredients
+from melbalabs.summarize_consumes.consumable_model import EnhanceStrategyComponent
+from melbalabs.summarize_consumes.consumable_model import IgnoreStrategyComponent
 from melbalabs.summarize_consumes.consumable_model import NoPrice
-from melbalabs.summarize_consumes.consumable_db import all_defined_consumable_items
-from melbalabs.summarize_consumes.entity_model import (
-    get_entities_with_component,
-    get_entity_by_name,
-)
-from melbalabs.summarize_consumes.entity_model import get_entities_with_components
+from melbalabs.summarize_consumes.consumable_model import OverwriteStrategyComponent
+from melbalabs.summarize_consumes.consumable_model import PriceComponent
+from melbalabs.summarize_consumes.consumable_model import PriceFromIngredients
+from melbalabs.summarize_consumes.consumable_model import SafeStrategyComponent
+from melbalabs.summarize_consumes.consumable_model import SuperwowComponent
+from melbalabs.summarize_consumes.encounter_mobs import EncounterMobs
+from melbalabs.summarize_consumes.encounter_mobs import NullEncounterMobs
+from melbalabs.summarize_consumes.entity_db import TRINKET_RENAME
+from melbalabs.summarize_consumes.entity_model import CanonicalName
+from melbalabs.summarize_consumes.entity_model import ClassCooldownComponent
 from melbalabs.summarize_consumes.entity_model import ClassDetectionComponent
+from melbalabs.summarize_consumes.entity_model import Entity
+from melbalabs.summarize_consumes.entity_model import InterruptSpellComponent
+from melbalabs.summarize_consumes.entity_model import PlayerClass
+from melbalabs.summarize_consumes.entity_model import RacialSpellComponent
+from melbalabs.summarize_consumes.entity_model import ReceiveBuffSpellComponent
+from melbalabs.summarize_consumes.entity_model import SpellAliasComponent
 from melbalabs.summarize_consumes.entity_model import TrackProcComponent
 from melbalabs.summarize_consumes.entity_model import TrackSpellCastComponent
-from melbalabs.summarize_consumes.entity_model import PlayerClass
-from melbalabs.summarize_consumes.entity_model import Entity
-from melbalabs.summarize_consumes.entity_model import CanonicalName
-from melbalabs.summarize_consumes.consumable_model import PriceComponent
-from melbalabs.summarize_consumes.entity_model import SpellAliasComponent
-from melbalabs.summarize_consumes.consumable_model import SuperwowComponent
-from melbalabs.summarize_consumes.entity_model import InterruptSpellComponent
-
-from melbalabs.summarize_consumes.entity_model import RacialSpellComponent
 from melbalabs.summarize_consumes.entity_model import TrinketComponent
-from melbalabs.summarize_consumes.entity_model import ReceiveBuffSpellComponent
-from melbalabs.summarize_consumes.entity_model import ClassCooldownComponent
-from melbalabs.summarize_consumes.entity_db import TRINKET_RENAME
-from melbalabs.summarize_consumes.parser import LineTree, Parser2
+from melbalabs.summarize_consumes.entity_model import get_entities_with_component
+from melbalabs.summarize_consumes.entity_model import get_entities_with_components
+from melbalabs.summarize_consumes.entity_model import get_entity_by_name
+from melbalabs.summarize_consumes.parser import ActionValue
+from melbalabs.summarize_consumes.parser import LineTree
+from melbalabs.summarize_consumes.parser import Parser2
 from melbalabs.summarize_consumes.parser import ParserError
 from melbalabs.summarize_consumes.parser import TreeType
 from melbalabs.summarize_consumes.timeline import AbilityTimeline
-from melbalabs.summarize_consumes.encounter_mobs import EncounterMobs
-from melbalabs.summarize_consumes.encounter_mobs import NullEncounterMobs
-from melbalabs.summarize_consumes.parser import ActionValue
-import melbalabs.summarize_consumes.package as package
 
 
 class App:

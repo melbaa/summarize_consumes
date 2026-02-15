@@ -1,8 +1,10 @@
-from typing import Generic, TypeVar, Union
-from typing import List
-import re
-from typing import Optional
 import enum
+import re
+from typing import Generic
+from typing import List
+from typing import Optional
+from typing import TypeVar
+from typing import Union
 
 
 class Token:

@@ -1,9 +1,15 @@
 from __future__ import annotations
-from typing import Any, Type, TypeVar, ItemsView, overload
-from typing import NewType
-from enum import Enum
-from dataclasses import dataclass, field
+
 import collections
+from dataclasses import dataclass
+from dataclasses import field
+from enum import Enum
+from typing import Any
+from typing import ItemsView
+from typing import NewType
+from typing import Type
+from typing import TypeVar
+from typing import overload
 
 from melbalabs.summarize_consumes.parser import TreeType
 

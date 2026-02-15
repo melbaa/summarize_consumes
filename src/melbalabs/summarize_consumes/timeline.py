@@ -1,8 +1,9 @@
-from melbalabs.summarize_consumes.entity_model import CanonicalName, get_entity_by_name
-from melbalabs.summarize_consumes.parser import TreeType
 import bisect
 import collections
 
+from melbalabs.summarize_consumes.entity_model import CanonicalName
+from melbalabs.summarize_consumes.entity_model import get_entity_by_name
+from melbalabs.summarize_consumes.parser import TreeType
 
 SPELLNAME_WINDFURY_TOTEM = get_entity_by_name("Windfury Totem").name
 
