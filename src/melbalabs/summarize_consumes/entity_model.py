@@ -1,5 +1,5 @@
 from __future__ import annotations
-from typing import Any, Type, TypeVar, ItemsView
+from typing import Any, Type, TypeVar, ItemsView, overload
 from typing import NewType
 from enum import Enum
 from dataclasses import dataclass, field
@@ -34,6 +34,10 @@ class Component:
 
 
 C = TypeVar("C", bound=Component)
+C1 = TypeVar("C1", bound=Component)
+C2 = TypeVar("C2", bound=Component)
+C3 = TypeVar("C3", bound=Component)
+C4 = TypeVar("C4", bound=Component)
 
 
 class ComponentRegistry:
@@ -92,10 +96,29 @@ def get_entities_with_component(component_type: Type[C]) -> ItemsView[Entity, C]
     """Get all entities that have a component of the given type, and the component itself."""
     return COMPONENT_REGISTRY.get(component_type).items()
 
+@overload
+def get_entities_with_components(
+    c1: Type[C1], /
+) -> list[tuple[Entity, tuple[C1]]]: ...
+
+@overload
+def get_entities_with_components(
+    c1: Type[C1], c2: Type[C2], /
+) -> list[tuple[Entity, tuple[C1, C2]]]: ...
+
+@overload
+def get_entities_with_components(
+    c1: Type[C1], c2: Type[C2], c3: Type[C3], /
+) -> list[tuple[Entity, tuple[C1, C2, C3]]]: ...
+
+@overload
+def get_entities_with_components(
+    c1: Type[C1], c2: Type[C2], c3: Type[C3], c4: Type[C4], /
+) -> list[tuple[Entity, tuple[C1, C2, C3, C4]]]: ...
 
 def get_entities_with_components(
     *component_types: Type[Component],
-) -> list[tuple[Entity, list[Component]]]:
+) -> list[Any]:
     if not component_types:
         return []
 
