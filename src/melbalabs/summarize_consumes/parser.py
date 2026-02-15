@@ -1,9 +1,8 @@
+from __future__ import annotations
 import enum
 import re
-from typing import Generic
 from typing import List
 from typing import Optional
-from typing import TypeVar
 from typing import Union
 
 
@@ -99,15 +98,20 @@ class ActionValue(enum.Enum):
     GLANCE = "glance"
 
 
-TreeTypeVar = TypeVar("TreeTypeVar", bound=Union["Tree", "Token"])
+TreeChild = Union[Token, "Tree"]
 
 
-class Tree(Generic[TreeTypeVar]):
+class Tree[ChildType: TreeChild]:
     __slots__ = ("data", "children")
 
-    def __init__(self, data: TreeType, children: List[TreeTypeVar]):
+    def __init__(self, data: TreeType, children: List[ChildType]):
         self.data = data
         self.children = children
+
+
+# Instanciate the generic tree for disambiguation of type inference
+# without this, the tree type ends up Tree[object] when children are of different types
+Subtree = Tree[TreeChild]
 
 
 class LineTree(Tree[Tree]):
@@ -150,16 +154,16 @@ class Parser2:
         self.action_token = Token("t", "")
 
         # gains_mana_line cache
-        subtree = Tree(
+        subtree_gains_mana_line = Tree(
             data=TreeType.GAINS_MANA_LINE,
             children=[self.name_token, self.mana_token, self.spellname_token],
         )
-        self.gains_mana_line_tree = Tree(
-            data=TreeType.LINE, children=[self.timestamp_tree, subtree]
+        self.gains_mana_line_tree = LineTree(
+            data=TreeType.LINE, children=[self.timestamp_tree, subtree_gains_mana_line]
         )
 
         # hits_ability_line cache
-        subtree = Tree(
+        subtree_hits_ability_line = Tree(
             data=TreeType.HITS_ABILITY_LINE,
             children=[
                 self.name_token,
@@ -169,12 +173,12 @@ class Parser2:
                 self.spell_damage_type_token,
             ],
         )
-        self.hits_ability_line_tree = Tree(
-            data=TreeType.LINE, children=[self.timestamp_tree, subtree]
+        self.hits_ability_line_tree = LineTree(
+            data=TreeType.LINE, children=[self.timestamp_tree, subtree_hits_ability_line]
         )
 
         # hits_autoattack_line cache
-        subtree = Tree(
+        subtree_hits_autoattack_line = Tree(
             data=TreeType.HITS_AUTOATTACK_LINE,
             children=[
                 self.name_token,
@@ -183,12 +187,12 @@ class Parser2:
                 self.action_token,
             ],
         )
-        self.hits_autoattack_line_tree = Tree(
-            data=TreeType.LINE, children=[self.timestamp_tree, subtree]
+        self.hits_autoattack_line_tree = LineTree(
+            data=TreeType.LINE, children=[self.timestamp_tree, subtree_hits_autoattack_line]
         )
 
         # gains_line cache
-        subtree = Tree(
+        subtree_gains_line = Tree(
             data=TreeType.GAINS_LINE,
             children=[
                 self.name_token,
@@ -196,10 +200,12 @@ class Parser2:
                 self.stackcount_token,
             ],
         )
-        self.gains_line_tree = LineTree(data=TreeType.LINE, children=[self.timestamp_tree, subtree])
+        self.gains_line_tree = LineTree(
+            data=TreeType.LINE, children=[self.timestamp_tree, subtree_gains_line]
+        )
 
         # heals_line cache
-        subtree = Tree(
+        subtree_heals_line = Tree(
             data=TreeType.HEALS_LINE,
             children=[
                 self.name_token,
@@ -209,16 +215,20 @@ class Parser2:
                 self.heal_amount_token,
             ],
         )
-        self.heals_line_tree = LineTree(data=TreeType.LINE, children=[self.timestamp_tree, subtree])
+        self.heals_line_tree = LineTree(
+            data=TreeType.LINE, children=[self.timestamp_tree, subtree_heals_line]
+        )
 
         # fades_line cache
-        subtree = Tree(
+        subtree_fades_line = Tree(
             data=TreeType.FADES_LINE, children=[self.spellname_token, self.targetname_token]
         )
-        self.fades_line_tree = LineTree(data=TreeType.LINE, children=[self.timestamp_tree, subtree])
+        self.fades_line_tree = LineTree(
+            data=TreeType.LINE, children=[self.timestamp_tree, subtree_fades_line]
+        )
 
         # suffers_line cache (WITH source)
-        source_subtree = Tree(
+        suffers_line_source = Tree(
             data=TreeType.SUFFERS_LINE_SOURCE,
             children=[
                 self.spell_damage_type_token,
@@ -226,50 +236,52 @@ class Parser2:
                 self.spellname_token,
             ],
         )
-        subtree = Tree(
+        subtree_suffers_line_source = Subtree(
             data=TreeType.SUFFERS_LINE,
-            children=[self.targetname_token, self.damage_token, source_subtree],
+            children=[self.targetname_token, self.damage_token, suffers_line_source],
         )
-        self.suffers_line_source_tree = Tree(
-            data=TreeType.LINE, children=[self.timestamp_tree, subtree]
+        self.suffers_line_source_tree = LineTree(
+            data=TreeType.LINE, children=[self.timestamp_tree, subtree_suffers_line_source]
         )
 
         # suffers_line cache (NO source)
-        nosource_subtree = Tree(
+        suffers_line_nosource = Tree(
             data=TreeType.SUFFERS_LINE_NOSOURCE, children=[self.spell_damage_type_token]
         )
-        subtree = Tree(
+        subtree_suffers_line_nosource = Subtree(
             data=TreeType.SUFFERS_LINE,
-            children=[self.targetname_token, self.damage_token, nosource_subtree],
+            children=[self.targetname_token, self.damage_token, suffers_line_nosource],
         )
-        self.suffers_line_nosource_tree = Tree(
-            data=TreeType.LINE, children=[self.timestamp_tree, subtree]
+        self.suffers_line_nosource_tree = LineTree(
+            data=TreeType.LINE, children=[self.timestamp_tree, subtree_suffers_line_nosource]
         )
 
         # begins_to_cast_line cache
-        subtree = Tree(
+        subtree_begins_to_cast_line = Tree(
             data=TreeType.BEGINS_TO_CAST_LINE, children=[self.name_token, self.spellname_token]
         )
-        self.begins_to_cast_line_tree = Tree(
-            data=TreeType.LINE, children=[self.timestamp_tree, subtree]
+        self.begins_to_cast_line_tree = LineTree(
+            data=TreeType.LINE, children=[self.timestamp_tree, subtree_begins_to_cast_line]
         )
 
         # afflicted_line cache
-        subtree = Tree(
+        subtree_afflicted_line = Tree(
             data=TreeType.AFFLICTED_LINE,
             children=[self.targetname_token, self.spellname_token],
         )
 
         self.afflicted_line_tree = LineTree(
-            data=TreeType.LINE, children=[self.timestamp_tree, subtree]
+            data=TreeType.LINE, children=[self.timestamp_tree, subtree_afflicted_line]
         )
 
         # block_line cache
-        subtree = Tree(
+        subtree_block_line = Tree(
             data=TreeType.BLOCK_LINE,
             children=[self.name_token, self.targetname_token],  # reuse tokens
         )
-        self.block_line_tree = LineTree(data=TreeType.LINE, children=[self.timestamp_tree, subtree])
+        self.block_line_tree = LineTree(
+            data=TreeType.LINE, children=[self.timestamp_tree, subtree_block_line]
+        )
 
     def parse_ts(self, line, p_ts_end):
         # 6/1 18:31:36.197  ...
