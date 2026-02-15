@@ -96,7 +96,9 @@ class ActionValue(enum.Enum):
     BLOCK = "block"
     GLANCE = "glance"
 
+
 TreeTypeVar = TypeVar("TreeTypeVar", bound=Union["Tree", "Token"])
+
 
 class Tree(Generic[TreeTypeVar]):
     __slots__ = ("data", "children")
@@ -105,8 +107,11 @@ class Tree(Generic[TreeTypeVar]):
         self.data = data
         self.children = children
 
+
 class LineTree(Tree[Tree]):
     pass
+
+
 class TimestampTree(Tree[Token]):
     pass
 
@@ -253,7 +258,9 @@ class Parser2:
             children=[self.targetname_token, self.spellname_token],
         )
 
-        self.afflicted_line_tree = LineTree(data=TreeType.LINE, children=[self.timestamp_tree, subtree])
+        self.afflicted_line_tree = LineTree(
+            data=TreeType.LINE, children=[self.timestamp_tree, subtree]
+        )
 
         # block_line cache
         subtree = Tree(

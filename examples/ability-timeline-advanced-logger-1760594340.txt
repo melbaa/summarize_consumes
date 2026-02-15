@@ -443,9 +443,16 @@ Scarletrage (810)
   Arcane Surge(51936)(Rank 4)                                                                                                                                        x                                                                                            
   Arcane Explosion(10202)(Rank 6)                                                                                                                                                     x                                                                           
   Arcane Explosion(8439)(Rank 4)                                                                                                                                                                               x                                                  
-Milk
-  The Eye of the Dead                            G                             F                                                                                                                  G                             F                                 
-  Inner Focus                                                                                                                                                               G    F                                                                                
+Barnyard
+  Mana Spring Totem                                      x                                    x                                         x                                   x                                                  x                                  
+  Windfury Totem                                         x                                    x                                         x                                   x                                                  x                                  
+  The Eye of the Dead                                                                                          G          F                                                                                                                                       
+  Bloodlust                                                                                                                                                                                                               G     F G                F              
+Dris
+  Strength of Earth Totem                  x      x                                                                                                                                   x                                                                           
+  Windfury Totem                            x     x                                                                                                                                    x                                                                          
+  Mana Spring Totem                         x     x                                                                       x                                                            x                                                          x               
+  The Eye of the Dead                                                            G         F                                                                                                                                                                      
 Enemyharmer
   Essence of Sapphiron                                                                                                                     G                   F                                                                                                  
   Berserking                                                                                                                                    G         F                                                                                                       
@@ -454,15 +461,6 @@ Enemyharmer
   Arcane Missiles(25346)(Rank 8)                           xxxx    xxxxxxxx     x x xxxxxx                                                  xxxx      xxxxxxx      x  x  xx                                          xxx x   xxxxx  xxx  xx xx      xx x          
   Elune's Wrath(52408)                                              x   x                x                                                              x                                                                             x                           
   Arcane Surge(51936)(Rank 4)                                             x              x                                                                                 x                               x                           x        x                 
-Tauroch
-  Faerie Fire(9907)(Rank 4)                                xx                              x                                                  x x                 x                                                                 x                             
-Yawnies
-  The Eye of the Dead                                                               G                             F                                                                                                                                               
-Dris
-  Strength of Earth Totem                  x      x                                                                                                                                   x                                                                           
-  Windfury Totem                            x     x                                                                                                                                    x                                                                          
-  Mana Spring Totem                         x     x                                                                       x                                                            x                                                          x               
-  The Eye of the Dead                                                            G         F                                                                                                                                                                      
 Incantation
   Remains of Overwhelming Power          x                                                                                                                                                                                                                        
   Arcane Rupture(51954)(Rank 6)                         x                          x                                                    x            x                   x                                                    x                     x             
@@ -472,11 +470,9 @@ Incantation
   Fire Blast(10199)(Rank 7)                                 x               x                                                                             x        x                                                       x                 x                    
   Arcane Surge(51936)(Rank 4)                                   x            x           x                                                                                                                                                 x                      
   Arcane Explosion(10202)(Rank 6)                                                                      x                                        xx                                                                                                     x          
-Barnyard
-  Mana Spring Totem                                      x                                    x                                         x                                   x                                                  x                                  
-  Windfury Totem                                         x                                    x                                         x                                   x                                                  x                                  
-  The Eye of the Dead                                                                                          G          F                                                                                                                                       
-  Bloodlust                                                                                                                                                                                                               G     F G                F              
+Milk
+  The Eye of the Dead                            G                             F                                                                                                                  G                             F                                 
+  Inner Focus                                                                                                                                                               G    F                                                                                
 Pepopo
   Remains of Overwhelming Power                                                      x                                                                                                                                                                            
   Mind Quickening                                                                                                                                                                           G                   F                                                 
@@ -491,6 +487,10 @@ Shocktopp
   Windfury Totem                                          x                                                                                                                  x                                                                                    
   Strength of Earth Totem                                 x                                                                                                                  x                                                                                    
   The Eye of the Dead                                                                                          G            F                                                                                                             G                       
+Tauroch
+  Faerie Fire(9907)(Rank 4)                                xx                              x                                                  x x                 x                                                                 x                             
+Yawnies
+  The Eye of the Dead                                                               G                             F                                                                                                                                               
 
 
 Ability Timeline for Ley-Watcher Incantagos (456.5s)
@@ -1024,9 +1024,15 @@ Spitalfield (689)
   Redemption                                                                                                                                                     x                                                                                                                                                                                                                                                                                                                                               
   Auto Attack (689)                                                                                                                                                                                                                                                                                                  x            x               x               x                                                                                                                                              
   Holy Strike(10333)(Rank 8)                                 x                                                                                                                                                                                                                                                       x            x               x               x                                                                                                                                              
-Milk
-  Inner Focus                                                                                                                                    G  F                                                                                                                                                                                                                      G F                                                                                                                                   
-  The Eye of the Dead                                                                                                                                                                                                                                                                                                                                                    G         F                                                                                                                             
+Barnyard
+  Mana Spring Totem                                          x     x                                         x                  x                                              x                                                                                     x                        x                                                                                                                                                     x                                x           x               
+  Windfury Totem                                             x     x                      x                  x                  x                                                                                                                                    x                        x                                                                                                                                                     x                                x            x              
+  The Eye of the Dead                                                                                                                                                                                                                                                                     G          F                                                                                                                                                                                            G        F     
+  Bloodlust                                                                                                                                                                                                                                                                                                                               G                                 F                                                                                                                                    
+Dris
+  Windfury Totem                                             x                                   x           x                                                                                                                                                                x                                                                   x                                                                                                   x                                 x         x              
+  Mana Spring Totem                                          x                                    x          x                                                                                                                                                                 x                                                       x          x                                                                                                   x                                  x         x             
+  Strength of Earth Totem                                                                                                                                                                                                                                                       x                                                                 x                                                                                                  x                                  x         x              
 Enemyharmer
   Berserking                                                                                                                                  F                                                                                                                                                                                G         F                                                                                                                                                                       
   Mind Quickening                                                                                                                                                                                                                                                                                          G                   F                                                                                                                                                                                 
@@ -1038,15 +1044,9 @@ Enemyharmer
   Elune's Wrath(52408)                                                                                                                                                                                                                                                                                                   x                                                                                                                                                                                       
   Fire Blast(10199)(Rank 7)                                                                                                                                                                                                                                                                                                                           x                                                                                                                                                          
   Frostbite(12494)(Rank 1)                                                                                                                                                                                                                                                                                                                                                                                                                                                                          x            
-Dris
-  Windfury Totem                                             x                                   x           x                                                                                                                                                                x                                                                   x                                                                                                   x                                 x         x              
-  Mana Spring Totem                                          x                                    x          x                                                                                                                                                                 x                                                       x          x                                                                                                   x                                  x         x             
-  Strength of Earth Totem                                                                                                                                                                                                                                                       x                                                                 x                                                                                                  x                                  x         x              
-Barnyard
-  Mana Spring Totem                                          x     x                                         x                  x                                              x                                                                                     x                        x                                                                                                                                                     x                                x           x               
-  Windfury Totem                                             x     x                      x                  x                  x                                                                                                                                    x                        x                                                                                                                                                     x                                x            x              
-  The Eye of the Dead                                                                                                                                                                                                                                                                     G          F                                                                                                                                                                                            G        F     
-  Bloodlust                                                                                                                                                                                                                                                                                                                               G                                 F                                                                                                                                    
+Milk
+  Inner Focus                                                                                                                                    G  F                                                                                                                                                                                                                      G F                                                                                                                                   
+  The Eye of the Dead                                                                                                                                                                                                                                                                                                                                                    G         F                                                                                                                             
 Shocktopp
   Windfury Totem                                          x                                                x                                       x                                                                                                                           x                                                                                                                                                                    x                              x              x              
   Mana Spring Totem                                       x                                                x                                       x                                                                                                                           x                                                            x                                                                                                        x                             x               x             
@@ -1435,9 +1435,16 @@ Spitalfield (1299)
   Auto Attack (1299)                                x  x x x                     x                      x x                          
   Judgement(20271)                                x                                                                                  
   Holy Strike(10333)(Rank 8)                        x      x                     x                      x                            
-Milk
-  The Eye of the Dead                   G                             F                                                              
-  Inner Focus                                                                                                         G   F          
+Barnyard
+  Mana Spring Totem                               x                                                                                  
+  Windfury Totem                                  x                                                                                  
+  Bloodlust                                                         G     F  G       F G           F                                 
+  The Eye of the Dead                                                                         G           F                          
+Dris
+  Strength of Earth Totem                           x                                                                                
+  Windfury Totem                                    x                                                                                
+  Mana Spring Totem                                  x                                                                               
+  The Eye of the Dead                                                            G          F                                        
 Enemyharmer
   Essence of Sapphiron                                    G                  F                                                       
   Berserking                                                        G         F                                                      
@@ -1446,16 +1453,6 @@ Enemyharmer
   Frostbolt(25304)(Rank 11)                              x  x  x x  x x   x    x   x    x x    x   x         x    x                  
   Elune's Ire(52406)                                                            x                                                    
   Fire Blast(10199)(Rank 7)                                                                x                         x               
-Tauroch
-  The Eye of the Dead                                                          G                             F                       
-  Faerie Fire(9907)(Rank 4)                        x                                                                                 
-Yawnies
-  The Eye of the Dead                                                     G                             F                            
-Dris
-  Strength of Earth Totem                           x                                                                                
-  Windfury Totem                                    x                                                                                
-  Mana Spring Totem                                  x                                                                               
-  The Eye of the Dead                                                            G          F                                        
 Incantation
   Remains of Overwhelming Power         x                                                                                            
   Essence of Sapphiron                                                    G                   F                                      
@@ -1464,16 +1461,19 @@ Incantation
   Frostbolt(25304)(Rank 11)                              x x  x x  x x x  x  x x        x  x x  x  x      x  x      x                
   Frostbite(12494)(Rank 1)                                                    x                     x                                
   Fire Blast(10199)(Rank 7)                                                                                  x                       
-Barnyard
-  Mana Spring Totem                               x                                                                                  
-  Windfury Totem                                  x                                                                                  
-  Bloodlust                                                         G     F  G       F G           F                                 
-  The Eye of the Dead                                                                         G           F                          
+Milk
+  The Eye of the Dead                   G                             F                                                              
+  Inner Focus                                                                                                         G   F          
 Shocktopp
   Windfury Totem                                   x                                                                                 
   Strength of Earth Totem                          x                                                                                 
   Mana Spring Totem                                x                                                                                 
   The Eye of the Dead                                      G            F                                                            
+Tauroch
+  The Eye of the Dead                                                          G                             F                       
+  Faerie Fire(9907)(Rank 4)                        x                                                                                 
+Yawnies
+  The Eye of the Dead                                                     G                             F                            
 
 
 Ability Timeline for Echo of Medivh (111.2s)
@@ -1886,8 +1886,17 @@ Scarletrage (589)
   Fire Blast(10199)(Rank 7)                           x                                                                                                 
   Counterspell(2139)                                                                   x                                                                
   Ignite(12654)                                                                                                                     x                   
-Milk
-  The Eye of the Dead                           G              F                                                                                        
+Barnyard
+  Mana Spring Totem                             x                                                                                                       
+  Windfury Totem                                 x                                                                                                      
+  Bloodlust                                                G      F G      FG             F                                                             
+  The Eye of the Dead                                                 G        F                                                                        
+  Ancestral Spirit                                                                                                                                      
+Dris
+  Strength of Earth Totem                         x                                                                                                     
+  Windfury Totem                                  x                                                                                                     
+  Mana Spring Totem                               x                                                                                                     
+  The Eye of the Dead                                                  G        F                                                                       
 Enemyharmer
   Berserking                                            G         F                                                                                     
   Frostbolt(25304)(Rank 11)                       x  x  x x x   x x   x  x   x x x  x  x   x x  x   x x   x                 x                           
@@ -1897,14 +1906,6 @@ Enemyharmer
   Counterspell(2139)                                                                    x                                                               
   Elune's Ire(52406)                                                                                              x                                     
   Fire Blast(10199)(Rank 7)                                                                                                   x                         
-Tauroch
-  The Eye of the Dead                                         F                                                                                         
-  Faerie Fire(9907)(Rank 4)                      x                                       x                  x                                           
-Dris
-  Strength of Earth Totem                         x                                                                                                     
-  Windfury Totem                                  x                                                                                                     
-  Mana Spring Totem                               x                                                                                                     
-  The Eye of the Dead                                                  G        F                                                                       
 Incantation
   Remains of Overwhelming Power         x                                                                                                               
   Frostbolt(25304)(Rank 11)                       x  x x  x x x  x x  x  x   x   x   x  x x  x       x x  x  x  x                                       
@@ -1912,16 +1913,15 @@ Incantation
   Icicles(51993)                                                      x  x                x      x        x     x                                       
   Icicle(51998)(Rank 4)                                               xx xx               xx      x       xx    xx                                      
   Fire Blast(10199)(Rank 7)                                                                                      x                                      
-Barnyard
-  Mana Spring Totem                             x                                                                                                       
-  Windfury Totem                                 x                                                                                                      
-  Bloodlust                                                G      F G      FG             F                                                             
-  The Eye of the Dead                                                 G        F                                                                        
-  Ancestral Spirit                                                                                                                                      
+Milk
+  The Eye of the Dead                           G              F                                                                                        
 Shocktopp
   Windfury Totem                                  x                                                                                                     
   Strength of Earth Totem                         x                                                                                                     
   The Eye of the Dead                                                G         F                                                                        
+Tauroch
+  The Eye of the Dead                                         F                                                                                         
+  Faerie Fire(9907)(Rank 4)                      x                                       x                  x                                           
 
 
 Ability Timeline for Chess (188.2s)
@@ -2229,30 +2229,30 @@ Incantation (356)
   Essence of Sapphiron                               G                   F                                                                                                                    G                   F                  
   Blizzard (356)                                                                                                            xx                                                                                                       
   Chilled(12484)(Rank 1)                                                                                                    xx                                                                                                       
-Milk
-  The Eye of the Dead                                           F                                                                                              G                              F                                      
-Enemyharmer
-  Mind Quickening                                                  G                   F                                                                                                                                             
-  Berserking                                                                  G         F                                                                                                                                            
-  Frostbite(12494)(Rank 1)                                                                                                                                                          x                                                
-Tauroch
-  Faerie Fire(9907)(Rank 4)                                                                                               x             x                                                                                            
-Dris
-  Strength of Earth Totem                            x                                                                   x         x                                                                                                 
-  Windfury Totem                                      x                                                                            x                                                                                                 
-  Mana Spring Totem                                   x                                                                            x                                                                                                 
-  The Eye of the Dead                                                       G         F                                                                                                                                              
 Barnyard
   Mana Spring Totem                                  x                                                            x                                                                     x                   x                        
   Windfury Totem                                     x                                                                                                                                  x                   x                        
   The Eye of the Dead                                                                                                          G           F                                                                                         
   Bloodlust                                                                                                                                                                                     G               F                    
+Dris
+  Strength of Earth Totem                            x                                                                   x         x                                                                                                 
+  Windfury Totem                                      x                                                                            x                                                                                                 
+  Mana Spring Totem                                   x                                                                            x                                                                                                 
+  The Eye of the Dead                                                       G         F                                                                                                                                              
+Enemyharmer
+  Mind Quickening                                                  G                   F                                                                                                                                             
+  Berserking                                                                  G         F                                                                                                                                            
+  Frostbite(12494)(Rank 1)                                                                                                                                                          x                                                
+Milk
+  The Eye of the Dead                                           F                                                                                              G                              F                                      
 Shocktopp
   Windfury Totem                                      x                                                                x                                        x                                                                    
   Strength of Earth Totem                             x                                                                x                                         x                                                                   
   Mana Spring Totem                                   x                                                                x                                         x                                                                   
   The Eye of the Dead                                          G          F                                                                                                                  G            F                          
   Sunder Armor                                                                                                                                          x                             F                                              
+Tauroch
+  Faerie Fire(9907)(Rank 4)                                                                                               x             x                                                                                            
 
 
 Ability Timeline for Rupturan the Broken (249.1s)
@@ -2625,34 +2625,6 @@ Incantation (1366)
 Spitalfield (188)
   Auto Attack (188)                                     x                                                                                                                                                                                                                                         
   Holy Strike(10333)(Rank 8)                                                                                                                                                                                             x                                                                        
-Milk
-  The Eye of the Dead                                     G        F                                                                                                                                                                              G       F                                       
-  Inner Focus                                                                                                         G F                                                                                                                                                                         
-  Mana Burn(10876)(Rank 5)                                                                                                                                                                                                    x  x  x                                                             
-Enemyharmer
-  Berserking                                                                                                     G        F                                                                                                                                                                       
-  Essence of Sapphiron                                                                                                                                       G                   F                                                                                                                
-  Arcane Rupture(51954)(Rank 6)                                                          x         x                x                                                                                                                                                                             
-  Arcane Missiles(25346)(Rank 8)                                                          x            xxxxxxx       xxxxx                xx                                                                                                                 xxxxxxx                              
-  Arcane Surge(51936)(Rank 4)                                                                        x       x                          x                                                                                                                           x                             
-  Arcane Instability(51977)                                                                                   x     x x  xx                 x         x x                                                                                                     x  xx                               
-  Elune's Wrath(52408)                                                                                        x                                                                                                                                                                                   
-  Fire Blast(10199)(Rank 7)                                                                                                          x                                                                                                                                                            
-Tauroch
-  The Eye of the Dead                             G                             F                                                                                                                                                                                                                 
-  Faerie Fire(9907)(Rank 4)                                                            x                                                                                                                                                                                                          
-Scourgelight
-  Rapid Fire                                            G                  F                                                                                                                                                                                                                      
-  Slayer's Crest                                        G                   F                                                                                                                                                    G                   F                                            
-  Badge of the Swarmguard                               G                             F                                                                                                                                                                                                           
-  Distracting Shot                                                                                                                                                                x                                       x                                                                       
-Yawnies
-  Mana Burn(10876)(Rank 5)                                                                                                                                                                                                       x   x                                                            
-Dris
-  Strength of Earth Totem                       x                                                                                                                                                         x                                                                                       
-  Windfury Totem                                 x                                                                                                                                                        x                                                                                       
-  Mana Spring Totem                              x                                                                                    x                                                                    x                                                                                      
-  The Eye of the Dead                                                                                                G                  F                                                                                                                                                         
 Aest
   Icicles(51993)                                       x                                                       x     x                                                                                                                                                                            
   Icicle(51998)(Rank 4)                                xx                                                      xx    xx                                                                                                                                                                           
@@ -2665,10 +2637,38 @@ Barnyard
   Bloodlust                                                   G          F           G     F                                                                                                                                                                                                      
   The Eye of the Dead                                                                                                         G         F                                                                                                              G                             F            
   Ancestral Spirit                                                                                                                                                                                                                                                                                
+Dris
+  Strength of Earth Totem                       x                                                                                                                                                         x                                                                                       
+  Windfury Totem                                 x                                                                                                                                                        x                                                                                       
+  Mana Spring Totem                              x                                                                                    x                                                                    x                                                                                      
+  The Eye of the Dead                                                                                                G                  F                                                                                                                                                         
+Enemyharmer
+  Berserking                                                                                                     G        F                                                                                                                                                                       
+  Essence of Sapphiron                                                                                                                                       G                   F                                                                                                                
+  Arcane Rupture(51954)(Rank 6)                                                          x         x                x                                                                                                                                                                             
+  Arcane Missiles(25346)(Rank 8)                                                          x            xxxxxxx       xxxxx                xx                                                                                                                 xxxxxxx                              
+  Arcane Surge(51936)(Rank 4)                                                                        x       x                          x                                                                                                                           x                             
+  Arcane Instability(51977)                                                                                   x     x x  xx                 x         x x                                                                                                     x  xx                               
+  Elune's Wrath(52408)                                                                                        x                                                                                                                                                                                   
+  Fire Blast(10199)(Rank 7)                                                                                                          x                                                                                                                                                            
+Milk
+  The Eye of the Dead                                     G        F                                                                                                                                                                              G       F                                       
+  Inner Focus                                                                                                         G F                                                                                                                                                                         
+  Mana Burn(10876)(Rank 5)                                                                                                                                                                                                    x  x  x                                                             
+Scourgelight
+  Rapid Fire                                            G                  F                                                                                                                                                                                                                      
+  Slayer's Crest                                        G                   F                                                                                                                                                    G                   F                                            
+  Badge of the Swarmguard                               G                             F                                                                                                                                                                                                           
+  Distracting Shot                                                                                                                                                                x                                       x                                                                       
 Shocktopp
   Windfury Totem                                   x                                                                                                                                                         x                                                                                    
   Strength of Earth Totem                          x                                                                                                                                                         x                                                                                    
   The Eye of the Dead                                   G          F                                                                                                                                                                         G                   F                                
+Tauroch
+  The Eye of the Dead                             G                             F                                                                                                                                                                                                                 
+  Faerie Fire(9907)(Rank 4)                                                            x                                                                                                                                                                                                          
+Yawnies
+  Mana Burn(10876)(Rank 5)                                                                                                                                                                                                       x   x                                                            
 
 
 Ability Timeline for Sanv Tas'dal (168.1s)
@@ -3107,15 +3107,6 @@ Enemyharmer (67)
   Arcane Missiles(25346)(Rank 8)                                                   xxxxx                                                                     xxxxx          xxxxx           xx   xx              
   Arcane Surge(51936)(Rank 4)                                                                                           x        x                               x              x                                
   Elune's Wrath(52408)                                                                                                                                           x           x                                   
-Milk
-  The Eye of the Dead                         G                             F                                                                                                                                    
-Tauroch
-  The Eye of the Dead                                                                                                                                                             G                              
-  Faerie Fire(9907)(Rank 4)                           x                                                                                                  x           x                                           
-Dris
-  Strength of Earth Totem                       x                                                              x                                                    x                                            
-  Windfury Totem                                x                                                              x                                                     x                                           
-  Mana Spring Totem                              x                                                             x                                                     x                                           
 Aest
   Icicles(51993)                                     x                     x              x       x                                              x           x                     x  x   x                      
   Icicle(51998)(Rank 4)                              xx                    xx             xx      xx                                                         xx                    xx xx  x                      
@@ -3125,11 +3116,20 @@ Barnyard
   Mana Spring Totem                           x                                                                x                                                       x                                         
   Windfury Totem                               x                                                                                                                       x                                         
   Bloodlust                                                                                                                                                        G               FG      F                     
+Dris
+  Strength of Earth Totem                       x                                                              x                                                    x                                            
+  Windfury Totem                                x                                                              x                                                     x                                           
+  Mana Spring Totem                              x                                                             x                                                     x                                           
+Milk
+  The Eye of the Dead                         G                             F                                                                                                                                    
 Shocktopp
   Windfury Totem                                x                                                                                                                    x                                           
   Strength of Earth Totem                        x                                                                                                                   x                                           
   Mana Spring Totem                              x                                                 x                                                                 x                                           
   The Eye of the Dead                                                                                                                                                                 G          F               
+Tauroch
+  The Eye of the Dead                                                                                                                                                             G                              
+  Faerie Fire(9907)(Rank 4)                           x                                                                                                  x           x                                           
 
 
 Ability Timeline for Kruul (138.5s)
@@ -3516,8 +3516,15 @@ Spitalfield (2397)
   Auto Attack (2397)                           x    x x x      x x  x x x      x    x              x      x        x x                                                             
   Judgement(20271)                             x                                                                                                                                   
   Holy Strike(10333)(Rank 8)                      x     x      x       x      x     x     x        x               x                                                               
-Milk
-  The Eye of the Dead                                                                                        G       F                                                             
+Barnyard
+  Mana Spring Totem                              x                                                                                           x                                     
+  Windfury Totem                                 x                                                                                           x                                     
+  Bloodlust                                                                          G                                 F                                                           
+Dris
+  Strength of Earth Totem                    x                                                                                                                                     
+  Windfury Totem                             x                                                                                                                                     
+  Mana Spring Totem                           x                                                                                                                                    
+  The Eye of the Dead                                                                                                              G              F                                
 Enemyharmer
   Berserking                                                                                 G         F                                                                           
   Arcane Rupture(51954)(Rank 6)                   x         x                x               x              x                x          x               x                          
@@ -3525,24 +3532,14 @@ Enemyharmer
   Arcane Instability(51977)                            xxx  x  x    xx x xx    x         x      x      x    x      x xx xx       xx xx     xx       xx  x   x x   x                
   Arcane Surge(51936)(Rank 4)                           x                x       x       x           x                   x           x              x         x                    
   Elune's Wrath(52408)                                                                                                  x           xx                                             
-Tauroch
-  The Eye of the Dead                                                                                                               G                             F                
-  Faerie Fire(9907)(Rank 4)                      x                                                                         x                                                       
-Dris
-  Strength of Earth Totem                    x                                                                                                                                     
-  Windfury Totem                             x                                                                                                                                     
-  Mana Spring Totem                           x                                                                                                                                    
-  The Eye of the Dead                                                                                                              G              F                                
 Incantation
   Frostbolt(25304)(Rank 11)                     x x  x x  x x x  x x  x x  x       x x  x x   x x  x x  x x      x  x x x  x x  x x  x  x  x   x  x  x      x     x                
   Frostbite(12494)(Rank 1)                                                                                                          x            x           x                     
   Icicles(51993)                                                                                                                     x            x            x                   
   Icicle(51998)(Rank 4)                                                                                                              xx           xx           xx                  
   Arcane Surge(51936)(Rank 4)                                                                                                                                     x                
-Barnyard
-  Mana Spring Totem                              x                                                                                           x                                     
-  Windfury Totem                                 x                                                                                           x                                     
-  Bloodlust                                                                          G                                 F                                                           
+Milk
+  The Eye of the Dead                                                                                        G       F                                                             
 Pepopo
   Remains of Overwhelming Power            x                                                                                                                                       
   Mind Quickening                                                              G                   F                                                                               
@@ -3564,6 +3561,9 @@ Shocktopp
   Strength of Earth Totem                        x                                                                       x                                                         
   Mana Spring Totem                              x                                                                       x                                                         
   The Eye of the Dead                              G            F                                                                                                                  
+Tauroch
+  The Eye of the Dead                                                                                                               G                             F                
+  Faerie Fire(9907)(Rank 4)                      x                                                                         x                                                       
 
 
 Ability Timeline for Mephistroth (167.5s)
@@ -3999,10 +3999,14 @@ Spitalfield (2749)
   Judgement(20271)                                      x                                                         x                                   x                                                         
   Holy Strike(10333)(Rank 8)                               x     x      x     x      x                                x                                x          x          x      x                           
   Exorcism(10314)(Rank 6)                                                           x                                                                                                                           
-Milk
-  The Eye of the Dead                                                                                                                                                G       F                                  
-  Mind Blast(10947)(Rank 9)                                                                   x                                                                                                                 
-  Smite(45968)(Rank 9)                                                                          x                                                                                                               
+Barnyard
+  Mana Spring Totem                            x                                                                           x                                                                                    
+  Windfury Totem                               x                                                                            x                                                                                   
+  The Eye of the Dead                                                                                                                                                        G             F                    
+  Bloodlust                                                                                                                                                                                      G              
+  Frost Shock(8056)(Rank 1)                                                                 x                                                                                                                   
+Dris
+  Windfury Totem                                   x                                                                                                              x                                             
 Enemyharmer
   Berserking                                                           G         F                                                                                                                              
   Arcane Rupture(51954)(Rank 6)                           x     x                           x            x                                                x             x                    x                x 
@@ -4012,23 +4016,16 @@ Enemyharmer
   Arcane Surge(51936)(Rank 4)                                  x          x                                                                                      x            x                    x      x     
   Arcane Explosion(10202)(Rank 6)                                                                                                         x                                                                     
   Fire Blast(10199)(Rank 7)                                                                                                                         x                                                           
-Tauroch
-  The Eye of the Dead                          G                             F                                                                                                                                  
-  Faerie Fire(9907)(Rank 4)                            x                                x                                                            x                               x           x              
-Dris
-  Windfury Totem                                   x                                                                                                              x                                             
 Incantation
   Remains of Overwhelming Power           x                                                                                                                                                                     
   Frostbolt(25304)(Rank 11)                             x x  x x x   x x x  x  x x  x        x  x          x x  x x x x                                x x  x      x x x     x  x x x               x  x  x  x  
   Frostbite(12494)(Rank 1)                                                x                                                         x         x           x  x                       x               x          
   Icicles(51993)                                                            x             x                                                                    x                             x   x     x        
   Icicle(51998)(Rank 4)                                                     xx            xx                                                                   xx                            xx  xx    xx       
-Barnyard
-  Mana Spring Totem                            x                                                                           x                                                                                    
-  Windfury Totem                               x                                                                            x                                                                                   
-  The Eye of the Dead                                                                                                                                                        G             F                    
-  Bloodlust                                                                                                                                                                                      G              
-  Frost Shock(8056)(Rank 1)                                                                 x                                                                                                                   
+Milk
+  The Eye of the Dead                                                                                                                                                G       F                                  
+  Mind Blast(10947)(Rank 9)                                                                   x                                                                                                                 
+  Smite(45968)(Rank 9)                                                                          x                                                                                                               
 Pepopo
   Remains of Overwhelming Power                                                                                                                           x                                                     
   Arcane Rupture(51954)(Rank 6)                         x      x              x             x             x        x                                      x                  x                 x         x      
@@ -4050,3 +4047,6 @@ Scarletrage
 Shocktopp
   Windfury Totem                                    x                                                                                                               x                                           
   The Eye of the Dead                                                                                                  G           F                                                                            
+Tauroch
+  The Eye of the Dead                          G                             F                                                                                                                                  
+  Faerie Fire(9907)(Rank 4)                            x                                x                                                            x                               x           x              

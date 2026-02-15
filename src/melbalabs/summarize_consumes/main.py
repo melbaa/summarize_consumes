@@ -37,7 +37,10 @@ from melbalabs.summarize_consumes.consumable_model import DirectPrice
 from melbalabs.summarize_consumes.consumable_model import PriceFromIngredients
 from melbalabs.summarize_consumes.consumable_model import NoPrice
 from melbalabs.summarize_consumes.consumable_db import all_defined_consumable_items
-from melbalabs.summarize_consumes.entity_model import get_entities_with_component
+from melbalabs.summarize_consumes.entity_model import (
+    get_entities_with_component,
+    get_entity_by_name,
+)
 from melbalabs.summarize_consumes.entity_model import get_entities_with_components
 from melbalabs.summarize_consumes.entity_model import ClassDetectionComponent
 from melbalabs.summarize_consumes.entity_model import TrackProcComponent
@@ -65,11 +68,10 @@ from melbalabs.summarize_consumes.parser import ActionValue
 import melbalabs.summarize_consumes.package as package
 
 
-
 class App:
     parser: Parser2
-    unparsed_logger: UnparsedLogger|NullLogger
-    unparsed_logger_fast: UnparsedLogger|NullLogger
+    unparsed_logger: UnparsedLogger | NullLogger
+    unparsed_logger_fast: UnparsedLogger | NullLogger
     timestamp_parser: FastTimestampParser
     player: Dict[str, Dict[str, int]]
     player_superwow: Dict[str, Dict[str, int]]
@@ -110,11 +112,10 @@ class App:
     dmgtakenstore: Dmgstore2
     healstore: Dmgstore2
     ability_timeline: AbilityTimeline
-    encounter_mobs: EncounterMobs|NullEncounterMobs
+    encounter_mobs: EncounterMobs | NullEncounterMobs
     techinfo: Techinfo
     infographic: Infographic
     log_downloader: LogDownloader
-    
 
 
 @functools.cache
@@ -443,12 +444,12 @@ def get_spell_rename_map():
 RENAME_SPELL = get_spell_rename_map()
 
 
-
 def rename_spell(spell: str, line_type: TreeType):
     rename = RENAME_SPELL.get((line_type, spell))
     return rename or CanonicalName(spell)
 
-SPELLNAME_CANONICAL_AUTOATTACK = CanonicalName("Auto Attack")
+
+SPELLNAME_AUTOATTACK = get_entity_by_name("Auto Attack").name
 
 
 # careful. not everything needs an itemid
@@ -2303,13 +2304,13 @@ def process_tree(app: App, line: str, tree: LineTree):
         amount = int(subtree.children[2].value)
         action_verb = subtree.children[3].value
 
-        app.dmgstore.add(name, target, SPELLNAME_CANONICAL_AUTOATTACK, amount, timestamp_unix)
-        app.dmgtakenstore.add(name, target, SPELLNAME_CANONICAL_AUTOATTACK, amount, timestamp_unix)
+        app.dmgstore.add(name, target, SPELLNAME_AUTOATTACK, amount, timestamp_unix)
+        app.dmgtakenstore.add(name, target, SPELLNAME_AUTOATTACK, amount, timestamp_unix)
 
         app.ability_timeline.add(
             source=name,
             target=target,
-            spellname=SPELLNAME_CANONICAL_AUTOATTACK,
+            spellname=SPELLNAME_AUTOATTACK,
             line_type=subtree.data,
             timestamp_unix=timestamp_unix,
             amount=amount,

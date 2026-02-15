@@ -213,25 +213,25 @@ Flowest
   Strength of Earth Totem                              x                                                                         
   Mana Spring Totem                                     x                                                                        
   Grace of Air Totem                                          x   x            x       x          x            x        x        
-Ostkastare
-  Tranquil Air Totem                                        x                                                                    
-  Mana Spring Totem                                         x                                                                    
-  Nature's Swiftness                                                        F                                                    
-Yakub
-  Tranquil Air Totem                                   x                                                                         
-  Mana Spring Totem                                    x                                                                         
-  Berserking                                                                G         F                                          
-  The Eye of the Dead                                                                                                   G        
-Jocaste
-  The Eye of the Dead                                                                                                    G       
-Pristitute
-  Inner Focus                                                                                                      G  F          
 Interlan
   Strength of Earth Totem                                x   x                                                                   
   Mana Spring Totem                                       x  x                                                                   
   Grace of Air Totem                                      x  x                                                                   
   Nature's Swiftness                                                  F                                                          
   Berserking                                                                 G         F                                         
+Jocaste
+  The Eye of the Dead                                                                                                    G       
+Ostkastare
+  Tranquil Air Totem                                        x                                                                    
+  Mana Spring Totem                                         x                                                                    
+  Nature's Swiftness                                                        F                                                    
+Pristitute
+  Inner Focus                                                                                                      G  F          
+Yakub
+  Tranquil Air Totem                                   x                                                                         
+  Mana Spring Totem                                    x                                                                         
+  Berserking                                                                G         F                                          
+  The Eye of the Dead                                                                                                   G        
 
 
 Ability Timeline for Vem (91.8s)
@@ -448,18 +448,18 @@ Zdraxus (5720)
   Shadow Word: Pain (1780)                                                                                 x   x  x x               
   Pain Spike (1050)                                                                                                    x            
   Mind Blast (770)                                                                                      x                           
-Ostkastare
-  Nature's Swiftness                                                                                  F                             
-Yakub
-  Tranquil Air Totem                             x                                                       x                          
-  Mana Spring Totem                              x                                                       x                          
-  Berserking                                                              F                                                         
-Pristitute
-  Inner Focus                                                                                      G   F                            
 Interlan
   Mana Spring Totem                     x        x                                                      x                           
   Strength of Earth Totem               x        x                                                      x                           
   Grace of Air Totem                    x                                                               x                           
+Ostkastare
+  Nature's Swiftness                                                                                  F                             
+Pristitute
+  Inner Focus                                                                                      G   F                            
+Yakub
+  Tranquil Air Totem                             x                                                       x                          
+  Mana Spring Totem                              x                                                       x                          
+  Berserking                                                              F                                                         
 
 
 Ability Timeline for Princess Yauj (22.5s)
@@ -634,18 +634,18 @@ Richardtater (3389)
   Deep Wound (40)                                         x    
 Flowest
   Windfury Totem                        x                      
-Ostkastare
-  Tranquil Air Totem                    x                      
-  Mana Spring Totem                      x                     
+Interlan
+  Grace of Air Totem                    x                      
 Magn
   Bloodrage                             G xxxxxx xF            
   Windfury Totem                         G F G                 
   Shield Block                                      G   F G F  
+Ostkastare
+  Tranquil Air Totem                    x                      
+  Mana Spring Totem                      x                     
 Yakub
   The Eye of the Dead                       G                  
   Berserking                                          G        
-Interlan
-  Grace of Air Totem                    x                      
 
 
 Ability Timeline for Lord Kri (45.8s)
@@ -846,12 +846,12 @@ Xiaofeigunn (3062)
 Kayax (2561)
   Hellfire Effect (1665)                                        x xxxxxxx             
   Shadowburn (896)                                                                x   
+Interlan
+  Berserking                                                      G        F          
 Ostkastare
   Searing Totem                                                   x                   
 Yakub
   The Eye of the Dead                                           F                     
-Interlan
-  Berserking                                                      G        F          
 
 
 Ability Timeline for Battleguard Sartura (89.7s)
@@ -1059,22 +1059,6 @@ Flowest
   Strength of Earth Totem                        x                                                                                
   Mana Spring Totem                              x                                                                                
   Grace of Air Totem                               x     x              x      x       x        x        x        x      x        
-Ostkastare
-  Tranquil Air Totem                             x                                                                                
-  Mana Spring Totem                              x                                                                                
-  Nature's Swiftness                                           G   F                                                              
-Yakub
-  Tranquil Air Totem                           x                                                                                  
-  Mana Spring Totem                            x                                                                                  
-  The Eye of the Dead                             G               F                                                               
-  Berserking                                                  G         F                                                         
-Pristitute
-  Inner Focus                                                                       G  F                                          
-Ratthew
-  Strength of Earth Totem                     x                                                                                   
-  Mana Spring Totem                           x                                                                                   
-  Windfury Totem                              x         x                                                                         
-  Grace of Air Totem                              x                                                                               
 Interlan
   Grace of Air Totem                         x                                                                                    
   Mana Spring Totem                          x                                                                                    
@@ -1082,6 +1066,22 @@ Interlan
   Nature's Swiftness                                          F                                                                   
   Berserking                                                                                   G         F                        
   Mana Tide Totem                                                                                     x                           
+Ostkastare
+  Tranquil Air Totem                             x                                                                                
+  Mana Spring Totem                              x                                                                                
+  Nature's Swiftness                                           G   F                                                              
+Pristitute
+  Inner Focus                                                                       G  F                                          
+Ratthew
+  Strength of Earth Totem                     x                                                                                   
+  Mana Spring Totem                           x                                                                                   
+  Windfury Totem                              x         x                                                                         
+  Grace of Air Totem                              x                                                                               
+Yakub
+  Tranquil Air Totem                           x                                                                                  
+  Mana Spring Totem                            x                                                                                  
+  The Eye of the Dead                             G               F                                                               
+  Berserking                                                  G         F                                                         
 
 
 Ability Timeline for Fankriss the Unyielding (75.5s)
@@ -1352,6 +1352,10 @@ Flowest
   Strength of Earth Totem                                  x                                                        
   Mana Spring Totem                                        x                                                        
   Grace of Air Totem                                        x        x         x        x           x    x          
+Interlan
+  Mana Spring Totem                                        x                                  x                     
+  Grace of Air Totem                                       x                                  x                     
+  Strength of Earth Totem                                   x                                 x                     
 Ostkastare
   Tranquil Air Totem                                          x                                                     
   Mana Spring Totem                                           x                                                     
@@ -1360,10 +1364,6 @@ Yakub
   Tranquil Air Totem                                   x      x                                                     
   Mana Spring Totem                                     x                                                           
   Berserking                                                                    G         F                         
-Interlan
-  Mana Spring Totem                                        x                                  x                     
-  Grace of Air Totem                                       x                                  x                     
-  Strength of Earth Totem                                   x                                 x                     
 
 
 Ability Timeline for Viscidus (91.8s)
@@ -1560,17 +1560,17 @@ Lycel (234)
   Insect Swarm (234)                                xx  xx  x x                                                                     
 Martlflash (110)
   Consecration (110)                                                                          xxxx                                  
-Yakub
-  The Eye of the Dead                                   G          F                                                                
-  Berserking                                                         G         F                                                    
-Pristitute
-  Inner Focus                                                    G  F                                                               
 Interlan
   Strength of Earth Totem               x                                            x                                              
   Grace of Air Totem                     x                                           x                                              
   Mana Spring Totem                      x                                           x                                              
   Nature's Swiftness                                                                              F                                 
   Berserking                                                                                        G         F                     
+Pristitute
+  Inner Focus                                                    G  F                                                               
+Yakub
+  The Eye of the Dead                                   G          F                                                                
+  Berserking                                                         G         F                                                    
 
 
 Ability Timeline for Princess Huhuran (80.7s)
@@ -1819,13 +1819,19 @@ Pyi (8775)
   Claw (2700)                                            x  x   x                 xx x                                   
   Ferocious Bite (1826)                                                          x       x                               
   Potent Venom (549)                                       x  x  x                  x  x  x  x  x  x                     
-Goldengoose
-  Death by Peasant                                                                         x                             
 Flowest
   Windfury Totem                        x              x       x           x         x          x       x                
   Strength of Earth Totem                              x                                                                 
   Mana Spring Totem                                     x                                                                
   Grace of Air Totem                                      x      x            x        x           x                     
+Goldengoose
+  Death by Peasant                                                                         x                             
+Interlan
+  Mana Spring Totem                              x                                                                       
+  Grace of Air Totem                             x                                                                       
+  Strength of Earth Totem                         x                                                                      
+  Berserking                                                                               G         F                   
+  Nature's Swiftness                                                                           GF                        
 Ostkastare
   Tranquil Air Totem                                 x                                                                   
   Mana Spring Totem                                   x                                                                  
@@ -1834,12 +1840,6 @@ Yakub
   Mana Spring Totem                                     x                                                                
   Berserking                                                  G        F                                                 
   The Eye of the Dead                                         G                    F                                     
-Interlan
-  Mana Spring Totem                              x                                                                       
-  Grace of Air Totem                             x                                                                       
-  Strength of Earth Totem                         x                                                                      
-  Berserking                                                                               G         F                   
-  Nature's Swiftness                                                                           GF                        
 
 
 Ability Timeline for Emperor Vek'lor (203.7s)
@@ -1916,75 +1916,75 @@ Catajumbo (34)
   Windfury Totem                                                                                                                                                                                            x                                       
   Strength of Earth Totem                                                                                                                                                                                   x                                       
   Earth Shock (34)                                                          x                                                                                                                                                                       
-Goldengoose
-  Windfury Totem                                                     GF           F                                                                                                               F                                                 
-Flowest
-  Windfury Totem                             x                                                                                                             x                                                                                        
-  Strength of Earth Totem                    x                                                                                                             x                                                                                        
-  Mana Spring Totem                          x                                                                                                                                                                                                      
-Pitbound
-  Bloodrage                                         Gxxxx  x                                                                                                                                                                                        
-  Windfury Totem                                                                                                                   GG F F                                                                                                           
-  Shield Block                                                                                                                       GF      F             G                                                         F        F                     
-Sabroso
-  Windfury Totem                        GF                            F                                 F       F                             F         F               F    G     F                                              G                 
-  Death Wish                                                                              x                             F                                                                                                                           
-  Bloodrage                                                                                           x   x   F                                                               x  x    F                                                  x  x   x F 
-  Berserker Rage                                                                                                                                                                   F                                                                
-Ostkastare
-  Nature's Swiftness                                                                                                                       F                                                                                                        
-Magn
-  Windfury Totem                                                                         G F  G G               x FG         F                                              F x              F    G                                     F           
-  Shield Block                                                                                                 G                                                         F                                                                          
-  Bloodrage                                                                                                                                                                  xx    F                                                                
-Richardtater
-  Bloodrage                                                            xx                                                                                                                                     G x     x x                           
-  Berserker Rage                                                                                                                                     F                                                                                              
-Vallcow
-  Bloodrage                                                                    x   xx                                                         x                                                             x      xx                               
-  Berserker Rage                                                                     F                                                                                             F                                                                
-  Windfury Totem                                                                                    G                                                                                        G                                                G   G 
-  Death Wish                                                                                                                                                          x                                                                             
+Bobsterr
+  Windfury Totem                                                                                   G                                                                    G        F G F  x                         G           G                  G  
 Cracklinoats
   Strength of Earth Totem                                                                        x                                                                                                                                                  
   Windfury Totem                                                                                                                            x                                                                                                x      
 Dhallya
   Slayer's Crest                                                                              G                                                                                                                                                     
   Rapid Fire                                                                                  G                  F                                                                                                                                  
+Flowest
+  Windfury Totem                             x                                                                                                             x                                                                                        
+  Strength of Earth Totem                    x                                                                                                             x                                                                                        
+  Mana Spring Totem                          x                                                                                                                                                                                                      
+Goldengoose
+  Windfury Totem                                                     GF           F                                                                                                               F                                                 
+Interlan
+  Windfury Totem                                  x                                                                                                                                                                                                 
+  Strength of Earth Totem                         x                                                                                                                                            x                                                    
+  Mana Spring Totem                               x                                                                                                                                            x                                                    
+  Nature's Swiftness                                                                            GF                                                                                                                                                  
+Jocaste
+  The Eye of the Dead                                                                                                                         G         F                                                                                           
+Magn
+  Windfury Totem                                                                         G F  G G               x FG         F                                              F x              F    G                                     F           
+  Shield Block                                                                                                 G                                                         F                                                                          
+  Bloodrage                                                                                                                                                                  xx    F                                                                
 Mcstabbys
   Windfury Totem                                                                                                                             G           xF              F  G                               F               F                 F     
   Blade Flurry                                                                                                                                 G              F                                                                                     
   Adrenaline Rush                                                                                                                                        F                                                                                          
-Spankys
-  Slayer's Crest                                                                                            F                                                                                                                           F           
-  Berserking                                                                                                                             G         F                                                                                                
-  Rapid Fire                                                                                                                             G                                                                                                          
-Bobsterr
-  Windfury Totem                                                                                   G                                                                    G        F G F  x                         G           G                  G  
-Yakub
-  The Eye of the Dead                                                                                                           G                                                                                                                   
-Jocaste
-  The Eye of the Dead                                                                                                                         G         F                                                                                           
+Ostkastare
+  Nature's Swiftness                                                                                                                       F                                                                                                        
+Pitbound
+  Bloodrage                                         Gxxxx  x                                                                                                                                                                                        
+  Windfury Totem                                                                                                                   GG F F                                                                                                           
+  Shield Block                                                                                                                       GF      F             G                                                         F        F                     
 Psykhe
   Death Wish                                                                                   x                                                                                                                                                    
   Windfury Totem                                                                                     G                                                                      F    FxF  F  F                                                          
   Slayer's Crest                                                                                               F                                                                                                                                    
   Bloodrage                                                                                                                                                        xx    x                                                                    xx x  
   Berserking                                                                                                                                                                                                G                                       
-Zloveleen
-  Windfury Totem                                                      xG     G                                G                                           F                           FF           GF                     G                         
-  Bloodrage                                                                                                                                 x  x   F                                                                    G   xxxx                    
-  Badge of the Swarmguard                                                                                                                                                                                   G                                       
 Ratthew
   Strength of Earth Totem                     x                                                                                                                                                                                                     
   Mana Spring Totem                            x                                                                                                                                                                                                    
   Windfury Totem                               x                                                                                                         x                       x                                                                  
   Grace of Air Totem                                                                             x                                               x                       x                  x                                                       
-Interlan
-  Windfury Totem                                  x                                                                                                                                                                                                 
-  Strength of Earth Totem                         x                                                                                                                                            x                                                    
-  Mana Spring Totem                               x                                                                                                                                            x                                                    
-  Nature's Swiftness                                                                            GF                                                                                                                                                  
+Richardtater
+  Bloodrage                                                            xx                                                                                                                                     G x     x x                           
+  Berserker Rage                                                                                                                                     F                                                                                              
+Sabroso
+  Windfury Totem                        GF                            F                                 F       F                             F         F               F    G     F                                              G                 
+  Death Wish                                                                              x                             F                                                                                                                           
+  Bloodrage                                                                                           x   x   F                                                               x  x    F                                                  x  x   x F 
+  Berserker Rage                                                                                                                                                                   F                                                                
+Spankys
+  Slayer's Crest                                                                                            F                                                                                                                           F           
+  Berserking                                                                                                                             G         F                                                                                                
+  Rapid Fire                                                                                                                             G                                                                                                          
+Vallcow
+  Bloodrage                                                                    x   xx                                                         x                                                             x      xx                               
+  Berserker Rage                                                                     F                                                                                             F                                                                
+  Windfury Totem                                                                                    G                                                                                        G                                                G   G 
+  Death Wish                                                                                                                                                          x                                                                             
+Yakub
+  The Eye of the Dead                                                                                                           G                                                                                                                   
+Zloveleen
+  Windfury Totem                                                      xG     G                                G                                           F                           FF           GF                     G                         
+  Bloodrage                                                                                                                                 x  x   F                                                                    G   xxxx                    
+  Badge of the Swarmguard                                                                                                                                                                                   G                                       
 
 
 Ability Timeline for Emperor Vek'nilash (193.8s)
@@ -2139,32 +2139,16 @@ Catajumbo (16112)
 Goldengoose (525)
   Windfury Totem                                G Fx G F G F   G                                                                                          GF                   G                                                          
   Consecration (525)                                xxxxx                                                                                                                                                                                 
-Shreked
-  Combustion                                                                                                       G   G                                                                                                                  
-  Mind Quickening                                                                                                                      F                                                                                                  
-Blindie
-  Power Infusion                                                                                                                                           G                                                                              
-Viridissima
-  Unstable Power                                                                                                                                                G                                                                         
-Flowest
-  Mana Spring Totem                                                                                                                    x                                                                                                  
-  Windfury Totem                                                                                                                                                                                                       x                  
 Aquatic
   Combustion                                                                                                                                                  G                                                                           
-Ostkastare
-  Tranquil Air Totem                         x                                                                                                                                                                                            
-  Mana Spring Totem                          x                                                                                                                                 x                                                          
-  Mana Tide Totem                                                                                                                                    x                                                                                    
+Blindie
+  Power Infusion                                                                                                                                           G                                                                              
 Clapya
   Tranquil Air Totem                                                                                                                                                             x                                                        
   Berserking                                                                                                                                                                                           G         F                        
-Yakub
-  The Eye of the Dead                                                                                                       F                                                                                                             
-Sunpriest
-  Ephemeral Power                             G              F                                                                                             F                                                                              
-  Inner Focus                                  GF                                                                                                                                                                                         
-Pristitute
-  Inner Focus                                                                                                                                                                          G  F                                               
+Flowest
+  Mana Spring Totem                                                                                                                    x                                                                                                  
+  Windfury Totem                                                                                                                                                                                                       x                  
 Immunium
   Mind Quickening                                                                                                                                                     F                                                                   
 Interlan
@@ -2172,8 +2156,24 @@ Interlan
   Windfury Totem                                                                                                                                                             x                  x                                         
   Mana Spring Totem                                                                                                                                                                             x                                         
   Strength of Earth Totem                                                                                                                                                                        x                                        
+Ostkastare
+  Tranquil Air Totem                         x                                                                                                                                                                                            
+  Mana Spring Totem                          x                                                                                                                                 x                                                          
+  Mana Tide Totem                                                                                                                                    x                                                                                    
+Pristitute
+  Inner Focus                                                                                                                                                                          G  F                                               
+Shreked
+  Combustion                                                                                                       G   G                                                                                                                  
+  Mind Quickening                                                                                                                      F                                                                                                  
 Starraven
   Essence of Sapphiron                             G                    F                                                                                                                   G                                             
+Sunpriest
+  Ephemeral Power                             G              F                                                                                             F                                                                              
+  Inner Focus                                  GF                                                                                                                                                                                         
+Viridissima
+  Unstable Power                                                                                                                                                G                                                                         
+Yakub
+  The Eye of the Dead                                                                                                       F                                                                                                             
 
 
 Ability Timeline for Ouro (132.7s)
@@ -2462,14 +2462,14 @@ Flowest
   Windfury Totem                                       x         x         x         x        x                x                                                             
   Strength of Earth Totem                              x                                                                                                                     
   Grace of Air Totem                                     x          x       x          x        x                                                                            
-Martlflash
-  Death by Peasant                         x                                                                                                                                 
-Jocaste
-  The Eye of the Dead                                                                                                                  G             F                       
-  Divine Favor                                                                                                                                                  G      F     
 Interlan
   Nature's Swiftness                                                                                      G F                                                                
   Berserking                                                                                               G         F                                                       
+Jocaste
+  The Eye of the Dead                                                                                                                  G             F                       
+  Divine Favor                                                                                                                                                  G      F     
+Martlflash
+  Death by Peasant                         x                                                                                                                                 
 
 
 Ability Timeline for Eye of C'Thun (116.8s)
@@ -2683,13 +2683,13 @@ Flowest
   Windfury Totem                                 x                                                                    x                                      
   Strength of Earth Totem                         x                                                                   x                                      
   Mana Spring Totem                               x                                                                    x                                     
-Yakub
-  Windfury Totem                                     x                                                             x     x                      x            
-  Strength of Earth Totem                             x                                                              x   x                      x            
 Interlan
   Strength of Earth Totem                     x                                                    x                x                                        
   Mana Spring Totem                           x                                                     x                x                                       
   Grace of Air Totem                          x                                                    x                x                                        
+Yakub
+  Windfury Totem                                     x                                                             x     x                      x            
+  Strength of Earth Totem                             x                                                              x   x                      x            
 
 
 Ability Timeline for C'Thun (270.0s)

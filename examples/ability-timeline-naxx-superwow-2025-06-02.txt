@@ -308,8 +308,6 @@ Oileri (624)
   Stratholme Holy Water (624)                                                                               x                         
 Randgriz (29)
   Auto Attack (29)                                                                                               x                    
-Thunder (Minoas)
-  Windfury Totem                                    x     x      x              x        x  x        x     x    x                     
 Adya
   Resurrection                                                                                                                  x     
 Selverslip
@@ -322,6 +320,8 @@ Snega
   Mana Spring Totem                              x                                                                                    
   Nature's Swiftness                                           GF                                                                     
   The Eye of the Dead                                              G          F                                                       
+Thunder (Minoas)
+  Windfury Totem                                    x     x      x              x        x  x        x     x    x                     
 
 
 Ability Timeline for Grand Widow Faerlina (94.2s)
@@ -633,14 +633,12 @@ Jagdar (596)
   Strength of Earth Totem                                                                          x                                   
   Mana Spring Totem                                                                                 x                                  
   Earth Shock (596)                                x                                                                                   
-Randgriz
-  Inner Focus                                                                                                                    GF    
-Oileri
-  Nature's Swiftness                                             F                                                                     
 Interlani
   The Eye of the Dead                                     G            F                                                               
-Thunder (Minoas)
-  Windfury Totem                                                           x    x                     x                                
+Oileri
+  Nature's Swiftness                                             F                                                                     
+Randgriz
+  Inner Focus                                                                                                                    GF    
 Selverslip
   Windfury Totem                                  x                                                  x                                 
   Strength of Earth Totem                          x                                                   x                               
@@ -651,6 +649,8 @@ Snega
   Mana Spring Totem                               x                                                                                    
   Nature's Swiftness                                           GF                                                                      
   The Eye of the Dead                                           G        F                                                             
+Thunder (Minoas)
+  Windfury Totem                                                           x    x                     x                                
 
 
 Ability Timeline for Maexxna (106.8s)
@@ -964,15 +964,15 @@ Jagdar
   Windfury Totem                                    x                                                                                              
   Strength of Earth Totem                           x                                                                                              
   Mana Spring Totem                                  x                                                                                             
-Randgriz
-  The Eye of the Dead                                                                                 G                    F                       
-  Resurrection                                                                                                                                   x 
 Oileri
   Mana Spring Totem                     x                                                     x                                                    
   Tranquil Air Totem                                   x                                                             x                             
   Unstable Power                                           G                   F                                                                   
   Nature's Swiftness                                                                             GF                                                
   Ancestral Spirit                                                                                                                             x   
+Randgriz
+  The Eye of the Dead                                                                                 G                    F                       
+  Resurrection                                                                                                                                   x 
 Selverslip
   Windfury Totem                                  x                                                                                                
   Mana Spring Totem                                x                                                                                               
@@ -1305,8 +1305,6 @@ Oileri
   Tranquil Air Totem                                                                                                                                             x                           
 Pristitute
   Inner Focus                                                                                     G        F                                                                                 
-Thunder (Minoas)
-  Windfury Totem                                       x            x   x  x          x         x      x    x  x               x         x   x                  x         x  x               
 Selverslip
   Windfury Totem                                 x                                                                                                    x                                      
   Mana Spring Totem                              x                                                                                                   x                                       
@@ -1318,6 +1316,8 @@ Snega
   Mana Spring Totem                      x                                                                                                                                                 x 
   The Eye of the Dead                                                                                                          G         F                                                   
   Nature's Swiftness                                                                                                                           GF                                            
+Thunder (Minoas)
+  Windfury Totem                                       x            x   x  x          x         x      x    x  x               x         x   x                  x         x  x               
 
 
 Ability Timeline for Grobbulus (95.6s)
@@ -1621,11 +1621,11 @@ Jagdar
   Windfury Totem                        x              x                                                 x                      x       
   Mana Spring Totem                     x               x                                                 x                     x       
   Strength of Earth Totem               x               x                                                 x                     x       
-Randgriz
-  Rapid Healing                                                                       G              F                                  
 Oileri
   Nature's Swiftness                                   F                                                                                
   Tranquil Air Totem                                                     x                                                              
+Randgriz
+  Rapid Healing                                                                       G              F                                  
 Selverslip
   Windfury Totem                             x x      x                  x          x           x          x          x                 
   Mana Spring Totem                          x         x                   x              x        x            x                       
@@ -1934,8 +1934,6 @@ Oileri
   Tranquil Air Totem                             x                            x                                        
   Unstable Power                                                         G                    F                        
   Nature's Swiftness                                                                                 GF                
-Thunder (Minoas)
-  Windfury Totem                                           x                                       x                   
 Selverslip
   Windfury Totem                          x           x               x                 x                              
   Mana Spring Totem                       x             x               x                 x                            
@@ -1946,6 +1944,8 @@ Snega
   Strength of Earth Totem                x                              x                                              
   Mana Spring Totem                       x                              x                                             
   The Eye of the Dead                                                           G         F                            
+Thunder (Minoas)
+  Windfury Totem                                           x                                       x                   
 
 
 Ability Timeline for Stalagg (75.9s)
@@ -2068,41 +2068,41 @@ Eleae (7275)
   Faerie Fire (Feral)                                                     x     x                                   
 Moossiss (142)
   Auto Attack (142)                                                                 x      x  x                     
-Tiogar
-  Bloodrage                                                         xx  x  F                                        
-  Windfury Totem                                                         x                                          
-Jagdar
-  Windfury Totem                             x                                                                      
-  Strength of Earth Totem                    x                                                                      
-  Mana Spring Totem                           x                                                                     
-Lorrah
-  Windfury Totem                                       x  x                    x           x                   x    
 Adm
   Windfury Totem                                           x                     x                               x  
 Cleanskill
   Windfury Totem                                                     x                                              
   Strength of Earth Totem                                             x                                             
+Jagdar
+  Windfury Totem                             x                                                                      
+  Strength of Earth Totem                    x                                                                      
+  Mana Spring Totem                           x                                                                     
+Kilgasm
+  Windfury Totem                                                                      x                             
+Lorrah
+  Windfury Totem                                       x  x                    x           x                   x    
 Magn
   Bloodrage                             xxxxxx xx                                                                   
   Windfury Totem                                                     x                x                             
-Teawon
-  Windfury Totem                                                                  x       x                         
+Oileri
+  Mana Spring Totem                      x                                                                          
+  Tranquil Air Totem                     x                                                                        x 
 Psykhe
   Bloodrage                                                G x x xx xx                                              
   Windfury Totem                                                        x     x                                     
   Kiss of the Spider                                                       G              F                         
-Shape
-  Windfury Totem                                        x                                                           
-Oileri
-  Mana Spring Totem                      x                                                                          
-  Tranquil Air Totem                     x                                                                        x 
-Kilgasm
-  Windfury Totem                                                                      x                             
 Selverslip
   Windfury Totem                              x                                                                     
   Mana Spring Totem                           x                                                                     
+Shape
+  Windfury Totem                                        x                                                           
 Snega
   Mana Spring Totem                            x                                                                    
+Teawon
+  Windfury Totem                                                                  x       x                         
+Tiogar
+  Bloodrage                                                         xx  x  F                                        
+  Windfury Totem                                                         x                                          
 Turborevenge
   Bloodrage                              xx x x x  F                                                      x         
   Blood Fury                                                                  x                                     
@@ -2242,14 +2242,14 @@ Xelya (14265)
   Thunderfury (750)                                            x     x                                       
   Holy Shield (716)                                                      x  x x                          x   
   Greater Blessing of Sanctuary (190)                               x    x  x x                          x   
+Clapya
+  Tranquil Air Totem                    x                                                                    
+  Mana Spring Totem                      x                                                                   
 Kayax
   Blood Fury                                    x                                                            
 Oileri
   Mana Spring Totem                             x                                                            
   Tranquil Air Totem                             x                                                           
-Clapya
-  Tranquil Air Totem                    x                                                                    
-  Mana Spring Totem                      x                                                                   
 Selverslip
   Strength of Earth Totem               x                                                                    
 Snega
@@ -2555,14 +2555,14 @@ Jagdar
   Berserking                                                                                                                                  G         F    
 Moossiss
   Rebirth                                                                         x                                                                          
-Randgriz
-  Rapid Healing                                                                                                G              F                              
-  Inner Focus                                                                                                                    G    F                      
 Oileri
   Mana Spring Totem                           x                                                                                                              
   Tranquil Air Totem                           x                                                                                                             
   Unstable Power                                     G                   F                                                                                   
   Nature's Swiftness                                                                                                                           F             
+Randgriz
+  Rapid Healing                                                                                                G              F                              
+  Inner Focus                                                                                                                    G    F                      
 Selverslip
   Windfury Totem                            x                                        x                                                                       
   Mana Spring Totem                         x                                        x                                                   x                   
@@ -2876,17 +2876,13 @@ Interlani (870)
   Holy Strike (337)                                                                                                             x                        
   Crusader Strike (310)                             x                                                                                        x           
   Auto Attack (223)                                 x                                                                           x            x           
+Adya
+  Improved Renew                                   x                 x          x                     x                                                  
 Oileri
   Mana Spring Totem                     x                                                                                        x                     x 
   Unstable Power                                  G                   F                                                                                  
   Tranquil Air Totem                                                          x                                                                        x 
   Nature's Swiftness                                                                                        F                                            
-Yuyi
-  Improved Renew                           x                                                                                                             
-Adya
-  Improved Renew                                   x                 x          x                     x                                                  
-Thunder (Minoas)
-  Windfury Totem                                         x   x           x       x      x  x     x       x    x    x   x                                 
 Selverslip
   Windfury Totem                              x                                                 x                                                 x      
   Mana Spring Totem                           x                                                x                                                   x  x  
@@ -2899,6 +2895,10 @@ Snega
   Strength of Earth Totem                x                                                                                                               
   The Eye of the Dead                                         G                F                                                                         
   Nature's Swiftness                                                                                                                        F            
+Thunder (Minoas)
+  Windfury Totem                                         x   x           x       x      x  x     x       x    x    x   x                                 
+Yuyi
+  Improved Renew                           x                                                                                                             
 
 
 Ability Timeline for Gothik the Harvester (302.5s)
@@ -3192,8 +3192,6 @@ Jagdar
   Strength of Earth Totem                      x                                                                                                                                                                                                                                                                x                                      
   Mana Spring Totem                             x                                                                                                                                x                                                   x                                                                           x                                     
   Nature's Swiftness                                                                                                                                                                      F                                                                                                                                                            
-Randgriz
-  Inner Focus                                                                                                                                                                                                                                                                              G       F                                                   
 Oileri
   Tranquil Air Totem                                       x                                         x                                                                                                                   x                                                                                                    x                        
   Mana Spring Totem                                                                                  x                                                                         x                                                                    x                                                           x             x                        
@@ -3201,13 +3199,15 @@ Oileri
   Unstable Power                                                                                                                                                                  G                   F                                                                                                              G                   F             
   Nature's Swiftness                                                                                                                                                              GF                                                                                                                                                                   
   War Stomp                                                                                                                                                                                                                             x                                                                                                              
-Thunder (Minoas)
-  Windfury Totem                                                                                                                                                                                                         x             x  x                    x                             x                                                         
+Randgriz
+  Inner Focus                                                                                                                                                                                                                                                                              G       F                                                   
 Selverslip
   Windfury Totem                        x                                                      x                                                                     x                                        x                                                              x                                                                   x     
   Mana Spring Totem                                                                            x                                                                      x                                       x                                                             x                                                                    x     
   The Eye of the Dead                                                                                                                                                                       G          F                                                                                                                                               
   Strength of Earth Totem                                                                                                                                                                                                                                                                               x                                        x     
+Thunder (Minoas)
+  Windfury Totem                                                                                                                                                                                                         x             x  x                    x                             x                                                         
 
 
 Ability Timeline for Sir Zeliek (293.3s)
@@ -3328,35 +3328,31 @@ Gholmes (1898)
   Arcane Missiles (1224)                                                                                                                                                                                    xxxx x                                                                                                                            
   Arcane Rupture (648)                                                                                                                                                                                   x                                                                                                                                    
   Arcane Instability (26)                                                                                                                                                                                      x x                                                                                                                            
-Tiogar
-  Bloodrage                                              x                                                                    x x                                                                                                                                                                                                             
+Cleanskill
+  Strength of Earth Totem                x                                                                                                                             x                                                                                                                                                                      
+  Windfury Totem                         x                                                                                                                                                                                                                                                                                                    
+  Bloodlust                                                 G                                                                                                                                                                                                                                                                                 
 Jagdar
   Nature's Swiftness                                                                                   F                                                                                                                                                                                                                                      
   Windfury Totem                                                                                                                                                                      x                                                 x                                                                                                     
   Strength of Earth Totem                                                                                                                                                                                                               x                                                                                                     
   Mana Spring Totem                                                                                                                                                                                                                     x                                                                                                     
+Kilgasm
+  Windfury Totem                                                                                                x          x                                                                                                                                                                                                                  
+  Bloodrage                                                                                                                                                  xx        F                                                                                          x  xxxxxxF                                                                  
 Lorrah
   Adrenaline Rush                                  G                                                                                                                                                                                                                                                                                          
   Windfury Totem                                                                                                                                                       x                                                                                                                                                                      
-Oivse
-  Inner Focus                                               G                                                                                                                                                                                                                                                                                 
-Cleanskill
-  Strength of Earth Totem                x                                                                                                                             x                                                                                                                                                                      
-  Windfury Totem                         x                                                                                                                                                                                                                                                                                                    
-  Bloodlust                                                 G                                                                                                                                                                                                                                                                                 
-Teawon
-  Windfury Totem                                                                  x                             x                                                                                                                                                                                                                             
-Psykhe
-  Shield Block                                                                                                         G                                                                                                                                                                                                                      
-Randgriz
-  The Eye of the Dead                                                                                                                                                                                                                                                                                         G                             F 
 Oileri
   Tranquil Air Totem                                                                                                                                                                x                                                                                                   x                                                     
   Unstable Power                                                                                                                                                                                                                                                       G                   F                                                  
   Mana Spring Totem                                                                                                                                                                                                                                                                                x                                          
-Kilgasm
-  Windfury Totem                                                                                                x          x                                                                                                                                                                                                                  
-  Bloodrage                                                                                                                                                  xx        F                                                                                          x  xxxxxxF                                                                  
+Oivse
+  Inner Focus                                               G                                                                                                                                                                                                                                                                                 
+Psykhe
+  Shield Block                                                                                                         G                                                                                                                                                                                                                      
+Randgriz
+  The Eye of the Dead                                                                                                                                                                                                                                                                                         G                             F 
 Selverslip
   Nature's Swiftness                                                                                                                G                                                                                                                                                                                                         
   Mana Spring Totem                                                                                                                                                                                                                                                                                      x                                    
@@ -3364,6 +3360,10 @@ Snega
   Windfury Totem                        x                                                                                                                                                                                                                                                                                                     
   Strength of Earth Totem               x                                                                                                                                                                                                                                                                                                     
   Mana Spring Totem                     x                                                                                                                                                                                                                                                                                                     
+Teawon
+  Windfury Totem                                                                  x                             x                                                                                                                                                                                                                             
+Tiogar
+  Bloodrage                                              x                                                                    x x                                                                                                                                                                                                             
 Turborevenge
   Berserker Rage                                                                    G                                                                                                                                                                                                                                                         
   Bloodlust                                                                               F                                                                                                                                                                                                                                                   
@@ -3819,14 +3819,14 @@ Jagdar
   Mana Spring Totem                                                                                     x                                                                                                      
 Martlflash
   Unstable Power                                                                                                                                                                     F                         
-Randgriz
-  The Eye of the Dead                                                                                                        G                                                                                 
-  Inner Focus                                                                                                                                                                                         G        
 Oileri
   Mana Spring Totem                     x                                                x                                                                                      x                              
   Tranquil Air Totem                    x                                                                                                                                                                      
   Unstable Power                                                                                            G                   F                                                                              
   Nature's Swiftness                                                                                                                                                   F                                       
+Randgriz
+  The Eye of the Dead                                                                                                        G                                                                                 
+  Inner Focus                                                                                                                                                                                         G        
 Selverslip
   Windfury Totem                                                                                    x                                                                                                          
   Mana Spring Totem                                                                                  x                                                                                                         
@@ -4057,20 +4057,20 @@ Cleanskill (3950)
 Kayax (2852)
   Curse of Agony (2852)                  x x x x x x x x x x x x x                                                                                                                                                                                                
   Curse of Shadow                        x                                                                                                                                                                                                                        
+Interlani
+  The Eye of the Dead                                                                                                                  G                                                                                                                          
 Jagdar
   Nature's Swiftness                                                                               G                                                                                                                                                              
   Windfury Totem                                                                                                                                                                                                       x                                          
   Strength of Earth Totem                                                                                                                                                                                              x                                          
   Mana Spring Totem                                                                                                                                                                                                     x                                         
-Randgriz
-  The Eye of the Dead                                                                                                                       F                                                                                                                     
-  Inner Focus                                                                                                                                                                                                  F                                                  
 Oileri
   Tranquil Air Totem                                                                       x                                                                                                                                                   x                  
   Nature's Swiftness                                                                                                                                         G                                                                                                    
   Mana Spring Totem                                                                                                                                                                                                                            x                  
-Interlani
-  The Eye of the Dead                                                                                                                  G                                                                                                                          
+Randgriz
+  The Eye of the Dead                                                                                                                       F                                                                                                                     
+  Inner Focus                                                                                                                                                                                                  F                                                  
 Selverslip
   Windfury Totem                                                                                                                                           x                                                                                                      
   Mana Spring Totem                                                                                                                                        x                                                                                                      
@@ -4694,8 +4694,6 @@ Oileri
   Mana Spring Totem                                       x                                                                                
   Tranquil Air Totem                                                        x                                                              
   Nature's Swiftness                                                                                                          F            
-Thunder (Minoas)
-  Windfury Totem                                                                                                             x             
 Selverslip
   Windfury Totem                                          x                                                                                
   Strength of Earth Totem                                  x                                                                               
@@ -4705,6 +4703,8 @@ Snega
   Mana Spring Totem                                       x                                                                                
   The Eye of the Dead                                                G          F                                                          
   Nature's Swiftness                                                                                      G F                              
+Thunder (Minoas)
+  Windfury Totem                                                                                                             x             
 
 
 Ability Timeline for Loatheb (167.5s)
@@ -5362,14 +5362,12 @@ Oileri (279)
   Nature's Swiftness                                                                   GF                                                                                                                  
   Mana Spring Totem                                                                                                                                           x                                            
   Auto Attack (279)                                                                                                           x                                                                            
+Pristitute
+  The Eye of the Dead                                                                                                                               G                             F                        
 Randgriz
   The Eye of the Dead                                                            G            F                                                                                                            
   Rapid Healing                                                                   G              F                                                                                                         
   Inner Focus                                                                                                                                                          G   F                               
-Pristitute
-  The Eye of the Dead                                                                                                                               G                             F                        
-Thunder (Minoas)
-  Windfury Totem                                                               x       x  x                                                                                                                
 Selverslip
   Strength of Earth Totem                 x                                                                                    x                                                                           
   Mana Spring Totem                        x                                                                                 x                                                                             
@@ -5382,6 +5380,8 @@ Snega
   Mana Spring Totem                     x                                                                                     x                                                                            
   Nature's Swiftness                                                                              GF                                                                                                       
   The Eye of the Dead                                                                               G                   F                                                                                  
+Thunder (Minoas)
+  Windfury Totem                                                               x       x  x                                                                                                                
 
 
 Ability Timeline for Kel'Thuzad (1240.9s)

@@ -144,7 +144,7 @@ Nightleaf (6548)
   Claw (1746)                                                                                                                                                                                                                                                                                                                      x x    xx                     x  x                       
   Ferocious Bite (855)                                                                                                                                                                                                                                                                                                                                       x                              
   Rake (52)                                                                                                                                                                                                                                                                                                                       x                                                         
-Niviri
+Ionize
   War Stomp                                                                                                                                                                                                                                                                                                                 x    F                                                          
 Kazgrun
   Windfury Totem                                                                                                                                                                                                                                                                                                         x                                                                  
@@ -154,7 +154,7 @@ Kazgrun
   Mana Tide Totem                                                                                                                                                                                                                                                                                                                                                                x          
 Morinethar
   Divine Favor                                  G    F                                                                                                                                                                                                                                                                                                 G   F                                
-Ionize
+Niviri
   War Stomp                                                                                                                                                                                                                                                                                                                 x    F                                                          
 
 
@@ -318,14 +318,14 @@ Charmia (14740)
   Maul (13675)                                            x    x       x  x x  x x  x x  x  x x  x x  x x  x x    x  x               
   Auto Attack (889)                                     x         x                                                                  
   Swipe (176)                                                                               x                                        
-Sunor
-  Unstable Power                                                      G                   F                                          
-Niviri
-  Nature's Swiftness                                                                                                     G F         
 Kazgrun
   Nature's Swiftness                                                                                     GF                          
 Morinethar
   Divine Favor                                                       G   F                                                           
+Niviri
+  Nature's Swiftness                                                                                                     G F         
+Sunor
+  Unstable Power                                                      G                   F                                          
 
 
 Ability Timeline for Broodlord Lashlayer (83.0s)

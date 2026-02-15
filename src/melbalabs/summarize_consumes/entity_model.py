@@ -50,17 +50,14 @@ class ComponentRegistry:
     def set(self, component_class: Type[C], entity: Entity, component: C):
         self.store[component_class][entity] = component
 
+
 COMPONENT_REGISTRY = ComponentRegistry()
-
-
-
-
 
 
 class Entity:
     def __init__(self, name: str, components: list[Component]):
         name = CanonicalName(name)
-        entity_unique_constraint(name)
+        entity_unique_register(name, self)
         self.name = name  # The canonical name (what shows in the report output)
         self._components: list[Component] = list(components)
         for component in self._components:
@@ -81,40 +78,45 @@ class Entity:
         return f"Entity(name={self.name!r}, components={self._components!r})"
 
 
+ENTITY_REGISTRY: dict[CanonicalName, Entity] = {}
 
 
-ENTITY_UNIQUE_CONSTRAINT: set[CanonicalName] = set()
-
-
-def entity_unique_constraint(name: CanonicalName):
-    if name in ENTITY_UNIQUE_CONSTRAINT:
+def entity_unique_register(name: CanonicalName, entity: Entity):
+    if name in ENTITY_REGISTRY:
         raise ValueError(f"Duplicate entity name: {name}")
-    ENTITY_UNIQUE_CONSTRAINT.add(name)
+    ENTITY_REGISTRY[name] = entity
+
+
+def get_entity_by_name(name: str) -> Entity:
+    return ENTITY_REGISTRY[CanonicalName(name)]
 
 
 def get_entities_with_component(component_type: Type[C]) -> ItemsView[Entity, C]:
     """Get all entities that have a component of the given type, and the component itself."""
     return COMPONENT_REGISTRY.get(component_type).items()
 
+
 @overload
-def get_entities_with_components(
-    c1: Type[C1], /
-) -> list[tuple[Entity, tuple[C1]]]: ...
+def get_entities_with_components(c1: Type[C1], /) -> list[tuple[Entity, tuple[C1]]]: ...
+
 
 @overload
 def get_entities_with_components(
     c1: Type[C1], c2: Type[C2], /
 ) -> list[tuple[Entity, tuple[C1, C2]]]: ...
 
+
 @overload
 def get_entities_with_components(
     c1: Type[C1], c2: Type[C2], c3: Type[C3], /
 ) -> list[tuple[Entity, tuple[C1, C2, C3]]]: ...
 
+
 @overload
 def get_entities_with_components(
     c1: Type[C1], c2: Type[C2], c3: Type[C3], c4: Type[C4], /
 ) -> list[tuple[Entity, tuple[C1, C2, C3, C4]]]: ...
+
 
 def get_entities_with_components(
     *component_types: Type[Component],

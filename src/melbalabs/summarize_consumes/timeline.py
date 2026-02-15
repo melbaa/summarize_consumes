@@ -1,7 +1,10 @@
-from melbalabs.summarize_consumes.entity_model import CanonicalName
+from melbalabs.summarize_consumes.entity_model import CanonicalName, get_entity_by_name
 from melbalabs.summarize_consumes.parser import TreeType
 import bisect
 import collections
+
+
+SPELLNAME_WINDFURY_TOTEM = get_entity_by_name("Windfury Totem").name
 
 
 class TimelineEntry:
@@ -50,7 +53,15 @@ class AbilityTimeline:
     def is_important(self, spellname):
         return spellname in self._important_spells
 
-    def add(self, source, target, spellname: CanonicalName, line_type: TreeType, timestamp_unix, amount):
+    def add(
+        self,
+        source,
+        target,
+        spellname: CanonicalName,
+        line_type: TreeType,
+        timestamp_unix,
+        amount,
+    ):
         boss_context = None
         if target in self.known_boss_names:
             boss_context = target
@@ -86,7 +97,7 @@ class AbilityTimeline:
                 self.damage_entries.append(entry)
 
     def add_extra_attacks(self, howmany, name, source, line_type, timestamp_unix):
-        if source != "Windfury Totem":
+        if source != SPELLNAME_WINDFURY_TOTEM:
             return
 
         # use the same spellname as the aura so they group together
@@ -192,7 +203,7 @@ class AbilityTimeline:
                 return sum(impact_damage[p].values())
 
             # sort players by damage to this target
-            players_involved.sort(key=get_player_target_dmg, reverse=True)
+            players_involved.sort(key=lambda p: (-get_player_target_dmg(p), p))
 
             scale = 1.0  # seconds per output character
             width = int(duration * scale)

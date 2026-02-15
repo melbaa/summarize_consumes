@@ -506,20 +506,11 @@ Barnyard
   Windfury Totem                                         x                                    x                                         x                                   x                                                  x                                  
   The Eye of the Dead                                                                                          G          F                                                                                                                                       
   Bloodlust                                                                                                                                                                                                               G     F G                F              
-Tauroch
-  Swiftmend                                         x                                                                                                                                                                   x                                         
-  Faerie Fire                                              xx                              x   x xx x              x x x                      x x                 x                         x   x                                   x                             
-Yawnies
-  The Eye of the Dead                                                               G                             F                                                                                                                                               
 Dris
   Strength of Earth Totem                  x      x                                                                                                                                   x                                                                           
   Windfury Totem                            x     x                                                                                                                                    x                                                                          
   Mana Spring Totem                         x     x                                                                       x                                                            x                                                          x               
   The Eye of the Dead                                                            G         F                                                                                                                                                                      
-Shocktopp
-  Windfury Totem                                          x                                                                                                                  x                                                                                    
-  Strength of Earth Totem                                 x                                                                                                                  x                                                                                    
-  The Eye of the Dead                                                                                          G            F                                                                                                             G                       
 Ehawne
   Strength of Earth Totem                            x                                                                                                                                                                       x                                    
   Mana Spring Totem                                   x                                                                                    x                                                                                 x                                    
@@ -528,6 +519,15 @@ Ehawne
 Milk
   The Eye of the Dead                            G                             F                                                                                                                  G                             F                                 
   Inner Focus                                                                                                                                                               G    F                                                                                
+Shocktopp
+  Windfury Totem                                          x                                                                                                                  x                                                                                    
+  Strength of Earth Totem                                 x                                                                                                                  x                                                                                    
+  The Eye of the Dead                                                                                          G            F                                                                                                             G                       
+Tauroch
+  Swiftmend                                         x                                                                                                                                                                   x                                         
+  Faerie Fire                                              xx                              x   x xx x              x x x                      x x                 x                         x   x                                   x                             
+Yawnies
+  The Eye of the Dead                                                               G                             F                                                                                                                                               
 
 
 Ability Timeline for Ley-Watcher Incantagos (456.7s)
@@ -1140,27 +1140,27 @@ Barnyard
   Windfury Totem                                             x     x                      x                  x                  x                                                                                                                                    x                        x                                                                                                                                                      x                               x            x              
   The Eye of the Dead                                                                                                                                                                                                                                                                      G         F                                                                                                                                                                                            G        F     
   Bloodlust                                                                                                                                                                                                                                                                                                                               G                                 F                                                                                                                                    
-Khoni (self damage)
-  Bloodrage                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    x                 
 Dris
   Windfury Totem                                             x                                    x          x                                                                                                                                                                 x                                                                  x                                                                                                   x                                  x         x             
   Mana Spring Totem                                          x                                    x          x                                                                                                                                                                 x                                                       x          x                                                                                                   x                                  x         x             
   Strength of Earth Totem                                                                                                                                                                                                                                                       x                                                                 x                                                                                                  x                                  x         x              
-Shocktopp
-  Windfury Totem                                          x                                                x                                       x                                                                                                                           x                                                                                                                                                                     x                             x              x              
-  Mana Spring Totem                                       x                                                 x                                      x                                                                                                                           x                                                            x                                                                                                        x                              x              x             
-  Ancestral Spirit                                                                                                                                                  x                                                                                                                                                                                                                                                                                                                                            
-  Strength of Earth Totem                                                                                                                                                                                                                                                      x                                                                                                                                                                     x                             x               x             
-  The Eye of the Dead                                                                                                                                                                                                                                                                                                                                                    G                 F                                                                                                                     
 Ehawne
   Strength of Earth Totem                              x                                  x            x                       x                                                                                                                                              x                                                    x                                                                                                                x                                            x               
   Mana Spring Totem                                    x                                  x            x                       x                                                                                                                                              x                                                    x                                                                                                                x                                            x               
   Windfury Totem                                       x                                  x            x                       x                                                                                                                                               x                                                   x                                                                                                                 x                                           x               
   The Eye of the Dead                                                    G                             F                                                                                                                                                                                                                             G            F                                                                                                            G                                                 
   Purge                                                  x                                                                                                                                                                                                                                                                                                                                                                                                                                                       
+Khoni (self damage)
+  Bloodrage                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    x                 
 Milk
   Inner Focus                                                                                                                                    G  F                                                                                                                                                                                                                       GF                                                                                                                                   
   The Eye of the Dead                                                                                                                                                                                                                                                                                                                                                     G        F                                                                                                                             
+Shocktopp
+  Windfury Totem                                          x                                                x                                       x                                                                                                                           x                                                                                                                                                                     x                             x              x              
+  Mana Spring Totem                                       x                                                 x                                      x                                                                                                                           x                                                            x                                                                                                        x                              x              x             
+  Ancestral Spirit                                                                                                                                                  x                                                                                                                                                                                                                                                                                                                                            
+  Strength of Earth Totem                                                                                                                                                                                                                                                      x                                                                                                                                                                     x                             x               x             
+  The Eye of the Dead                                                                                                                                                                                                                                                                                                                                                    G                 F                                                                                                                     
 
 
 Ability Timeline for Anomalus (92.6s)
@@ -1575,22 +1575,11 @@ Barnyard
   Windfury Totem                                  x                                                                                  
   Bloodlust                                                         G     F  G       F G           F                                 
   The Eye of the Dead                                                                         G           F                          
-Tauroch
-  The Eye of the Dead                                                          G                             F                       
-  Swiftmend                                                                                                       x                  
-  Faerie Fire                                      x                                                                                 
-Yawnies
-  The Eye of the Dead                                                     G                             F                            
 Dris
   Strength of Earth Totem                           x                                                                                
   Windfury Totem                                    x                                                                                
   Mana Spring Totem                                  x                                                                               
   The Eye of the Dead                                                            G          F                                        
-Shocktopp
-  Windfury Totem                                   x                                                                                 
-  Strength of Earth Totem                          x                                                                                 
-  Mana Spring Totem                                x                                                                                 
-  The Eye of the Dead                                      G            F                                                            
 Ehawne
   Strength of Earth Totem                        x                                                                                   
   Mana Spring Totem                               x                                                                                  
@@ -1599,6 +1588,17 @@ Ehawne
 Milk
   The Eye of the Dead                   G                             F                                                              
   Inner Focus                                                                                                         G   F          
+Shocktopp
+  Windfury Totem                                   x                                                                                 
+  Strength of Earth Totem                          x                                                                                 
+  Mana Spring Totem                                x                                                                                 
+  The Eye of the Dead                                      G            F                                                            
+Tauroch
+  The Eye of the Dead                                                          G                             F                       
+  Swiftmend                                                                                                       x                  
+  Faerie Fire                                      x                                                                                 
+Yawnies
+  The Eye of the Dead                                                     G                             F                            
 
 
 Ability Timeline for Echo of Medivh (111.2s)
@@ -2072,25 +2072,25 @@ Barnyard
   Bloodlust                                                G      F G      FG             F                                                             
   The Eye of the Dead                                                 G        F                                                                        
   Ancestral Spirit                                                                                                                                      
-Tauroch
-  The Eye of the Dead                                         F                                                                                         
-  Swiftmend                                                                                       x                x                                    
-  Faerie Fire                                    x                                       x                  x                                           
 Dris
   Strength of Earth Totem                         x                                                                                                     
   Windfury Totem                                  x                                                                                                     
   Mana Spring Totem                               x                                                                                                     
   The Eye of the Dead                                                  G        F                                                                       
-Shocktopp
-  Windfury Totem                                  x                                                                                                     
-  Strength of Earth Totem                         x                                                                                                     
-  The Eye of the Dead                                                G         F                                                                        
 Ehawne
   Strength of Earth Totem                        x                                                                                                      
   Windfury Totem                                 x                                                                                                      
   The Eye of the Dead                                                  G           F                                                                    
 Milk
   The Eye of the Dead                           G              F                                                                                        
+Shocktopp
+  Windfury Totem                                  x                                                                                                     
+  Strength of Earth Totem                         x                                                                                                     
+  The Eye of the Dead                                                G         F                                                                        
+Tauroch
+  The Eye of the Dead                                         F                                                                                         
+  Swiftmend                                                                                       x                x                                    
+  Faerie Fire                                    x                                       x                  x                                           
 
 
 Ability Timeline for Chess (188.2s)
@@ -2612,19 +2612,11 @@ Barnyard
   Windfury Totem                                     x                                                                                                                                  x                   x                        
   The Eye of the Dead                                                                                                         xG           F                                                                                         
   Bloodlust                                                                                                                                                                                     G               F                    
-Tauroch
-  Faerie Fire                                         x xx xx x                              xx x                         x          x xx                                                                                            
 Dris
   Strength of Earth Totem                            x                                                                   x         x                                                                                                 
   Windfury Totem                                      x                                                                            x                                                                                                 
   Mana Spring Totem                                   x                                                                            x                                                                                                 
   The Eye of the Dead                                                       G         F                                                                                                                                              
-Shocktopp
-  Windfury Totem                                      x                                                                x                                        x                                                                    
-  Strength of Earth Totem                             x                                                                x                                         x                                                                   
-  Mana Spring Totem                                   x                                                                x                                         x                                                                   
-  The Eye of the Dead                                          G          F                                                                                                                  G            F                          
-  Sunder Armor                                                                                                                                          x                             F                                              
 Ehawne
   Strength of Earth Totem                            x                                                                                                                       x                                                       
   Mana Spring Totem                                  x                                                                 x                                                      x                                                      
@@ -2632,6 +2624,14 @@ Ehawne
   The Eye of the Dead                                                                                                   G        F                                                                                                   
 Milk
   The Eye of the Dead                                           F                                                                                              G                              F                                      
+Shocktopp
+  Windfury Totem                                      x                                                                x                                        x                                                                    
+  Strength of Earth Totem                             x                                                                x                                         x                                                                   
+  Mana Spring Totem                                   x                                                                x                                         x                                                                   
+  The Eye of the Dead                                          G          F                                                                                                                  G            F                          
+  Sunder Armor                                                                                                                                          x                             F                                              
+Tauroch
+  Faerie Fire                                         x xx xx x                              xx x                         x          x xx                                                                                            
 
 
 Ability Timeline for Rupturan the Broken (249.1s)
@@ -3116,10 +3116,6 @@ Barnyard
   Bloodlust                                                   G          F           G     F                                                                                                                                                                                                      
   The Eye of the Dead                                                                                                         G         F                                                                                                              G                             F            
   Ancestral Spirit                                                                                                                                                                                                                                                                                
-Tauroch
-  The Eye of the Dead                             G                             F                                                                                                                                                                                                                 
-  Swiftmend                                                                                                                       x                                                                                      x                                                                        
-  Faerie Fire                                            x x xx          x             x                                                               x x x                                                                  x                                                                   
 Dris
   Strength of Earth Totem                       x                                                                                                                                                         x                                                                                       
   Windfury Totem                                 x                                                                                                                                                        x                                                                                       
@@ -3129,6 +3125,10 @@ Shocktopp
   Windfury Totem                                   x                                                                                                                                                         x                                                                                    
   Strength of Earth Totem                          x                                                                                                                                                         x                                                                                    
   The Eye of the Dead                                   G          F                                                                                                                                                                         G                   F                                
+Tauroch
+  The Eye of the Dead                             G                             F                                                                                                                                                                                                                 
+  Swiftmend                                                                                                                       x                                                                                      x                                                                        
+  Faerie Fire                                            x x xx          x             x                                                               x x x                                                                  x                                                                   
 
 
 Ability Timeline for Sanv Tas'dal (168.3s)
@@ -3632,20 +3632,20 @@ Barnyard
   Mana Spring Totem                            x                                                                x                                                      x                                         
   Windfury Totem                               x                                                                                                                       x                                         
   Bloodlust                                                                                                                                                         G               G      F                     
-Tauroch
-  The Eye of the Dead                                                                                                                                                             G                              
-  Faerie Fire                                      xx x                                                                     x                            x            x                                          
 Dris
   Strength of Earth Totem                       x                                                              x                                                    x                                            
   Windfury Totem                                x                                                              x                                                     x                                           
   Mana Spring Totem                              x                                                             x                                                     x                                           
+Milk
+  The Eye of the Dead                         G                             F                                                                                                                                    
 Shocktopp
   Windfury Totem                                 x                                                                                                                   x                                           
   Strength of Earth Totem                        x                                                                                                                   x                                           
   Mana Spring Totem                              x                                                 x                                                                 x                                           
   The Eye of the Dead                                                                                                                                                                 G          F               
-Milk
-  The Eye of the Dead                         G                             F                                                                                                                                    
+Tauroch
+  The Eye of the Dead                                                                                                                                                             G                              
+  Faerie Fire                                      xx x                                                                     x                            x            x                                          
 
 
 Ability Timeline for Kruul (138.5s)
@@ -4086,24 +4086,24 @@ Barnyard
   Mana Spring Totem                              x                                                                                           x                                     
   Windfury Totem                                 x                                                                                           x                                     
   Bloodlust                                                                          G                                 F                                                           
-Tauroch
-  The Eye of the Dead                                                                                                               G                             F                
-  Swiftmend                                                                                                                                           x                            
-  Faerie Fire                                    x                                                                         x                                                       
-Khoni (self damage)
-  Bloodrage                                                                                                                                   x                                    
 Dris
   Strength of Earth Totem                    x                                                                                                                                     
   Windfury Totem                             x                                                                                                                                     
   Mana Spring Totem                           x                                                                                                                                    
   The Eye of the Dead                                                                                                              G              F                                
+Khoni (self damage)
+  Bloodrage                                                                                                                                   x                                    
+Milk
+  The Eye of the Dead                                                                                        G       F                                                             
 Shocktopp
   Windfury Totem                                 x                                                                      x                                                          
   Strength of Earth Totem                        x                                                                       x                                                         
   Mana Spring Totem                              x                                                                       x                                                         
   The Eye of the Dead                              G            F                                                                                                                  
-Milk
-  The Eye of the Dead                                                                                        G       F                                                             
+Tauroch
+  The Eye of the Dead                                                                                                               G                             F                
+  Swiftmend                                                                                                                                           x                            
+  Faerie Fire                                    x                                                                         x                                                       
 
 
 Ability Timeline for Mephistroth (167.5s)
@@ -4641,12 +4641,12 @@ Barnyard (116)
   The Eye of the Dead                                                                                                                                                        G             F                    
   Bloodlust                                                                                                                                                                                      G              
   Frost Shock (116)                                                                         x                                                                                                                   
-Tauroch
-  The Eye of the Dead                          G                             F                                                                                                                                  
-  War Stomp                                                                                    x                                                                                                                
-  Faerie Fire                                          x                                x                                                            x                               x           x              
 Dris
   Windfury Totem                                   x                                                                                                              x                                             
 Shocktopp
   Windfury Totem                                    x                                                                                                               x                                           
   The Eye of the Dead                                                                                                  G           F                                                                            
+Tauroch
+  The Eye of the Dead                          G                             F                                                                                                                                  
+  War Stomp                                                                                    x                                                                                                                
+  Faerie Fire                                          x                                x                                                            x                               x           x              

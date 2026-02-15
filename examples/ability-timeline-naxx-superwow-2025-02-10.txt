@@ -304,29 +304,29 @@ Squirreled (25102)
   Pet Summoned (48)                                   x      x                                                             
 Randgriz (970)
   Mind Blast (970)                                                                                    x                    
-Selverslip
-  Windfury Totem                                         x                                                                 
-  Strength of Earth Totem                                x                                                                 
-Petie (Spankys)
-  Windfury Totem                                          x      x                  x   x  x            x     x            
-  Growl                                                x    x          x            x              x                       
-Snega
-  Windfury Totem                                       x                                                                   
-  Strength of Earth Totem                              x                                                                   
-  Mana Spring Totem                                     x                                                                  
-  Nature's Swiftness                                                                    F                                  
-Interlan
-  Windfury Totem                               x        x                                                                  
-  Strength of Earth Totem                         x     x                                                                  
-  Mana Spring Totem                                      x                                                                 
-Pristitute
-  The Eye of the Dead                                                      G                       F                       
 Bobbywf
   Mana Spring Totem                                     x x                                                                
   Strength of Earth Totem                               x x                                                                
   Windfury Totem                                         x                                                                 
   Nature's Swiftness                                                             GF                                        
   Unstable Power                                                                 G                   F                     
+Interlan
+  Windfury Totem                               x        x                                                                  
+  Strength of Earth Totem                         x     x                                                                  
+  Mana Spring Totem                                      x                                                                 
+Petie (Spankys)
+  Windfury Totem                                          x      x                  x   x  x            x     x            
+  Growl                                                x    x          x            x              x                       
+Pristitute
+  The Eye of the Dead                                                      G                       F                       
+Selverslip
+  Windfury Totem                                         x                                                                 
+  Strength of Earth Totem                                x                                                                 
+Snega
+  Windfury Totem                                       x                                                                   
+  Strength of Earth Totem                              x                                                                   
+  Mana Spring Totem                                     x                                                                  
+  Nature's Swiftness                                                                    F                                  
 
 
 Ability Timeline for Grand Widow Faerlina (78.3s)
@@ -617,26 +617,26 @@ Xelya (17501)
   Judgement of Righteousness (751)                 x                                                                   
   Flametongue Attack (551)                         xx   x x x x xx xxx x x x        x x x     x x         x  x         
   Seal of Righteousness (325)                                                                   x         x            
-Selverslip
-  Windfury Totem                                   x                                                                   
-  Strength of Earth Totem                           x                                                                  
-Petie (Spankys)
-  Windfury Totem                                                   x               x     x   x x        x      x       
-  Growl                                              x    x                            x                x      x       
-Snega
-  Windfury Totem                                   x                                                                   
-  Strength of Earth Totem                          x                                                                   
-  Mana Spring Totem                                x                                                                   
-Interlan
-  Windfury Totem                        x          x                                                                   
-  Strength of Earth Totem               x          x                                                                   
-  Berserking                                           G         F                                                     
 Bobbywf
   Strength of Earth Totem                       x                                       x                              
   Windfury Totem                                x                                       x                              
   Mana Spring Totem                             x                                      x                               
   Nature's Swiftness                                           GF                                                      
   Unstable Power                                                G                   F                                  
+Interlan
+  Windfury Totem                        x          x                                                                   
+  Strength of Earth Totem               x          x                                                                   
+  Berserking                                           G         F                                                     
+Petie (Spankys)
+  Windfury Totem                                                   x               x     x   x x        x      x       
+  Growl                                              x    x                            x                x      x       
+Selverslip
+  Windfury Totem                                   x                                                                   
+  Strength of Earth Totem                           x                                                                  
+Snega
+  Windfury Totem                                   x                                                                   
+  Strength of Earth Totem                          x                                                                   
+  Mana Spring Totem                                x                                                                   
 
 
 Ability Timeline for Maexxna (77.6s)
@@ -937,29 +937,29 @@ Martl (19011)
   Whirlwind (680)                                          x                                                          
   Flametongue Attack (424)                   x  x x  x x x x x                                                        
   Deep Wound (334)                                x x x x xx xx xx                                                    
-Selverslip
-  Windfury Totem                            x                                                                         
-  Strength of Earth Totem                   x                                                                         
-  Nature Aligned                                                                            G                   F     
-  Nature's Swiftness                                                                                        GF        
-Petie (Spankys)
-  Windfury Totem                            x      x      x      x   x                       x  x    x     x          
-  Growl                                     x     x    x            x                       x           x             
-Snega
-  Windfury Totem                           x                                                                          
-  Strength of Earth Totem                  x                                                                          
-  Mana Spring Totem                         x                                                                         
-  Nature's Swiftness                                                                        GF                        
-Interlan
-  Windfury Totem                           x   x                                                                      
-  Strength of Earth Totem                   x   x                                                                     
-  Nature's Swiftness                                                                        GF                        
 Bobbywf
   Strength of Earth Totem                  x                                                                          
   Windfury Totem                           x                                                                          
   Mana Spring Totem                         x                                                                         
   Nature's Swiftness                                                                        GF                        
   Unstable Power                                                                            G                   F     
+Interlan
+  Windfury Totem                           x   x                                                                      
+  Strength of Earth Totem                   x   x                                                                     
+  Nature's Swiftness                                                                        GF                        
+Petie (Spankys)
+  Windfury Totem                            x      x      x      x   x                       x  x    x     x          
+  Growl                                     x     x    x            x                       x           x             
+Selverslip
+  Windfury Totem                            x                                                                         
+  Strength of Earth Totem                   x                                                                         
+  Nature Aligned                                                                            G                   F     
+  Nature's Swiftness                                                                                        GF        
+Snega
+  Windfury Totem                           x                                                                          
+  Strength of Earth Totem                  x                                                                          
+  Mana Spring Totem                         x                                                                         
+  Nature's Swiftness                                                                        GF                        
 
 
 Ability Timeline for Instructor Razuvious (120.5s)
@@ -1254,29 +1254,29 @@ Squirreled (6001)
 Starr (288)
   Shoot (288)                                                                                                                                  x                 
   Improved Renew                                           x             x         x                    x   x             x                                      
+Bobbywf
+  Strength of Earth Totem                            x                                                  x                                                        
+  Windfury Totem                                     x                                                  x                                                        
+  Mana Spring Totem                                  x                                                  x                                                        
+Interlan
+  Windfury Totem                                   x                                                                                                             
+  Strength of Earth Totem                           x                                                                                                            
+  Mana Spring Totem                                   x                                                                                                          
+Petie (Spankys)
+  Windfury Totem                                       x     x x      x     x          x        x  x    x   x  x                         x                       
+  Growl                                            x                    x                       x     x         x     x            x         x        x          
+Randgriz
+  Improved Renew                                                        x          x                 x                x           x                              
 Selverslip
   Windfury Totem                                    x                                                                                                            
   Mana Spring Totem                                 x                                                            x                                               
   Strength of Earth Totem                            x                                                                                                           
   Nature's Swiftness                                                                                                    F                                        
-Petie (Spankys)
-  Windfury Totem                                       x     x x      x     x          x        x  x    x   x  x                         x                       
-  Growl                                            x                    x                       x     x         x     x            x         x        x          
 Snega
   Windfury Totem                            x                                                                                                                    
   Strength of Earth Totem                   x                                                                                                                    
   Mana Spring Totem                          x                                                                                                                   
   Nature's Swiftness                                                                                                   F                                         
-Interlan
-  Windfury Totem                                   x                                                                                                             
-  Strength of Earth Totem                           x                                                                                                            
-  Mana Spring Totem                                   x                                                                                                          
-Bobbywf
-  Strength of Earth Totem                            x                                                  x                                                        
-  Windfury Totem                                     x                                                  x                                                        
-  Mana Spring Totem                                  x                                                  x                                                        
-Randgriz
-  Improved Renew                                                        x          x                 x                x           x                              
 
 
 Ability Timeline for Gothik the Harvester (295.1s)
@@ -1578,31 +1578,31 @@ Tinerispew (23579)
   Arcane Rupture (3516)                                                                                                                                                                   x                                                                                                              x                                      
   Arcane Surge (916)                                                                                                                                                                                                                                                                                           x                                
   Arcane Instability (487)                                                                                                                                                                                                                               x  x                                                       xx                          
-Selverslip
-  Mana Spring Totem                                                                      x                 x                                                x                                 x                                                        x                                          x                                           x 
-  Windfury Totem                                                                                         x                                                                                     x                                                                                                 x                                            x 
-  Strength of Earth Totem                                                                                 x                                                            x                        x                                                                                               x                                               
-  Nature's Swiftness                                                                                                                                                                                                                                                         F                                                                  
-Petie (Spankys)
-  Windfury Totem                                                                                                                                                            x  x                               x x  x     x             x     x                                                                               x                 
-  Growl                                                                                           x          x        x                       x                         x     x                            x     x                     x     x                       x       x               x               x    x        x                    
-Snega
-  Windfury Totem                                                                       x                                                                  x                                    x                                                                                                   x                                        x   
-  Strength of Earth Totem                                                              x                                                                  x                                    x                                                                                                   x                                        x   
-  Mana Spring Totem                                                                    x                                                                  x                                     x                                                                                                   x                                       x   
-  Nature's Swiftness                                                                                                                                 F                                                                                                                                                                                          
-Interlan
-  Mana Spring Totem                     x                                                  x                                                                x                                                          x                                    x                                                                                   
-  Windfury Totem                                                                                                                                          x                                                                                              x                                                                                  x   
-  Strength of Earth Totem                                                                                                                                 x                                                                                               x                                                                                  x  
-  Nature's Swiftness                                                                                                                                                          F                                                                                                                                                                 
-  Berserking                                                                                                                                                                                                                                                            G         F                                                             
 Bobbywf
   Windfury Totem                                                                                            x                                                                                                                                                  x                                                                                
   Strength of Earth Totem                                                                                   x                                                                                                                                                 x                                                                               x 
   Mana Spring Totem                                                                                          x                                                                                                                                                x                                                                               x 
   Nature's Swiftness                                                                                                                                                                                       GF                                                                                                                                   
   Unstable Power                                                                                                                                                                                                   G                   F                                                                                                        
+Interlan
+  Mana Spring Totem                     x                                                  x                                                                x                                                          x                                    x                                                                                   
+  Windfury Totem                                                                                                                                          x                                                                                              x                                                                                  x   
+  Strength of Earth Totem                                                                                                                                 x                                                                                               x                                                                                  x  
+  Nature's Swiftness                                                                                                                                                          F                                                                                                                                                                 
+  Berserking                                                                                                                                                                                                                                                            G         F                                                             
+Petie (Spankys)
+  Windfury Totem                                                                                                                                                            x  x                               x x  x     x             x     x                                                                               x                 
+  Growl                                                                                           x          x        x                       x                         x     x                            x     x                     x     x                       x       x               x               x    x        x                    
+Selverslip
+  Mana Spring Totem                                                                      x                 x                                                x                                 x                                                        x                                          x                                           x 
+  Windfury Totem                                                                                         x                                                                                     x                                                                                                 x                                            x 
+  Strength of Earth Totem                                                                                 x                                                            x                        x                                                                                               x                                               
+  Nature's Swiftness                                                                                                                                                                                                                                                         F                                                                  
+Snega
+  Windfury Totem                                                                       x                                                                  x                                    x                                                                                                   x                                        x   
+  Strength of Earth Totem                                                              x                                                                  x                                    x                                                                                                   x                                        x   
+  Mana Spring Totem                                                                    x                                                                  x                                     x                                                                                                   x                                       x   
+  Nature's Swiftness                                                                                                                                 F                                                                                                                                                                                          
 
 
 Ability Timeline for Highlord Mograine (208.7s)
@@ -1804,29 +1804,29 @@ Eleae (3265)
   Auto Attack (433)                                                                                                                                                              x                x                                                      
   Flametongue Attack (62)                                                                                                                                                                         x   x                                                  
   Faerie Fire (Feral)                                                                                                                                                               x                          x                                         
-Saberslash (self damage)
-  Bloodrage                                                                                                                    x                                                                                                                         
-Petie (Spankys)
-  Growl                                                                                                              x    x             x    x                                                                                                           
-Snega
-  Windfury Totem                                        x                                                                                                                                                                                          x     
-  Strength of Earth Totem                               x                                                                                                                                                                                                
-  Mana Spring Totem                                                                                                                                                                               x                                                      
-Interlan
-  Windfury Totem                        x                                                                              x                                                     x                                                                           
-  Strength of Earth Totem               x                                                                                                                                                                                                                
-  Mana Spring Totem                      x                                                                                                                                                                                                               
-Pristitute
-  The Eye of the Dead                                                                                                                                                                                                       F                            
+Aquatic
+  Combustion                                                           G                                                                                                                                                                                 
 Bobbywf
   Windfury Totem                         x                                                                                                                                                                                                               
   Mana Spring Totem                      x                                                                                                                                                                                                               
   Strength of Earth Totem                x                                                                                                                                                                                                               
+Interlan
+  Windfury Totem                        x                                                                              x                                                     x                                                                           
+  Strength of Earth Totem               x                                                                                                                                                                                                                
+  Mana Spring Totem                      x                                                                                                                                                                                                               
+Petie (Spankys)
+  Growl                                                                                                              x    x             x    x                                                                                                           
+Pristitute
+  The Eye of the Dead                                                                                                                                                                                                       F                            
 Randgriz
   The Eye of the Dead                                                                                         G                  F                                                                                                                       
   Rapid Healing                                                                                               G              F                                                                                                                           
-Aquatic
-  Combustion                                                           G                                                                                                                                                                                 
+Saberslash (self damage)
+  Bloodrage                                                                                                                    x                                                                                                                         
+Snega
+  Windfury Totem                                        x                                                                                                                                                                                          x     
+  Strength of Earth Totem                               x                                                                                                                                                                                                
+  Mana Spring Totem                                                                                                                                                                               x                                                      
 
 
 Ability Timeline for Thane Korth'azz (46.3s)
@@ -2041,19 +2041,19 @@ Supal (3343)
   Seal of Righteousness (387)                           x x                            
   Thunderfury (300)                                     x                              
   Consecration (215)                                      xxxxx  x                     
-Selverslip
-  Mana Spring Totem                                   x                                
-Pitbound
-  Shield Block                                       F                               G 
-Petie (Spankys)
-  Growl                                   x             x                     x        
-Snega
-  Mana Spring Totem                       x                                            
 Interlan
   Berserking                                               G         F                 
   Nature's Swiftness                                                     F             
 Martl
   Bloodrage                             x  F                                           
+Petie (Spankys)
+  Growl                                   x             x                     x        
+Pitbound
+  Shield Block                                       F                               G 
+Selverslip
+  Mana Spring Totem                                   x                                
+Snega
+  Mana Spring Totem                       x                                            
 
 
 Ability Timeline for Lady Blaumeux (243.2s)
@@ -2259,22 +2259,22 @@ Minoas (5139)
   Multi-Shot (855)                                                                                                                                                                                            x                                                                             
   Extra Shot (647)                                                                                                                                                                                                  x                                                                       
   Arcane Shot (402)                                                                                                                                                                                         x       x                                                                       
+Aquatic
+  Combustion                                       G           G                                                                                                                                                                                                                            
+Interlan
+  Strength of Earth Totem                                                                               x                                                     x                                                                                                                             
+  Berserking                                                                                                                                                                                                                                          G         F                           
 Nehelenia
   Combustion                                                                                    G                                              G F                                                                                                                                          
   Mind Quickening                                                                                                                                              F                                                                                                                            
 Petie (Spankys)
   Growl                                                                                                                                                    x     x                                                                                                                          
+Randgriz
+  Inner Focus                                                                                                                                                                          G                                                                                                    
 Snega
   Nature's Swiftness                                                                                                                     G                                                                                                                                                  
   Windfury Totem                                                                                                                                                                  x                                                                                                         
   Strength of Earth Totem                                                                                                                                                          x                                               x                                                        
-Interlan
-  Strength of Earth Totem                                                                               x                                                     x                                                                                                                             
-  Berserking                                                                                                                                                                                                                                          G         F                           
-Randgriz
-  Inner Focus                                                                                                                                                                          G                                                                                                    
-Aquatic
-  Combustion                                       G           G                                                                                                                                                                                                                            
 
 
 Ability Timeline for Sir Zeliek (416.6s)
@@ -2438,29 +2438,29 @@ Nehelenia (8603)
 Aquatic (1090)
   Fireball (1010)                                                                                       x                                                                                                                                                                                                                                                                                                                                                                
   Improved Fireball (80)                                                                                  x x x x                                                                                                                                                                                                                                                                                                                                                        
+Interlan
+  Mana Spring Totem                                                                                                                                                                                                                                                                                                 x                                                                                                                                                    
+Jinp
+  Adrenaline Rush                                                                                                F                                                                                                                                                                                                                                                                                                                                                       
+  Slayer's Crest                                                                                                                              G                                                                                                                                                                                                                                                                                                                          
+Kayax
+  Curse of Recklessness                   x                                                                                                                                                                                                                                                                                                                                                                                                                              
+Martl
+  Shield Block                                                                                                                                     GF                                                                                                                                                                                                                                                                                                                    
+Pristitute
+  The Eye of the Dead                                                                                                                                                          G                                                                                                                                                             G                F                                                                                                          
+  Inner Focus                                                                                                                                                                                G   F                                                                                                                                                                                                                                                                       
+Randgriz
+  Inner Focus                                                                                                                                                                               F                                                                                                                                                                                                                                                                            
+Ruwusz
+  Bloodrage                                                                                                                 x                                                                                                                                                                                                                                                                                                                                            
 Snega
   Nature's Swiftness                                                                                                                     F                                                                                                                                                                                                                G F                                                                                                            
   Mana Spring Totem                                                                                                                                                                                                                 x                                                                      x                                                                                                                                                             
   Strength of Earth Totem                                                                                                                                                                                                                                                                                  xx                                                                                                                                                            
   Windfury Totem                                                                                                                                                                                                                                                                                           x                                                                                                                                                             
-Interlan
-  Mana Spring Totem                                                                                                                                                                                                                                                                                                 x                                                                                                                                                    
-Pristitute
-  The Eye of the Dead                                                                                                                                                          G                                                                                                                                                             G                F                                                                                                          
-  Inner Focus                                                                                                                                                                                G   F                                                                                                                                                                                                                                                                       
-Jinp
-  Adrenaline Rush                                                                                                F                                                                                                                                                                                                                                                                                                                                                       
-  Slayer's Crest                                                                                                                              G                                                                                                                                                                                                                                                                                                                          
-Ruwusz
-  Bloodrage                                                                                                                 x                                                                                                                                                                                                                                                                                                                                            
-Randgriz
-  Inner Focus                                                                                                                                                                               F                                                                                                                                                                                                                                                                            
-Martl
-  Shield Block                                                                                                                                     GF                                                                                                                                                                                                                                                                                                                    
 Starr
   Inner Focus                                                                                                                                                                                                                                                                                                 G      F                                                                                                                                                   
-Kayax
-  Curse of Recklessness                   x                                                                                                                                                                                                                                                                                                                                                                                                                              
 
 
 Ability Timeline for Noth the Plaguebringer (83.4s)
@@ -2771,29 +2771,29 @@ Cheesebreath (18727)
   Starfire (9249)                                                      x                     x  x   x x                     
 Shizumo (950)
   Consecration (950)                                                                                    xxxxxx              
-Jocaste
-  The Eye of the Dead                                          G         F                                                  
-Selverslip
-  Windfury Totem                                      x                                                                     
-  Mana Spring Totem                                    x                                                                    
-  Strength of Earth Totem                              x                                                                    
-Petie (Spankys)
-  Windfury Totem                                                         x                                 x                
-  Growl                                              x      x    x      x     x         x     x      x       x              
-Snega
-  Windfury Totem                                  x                                                                         
-  Strength of Earth Totem                         x                                                                         
-  Mana Spring Totem                                x                                                                        
-Interlan
-  Windfury Totem                                   x                                                                        
-  Strength of Earth Totem                          x                                                                        
-  Mana Spring Totem                                  x                                                                      
 Bobbywf
   Windfury Totem                                   x                                                                        
   Mana Spring Totem                                x                                                                        
   Strength of Earth Totem                           x                                                                       
   Nature's Swiftness                                                                                GF                      
   Unstable Power                                                                                    G                   F   
+Interlan
+  Windfury Totem                                   x                                                                        
+  Strength of Earth Totem                          x                                                                        
+  Mana Spring Totem                                  x                                                                      
+Jocaste
+  The Eye of the Dead                                          G         F                                                  
+Petie (Spankys)
+  Windfury Totem                                                         x                                 x                
+  Growl                                              x      x    x      x     x         x     x      x       x              
+Selverslip
+  Windfury Totem                                      x                                                                     
+  Mana Spring Totem                                    x                                                                    
+  Strength of Earth Totem                              x                                                                    
+Snega
+  Windfury Totem                                  x                                                                         
+  Strength of Earth Totem                         x                                                                         
+  Mana Spring Totem                                x                                                                        
 
 
 Ability Timeline for Heigan the Unclean (78.6s)
@@ -3065,26 +3065,26 @@ Xelya (13974)
   Seal of Righteousness (2156)                     x      x      x      x   x  x                                       
   Exorcism (900)                         x                                                                             
   Judgement of Righteousness (768)                  x                                                                  
-Selverslip
-  Windfury Totem                           x                             x                                             
-  Mana Spring Totem                         x                             x                                            
-  Strength of Earth Totem                   x                             x                                            
-Saberslash (self damage)
-  Bloodrage                                                                     x                                      
-Petie (Spankys)
-  Windfury Totem                                                          x  x     x   x         x                     
-  Growl                                      x     x        x              x     x     x     x       x                 
-Snega
-  Windfury Totem                            x                                                                          
-  Strength of Earth Totem                   x                                                                          
-  Mana Spring Totem                          x                                                                         
-Interlan
-  Windfury Totem                           x  x                                                                        
-  Strength of Earth Totem                   x                                                                          
 Bobbywf
   Windfury Totem                            x                                                                          
   Mana Spring Totem                         x                                                                          
   Strength of Earth Totem                   x                                                                          
+Interlan
+  Windfury Totem                           x  x                                                                        
+  Strength of Earth Totem                   x                                                                          
+Petie (Spankys)
+  Windfury Totem                                                          x  x     x   x         x                     
+  Growl                                      x     x        x              x     x     x     x       x                 
+Saberslash (self damage)
+  Bloodrage                                                                     x                                      
+Selverslip
+  Windfury Totem                           x                             x                                             
+  Mana Spring Totem                         x                             x                                            
+  Strength of Earth Totem                   x                             x                                            
+Snega
+  Windfury Totem                            x                                                                          
+  Strength of Earth Totem                   x                                                                          
+  Mana Spring Totem                          x                                                                         
 
 
 Ability Timeline for Loatheb (184.2s)
@@ -3726,34 +3726,34 @@ Zloveleen (8521)
   Heroic Strike (1470)                                        x x                                                                                                                                                      
   Whirlwind (1185)                                             x                                                                                                                                                       
   Deep Wound (217)                                         x   xx xx                                                                                                                                                   
-Jocaste
-  The Eye of the Dead                                                                                                                                  G         F                                                     
-Selverslip
-  Windfury Totem                                      x                                                                                                                                                                
-  Mana Spring Totem                                   x                                                                                                                                                                
-  Strength of Earth Totem                              x                                                                                                                                                               
-  Nature's Swiftness                                                                                       GF                                                                                                          
-Petie (Spankys)
-  Windfury Totem                                               x x  x    x            x        x  x      x    x   x              x  x          x   x      x                x                                           
-  Growl                                                   x     x                 x                   x     x                     x    x          x                  x         x     x     x            x      x       
-Snega
-  Windfury Totem                                        x                                                                                                                                                              
-  Strength of Earth Totem                                x                                                                                                                                                             
-  Mana Spring Totem                                      x                                                                                                                                                             
-  Nature's Swiftness                                                                                                      F                                                                                            
-Interlan
-  Mana Spring Totem                     x             x                                                                                                                                                                
-  Windfury Totem                                     x                                                                x                                                                                                
-  Strength of Earth Totem                            x                                                                 x                                                                                               
-Pristitute
-  The Eye of the Dead                                                    G                            F                                                                                                                
-  Inner Focus                                                                    G     F                                                                                                                               
 Bobbywf
   Mana Spring Totem                                     x                                                               x                                                                                              
   Strength of Earth Totem                                x                                                             x                                                                                               
   Windfury Totem                                         x                                                             x                                                                                               
   Nature's Swiftness                                                                                                                                         GF                                                        
   Unstable Power                                                                                                                                                    G                   F                              
+Interlan
+  Mana Spring Totem                     x             x                                                                                                                                                                
+  Windfury Totem                                     x                                                                x                                                                                                
+  Strength of Earth Totem                            x                                                                 x                                                                                               
+Jocaste
+  The Eye of the Dead                                                                                                                                  G         F                                                     
+Petie (Spankys)
+  Windfury Totem                                               x x  x    x            x        x  x      x    x   x              x  x          x   x      x                x                                           
+  Growl                                                   x     x                 x                   x     x                     x    x          x                  x         x     x     x            x      x       
+Pristitute
+  The Eye of the Dead                                                    G                            F                                                                                                                
+  Inner Focus                                                                    G     F                                                                                                                               
+Selverslip
+  Windfury Totem                                      x                                                                                                                                                                
+  Mana Spring Totem                                   x                                                                                                                                                                
+  Strength of Earth Totem                              x                                                                                                                                                               
+  Nature's Swiftness                                                                                       GF                                                                                                          
+Snega
+  Windfury Totem                                        x                                                                                                                                                              
+  Strength of Earth Totem                                x                                                                                                                                                             
+  Mana Spring Totem                                      x                                                                                                                                                             
+  Nature's Swiftness                                                                                                      F                                                                                            
 Starr
   Inner Focus                                                                                                                                                 G   F                                                    
 
@@ -4054,25 +4054,25 @@ Xelya (27988)
   Crusader Strike (1496)                                                                                                                                                                                                                                                                                                                                       x                                                                                                  
   Flametongue Attack (389)                                                                                                                                                                                                                                                                                                                                     x                                        x    x x x x      xx      x    x        x xxx             
   Holy Shield (385)                                                                                                                                                                                                                                                                                                                                                                                                             x x                               
-Selverslip
-  Windfury Totem                                                                                                                                                                                                                                                                                                                                            x               x                         x            x                          x                   
-  Mana Spring Totem                                                                                                                                                                                                                                                                                                                                          x              x                         x            x                          x                   
-  Strength of Earth Totem                                                                                                                                                                                                                                                                                                                                    x               x                        x             x                         x                   
-Petie (Spankys)
-  Windfury Totem                                                                                                                                                                                                                                                                                                                                                      x     x      x     x    x  x     x   x       x    x  x   x              x   x               
-Snega
-  Windfury Totem                                                                                                                                                                                                                                                                                                                                                x                   x                                                                             
-  Mana Spring Totem                                                                                                                                                                                                                                                                                                                                             x                    x                                                                            
-  Strength of Earth Totem                                                                                                                                                                                                                                                                                                                                       x                   x                                                                             
+Bobbywf
+  Mana Spring Totem                                                                                                                                                                                                                                                                                                                                     x                                              x                         x                                
+  Windfury Totem                                                                                                                                                                                                                                                                                                                                        x                                              x                         x                                
+  Strength of Earth Totem                                                                                                                                                                                                                                                                                                                                x                                 x           x                         x                                
 Interlan
   Windfury Totem                                                                                                                                                                                                                                                                                                                                        x                                     x             x                    x                                
   Strength of Earth Totem                                                                                                                                                                                                                                                                                                                                x                                    x             x                    x                                
   Mana Spring Totem                                                                                                                                                                                                                                                                                                                                        x                                                                                                      
   Berserking                                                                                                                                                                                                                                                                                                                                                                                           G         F                                                
-Bobbywf
-  Mana Spring Totem                                                                                                                                                                                                                                                                                                                                     x                                              x                         x                                
-  Windfury Totem                                                                                                                                                                                                                                                                                                                                        x                                              x                         x                                
-  Strength of Earth Totem                                                                                                                                                                                                                                                                                                                                x                                 x           x                         x                                
+Petie (Spankys)
+  Windfury Totem                                                                                                                                                                                                                                                                                                                                                      x     x      x     x    x  x     x   x       x    x  x   x              x   x               
+Selverslip
+  Windfury Totem                                                                                                                                                                                                                                                                                                                                            x               x                         x            x                          x                   
+  Mana Spring Totem                                                                                                                                                                                                                                                                                                                                          x              x                         x            x                          x                   
+  Strength of Earth Totem                                                                                                                                                                                                                                                                                                                                    x               x                        x             x                         x                   
+Snega
+  Windfury Totem                                                                                                                                                                                                                                                                                                                                                x                   x                                                                             
+  Mana Spring Totem                                                                                                                                                                                                                                                                                                                                             x                    x                                                                            
+  Strength of Earth Totem                                                                                                                                                                                                                                                                                                                                       x                   x                                                                             
 
 
 Ability Timeline for Gluth (95.0s)
@@ -4346,6 +4346,17 @@ Tinerispew (950)
   Frostbolt (950)                                          x                                                                            
 Xelya (569)
   Auto Attack (569)                                  x x x                                                                              
+Bobbywf
+  Windfury Totem                                    x                            x                                                      
+  Mana Spring Totem                                 x                            x                                                      
+  Strength of Earth Totem                           x                            x                                                      
+Interlan
+  Windfury Totem                                 x     x    x                 x                                                         
+  Nature's Swiftness                                                    F                                                               
+  Mana Spring Totem                                                             x                                                       
+Pristitute
+  The Eye of the Dead                                    G                         F                                                    
+  Inner Focus                                                                          G  F                                             
 Selverslip
   Windfury Totem                                      x         x               x                                                       
   Mana Spring Totem                                   x         x               x                                                       
@@ -4354,17 +4365,6 @@ Snega
   Windfury Totem                                      x          x            x                                                         
   Mana Spring Totem                                   x          x            x                                                         
   Strength of Earth Totem                             x          x             x                                                        
-Interlan
-  Windfury Totem                                 x     x    x                 x                                                         
-  Nature's Swiftness                                                    F                                                               
-  Mana Spring Totem                                                             x                                                       
-Pristitute
-  The Eye of the Dead                                    G                         F                                                    
-  Inner Focus                                                                          G  F                                             
-Bobbywf
-  Windfury Totem                                    x                            x                                                      
-  Mana Spring Totem                                 x                            x                                                      
-  Strength of Earth Totem                           x                            x                                                      
 
 
 Ability Timeline for Stalagg (54.8s)
@@ -4476,31 +4476,31 @@ Eleae (5684)
   Swipe (756)                                                          x x       x x           
   Savage Fury (373)                                                       x                    
   Faerie Fire (Feral)                                                 x      x                 
-Jocaste
-  The Eye of the Dead                                                                        F 
-Saberslash
-  Bloodrage                                     x    x xF                                      
-  Kiss of the Spider                                          F                                
-Rila
-  Bloodrage                                 G  x   xx                                          
-  Windfury Totem                                       x     x                                 
 Interlan
   Mana Spring Totem                       x                                                    
   Strength of Earth Totem                                    x                                 
-Squirreled (self damage)
-  Bloodrage                                x                                                   
-Zloveleen
-  Bloodrage                                 G    x x  x                                        
-Ruwusz
-  Bloodrage                                Gx  x   xxF                                         
+Jocaste
+  The Eye of the Dead                                                                        F 
 Martl
   Bloodrage                                            Gx xxx                                  
   Windfury Totem                                                     x                   x     
 Psykhe
   Bloodrage                                            Gx x  x  x                              
   Windfury Totem                                            x                                  
+Rila
+  Bloodrage                                 G  x   xx                                          
+  Windfury Totem                                       x     x                                 
+Ruwusz
+  Bloodrage                                Gx  x   xxF                                         
+Saberslash
+  Bloodrage                                     x    x xF                                      
+  Kiss of the Spider                                          F                                
 Sabroso
   Windfury Totem                                                                     x  x      
+Squirreled (self damage)
+  Bloodrage                                x                                                   
+Zloveleen
+  Bloodrage                                 G    x x  x                                        
 
 
 Ability Timeline for Feugen (55.1s)
@@ -4649,30 +4649,30 @@ Squirreled (9317)
   Heroic Strike (3449)                                           x xx x  x x  x                 
   Bloodthirst (1835)                                           x      x     x                   
   Thunderfury (540)                                                x     x                      
-Jocaste
-  The Eye of the Dead                                                       G                   
-Selverslip
-  Windfury Totem                         x                                                      
-  Mana Spring Totem                      x                                                      
-  Strength of Earth Totem                 x                                                     
-Suigetsu
-  Inner Focus                                                                     G             
-Petie (Spankys)
-  Windfury Totem                          x     x     x          x                              
-Snega
-  Windfury Totem                         x                                                      
-  Strength of Earth Totem                x                                                      
-  Mana Spring Totem                       x                                                     
-Interlan
-  Windfury Totem                                        x                                       
-Xelya
-  Windfury Totem                                                                     x          
 Bobbywf
   Strength of Earth Totem                x                                                      
   Mana Spring Totem                       x                                                     
   Windfury Totem                          x                                                     
+Interlan
+  Windfury Totem                                        x                                       
+Jocaste
+  The Eye of the Dead                                                       G                   
+Petie (Spankys)
+  Windfury Totem                          x     x     x          x                              
+Selverslip
+  Windfury Totem                         x                                                      
+  Mana Spring Totem                      x                                                      
+  Strength of Earth Totem                 x                                                     
+Snega
+  Windfury Totem                         x                                                      
+  Strength of Earth Totem                x                                                      
+  Mana Spring Totem                       x                                                     
 Starraven
   Essence of Sapphiron                      G                   F                               
+Suigetsu
+  Inner Focus                                                                     G             
+Xelya
+  Windfury Totem                                                                     x          
 
 
 Ability Timeline for Thaddius (127.3s)
@@ -4989,33 +4989,33 @@ Jocaste (4666)
   Auto Attack (380)                                                          x                                                                                          
 Shizumo (77)
   Auto Attack (77)                           x                                                                                                                          
-Selverslip
-  Windfury Totem                             x                                                                                                             x            
-  Mana Spring Totem                          x                                                                                                              x           
-  Strength of Earth Totem                     x                                                                                                          x              
-Petie (Spankys)
-  Windfury Totem                               x       x x  x    x       x   x         x  x  x        x          x  x   x             x    x     x   x  x               
-Snega
-  Windfury Totem                         x                                                                                     xx                                       
-  Strength of Earth Totem                 x                                                                                    x                                        
-  Mana Spring Totem                       x                                                                                    x                                        
-Interlan
-  Windfury Totem                        x                                                                                                            x                  
-  Strength of Earth Totem               x                                                                                                            x                  
-  Mana Spring Totem                      x                                                               x                                             x                
-  Berserking                                                    G         F                                                                                             
-Pristitute
-  Inner Focus                                                              G  F                                                                                         
-  The Eye of the Dead                                                                 G                  F                                                              
 Bobbywf
   Windfury Totem                         x                                                                                 x                                            
   Strength of Earth Totem                x                                                                                x x                                           
   Mana Spring Totem                       x                                                                                x                                            
   Nature's Swiftness                                                 F                                                                                                  
   Unstable Power                                                                               G                   F                                                    
+Interlan
+  Windfury Totem                        x                                                                                                            x                  
+  Strength of Earth Totem               x                                                                                                            x                  
+  Mana Spring Totem                      x                                                               x                                             x                
+  Berserking                                                    G         F                                                                                             
+Petie (Spankys)
+  Windfury Totem                               x       x x  x    x       x   x         x  x  x        x          x  x   x             x    x     x   x  x               
+Pristitute
+  Inner Focus                                                              G  F                                                                                         
+  The Eye of the Dead                                                                 G                  F                                                              
 Randgriz
   The Eye of the Dead                                                                                                    G           F                                  
   Rapid Healing                                                                                                          G              F                               
+Selverslip
+  Windfury Totem                             x                                                                                                             x            
+  Mana Spring Totem                          x                                                                                                              x           
+  Strength of Earth Totem                     x                                                                                                          x              
+Snega
+  Windfury Totem                         x                                                                                     xx                                       
+  Strength of Earth Totem                 x                                                                                    x                                        
+  Mana Spring Totem                       x                                                                                    x                                        
 
 
 Ability Timeline for Sapphiron (187.0s)
@@ -5310,35 +5310,35 @@ Tinerispew (27544)
   Improved Fireball (96)                                                                          x x x x                                                                                                                           
 Shizumo (214)
   Auto Attack (214)                                 x                                                                                x                                                                                              
-Jocaste
-  The Eye of the Dead                                                                                                             G          F                                                                                      
-Selverslip
-  Strength of Earth Totem                      x                                                                                   x                                                                                                
-  Mana Spring Totem                             x                                                   x                              x                                                                                                
-  Windfury Totem                                x                                                                                   x                                                                                               
-Petie (Spankys)
-  Windfury Totem                                                                                                              x  x  x     x         x                                                                               
-Snega
-  Windfury Totem                         x                                                                                   x                                   x                                                                  
-  Strength of Earth Totem                x                                                                                   x                                   x                                                                  
-  Mana Spring Totem                      x                                                                                    x                                  x                                                                  
-  Nature's Swiftness                                                                                                                                                                                                         G  F   
+Bobbywf
+  Mana Spring Totem                               x                                                     x                                                                                                                           
+  Strength of Earth Totem                         x                                                    x                                                                                                                            
+  Windfury Totem                                   x                                                   x                                                                                                                            
 Interlan
   Windfury Totem                          x                                                                                                           x                                                         x                   
   Strength of Earth Totem                  x                                                                                                          x                                                         x                   
   Mana Spring Totem                           x                                                                                                          x                                                         x                
   Berserking                                                                                                            G         F                                                                                                 
   Nature's Swiftness                                                                                                                                         GF                                                                     
+Jocaste
+  The Eye of the Dead                                                                                                             G          F                                                                                      
+Petie (Spankys)
+  Windfury Totem                                                                                                              x  x  x     x         x                                                                               
 Pristitute
   Inner Focus                                                                                                                G    F                                                                                                 
-Bobbywf
-  Mana Spring Totem                               x                                                     x                                                                                                                           
-  Strength of Earth Totem                         x                                                    x                                                                                                                            
-  Windfury Totem                                   x                                                   x                                                                                                                            
 Randgriz
   The Eye of the Dead                                                                                                     G        F                                                                                                
   Rapid Healing                                                                                                           G              F                                                                                          
   Inner Focus                                                                                                                                       G  F                                                                            
+Selverslip
+  Strength of Earth Totem                      x                                                                                   x                                                                                                
+  Mana Spring Totem                             x                                                   x                              x                                                                                                
+  Windfury Totem                                x                                                                                   x                                                                                               
+Snega
+  Windfury Totem                         x                                                                                   x                                   x                                                                  
+  Strength of Earth Totem                x                                                                                   x                                   x                                                                  
+  Mana Spring Totem                      x                                                                                    x                                  x                                                                  
+  Nature's Swiftness                                                                                                                                                                                                         G  F   
 
 
 Ability Timeline for Kel'Thuzad (467.7s)
@@ -5701,23 +5701,23 @@ Snega (1143)
   Strength of Earth Totem                                                                                                             x                                                                                                            x                                                       x                                                   x                                        x                                                                                       x                           
   Mana Spring Totem                                                                                                                   x                                                                                                            x                                                       x                                                   x                                         x                                                                                      x                           
   Frost Shock (1143)                                                                                                                                                                                                                                                                                                                         x        x                                                                                                                                                                     
-Saberslash (self damage)
-  Bloodrage                                                                                                                                                                                                                                             x                                                                                                                                                                                                                                   x                               
-Petie (Spankys)
-  Windfury Totem                                                                                                                                                                                                                                                                                                                                                                            x   x            x       x                            x   x          x    x  x                                                  
-Interlan
-  Mana Spring Totem                     x                                                  x                                                            x                                                                                   x                          x                                                        x                                                                       x                                                                                            x                      
-  Windfury Totem                                                                                                                                    x                                                                                                               x                                                                                                   x                                                                                                                          x                        
-  Strength of Earth Totem                                                                                                                           x                                                                                                               x                                                                                                   x                                                                                                                          x                        
-  Berserking                                                                                                                                                                                                                                                                                                                                                                                               G         F                                                                                                      
-  Nature's Swiftness                                                                                                                                                                                                                                                                                                                                                                                                                                                                  F                                     
-Squirreled (self damage)
-  Bloodrage                                                                x                                                                                                                                                                                                                                                                                                                                                                                                                                                
+Aveenna
+  Faerie Fire                                                                                                                                                                                                                                                                                                                                                                           x                                          x                                                                                        
 Bobbywf
   Windfury Totem                                  x x                                                                                                                                  x                                                                                                                                      x                                        x                                                                                           x                                                        
   Mana Spring Totem                               x                                                                                                                                     x                                                                                                                                    x                                         x                                                                                           x                                                        
   Strength of Earth Totem                          x                                                                                                                                   x                                                                                                                                     x                                         x                                                                                          x                                                         
   Nature's Swiftness                                                                                                                                                                                                                                                                                                                                                                                                                                                      GF                                                
   Unstable Power                                                                                                                                                                                                                                                                                                                                                                                                                                                           G                   F                            
-Aveenna
-  Faerie Fire                                                                                                                                                                                                                                                                                                                                                                           x                                          x                                                                                        
+Interlan
+  Mana Spring Totem                     x                                                  x                                                            x                                                                                   x                          x                                                        x                                                                       x                                                                                            x                      
+  Windfury Totem                                                                                                                                    x                                                                                                               x                                                                                                   x                                                                                                                          x                        
+  Strength of Earth Totem                                                                                                                           x                                                                                                               x                                                                                                   x                                                                                                                          x                        
+  Berserking                                                                                                                                                                                                                                                                                                                                                                                               G         F                                                                                                      
+  Nature's Swiftness                                                                                                                                                                                                                                                                                                                                                                                                                                                                  F                                     
+Petie (Spankys)
+  Windfury Totem                                                                                                                                                                                                                                                                                                                                                                            x   x            x       x                            x   x          x    x  x                                                  
+Saberslash (self damage)
+  Bloodrage                                                                                                                                                                                                                                             x                                                                                                                                                                                                                                   x                               
+Squirreled (self damage)
+  Bloodrage                                                                x                                                                                                                                                                                                                                                                                                                                                                                                                                                

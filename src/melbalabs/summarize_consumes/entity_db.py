@@ -1134,6 +1134,7 @@ all_entities = [
         "Berserker Rage",
         [TrackSpellCastComponent(), SpellAliasComponent([(TreeType.GAINS_LINE, "Berserker Rage")])],
     ),
+    Entity("Auto Attack", []),
 ]
 
 
