@@ -23,6 +23,7 @@ from uuid import uuid4
 
 import humanize
 import requests
+import requests.auth
 from plotly import graph_objects as go
 from plotly.subplots import make_subplots
 from typing_extensions import Self
@@ -442,9 +443,12 @@ def get_spell_rename_map():
 RENAME_SPELL = get_spell_rename_map()
 
 
+
 def rename_spell(spell: str, line_type: TreeType):
     rename = RENAME_SPELL.get((line_type, spell))
     return rename or CanonicalName(spell)
+
+SPELLNAME_CANONICAL_AUTOATTACK = CanonicalName("Auto Attack")
 
 
 # careful. not everything needs an itemid
@@ -1610,23 +1614,25 @@ class Currency(int):
         return super().__new__(cls, value, *args, **kwargs)
 
     def __add__(self, other) -> Self:
-        return Currency(super().__add__(other))
+        return type(self)(super().__add__(other))
 
     def __sub__(self, other) -> Self:
-        return Currency(super().__sub__(other))
+        return type(self)(super().__sub__(other))
 
     def __mul__(self, other) -> Self:
-        return Currency(super().__mul__(other))
+        return type(self)(super().__mul__(other))
 
     def __truediv__(self, other) -> Self:
-        return Currency(super().__truediv__(other))
+        return type(self)(super().__floordiv__(other))
 
     def __mod__(self, other) -> Self:
-        return Currency(super().__mod__(other))
+        return type(self)(super().__mod__(other))
 
     @classmethod
     def from_string(cls, s: str) -> Self:
         m = re.search(cls.string_pattern, s)
+        if not m:
+            raise ValueError(f"Invalid currency string format: {s}")
         if not any(m.groupdict().values()):
             raise ValueError(f"Invalid currency string format: {s}")
         return cls(
@@ -1811,7 +1817,7 @@ class ClassDetection:
             return False
         return self.store[name] is cls
 
-    def detect(self, line_type: str, name: str, spell: str):
+    def detect(self, line_type: TreeType, name: str, spell: str):
         if (line_type, spell) not in UNIQUE_LINE2SPELL2CLASS:
             return
         detected_class = UNIQUE_LINE2SPELL2CLASS[line_type, spell]
@@ -2297,13 +2303,13 @@ def process_tree(app: App, line: str, tree: LineTree):
         amount = int(subtree.children[2].value)
         action_verb = subtree.children[3].value
 
-        app.dmgstore.add(name, target, "Auto Attack", amount, timestamp_unix)
-        app.dmgtakenstore.add(name, target, "Auto Attack", amount, timestamp_unix)
+        app.dmgstore.add(name, target, SPELLNAME_CANONICAL_AUTOATTACK, amount, timestamp_unix)
+        app.dmgtakenstore.add(name, target, SPELLNAME_CANONICAL_AUTOATTACK, amount, timestamp_unix)
 
         app.ability_timeline.add(
             source=name,
             target=target,
-            spellname="Auto Attack",
+            spellname=SPELLNAME_CANONICAL_AUTOATTACK,
             line_type=subtree.data,
             timestamp_unix=timestamp_unix,
             amount=amount,

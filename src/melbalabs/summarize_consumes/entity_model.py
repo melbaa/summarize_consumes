@@ -131,7 +131,7 @@ def get_entities_with_components(
     for c_type in sorted_types[1:]:
         candidates &= COMPONENT_REGISTRY.get(c_type).keys()
 
-    results = []
+    results: list[tuple[Entity, list[Component]]] = []
     for entity in candidates:
         comps = [COMPONENT_REGISTRY.get(t)[entity] for t in component_types]
         results.append((entity, comps))
