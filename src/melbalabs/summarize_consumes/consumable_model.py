@@ -51,6 +51,8 @@ class NoPrice:
 
 
 class ChargeValidation:
+    charges: int
+
     def __post_init__(self):
         if self.charges <= 0:
             raise ValueError("positive charges plz")

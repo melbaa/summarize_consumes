@@ -133,9 +133,9 @@ def get_entities_with_components(
     # intersecting a small set against a large one is much faster than vice versa.
     sorted_types = sorted(component_types, key=lambda t: len(COMPONENT_REGISTRY.get(t)))
 
-    candidates = COMPONENT_REGISTRY.get(sorted_types[0]).keys()
+    # dict_keys supports & but it just returns a set, which confuses typechecking and makes a shallow copy anyway
+    candidates = set(COMPONENT_REGISTRY.get(sorted_types[0]).keys())
 
-    # dict_keys supports &
     for c_type in sorted_types[1:]:
         candidates &= COMPONENT_REGISTRY.get(c_type).keys()
 

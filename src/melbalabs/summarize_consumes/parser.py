@@ -122,15 +122,6 @@ class TimestampTree(Tree[Token]):
     pass
 
 
-class FallbackParser:
-    def parse(self, line):
-        raise ParserError("unknown line")
-
-
-class ParserError(Exception):
-    pass
-
-
 class Parser2:
     def __init__(self, unparsed_logger):
         self.unparsed_logger = unparsed_logger
@@ -319,7 +310,7 @@ class Parser2:
             data=TreeType.CONSOLIDATED_PET, children=[Token("t", name), Token("t", petname)]
         )
 
-    def parse(self, line: str, p_ts_end) -> Optional[LineTree]:  # type: ignore
+    def parse(self, line: str, p_ts_end) -> Optional[LineTree]:
         """
         assumes p_ts_end != -1
         throws ValueError when it sees unexpected syntax

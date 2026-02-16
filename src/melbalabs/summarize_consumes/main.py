@@ -62,7 +62,6 @@ from melbalabs.summarize_consumes.entity_model import get_entity_by_name
 from melbalabs.summarize_consumes.parser import ActionValue
 from melbalabs.summarize_consumes.parser import LineTree
 from melbalabs.summarize_consumes.parser import Parser2
-from melbalabs.summarize_consumes.parser import ParserError
 from melbalabs.summarize_consumes.parser import TreeType
 from melbalabs.summarize_consumes.timeline import AbilityTimeline
 
@@ -192,6 +191,8 @@ def dl_price_data(prices_server):
 
 @functools.cache
 def create_unparsed_loggers(expert_log_unparsed_lines):
+    unparsed: UnparsedLogger | NullLogger
+    unparsed_fast: UnparsedLogger | NullLogger
     if expert_log_unparsed_lines:
         unparsed = UnparsedLogger(filename="unparsed.txt")
         unparsed_fast = UnparsedLogger(filename="unparsed-fast.txt")
@@ -1970,13 +1971,6 @@ def parse_line(app: App, line: str):
             return False
 
         return process_tree(app, line, tree)
-
-    except ParserError:
-        # parse errors ignored to try different strategies
-        # print(line)
-        # print(app.parser.parse(line))
-        # raise
-        return False
 
     except Exception:
         logging.exception(line)
