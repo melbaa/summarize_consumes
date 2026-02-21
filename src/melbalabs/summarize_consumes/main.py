@@ -143,9 +143,8 @@ class FastTimestampParser:
         return self.current_year
 
     def parse(self, timestamp_token) -> float:
-        month, day, hour, minute, sec, ms = timestamp_token.children
-        month = int(month)
-        day = int(day)
+        month = int(timestamp_token.month)
+        day = int(timestamp_token.day)
 
         # first run, initialize year
         if self.last_month_seen is None:
@@ -173,7 +172,13 @@ class FastTimestampParser:
             ).timestamp()
             self._day_cache[cache_key] = day_base
 
-        return day_base + (int(hour) * 3600) + (int(minute) * 60) + int(sec) + (int(ms) / 1000.0)
+        return (
+            day_base
+            + (int(timestamp_token.hour) * 3600)
+            + (int(timestamp_token.minute) * 60)
+            + int(timestamp_token.sec)
+            + (int(timestamp_token.ms) / 1000.0)
+        )
 
 
 @functools.cache
@@ -1945,8 +1950,8 @@ def process_tree(app: App, line: str, tree: LineTree):
     """
     returns True to mark line as processed
     """
-    timestamp = tree.children[0]
-    subtree = tree.children[1]
+    timestamp = tree.timestamp
+    subtree = tree.subtree
 
     timestamp_unix = app.timestamp_parser.parse(timestamp)
 
