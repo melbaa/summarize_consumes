@@ -1,11 +1,22 @@
 from __future__ import annotations
+from typing import Literal
 
+
+import dataclasses
 import enum
 import re
-from typing import List
 from typing import Optional
+from typing import Sequence
 from typing import Union
 
+
+type PlayerName = str
+type RawSpellName = str
+type RawStackCount = str  # will be converted to int when needed
+
+invalid_player_name: PlayerName = "invalid_player_name_1234567890"
+invalid_raw_spell_name: RawSpellName = "invalid_raw_spell_name_1234567890"
+invalid_stackcount: RawStackCount = "invalid_stackcount_1234567890"
 
 
 class Token:
@@ -100,28 +111,120 @@ class ActionValue(enum.Enum):
     GLANCE = "glance"
 
 
-TreeChild = Union[Token, "Tree"]
+TreeChild = Union[Token, "Tree", "GainsLineTree"]
 
 
+# We need Tree to declare that its data is of type TreeType
 class Tree[ChildType: TreeChild]:
     __slots__ = ("data", "children")
+    data: TreeType
+    children: Sequence[ChildType]
 
-    def __init__(self, data: TreeType, children: List[ChildType]):
+    def __init__(self, data: TreeType, children: Sequence[ChildType]):
         self.data = data
         self.children = children
 
 
-# Instanciate the generic tree for disambiguation of type inference
-# without this, the tree type ends up Tree[object] when children are of different types
+@dataclasses.dataclass
+class GainsLineTree:
+    data: Literal[TreeType.GAINS_LINE]
+    name: PlayerName
+    spellname: RawSpellName
+    stackcount: RawStackCount
+
+
+@dataclasses.dataclass
+class GainsManaLineTree:
+    data: Literal[TreeType.GAINS_MANA_LINE]
+    name: PlayerName
+    mana: str
+    spellname: RawSpellName
+
+
+@dataclasses.dataclass
+class HitsAbilityLineTree:
+    data: Literal[TreeType.HITS_ABILITY_LINE]
+    name: PlayerName
+    spellname: RawSpellName
+    targetname: PlayerName
+    damage: str
+    spell_damage_type: str
+
+
+@dataclasses.dataclass
+class HitsAutoattackLineTree:
+    data: Literal[TreeType.HITS_AUTOATTACK_LINE]
+    name: PlayerName
+    targetname: PlayerName
+    damage: str
+    action: ActionValue
+
+
+@dataclasses.dataclass
+class HealsLineTree:
+    data: Literal[TreeType.HEALS_LINE]
+    name: PlayerName
+    spellname: RawSpellName
+    heal_crit: str
+    targetname: PlayerName
+    heal_amount: str
+
+
+@dataclasses.dataclass
+class FadesLineTree:
+    data: Literal[TreeType.FADES_LINE]
+    spellname: RawSpellName
+    targetname: PlayerName
+
+
+@dataclasses.dataclass
+class SuffersLineSourceTree:
+    data: Literal[TreeType.SUFFERS_LINE_SOURCE]
+    targetname: PlayerName
+    damage: str
+    spell_damage_type: str
+    castername: PlayerName
+    spellname: RawSpellName
+
+
+@dataclasses.dataclass
+class SuffersLineNosourceTree:
+    data: Literal[TreeType.SUFFERS_LINE_NOSOURCE]
+    targetname: PlayerName
+    damage: str
+    spell_damage_type: str
+
+
+@dataclasses.dataclass
+class BeginsToCastLineTree:
+    data: Literal[TreeType.BEGINS_TO_CAST_LINE]
+    name: PlayerName
+    spellname: RawSpellName
+
+
+@dataclasses.dataclass
+class AfflictedLineTree:
+    data: Literal[TreeType.AFFLICTED_LINE]
+    targetname: PlayerName
+    spellname: RawSpellName
+
+
+@dataclasses.dataclass
+class BlockLineTree:
+    data: Literal[TreeType.BLOCK_LINE]
+    name: PlayerName
+    targetname: PlayerName
+
+
 Subtree = Tree[TreeChild]
-
-
-class LineTree(Tree[Tree]):
-    pass
 
 
 class TimestampTree(Tree[Token]):
     pass
+
+
+class LineTree(Tree[Union[TimestampTree, Subtree, GainsLineTree]]):
+    data: Literal[TreeType.LINE]
 
 
 class Parser2:
@@ -147,133 +250,128 @@ class Parser2:
         self.action_token = Token("t", "")
 
         # gains_mana_line cache
-        subtree_gains_mana_line = Tree(
+        self.subtree_gains_mana_line = GainsManaLineTree(
             data=TreeType.GAINS_MANA_LINE,
-            children=[self.name_token, self.mana_token, self.spellname_token],
+            name=invalid_player_name,
+            mana=invalid_stackcount,
+            spellname=invalid_raw_spell_name,
         )
         self.gains_mana_line_tree = LineTree(
-            data=TreeType.LINE, children=[self.timestamp_tree, subtree_gains_mana_line]
+            data=TreeType.LINE, children=[self.timestamp_tree, self.subtree_gains_mana_line]
         )
 
         # hits_ability_line cache
-        subtree_hits_ability_line = Tree(
+        self.subtree_hits_ability_line = HitsAbilityLineTree(
             data=TreeType.HITS_ABILITY_LINE,
-            children=[
-                self.name_token,
-                self.spellname_token,
-                self.targetname_token,
-                self.damage_token,
-                self.spell_damage_type_token,
-            ],
+            name=invalid_player_name,
+            spellname=invalid_raw_spell_name,
+            targetname=invalid_player_name,
+            damage=invalid_stackcount,
+            spell_damage_type=invalid_raw_spell_name,
         )
         self.hits_ability_line_tree = LineTree(
-            data=TreeType.LINE, children=[self.timestamp_tree, subtree_hits_ability_line]
+            data=TreeType.LINE, children=[self.timestamp_tree, self.subtree_hits_ability_line]
         )
 
         # hits_autoattack_line cache
-        subtree_hits_autoattack_line = Tree(
+        self.subtree_hits_autoattack_line = HitsAutoattackLineTree(
             data=TreeType.HITS_AUTOATTACK_LINE,
-            children=[
-                self.name_token,
-                self.targetname_token,
-                self.damage_token,
-                self.action_token,
-            ],
+            name=invalid_player_name,
+            targetname=invalid_player_name,
+            damage=invalid_stackcount,
+            action=ActionValue.HITS,
         )
         self.hits_autoattack_line_tree = LineTree(
-            data=TreeType.LINE, children=[self.timestamp_tree, subtree_hits_autoattack_line]
+            data=TreeType.LINE, children=[self.timestamp_tree, self.subtree_hits_autoattack_line]
         )
 
         # gains_line cache
-        subtree_gains_line = Tree(
+
+        self.subtree_gains_line = GainsLineTree(
             data=TreeType.GAINS_LINE,
-            children=[
-                self.name_token,
-                self.spellname_token,
-                self.stackcount_token,
-            ],
+            name=invalid_player_name,
+            spellname=invalid_raw_spell_name,
+            stackcount=invalid_stackcount,
         )
         self.gains_line_tree = LineTree(
-            data=TreeType.LINE, children=[self.timestamp_tree, subtree_gains_line]
+            data=TreeType.LINE, children=[self.timestamp_tree, self.subtree_gains_line]
         )
 
         # heals_line cache
-        subtree_heals_line = Tree(
+        self.subtree_heals_line = HealsLineTree(
             data=TreeType.HEALS_LINE,
-            children=[
-                self.name_token,
-                self.spellname_token,
-                self.heal_crit_token,
-                self.targetname_token,
-                self.heal_amount_token,
-            ],
+            name=invalid_player_name,
+            spellname=invalid_raw_spell_name,
+            heal_crit="",
+            targetname=invalid_player_name,
+            heal_amount=invalid_stackcount,
         )
         self.heals_line_tree = LineTree(
-            data=TreeType.LINE, children=[self.timestamp_tree, subtree_heals_line]
+            data=TreeType.LINE, children=[self.timestamp_tree, self.subtree_heals_line]
         )
 
         # fades_line cache
-        subtree_fades_line = Tree(
-            data=TreeType.FADES_LINE, children=[self.spellname_token, self.targetname_token]
+        self.subtree_fades_line = FadesLineTree(
+            data=TreeType.FADES_LINE,
+            spellname=invalid_raw_spell_name,
+            targetname=invalid_player_name,
         )
         self.fades_line_tree = LineTree(
-            data=TreeType.LINE, children=[self.timestamp_tree, subtree_fades_line]
+            data=TreeType.LINE, children=[self.timestamp_tree, self.subtree_fades_line]
         )
 
         # suffers_line cache (WITH source)
-        suffers_line_source = Tree(
+        self.subtree_suffers_line_source = SuffersLineSourceTree(
             data=TreeType.SUFFERS_LINE_SOURCE,
-            children=[
-                self.spell_damage_type_token,
-                self.name_token,  # castername
-                self.spellname_token,
-            ],
-        )
-        subtree_suffers_line_source = Subtree(
-            data=TreeType.SUFFERS_LINE,
-            children=[self.targetname_token, self.damage_token, suffers_line_source],
+            targetname=invalid_player_name,
+            damage=invalid_stackcount,
+            spell_damage_type=invalid_raw_spell_name,
+            castername=invalid_player_name,
+            spellname=invalid_raw_spell_name,
         )
         self.suffers_line_source_tree = LineTree(
-            data=TreeType.LINE, children=[self.timestamp_tree, subtree_suffers_line_source]
+            data=TreeType.LINE, children=[self.timestamp_tree, self.subtree_suffers_line_source]
         )
 
         # suffers_line cache (NO source)
-        suffers_line_nosource = Tree(
-            data=TreeType.SUFFERS_LINE_NOSOURCE, children=[self.spell_damage_type_token]
-        )
-        subtree_suffers_line_nosource = Subtree(
-            data=TreeType.SUFFERS_LINE,
-            children=[self.targetname_token, self.damage_token, suffers_line_nosource],
+        self.subtree_suffers_line_nosource = SuffersLineNosourceTree(
+            data=TreeType.SUFFERS_LINE_NOSOURCE,
+            targetname=invalid_player_name,
+            damage=invalid_stackcount,
+            spell_damage_type=invalid_raw_spell_name,
         )
         self.suffers_line_nosource_tree = LineTree(
-            data=TreeType.LINE, children=[self.timestamp_tree, subtree_suffers_line_nosource]
+            data=TreeType.LINE, children=[self.timestamp_tree, self.subtree_suffers_line_nosource]
         )
 
         # begins_to_cast_line cache
-        subtree_begins_to_cast_line = Tree(
-            data=TreeType.BEGINS_TO_CAST_LINE, children=[self.name_token, self.spellname_token]
+        self.subtree_begins_to_cast_line = BeginsToCastLineTree(
+            data=TreeType.BEGINS_TO_CAST_LINE,
+            name=invalid_player_name,
+            spellname=invalid_raw_spell_name,
         )
         self.begins_to_cast_line_tree = LineTree(
-            data=TreeType.LINE, children=[self.timestamp_tree, subtree_begins_to_cast_line]
+            data=TreeType.LINE, children=[self.timestamp_tree, self.subtree_begins_to_cast_line]
         )
 
         # afflicted_line cache
-        subtree_afflicted_line = Tree(
+        self.subtree_afflicted_line = AfflictedLineTree(
             data=TreeType.AFFLICTED_LINE,
-            children=[self.targetname_token, self.spellname_token],
+            targetname=invalid_player_name,
+            spellname=invalid_raw_spell_name,
         )
-
         self.afflicted_line_tree = LineTree(
-            data=TreeType.LINE, children=[self.timestamp_tree, subtree_afflicted_line]
+            data=TreeType.LINE, children=[self.timestamp_tree, self.subtree_afflicted_line]
         )
 
         # block_line cache
-        subtree_block_line = Tree(
+        self.subtree_block_line = BlockLineTree(
             data=TreeType.BLOCK_LINE,
-            children=[self.name_token, self.targetname_token],  # reuse tokens
+            name=invalid_player_name,
+            targetname=invalid_player_name,
         )
         self.block_line_tree = LineTree(
-            data=TreeType.LINE, children=[self.timestamp_tree, subtree_block_line]
+            data=TreeType.LINE, children=[self.timestamp_tree, self.subtree_block_line]
         )
 
     def parse_ts(self, line, p_ts_end):
@@ -346,9 +444,11 @@ class Parser2:
 
                 _ = self.parse_ts(line, p_ts_end)  # magic cached reference
 
-                self.name_token.value = name  # magic cached reference
-                self.mana_token.value = mana  # magic cached reference
-                self.spellname_token.value = spellname_gains_mana  # magic cached reference
+                self.subtree_gains_mana_line.name = name  # magic cached reference
+                self.subtree_gains_mana_line.mana = mana  # magic cached reference
+                self.subtree_gains_mana_line.spellname = (
+                    spellname_gains_mana  # magic cached reference
+                )
                 return self.gains_mana_line_tree  # magic cached reference
 
             # It has already been determined NOT to be a 'Mana from' event.
@@ -411,11 +511,17 @@ class Parser2:
                     spellname_hits_ability = line[p_s + 4 : p_action]
                     targetname_hits_ability = line[p_action + len(action_verb) + 2 : p_for]
 
-                    self.name_token.value = name  # magic cached reference
-                    self.spellname_token.value = spellname_hits_ability  # magic cached reference
-                    self.targetname_token.value = targetname_hits_ability  # magic cached reference
-                    self.damage_token.value = damage_amount  # magic cached reference
-                    self.spell_damage_type_token.value = damage_type_str  # magic cached reference
+                    self.subtree_hits_ability_line.name = name  # magic cached reference
+                    self.subtree_hits_ability_line.spellname = (
+                        spellname_hits_ability  # magic cached reference
+                    )
+                    self.subtree_hits_ability_line.targetname = (
+                        targetname_hits_ability  # magic cached reference
+                    )
+                    self.subtree_hits_ability_line.damage = damage_amount  # magic cached reference
+                    self.subtree_hits_ability_line.spell_damage_type = (
+                        damage_type_str  # magic cached reference
+                    )
                     return self.hits_ability_line_tree  # magic cached reference
 
                 else:  # It's a hits_autoattack_line
@@ -431,12 +537,16 @@ class Parser2:
                     caster_name = line[p_ts_end + 2 : p_action]
                     targetname_hits_autoattack = line[p_action + len(action_verb) + 2 : p_for]
 
-                    self.name_token.value = caster_name  # magic cached reference
-                    self.targetname_token.value = (
+                    self.subtree_hits_autoattack_line.name = caster_name  # magic cached reference
+                    self.subtree_hits_autoattack_line.targetname = (
                         targetname_hits_autoattack  # magic cached reference
                     )
-                    self.damage_token.value = damage_amount  # magic cached reference
-                    self.action_token.value = action_value  # magic cached reference
+                    self.subtree_hits_autoattack_line.damage = (
+                        damage_amount  # magic cached reference
+                    )
+                    self.subtree_hits_autoattack_line.action = (
+                        action_value  # magic cached reference
+                    )
                     return self.hits_autoattack_line_tree  # magic cached reference
 
             # 12/13 14:20:41.781  BudwiserHL 's Holy Light heals Pitbound for 2166.
@@ -472,11 +582,11 @@ class Parser2:
                 p_num_end = p_period
                 amount = line[p_num_start:p_num_end]
 
-                self.name_token.value = caster_name  # magic cached reference
-                self.spellname_token.value = spellname_heals  # magic cached reference
-                self.heal_crit_token.value = crit_token_value  # magic cached reference
-                self.targetname_token.value = targetname_heals  # magic cached reference
-                self.heal_amount_token.value = amount  # magic cached reference
+                self.subtree_heals_line.name = caster_name  # magic cached reference
+                self.subtree_heals_line.spellname = spellname_heals  # magic cached reference
+                self.subtree_heals_line.heal_crit = crit_token_value  # magic cached reference
+                self.subtree_heals_line.targetname = targetname_heals  # magic cached reference
+                self.subtree_heals_line.heal_amount = amount  # magic cached reference
                 return self.heals_line_tree  # magic cached reference
 
             p_fades = line.find(" fades from ", p_ts_end)
@@ -491,8 +601,8 @@ class Parser2:
                 # 12 is len(' fades from '); -2 is .\n
                 targetname_fades = line[p_fades + 12 : -2]
 
-                self.spellname_token.value = spellname_fades  # magic cached reference
-                self.targetname_token.value = targetname_fades  # magic cached reference
+                self.subtree_fades_line.spellname = spellname_fades  # magic cached reference
+                self.subtree_fades_line.targetname = targetname_fades  # magic cached reference
                 return self.fades_line_tree  # magic cached reference
 
             p_suffers = line.find(" suffers ", p_ts_end)
@@ -508,8 +618,8 @@ class Parser2:
                 p_num_end = line.find(" ", p_num_start)
                 amount = line[p_num_start:p_num_end]
 
-                self.targetname_token.value = targetname_suffers  # magic cached reference
-                self.damage_token.value = amount  # magic cached reference
+                self.subtree_suffers_line_source.targetname = targetname_suffers
+                self.subtree_suffers_line_source.damage = amount
 
                 # figure out if there's a source
                 # The source is indicated by the phrase " damage from ".
@@ -533,9 +643,11 @@ class Parser2:
                             spellname_suffers_line = line[p_s + len(suffix) : p_period]
 
                             # magic cached reference
-                            self.spell_damage_type_token.value = damage_type
-                            self.name_token.value = castername  # magic cached reference
-                            self.spellname_token.value = (
+                            self.subtree_suffers_line_source.spell_damage_type = damage_type
+                            self.subtree_suffers_line_source.castername = (
+                                castername  # magic cached reference
+                            )
+                            self.subtree_suffers_line_source.spellname = (
                                 spellname_suffers_line  # magic cached reference
                             )
                             return self.suffers_line_source_tree  # magic cached reference
@@ -549,7 +661,9 @@ class Parser2:
 
                         damage_type = line[p_points + 11 : p_damage_word]
 
-                        self.spell_damage_type_token.value = damage_type  # magic cached reference
+                        self.subtree_suffers_line_nosource.targetname = targetname_suffers
+                        self.subtree_suffers_line_nosource.damage = amount
+                        self.subtree_suffers_line_nosource.spell_damage_type = damage_type
                         return self.suffers_line_nosource_tree  # magic cached reference
 
             p_gains = line.find(" gains ", p_ts_end)
@@ -571,9 +685,9 @@ class Parser2:
                 # The stackcount is the number between the parentheses.
                 stackcount = line[p_paren_open + 2 : p_paren_close]  # +2 skips " ("
 
-                self.name_token.value = name  # magic cached reference
-                self.spellname_token.value = spellname_gains  # magic cached reference
-                self.stackcount_token.value = stackcount  # magic cached reference
+                self.subtree_gains_line.name = name  # magic cached reference
+                self.subtree_gains_line.spellname = spellname_gains  # magic cached reference
+                self.subtree_gains_line.stackcount = stackcount  # magic cached reference
                 return self.gains_line_tree
 
             action_phrase = " begins to cast "
@@ -587,8 +701,10 @@ class Parser2:
 
                 spellname_begins_to_cast = line[p_action + len(action_phrase) : -2]
 
-                self.name_token.value = caster_name  # magic cached reference
-                self.spellname_token.value = spellname_begins_to_cast  # magic cached reference
+                self.subtree_begins_to_cast_line.name = caster_name  # magic cached reference
+                self.subtree_begins_to_cast_line.spellname = (
+                    spellname_begins_to_cast  # magic cached reference
+                )
 
                 return self.begins_to_cast_line_tree  # magic cached reference
 
@@ -609,8 +725,12 @@ class Parser2:
                 # The spellname is everything between the action phrase and the final " (#)".
                 spellname_afflicted = line[p_action + len(action_phrase) : p_paren_open]
 
-                self.targetname_token.value = targetname_afflicted  # magic cached reference
-                self.spellname_token.value = spellname_afflicted  # magic cached reference
+                self.subtree_afflicted_line.targetname = (
+                    targetname_afflicted  # magic cached reference
+                )
+                self.subtree_afflicted_line.spellname = (
+                    spellname_afflicted  # magic cached reference
+                )
                 return self.afflicted_line_tree  # magic cached reference
 
             p_casts = line.find(" casts ", p_ts_end)
@@ -965,12 +1085,9 @@ class Parser2:
                     blocker_end = -len(blocks_anchor)
                     blocker = line[blocker_start:blocker_end]
 
-                    subtree = Tree(
-                        data=TreeType.BLOCK_LINE,
-                        children=[Token("t", attacker), Token("t", blocker)],
-                    )
-
-                    return LineTree(data=TreeType.LINE, children=[timestamp, subtree])
+                    self.subtree_block_line.name = attacker
+                    self.subtree_block_line.targetname = blocker
+                    return self.block_line_tree
 
             # Find all the anchors in sequential order.
             p_reflects = line.find(" reflects ", p_ts_end)
@@ -1571,12 +1688,9 @@ class Parser2:
                     blocker_end = -len(final_anchor_with_newline)
                     blocker = line[blocker_start:blocker_end]
 
-                    subtree = Tree(
-                        data=TreeType.BLOCK_LINE,
-                        children=[Token("t", attacker), Token("t", blocker)],
-                    )
-
-                    return LineTree(data=TreeType.LINE, children=[timestamp, subtree])
+                    self.subtree_block_line.name = attacker
+                    self.subtree_block_line.targetname = blocker
+                    return self.block_line_tree
 
             p_interrupts = line.find(" interrupts ", p_ts_end)
             p_s = line.find(" 's ", p_interrupts)

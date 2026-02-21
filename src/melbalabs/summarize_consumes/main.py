@@ -19,7 +19,6 @@ import webbrowser
 import zipfile
 from datetime import datetime as dt
 from pathlib import Path
-from typing import NewType
 from uuid import uuid4
 
 import humanize
@@ -69,7 +68,7 @@ from melbalabs.summarize_consumes.price_provider import PriceProvider
 from melbalabs.summarize_consumes.price_provider import WebPriceProvider
 from melbalabs.summarize_consumes.timeline import AbilityTimeline
 
-PlayerName = NewType("PlayerName", str)
+from melbalabs.summarize_consumes.parser import PlayerName
 
 
 class App:
@@ -823,7 +822,9 @@ class Viscidus:
     def __init__(self):
         self.logname = "Viscidus Frost Hits Log"
         # player - frost spell - count
-        self.counts: dict[PlayerName, dict[str, int]] = collections.defaultdict(lambda: collections.defaultdict(int))
+        self.counts: dict[PlayerName, dict[str, int]] = collections.defaultdict(
+            lambda: collections.defaultdict(int)
+        )
         self.totals: dict[PlayerName, int] = collections.defaultdict(int)
         self._found = False
 
@@ -1951,10 +1952,10 @@ def process_tree(app: App, line: str, tree: LineTree):
 
     # inline everything to reduce funcalls
     # for same reason not using visitors to traverse the parse tree
-    if subtree.data == TreeType.GAINS_LINE:
-        name = subtree.children[0].value
-        spellname = subtree.children[1].value
-        stackcount = int(subtree.children[2].value)
+    if subtree.data is TreeType.GAINS_LINE:
+        name = subtree.name
+        spellname = subtree.spellname
+        stackcount = int(subtree.stackcount)
 
         app.class_detection.detect(line_type=subtree.data, name=name, spell=spellname)
         app.spell_count.add_stackcount(
@@ -2059,13 +2060,13 @@ def process_tree(app: App, line: str, tree: LineTree):
 
         return True
     elif subtree.data == TreeType.HEALS_LINE:
-        is_crit = subtree.children[2].value == "critically"
+        is_crit = subtree.heal_crit == "critically"
 
-        name = subtree.children[0].value
-        spellname = subtree.children[1].value
+        name = subtree.name
+        spellname = subtree.spellname
 
-        targetname = subtree.children[3].value
-        amount = int(subtree.children[4].value)
+        targetname = subtree.targetname
+        amount = int(subtree.heal_amount)
 
         # rename
         if spellname == "Healing Potion":
@@ -2093,12 +2094,12 @@ def process_tree(app: App, line: str, tree: LineTree):
         return True
 
     elif subtree.data == TreeType.GAINS_MANA_LINE:
-        name = subtree.children[0].value
-        spellname = subtree.children[-1].value
+        name = subtree.name
+        spellname = subtree.spellname
 
         # rename
         if spellname == "Restore Mana":
-            mana = int(subtree.children[1].value)
+            mana = int(subtree.mana)
             spellname = manapot_lookup(mana)
 
         if consumable_item := RAWSPELLNAME2CONSUMABLE.get((subtree.data, spellname)):
@@ -2110,8 +2111,8 @@ def process_tree(app: App, line: str, tree: LineTree):
     elif subtree.data == TreeType.DRAINS_MANA_LINE2:
         return True
     elif subtree.data == TreeType.BEGINS_TO_CAST_LINE:
-        name = subtree.children[0].value
-        spellname = subtree.children[-1].value
+        name = subtree.name
+        spellname = subtree.spellname
 
         app.class_detection.detect(line_type=subtree.data, name=name, spell=spellname)
 
@@ -2193,10 +2194,10 @@ def process_tree(app: App, line: str, tree: LineTree):
                 pass
         return True
     elif subtree.data == TreeType.HITS_ABILITY_LINE:
-        name = subtree.children[0].value
-        spellname = subtree.children[1].value
-        targetname = subtree.children[2].value
-        amount = int(subtree.children[3].value)
+        name = subtree.name
+        spellname = subtree.spellname
+        targetname = subtree.targetname
+        amount = int(subtree.damage)
 
         spellname_canonical = rename_spell(spellname, line_type=subtree.data)
 
@@ -2216,8 +2217,8 @@ def process_tree(app: App, line: str, tree: LineTree):
 
         if targetname == "Viscidus":
             app.viscidus.found()
-            spell_damage_type = subtree.children[4]
-            if spell_damage_type.value == "Frost":
+            spell_damage_type = subtree.spell_damage_type
+            if spell_damage_type == "Frost":
                 app.viscidus.add(name, spellname)
 
         if targetname == "Princess Huhuran":
@@ -2235,11 +2236,7 @@ def process_tree(app: App, line: str, tree: LineTree):
         if spellname in INTERRUPT_SPELLS and targetname == "Kel'Thuzad":
             app.kt_frostbolt.add(line)
 
-        if (
-            name == "Kel'Thuzad"
-            and spellname == "Frostbolt"
-            and int(subtree.children[3].value) >= 4000
-        ):
+        if name == "Kel'Thuzad" and spellname == "Frostbolt" and int(subtree.damage) >= 4000:
             app.kt_frostbolt.add(line)
 
         if name == "Kel'Thuzad" and spellname == "Frost Blast":
@@ -2255,10 +2252,10 @@ def process_tree(app: App, line: str, tree: LineTree):
 
         return True
     elif subtree.data == TreeType.HITS_AUTOATTACK_LINE:
-        name = subtree.children[0].value
-        target = subtree.children[1].value
-        amount = int(subtree.children[2].value)
-        action_verb = subtree.children[3].value
+        name = subtree.name
+        target = subtree.targetname
+        amount = int(subtree.damage)
+        action_verb = subtree.action
 
         app.dmgstore.add(name, target, SPELLNAME_AUTOATTACK, amount, timestamp_unix)
         app.dmgtakenstore.add(name, target, SPELLNAME_AUTOATTACK, amount, timestamp_unix)
@@ -2303,7 +2300,7 @@ def process_tree(app: App, line: str, tree: LineTree):
         app.auto_attack_stats.add_parry(name)
         return True
     elif subtree.data == TreeType.BLOCK_LINE:
-        name = subtree.children[0].value
+        name = subtree.name
         app.auto_attack_stats.add_block(name)
         return True
     elif subtree.data == TreeType.MISSES_LINE:
@@ -2359,8 +2356,8 @@ def process_tree(app: App, line: str, tree: LineTree):
     elif subtree.data == TreeType.IMMUNE_LINE:
         return True
     elif subtree.data == TreeType.AFFLICTED_LINE:
-        targetname = subtree.children[0].value
-        spellname = subtree.children[1].value
+        targetname = subtree.targetname
+        spellname = subtree.spellname
 
         app.class_detection.detect(line_type=subtree.data, name=targetname, spell=spellname)
         app.spell_count.add(line_type=subtree.data, name=targetname, spell=spellname)
@@ -2446,36 +2443,36 @@ def process_tree(app: App, line: str, tree: LineTree):
             app.gluth.add(line)
 
         return True
-    elif subtree.data == TreeType.SUFFERS_LINE:
-        targetname = subtree.children[0].value
-        amount = int(subtree.children[1])
-        if subtree.children[2].data == TreeType.SUFFERS_LINE_SOURCE:
-            name = subtree.children[2].children[1].value
-            spellname = subtree.children[2].children[2].value
+    elif subtree.data == TreeType.SUFFERS_LINE_SOURCE:
+        targetname = subtree.targetname
+        amount = int(subtree.damage)
+        name = subtree.castername
+        spellname = subtree.spellname
 
-            if spellname == "Corrupted Healing":
-                app.nef_corrupted_healing.add(line)
+        if spellname == "Corrupted Healing":
+            app.nef_corrupted_healing.add(line)
 
-            app.dmgstore.add(name, targetname, spellname, amount, timestamp_unix)
-            app.dmgtakenstore.add(name, targetname, spellname, amount, timestamp_unix)
+        app.dmgstore.add(name, targetname, spellname, amount, timestamp_unix)
+        app.dmgtakenstore.add(name, targetname, spellname, amount, timestamp_unix)
 
-            spellname_canonical = rename_spell(spellname, line_type=subtree.data)
-            app.ability_timeline.add(
-                source=name,
-                target=targetname,
-                spellname=spellname_canonical,
-                line_type=subtree.data,
-                timestamp_unix=timestamp_unix,
-                amount=amount,
-            )
-        else:
-            # nosource
-            pass
+        spellname_canonical = rename_spell(spellname, line_type=subtree.data)
+        app.ability_timeline.add(
+            source=name,
+            target=targetname,
+            spellname=spellname_canonical,
+            line_type=subtree.data,
+            timestamp_unix=timestamp_unix,
+            amount=amount,
+        )
 
         return True
+    elif subtree.data == TreeType.SUFFERS_LINE_NOSOURCE:
+        # targetname = subtree.targetname
+        # amount = int(subtree.damage)
+        return True
     elif subtree.data == TreeType.FADES_LINE:
-        spellname = subtree.children[0].value
-        targetname = subtree.children[1].value
+        spellname = subtree.spellname
+        targetname = subtree.targetname
 
         if spellname == "Armor Shatter":
             app.annihilator.add(line)
