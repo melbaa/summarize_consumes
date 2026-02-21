@@ -11,6 +11,7 @@ from typing import Union
 
 
 type PlayerName = str
+type PetName = str
 type RawSpellName = str
 type RawStackCount = str  # will be converted to int when needed
 
@@ -111,7 +112,14 @@ class ActionValue(enum.Enum):
     GLANCE = "glance"
 
 
-TreeChild = Union[Token, "Tree", "GainsLineTree"]
+TreeChild = Union[
+    Token,
+    "Tree",
+    "GainsLineTree",
+    "ConsolidatedPetTree",
+    "CastsLineTree",
+    "GainsExtraAttacksLineTree",
+]
 
 
 # We need Tree to declare that its data is of type TreeType
@@ -203,6 +211,22 @@ class BeginsToCastLineTree:
 
 
 @dataclasses.dataclass
+class CastsLineTree:
+    data: Literal[TreeType.CASTS_LINE]
+    name: PlayerName
+    spellname: RawSpellName
+    targetname: Optional[PlayerName] = None
+
+
+@dataclasses.dataclass
+class GainsExtraAttacksLineTree:
+    data: Literal[TreeType.GAINS_EXTRA_ATTACKS_LINE]
+    name: PlayerName
+    howmany: RawStackCount
+    source: RawSpellName
+
+
+@dataclasses.dataclass
 class AfflictedLineTree:
     data: Literal[TreeType.AFFLICTED_LINE]
     targetname: PlayerName
@@ -214,6 +238,13 @@ class BlockLineTree:
     data: Literal[TreeType.BLOCK_LINE]
     name: PlayerName
     targetname: PlayerName
+
+
+@dataclasses.dataclass
+class ConsolidatedPetTree:
+    data: Literal[TreeType.CONSOLIDATED_PET]
+    name: PlayerName
+    petname: PetName
 
 
 Subtree = Tree[TreeChild]
@@ -234,7 +265,22 @@ class TimestampTree:
 class LineTree:
     data: Literal[TreeType.LINE]
     timestamp: TimestampTree
-    subtree: Union[Subtree, GainsLineTree]
+    subtree: Union[
+        Subtree,
+        GainsLineTree,
+        GainsManaLineTree,
+        HealsLineTree,
+        FadesLineTree,
+        SuffersLineSourceTree,
+        SuffersLineNosourceTree,
+        BeginsToCastLineTree,
+        AfflictedLineTree,
+        BlockLineTree,
+        CastsLineTree,
+        GainsExtraAttacksLineTree,
+        HitsAbilityLineTree,
+        HitsAutoattackLineTree,
+    ]
 
 
 class Parser2:
@@ -275,7 +321,9 @@ class Parser2:
             spell_damage_type=invalid_raw_spell_name,
         )
         self.hits_ability_line_tree = LineTree(
-            data=TreeType.LINE, timestamp=self.timestamp_tree, subtree=self.subtree_hits_ability_line
+            data=TreeType.LINE,
+            timestamp=self.timestamp_tree,
+            subtree=self.subtree_hits_ability_line,
         )
 
         # hits_autoattack_line cache
@@ -287,7 +335,9 @@ class Parser2:
             action=ActionValue.HITS,
         )
         self.hits_autoattack_line_tree = LineTree(
-            data=TreeType.LINE, timestamp=self.timestamp_tree, subtree=self.subtree_hits_autoattack_line
+            data=TreeType.LINE,
+            timestamp=self.timestamp_tree,
+            subtree=self.subtree_hits_autoattack_line,
         )
 
         # gains_line cache
@@ -335,7 +385,9 @@ class Parser2:
             spellname=invalid_raw_spell_name,
         )
         self.suffers_line_source_tree = LineTree(
-            data=TreeType.LINE, timestamp=self.timestamp_tree, subtree=self.subtree_suffers_line_source
+            data=TreeType.LINE,
+            timestamp=self.timestamp_tree,
+            subtree=self.subtree_suffers_line_source,
         )
 
         # suffers_line cache (NO source)
@@ -346,7 +398,9 @@ class Parser2:
             spell_damage_type=invalid_raw_spell_name,
         )
         self.suffers_line_nosource_tree = LineTree(
-            data=TreeType.LINE, timestamp=self.timestamp_tree, subtree=self.subtree_suffers_line_nosource
+            data=TreeType.LINE,
+            timestamp=self.timestamp_tree,
+            subtree=self.subtree_suffers_line_nosource,
         )
 
         # begins_to_cast_line cache
@@ -356,7 +410,9 @@ class Parser2:
             spellname=invalid_raw_spell_name,
         )
         self.begins_to_cast_line_tree = LineTree(
-            data=TreeType.LINE, timestamp=self.timestamp_tree, subtree=self.subtree_begins_to_cast_line
+            data=TreeType.LINE,
+            timestamp=self.timestamp_tree,
+            subtree=self.subtree_begins_to_cast_line,
         )
 
         # afflicted_line cache
@@ -379,6 +435,30 @@ class Parser2:
             data=TreeType.LINE, timestamp=self.timestamp_tree, subtree=self.subtree_block_line
         )
 
+        # casts_line cache
+        self.subtree_casts_line = CastsLineTree(
+            data=TreeType.CASTS_LINE,
+            name=invalid_player_name,
+            spellname=invalid_raw_spell_name,
+            targetname=None,
+        )
+        self.casts_line_tree = LineTree(
+            data=TreeType.LINE, timestamp=self.timestamp_tree, subtree=self.subtree_casts_line
+        )
+
+        # gains_extra_attacks_line cache
+        self.subtree_gains_extra_attacks_line = GainsExtraAttacksLineTree(
+            data=TreeType.GAINS_EXTRA_ATTACKS_LINE,
+            name=invalid_player_name,
+            howmany=invalid_stackcount,
+            source=invalid_raw_spell_name,
+        )
+        self.gains_extra_attacks_line_tree = LineTree(
+            data=TreeType.LINE,
+            timestamp=self.timestamp_tree,
+            subtree=self.subtree_gains_extra_attacks_line,
+        )
+
     def parse_ts(self, line, p_ts_end):
         # 6/1 18:31:36.197  ...
 
@@ -397,7 +477,7 @@ class Parser2:
 
         return self.timestamp_tree
 
-    def parse_consolidated_pet(self, pet_string: str):
+    def parse_consolidated_pet(self, pet_string: str) -> Optional[ConsolidatedPetTree]:
         """Parses a single 'PET: ...' substring."""
 
         # We don't need the timestamp, so we find the first '&' to skip it.
@@ -415,9 +495,7 @@ class Parser2:
         petname = pet_string[p_second_amp + 1 :].strip()  # strip() for safety
 
         # Return the subtree for this pet entry.
-        return Tree(
-            data=TreeType.CONSOLIDATED_PET, children=[Token("t", name), Token("t", petname)]
-        )
+        return ConsolidatedPetTree(data=TreeType.CONSOLIDATED_PET, name=name, petname=petname)
 
     def parse(self, line: str, p_ts_end) -> Optional[LineTree]:
         """
@@ -777,13 +855,11 @@ class Parser2:
                     # The spell is everything after " casts " to the end.
                     spellname_casts = line[p_casts + 7 : -2]
 
-                children = [Token("t", caster_name), Token("t", spellname_casts)]
-                if targetname_casts:
-                    children.append(Token("t", targetname_casts))
+                self.subtree_casts_line.name = caster_name
+                self.subtree_casts_line.spellname = spellname_casts
+                self.subtree_casts_line.targetname = targetname_casts
 
-                subtree = Tree(data=TreeType.CASTS_LINE, children=children)
-
-                return LineTree(data=TreeType.LINE, timestamp=timestamp, subtree=subtree)
+                return self.casts_line_tree  # magic cached reference
 
             # already have this
             # p_gains = line.find(' gains ', p_ts_end)
@@ -805,13 +881,11 @@ class Parser2:
                 # The source is everything after " through " to the end.
                 source = line[p_through + 9 : -2]  # 9 is len(' through ')
 
-                # Construct the tree exactly as the consumer expects.
-                subtree = Tree(
-                    data=TreeType.GAINS_EXTRA_ATTACKS_LINE,
-                    children=[Token("t", name), Token("t", howmany), Token("t", source)],
-                )
+                self.subtree_gains_extra_attacks_line.name = name
+                self.subtree_gains_extra_attacks_line.howmany = howmany
+                self.subtree_gains_extra_attacks_line.source = source
 
-                return LineTree(data=TreeType.LINE, timestamp=timestamp, subtree=subtree)
+                return self.gains_extra_attacks_line_tree  # magic cached reference
 
             # already have this
             # p_gains = line.find(' gains ', p_ts_end)

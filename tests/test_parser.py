@@ -1,9 +1,12 @@
 import pytest
 import io
+import typing
+import dataclasses
 
 from melbalabs.summarize_consumes.main import parse_line
 from melbalabs.summarize_consumes.main import NAME2ITEMID
 from melbalabs.summarize_consumes.main import PlayerClass
+import melbalabs.summarize_consumes.parser as parser_module
 
 
 def test_rage_consumable_line(app):
@@ -1824,3 +1827,49 @@ def test_invalid_input(app):
     for line in lines:
         match += parse_line(app, line)
     assert not match
+
+
+def test_exists_dataclass_for_each_tree_type():
+    # check that each TreeType has a corresponding dataclass
+    # then check each dataclass is in the subtree union of LineTree
+    all_tree_types = set(parser_module.TreeType)
+
+    all_dataclasses = set()
+
+    for obj in vars(parser_module).values():
+        if not isinstance(obj, type):
+            continue
+        if not dataclasses.is_dataclass(obj):
+            continue
+
+        hints = typing.get_type_hints(obj)
+        data_type = hints.get("data")
+        if not data_type:
+            continue
+        args = typing.get_args(data_type)
+        if not args:
+            continue
+
+        tree_type = args[0]
+        if not isinstance(tree_type, parser_module.TreeType):
+            continue
+        all_tree_types.discard(tree_type)
+
+        # also save the dataclass, will need it later
+        all_dataclasses.add(obj)
+
+    assert not all_tree_types, f"Missing dataclass for {all_tree_types}"
+
+    line_tree_annotations = typing.get_type_hints(parser_module.LineTree)
+    subtree_type = line_tree_annotations["subtree"]
+    union_args = set(typing.get_args(subtree_type))
+
+    ignore_types = {
+        parser_module.LineTree,  # no self reference
+        parser_module.TimestampTree,  # not a subtree
+        parser_module.ConsolidatedPetTree,  # not a subtree for now
+    }
+
+    extras = all_dataclasses - union_args - ignore_types
+    assert not extras, f"Dataclasses not in LineTree: {extras}"
+

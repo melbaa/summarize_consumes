@@ -2129,18 +2129,15 @@ def process_tree(app: App, line: str, tree: LineTree):
 
         return True
     elif subtree.data == TreeType.CASTS_LINE:
-        name = subtree.children[0].value
-        spellname = subtree.children[1].value
+        name = subtree.name
+        spellname = subtree.spellname
         if consumable_item := RAWSPELLNAME2CONSUMABLE.get((subtree.data, spellname)):
             app.player[name][consumable_item.name] += 1
 
         if spellname == "Sunder Armor":
-            if len(subtree.children) < 3:
-                # a mystery sunder armor with no target
-                targetname = "unknown"
-            else:
-                targetname = subtree.children[2].value
-            if targetname in KNOWN_BOSSES:
+            # handle mystery sunder armor with no target
+            targetname_sunder = subtree.targetname or "unknown"
+            if targetname_sunder in KNOWN_BOSSES:
                 spellname += " (boss)"
 
         app.class_detection.detect(line_type=subtree.data, name=name, spell=spellname)
@@ -2154,9 +2151,8 @@ def process_tree(app: App, line: str, tree: LineTree):
 
         spellname_canonical = rename_spell(spellname, subtree.data)
 
-        if len(subtree.children) == 3:
-            targetname = subtree.children[2].value
-
+        targetname = subtree.targetname
+        if targetname:
             app.ability_timeline.add(
                 source=name,
                 target=targetname,
@@ -2190,10 +2186,8 @@ def process_tree(app: App, line: str, tree: LineTree):
     elif subtree.data == TreeType.CONSOLIDATED_LINE:
         for entry in subtree.children:
             if entry.data == TreeType.CONSOLIDATED_PET:
-                name = entry.children[0].value
-                petname = entry.children[1].value
-                app.pet_handler.add(name, petname)
-                app.player_detect[name].add("pet: " + petname)
+                app.pet_handler.add(entry.name, entry.petname)
+                app.player_detect[entry.name].add("pet: " + entry.petname)
             else:
                 # parse but ignore the other consolidated entries
                 pass
@@ -2521,9 +2515,9 @@ def process_tree(app: App, line: str, tree: LineTree):
             app.player[name][consumable_item.name] += 1
         return True
     elif subtree.data == TreeType.GAINS_EXTRA_ATTACKS_LINE:
-        name = subtree.children[0].value
-        howmany = int(subtree.children[1].value)
-        source = subtree.children[2].value
+        name = subtree.name
+        howmany = int(subtree.howmany)
+        source = subtree.source
         app.proc_count.add_extra_attacks(howmany=howmany, name=name, source=source)
         app.ability_timeline.add_extra_attacks(
             howmany=howmany,
