@@ -63,6 +63,10 @@ from melbalabs.summarize_consumes.parser import ActionValue
 from melbalabs.summarize_consumes.parser import LineTree
 from melbalabs.summarize_consumes.parser import Parser2
 from melbalabs.summarize_consumes.parser import TreeType
+from melbalabs.summarize_consumes.price_provider import LocalPriceProvider
+from melbalabs.summarize_consumes.price_provider import PriceManifest
+from melbalabs.summarize_consumes.price_provider import PriceProvider
+from melbalabs.summarize_consumes.price_provider import WebPriceProvider
 from melbalabs.summarize_consumes.timeline import AbilityTimeline
 
 
@@ -172,24 +176,6 @@ class FastTimestampParser:
 
 
 @functools.cache
-def dl_price_data(prices_server):
-    try:
-        URLS = {
-            "nord": "https://melbalabs.com/static/twowprices.json",
-            "telabim": "https://melbalabs.com/static/twowprices-telabim.json",
-            "ambershire": "https://raw.githubusercontent.com/whtmst/twow-ambershire-prices/refs/heads/main/ambershire-prices-filtered.json",
-        }
-        url = URLS[prices_server]
-        resp = requests.get(url, timeout=30)
-        resp.raise_for_status()
-        data = resp.json()
-        return data
-    except requests.exceptions.RequestException:
-        logging.warning("web prices not available")
-        return None
-
-
-@functools.cache
 def create_unparsed_loggers(expert_log_unparsed_lines):
     unparsed: UnparsedLogger | NullLogger
     unparsed_fast: UnparsedLogger | NullLogger
@@ -281,7 +267,7 @@ def create_app(
     app.hits_consumable = HitsConsumable(player=app.player, last_hit_cache=app.last_hit_cache)
 
     app.web_price_provider = WebPriceProvider(prices_server=prices_server)
-    price_providers = []
+    price_providers: list[PriceProvider] = []
     if not expert_disable_web_prices:
         price_providers.append(app.web_price_provider)
     price_providers.append(LocalPriceProvider("prices.json"))
@@ -466,9 +452,11 @@ ITEMID2NAME = {value: key for key, value in NAME2ITEMID.items()}
 INTERRUPT_SPELLS = {
     entity.name for entity, _ in get_entities_with_component(InterruptSpellComponent)
 }
-TRINKET_SPELL = []
-for _, trinket_comp in get_entities_with_component(TrinketComponent):
-    TRINKET_SPELL.extend(trinket_comp.triggered_by_spells)
+TRINKET_SPELL = [
+    spell
+    for _, trinket_comp in get_entities_with_component(TrinketComponent)
+    for spell in trinket_comp.triggered_by_spells
+]
 TRINKET_SPELL_SET = set(TRINKET_SPELL)
 TRINKET_SPELL = list(TRINKET_SPELL_SET)
 
@@ -1250,33 +1238,8 @@ class NullLogger:
         pass
 
 
-class LocalPriceProvider:
-    def __init__(self, filename):
-        self.filename = filename
-
-    def load(self):
-        filename = self.filename
-        if not os.path.exists(filename):
-            logging.warning(f"local prices not available. {filename} not found")
-            return
-        logging.info("loading local prices from {filename}")
-        with open(filename) as f:
-            prices = json.load(f)
-            return prices
-
-
-class WebPriceProvider:
-    def __init__(self, prices_server):
-        self.prices_server = prices_server
-
-    def load(self):
-        logging.info("loading web prices")
-        prices = dl_price_data(prices_server=self.prices_server)
-        return prices
-
-
 class PriceDB:
-    def __init__(self, price_providers):
+    def __init__(self, price_providers: list[PriceProvider]):
         self.data = dict()
         self.last_update = 0
 
@@ -1290,7 +1253,7 @@ class PriceDB:
     def lookup(self, itemid):
         return self.data.get(itemid)
 
-    def load_incoming(self, incoming):
+    def load_incoming(self, incoming: PriceManifest):
         self.last_update = incoming["last_update"]
         for key, val in incoming["data"].items():
             key = int(key)

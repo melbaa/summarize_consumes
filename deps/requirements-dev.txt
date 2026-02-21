@@ -12,4 +12,6 @@ pathspec==1.0.4           # via mypy
 pluggy==1.3.0             # via pytest
 pytest==7.4.3             # via -r deps/requirements-dev.in
 toml==0.10.2              # via bumpver
+types-requests==2.32.4.20260107  # via -r deps/requirements-dev.in
 typing-extensions==4.11.0  # via mypy, -c deps/requirements.txt
+urllib3==2.1.0            # via types-requests, -c deps/requirements.txt
