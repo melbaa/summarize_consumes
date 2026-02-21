@@ -1255,9 +1255,7 @@ class PriceDB:
 
     def load_incoming(self, incoming: PriceManifest):
         self.last_update = incoming["last_update"]
-        for key, val in incoming["data"].items():
-            key = int(key)
-            self.data[key] = val
+        self.data = incoming["data"]
 
 
 class PetHandler:

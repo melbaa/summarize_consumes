@@ -4,17 +4,39 @@ import logging
 import os
 from typing import Protocol
 from typing import TypedDict
+from typing import NewType
 
 import requests
 
-type ItemIDRaw = str  # json requires string keys
-type ItemPrice = int
-type ItemPriceMap = dict[ItemIDRaw, ItemPrice]
+
+ItemID = NewType("ItemID", int)
+ItemPrice = NewType("ItemPrice", int)
+ItemPriceMap = NewType("ItemPriceMap", dict[ItemID, ItemPrice])
 
 
 class PriceManifest(TypedDict):
     last_update: int
     data: ItemPriceMap
+
+
+def validate_raw_price_manifest(data_raw: dict) -> PriceManifest:
+    # runtime validation
+    for k, v in data_raw["data"].items():
+        assert isinstance(k, str)  # json requires string keys
+        assert isinstance(v, int)
+    last_update = int(data_raw["last_update"])
+
+    # the annotations for static analysis + some conversions
+    item_price_map = ItemPriceMap({})
+    for k, v in data_raw["data"].items():
+        out_k = ItemID(int(k))
+        item_price_map[out_k] = ItemPrice(v)
+
+    data = PriceManifest(
+        last_update=last_update,
+        data=item_price_map,
+    )
+    return data
 
 
 class PriceProvider(Protocol):
@@ -33,7 +55,7 @@ class LocalPriceProvider:
         logging.info("loading local prices from {filename}")
         with open(filename) as f:
             prices = json.load(f)
-            return prices
+            return validate_raw_price_manifest(prices)
 
 
 class WebPriceProvider:
@@ -57,8 +79,8 @@ def dl_price_data(prices_server) -> PriceManifest | None:
         url = URLS[prices_server]
         resp = requests.get(url, timeout=30)
         resp.raise_for_status()
-        data: PriceManifest = resp.json()
-        return data
+        prices = resp.json()
+        return validate_raw_price_manifest(prices)
     except requests.exceptions.RequestException:
         logging.warning("web prices not available")
         return None
