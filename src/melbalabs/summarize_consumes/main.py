@@ -1,4 +1,6 @@
 from __future__ import annotations
+from melbalabs.summarize_consumes.price_provider import ItemPriceMap
+
 
 import argparse
 import collections
@@ -17,9 +19,7 @@ import webbrowser
 import zipfile
 from datetime import datetime as dt
 from pathlib import Path
-from typing import Dict
-from typing import List
-from typing import Tuple
+from typing import NewType
 from uuid import uuid4
 
 import humanize
@@ -69,15 +69,17 @@ from melbalabs.summarize_consumes.price_provider import PriceProvider
 from melbalabs.summarize_consumes.price_provider import WebPriceProvider
 from melbalabs.summarize_consumes.timeline import AbilityTimeline
 
+PlayerName = NewType("PlayerName", str)
+
 
 class App:
     parser: Parser2
     unparsed_logger: UnparsedLogger | NullLogger
     unparsed_logger_fast: UnparsedLogger | NullLogger
     timestamp_parser: FastTimestampParser
-    player: Dict[str, Dict[str, int]]
-    player_superwow: Dict[str, Dict[str, int]]
-    player_superwow_unknown: Dict[str, Dict[str, int]]
+    player: dict[PlayerName, dict[str, int]]
+    player_superwow: dict[PlayerName, dict[str, int]]
+    player_superwow_unknown: dict[PlayerName, dict[str, int]]
     merge_superwow_consumables: MergeSuperwowConsumables
     class_detection: ClassDetection
     spell_count: SpellCount
@@ -87,10 +89,10 @@ class App:
     proc_summary: ProcSummary
     auto_attack_stats: AutoAttackStats
     auto_attack_summary: AutoAttackSummary
-    last_hit_cache: Dict[str, Dict[str, float]]
-    player_detect: Dict[str, set]
+    last_hit_cache: dict[str, dict[str, float]]
+    player_detect: dict[str, set]
     pet_handler: PetHandler
-    death_count: Dict[str, int]
+    death_count: dict[str, int]
     hits_consumable: HitsConsumable
     web_price_provider: WebPriceProvider
     pricedb: PriceDB
@@ -398,13 +400,13 @@ class HitsConsumable:
             pass
 
 
-NAME2CONSUMABLE: Dict[str, Entity] = {}
+NAME2CONSUMABLE: dict[str, Entity] = {}
 for entity, _ in get_entities_with_component(ConsumableComponent):
     if entity.name in NAME2CONSUMABLE:
         raise ValueError(f"Duplicate consumable name: {entity.name}")
     NAME2CONSUMABLE[entity.name] = entity
 
-RAWSPELLNAME2CONSUMABLE: Dict[Tuple[TreeType, str], Entity] = dict()
+RAWSPELLNAME2CONSUMABLE: dict[tuple[TreeType, str], Entity] = dict()
 for item, (tag, alias_comp) in get_entities_with_components(
     ConsumableComponent, SpellAliasComponent
 ):
@@ -420,7 +422,7 @@ for item, (tag, alias_comp) in get_entities_with_components(
 
 
 def get_spell_rename_map():
-    rename_map: Dict[Tuple[TreeType, str], CanonicalName] = {}
+    rename_map: dict[tuple[TreeType, str], CanonicalName] = {}
     for entity, alias_comp in get_entities_with_component(SpellAliasComponent):
         for line_type, raw_name in alias_comp.spell_aliases:
             rename_map[(line_type, raw_name)] = entity.name
@@ -821,8 +823,8 @@ class Viscidus:
     def __init__(self):
         self.logname = "Viscidus Frost Hits Log"
         # player - frost spell - count
-        self.counts = collections.defaultdict(lambda: collections.defaultdict(int))
-        self.totals = collections.defaultdict(int)
+        self.counts: dict[PlayerName, dict[str, int]] = collections.defaultdict(lambda: collections.defaultdict(int))
+        self.totals: dict[PlayerName, int] = collections.defaultdict(int)
         self._found = False
 
     def add(self, player, spell):
@@ -1240,7 +1242,7 @@ class NullLogger:
 
 class PriceDB:
     def __init__(self, price_providers: list[PriceProvider]):
-        self.data = dict()
+        self.data: ItemPriceMap = ItemPriceMap({})
         self.last_update = 0
 
         for provider in price_providers:
@@ -1487,7 +1489,7 @@ class ProcSummary:
 
 # count unique casts, the player using their spell. not the lingering buff/debuff procs
 # eg count a totem being dropped, not the buff procs it gives after that
-LINE2SPELLCAST = {}
+LINE2SPELLCAST: dict[tuple[TreeType, str], CanonicalName] = {}
 
 for entity, (tag, alias_comp) in get_entities_with_components(
     TrackSpellCastComponent, SpellAliasComponent
@@ -1645,7 +1647,7 @@ class ConsumableStore:
 class ConsumablesEntry:
     name: str
     deaths: int = 0
-    consumables: List[ConsumableStore] = dataclasses.field(default_factory=list)
+    consumables: list[ConsumableStore] = dataclasses.field(default_factory=list)
     total_spent: Currency = Currency(0)
 
     def add_consumable(self, consumable: ConsumableStore) -> None:
@@ -1655,10 +1657,10 @@ class ConsumablesEntry:
 
 @dataclasses.dataclass
 class ConsumablesAccumulator:
-    player: Dict
+    player: dict
     pricedb: PriceDB
-    death_count: Dict[str, int]
-    data: List[ConsumablesEntry] = dataclasses.field(default_factory=list)
+    death_count: dict[str, int]
+    data: list[ConsumablesEntry] = dataclasses.field(default_factory=list)
 
     def get_consumable_price(self, consumable_name: str) -> Currency:
         price = Currency(0)
@@ -1677,7 +1679,7 @@ class ConsumablesAccumulator:
         # Determine the list of items whose direct itemid-based price we need to sum up.
         # For a crafted item, these are its components.
         # For a base item, it's the item itself.
-        ingredients_to_price: List[Tuple[Entity, float]]
+        ingredients_to_price: list[tuple[Entity, float]]
         item_charges = item_price_info.charges
 
         if isinstance(item_price_info, PriceFromIngredients):
@@ -1765,7 +1767,7 @@ for entity, (det_comp,) in get_entities_with_components(ClassDetectionComponent)
 
 class ClassDetection:
     def __init__(self, player):
-        self.store: Dict[str, PlayerClass] = dict()
+        self.store: dict[str, PlayerClass] = dict()
         self.player = player
 
     def remove_unknown(self):
@@ -1805,7 +1807,7 @@ class ClassDetection:
 
 class Infographic:
     BACKGROUND_COLOR = "#282B2C"
-    CLASS_COLOURS: Dict[PlayerClass, str] = {
+    CLASS_COLOURS: dict[PlayerClass, str] = {
         PlayerClass.DRUID: "#FF7D0A",
         PlayerClass.HUNTER: "#ABD473",
         PlayerClass.MAGE: "#69CCF0",
@@ -1826,7 +1828,7 @@ class Infographic:
         title: str = "",
     ):
         self.accumulator = accumulator
-        self.detected_classes: Dict[str, PlayerClass] = (
+        self.detected_classes: dict[str, PlayerClass] = (
             class_detection.store if class_detection else {}
         )
         self.title = title

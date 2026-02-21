@@ -7,17 +7,18 @@ from typing import Optional
 from typing import Union
 
 
+
 class Token:
     __slots__ = ("type", "value")
 
-    def __init__(self, type_name, value):
+    def __init__(self, type_name, value) -> None:
         self.type = type_name
         self.value = value
 
     def __str__(self):
         return self.value
 
-    def __int__(self):
+    def __int__(self) -> int:
         return int(self.value)
 
     def __repr__(self):
