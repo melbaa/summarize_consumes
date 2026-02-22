@@ -4,6 +4,7 @@ import time
 import cProfile
 import pstats
 from collections import defaultdict
+from typing import NewType
 
 import pytest
 
@@ -132,6 +133,7 @@ tests/test_perf.py::test_basic3 time 1.914053201675415
 def test_basic4(app):
     filename = r"testdata/naxx-superwow-2025-06-02.txt"
     filename = r"testperfdata/kara40-superwow-07-06-2025.txt"
+    filename = r"testperfdata/kara40-12-02-26.txt"
 
     line_times = defaultdict(list)
     with io.open(filename, encoding="utf8") as f:
@@ -143,7 +145,7 @@ def test_basic4(app):
             tree = app.parser.parse(line, p_ts_end)
             if not tree:
                 continue
-            subtree = tree.children[1]
+            subtree = tree.subtree
             elapsed = time.perf_counter() - start
             line_type = subtree.data
 
@@ -163,49 +165,52 @@ def test_basic4(app):
 
     r"""
 
-tests/test_perf.py::test_basic4 fails_to_dispel_line: 0.015ms avg, 1 lines
-is_killed_line: 0.014ms avg, 3 lines
-block_ability_line: 0.017ms avg, 4 lines
-is_destroyed_line: 0.013ms avg, 8 lines
-was_evaded_line: 0.013ms avg, 10 lines
-equipped_durability_loss_line: 0.017ms avg, 12 lines
-interrupts_line: 0.017ms avg, 13 lines
-is_reflected_back_line: 0.014ms avg, 55 lines
-is_immune_ability_line: 0.012ms avg, 58 lines
-causes_damage_line: 0.011ms avg, 81 lines
-creates_line: 0.013ms avg, 82 lines
-slain_line: 0.013ms avg, 113 lines
-misses_ability_line: 0.009ms avg, 114 lines
-falls_line: 0.011ms avg, 125 lines
-begins_to_perform_line: 0.010ms avg, 153 lines
-performs_on_line: 0.013ms avg, 329 lines
-immune_line: 0.012ms avg, 569 lines
-removed_line: 0.012ms avg, 1177 lines
-parry_ability_line: 0.012ms avg, 1183 lines
-dies_line: 0.009ms avg, 1431 lines
-dodge_ability_line: 0.011ms avg, 1525 lines
-combatant_info_line: 0.019ms avg, 1618 lines
-parry_line: 0.010ms avg, 1821 lines
-reflects_damage_line: 0.011ms avg, 2122 lines
-immune_ability_line: 0.015ms avg, 2656 lines
-dodges_line: 0.009ms avg, 3102 lines
-misses_line: 0.009ms avg, 3527 lines
-gains_energy_line: 0.009ms avg, 3960 lines
-uses_line: 0.009ms avg, 5101 lines
-resist_line: 0.008ms avg, 7501 lines
-gains_extra_attacks_line: 0.007ms avg, 7819 lines
-gains_rage_line: 0.008ms avg, 12756 lines
-casts_line: 0.008ms avg, 16925 lines
-gains_health_line: 0.009ms avg, 18176 lines
-afflicted_line: 0.005ms avg, 20359 lines
-begins_to_cast_line: 0.005ms avg, 24774 lines
-suffers_line: 0.006ms avg, 36617 lines
-heals_line: 0.004ms avg, 47223 lines
-hits_autoattack_line: 0.004ms avg, 51016 lines
-fades_line: 0.004ms avg, 57770 lines
-gains_line: 0.005ms avg, 59728 lines
-gains_mana_line: 0.003ms avg, 111084 lines
-hits_ability_line: 0.004ms avg, 159598 lines
+TreeType.EQUIPPED_DURABILITY_LOSS_LINE: 0.006ms avg, 1 lines
+TreeType.IS_KILLED_LINE: 0.008ms avg, 1 lines
+TreeType.INTERRUPTS_LINE: 0.009ms avg, 2 lines
+TreeType.PET_BEGINS_EATING_LINE: 0.006ms avg, 3 lines
+TreeType.IS_DESTROYED_LINE: 0.006ms avg, 4 lines
+TreeType.IS_REFLECTED_BACK_LINE: 0.006ms avg, 5 lines
+TreeType.BLOCK_ABILITY_LINE: 0.007ms avg, 9 lines
+TreeType.PERFORMS_LINE: 0.004ms avg, 10 lines
+TreeType.WAS_EVADED_LINE: 0.005ms avg, 15 lines
+TreeType.GAINS_HAPPINESS_LINE: 0.008ms avg, 31 lines
+TreeType.FALLS_LINE: 0.004ms avg, 77 lines
+TreeType.CREATES_LINE: 0.005ms avg, 87 lines
+TreeType.SLAIN_LINE: 0.007ms avg, 97 lines
+TreeType.IS_IMMUNE_ABILITY_LINE: 0.005ms avg, 122 lines
+TreeType.PERFORMS_ON_LINE: 0.004ms avg, 195 lines
+TreeType.REFLECTS_DAMAGE_LINE: 0.003ms avg, 257 lines
+TreeType.MISSES_ABILITY_LINE: 0.003ms avg, 338 lines
+TreeType.REMOVED_LINE: 0.004ms avg, 369 lines
+TreeType.BEGINS_TO_PERFORM_LINE: 0.004ms avg, 491 lines
+TreeType.IMMUNE_LINE: 0.004ms avg, 519 lines
+TreeType.DIES_LINE: 0.003ms avg, 602 lines
+TreeType.COMBATANT_INFO_LINE: 0.007ms avg, 626 lines
+TreeType.PARRY_LINE: 0.004ms avg, 721 lines
+TreeType.MISSES_LINE: 0.003ms avg, 768 lines
+TreeType.PARRY_ABILITY_LINE: 0.005ms avg, 849 lines
+TreeType.DODGE_ABILITY_LINE: 0.004ms avg, 863 lines
+TreeType.DRAINS_MANA_LINE: 0.008ms avg, 1103 lines
+TreeType.DODGES_LINE: 0.003ms avg, 1269 lines
+TreeType.GAINS_ENERGY_LINE: 0.003ms avg, 1385 lines
+TreeType.IMMUNE_ABILITY_LINE: 0.004ms avg, 1726 lines
+TreeType.CAUSES_DAMAGE_LINE: 0.003ms avg, 1809 lines
+TreeType.USES_LINE: 0.003ms avg, 2390 lines
+TreeType.GAINS_HEALTH_LINE: 0.003ms avg, 3052 lines
+TreeType.RESIST_LINE: 0.003ms avg, 3742 lines
+TreeType.GAINS_EXTRA_ATTACKS_LINE: 0.002ms avg, 3807 lines
+TreeType.GAINS_RAGE_LINE: 0.003ms avg, 5662 lines
+TreeType.AFFLICTED_LINE: 0.002ms avg, 10273 lines
+TreeType.HITS_AUTOATTACK_LINE: 0.002ms avg, 16978 lines
+TreeType.HEALS_LINE: 0.002ms avg, 18950 lines
+TreeType.BEGINS_TO_CAST_LINE: 0.002ms avg, 19520 lines
+TreeType.SUFFERS_LINE_SOURCE: 0.002ms avg, 23014 lines
+TreeType.GAINS_LINE: 0.002ms avg, 25818 lines
+TreeType.FADES_LINE: 0.001ms avg, 25849 lines
+TreeType.GAINS_MANA_LINE: 0.001ms avg, 41798 lines
+TreeType.HITS_ABILITY_LINE: 0.001ms avg, 84673 lines
+TreeType.CASTS_LINE: 0.002ms avg, 136673 lines
 
     """
 
@@ -316,4 +321,44 @@ tests/test_perf.py::test_exc_result          50000001 function calls in 16.903 s
  50000000   16.902    0.000   16.902    0.000 Y:\turtle_client_116\Interface\AddOns\summarize_consumes\tests\test_perf.py:229(f3)
         1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}
 
+    """
+
+
+MyAlias = str
+MyNewType = NewType("MyNewType", str)
+
+
+@pytest.mark.skip()
+def test_overhead1_type_alias_perf():
+    import time
+
+    start = time.perf_counter()
+
+    for i in range(50_000_000):
+        _ = MyAlias("test")
+
+    elapsed = time.perf_counter() - start
+    print(f"\nTypeAlias 50M calls: {elapsed:.3f}s")
+
+    r"""
+2026-02-22
+TypeAlias 50M calls: 0.872s
+    """
+
+
+@pytest.mark.skip()
+def test_overhead1_newtype_perf():
+    import time
+
+    start = time.perf_counter()
+
+    for i in range(50_000_000):
+        _ = MyNewType("test")
+
+    elapsed = time.perf_counter() - start
+    print(f"\nNewType 50M calls: {elapsed:.3f}s")
+
+    r"""
+2026-02-22
+NewType 50M calls: 1.374s
     """

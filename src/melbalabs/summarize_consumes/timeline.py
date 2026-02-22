@@ -270,6 +270,15 @@ class AbilityTimeline:
                                 symbol = "G"
                             elif e.line_type == TreeType.FADES_LINE:
                                 symbol = "F"
+
+                            # if we already have an x, avoid overwriting
+                            # eg GAINS and FADES are not as reliable
+                            if row[pos] == "x" and (
+                                e.line_type == TreeType.GAINS_LINE
+                                or e.line_type == TreeType.FADES_LINE
+                            ):
+                                continue
+
                             row[pos] = symbol
 
                     dmg = impact_damage[player][spellname]

@@ -2043,6 +2043,17 @@ def process_tree(app: App, line: str, tree: LineTree):
         name = subtree.name
         spellname = subtree.item
 
+        # TODO: add to timeline. eg some interesting consumables
+        # spellname_canonical = rename_spell(spellname, subtree.data)
+        # app.ability_timeline.add(
+        #     source=name,
+        #     target=name,
+        #     spellname=spellname_canonical,
+        #     line_type=subtree.data,
+        #     timestamp_unix=timestamp_unix,
+        #     amount=0,
+        # )
+
         consumable_item = RAWSPELLNAME2CONSUMABLE.get((subtree.data, spellname))
         if consumable_item:
             # Check if this is a superwow consumable
