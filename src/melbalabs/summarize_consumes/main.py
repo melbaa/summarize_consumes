@@ -2290,9 +2290,9 @@ def process_tree(app: App, line: str, tree: LineTree):
 
         return True
     elif subtree.data == TreeType.PARRY_ABILITY_LINE:
-        name = subtree.children[0].value
-        spellname = subtree.children[1].value
-        targetname = subtree.children[2].value
+        name = subtree.caster
+        spellname = subtree.spellname
+        targetname = subtree.target
 
         if spellname in INTERRUPT_SPELLS and targetname == "Kel'Thuzad":
             app.kt_frostbolt.parry(line)
@@ -2321,6 +2321,9 @@ def process_tree(app: App, line: str, tree: LineTree):
         # blocker = subtree.blocker
         return True
     elif subtree.data == TreeType.INTERRUPTS_LINE:
+        # interrupter_name = subtree.interrupter
+        # targetname_interrupts = subtree.targetname
+        # spellname_interrupts = subtree.spellname
         return True
 
     elif subtree.data == TreeType.RESIST_LINE:
@@ -2345,22 +2348,24 @@ def process_tree(app: App, line: str, tree: LineTree):
 
         return True
     elif subtree.data == TreeType.IMMUNE_ABILITY_LINE:
-        name = subtree.children[0].value
-        spellname = subtree.children[1].value
+        name = subtree.caster
+        spellname = subtree.spellname
 
         if spellname in app.hits_consumable.COOLDOWNS:
             app.hits_consumable.update(name, spellname, timestamp_unix)
 
         return True
     elif subtree.data == TreeType.IS_IMMUNE_ABILITY_LINE:
-        targetname = subtree.children[0].value
-        name = subtree.children[1].value
-        spellname = subtree.children[2].value
+        targetname = subtree.targetname
+        name = subtree.caster
+        spellname = subtree.spellname
         if spellname in app.hits_consumable.COOLDOWNS:
             app.hits_consumable.update(name, spellname, timestamp_unix)
         return True
 
     elif subtree.data == TreeType.IMMUNE_LINE:
+        # attacker = subtree.attacker
+        # target = subtree.target
         return True
     elif subtree.data == TreeType.AFFLICTED_LINE:
         targetname = subtree.targetname
@@ -2394,8 +2399,8 @@ def process_tree(app: App, line: str, tree: LineTree):
         # name = subtree.entity_name
         return True
     elif subtree.data == TreeType.IS_ABSORBED_ABILITY_LINE:
-        name = subtree.children[0].value
-        spellname = subtree.children[1].value
+        name = subtree.caster
+        spellname = subtree.spellname
 
         if spellname == "Corrupted Healing":
             app.nef_corrupted_healing.add(line)
@@ -2418,14 +2423,16 @@ def process_tree(app: App, line: str, tree: LineTree):
             app.nef_corrupted_healing.add(line)
         return True
     elif subtree.data == TreeType.ABSORBS_ALL_LINE:
+        # attacker = subtree.attacker
+        # absorber = subtree.absorber
         return True
     elif subtree.data == TreeType.FAILS_TO_DISPEL_LINE:
         return True
     elif subtree.data == TreeType.PET_BEGINS_EATING_LINE:
         return True
     elif subtree.data == TreeType.IS_DISMISSED_LINE:
-        name = subtree.children[0].value
-        petname = subtree.children[1].value
+        name = subtree.owner_name
+        petname = subtree.pet_name
         app.pet_handler.add(name, petname)
         return True
     elif subtree.data == TreeType.IS_DISMISSED_LINE2:
@@ -2440,8 +2447,8 @@ def process_tree(app: App, line: str, tree: LineTree):
         app.pet_handler.add(name, petname)
         return True
     elif subtree.data == TreeType.REMOVED_LINE:
-        name = subtree.children[0].value
-        spellname = subtree.children[1].value
+        name = subtree.name
+        spellname = subtree.spellname
 
         if name == "Princess Huhuran" and spellname == "Frenzy":
             app.huhuran.add(line)
@@ -2506,17 +2513,21 @@ def process_tree(app: App, line: str, tree: LineTree):
         # item = subtree.item
         return True
     elif subtree.data == TreeType.IS_KILLED_LINE:
+        # victim = subtree.victim
+        # killer = subtree.killer
         return True
     elif subtree.data == TreeType.PERFORMS_ON_LINE:
-        name = subtree.children[0].value
-        spellname = subtree.children[1].value
-        targetname = subtree.children[2].value
+        name = subtree.performer
+        spellname = subtree.spellname
+        targetname = subtree.targetname
 
         if consumable_item := RAWSPELLNAME2CONSUMABLE.get((subtree.data, spellname)):
             app.player[name][consumable_item.name] += 1
 
         return True
     elif subtree.data == TreeType.PERFORMS_LINE:
+        # performer = subtree.performer
+        # spellname = subtree.spellname
         return True
     elif subtree.data == TreeType.BEGINS_TO_PERFORM_LINE:
         name = subtree.name
@@ -2574,6 +2585,9 @@ def process_tree(app: App, line: str, tree: LineTree):
         )
         return True
     elif subtree.data == TreeType.IS_REFLECTED_BACK_LINE:
+        # caster = subtree.caster
+        # spellname = subtree.spellname
+        # reflector = subtree.reflector
         return True
     elif subtree.data == TreeType.MISSES_ABILITY_LINE:
         # caster = subtree.caster
@@ -2581,6 +2595,8 @@ def process_tree(app: App, line: str, tree: LineTree):
         # target = subtree.target
         return True
     elif subtree.data == TreeType.FALLS_LINE:
+        # name = subtree.name
+        # amount = subtree.amount
         return True
     elif subtree.data == TreeType.NONE_LINE:
         return True

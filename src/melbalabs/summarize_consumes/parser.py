@@ -48,7 +48,6 @@ class TreeType(enum.Enum):
     HEALS_LINE = "heals_line"
     FADES_LINE = "fades_line"
     SUFFERS_LINE_SOURCE = "suffers_line_source"
-    SUFFERS_LINE = "suffers_line"
     SUFFERS_LINE_NOSOURCE = "suffers_line_nosource"
     BEGINS_TO_CAST_LINE = "begins_to_cast_line"
     AFFLICTED_LINE = "afflicted_line"
@@ -258,6 +257,141 @@ class SlainLineTree:
 
 
 @dataclasses.dataclass
+class IsDismissedLineTree:
+    data: Literal[TreeType.IS_DISMISSED_LINE]
+    owner_name: str
+    pet_name: str
+
+
+@dataclasses.dataclass
+class AbsorbsAllLineTree:
+    data: Literal[TreeType.ABSORBS_ALL_LINE]
+    attacker: str
+    absorber: str
+
+
+@dataclasses.dataclass
+class InterruptsLineTree:
+    data: Literal[TreeType.INTERRUPTS_LINE]
+    interrupter: str
+    targetname: str
+    spellname: str
+
+
+@dataclasses.dataclass
+class EquippedDurabilityLossLineTree:
+    data: Literal[TreeType.EQUIPPED_DURABILITY_LOSS_LINE]
+
+
+@dataclasses.dataclass
+class PetBeginsEatingLineTree:
+    data: Literal[TreeType.PET_BEGINS_EATING_LINE]
+
+
+@dataclasses.dataclass
+class SlaysLineTree:
+    data: Literal[TreeType.SLAYS_LINE]
+
+
+@dataclasses.dataclass
+class LavaLineTree:
+    data: Literal[TreeType.LAVA_LINE]
+
+
+@dataclasses.dataclass
+class NoneLineTree:
+    data: Literal[TreeType.NONE_LINE]
+
+
+@dataclasses.dataclass
+class CombatantInfoLineTree:
+    data: Literal[TreeType.COMBATANT_INFO_LINE]
+
+
+@dataclasses.dataclass
+class IsReflectedBackLineTree:
+    data: Literal[TreeType.IS_REFLECTED_BACK_LINE]
+    caster: str
+    spellname: str
+    reflector: str
+
+
+@dataclasses.dataclass
+class IsKilledLineTree:
+    data: Literal[TreeType.IS_KILLED_LINE]
+    victim: str
+    killer: str
+
+
+@dataclasses.dataclass
+class IsAbsorbedAbilityLineTree:
+    data: Literal[TreeType.IS_ABSORBED_ABILITY_LINE]
+    caster: str
+    spellname: str
+    target: str
+
+
+@dataclasses.dataclass
+class FallsLineTree:
+    data: Literal[TreeType.FALLS_LINE]
+    name: str
+    amount: str
+
+
+@dataclasses.dataclass
+class PerformsOnLineTree:
+    data: Literal[TreeType.PERFORMS_ON_LINE]
+    performer: str
+    spellname: str
+    targetname: str
+
+
+@dataclasses.dataclass
+class PerformsLineTree:
+    data: Literal[TreeType.PERFORMS_LINE]
+    performer: str
+    spellname: str
+
+
+@dataclasses.dataclass
+class ParryAbilityLineTree:
+    data: Literal[TreeType.PARRY_ABILITY_LINE]
+    caster: str
+    spellname: str
+    target: str
+
+
+@dataclasses.dataclass
+class ImmuneLineTree:
+    data: Literal[TreeType.IMMUNE_LINE]
+    attacker: str
+    target: str
+
+
+@dataclasses.dataclass
+class ImmuneAbilityLineTree:
+    data: Literal[TreeType.IMMUNE_ABILITY_LINE]
+    caster: str
+    spellname: str
+    target: str
+
+
+@dataclasses.dataclass
+class IsImmuneAbilityLineTree:
+    data: Literal[TreeType.IS_IMMUNE_ABILITY_LINE]
+    targetname: str
+    caster: str
+    spellname: str
+
+
+@dataclasses.dataclass
+class RemovedLineTree:
+    data: Literal[TreeType.REMOVED_LINE]
+    name: str
+    spellname: str
+
+
+@dataclasses.dataclass
 class CausesDamageLineTree:
     data: Literal[TreeType.CAUSES_DAMAGE_LINE]
     caster: str
@@ -463,6 +597,26 @@ class LineTree:
         BeginsToPerformLineTree,
         DodgeAbilityLineTree,
         CausesDamageLineTree,
+        RemovedLineTree,
+        ImmuneAbilityLineTree,
+        ImmuneLineTree,
+        IsImmuneAbilityLineTree,
+        ParryAbilityLineTree,
+        PerformsOnLineTree,
+        PerformsLineTree,
+        FallsLineTree,
+        IsAbsorbedAbilityLineTree,
+        IsKilledLineTree,
+        IsReflectedBackLineTree,
+        CombatantInfoLineTree,
+        NoneLineTree,
+        LavaLineTree,
+        SlaysLineTree,
+        PetBeginsEatingLineTree,
+        EquippedDurabilityLossLineTree,
+        InterruptsLineTree,
+        AbsorbsAllLineTree,
+        IsDismissedLineTree,
         FailsToDispelLineTree,
         HitsAbilityLineTree,
         HitsAutoattackLineTree,
@@ -901,6 +1055,229 @@ class Parser2:
             data=TreeType.LINE,
             timestamp=self.timestamp_tree,
             subtree=self.subtree_causes_damage_line,
+        )
+
+        # removed_line cache
+        self.subtree_removed_line = RemovedLineTree(
+            data=TreeType.REMOVED_LINE,
+            name=invalid_player_name,
+            spellname=invalid_raw_spell_name,
+        )
+        self.removed_line_tree = LineTree(
+            data=TreeType.LINE,
+            timestamp=self.timestamp_tree,
+            subtree=self.subtree_removed_line,
+        )
+
+        # immune_ability_line cache
+        self.subtree_immune_ability_line = ImmuneAbilityLineTree(
+            data=TreeType.IMMUNE_ABILITY_LINE,
+            caster=invalid_player_name,
+            spellname=invalid_raw_spell_name,
+            target=invalid_player_name,
+        )
+        self.immune_ability_line_tree = LineTree(
+            data=TreeType.LINE,
+            timestamp=self.timestamp_tree,
+            subtree=self.subtree_immune_ability_line,
+        )
+
+        # immune_line cache
+        self.subtree_immune_line = ImmuneLineTree(
+            data=TreeType.IMMUNE_LINE,
+            attacker=invalid_player_name,
+            target=invalid_player_name,
+        )
+        self.immune_line_tree = LineTree(
+            data=TreeType.LINE,
+            timestamp=self.timestamp_tree,
+            subtree=self.subtree_immune_line,
+        )
+
+        # is_immune_ability_line cache
+        self.subtree_is_immune_ability_line = IsImmuneAbilityLineTree(
+            data=TreeType.IS_IMMUNE_ABILITY_LINE,
+            targetname=invalid_player_name,
+            caster=invalid_player_name,
+            spellname=invalid_raw_spell_name,
+        )
+        self.is_immune_ability_line_tree = LineTree(
+            data=TreeType.LINE,
+            timestamp=self.timestamp_tree,
+            subtree=self.subtree_is_immune_ability_line,
+        )
+
+        # parry_ability_line cache
+        self.subtree_parry_ability_line = ParryAbilityLineTree(
+            data=TreeType.PARRY_ABILITY_LINE,
+            caster=invalid_player_name,
+            spellname=invalid_raw_spell_name,
+            target=invalid_player_name,
+        )
+        self.parry_ability_line_tree = LineTree(
+            data=TreeType.LINE,
+            timestamp=self.timestamp_tree,
+            subtree=self.subtree_parry_ability_line,
+        )
+
+        # performs_on_line cache
+        self.subtree_performs_on_line = PerformsOnLineTree(
+            data=TreeType.PERFORMS_ON_LINE,
+            performer=invalid_player_name,
+            spellname=invalid_raw_spell_name,
+            targetname=invalid_player_name,
+        )
+        self.performs_on_line_tree = LineTree(
+            data=TreeType.LINE,
+            timestamp=self.timestamp_tree,
+            subtree=self.subtree_performs_on_line,
+        )
+
+        # performs_line cache
+        self.subtree_performs_line = PerformsLineTree(
+            data=TreeType.PERFORMS_LINE,
+            performer=invalid_player_name,
+            spellname=invalid_raw_spell_name,
+        )
+        self.performs_line_tree = LineTree(
+            data=TreeType.LINE,
+            timestamp=self.timestamp_tree,
+            subtree=self.subtree_performs_line,
+        )
+
+        # falls_line cache
+        self.subtree_falls_line = FallsLineTree(
+            data=TreeType.FALLS_LINE,
+            name=invalid_player_name,
+            amount="0",
+        )
+        self.falls_line_tree = LineTree(
+            data=TreeType.LINE,
+            timestamp=self.timestamp_tree,
+            subtree=self.subtree_falls_line,
+        )
+
+        # is_absorbed_ability_line cache
+        self.subtree_is_absorbed_ability_line = IsAbsorbedAbilityLineTree(
+            data=TreeType.IS_ABSORBED_ABILITY_LINE,
+            caster=invalid_player_name,
+            spellname=invalid_raw_spell_name,
+            target=invalid_player_name,
+        )
+        self.is_absorbed_ability_line_tree = LineTree(
+            data=TreeType.LINE,
+            timestamp=self.timestamp_tree,
+            subtree=self.subtree_is_absorbed_ability_line,
+        )
+
+        # is_killed_line cache
+        self.subtree_is_killed_line = IsKilledLineTree(
+            data=TreeType.IS_KILLED_LINE,
+            victim=invalid_player_name,
+            killer=invalid_player_name,
+        )
+        self.is_killed_line_tree = LineTree(
+            data=TreeType.LINE,
+            timestamp=self.timestamp_tree,
+            subtree=self.subtree_is_killed_line,
+        )
+
+        # is_reflected_back_line cache
+        self.subtree_is_reflected_back_line = IsReflectedBackLineTree(
+            data=TreeType.IS_REFLECTED_BACK_LINE,
+            caster=invalid_player_name,
+            spellname=invalid_raw_spell_name,
+            reflector=invalid_player_name,
+        )
+        self.is_reflected_back_line_tree = LineTree(
+            data=TreeType.LINE,
+            timestamp=self.timestamp_tree,
+            subtree=self.subtree_is_reflected_back_line,
+        )
+
+        # combatant_info_line cache
+        self.subtree_combatant_info_line = CombatantInfoLineTree(data=TreeType.COMBATANT_INFO_LINE)
+        self.combatant_info_line_tree = LineTree(
+            data=TreeType.LINE,
+            timestamp=self.timestamp_tree,
+            subtree=self.subtree_combatant_info_line,
+        )
+
+        # none_line cache
+        self.subtree_none_line = NoneLineTree(data=TreeType.NONE_LINE)
+        self.none_line_tree = LineTree(
+            data=TreeType.LINE,
+            timestamp=self.timestamp_tree,
+            subtree=self.subtree_none_line,
+        )
+
+        # lava_line cache
+        self.subtree_lava_line = LavaLineTree(data=TreeType.LAVA_LINE)
+        self.lava_line_tree = LineTree(
+            data=TreeType.LINE,
+            timestamp=self.timestamp_tree,
+            subtree=self.subtree_lava_line,
+        )
+
+        # slays_line cache
+        self.subtree_slays_line = SlaysLineTree(data=TreeType.SLAYS_LINE)
+        self.slays_line_tree = LineTree(
+            data=TreeType.LINE,
+            timestamp=self.timestamp_tree,
+            subtree=self.subtree_slays_line,
+        )
+
+        # pet_begins_eating_line cache
+        self.subtree_pet_begins_eating_line = PetBeginsEatingLineTree(
+            data=TreeType.PET_BEGINS_EATING_LINE
+        )
+        self.pet_begins_eating_line_tree = LineTree(
+            data=TreeType.LINE,
+            timestamp=self.timestamp_tree,
+            subtree=self.subtree_pet_begins_eating_line,
+        )
+
+        # equipped_durability_loss_line cache
+        self.subtree_equipped_durability_loss_line = EquippedDurabilityLossLineTree(
+            data=TreeType.EQUIPPED_DURABILITY_LOSS_LINE
+        )
+        self.equipped_durability_loss_line_tree = LineTree(
+            data=TreeType.LINE,
+            timestamp=self.timestamp_tree,
+            subtree=self.subtree_equipped_durability_loss_line,
+        )
+
+        # interrupts_line cache
+        self.subtree_interrupts_line = InterruptsLineTree(
+            data=TreeType.INTERRUPTS_LINE,
+            interrupter="",
+            targetname="",
+            spellname="",
+        )
+        self.interrupts_line_tree = LineTree(
+            data=TreeType.LINE,
+            timestamp=self.timestamp_tree,
+            subtree=self.subtree_interrupts_line,
+        )
+
+        # absorbs_all_line cache
+        self.subtree_absorbs_all_line = AbsorbsAllLineTree(
+            data=TreeType.ABSORBS_ALL_LINE, attacker="", absorber=""
+        )
+        self.absorbs_all_line_tree = LineTree(
+            data=TreeType.LINE,
+            timestamp=self.timestamp_tree,
+            subtree=self.subtree_absorbs_all_line,
+        )
+
+        # is_dismissed_line cache
+        self.subtree_is_dismissed_line = IsDismissedLineTree(
+            data=TreeType.IS_DISMISSED_LINE, owner_name="", pet_name=""
+        )
+        self.is_dismissed_line_tree = LineTree(
+            data=TreeType.LINE,
+            timestamp=self.timestamp_tree,
+            subtree=self.subtree_is_dismissed_line,
         )
 
         # gains_health_line cache
@@ -1724,13 +2101,11 @@ class Parser2:
                     p_removed = line.rfind(" is removed.")
                     spellname_removed = line[spell_start:p_removed]
 
-                    # Construct the simple two-child tree.
-                    subtree = Tree(
-                        data=TreeType.REMOVED_LINE,
-                        children=[Token("t", caster_name), Token("t", spellname_removed)],
-                    )
+                    # Construct the tree using the cache
+                    self.subtree_removed_line.name = caster_name
+                    self.subtree_removed_line.spellname = spellname_removed
 
-                    return LineTree(data=TreeType.LINE, timestamp=timestamp, subtree=subtree)
+                    return self.removed_line_tree
 
             anchor1 = " 's "
             anchor2 = " fails. "
@@ -1750,16 +2125,12 @@ class Parser2:
                     target_end = -len(final_anchor)
                     targetname_immune_ability = line[target_start:target_end]
 
-                    subtree = Tree(
-                        data=TreeType.IMMUNE_ABILITY_LINE,
-                        children=[
-                            Token("t", caster_name),
-                            Token("t", spellname_immune),
-                            Token("t", targetname_immune_ability),
-                        ],
-                    )
+                    # Construct the tree using the cache
+                    self.subtree_immune_ability_line.caster = caster_name
+                    self.subtree_immune_ability_line.spellname = spellname_immune
+                    self.subtree_immune_ability_line.target = targetname_immune_ability
 
-                    return LineTree(data=TreeType.LINE, timestamp=timestamp, subtree=subtree)
+                    return self.immune_ability_line_tree
 
             # Find the two key anchors in sequential order.
             p_s = line.find(" 's ", p_ts_end)
@@ -1778,16 +2149,12 @@ class Parser2:
                 target_end = -2  # Removes exactly ".\n"
                 targetname_parry_ability = line[target_start:target_end]
 
-                subtree = Tree(
-                    data=TreeType.PARRY_ABILITY_LINE,
-                    children=[
-                        Token("t", caster_name),
-                        Token("t", spellname_parry_ability),
-                        Token("t", targetname_parry_ability),
-                    ],
-                )
+                # Construct the tree using the cache
+                self.subtree_parry_ability_line.caster = caster_name
+                self.subtree_parry_ability_line.spellname = spellname_parry_ability
+                self.subtree_parry_ability_line.target = targetname_parry_ability
 
-                return LineTree(data=TreeType.LINE, timestamp=timestamp, subtree=subtree)
+                return self.parry_ability_line_tree
 
             middle_anchor = " attacks but "
             final_anchor_with_newline = " is immune.\n"
@@ -1810,12 +2177,11 @@ class Parser2:
                     target_end = -len(final_anchor_with_newline)
                     target = line[target_start:target_end]
 
-                    subtree = Tree(
-                        data=TreeType.IMMUNE_LINE,
-                        children=[Token("t", attacker), Token("t", target)],
-                    )
+                    # Construct the tree using the cache
+                    self.subtree_immune_line.attacker = attacker
+                    self.subtree_immune_line.target = target
 
-                    return LineTree(data=TreeType.LINE, timestamp=timestamp, subtree=subtree)
+                    return self.immune_line_tree
 
             p_performs = line.find(" performs ", p_ts_end)
 
@@ -1831,15 +2197,12 @@ class Parser2:
                     spellname_performs_on = line[p_performs + 10 : p_on]  # len(' performs ')
                     targetname_performs_on = line[p_on + 4 : -2]  # len(' on '), removes ".\n"
 
-                    subtree = Tree(
-                        data=TreeType.PERFORMS_ON_LINE,
-                        children=[
-                            Token("t", performer),
-                            Token("t", spellname_performs_on),
-                            Token("t", targetname_performs_on),
-                        ],
-                    )
-                    return LineTree(data=TreeType.LINE, timestamp=timestamp, subtree=subtree)
+                    # Construct the tree using the cache
+                    self.subtree_performs_on_line.performer = performer
+                    self.subtree_performs_on_line.spellname = spellname_performs_on
+                    self.subtree_performs_on_line.targetname = targetname_performs_on
+
+                    return self.performs_on_line_tree
 
                 else:
                     # performs_line (less specific, potentially dangerous)
@@ -1852,11 +2215,11 @@ class Parser2:
                         p_performs + 10 : -2
                     ]  # len(' performs '), removes ".\n"
 
-                    subtree = Tree(
-                        data=TreeType.PERFORMS_LINE,
-                        children=[Token("t", performer), Token("t", spellname_performs)],
-                    )
-                    return LineTree(data=TreeType.LINE, timestamp=timestamp, subtree=subtree)
+                    # Construct the tree using the cache
+                    self.subtree_performs_line.performer = performer
+                    self.subtree_performs_line.spellname = spellname_performs
+
+                    return self.performs_line_tree
 
             middle_anchor = " falls and loses "
             final_anchor_with_newline = " health.\n"
@@ -1875,11 +2238,11 @@ class Parser2:
                     amount_end = -len(final_anchor_with_newline)
                     amount = line[amount_start:amount_end]
 
-                    subtree = Tree(
-                        data=TreeType.FALLS_LINE, children=[Token("t", name), Token("t", amount)]
-                    )
+                    # Construct the tree using the cache
+                    self.subtree_falls_line.name = name
+                    self.subtree_falls_line.amount = amount
 
-                    return LineTree(data=TreeType.LINE, timestamp=timestamp, subtree=subtree)
+                    return self.falls_line_tree
 
             anchor1 = " is immune to "
             anchor2 = " 's "
@@ -1901,16 +2264,12 @@ class Parser2:
                 spellname_is_immune = line[spell_start:spell_end]
 
                 # Construct the tree with 3 children in the correct order.
-                subtree = Tree(
-                    data=TreeType.IS_IMMUNE_ABILITY_LINE,
-                    children=[
-                        Token("t", targetname_is_immune),
-                        Token("t", caster_name),
-                        Token("t", spellname_is_immune),
-                    ],
-                )
+                # Construct the tree using the cache
+                self.subtree_is_immune_ability_line.targetname = targetname_is_immune
+                self.subtree_is_immune_ability_line.caster = caster_name
+                self.subtree_is_immune_ability_line.spellname = spellname_is_immune
 
-                return LineTree(data=TreeType.LINE, timestamp=timestamp, subtree=subtree)
+                return self.is_immune_ability_line_tree
 
             p_s = line.find(" 's ", p_ts_end)
             p_evaded = line.find(" was evaded by ", p_s)
@@ -1970,16 +2329,12 @@ class Parser2:
                 target_end = -2  # Removes exactly ".\n"
                 targetname_is_absorbed = line[target_start:target_end]
 
-                subtree = Tree(
-                    data=TreeType.IS_ABSORBED_ABILITY_LINE,
-                    children=[
-                        Token("t", caster_name),
-                        Token("t", spellname_is_absorbed),
-                        Token("t", targetname_is_absorbed),
-                    ],
-                )
+                # Construct the tree using the cache
+                self.subtree_is_absorbed_ability_line.caster = caster_name
+                self.subtree_is_absorbed_ability_line.spellname = spellname_is_absorbed
+                self.subtree_is_absorbed_ability_line.target = targetname_is_absorbed
 
-                return LineTree(data=TreeType.LINE, timestamp=timestamp, subtree=subtree)
+                return self.is_absorbed_ability_line_tree
 
             p_absorbs = line.find(" absorbs ", p_ts_end)
             p_s = line.find(" 's ", p_absorbs)
@@ -2057,11 +2412,11 @@ class Parser2:
                 killer_end = -2  # Removes exactly ".\n"
                 killer = line[killer_start:killer_end]
 
-                subtree = Tree(
-                    data=TreeType.IS_KILLED_LINE, children=[Token("t", victim), Token("t", killer)]
-                )
+                # Construct the tree using the cache
+                self.subtree_is_killed_line.victim = victim
+                self.subtree_is_killed_line.killer = killer
 
-                return LineTree(data=TreeType.LINE, timestamp=timestamp, subtree=subtree)
+                return self.is_killed_line_tree
 
             final_anchor_with_newline = " is destroyed.\n"
 
@@ -2093,26 +2448,20 @@ class Parser2:
                 reflector_end = -2  # Removes exactly ".\n"
                 reflector_name = line[reflector_start:reflector_end]
 
-                subtree = Tree(
-                    data=TreeType.IS_REFLECTED_BACK_LINE,
-                    children=[
-                        Token("t", caster_name),
-                        Token("t", spellname_is_reflected),
-                        Token("t", reflector_name),
-                    ],
-                )
+                # Construct the tree using the cache
+                self.subtree_is_reflected_back_line.caster = caster_name
+                self.subtree_is_reflected_back_line.spellname = spellname_is_reflected
+                self.subtree_is_reflected_back_line.reflector = reflector_name
 
-                return LineTree(data=TreeType.LINE, timestamp=timestamp, subtree=subtree)
+                return self.is_reflected_back_line_tree
 
             if line.find("COMBATANT_INFO: ", p_ts_end + 2, p_ts_end + 2 + 16) != -1:
                 timestamp = self.parse_ts(line, p_ts_end)
-                subtree = Tree(data=TreeType.COMBATANT_INFO_LINE, children=[])
-                return LineTree(data=TreeType.LINE, timestamp=timestamp, subtree=subtree)
+                return self.combatant_info_line_tree
 
             if line.find("NONE", p_ts_end + 2, p_ts_end + 2 + 4) != -1:
                 timestamp = self.parse_ts(line, p_ts_end)
-                subtree = Tree(data=TreeType.NONE_LINE, children=[])
-                return LineTree(data=TreeType.LINE, timestamp=timestamp, subtree=subtree)
+                return self.none_line_tree
 
             if line.find(" fails to dispel ", p_ts_end + 2) != -1:
                 timestamp = self.parse_ts(line, p_ts_end)
@@ -2120,23 +2469,19 @@ class Parser2:
 
             if line.find(" health for swimming in lava.", p_ts_end + 2) != -1:
                 timestamp = self.parse_ts(line, p_ts_end)
-                subtree = Tree(data=TreeType.LAVA_LINE, children=[])
-                return LineTree(data=TreeType.LINE, timestamp=timestamp, subtree=subtree)
+                return self.lava_line_tree
 
             if line.find(" slays ", p_ts_end + 2) != -1 and line.endswith("!\n"):
                 timestamp = self.parse_ts(line, p_ts_end)
-                subtree = Tree(data=TreeType.SLAYS_LINE, children=[])
-                return LineTree(data=TreeType.LINE, timestamp=timestamp, subtree=subtree)
+                return self.slays_line_tree
 
             if line.find(" pet begins eating a ", p_ts_end + 2) != -1:
                 timestamp = self.parse_ts(line, p_ts_end)
-                subtree = Tree(data=TreeType.PET_BEGINS_EATING_LINE, children=[])
-                return LineTree(data=TreeType.LINE, timestamp=timestamp, subtree=subtree)
+                return self.pet_begins_eating_line_tree
 
             if line.endswith(" 's equipped items suffer a 10% durability loss.\n"):
                 timestamp = self.parse_ts(line, p_ts_end)
-                subtree = Tree(data=TreeType.EQUIPPED_DURABILITY_LOSS_LINE, children=[])
-                return LineTree(data=TreeType.LINE, timestamp=timestamp, subtree=subtree)
+                return self.equipped_durability_loss_line_tree
 
             p_s = line.find(" 's ", p_ts_end)
             p_blocked = line.find(" was blocked by ", p_s)
@@ -2192,16 +2537,12 @@ class Parser2:
                 spell_end = -2  # Removes exactly ".\n"
                 spellname_interrupts = line[spell_start:spell_end]
 
-                subtree = Tree(
-                    data=TreeType.INTERRUPTS_LINE,
-                    children=[
-                        Token("t", interrupter_name),
-                        Token("t", targetname_interrupts),
-                        Token("t", spellname_interrupts),
-                    ],
-                )
+                # Construct the tree using the cache
+                self.subtree_interrupts_line.interrupter = interrupter_name
+                self.subtree_interrupts_line.targetname = targetname_interrupts
+                self.subtree_interrupts_line.spellname = spellname_interrupts
 
-                return LineTree(data=TreeType.LINE, timestamp=timestamp, subtree=subtree)
+                return self.interrupts_line_tree
 
             middle_anchor = " attacks. "
             final_anchor_with_newline = " absorbs all the damage.\n"
@@ -2219,12 +2560,11 @@ class Parser2:
                     absorber_end = -len(final_anchor_with_newline)
                     absorber = line[absorber_start:absorber_end]
 
-                    subtree = Tree(
-                        data=TreeType.ABSORBS_ALL_LINE,
-                        children=[Token("t", attacker), Token("t", absorber)],
-                    )
+                    # Construct the tree using the cache
+                    self.subtree_absorbs_all_line.attacker = attacker
+                    self.subtree_absorbs_all_line.absorber = absorber
 
-                    return LineTree(data=TreeType.LINE, timestamp=timestamp, subtree=subtree)
+                    return self.absorbs_all_line_tree
 
             anchor1 = " gains "
             anchor2 = " Happiness from "
@@ -2274,11 +2614,11 @@ class Parser2:
 
                     pet_name = line[pet_start:p_dismissed]
 
-                    subtree = Tree(
-                        data=TreeType.IS_DISMISSED_LINE,
-                        children=[Token("t", owner_name), Token("t", pet_name)],
-                    )
-                    return LineTree(data=TreeType.LINE, timestamp=timestamp, subtree=subtree)
+                    # Construct the tree using the cache
+                    self.subtree_is_dismissed_line.owner_name = owner_name
+                    self.subtree_is_dismissed_line.pet_name = pet_name
+
+                    return self.is_dismissed_line_tree
 
         except Exception as e:
             msg = f"{e} {line} \n"
