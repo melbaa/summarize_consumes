@@ -1,13 +1,11 @@
 from __future__ import annotations
-from typing import Literal
-
 
 import dataclasses
 import enum
 import re
+from typing import Literal
 from typing import Optional
 from typing import Union
-
 
 type PlayerName = str
 type PetName = str
@@ -108,7 +106,6 @@ class ActionValue(enum.Enum):
     CRITS = "crits"
     BLOCK = "block"
     GLANCE = "glance"
-
 
 
 @dataclasses.dataclass
@@ -542,7 +539,6 @@ class ConsolidatedPetTree:
 class ConsolidatedLineTree:
     data: Literal[TreeType.CONSOLIDATED_LINE]
     children: list[ConsolidatedPetTree] = dataclasses.field(default_factory=list)
-
 
 
 @dataclasses.dataclass
@@ -2645,7 +2641,7 @@ class Parser2:
                     return self.is_dismissed_line_tree
 
             # 7/14 20:33:44.437  Titicacal 's Drain Mana drains 139 Mana from Obsidian Eradicator. Titicacal gains 139 Mana.
-            #7/14 00:00:03.782  Solnius 's Sanctum Mind Decay drains 135 Mana from Interlan.
+            # 7/14 00:00:03.782  Solnius 's Sanctum Mind Decay drains 135 Mana from Interlan.
 
             p_drains = line.find(" drains ", p_ts_end)
             if p_drains != -1:

@@ -2,12 +2,11 @@ import functools
 import json
 import logging
 import os
+from typing import NewType
 from typing import Protocol
 from typing import TypedDict
-from typing import NewType
 
 import requests
-
 
 ItemID = NewType("ItemID", int)
 ItemPrice = NewType("ItemPrice", int)

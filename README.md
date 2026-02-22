@@ -7,6 +7,8 @@ The summary includes:
 * consumable prices if data is available. First an attempt is made to download prices from the web. If that fails, prices are read from the local prices.json
 * sunder summary (for superwow logs)
 * cooldowns, resurrects, racial abilities and trinkets used
+* procs and extra attacks summary
+* auto attacks summary (hits, crits, parries, misses, dodges, blocks, glances)
 * annihilator log
 * flame buffet (dragonling) log
 * details about some boss fights
@@ -22,7 +24,10 @@ The summary includes:
   * kt frostblasts
 * pets found
 * classes detected
-* ability timeline
+* abilities timeline per boss fight incl. major cooldowns (optional)
+* damage done (optional)
+* healing (optional)
+* damage taken (opional)
 
 It is assumed that the combat log was generated while a logging addon such as [AdvancedVanillaCombatLog](https://github.com/YamaYAML/LegacyPlayersV4/tree/main/Addons/AdvancedVanillaCombatLog) or [SuperWowCombatLogger](https://github.com/pepopo978/SuperWowCombatLogger) was active.<br>
 Check out [the examples directory](https://github.com/melbaa/summarize_consumes/tree/master/examples) for summaries of various raids.<br>
