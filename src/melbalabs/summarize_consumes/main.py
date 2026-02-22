@@ -2117,8 +2117,8 @@ def process_tree(app: App, line: str, tree: LineTree):
         return True
     elif subtree.data == TreeType.DRAINS_MANA_LINE:
         return True
-    elif subtree.data == TreeType.DRAINS_MANA_LINE2:
-        return True
+    # elif subtree.data == TreeType.DRAINS_MANA_LINE2:
+    #    return True
     elif subtree.data == TreeType.BEGINS_TO_CAST_LINE:
         name = subtree.name
         spellname = subtree.spellname
@@ -2435,12 +2435,12 @@ def process_tree(app: App, line: str, tree: LineTree):
         petname = subtree.pet_name
         app.pet_handler.add(name, petname)
         return True
-    elif subtree.data == TreeType.IS_DISMISSED_LINE2:
-        name, petname = subtree.children[0].value.split(" ", 1)
-        if name[-2:] == "'s":
-            name = name[:-2]
-        app.pet_handler.add(name, petname)
-        return True
+    # elif subtree.data == TreeType.IS_DISMISSED_LINE2:
+    #    name, petname = subtree.children[0].value.split(" ", 1)
+    #    if name[-2:] == "'s":
+    #        name = name[:-2]
+    #    app.pet_handler.add(name, petname)
+    #    return True
     elif subtree.data == TreeType.GAINS_HAPPINESS_LINE:
         petname = subtree.petname
         name = subtree.owner_name

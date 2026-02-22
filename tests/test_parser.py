@@ -1872,4 +1872,3 @@ def test_exists_dataclass_for_each_tree_type():
 
     extras = all_dataclasses - union_args - ignore_types
     assert not extras, f"Dataclasses not in LineTree: {extras}"
-

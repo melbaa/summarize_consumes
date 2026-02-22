@@ -6,7 +6,6 @@ import dataclasses
 import enum
 import re
 from typing import Optional
-from typing import Sequence
 from typing import Union
 
 
@@ -98,9 +97,9 @@ class TreeType(enum.Enum):
     GAINS_HAPPINESS_LINE = "gains_happiness_line"
     IS_DISMISSED_LINE = "is_dismissed_line"
     DRAINS_MANA_LINE = "drains_mana_line"
-    DRAINS_MANA_LINE2 = "drains_mana_line2"
     INTERRUPTS_LINE = "interrupts_line"
-    IS_DISMISSED_LINE2 = "is_dismissed_line2"
+    # IS_DISMISSED_LINE2 = "is_dismissed_line2"
+    # DRAINS_MANA_LINE2 = "drains_mana_line2"
 
 
 @enum.verify(enum.UNIQUE)
@@ -110,22 +109,6 @@ class ActionValue(enum.Enum):
     BLOCK = "block"
     GLANCE = "glance"
 
-
-TreeChild = Union[
-    Token,
-    "Tree",
-]
-
-
-# We need Tree to declare that its data is of type TreeType
-class Tree[ChildType: TreeChild]:
-    __slots__ = ("data", "children")
-    data: TreeType
-    children: Sequence[ChildType]
-
-    def __init__(self, data: TreeType, children: Sequence[ChildType]):
-        self.data = data
-        self.children = children
 
 
 @dataclasses.dataclass
@@ -517,6 +500,16 @@ class CastsLineTree:
 
 
 @dataclasses.dataclass
+class DrainsManaLineTree:
+    data: Literal[TreeType.DRAINS_MANA_LINE]
+    caster: PlayerName
+    spellname: RawSpellName
+    mana: str
+    targetname: PlayerName
+    gains: str
+
+
+@dataclasses.dataclass
 class GainsExtraAttacksLineTree:
     data: Literal[TreeType.GAINS_EXTRA_ATTACKS_LINE]
     name: PlayerName
@@ -545,7 +538,11 @@ class ConsolidatedPetTree:
     petname: PetName
 
 
-Subtree = Tree[TreeChild]
+@dataclasses.dataclass
+class ConsolidatedLineTree:
+    data: Literal[TreeType.CONSOLIDATED_LINE]
+    children: list[ConsolidatedPetTree] = dataclasses.field(default_factory=list)
+
 
 
 @dataclasses.dataclass
@@ -564,7 +561,6 @@ class LineTree:
     data: Literal[TreeType.LINE]
     timestamp: TimestampTree
     subtree: Union[
-        Subtree,
         GainsLineTree,
         GainsManaLineTree,
         GainsHealthLineTree,
@@ -582,6 +578,7 @@ class LineTree:
         ParryLineTree,
         ReflectsDamageLineTree,
         IsDestroyedLineTree,
+        DrainsManaLineTree,
         WasEvadedLineTree,
         SlainLineTree,
         GainsEnergyLineTree,
@@ -590,6 +587,7 @@ class LineTree:
         BlockAbilityLineTree,
         ResistLineTree,
         UsesLineTree,
+        ConsolidatedLineTree,
         DodgesLineTree,
         MissesAbilityLineTree,
         MissesLineTree,
@@ -1294,6 +1292,32 @@ class Parser2:
             subtree=self.subtree_gains_health_line,
         )
 
+        # drains_mana_line cache
+        self.subtree_drains_mana_line = DrainsManaLineTree(
+            data=TreeType.DRAINS_MANA_LINE,
+            caster=invalid_player_name,
+            spellname=invalid_raw_spell_name,
+            mana=invalid_stackcount,
+            targetname=invalid_player_name,
+            gains=invalid_stackcount,
+        )
+        self.drains_mana_line_tree = LineTree(
+            data=TreeType.LINE,
+            timestamp=self.timestamp_tree,
+            subtree=self.subtree_drains_mana_line,
+        )
+
+        # consolidated_line cache
+        self.subtree_consolidated_line = ConsolidatedLineTree(
+            data=TreeType.CONSOLIDATED_LINE,
+            children=[],
+        )
+        self.consolidated_line_tree = LineTree(
+            data=TreeType.LINE,
+            timestamp=self.timestamp_tree,
+            subtree=self.subtree_consolidated_line,
+        )
+
     def parse_ts(self, line, p_ts_end):
         # 6/1 18:31:36.197  ...
 
@@ -1347,31 +1371,32 @@ class Parser2:
                 # Find the start of the constant text ' gains '
                 p_gains = line.find(" gains ", p_ts_end)
 
-                # The recipient's name is everything between the double space and ' gains '
-                # p_ts_end + 2 skips the double space itself.
-                name = line[p_ts_end + 2 : p_gains]
+                if p_gains >= 0 and p_gains < p_mana_from:
+                    # The recipient's name is everything between the double space and ' gains '
+                    # p_ts_end + 2 skips the double space itself.
+                    name = line[p_ts_end + 2 : p_gains]
 
-                # Find the remaining anchors, starting the search from where we left off.
-                p_s = line.find(" 's ", p_mana_from)
+                    # Find the remaining anchors, starting the search from where we left off.
+                    p_s = line.find(" 's ", p_mana_from)
 
-                # Slice the data out from between the anchors
-                # len(' gains ') == 7
-                mana = line[p_gains + 7 : p_mana_from]
+                    # Slice the data out from between the anchors
+                    # len(' gains ') == 7
+                    mana = line[p_gains + 7 : p_mana_from]
 
-                # len(' Mana from ') == 11
-                # castername = line[p_mana_from + 11 : p_s]  # don't need this currently
+                    # len(' Mana from ') == 11
+                    # castername = line[p_mana_from + 11 : p_s]  # don't need this currently
 
-                # len(" 's ") == 4. The -2 strips the final period '.\n'
-                spellname_gains_mana = line[p_s + 4 : -2]
+                    # len(" 's ") == 4. The -2 strips the final period '.\n'
+                    spellname_gains_mana = line[p_s + 4 : -2]
 
-                _ = self.parse_ts(line, p_ts_end)  # magic cached reference
+                    _ = self.parse_ts(line, p_ts_end)  # magic cached reference
 
-                self.subtree_gains_mana_line.name = name  # magic cached reference
-                self.subtree_gains_mana_line.mana = mana  # magic cached reference
-                self.subtree_gains_mana_line.spellname = (
-                    spellname_gains_mana  # magic cached reference
-                )
-                return self.gains_mana_line_tree  # magic cached reference
+                    self.subtree_gains_mana_line.name = name  # magic cached reference
+                    self.subtree_gains_mana_line.mana = mana  # magic cached reference
+                    self.subtree_gains_mana_line.spellname = (
+                        spellname_gains_mana  # magic cached reference
+                    )
+                    return self.gains_mana_line_tree  # magic cached reference
 
             # It has already been determined NOT to be a 'Mana from' event.
             # we'll look for an attack or ability line
@@ -1393,7 +1418,7 @@ class Parser2:
             # If no action, or not followed by ' for ', it's not a damage line.
             p_for = line.find(" for ", p_action)
             if p_action >= 0 and p_for >= 0:
-                timestamp = self.parse_ts(line, p_ts_end)
+                _ = self.parse_ts(line, p_ts_end)
                 p_num_start = p_for + 5
 
                 p_space = line.find(" ", p_num_start)
@@ -1492,7 +1517,7 @@ class Parser2:
 
             # If all our required anchors are present, we have a heal line.
             if p_action != -1 and p_s != -1 and p_for != -1:
-                timestamp = self.parse_ts(line, p_ts_end)
+                _ = self.parse_ts(line, p_ts_end)
 
                 # Extract the main variables using anchors.
                 caster_name = line[p_ts_end + 2 : p_s]
@@ -1514,7 +1539,7 @@ class Parser2:
             p_fades = line.find(" fades from ", p_ts_end)
 
             if p_fades != -1:
-                timestamp = self.parse_ts(line, p_ts_end)
+                _ = self.parse_ts(line, p_ts_end)
 
                 # The spellname is between the timestamp and the anchor phrase.
                 spellname_fades = line[p_ts_end + 2 : p_fades]
@@ -1530,7 +1555,7 @@ class Parser2:
             p_suffers = line.find(" suffers ", p_ts_end)
 
             if p_suffers != -1:
-                timestamp = self.parse_ts(line, p_ts_end)
+                _ = self.parse_ts(line, p_ts_end)
 
                 # Target is always between the timestamp and " suffers ".
                 targetname_suffers = line[p_ts_end + 2 : p_suffers]
@@ -1595,7 +1620,7 @@ class Parser2:
             p_paren_close = line.find(").", p_paren_open)
 
             if p_gains != -1 and p_paren_open != -1 and p_paren_close != -1:
-                timestamp = self.parse_ts(line, p_ts_end)
+                _ = self.parse_ts(line, p_ts_end)
 
                 # The name is between the timestamp and " gains ".
                 name = line[p_ts_end + 2 : p_gains]
@@ -1616,7 +1641,7 @@ class Parser2:
             p_action = line.find(action_phrase, p_ts_end)
 
             if p_action != -1:
-                timestamp = self.parse_ts(line, p_ts_end)
+                _ = self.parse_ts(line, p_ts_end)
 
                 # The caster's name is between the timestamp and the anchor phrase.
                 caster_name = line[p_ts_end + 2 : p_action]
@@ -1639,7 +1664,7 @@ class Parser2:
 
             # If all anchors are found in the correct order, we have a match.
             if p_action != -1 and p_paren_open != -1 and p_paren_close != -1:
-                timestamp = self.parse_ts(line, p_ts_end)
+                _ = self.parse_ts(line, p_ts_end)
 
                 # The targetname is between the timestamp and the action phrase.
                 targetname_afflicted = line[p_ts_end + 2 : p_action]
@@ -1658,7 +1683,7 @@ class Parser2:
             p_casts = line.find(" casts ", p_ts_end)
 
             if p_casts != -1:
-                timestamp = self.parse_ts(line, p_ts_end)
+                _ = self.parse_ts(line, p_ts_end)
 
                 # Caster is always present and in the same spot.
                 caster_name = line[p_ts_end + 2 : p_casts]
@@ -1705,7 +1730,7 @@ class Parser2:
 
             # If all three anchors are found in a valid sequence...
             if p_gains != -1 and p_extra != -1 and p_through != -1:
-                timestamp = self.parse_ts(line, p_ts_end)
+                _ = self.parse_ts(line, p_ts_end)
 
                 # The name is between the timestamp and " gains ".
                 name = line[p_ts_end + 2 : p_gains]
@@ -1729,7 +1754,7 @@ class Parser2:
 
             # If all anchors are found, we have a match.
             if p_gains != -1 and p_rage_from != -1 and p_s != -1:
-                timestamp = self.parse_ts(line, p_ts_end)
+                _ = self.parse_ts(line, p_ts_end)
 
                 # Slice out the 4 required pieces of data.
                 recipient_name = line[p_ts_end + 2 : p_gains]
@@ -1756,7 +1781,7 @@ class Parser2:
 
             # If all anchors are found, we have a match.
             if p_gains != -1 and p_health_from != -1 and p_s != -1:
-                timestamp = self.parse_ts(line, p_ts_end)
+                _ = self.parse_ts(line, p_ts_end)
 
                 # Slice out the 4 required pieces of data.
                 targetname_gains_health = line[p_ts_end + 2 : p_gains]
@@ -1781,7 +1806,7 @@ class Parser2:
 
             # If all anchors are found, we have a match.
             if p_gains != -1 and p_energy_from != -1 and p_s != -1:
-                timestamp = self.parse_ts(line, p_ts_end)
+                _ = self.parse_ts(line, p_ts_end)
 
                 # Slice out the 4 required pieces of data.
                 recipient_name = line[p_ts_end + 2 : p_gains]
@@ -1804,7 +1829,7 @@ class Parser2:
 
             # If both anchors are found, we have a match.
             if p_s != -1 and p_resisted != -1:
-                timestamp = self.parse_ts(line, p_ts_end)
+                _ = self.parse_ts(line, p_ts_end)
 
                 # Slice out the 3 required pieces of data from between the anchors.
                 caster_name = line[p_ts_end + 2 : p_s]
@@ -1822,7 +1847,7 @@ class Parser2:
             p_uses = line.find(" uses ", p_ts_end)
 
             if p_uses != -1:
-                timestamp = self.parse_ts(line, p_ts_end)
+                _ = self.parse_ts(line, p_ts_end)
 
                 # The user's name is always present.
                 user_name = line[p_ts_end + 2 : p_uses]
@@ -1861,7 +1886,7 @@ class Parser2:
 
             # If both anchors were found in the correct order, we have a match.
             if p_anchor1 != -1 and p_anchor2 != -1:
-                timestamp = self.parse_ts(line, p_ts_end)
+                _ = self.parse_ts(line, p_ts_end)
 
                 # The attacker is between the timestamp and the first anchor.
                 attacker = line[p_ts_end + 2 : p_anchor1]
@@ -1891,7 +1916,7 @@ class Parser2:
 
                 # If we found a verb after 's, we can parse.
                 if p_verb != -1:
-                    timestamp = self.parse_ts(line, p_ts_end)
+                    _ = self.parse_ts(line, p_ts_end)
 
                     caster_name = line[p_ts_end + 2 : p_s]
                     spellname_misses_ability = line[p_s + 4 : p_verb]
@@ -1909,7 +1934,7 @@ class Parser2:
                 # If 's is NOT present, it can only be a simple miss.
                 p_misses = line.find(" misses ", p_ts_end)
                 if p_misses != -1:
-                    timestamp = self.parse_ts(line, p_ts_end)
+                    _ = self.parse_ts(line, p_ts_end)
 
                     attacker = line[p_ts_end + 2 : p_misses]
                     target = line[p_misses + 8 : -2]  # len(' misses ')
@@ -1924,7 +1949,7 @@ class Parser2:
 
             # Since we know the exact ending, we can use a single, highly efficient check.
             if line.endswith(anchor):
-                timestamp = self.parse_ts(line, p_ts_end)
+                _ = self.parse_ts(line, p_ts_end)
 
                 # The name is between the timestamp and the start of our known suffix.
                 # The slice end is -len(anchor) to remove " dies.\n"
@@ -1946,7 +1971,7 @@ class Parser2:
                 p_attacks = line.find(middle_anchor, p_ts_end)
 
                 if p_attacks != -1:
-                    timestamp = self.parse_ts(line, p_ts_end)
+                    _ = self.parse_ts(line, p_ts_end)
 
                     # The attacker is between the timestamp and the middle anchor.
                     attacker = line[p_ts_end + 2 : p_attacks]
@@ -1969,7 +1994,7 @@ class Parser2:
                 p_attacks = line.find(middle_anchor, p_ts_end)
 
                 if p_attacks != -1:
-                    timestamp = self.parse_ts(line, p_ts_end)
+                    _ = self.parse_ts(line, p_ts_end)
 
                     attacker = line[p_ts_end + 2 : p_attacks]
                     blocker_start = p_attacks + len(middle_anchor)
@@ -1986,7 +2011,7 @@ class Parser2:
 
             # If both anchors are found, we have a match.
             if p_reflects != -1 and p_damage_to != -1:
-                timestamp = self.parse_ts(line, p_ts_end)
+                _ = self.parse_ts(line, p_ts_end)
 
                 # --- Slice out the 4 required pieces of data ---
                 reflector_name = line[p_ts_end + 2 : p_reflects]
@@ -2014,7 +2039,7 @@ class Parser2:
             p_action = line.find(action_phrase, p_ts_end)
 
             if p_action != -1:
-                timestamp = self.parse_ts(line, p_ts_end)
+                _ = self.parse_ts(line, p_ts_end)
 
                 # The performer's name is between the timestamp and the anchor phrase.
                 performer_name = line[p_ts_end + 2 : p_action]
@@ -2036,7 +2061,7 @@ class Parser2:
 
             # If both anchors are found, we have a match.
             if p_s != -1 and p_dodged != -1:
-                timestamp = self.parse_ts(line, p_ts_end)
+                _ = self.parse_ts(line, p_ts_end)
 
                 # Slice out the 3 required pieces of data from between the anchors.
                 caster_name = line[p_ts_end + 2 : p_s]
@@ -2060,7 +2085,7 @@ class Parser2:
             # The line must end with " damage.\n"
             final_anchor = " damage.\n"
             if p_s != -1 and p_causes != -1 and line.endswith(final_anchor):
-                timestamp = self.parse_ts(line, p_ts_end)
+                _ = self.parse_ts(line, p_ts_end)
 
                 caster_name = line[p_ts_end + 2 : p_s]
                 spellname_causes_damage = line[p_s + 4 : p_causes]
@@ -2090,7 +2115,7 @@ class Parser2:
                 p_s = line.find(" 's ", p_ts_end)
 
                 if p_s != -1:
-                    timestamp = self.parse_ts(line, p_ts_end)
+                    _ = self.parse_ts(line, p_ts_end)
 
                     # The caster name is between the timestamp and 's.
                     caster_name = line[p_ts_end + 2 : p_s]
@@ -2116,7 +2141,7 @@ class Parser2:
                 p_anchor2 = line.find(anchor2, p_anchor1)
 
                 if p_anchor1 != -1 and p_anchor2 != -1:
-                    timestamp = self.parse_ts(line, p_ts_end)
+                    _ = self.parse_ts(line, p_ts_end)
 
                     caster_name = line[p_ts_end + 2 : p_anchor1]
                     spellname_immune = line[p_anchor1 + len(anchor1) : p_anchor2]
@@ -2138,7 +2163,7 @@ class Parser2:
 
             # If both anchors are found, we have a match.
             if p_s != -1 and p_parried != -1:
-                timestamp = self.parse_ts(line, p_ts_end)
+                _ = self.parse_ts(line, p_ts_end)
 
                 # Slice out the 3 required pieces of data from between the anchors.
                 caster_name = line[p_ts_end + 2 : p_s]
@@ -2166,7 +2191,7 @@ class Parser2:
 
                 if p_middle != -1:
                     # We have a confirmed match.
-                    timestamp = self.parse_ts(line, p_ts_end)
+                    _ = self.parse_ts(line, p_ts_end)
 
                     # The attacker is between the timestamp and the middle anchor.
                     attacker = line[p_ts_end + 2 : p_middle]
@@ -2191,7 +2216,7 @@ class Parser2:
 
                 if p_on != -1:
                     # performs_on_line (most specific)
-                    timestamp = self.parse_ts(line, p_ts_end)
+                    _ = self.parse_ts(line, p_ts_end)
 
                     performer = line[p_ts_end + 2 : p_performs]
                     spellname_performs_on = line[p_performs + 10 : p_on]  # len(' performs ')
@@ -2208,7 +2233,7 @@ class Parser2:
                     # performs_line (less specific, potentially dangerous)
                     # We only get here if " performs " was found, but " on " was NOT.
                     # very possible this matches a different line type someday
-                    timestamp = self.parse_ts(line, p_ts_end)
+                    _ = self.parse_ts(line, p_ts_end)
 
                     performer = line[p_ts_end + 2 : p_performs]
                     spellname_performs = line[
@@ -2230,7 +2255,7 @@ class Parser2:
                 p_middle = line.find(middle_anchor, p_ts_end)
 
                 if p_middle != -1:
-                    timestamp = self.parse_ts(line, p_ts_end)
+                    _ = self.parse_ts(line, p_ts_end)
 
                     name = line[p_ts_end + 2 : p_middle]
 
@@ -2252,7 +2277,7 @@ class Parser2:
 
             # If both anchors are found in the correct order, we have a match.
             if p_anchor1 != -1 and p_anchor2 != -1:
-                timestamp = self.parse_ts(line, p_ts_end)
+                _ = self.parse_ts(line, p_ts_end)
 
                 targetname_is_immune = line[p_ts_end + 2 : p_anchor1]
 
@@ -2275,7 +2300,7 @@ class Parser2:
             p_evaded = line.find(" was evaded by ", p_s)
 
             if p_s != -1 and p_evaded != -1:
-                timestamp = self.parse_ts(line, p_ts_end)
+                _ = self.parse_ts(line, p_ts_end)
 
                 caster_name = line[p_ts_end + 2 : p_s]
                 spellname_was_evaded = line[p_s + 4 : p_evaded]
@@ -2296,7 +2321,7 @@ class Parser2:
 
             if p_consolidated != -1:
                 # We have a CONSOLIDATED line.
-                timestamp = self.parse_ts(line, p_ts_end)
+                _ = self.parse_ts(line, p_ts_end)
 
                 # Get the entire block of consolidated data.
                 data_block = line[p_consolidated + len(consolidated_anchor) :]
@@ -2304,23 +2329,22 @@ class Parser2:
                 # Split the block into individual cases using "{" as the delimiter.
                 cases = data_block.split("{")
 
-                pet_entries = []
+                self.subtree_consolidated_line.children.clear()
                 for case_str in cases:
                     # For each case, check if it's a PET entry.
                     if case_str.startswith("PET: "):
                         pet_tree = self.parse_consolidated_pet(case_str)
                         if pet_tree:
-                            pet_entries.append(pet_tree)
+                            self.subtree_consolidated_line.children.append(pet_tree)
 
-                subtree = Tree(data=TreeType.CONSOLIDATED_LINE, children=pet_entries)
-                return LineTree(data=TreeType.LINE, timestamp=timestamp, subtree=subtree)
+                return self.consolidated_line_tree
 
             p_s = line.find(" 's ", p_ts_end)
             p_absorbed = line.find(" is absorbed by ", p_s)
 
             # If both anchors are found, we have a match.
             if p_s != -1 and p_absorbed != -1:
-                timestamp = self.parse_ts(line, p_ts_end)
+                _ = self.parse_ts(line, p_ts_end)
 
                 caster_name = line[p_ts_end + 2 : p_s]
                 spellname_is_absorbed = line[p_s + 4 : p_absorbed]
@@ -2341,7 +2365,7 @@ class Parser2:
 
             # If both anchors are found, we have a match.
             if p_absorbs != -1 and p_s != -1:
-                timestamp = self.parse_ts(line, p_ts_end)
+                _ = self.parse_ts(line, p_ts_end)
 
                 absorber_name = line[p_ts_end + 2 : p_absorbs]
 
@@ -2367,7 +2391,7 @@ class Parser2:
 
                 if last_char == "." or last_char == "!":
                     # We have a confirmed match.
-                    timestamp = self.parse_ts(line, p_ts_end)
+                    _ = self.parse_ts(line, p_ts_end)
 
                     # The victim's name is between the timestamp and the middle anchor.
                     victim = line[p_ts_end + 2 : p_slain]
@@ -2386,7 +2410,7 @@ class Parser2:
             p_action = line.find(action_phrase, p_ts_end)
 
             if p_action != -1 and line.endswith(".\n"):
-                timestamp = self.parse_ts(line, p_ts_end)
+                _ = self.parse_ts(line, p_ts_end)
 
                 creator_name = line[p_ts_end + 2 : p_action]
 
@@ -2404,7 +2428,7 @@ class Parser2:
             p_killed = line.find(middle_anchor, p_ts_end)
 
             if p_killed != -1 and line.endswith(".\n"):
-                timestamp = self.parse_ts(line, p_ts_end)
+                _ = self.parse_ts(line, p_ts_end)
 
                 victim = line[p_ts_end + 2 : p_killed]
 
@@ -2421,7 +2445,7 @@ class Parser2:
             final_anchor_with_newline = " is destroyed.\n"
 
             if line.endswith(final_anchor_with_newline):
-                timestamp = self.parse_ts(line, p_ts_end)
+                _ = self.parse_ts(line, p_ts_end)
 
                 # The entity's name is between the timestamp and the start of our known suffix.
                 # A negative slice is the cleanest way to remove the suffix.
@@ -2439,7 +2463,7 @@ class Parser2:
 
             # If both anchors are found, we have a match.
             if p_s != -1 and p_reflected != -1:
-                timestamp = self.parse_ts(line, p_ts_end)
+                _ = self.parse_ts(line, p_ts_end)
 
                 caster_name = line[p_ts_end + 2 : p_s]
                 spellname_is_reflected = line[p_s + 4 : p_reflected]
@@ -2456,38 +2480,38 @@ class Parser2:
                 return self.is_reflected_back_line_tree
 
             if line.find("COMBATANT_INFO: ", p_ts_end + 2, p_ts_end + 2 + 16) != -1:
-                timestamp = self.parse_ts(line, p_ts_end)
+                _ = self.parse_ts(line, p_ts_end)
                 return self.combatant_info_line_tree
 
             if line.find("NONE", p_ts_end + 2, p_ts_end + 2 + 4) != -1:
-                timestamp = self.parse_ts(line, p_ts_end)
+                _ = self.parse_ts(line, p_ts_end)
                 return self.none_line_tree
 
             if line.find(" fails to dispel ", p_ts_end + 2) != -1:
-                timestamp = self.parse_ts(line, p_ts_end)
+                _ = self.parse_ts(line, p_ts_end)
                 return self.fails_to_dispel_line_tree
 
             if line.find(" health for swimming in lava.", p_ts_end + 2) != -1:
-                timestamp = self.parse_ts(line, p_ts_end)
+                _ = self.parse_ts(line, p_ts_end)
                 return self.lava_line_tree
 
             if line.find(" slays ", p_ts_end + 2) != -1 and line.endswith("!\n"):
-                timestamp = self.parse_ts(line, p_ts_end)
+                _ = self.parse_ts(line, p_ts_end)
                 return self.slays_line_tree
 
             if line.find(" pet begins eating a ", p_ts_end + 2) != -1:
-                timestamp = self.parse_ts(line, p_ts_end)
+                _ = self.parse_ts(line, p_ts_end)
                 return self.pet_begins_eating_line_tree
 
             if line.endswith(" 's equipped items suffer a 10% durability loss.\n"):
-                timestamp = self.parse_ts(line, p_ts_end)
+                _ = self.parse_ts(line, p_ts_end)
                 return self.equipped_durability_loss_line_tree
 
             p_s = line.find(" 's ", p_ts_end)
             p_blocked = line.find(" was blocked by ", p_s)
 
             if p_s != -1 and p_blocked != -1:
-                timestamp = self.parse_ts(line, p_ts_end)
+                _ = self.parse_ts(line, p_ts_end)
 
                 caster_name = line[p_ts_end + 2 : p_s]
                 spellname_block_ability = line[p_s + 4 : p_blocked]
@@ -2510,7 +2534,7 @@ class Parser2:
                 p_attacks = line.find(middle_anchor, p_ts_end)
 
                 if p_attacks != -1:
-                    timestamp = self.parse_ts(line, p_ts_end)
+                    _ = self.parse_ts(line, p_ts_end)
 
                     attacker = line[p_ts_end + 2 : p_attacks]
 
@@ -2527,7 +2551,7 @@ class Parser2:
 
             # If both anchors are found, we have a match.
             if p_interrupts != -1 and p_s != -1:
-                timestamp = self.parse_ts(line, p_ts_end)
+                _ = self.parse_ts(line, p_ts_end)
 
                 interrupter_name = line[p_ts_end + 2 : p_interrupts]
 
@@ -2552,7 +2576,7 @@ class Parser2:
                 p_attacks = line.find(middle_anchor, p_ts_end)
 
                 if p_attacks != -1:
-                    timestamp = self.parse_ts(line, p_ts_end)
+                    _ = self.parse_ts(line, p_ts_end)
 
                     attacker = line[p_ts_end + 2 : p_attacks]
 
@@ -2575,7 +2599,7 @@ class Parser2:
                 p_anchor2 = line.find(anchor2, p_anchor1)
 
                 if p_anchor1 != -1 and p_anchor2 != -1:
-                    timestamp = self.parse_ts(line, p_ts_end)
+                    _ = self.parse_ts(line, p_ts_end)
 
                     pet_name = line[p_ts_end + 2 : p_anchor1]
 
@@ -2599,7 +2623,7 @@ class Parser2:
                 p_s = line.rfind("'s", p_ts_end, p_dismissed)
 
                 if p_s != -1:
-                    timestamp = self.parse_ts(line, p_ts_end)
+                    _ = self.parse_ts(line, p_ts_end)
 
                     # Check if the character *before* the apostrophe is a space.
                     if line[p_s - 1] == " ":
@@ -2619,6 +2643,37 @@ class Parser2:
                     self.subtree_is_dismissed_line.pet_name = pet_name
 
                     return self.is_dismissed_line_tree
+
+            # 7/14 20:33:44.437  Titicacal 's Drain Mana drains 139 Mana from Obsidian Eradicator. Titicacal gains 139 Mana.
+            #7/14 00:00:03.782  Solnius 's Sanctum Mind Decay drains 135 Mana from Interlan.
+
+            p_drains = line.find(" drains ", p_ts_end)
+            if p_drains != -1:
+                p_s = line.find(" 's ", p_ts_end, p_drains)
+                p_mana_from = line.find(" Mana from ", p_drains)
+                p_period = line.find(".", p_mana_from)
+                if p_s != -1 and p_mana_from != -1 and p_period != -1:
+                    caster = line[p_ts_end + 2 : p_s]
+                    spellname = line[p_s + 4 : p_drains]
+                    mana = line[p_drains + 8 : p_mana_from]
+                    targetname = line[p_mana_from + 11 : p_period]
+
+                    gains = "0"
+                    # check for ". Caster gains X Mana."
+                    p_dot_space = p_period
+                    p_gains2 = line.find(" gains ", p_dot_space)
+                    p_mana_dot = line.find(" Mana.", p_gains2)
+                    if p_gains2 != -1 and p_mana_dot != -1:
+                        gains = line[p_gains2 + 7 : p_mana_dot]
+
+                    self.subtree_drains_mana_line.caster = caster
+                    self.subtree_drains_mana_line.spellname = spellname
+                    self.subtree_drains_mana_line.mana = mana
+                    self.subtree_drains_mana_line.targetname = targetname
+                    self.subtree_drains_mana_line.gains = gains
+                    self.parse_ts(line, p_ts_end)
+
+                    return self.drains_mana_line_tree
 
         except Exception as e:
             msg = f"{e} {line} \n"
