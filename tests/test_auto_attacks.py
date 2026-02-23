@@ -1,9 +1,6 @@
 
-import pytest
 import io
 from melbalabs.summarize_consumes.main import parse_line
-from melbalabs.summarize_consumes.main import AutoAttackStats
-from melbalabs.summarize_consumes.main import AutoAttackSummary
 from melbalabs.summarize_consumes.main import PlayerClass
 from melbalabs.summarize_consumes.main import AutoAttackStat
 

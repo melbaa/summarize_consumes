@@ -215,6 +215,142 @@ TreeType.CASTS_LINE: 0.002ms avg, 136673 lines
     """
 
 
+@pytest.mark.skip()
+def test_basic5(app):
+    filename = r"testdata/naxx-superwow-2025-06-02.txt"
+
+    profiler = cProfile.Profile()
+    profiler.enable()
+    startts = time.time()
+
+    from melbalabs.summarize_consumes.main import parse_log, generate_output
+
+    parse_log(app, filename)
+    output = generate_output(app)
+
+    endts = time.time()
+    profiler.disable()
+    print("time", endts - startts)
+
+    stats = pstats.Stats(profiler)
+    stats.sort_stats("cumulative")
+
+    stats.print_stats(100)
+
+    r"""
+    # NOTE: Run with `pytest tests/test_perf.py::test_basic5 -s` to see the output
+
+    time 4.992723226547241
+         15664031 function calls in 4.990 seconds
+
+   Ordered by: cumulative time
+   List reduced from 154 to 100 due to restriction <100>
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        1    0.128    0.128    4.982    4.982 Y:\twow\summarize_consumes\src\melbalabs\summarize_consumes\main.py:2688(parse_log)
+   477531    0.304    0.000    4.847    0.000 Y:\twow\summarize_consumes\src\melbalabs\summarize_consumes\main.py:1984(parse_line)
+   477126    0.680    0.000    2.392    0.000 Y:\twow\summarize_consumes\src\melbalabs\summarize_consumes\main.py:2005(process_tree)
+   477531    0.939    0.000    2.094    0.000 Y:\twow\summarize_consumes\src\melbalabs\summarize_consumes\parser.py:1375(parse)
+  5301702    0.715    0.000    0.715    0.000 {method 'find' of 'str' objects}
+   364964    0.382    0.000    0.467    0.000 Y:\twow\summarize_consumes\src\melbalabs\summarize_consumes\main.py:1030(add)
+   477126    0.390    0.000    0.443    0.000 Y:\twow\summarize_consumes\src\melbalabs\summarize_consumes\main.py:166(parse)
+   477126    0.189    0.000    0.399    0.000 Y:\twow\summarize_consumes\src\melbalabs\summarize_consumes\parser.py:1337(parse_ts)
+  1721193    0.232    0.000    0.326    0.000 {method 'get' of 'dict' objects}
+   276205    0.176    0.000    0.233    0.000 Y:\twow\summarize_consumes\src\melbalabs\summarize_consumes\timeline.py:57(add)
+  1184352    0.141    0.000    0.216    0.000 C:\Users\melba\AppData\Roaming\uv\python\cpython-3.12.12-windows-x86_64-none\Lib\enum.py:1266(__hash__)
+   281243    0.066    0.000    0.182    0.000 Y:\twow\summarize_consumes\src\melbalabs\summarize_consumes\main.py:460(rename_spell)
+   477126    0.133    0.000    0.133    0.000 {method 'match' of 're.Pattern' objects}
+   217451    0.063    0.000    0.109    0.000 Y:\twow\summarize_consumes\src\melbalabs\summarize_consumes\main.py:1846(detect)
+   199988    0.044    0.000    0.080    0.000 Y:\twow\summarize_consumes\src\melbalabs\summarize_consumes\main.py:1570(add)
+   477126    0.077    0.000    0.077    0.000 {method 'groups' of 're.Match' objects}
+  1186235    0.075    0.000    0.075    0.000 {built-in method builtins.hash}
+   251824    0.033    0.000    0.033    0.000 {method 'rfind' of 'str' objects}
+   295507    0.031    0.000    0.031    0.000 {method 'append' of 'list' objects}
+    40019    0.010    0.000    0.026    0.000 Y:\twow\summarize_consumes\src\melbalabs\summarize_consumes\main.py:1577(add_stackcount)
+    40444    0.024    0.000    0.024    0.000 Y:\twow\summarize_consumes\src\melbalabs\summarize_consumes\main.py:991(__init__)
+    45699    0.012    0.000    0.020    0.000 Y:\twow\summarize_consumes\src\melbalabs\summarize_consumes\main.py:1620(add)
+   246615    0.020    0.000    0.020    0.000 {built-in method builtins.len}
+    12702    0.010    0.000    0.020    0.000 Y:\twow\summarize_consumes\src\melbalabs\summarize_consumes\main.py:1416(add_crit)
+    10282    0.008    0.000    0.016    0.000 Y:\twow\summarize_consumes\src\melbalabs\summarize_consumes\main.py:1420(add_glance)
+     9189    0.007    0.000    0.015    0.000 Y:\twow\summarize_consumes\src\melbalabs\summarize_consumes\main.py:1412(add_hit)
+   151619    0.014    0.000    0.014    0.000 Y:\twow\summarize_consumes\src\melbalabs\summarize_consumes\timeline.py:54(is_important)
+   116532    0.014    0.000    0.014    0.000 {method 'isdigit' of 'str' objects}
+   113550    0.012    0.000    0.012    0.000 Y:\twow\summarize_consumes\src\melbalabs\summarize_consumes\timeline.py:12(__init__)
+    75073    0.012    0.000    0.012    0.000 {built-in method builtins.min}
+    21891    0.007    0.000    0.012    0.000 C:\Users\melba\AppData\Roaming\uv\python\cpython-3.12.12-windows-x86_64-none\Lib\enum.py:720(__call__)
+     5771    0.003    0.000    0.012    0.000 Y:\twow\summarize_consumes\src\melbalabs\summarize_consumes\timeline.py:100(add_extra_attacks)
+        1    0.000    0.000    0.010    0.010 Y:\twow\summarize_consumes\src\melbalabs\summarize_consumes\main.py:2711(generate_output)
+    57210    0.007    0.000    0.007    0.000 {method 'endswith' of 'str' objects}
+        1    0.000    0.000    0.005    0.005 Y:\twow\summarize_consumes\src\melbalabs\summarize_consumes\main.py:1770(calculate)
+     4176    0.002    0.000    0.005    0.000 <frozen codecs>:319(decode)
+    21891    0.005    0.000    0.005    0.000 C:\Users\melba\AppData\Roaming\uv\python\cpython-3.12.12-windows-x86_64-none\Lib\enum.py:1128(__new__)
+     2530    0.002    0.000    0.004    0.000 Y:\twow\summarize_consumes\src\melbalabs\summarize_consumes\main.py:1428(add_dodge)
+     1990    0.002    0.000    0.003    0.000 Y:\twow\summarize_consumes\src\melbalabs\summarize_consumes\main.py:1432(add_miss)
+      605    0.001    0.000    0.003    0.000 Y:\twow\summarize_consumes\src\melbalabs\summarize_consumes\main.py:1727(get_consumable_price)
+     4176    0.003    0.000    0.003    0.000 {built-in method _codecs.utf_8_decode}
+     7493    0.002    0.000    0.003    0.000 Y:\twow\summarize_consumes\src\melbalabs\summarize_consumes\entity_model.py:80(has_component)
+     5771    0.002    0.000    0.002    0.000 Y:\twow\summarize_consumes\src\melbalabs\summarize_consumes\main.py:1627(add_extra_attacks)
+     1916    0.001    0.000    0.002    0.000 {method 'add' of 'set' objects}
+     1156    0.001    0.000    0.002    0.000 Y:\twow\summarize_consumes\src\melbalabs\summarize_consumes\main.py:1424(add_parry)
+     1098    0.001    0.000    0.002    0.000 Y:\twow\summarize_consumes\src\melbalabs\summarize_consumes\main.py:1436(add_block)
+     3484    0.001    0.000    0.002    0.000 Y:\twow\summarize_consumes\src\melbalabs\summarize_consumes\main.py:1637(__new__)
+        1    0.001    0.001    0.002    0.002 Y:\twow\summarize_consumes\src\melbalabs\summarize_consumes\main.py:3051(merge)
+      605    0.000    0.000    0.001    0.000 Y:\twow\summarize_consumes\src\melbalabs\summarize_consumes\main.py:1715(add_consumable)
+        1    0.000    0.000    0.001    0.001 Y:\twow\summarize_consumes\src\melbalabs\summarize_consumes\main.py:1791(print)
+        2    0.000    0.000    0.001    0.001 Y:\twow\summarize_consumes\src\melbalabs\summarize_consumes\main.py:1259(flush)
+     1150    0.000    0.000    0.001    0.000 Y:\twow\summarize_consumes\src\melbalabs\summarize_consumes\main.py:1703(total_price)
+     1184    0.000    0.000    0.001    0.000 Y:\twow\summarize_consumes\src\melbalabs\summarize_consumes\main.py:1642(__add__)
+     1351    0.001    0.000    0.001    0.000 Y:\twow\summarize_consumes\src\melbalabs\summarize_consumes\entity_model.py:76(get_components)
+     1150    0.000    0.000    0.001    0.000 Y:\twow\summarize_consumes\src\melbalabs\summarize_consumes\main.py:1648(__mul__)
+     2003    0.001    0.000    0.001    0.000 {built-in method builtins.print}
+        3    0.001    0.000    0.001    0.000 {built-in method _io.open}
+     7493    0.001    0.000    0.001    0.000 Y:\twow\summarize_consumes\src\melbalabs\summarize_consumes\entity_model.py:53(get)
+    11986    0.001    0.000    0.001    0.000 {built-in method builtins.isinstance}
+     1145    0.001    0.000    0.001    0.000 Y:\twow\summarize_consumes\src\melbalabs\summarize_consumes\main.py:417(update)
+        1    0.000    0.000    0.000    0.000 Y:\twow\summarize_consumes\src\melbalabs\summarize_consumes\main.py:1447(print)
+      545    0.000    0.000    0.000    0.000 Y:\twow\summarize_consumes\src\melbalabs\summarize_consumes\main.py:1651(__truediv__)
+      405    0.000    0.000    0.000    0.000 Y:\twow\summarize_consumes\src\melbalabs\summarize_consumes\main.py:1256(log)
+        1    0.000    0.000    0.000    0.000 Y:\twow\summarize_consumes\src\melbalabs\summarize_consumes\main.py:1363(print)
+      595    0.000    0.000    0.000    0.000 Y:\twow\summarize_consumes\src\melbalabs\summarize_consumes\main.py:1674(to_string)
+        3    0.000    0.000    0.000    0.000 {method '__exit__' of '_io._IOBase' objects}
+     3485    0.000    0.000    0.000    0.000 {built-in method __new__ of type object at 0x00007FFFA70028F0}
+        2    0.000    0.000    0.000    0.000 {method 'write' of '_io.BufferedWriter' objects}
+      210    0.000    0.000    0.000    0.000 Y:\twow\summarize_consumes\src\melbalabs\summarize_consumes\main.py:1477(fmt)
+      411    0.000    0.000    0.000    0.000 Y:\twow\summarize_consumes\src\melbalabs\summarize_consumes\main.py:1027(<lambda>)
+      579    0.000    0.000    0.000    0.000 Y:\twow\summarize_consumes\src\melbalabs\summarize_consumes\main.py:1288(lookup)
+      607    0.000    0.000    0.000    0.000 Y:\twow\summarize_consumes\src\melbalabs\summarize_consumes\main.py:1630(add_unbridled_wrath)
+      420    0.000    0.000    0.000    0.000 <string>:2(__hash__)
+      386    0.000    0.000    0.000    0.000 <string>:2(__eq__)
+      128    0.000    0.000    0.000    0.000 {built-in method builtins.sorted}
+        6    0.000    0.000    0.000    0.000 Y:\twow\summarize_consumes\src\melbalabs\summarize_consumes\main.py:749(print_collected_log)
+        1    0.000    0.000    0.000    0.000 Y:\twow\summarize_consumes\src\melbalabs\summarize_consumes\main.py:1199(set_file_size)
+        1    0.000    0.000    0.000    0.000 Y:\twow\summarize_consumes\src\melbalabs\summarize_consumes\main.py:1508(print)
+        1    0.000    0.000    0.000    0.000 <frozen genericpath>:60(getsize)
+        1    0.000    0.000    0.000    0.000 {built-in method nt.stat}
+      892    0.000    0.000    0.000    0.000 Y:\twow\summarize_consumes\src\melbalabs\summarize_consumes\main.py:1841(is_class)
+      135    0.000    0.000    0.000    0.000 Y:\twow\summarize_consumes\src\melbalabs\summarize_consumes\main.py:1409(<lambda>)
+      605    0.000    0.000    0.000    0.000 <string>:2(__init__)
+        1    0.000    0.000    0.000    0.000 Y:\twow\summarize_consumes\src\melbalabs\summarize_consumes\main.py:1863(print)
+      229    0.000    0.000    0.000    0.000 {method 'sort' of 'list' objects}
+       54    0.000    0.000    0.000    0.000 Y:\twow\summarize_consumes\src\melbalabs\summarize_consumes\main.py:250(<lambda>)
+      295    0.000    0.000    0.000    0.000 {built-in method builtins.max}
+      221    0.000    0.000    0.000    0.000 C:\Users\melba\AppData\Roaming\uv\python\cpython-3.12.12-windows-x86_64-none\Lib\enum.py:202(__get__)
+      127    0.000    0.000    0.000    0.000 Y:\twow\summarize_consumes\src\melbalabs\summarize_consumes\main.py:840(add)
+       39    0.000    0.000    0.000    0.000 Y:\twow\summarize_consumes\src\melbalabs\summarize_consumes\main.py:946(add)
+        1    0.000    0.000    0.000    0.000 Y:\twow\summarize_consumes\src\melbalabs\summarize_consumes\main.py:807(print)
+       94    0.000    0.000    0.000    0.000 Y:\twow\summarize_consumes\src\melbalabs\summarize_consumes\main.py:800(add)
+        1    0.000    0.000    0.000    0.000 Y:\twow\summarize_consumes\src\melbalabs\summarize_consumes\main.py:1835(remove_unknown)
+      104    0.000    0.000    0.000    0.000 Y:\twow\summarize_consumes\src\melbalabs\summarize_consumes\main.py:708(manapot_lookup)
+        1    0.000    0.000    0.000    0.000 Y:\twow\summarize_consumes\src\melbalabs\summarize_consumes\main.py:819(print)
+        1    0.000    0.000    0.000    0.000 C:\Users\melba\AppData\Roaming\uv\python\cpython-3.12.12-windows-x86_64-none\Lib\encodings\__init__.py:71(search_function)
+        1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}
+       84    0.000    0.000    0.000    0.000 Y:\twow\summarize_consumes\src\melbalabs\summarize_consumes\main.py:816(add)
+       50    0.000    0.000    0.000    0.000 Y:\twow\summarize_consumes\src\melbalabs\summarize_consumes\main.py:1567(<lambda>)
+      163    0.000    0.000    0.000    0.000 {method 'pop' of 'dict' objects}
+
+    """
+
+
 def f1(val):
     return True, val
 

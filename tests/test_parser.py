@@ -6,7 +6,9 @@ import dataclasses
 from melbalabs.summarize_consumes.main import parse_line
 from melbalabs.summarize_consumes.main import NAME2ITEMID
 from melbalabs.summarize_consumes.main import PlayerClass
+from melbalabs.summarize_consumes.main import App
 import melbalabs.summarize_consumes.parser as parser_module
+from melbalabs.summarize_consumes.main import PetEvidence
 
 
 def test_rage_consumable_line(app):
@@ -462,7 +464,7 @@ def test_hits_consumable_line(app):
     assert match == 14
 
 
-def test_consolidated_line(app):
+def test_consolidated_line(app: App):
     lines = """
 10/11 20:40:42.226  CONSOLIDATED: PET: 11.10.23 20:40:36&Arzetlam&Deathknight Understudy
 5/4 21:54:18.739  CONSOLIDATED: ZONE_INFO: 04.05.23 21:39:44&Naxxramas&3421{LOOT: 04.05.23 21:51:55&Doombabe receives item: |cffffffff|Hitem:6265:0:0:0|h[Soul Shard]|h|rx1.{PET: 04.05.23 21:51:55&Doombabe&Khuujhom
@@ -483,10 +485,14 @@ def test_consolidated_line(app):
     for line in lines:
         match += parse_line(app, line)
     assert app.pet_handler.store["Doombabe"] == {"Khuujhom", "Khuujhomv2", "Khuujhomv3"}
-    assert app.player_detect["Doombabe"] == {"pet: Khuujhom", "pet: Khuujhomv2", "pet: Khuujhomv3"}
+    assert app.player_detect["Doombabe"] == {
+        PetEvidence("Khuujhom"),
+        PetEvidence("Khuujhomv2"),
+        PetEvidence("Khuujhomv3"),
+    }
 
     assert app.pet_handler.store["Arzetlam"] == {"Deathknight Understudy"}
-    assert app.player_detect["Arzetlam"] == {"pet: Deathknight Understudy"}
+    assert app.player_detect["Arzetlam"] == {PetEvidence("Deathknight Understudy")}
     assert match == 13
 
     assert set(app.pet_handler.get_all_pets()) == {

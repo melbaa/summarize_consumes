@@ -73,6 +73,25 @@ from melbalabs.summarize_consumes.timeline import AbilityTimeline
 type PlayerStore = dict[CombatantName, dict[str, int]]
 
 
+@dataclasses.dataclass(frozen=True, slots=True)
+class BuffEvidence:
+    spellname: str
+
+
+@dataclasses.dataclass(frozen=True, slots=True)
+class TrinketEvidence:
+    spellname: str
+
+
+@dataclasses.dataclass(frozen=True, slots=True)
+class PetEvidence:
+    petname: str
+
+# based on some testing, this adds close to 0 overhead as the instances are created rarely
+type PlayerEvidenceEntry = BuffEvidence | TrinketEvidence | PetEvidence
+type PlayerDetectStore = dict[CombatantName, set[PlayerEvidenceEntry]]
+
+
 class App:
     parser: Parser2
     unparsed_logger: UnparsedLogger | NullLogger
@@ -91,9 +110,9 @@ class App:
     auto_attack_stats: AutoAttackStats
     auto_attack_summary: AutoAttackSummary
     last_hit_cache: dict[str, dict[str, float]]
-    player_detect: dict[str, set]
+    player_detect: PlayerDetectStore
     pet_handler: PetHandler
-    death_count: dict[str, int]
+    death_count: dict[CombatantName, int]
     hits_consumable: HitsConsumable
     web_price_provider: WebPriceProvider
     pricedb: PriceDB
@@ -1700,9 +1719,9 @@ class ConsumablesEntry:
 
 @dataclasses.dataclass
 class ConsumablesAccumulator:
-    player: dict
+    player: PlayerStore
     pricedb: PriceDB
-    death_count: dict[str, int]
+    death_count: dict[CombatantName, int]
     data: list[ConsumablesEntry] = dataclasses.field(default_factory=list)
 
     def get_consumable_price(self, consumable_name: str) -> Currency:
@@ -2012,10 +2031,10 @@ def process_tree(app: App, line: str, tree: LineTree):
             app.player[name][consumable_item.name] += 1
 
         if spellname in BUFF_SPELL:
-            app.player_detect[name].add("buff: " + spellname)
+            app.player_detect[name].add(BuffEvidence(spellname))
 
         if spellname in TRINKET_SPELL_SET:
-            app.player_detect[name].add("trinket: " + spellname)
+            app.player_detect[name].add(TrinketEvidence(spellname))
 
         if spellname == "Armor Shatter":
             app.annihilator.add(line)
@@ -2239,7 +2258,7 @@ def process_tree(app: App, line: str, tree: LineTree):
         for entry in subtree.children:
             if entry.data == TreeType.CONSOLIDATED_PET:
                 app.pet_handler.add(entry.name, entry.petname)
-                app.player_detect[entry.name].add("pet: " + entry.petname)
+                app.player_detect[entry.name].add(PetEvidence(entry.petname))
             else:
                 # parse but ignore the other consolidated entries
                 pass
@@ -2689,7 +2708,7 @@ def parse_log(app, filename):
         app.unparsed_logger_fast.flush()
 
 
-def generate_output(app):
+def generate_output(app: App):
     output = io.StringIO()
 
     print(
