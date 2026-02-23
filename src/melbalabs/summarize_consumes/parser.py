@@ -11,13 +11,17 @@ from typing import NewType
 # expectation is to have 500k log lines, 4 branded casts per line, 10ns overhead per type cast = 2mil calls * 10ns overhead = 200ms overhead.
 # the alternative with zero overhead is too verbose and less safe.
 
-# PlayerName = NewType('PlayerName', str)
-type PlayerName = str
-type PetName = str
+PlayerName = NewType("PlayerName", str)
+PetName = NewType("PetName", str)
+NPCName = NewType("NPCName", str)
+type CombatantName = PlayerName | PetName | NPCName
+
 type RawSpellName = str
 type RawStackCount = str  # will be converted to int when needed
 
-invalid_player_name: PlayerName = "invalid_player_name_1234567890"
+invalid_player_name = PlayerName("invalid_player_name_1234567890")
+invalid_pet_name = PetName("invalid_pet_name_1234567890")
+invalid_combatant_name = NPCName("invalid_combatant_name_1234567890")
 invalid_raw_spell_name: RawSpellName = "invalid_raw_spell_name_1234567890"
 invalid_stackcount: RawStackCount = "invalid_stackcount_1234567890"
 
@@ -116,7 +120,7 @@ class ActionValue(enum.Enum):
 @dataclasses.dataclass
 class GainsLineTree:
     data: Literal[TreeType.GAINS_LINE]
-    name: PlayerName
+    name: CombatantName
     spellname: RawSpellName
     stackcount: RawStackCount
 
@@ -124,7 +128,7 @@ class GainsLineTree:
 @dataclasses.dataclass
 class GainsManaLineTree:
     data: Literal[TreeType.GAINS_MANA_LINE]
-    name: PlayerName
+    name: CombatantName
     mana: str
     spellname: RawSpellName
 
@@ -132,9 +136,9 @@ class GainsManaLineTree:
 @dataclasses.dataclass
 class HitsAbilityLineTree:
     data: Literal[TreeType.HITS_ABILITY_LINE]
-    name: str
+    name: CombatantName
     spellname: str
-    targetname: str
+    targetname: CombatantName
     damage: str
     spell_damage_type: str
 
@@ -142,8 +146,8 @@ class HitsAbilityLineTree:
 @dataclasses.dataclass
 class HitsAutoattackLineTree:
     data: Literal[TreeType.HITS_AUTOATTACK_LINE]
-    name: str
-    targetname: str
+    name: CombatantName
+    targetname: CombatantName
     damage: str
     action: ActionValue
 
@@ -151,10 +155,10 @@ class HitsAutoattackLineTree:
 @dataclasses.dataclass
 class HealsLineTree:
     data: Literal[TreeType.HEALS_LINE]
-    name: str
+    name: CombatantName
     spellname: RawSpellName
     heal_crit: str
-    targetname: str
+    targetname: CombatantName
     heal_amount: str
 
 
@@ -162,23 +166,23 @@ class HealsLineTree:
 class FadesLineTree:
     data: Literal[TreeType.FADES_LINE]
     spellname: RawSpellName
-    targetname: str
+    targetname: CombatantName
 
 
 @dataclasses.dataclass
 class SuffersLineSourceTree:
     data: Literal[TreeType.SUFFERS_LINE_SOURCE]
-    targetname: str
+    targetname: CombatantName
     damage: str
     spell_damage_type: str
-    castername: str
+    castername: CombatantName
     spellname: RawSpellName
 
 
 @dataclasses.dataclass
 class SuffersLineNosourceTree:
     data: Literal[TreeType.SUFFERS_LINE_NOSOURCE]
-    targetname: str
+    targetname: CombatantName
     damage: str
     spell_damage_type: str
 
@@ -186,33 +190,33 @@ class SuffersLineNosourceTree:
 @dataclasses.dataclass
 class BeginsToCastLineTree:
     data: Literal[TreeType.BEGINS_TO_CAST_LINE]
-    name: str
+    name: CombatantName
     spellname: RawSpellName
 
 
 @dataclasses.dataclass
 class GainsHappinessLineTree:
     data: Literal[TreeType.GAINS_HAPPINESS_LINE]
-    petname: str
+    petname: PetName
     amount: str
-    owner_name: str
+    owner_name: PlayerName
 
 
 @dataclasses.dataclass
 class GainsHealthLineTree:
     data: Literal[TreeType.GAINS_HEALTH_LINE]
-    targetname: str
+    targetname: CombatantName
     amount: str
-    source: str
+    source: CombatantName
     spellname: str
 
 
 @dataclasses.dataclass
 class GainsRageLineTree:
     data: Literal[TreeType.GAINS_RAGE_LINE]
-    name: str
+    name: CombatantName
     amount: str
-    source: str
+    source: CombatantName
     spellname: str
 
 
@@ -224,42 +228,42 @@ class FailsToDispelLineTree:
 @dataclasses.dataclass
 class ParryLineTree:
     data: Literal[TreeType.PARRY_LINE]
-    attacker: str
-    parrier: str
+    attacker: CombatantName
+    parrier: CombatantName
 
 
 @dataclasses.dataclass
 class IsDestroyedLineTree:
     data: Literal[TreeType.IS_DESTROYED_LINE]
-    entity_name: str
+    entity_name: CombatantName
 
 
 @dataclasses.dataclass
 class SlainLineTree:
     data: Literal[TreeType.SLAIN_LINE]
-    victim: str
-    slayer: str
+    victim: CombatantName
+    slayer: CombatantName
 
 
 @dataclasses.dataclass
 class IsDismissedLineTree:
     data: Literal[TreeType.IS_DISMISSED_LINE]
-    owner_name: str
-    pet_name: str
+    owner_name: PlayerName
+    pet_name: PetName
 
 
 @dataclasses.dataclass
 class AbsorbsAllLineTree:
     data: Literal[TreeType.ABSORBS_ALL_LINE]
-    attacker: str
-    absorber: str
+    attacker: CombatantName
+    absorber: CombatantName
 
 
 @dataclasses.dataclass
 class InterruptsLineTree:
     data: Literal[TreeType.INTERRUPTS_LINE]
-    interrupter: str
-    targetname: str
+    interrupter: CombatantName
+    targetname: CombatantName
     spellname: str
 
 
@@ -296,225 +300,225 @@ class CombatantInfoLineTree:
 @dataclasses.dataclass
 class IsReflectedBackLineTree:
     data: Literal[TreeType.IS_REFLECTED_BACK_LINE]
-    caster: str
+    caster: CombatantName
     spellname: str
-    reflector: str
+    reflector: CombatantName
 
 
 @dataclasses.dataclass
 class IsKilledLineTree:
     data: Literal[TreeType.IS_KILLED_LINE]
-    victim: str
-    killer: str
+    victim: CombatantName
+    killer: CombatantName
 
 
 @dataclasses.dataclass
 class IsAbsorbedAbilityLineTree:
     data: Literal[TreeType.IS_ABSORBED_ABILITY_LINE]
-    caster: str
+    caster: CombatantName
     spellname: str
-    target: str
+    target: CombatantName
 
 
 @dataclasses.dataclass
 class FallsLineTree:
     data: Literal[TreeType.FALLS_LINE]
-    name: str
+    name: CombatantName
     amount: str
 
 
 @dataclasses.dataclass
 class PerformsOnLineTree:
     data: Literal[TreeType.PERFORMS_ON_LINE]
-    performer: str
+    performer: CombatantName
     spellname: str
-    targetname: str
+    targetname: CombatantName
 
 
 @dataclasses.dataclass
 class PerformsLineTree:
     data: Literal[TreeType.PERFORMS_LINE]
-    performer: str
+    performer: CombatantName
     spellname: str
 
 
 @dataclasses.dataclass
 class ParryAbilityLineTree:
     data: Literal[TreeType.PARRY_ABILITY_LINE]
-    caster: str
+    caster: CombatantName
     spellname: str
-    target: str
+    target: CombatantName
 
 
 @dataclasses.dataclass
 class ImmuneLineTree:
     data: Literal[TreeType.IMMUNE_LINE]
-    attacker: str
-    target: str
+    attacker: CombatantName
+    target: CombatantName
 
 
 @dataclasses.dataclass
 class ImmuneAbilityLineTree:
     data: Literal[TreeType.IMMUNE_ABILITY_LINE]
-    caster: str
+    caster: CombatantName
     spellname: str
-    target: str
+    target: CombatantName
 
 
 @dataclasses.dataclass
 class IsImmuneAbilityLineTree:
     data: Literal[TreeType.IS_IMMUNE_ABILITY_LINE]
-    targetname: str
-    caster: str
+    targetname: CombatantName
+    caster: CombatantName
     spellname: str
 
 
 @dataclasses.dataclass
 class RemovedLineTree:
     data: Literal[TreeType.REMOVED_LINE]
-    name: str
+    name: CombatantName
     spellname: str
 
 
 @dataclasses.dataclass
 class CausesDamageLineTree:
     data: Literal[TreeType.CAUSES_DAMAGE_LINE]
-    caster: str
+    caster: CombatantName
     spellname: str
-    target: str
+    target: CombatantName
     amount: str
 
 
 @dataclasses.dataclass
 class DodgeAbilityLineTree:
     data: Literal[TreeType.DODGE_ABILITY_LINE]
-    caster: str
+    caster: CombatantName
     spellname: str
-    target: str
+    target: CombatantName
 
 
 @dataclasses.dataclass
 class BeginsToPerformLineTree:
     data: Literal[TreeType.BEGINS_TO_PERFORM_LINE]
-    name: str
+    name: CombatantName
     spellname: str
 
 
 @dataclasses.dataclass
 class DiesLineTree:
     data: Literal[TreeType.DIES_LINE]
-    name: str
+    name: CombatantName
 
 
 @dataclasses.dataclass
 class MissesAbilityLineTree:
     data: Literal[TreeType.MISSES_ABILITY_LINE]
-    caster: str
+    caster: CombatantName
     spellname: str
-    target: str
+    target: CombatantName
 
 
 @dataclasses.dataclass
 class MissesLineTree:
     data: Literal[TreeType.MISSES_LINE]
-    attacker: str
-    target: str
+    attacker: CombatantName
+    target: CombatantName
 
 
 @dataclasses.dataclass
 class DodgesLineTree:
     data: Literal[TreeType.DODGES_LINE]
-    attacker: str
-    dodger: str
+    attacker: CombatantName
+    dodger: CombatantName
 
 
 @dataclasses.dataclass
 class UsesLineTree:
     data: Literal[TreeType.USES_LINE]
-    name: str
+    name: CombatantName
     item: str
-    target: str | None
+    target: CombatantName | None
 
 
 @dataclasses.dataclass
 class ResistLineTree:
     data: Literal[TreeType.RESIST_LINE]
-    caster: str
+    caster: CombatantName
     spellname: str
-    target: str
+    target: CombatantName
 
 
 @dataclasses.dataclass
 class BlockAbilityLineTree:
     data: Literal[TreeType.BLOCK_ABILITY_LINE]
-    caster: str
+    caster: CombatantName
     spellname: str
-    blocker: str
+    blocker: CombatantName
 
 
 @dataclasses.dataclass
 class CreatesLineTree:
     data: Literal[TreeType.CREATES_LINE]
-    creator: str
+    creator: CombatantName
     item: str
 
 
 @dataclasses.dataclass
 class AbsorbsAbilityLineTree:
     data: Literal[TreeType.ABSORBS_ABILITY_LINE]
-    absorber: str
-    caster: str
+    absorber: CombatantName
+    caster: CombatantName
     spellname: str
 
 
 @dataclasses.dataclass
 class GainsEnergyLineTree:
     data: Literal[TreeType.GAINS_ENERGY_LINE]
-    recipient: str
+    recipient: CombatantName
     amount: str
-    caster: str
+    caster: CombatantName
     spellname: str
 
 
 @dataclasses.dataclass
 class WasEvadedLineTree:
     data: Literal[TreeType.WAS_EVADED_LINE]
-    name: str
+    name: CombatantName
     spellname: str
-    targetname: str
+    targetname: CombatantName
 
 
 @dataclasses.dataclass
 class ReflectsDamageLineTree:
     data: Literal[TreeType.REFLECTS_DAMAGE_LINE]
-    reflector: str
+    reflector: CombatantName
     amount: str
     damage_type: str
-    target: str
+    target: CombatantName
 
 
 @dataclasses.dataclass
 class CastsLineTree:
     data: Literal[TreeType.CASTS_LINE]
-    name: str
+    name: CombatantName
     spellname: RawSpellName
-    targetname: str | None
+    targetname: CombatantName | None
 
 
 @dataclasses.dataclass
 class DrainsManaLineTree:
     data: Literal[TreeType.DRAINS_MANA_LINE]
-    caster: str
+    caster: CombatantName
     spellname: RawSpellName
     mana: str
-    targetname: str
+    targetname: CombatantName
     gains: str
 
 
 @dataclasses.dataclass
 class GainsExtraAttacksLineTree:
     data: Literal[TreeType.GAINS_EXTRA_ATTACKS_LINE]
-    name: str
+    name: CombatantName
     howmany: RawStackCount
     source: RawSpellName
 
@@ -522,15 +526,15 @@ class GainsExtraAttacksLineTree:
 @dataclasses.dataclass
 class AfflictedLineTree:
     data: Literal[TreeType.AFFLICTED_LINE]
-    targetname: str
+    targetname: CombatantName
     spellname: RawSpellName
 
 
 @dataclasses.dataclass
 class BlockLineTree:
     data: Literal[TreeType.BLOCK_LINE]
-    name: str
-    targetname: str
+    name: CombatantName
+    targetname: CombatantName
 
 
 @dataclasses.dataclass
@@ -642,7 +646,7 @@ class Parser2:
         # gains_mana_line cache
         self.subtree_gains_mana_line = GainsManaLineTree(
             data=TreeType.GAINS_MANA_LINE,
-            name=invalid_player_name,
+            name=invalid_combatant_name,
             mana=invalid_stackcount,
             spellname=invalid_raw_spell_name,
         )
@@ -653,7 +657,7 @@ class Parser2:
         # gains_happiness_line cache
         self.subtree_gains_happiness_line = GainsHappinessLineTree(
             data=TreeType.GAINS_HAPPINESS_LINE,
-            petname=invalid_player_name,
+            petname=invalid_pet_name,
             amount=invalid_stackcount,
             owner_name=invalid_player_name,
         )
@@ -666,9 +670,9 @@ class Parser2:
         # hits_ability_line cache
         self.subtree_hits_ability_line = HitsAbilityLineTree(
             data=TreeType.HITS_ABILITY_LINE,
-            name=invalid_player_name,
+            name=invalid_combatant_name,
             spellname=invalid_raw_spell_name,
-            targetname=invalid_player_name,
+            targetname=invalid_combatant_name,
             damage=invalid_stackcount,
             spell_damage_type=invalid_raw_spell_name,
         )
@@ -681,8 +685,8 @@ class Parser2:
         # hits_autoattack_line cache
         self.subtree_hits_autoattack_line = HitsAutoattackLineTree(
             data=TreeType.HITS_AUTOATTACK_LINE,
-            name=invalid_player_name,
-            targetname=invalid_player_name,
+            name=invalid_combatant_name,
+            targetname=invalid_combatant_name,
             damage=invalid_stackcount,
             action=ActionValue.HITS,
         )
@@ -696,7 +700,7 @@ class Parser2:
 
         self.subtree_gains_line = GainsLineTree(
             data=TreeType.GAINS_LINE,
-            name=invalid_player_name,
+            name=invalid_combatant_name,
             spellname=invalid_raw_spell_name,
             stackcount=invalid_stackcount,
         )
@@ -707,10 +711,10 @@ class Parser2:
         # heals_line cache
         self.subtree_heals_line = HealsLineTree(
             data=TreeType.HEALS_LINE,
-            name=invalid_player_name,
+            name=invalid_combatant_name,
             spellname=invalid_raw_spell_name,
             heal_crit="",
-            targetname=invalid_player_name,
+            targetname=invalid_combatant_name,
             heal_amount=invalid_stackcount,
         )
         self.heals_line_tree = LineTree(
@@ -721,7 +725,7 @@ class Parser2:
         self.subtree_fades_line = FadesLineTree(
             data=TreeType.FADES_LINE,
             spellname=invalid_raw_spell_name,
-            targetname=invalid_player_name,
+            targetname=invalid_combatant_name,
         )
         self.fades_line_tree = LineTree(
             data=TreeType.LINE, timestamp=self.timestamp_tree, subtree=self.subtree_fades_line
@@ -730,10 +734,10 @@ class Parser2:
         # suffers_line cache (WITH source)
         self.subtree_suffers_line_source = SuffersLineSourceTree(
             data=TreeType.SUFFERS_LINE_SOURCE,
-            targetname=invalid_player_name,
+            targetname=invalid_combatant_name,
             damage=invalid_stackcount,
             spell_damage_type=invalid_raw_spell_name,
-            castername=invalid_player_name,
+            castername=invalid_combatant_name,
             spellname=invalid_raw_spell_name,
         )
         self.suffers_line_source_tree = LineTree(
@@ -745,7 +749,7 @@ class Parser2:
         # suffers_line cache (NO source)
         self.subtree_suffers_line_nosource = SuffersLineNosourceTree(
             data=TreeType.SUFFERS_LINE_NOSOURCE,
-            targetname=invalid_player_name,
+            targetname=invalid_combatant_name,
             damage=invalid_stackcount,
             spell_damage_type=invalid_raw_spell_name,
         )
@@ -758,7 +762,7 @@ class Parser2:
         # begins_to_cast_line cache
         self.subtree_begins_to_cast_line = BeginsToCastLineTree(
             data=TreeType.BEGINS_TO_CAST_LINE,
-            name=invalid_player_name,
+            name=invalid_combatant_name,
             spellname=invalid_raw_spell_name,
         )
         self.begins_to_cast_line_tree = LineTree(
@@ -770,7 +774,7 @@ class Parser2:
         # afflicted_line cache
         self.subtree_afflicted_line = AfflictedLineTree(
             data=TreeType.AFFLICTED_LINE,
-            targetname=invalid_player_name,
+            targetname=invalid_combatant_name,
             spellname=invalid_raw_spell_name,
         )
         self.afflicted_line_tree = LineTree(
@@ -780,8 +784,8 @@ class Parser2:
         # block_line cache
         self.subtree_block_line = BlockLineTree(
             data=TreeType.BLOCK_LINE,
-            name=invalid_player_name,
-            targetname=invalid_player_name,
+            name=invalid_combatant_name,
+            targetname=invalid_combatant_name,
         )
         self.block_line_tree = LineTree(
             data=TreeType.LINE, timestamp=self.timestamp_tree, subtree=self.subtree_block_line
@@ -790,7 +794,7 @@ class Parser2:
         # casts_line cache
         self.subtree_casts_line = CastsLineTree(
             data=TreeType.CASTS_LINE,
-            name=invalid_player_name,
+            name=invalid_combatant_name,
             spellname=invalid_raw_spell_name,
             targetname=None,
         )
@@ -801,9 +805,9 @@ class Parser2:
         # gains_rage_line cache
         self.subtree_gains_rage_line = GainsRageLineTree(
             data=TreeType.GAINS_RAGE_LINE,
-            name=invalid_player_name,
+            name=invalid_combatant_name,
             amount=invalid_stackcount,
-            source=invalid_player_name,
+            source=invalid_combatant_name,
             spellname=invalid_raw_spell_name,
         )
         self.gains_rage_line_tree = LineTree(
@@ -813,7 +817,7 @@ class Parser2:
         # gains_extra_attacks_line cache
         self.subtree_gains_extra_attacks_line = GainsExtraAttacksLineTree(
             data=TreeType.GAINS_EXTRA_ATTACKS_LINE,
-            name=invalid_player_name,
+            name=invalid_combatant_name,
             howmany=invalid_stackcount,
             source=invalid_raw_spell_name,
         )
@@ -825,7 +829,9 @@ class Parser2:
 
         # parry_line cache
         self.subtree_parry_line = ParryLineTree(
-            data=TreeType.PARRY_LINE, attacker=invalid_player_name, parrier=invalid_player_name
+            data=TreeType.PARRY_LINE,
+            attacker=invalid_combatant_name,
+            parrier=invalid_combatant_name,
         )
         self.parry_line_tree = LineTree(
             data=TreeType.LINE, timestamp=self.timestamp_tree, subtree=self.subtree_parry_line
@@ -844,10 +850,10 @@ class Parser2:
         # reflects_damage_line cache
         self.subtree_reflects_damage_line = ReflectsDamageLineTree(
             data=TreeType.REFLECTS_DAMAGE_LINE,
-            reflector=invalid_player_name,
+            reflector=invalid_combatant_name,
             amount=invalid_stackcount,
             damage_type=invalid_raw_spell_name,
-            target=invalid_player_name,
+            target=invalid_combatant_name,
         )
         self.reflects_damage_line_tree = LineTree(
             data=TreeType.LINE,
@@ -858,7 +864,7 @@ class Parser2:
         # is_destroyed_line cache
         self.subtree_is_destroyed_line = IsDestroyedLineTree(
             data=TreeType.IS_DESTROYED_LINE,
-            entity_name=invalid_player_name,
+            entity_name=invalid_combatant_name,
         )
         self.is_destroyed_line_tree = LineTree(
             data=TreeType.LINE,
@@ -869,9 +875,9 @@ class Parser2:
         # was_evaded_line cache
         self.subtree_was_evaded_line = WasEvadedLineTree(
             data=TreeType.WAS_EVADED_LINE,
-            name=invalid_player_name,
+            name=invalid_combatant_name,
             spellname=invalid_raw_spell_name,
-            targetname=invalid_player_name,
+            targetname=invalid_combatant_name,
         )
         self.was_evaded_line_tree = LineTree(
             data=TreeType.LINE,
@@ -882,8 +888,8 @@ class Parser2:
         # slain_line cache
         self.subtree_slain_line = SlainLineTree(
             data=TreeType.SLAIN_LINE,
-            victim=invalid_player_name,
-            slayer=invalid_player_name,
+            victim=invalid_combatant_name,
+            slayer=invalid_combatant_name,
         )
         self.slain_line_tree = LineTree(
             data=TreeType.LINE,
@@ -894,9 +900,9 @@ class Parser2:
         # gains_energy_line cache
         self.subtree_gains_energy_line = GainsEnergyLineTree(
             data=TreeType.GAINS_ENERGY_LINE,
-            recipient=invalid_player_name,
+            recipient=invalid_combatant_name,
             amount=invalid_stackcount,
-            caster=invalid_player_name,
+            caster=invalid_combatant_name,
             spellname=invalid_raw_spell_name,
         )
         self.gains_energy_line_tree = LineTree(
@@ -908,8 +914,8 @@ class Parser2:
         # absorbs_ability_line cache
         self.subtree_absorbs_ability_line = AbsorbsAbilityLineTree(
             data=TreeType.ABSORBS_ABILITY_LINE,
-            absorber=invalid_player_name,
-            caster=invalid_player_name,
+            absorber=invalid_combatant_name,
+            caster=invalid_combatant_name,
             spellname=invalid_raw_spell_name,
         )
         self.absorbs_ability_line_tree = LineTree(
@@ -921,7 +927,7 @@ class Parser2:
         # creates_line cache
         self.subtree_creates_line = CreatesLineTree(
             data=TreeType.CREATES_LINE,
-            creator=invalid_player_name,
+            creator=invalid_combatant_name,
             item=invalid_raw_spell_name,
         )
         self.creates_line_tree = LineTree(
@@ -933,9 +939,9 @@ class Parser2:
         # block_ability_line cache
         self.subtree_block_ability_line = BlockAbilityLineTree(
             data=TreeType.BLOCK_ABILITY_LINE,
-            caster=invalid_player_name,
+            caster=invalid_combatant_name,
             spellname=invalid_raw_spell_name,
-            blocker=invalid_player_name,
+            blocker=invalid_combatant_name,
         )
         self.block_ability_line_tree = LineTree(
             data=TreeType.LINE,
@@ -946,9 +952,9 @@ class Parser2:
         # resist_line cache
         self.subtree_resist_line = ResistLineTree(
             data=TreeType.RESIST_LINE,
-            caster=invalid_player_name,
+            caster=invalid_combatant_name,
             spellname=invalid_raw_spell_name,
-            target=invalid_player_name,
+            target=invalid_combatant_name,
         )
         self.resist_line_tree = LineTree(
             data=TreeType.LINE,
@@ -959,7 +965,7 @@ class Parser2:
         # uses_line cache
         self.subtree_uses_line = UsesLineTree(
             data=TreeType.USES_LINE,
-            name=invalid_player_name,
+            name=invalid_combatant_name,
             item=invalid_raw_spell_name,
             target=None,
         )
@@ -972,8 +978,8 @@ class Parser2:
         # dodges_line cache
         self.subtree_dodges_line = DodgesLineTree(
             data=TreeType.DODGES_LINE,
-            attacker=invalid_player_name,
-            dodger=invalid_player_name,
+            attacker=invalid_combatant_name,
+            dodger=invalid_combatant_name,
         )
         self.dodges_line_tree = LineTree(
             data=TreeType.LINE,
@@ -984,9 +990,9 @@ class Parser2:
         # misses_ability_line cache
         self.subtree_misses_ability_line = MissesAbilityLineTree(
             data=TreeType.MISSES_ABILITY_LINE,
-            caster=invalid_player_name,
+            caster=invalid_combatant_name,
             spellname=invalid_raw_spell_name,
-            target=invalid_player_name,
+            target=invalid_combatant_name,
         )
         self.misses_ability_line_tree = LineTree(
             data=TreeType.LINE,
@@ -997,8 +1003,8 @@ class Parser2:
         # misses_line cache
         self.subtree_misses_line = MissesLineTree(
             data=TreeType.MISSES_LINE,
-            attacker=invalid_player_name,
-            target=invalid_player_name,
+            attacker=invalid_combatant_name,
+            target=invalid_combatant_name,
         )
         self.misses_line_tree = LineTree(
             data=TreeType.LINE,
@@ -1009,7 +1015,7 @@ class Parser2:
         # dies_line cache
         self.subtree_dies_line = DiesLineTree(
             data=TreeType.DIES_LINE,
-            name=invalid_player_name,
+            name=invalid_combatant_name,
         )
         self.dies_line_tree = LineTree(
             data=TreeType.LINE,
@@ -1020,7 +1026,7 @@ class Parser2:
         # begins_to_perform_line cache
         self.subtree_begins_to_perform_line = BeginsToPerformLineTree(
             data=TreeType.BEGINS_TO_PERFORM_LINE,
-            name=invalid_player_name,
+            name=invalid_combatant_name,
             spellname=invalid_raw_spell_name,
         )
         self.begins_to_perform_line_tree = LineTree(
@@ -1032,9 +1038,9 @@ class Parser2:
         # dodge_ability_line cache
         self.subtree_dodge_ability_line = DodgeAbilityLineTree(
             data=TreeType.DODGE_ABILITY_LINE,
-            caster=invalid_player_name,
+            caster=invalid_combatant_name,
             spellname=invalid_raw_spell_name,
-            target=invalid_player_name,
+            target=invalid_combatant_name,
         )
         self.dodge_ability_line_tree = LineTree(
             data=TreeType.LINE,
@@ -1045,9 +1051,9 @@ class Parser2:
         # causes_damage_line cache
         self.subtree_causes_damage_line = CausesDamageLineTree(
             data=TreeType.CAUSES_DAMAGE_LINE,
-            caster=invalid_player_name,
+            caster=invalid_combatant_name,
             spellname=invalid_raw_spell_name,
-            target=invalid_player_name,
+            target=invalid_combatant_name,
             amount=invalid_stackcount,
         )
         self.causes_damage_line_tree = LineTree(
@@ -1059,7 +1065,7 @@ class Parser2:
         # removed_line cache
         self.subtree_removed_line = RemovedLineTree(
             data=TreeType.REMOVED_LINE,
-            name=invalid_player_name,
+            name=invalid_combatant_name,
             spellname=invalid_raw_spell_name,
         )
         self.removed_line_tree = LineTree(
@@ -1071,9 +1077,9 @@ class Parser2:
         # immune_ability_line cache
         self.subtree_immune_ability_line = ImmuneAbilityLineTree(
             data=TreeType.IMMUNE_ABILITY_LINE,
-            caster=invalid_player_name,
+            caster=invalid_combatant_name,
             spellname=invalid_raw_spell_name,
-            target=invalid_player_name,
+            target=invalid_combatant_name,
         )
         self.immune_ability_line_tree = LineTree(
             data=TreeType.LINE,
@@ -1084,8 +1090,8 @@ class Parser2:
         # immune_line cache
         self.subtree_immune_line = ImmuneLineTree(
             data=TreeType.IMMUNE_LINE,
-            attacker=invalid_player_name,
-            target=invalid_player_name,
+            attacker=invalid_combatant_name,
+            target=invalid_combatant_name,
         )
         self.immune_line_tree = LineTree(
             data=TreeType.LINE,
@@ -1096,8 +1102,8 @@ class Parser2:
         # is_immune_ability_line cache
         self.subtree_is_immune_ability_line = IsImmuneAbilityLineTree(
             data=TreeType.IS_IMMUNE_ABILITY_LINE,
-            targetname=invalid_player_name,
-            caster=invalid_player_name,
+            targetname=invalid_combatant_name,
+            caster=invalid_combatant_name,
             spellname=invalid_raw_spell_name,
         )
         self.is_immune_ability_line_tree = LineTree(
@@ -1109,9 +1115,9 @@ class Parser2:
         # parry_ability_line cache
         self.subtree_parry_ability_line = ParryAbilityLineTree(
             data=TreeType.PARRY_ABILITY_LINE,
-            caster=invalid_player_name,
+            caster=invalid_combatant_name,
             spellname=invalid_raw_spell_name,
-            target=invalid_player_name,
+            target=invalid_combatant_name,
         )
         self.parry_ability_line_tree = LineTree(
             data=TreeType.LINE,
@@ -1122,9 +1128,9 @@ class Parser2:
         # performs_on_line cache
         self.subtree_performs_on_line = PerformsOnLineTree(
             data=TreeType.PERFORMS_ON_LINE,
-            performer=invalid_player_name,
+            performer=invalid_combatant_name,
             spellname=invalid_raw_spell_name,
-            targetname=invalid_player_name,
+            targetname=invalid_combatant_name,
         )
         self.performs_on_line_tree = LineTree(
             data=TreeType.LINE,
@@ -1135,7 +1141,7 @@ class Parser2:
         # performs_line cache
         self.subtree_performs_line = PerformsLineTree(
             data=TreeType.PERFORMS_LINE,
-            performer=invalid_player_name,
+            performer=invalid_combatant_name,
             spellname=invalid_raw_spell_name,
         )
         self.performs_line_tree = LineTree(
@@ -1147,7 +1153,7 @@ class Parser2:
         # falls_line cache
         self.subtree_falls_line = FallsLineTree(
             data=TreeType.FALLS_LINE,
-            name=invalid_player_name,
+            name=invalid_combatant_name,
             amount="0",
         )
         self.falls_line_tree = LineTree(
@@ -1159,9 +1165,9 @@ class Parser2:
         # is_absorbed_ability_line cache
         self.subtree_is_absorbed_ability_line = IsAbsorbedAbilityLineTree(
             data=TreeType.IS_ABSORBED_ABILITY_LINE,
-            caster=invalid_player_name,
+            caster=invalid_combatant_name,
             spellname=invalid_raw_spell_name,
-            target=invalid_player_name,
+            target=invalid_combatant_name,
         )
         self.is_absorbed_ability_line_tree = LineTree(
             data=TreeType.LINE,
@@ -1172,8 +1178,8 @@ class Parser2:
         # is_killed_line cache
         self.subtree_is_killed_line = IsKilledLineTree(
             data=TreeType.IS_KILLED_LINE,
-            victim=invalid_player_name,
-            killer=invalid_player_name,
+            victim=invalid_combatant_name,
+            killer=invalid_combatant_name,
         )
         self.is_killed_line_tree = LineTree(
             data=TreeType.LINE,
@@ -1184,9 +1190,9 @@ class Parser2:
         # is_reflected_back_line cache
         self.subtree_is_reflected_back_line = IsReflectedBackLineTree(
             data=TreeType.IS_REFLECTED_BACK_LINE,
-            caster=invalid_player_name,
+            caster=invalid_combatant_name,
             spellname=invalid_raw_spell_name,
-            reflector=invalid_player_name,
+            reflector=invalid_combatant_name,
         )
         self.is_reflected_back_line_tree = LineTree(
             data=TreeType.LINE,
@@ -1249,9 +1255,9 @@ class Parser2:
         # interrupts_line cache
         self.subtree_interrupts_line = InterruptsLineTree(
             data=TreeType.INTERRUPTS_LINE,
-            interrupter="",
-            targetname="",
-            spellname="",
+            interrupter=invalid_combatant_name,
+            targetname=invalid_combatant_name,
+            spellname=invalid_raw_spell_name,
         )
         self.interrupts_line_tree = LineTree(
             data=TreeType.LINE,
@@ -1261,7 +1267,9 @@ class Parser2:
 
         # absorbs_all_line cache
         self.subtree_absorbs_all_line = AbsorbsAllLineTree(
-            data=TreeType.ABSORBS_ALL_LINE, attacker="", absorber=""
+            data=TreeType.ABSORBS_ALL_LINE,
+            attacker=invalid_combatant_name,
+            absorber=invalid_combatant_name,
         )
         self.absorbs_all_line_tree = LineTree(
             data=TreeType.LINE,
@@ -1271,7 +1279,9 @@ class Parser2:
 
         # is_dismissed_line cache
         self.subtree_is_dismissed_line = IsDismissedLineTree(
-            data=TreeType.IS_DISMISSED_LINE, owner_name="", pet_name=""
+            data=TreeType.IS_DISMISSED_LINE,
+            owner_name=invalid_player_name,
+            pet_name=invalid_pet_name,
         )
         self.is_dismissed_line_tree = LineTree(
             data=TreeType.LINE,
@@ -1282,9 +1292,9 @@ class Parser2:
         # gains_health_line cache
         self.subtree_gains_health_line = GainsHealthLineTree(
             data=TreeType.GAINS_HEALTH_LINE,
-            targetname=invalid_player_name,
+            targetname=invalid_combatant_name,
             amount=invalid_stackcount,
-            source=invalid_player_name,
+            source=invalid_combatant_name,
             spellname=invalid_raw_spell_name,
         )
         self.gains_health_line_tree = LineTree(
@@ -1296,10 +1306,10 @@ class Parser2:
         # drains_mana_line cache
         self.subtree_drains_mana_line = DrainsManaLineTree(
             data=TreeType.DRAINS_MANA_LINE,
-            caster=invalid_player_name,
+            caster=invalid_combatant_name,
             spellname=invalid_raw_spell_name,
             mana=invalid_stackcount,
-            targetname=invalid_player_name,
+            targetname=invalid_combatant_name,
             gains=invalid_stackcount,
         )
         self.drains_mana_line_tree = LineTree(
@@ -1351,8 +1361,8 @@ class Parser2:
             return None
 
         # Slice out the name and pet name.
-        name = pet_string[p_first_amp + 1 : p_second_amp]
-        petname = pet_string[p_second_amp + 1 :].strip()  # strip() for safety
+        name = PlayerName(pet_string[p_first_amp + 1 : p_second_amp])
+        petname = PetName(pet_string[p_second_amp + 1 :].strip())  # strip() for safety
 
         # Return the subtree for this pet entry.
         return ConsolidatedPetTree(data=TreeType.CONSOLIDATED_PET, name=name, petname=petname)
@@ -1392,7 +1402,7 @@ class Parser2:
 
                     _ = self.parse_ts(line, p_ts_end)  # magic cached reference
 
-                    self.subtree_gains_mana_line.name = name  # magic cached reference
+                    self.subtree_gains_mana_line.name = NPCName(name)  # magic cached reference
                     self.subtree_gains_mana_line.mana = mana  # magic cached reference
                     self.subtree_gains_mana_line.spellname = (
                         spellname_gains_mana  # magic cached reference
@@ -1459,11 +1469,11 @@ class Parser2:
                     spellname_hits_ability = line[p_s + 4 : p_action]
                     targetname_hits_ability = line[p_action + len(action_verb) + 2 : p_for]
 
-                    self.subtree_hits_ability_line.name = name  # magic cached reference
+                    self.subtree_hits_ability_line.name = NPCName(name)  # magic cached reference
                     self.subtree_hits_ability_line.spellname = (
                         spellname_hits_ability  # magic cached reference
                     )
-                    self.subtree_hits_ability_line.targetname = (
+                    self.subtree_hits_ability_line.targetname = NPCName(
                         targetname_hits_ability  # magic cached reference
                     )
                     self.subtree_hits_ability_line.damage = damage_amount  # magic cached reference
@@ -1485,8 +1495,10 @@ class Parser2:
                     caster_name = line[p_ts_end + 2 : p_action]
                     targetname_hits_autoattack = line[p_action + len(action_verb) + 2 : p_for]
 
-                    self.subtree_hits_autoattack_line.name = caster_name  # magic cached reference
-                    self.subtree_hits_autoattack_line.targetname = (
+                    self.subtree_hits_autoattack_line.name = NPCName(
+                        caster_name
+                    )  # magic cached reference
+                    self.subtree_hits_autoattack_line.targetname = NPCName(
                         targetname_hits_autoattack  # magic cached reference
                     )
                     self.subtree_hits_autoattack_line.damage = (
@@ -1530,10 +1542,12 @@ class Parser2:
                 p_num_end = p_period
                 amount = line[p_num_start:p_num_end]
 
-                self.subtree_heals_line.name = caster_name  # magic cached reference
+                self.subtree_heals_line.name = NPCName(caster_name)  # magic cached reference
                 self.subtree_heals_line.spellname = spellname_heals  # magic cached reference
                 self.subtree_heals_line.heal_crit = crit_token_value  # magic cached reference
-                self.subtree_heals_line.targetname = targetname_heals  # magic cached reference
+                self.subtree_heals_line.targetname = NPCName(
+                    targetname_heals
+                )  # magic cached reference
                 self.subtree_heals_line.heal_amount = amount  # magic cached reference
                 return self.heals_line_tree  # magic cached reference
 
@@ -1550,7 +1564,9 @@ class Parser2:
                 targetname_fades = line[p_fades + 12 : -2]
 
                 self.subtree_fades_line.spellname = spellname_fades  # magic cached reference
-                self.subtree_fades_line.targetname = targetname_fades  # magic cached reference
+                self.subtree_fades_line.targetname = NPCName(
+                    targetname_fades
+                )  # magic cached reference
                 return self.fades_line_tree  # magic cached reference
 
             p_suffers = line.find(" suffers ", p_ts_end)
@@ -1566,7 +1582,7 @@ class Parser2:
                 p_num_end = line.find(" ", p_num_start)
                 amount = line[p_num_start:p_num_end]
 
-                self.subtree_suffers_line_source.targetname = targetname_suffers
+                self.subtree_suffers_line_source.targetname = NPCName(targetname_suffers)
                 self.subtree_suffers_line_source.damage = amount
 
                 # figure out if there's a source
@@ -1592,7 +1608,7 @@ class Parser2:
 
                             # magic cached reference
                             self.subtree_suffers_line_source.spell_damage_type = damage_type
-                            self.subtree_suffers_line_source.castername = (
+                            self.subtree_suffers_line_source.castername = NPCName(
                                 castername  # magic cached reference
                             )
                             self.subtree_suffers_line_source.spellname = (
@@ -1609,7 +1625,7 @@ class Parser2:
 
                         damage_type = line[p_points + 11 : p_damage_word]
 
-                        self.subtree_suffers_line_nosource.targetname = targetname_suffers
+                        self.subtree_suffers_line_nosource.targetname = NPCName(targetname_suffers)
                         self.subtree_suffers_line_nosource.damage = amount
                         self.subtree_suffers_line_nosource.spell_damage_type = damage_type
                         return self.suffers_line_nosource_tree  # magic cached reference
@@ -1633,7 +1649,7 @@ class Parser2:
                 # The stackcount is the number between the parentheses.
                 stackcount = line[p_paren_open + 2 : p_paren_close]  # +2 skips " ("
 
-                self.subtree_gains_line.name = name  # magic cached reference
+                self.subtree_gains_line.name = NPCName(name)  # magic cached reference
                 self.subtree_gains_line.spellname = spellname_gains  # magic cached reference
                 self.subtree_gains_line.stackcount = stackcount  # magic cached reference
                 return self.gains_line_tree
@@ -1649,7 +1665,9 @@ class Parser2:
 
                 spellname_begins_to_cast = line[p_action + len(action_phrase) : -2]
 
-                self.subtree_begins_to_cast_line.name = caster_name  # magic cached reference
+                self.subtree_begins_to_cast_line.name = NPCName(
+                    caster_name
+                )  # magic cached reference
                 self.subtree_begins_to_cast_line.spellname = (
                     spellname_begins_to_cast  # magic cached reference
                 )
@@ -1673,7 +1691,7 @@ class Parser2:
                 # The spellname is everything between the action phrase and the final " (#)".
                 spellname_afflicted = line[p_action + len(action_phrase) : p_paren_open]
 
-                self.subtree_afflicted_line.targetname = (
+                self.subtree_afflicted_line.targetname = NPCName(
                     targetname_afflicted  # magic cached reference
                 )
                 self.subtree_afflicted_line.spellname = (
@@ -1716,9 +1734,11 @@ class Parser2:
                     # The spell is everything after " casts " to the end.
                     spellname_casts = line[p_casts + 7 : -2]
 
-                self.subtree_casts_line.name = caster_name
+                self.subtree_casts_line.name = NPCName(caster_name)
                 self.subtree_casts_line.spellname = spellname_casts
-                self.subtree_casts_line.targetname = targetname_casts
+                self.subtree_casts_line.targetname = (
+                    NPCName(targetname_casts) if targetname_casts else None
+                )
 
                 return self.casts_line_tree  # magic cached reference
 
@@ -1742,7 +1762,7 @@ class Parser2:
                 # The source is everything after " through " to the end.
                 source = line[p_through + 9 : -2]  # 9 is len(' through ')
 
-                self.subtree_gains_extra_attacks_line.name = name
+                self.subtree_gains_extra_attacks_line.name = NPCName(name)
                 self.subtree_gains_extra_attacks_line.howmany = howmany
                 self.subtree_gains_extra_attacks_line.source = source
 
@@ -1768,9 +1788,9 @@ class Parser2:
                 spellname_gains_rage = line[p_s + 4 : p_period]  # len(" 's ") == 4
 
                 # Construct the tree with 4 children, as expected by the consumer.
-                self.subtree_gains_rage_line.name = recipient_name
+                self.subtree_gains_rage_line.name = NPCName(recipient_name)
                 self.subtree_gains_rage_line.amount = rage_amount
-                self.subtree_gains_rage_line.source = caster_name
+                self.subtree_gains_rage_line.source = NPCName(caster_name)
                 self.subtree_gains_rage_line.spellname = spellname_gains_rage
 
                 return self.gains_rage_line_tree
@@ -1793,9 +1813,9 @@ class Parser2:
                 spellname_gains_health = line[p_s + 4 : p_period]  # len(" 's ") == 4
 
                 # Construct the tree with 4 children, as expected by the consumer.
-                self.subtree_gains_health_line.targetname = targetname_gains_health
+                self.subtree_gains_health_line.targetname = NPCName(targetname_gains_health)
                 self.subtree_gains_health_line.amount = health_amount
-                self.subtree_gains_health_line.source = caster_name
+                self.subtree_gains_health_line.source = NPCName(caster_name)
                 self.subtree_gains_health_line.spellname = spellname_gains_health
 
                 return self.gains_health_line_tree
@@ -1818,9 +1838,9 @@ class Parser2:
                 spellname_gains_energy = line[p_s + 4 : p_period]  # len(" 's ") == 4
 
                 # Construct the tree using the cache
-                self.subtree_gains_energy_line.recipient = recipient_name
+                self.subtree_gains_energy_line.recipient = NPCName(recipient_name)
                 self.subtree_gains_energy_line.amount = energy_amount
-                self.subtree_gains_energy_line.caster = caster_name
+                self.subtree_gains_energy_line.caster = NPCName(caster_name)
                 self.subtree_gains_energy_line.spellname = spellname_gains_energy
 
                 return self.gains_energy_line_tree
@@ -1839,9 +1859,9 @@ class Parser2:
                 targetname_resist = line[p_resisted + 17 : -2]  # 17 is len(' was resisted by ')
 
                 # Construct the tree using the cache
-                self.subtree_resist_line.caster = caster_name
+                self.subtree_resist_line.caster = NPCName(caster_name)
                 self.subtree_resist_line.spellname = spellname_resisted
-                self.subtree_resist_line.target = targetname_resist
+                self.subtree_resist_line.target = NPCName(targetname_resist)
 
                 return self.resist_line_tree
 
@@ -1872,9 +1892,11 @@ class Parser2:
                     spellname_uses = line[p_uses + 6 : -2]
 
                 # Construct the tree using the cache
-                self.subtree_uses_line.name = user_name
+                self.subtree_uses_line.name = NPCName(user_name)
                 self.subtree_uses_line.item = spellname_uses
-                self.subtree_uses_line.target = targetname_uses
+                self.subtree_uses_line.target = (
+                    NPCName(targetname_uses) if targetname_uses else None
+                )
 
                 return self.uses_line_tree
 
@@ -1897,8 +1919,8 @@ class Parser2:
                 dodger = line[dodger_start:p_anchor2]
 
                 # Construct the tree using the cache
-                self.subtree_dodges_line.attacker = attacker
-                self.subtree_dodges_line.dodger = dodger
+                self.subtree_dodges_line.attacker = NPCName(attacker)
+                self.subtree_dodges_line.dodger = NPCName(dodger)
 
                 return self.dodges_line_tree
 
@@ -1924,9 +1946,9 @@ class Parser2:
                     targetname_misses_ability = line[p_verb + verb_len : -2]
 
                     # Construct the tree using the cache
-                    self.subtree_misses_ability_line.caster = caster_name
+                    self.subtree_misses_ability_line.caster = NPCName(caster_name)
                     self.subtree_misses_ability_line.spellname = spellname_misses_ability
-                    self.subtree_misses_ability_line.target = targetname_misses_ability
+                    self.subtree_misses_ability_line.target = NPCName(targetname_misses_ability)
 
                     return self.misses_ability_line_tree
 
@@ -1941,8 +1963,8 @@ class Parser2:
                     target = line[p_misses + 8 : -2]  # len(' misses ')
 
                     # Construct the tree using the cache
-                    self.subtree_misses_line.attacker = attacker
-                    self.subtree_misses_line.target = target
+                    self.subtree_misses_line.attacker = NPCName(attacker)
+                    self.subtree_misses_line.target = NPCName(target)
 
                     return self.misses_line_tree
 
@@ -1959,7 +1981,7 @@ class Parser2:
                 name = line[name_start:name_end]
 
                 # Construct the tree using the cache
-                self.subtree_dies_line.name = name
+                self.subtree_dies_line.name = NPCName(name)
 
                 return self.dies_line_tree
 
@@ -1984,8 +2006,8 @@ class Parser2:
                     parrier = line[parrier_start:parrier_end]
 
                     # Construct the simple two-child tree.
-                    self.subtree_parry_line.attacker = attacker
-                    self.subtree_parry_line.parrier = parrier
+                    self.subtree_parry_line.attacker = NPCName(attacker)
+                    self.subtree_parry_line.parrier = NPCName(parrier)
 
                     return self.parry_line_tree
 
@@ -2002,8 +2024,8 @@ class Parser2:
                     blocker_end = -len(blocks_anchor)
                     blocker = line[blocker_start:blocker_end]
 
-                    self.subtree_block_line.name = attacker
-                    self.subtree_block_line.targetname = blocker
+                    self.subtree_block_line.name = NPCName(attacker)
+                    self.subtree_block_line.targetname = NPCName(blocker)
                     return self.block_line_tree
 
             # Find all the anchors in sequential order.
@@ -2029,10 +2051,10 @@ class Parser2:
                 targetname_reflects = line[target_start:target_end]
 
                 # Construct the tree using the cache
-                self.subtree_reflects_damage_line.reflector = reflector_name
+                self.subtree_reflects_damage_line.reflector = NPCName(reflector_name)
                 self.subtree_reflects_damage_line.amount = amount
                 self.subtree_reflects_damage_line.damage_type = damage_type
-                self.subtree_reflects_damage_line.target = targetname_reflects
+                self.subtree_reflects_damage_line.target = NPCName(targetname_reflects)
 
                 return self.reflects_damage_line_tree
 
@@ -2051,7 +2073,7 @@ class Parser2:
                 action_name = line[action_start:action_end]
 
                 # Construct the tree using the cache
-                self.subtree_begins_to_perform_line.name = performer_name
+                self.subtree_begins_to_perform_line.name = NPCName(performer_name)
                 self.subtree_begins_to_perform_line.spellname = action_name
 
                 return self.begins_to_perform_line_tree
@@ -2074,9 +2096,9 @@ class Parser2:
                 targetname_dodge_ability = line[target_start:target_end]
 
                 # Construct the tree using the cache
-                self.subtree_dodge_ability_line.caster = caster_name
+                self.subtree_dodge_ability_line.caster = NPCName(caster_name)
                 self.subtree_dodge_ability_line.spellname = spellname_dodge_ability
-                self.subtree_dodge_ability_line.target = targetname_dodge_ability
+                self.subtree_dodge_ability_line.target = NPCName(targetname_dodge_ability)
 
                 return self.dodge_ability_line_tree
 
@@ -2101,9 +2123,9 @@ class Parser2:
                 amount = line[p_last_space + 1 : p_damage_word]
 
                 # Construct the tree using the cache
-                self.subtree_causes_damage_line.caster = caster_name
+                self.subtree_causes_damage_line.caster = NPCName(caster_name)
                 self.subtree_causes_damage_line.spellname = spellname_causes_damage
-                self.subtree_causes_damage_line.target = targetname_causes_damage
+                self.subtree_causes_damage_line.target = NPCName(targetname_causes_damage)
                 self.subtree_causes_damage_line.amount = amount
 
                 return self.causes_damage_line_tree
@@ -2128,7 +2150,7 @@ class Parser2:
                     spellname_removed = line[spell_start:p_removed]
 
                     # Construct the tree using the cache
-                    self.subtree_removed_line.name = caster_name
+                    self.subtree_removed_line.name = NPCName(caster_name)
                     self.subtree_removed_line.spellname = spellname_removed
 
                     return self.removed_line_tree
@@ -2152,9 +2174,9 @@ class Parser2:
                     targetname_immune_ability = line[target_start:target_end]
 
                     # Construct the tree using the cache
-                    self.subtree_immune_ability_line.caster = caster_name
+                    self.subtree_immune_ability_line.caster = NPCName(caster_name)
                     self.subtree_immune_ability_line.spellname = spellname_immune
-                    self.subtree_immune_ability_line.target = targetname_immune_ability
+                    self.subtree_immune_ability_line.target = NPCName(targetname_immune_ability)
 
                     return self.immune_ability_line_tree
 
@@ -2176,9 +2198,9 @@ class Parser2:
                 targetname_parry_ability = line[target_start:target_end]
 
                 # Construct the tree using the cache
-                self.subtree_parry_ability_line.caster = caster_name
+                self.subtree_parry_ability_line.caster = NPCName(caster_name)
                 self.subtree_parry_ability_line.spellname = spellname_parry_ability
-                self.subtree_parry_ability_line.target = targetname_parry_ability
+                self.subtree_parry_ability_line.target = NPCName(targetname_parry_ability)
 
                 return self.parry_ability_line_tree
 
@@ -2204,8 +2226,8 @@ class Parser2:
                     target = line[target_start:target_end]
 
                     # Construct the tree using the cache
-                    self.subtree_immune_line.attacker = attacker
-                    self.subtree_immune_line.target = target
+                    self.subtree_immune_line.attacker = NPCName(attacker)
+                    self.subtree_immune_line.target = NPCName(target)
 
                     return self.immune_line_tree
 
@@ -2224,9 +2246,9 @@ class Parser2:
                     targetname_performs_on = line[p_on + 4 : -2]  # len(' on '), removes ".\n"
 
                     # Construct the tree using the cache
-                    self.subtree_performs_on_line.performer = performer
+                    self.subtree_performs_on_line.performer = NPCName(performer)
                     self.subtree_performs_on_line.spellname = spellname_performs_on
-                    self.subtree_performs_on_line.targetname = targetname_performs_on
+                    self.subtree_performs_on_line.targetname = NPCName(targetname_performs_on)
 
                     return self.performs_on_line_tree
 
@@ -2242,7 +2264,7 @@ class Parser2:
                     ]  # len(' performs '), removes ".\n"
 
                     # Construct the tree using the cache
-                    self.subtree_performs_line.performer = performer
+                    self.subtree_performs_line.performer = NPCName(performer)
                     self.subtree_performs_line.spellname = spellname_performs
 
                     return self.performs_line_tree
@@ -2265,7 +2287,7 @@ class Parser2:
                     amount = line[amount_start:amount_end]
 
                     # Construct the tree using the cache
-                    self.subtree_falls_line.name = name
+                    self.subtree_falls_line.name = NPCName(name)
                     self.subtree_falls_line.amount = amount
 
                     return self.falls_line_tree
@@ -2291,8 +2313,8 @@ class Parser2:
 
                 # Construct the tree with 3 children in the correct order.
                 # Construct the tree using the cache
-                self.subtree_is_immune_ability_line.targetname = targetname_is_immune
-                self.subtree_is_immune_ability_line.caster = caster_name
+                self.subtree_is_immune_ability_line.targetname = NPCName(targetname_is_immune)
+                self.subtree_is_immune_ability_line.caster = NPCName(caster_name)
                 self.subtree_is_immune_ability_line.spellname = spellname_is_immune
 
                 return self.is_immune_ability_line_tree
@@ -2311,9 +2333,9 @@ class Parser2:
                 targetname_was_evaded = line[target_start:target_end]
 
                 # Construct the tree using the cache
-                self.subtree_was_evaded_line.name = caster_name
+                self.subtree_was_evaded_line.name = NPCName(caster_name)
                 self.subtree_was_evaded_line.spellname = spellname_was_evaded
-                self.subtree_was_evaded_line.targetname = targetname_was_evaded
+                self.subtree_was_evaded_line.targetname = NPCName(targetname_was_evaded)
 
                 return self.was_evaded_line_tree
 
@@ -2355,9 +2377,9 @@ class Parser2:
                 targetname_is_absorbed = line[target_start:target_end]
 
                 # Construct the tree using the cache
-                self.subtree_is_absorbed_ability_line.caster = caster_name
+                self.subtree_is_absorbed_ability_line.caster = NPCName(caster_name)
                 self.subtree_is_absorbed_ability_line.spellname = spellname_is_absorbed
-                self.subtree_is_absorbed_ability_line.target = targetname_is_absorbed
+                self.subtree_is_absorbed_ability_line.target = NPCName(targetname_is_absorbed)
 
                 return self.is_absorbed_ability_line_tree
 
@@ -2378,8 +2400,8 @@ class Parser2:
                 spellname_absorbs_ability = line[spell_start:spell_end]
 
                 # Construct the tree using the cache
-                self.subtree_absorbs_ability_line.absorber = absorber_name
-                self.subtree_absorbs_ability_line.caster = caster_name
+                self.subtree_absorbs_ability_line.absorber = NPCName(absorber_name)
+                self.subtree_absorbs_ability_line.caster = NPCName(caster_name)
                 self.subtree_absorbs_ability_line.spellname = spellname_absorbs_ability
 
                 return self.absorbs_ability_line_tree
@@ -2402,8 +2424,8 @@ class Parser2:
                     slayer = line[slayer_start:-2]
 
                     # Construct the tree using the cache
-                    self.subtree_slain_line.victim = victim
-                    self.subtree_slain_line.slayer = slayer
+                    self.subtree_slain_line.victim = NPCName(victim)
+                    self.subtree_slain_line.slayer = NPCName(slayer)
 
                     return self.slain_line_tree
 
@@ -2420,7 +2442,7 @@ class Parser2:
                 item_name = line[item_start:item_end]
 
                 # Construct the tree using the cache
-                self.subtree_creates_line.creator = creator_name
+                self.subtree_creates_line.creator = NPCName(creator_name)
                 self.subtree_creates_line.item = item_name
 
                 return self.creates_line_tree
@@ -2438,8 +2460,8 @@ class Parser2:
                 killer = line[killer_start:killer_end]
 
                 # Construct the tree using the cache
-                self.subtree_is_killed_line.victim = victim
-                self.subtree_is_killed_line.killer = killer
+                self.subtree_is_killed_line.victim = NPCName(victim)
+                self.subtree_is_killed_line.killer = NPCName(killer)
 
                 return self.is_killed_line_tree
 
@@ -2455,7 +2477,7 @@ class Parser2:
                 entity_name = line[name_start:name_end]
 
                 # Construct the tree using the cache
-                self.subtree_is_destroyed_line.entity_name = entity_name
+                self.subtree_is_destroyed_line.entity_name = NPCName(entity_name)
 
                 return self.is_destroyed_line_tree
 
@@ -2474,9 +2496,9 @@ class Parser2:
                 reflector_name = line[reflector_start:reflector_end]
 
                 # Construct the tree using the cache
-                self.subtree_is_reflected_back_line.caster = caster_name
+                self.subtree_is_reflected_back_line.caster = NPCName(caster_name)
                 self.subtree_is_reflected_back_line.spellname = spellname_is_reflected
-                self.subtree_is_reflected_back_line.reflector = reflector_name
+                self.subtree_is_reflected_back_line.reflector = NPCName(reflector_name)
 
                 return self.is_reflected_back_line_tree
 
@@ -2522,9 +2544,9 @@ class Parser2:
                 blocker_name = line[blocker_start:blocker_end]
 
                 # Construct the tree using the cache
-                self.subtree_block_ability_line.caster = caster_name
+                self.subtree_block_ability_line.caster = NPCName(caster_name)
                 self.subtree_block_ability_line.spellname = spellname_block_ability
-                self.subtree_block_ability_line.blocker = blocker_name
+                self.subtree_block_ability_line.blocker = NPCName(blocker_name)
 
                 return self.block_ability_line_tree
 
@@ -2543,8 +2565,8 @@ class Parser2:
                     blocker_end = -len(final_anchor_with_newline)
                     blocker = line[blocker_start:blocker_end]
 
-                    self.subtree_block_line.name = attacker
-                    self.subtree_block_line.targetname = blocker
+                    self.subtree_block_line.name = NPCName(attacker)
+                    self.subtree_block_line.targetname = NPCName(blocker)
                     return self.block_line_tree
 
             p_interrupts = line.find(" interrupts ", p_ts_end)
@@ -2563,8 +2585,8 @@ class Parser2:
                 spellname_interrupts = line[spell_start:spell_end]
 
                 # Construct the tree using the cache
-                self.subtree_interrupts_line.interrupter = interrupter_name
-                self.subtree_interrupts_line.targetname = targetname_interrupts
+                self.subtree_interrupts_line.interrupter = NPCName(interrupter_name)
+                self.subtree_interrupts_line.targetname = NPCName(targetname_interrupts)
                 self.subtree_interrupts_line.spellname = spellname_interrupts
 
                 return self.interrupts_line_tree
@@ -2586,8 +2608,8 @@ class Parser2:
                     absorber = line[absorber_start:absorber_end]
 
                     # Construct the tree using the cache
-                    self.subtree_absorbs_all_line.attacker = attacker
-                    self.subtree_absorbs_all_line.absorber = absorber
+                    self.subtree_absorbs_all_line.attacker = NPCName(attacker)
+                    self.subtree_absorbs_all_line.absorber = NPCName(absorber)
 
                     return self.absorbs_all_line_tree
 
@@ -2610,9 +2632,9 @@ class Parser2:
                     owner_end = -len(final_anchor_with_newline)
                     owner_name = line[owner_start:owner_end]
 
-                    self.subtree_gains_happiness_line.petname = pet_name
+                    self.subtree_gains_happiness_line.petname = PetName(pet_name)
                     self.subtree_gains_happiness_line.amount = amount
-                    self.subtree_gains_happiness_line.owner_name = owner_name
+                    self.subtree_gains_happiness_line.owner_name = PlayerName(owner_name)
 
                     return self.gains_happiness_line_tree
 
@@ -2640,8 +2662,8 @@ class Parser2:
                     pet_name = line[pet_start:p_dismissed]
 
                     # Construct the tree using the cache
-                    self.subtree_is_dismissed_line.owner_name = owner_name
-                    self.subtree_is_dismissed_line.pet_name = pet_name
+                    self.subtree_is_dismissed_line.owner_name = PlayerName(owner_name)
+                    self.subtree_is_dismissed_line.pet_name = PetName(pet_name)
 
                     return self.is_dismissed_line_tree
 
@@ -2667,10 +2689,10 @@ class Parser2:
                     if p_gains2 != -1 and p_mana_dot != -1:
                         gains = line[p_gains2 + 7 : p_mana_dot]
 
-                    self.subtree_drains_mana_line.caster = caster
+                    self.subtree_drains_mana_line.caster = NPCName(caster)
                     self.subtree_drains_mana_line.spellname = spellname
                     self.subtree_drains_mana_line.mana = mana
-                    self.subtree_drains_mana_line.targetname = targetname
+                    self.subtree_drains_mana_line.targetname = NPCName(targetname)
                     self.subtree_drains_mana_line.gains = gains
                     self.parse_ts(line, p_ts_end)
 
