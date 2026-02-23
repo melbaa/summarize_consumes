@@ -1,7 +1,11 @@
 
 import pytest
 import io
-from melbalabs.summarize_consumes.main import parse_line, AutoAttackStats, AutoAttackSummary, PlayerClass
+from melbalabs.summarize_consumes.main import parse_line
+from melbalabs.summarize_consumes.main import AutoAttackStats
+from melbalabs.summarize_consumes.main import AutoAttackSummary
+from melbalabs.summarize_consumes.main import PlayerClass
+from melbalabs.summarize_consumes.main import AutoAttackStat
 
 def test_auto_attack_stats(app):
     lines = """
@@ -38,34 +42,34 @@ def test_auto_attack_stats(app):
 
     stats = app.auto_attack_stats.stats
 
-    assert stats["PlayerHits"]["hits"] == 1
-    assert stats["PlayerHits"]["swings"] == 1
+    assert stats["PlayerHits"][AutoAttackStat.HITS] == 1
+    assert stats["PlayerHits"][AutoAttackStat.SWINGS] == 1
 
-    assert stats["PlayerCrits"]["crits"] == 1
-    assert stats["PlayerCrits"]["swings"] == 1
+    assert stats["PlayerCrits"][AutoAttackStat.CRITS] == 1
+    assert stats["PlayerCrits"][AutoAttackStat.SWINGS] == 1
 
-    assert stats["PlayerGlances"]["glances"] == 1
-    assert stats["PlayerGlances"]["swings"] == 1
+    assert stats["PlayerGlances"][AutoAttackStat.GLANCES] == 1
+    assert stats["PlayerGlances"][AutoAttackStat.SWINGS] == 1
 
-    assert stats["PlayerPartBlock"]["blocks"] == 1
-    assert stats["PlayerPartBlock"]["swings"] == 1
+    assert stats["PlayerPartBlock"][AutoAttackStat.BLOCKS] == 1
+    assert stats["PlayerPartBlock"][AutoAttackStat.SWINGS] == 1
 
-    assert stats["PlayerFullBlock"]["blocks"] == 1
-    assert stats["PlayerFullBlock"]["swings"] == 1
+    assert stats["PlayerFullBlock"][AutoAttackStat.BLOCKS] == 1
+    assert stats["PlayerFullBlock"][AutoAttackStat.SWINGS] == 1
 
-    assert stats["PlayerParries"]["parries"] == 1
-    assert stats["PlayerParries"]["swings"] == 1
+    assert stats["PlayerParries"][AutoAttackStat.PARRIES] == 1
+    assert stats["PlayerParries"][AutoAttackStat.SWINGS] == 1
 
-    assert stats["PlayerDodges"]["dodges"] == 1
-    assert stats["PlayerDodges"]["swings"] == 1
+    assert stats["PlayerDodges"][AutoAttackStat.DODGES] == 1
+    assert stats["PlayerDodges"][AutoAttackStat.SWINGS] == 1
 
-    assert stats["PlayerMisses"]["misses"] == 1
-    assert stats["PlayerMisses"]["swings"] == 1
+    assert stats["PlayerMisses"][AutoAttackStat.MISSES] == 1
+    assert stats["PlayerMisses"][AutoAttackStat.SWINGS] == 1
 
-    assert stats["PlayerMixed"]["hits"] == 1
-    assert stats["PlayerMixed"]["crits"] == 1
-    assert stats["PlayerMixed"]["glances"] == 1
-    assert stats["PlayerMixed"]["swings"] == 3
+    assert stats["PlayerMixed"][AutoAttackStat.HITS] == 1
+    assert stats["PlayerMixed"][AutoAttackStat.CRITS] == 1
+    assert stats["PlayerMixed"][AutoAttackStat.GLANCES] == 1
+    assert stats["PlayerMixed"][AutoAttackStat.SWINGS] == 3
 
 
     app.class_detection.store["PlayerHits"] = PlayerClass.WARRIOR

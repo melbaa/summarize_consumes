@@ -9,7 +9,12 @@ from typing import Union
 from typing import NewType
 
 # expectation is to have 500k log lines, 4 branded casts per line, 10ns overhead per type cast = 2mil calls * 10ns overhead = 200ms overhead.
-# the alternative with zero overhead is too verbose and less safe.
+# we accept this overhead, begrudgingly
+# the alternative with zero overhead is too verbose and less safe:
+#   explicit casts or type: ignore annotations that override the type checker.
+# downstream consumers are faced with a similar problem. they either have to
+#   cast to more specific types (potentailly with human errors) or
+#   copy references into new collections with runtime overhead.
 
 PlayerName = NewType("PlayerName", str)
 PetName = NewType("PetName", str)

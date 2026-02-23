@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import enum
 import argparse
 import collections
 import csv
@@ -57,6 +58,7 @@ from melbalabs.summarize_consumes.entity_model import get_entities_with_componen
 from melbalabs.summarize_consumes.entity_model import get_entities_with_components
 from melbalabs.summarize_consumes.entity_model import get_entity_by_name
 from melbalabs.summarize_consumes.parser import ActionValue
+from melbalabs.summarize_consumes.parser import CombatantName
 from melbalabs.summarize_consumes.parser import LineTree
 from melbalabs.summarize_consumes.parser import Parser2
 from melbalabs.summarize_consumes.parser import PlayerName
@@ -68,15 +70,17 @@ from melbalabs.summarize_consumes.price_provider import PriceProvider
 from melbalabs.summarize_consumes.price_provider import WebPriceProvider
 from melbalabs.summarize_consumes.timeline import AbilityTimeline
 
+type PlayerStore = dict[CombatantName, dict[str, int]]
+
 
 class App:
     parser: Parser2
     unparsed_logger: UnparsedLogger | NullLogger
     unparsed_logger_fast: UnparsedLogger | NullLogger
     timestamp_parser: FastTimestampParser
-    player: dict[PlayerName, dict[str, int]]
-    player_superwow: dict[PlayerName, dict[str, int]]
-    player_superwow_unknown: dict[PlayerName, dict[str, int]]
+    player: PlayerStore
+    player_superwow: PlayerStore
+    player_superwow_unknown: PlayerStore
     merge_superwow_consumables: MergeSuperwowConsumables
     class_detection: ClassDetection
     spell_count: SpellCount
@@ -990,12 +994,18 @@ class Dmgstore2:
         self.abilitycooldown = abilitycooldown
         self.allow_selfdmg = allow_selfdmg
 
-        self.store_ability = collections.defaultdict(DmgstoreEntry)
-        self.store_target = collections.defaultdict(DmgstoreEntry)
-        self.store_source = collections.defaultdict(DmgstoreEntry)
+        self.store_ability: dict[tuple[CombatantName, CombatantName, str], DmgstoreEntry] = (
+            collections.defaultdict(DmgstoreEntry)
+        )
+        self.store_target: dict[tuple[CombatantName, CombatantName], DmgstoreEntry] = (
+            collections.defaultdict(DmgstoreEntry)
+        )
+        self.store_source: dict[CombatantName, DmgstoreEntry] = collections.defaultdict(
+            DmgstoreEntry
+        )
 
-        self.store_by_source_ability = collections.defaultdict(
-            lambda: collections.defaultdict(DmgstoreEntry)
+        self.store_by_source_ability: dict[CombatantName, dict[str, DmgstoreEntry]] = (
+            collections.defaultdict(lambda: collections.defaultdict(DmgstoreEntry))
         )
 
     def add(self, source, target, ability, amount, timestamp_unix):
@@ -1361,38 +1371,52 @@ class CooldownSummary:
                     print("  ", "  ", "  ", name, total, file=output)
 
 
+@enum.verify(enum.UNIQUE)
+class AutoAttackStat(enum.Enum):
+    SWINGS = "swings"
+    HITS = "hits"
+    CRITS = "crits"
+    GLANCES = "glances"
+    PARRIES = "parries"
+    DODGES = "dodges"
+    MISSES = "misses"
+    BLOCKS = "blocks"
+
+
 class AutoAttackStats:
     def __init__(self):
         # player -> stat -> count
-        self.stats = collections.defaultdict(lambda: collections.defaultdict(int))
+        self.stats: dict[CombatantName, dict[AutoAttackStat, int]] = collections.defaultdict(
+            lambda: collections.defaultdict(int)
+        )
 
     def add_hit(self, attacker):
-        self.stats[attacker]["swings"] += 1
-        self.stats[attacker]["hits"] += 1
+        self.stats[attacker][AutoAttackStat.SWINGS] += 1
+        self.stats[attacker][AutoAttackStat.HITS] += 1
 
     def add_crit(self, attacker):
-        self.stats[attacker]["swings"] += 1
-        self.stats[attacker]["crits"] += 1
+        self.stats[attacker][AutoAttackStat.SWINGS] += 1
+        self.stats[attacker][AutoAttackStat.CRITS] += 1
 
     def add_glance(self, attacker):
-        self.stats[attacker]["swings"] += 1
-        self.stats[attacker]["glances"] += 1
+        self.stats[attacker][AutoAttackStat.SWINGS] += 1
+        self.stats[attacker][AutoAttackStat.GLANCES] += 1
 
     def add_parry(self, attacker):
-        self.stats[attacker]["swings"] += 1
-        self.stats[attacker]["parries"] += 1
+        self.stats[attacker][AutoAttackStat.SWINGS] += 1
+        self.stats[attacker][AutoAttackStat.PARRIES] += 1
 
     def add_dodge(self, attacker):
-        self.stats[attacker]["swings"] += 1
-        self.stats[attacker]["dodges"] += 1
+        self.stats[attacker][AutoAttackStat.SWINGS] += 1
+        self.stats[attacker][AutoAttackStat.DODGES] += 1
 
     def add_miss(self, attacker):
-        self.stats[attacker]["swings"] += 1
-        self.stats[attacker]["misses"] += 1
+        self.stats[attacker][AutoAttackStat.SWINGS] += 1
+        self.stats[attacker][AutoAttackStat.MISSES] += 1
 
     def add_block(self, attacker):
-        self.stats[attacker]["swings"] += 1
-        self.stats[attacker]["blocks"] += 1
+        self.stats[attacker][AutoAttackStat.SWINGS] += 1
+        self.stats[attacker][AutoAttackStat.BLOCKS] += 1
 
 
 class AutoAttackSummary:
@@ -1419,13 +1443,15 @@ class AutoAttackSummary:
             if not class_players:
                 continue
 
-            class_players.sort(key=lambda n: self.stats.stats[n]["swings"], reverse=True)
+            class_players.sort(
+                key=lambda n: self.stats.stats[n][AutoAttackStat.SWINGS], reverse=True
+            )
 
             print(f"   {player_class.value.capitalize()}", file=output)
 
             for name in class_players:
                 data = self.stats.stats[name]
-                swings = data["swings"]
+                swings = data[AutoAttackStat.SWINGS]
                 if swings == 0:
                     continue
 
@@ -1434,11 +1460,19 @@ class AutoAttackSummary:
                     if count == 0:
                         return None
                     pct = (count / swings) * 100
-                    return f"         {key} {count}   ({pct:.1f}%)"
+                    return f"         {key.value} {count}   ({pct:.1f}%)"
 
                 print(f"      {name} swings {swings}", file=output)
 
-                for key in ["hits", "crits", "parries", "misses", "dodges", "blocks", "glances"]:
+                for key in [
+                    AutoAttackStat.HITS,
+                    AutoAttackStat.CRITS,
+                    AutoAttackStat.PARRIES,
+                    AutoAttackStat.MISSES,
+                    AutoAttackStat.DODGES,
+                    AutoAttackStat.BLOCKS,
+                    AutoAttackStat.GLANCES,
+                ]:
                     line = fmt(key)
                     if line:
                         print(line, file=output)
@@ -1510,8 +1544,9 @@ for entity, (tag, alias_comp) in get_entities_with_components(
 
 class SpellCount:
     def __init__(self):
-        # spell - name - count
-        self.counts = collections.defaultdict(lambda: collections.defaultdict(int))
+        self.counts: dict[str, dict[CombatantName, int]] = collections.defaultdict(
+            lambda: collections.defaultdict(int)
+        )
 
     def add(self, line_type, name, spell):
         key = (line_type, spell)
@@ -1551,10 +1586,14 @@ class ProcCount:
         self,
     ):
         # effect - name - count
-        self.counts = collections.defaultdict(lambda: collections.defaultdict(int))
+        self.counts: dict[str, dict[CombatantName, int]] = collections.defaultdict(
+            lambda: collections.defaultdict(int)
+        )
 
         # source - name - count
-        self.counts_extra_attacks = collections.defaultdict(lambda: collections.defaultdict(int))
+        self.counts_extra_attacks: dict[CombatantName, dict[CombatantName, int]] = (
+            collections.defaultdict(lambda: collections.defaultdict(int))
+        )
 
         # name - amount
         self.amount_unbridled_wrath = collections.defaultdict(int)
