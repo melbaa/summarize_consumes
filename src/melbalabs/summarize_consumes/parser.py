@@ -6,7 +6,12 @@ import re
 from typing import Literal
 from typing import Optional
 from typing import Union
+from typing import NewType
 
+# expectation is to have 500k log lines, 4 branded casts per line, 10ns overhead per type cast = 2mil calls * 10ns overhead = 200ms overhead.
+# the alternative with zero overhead is too verbose and less safe.
+
+# PlayerName = NewType('PlayerName', str)
 type PlayerName = str
 type PetName = str
 type RawSpellName = str
@@ -127,9 +132,9 @@ class GainsManaLineTree:
 @dataclasses.dataclass
 class HitsAbilityLineTree:
     data: Literal[TreeType.HITS_ABILITY_LINE]
-    name: PlayerName
-    spellname: RawSpellName
-    targetname: PlayerName
+    name: str
+    spellname: str
+    targetname: str
     damage: str
     spell_damage_type: str
 
@@ -137,8 +142,8 @@ class HitsAbilityLineTree:
 @dataclasses.dataclass
 class HitsAutoattackLineTree:
     data: Literal[TreeType.HITS_AUTOATTACK_LINE]
-    name: PlayerName
-    targetname: PlayerName
+    name: str
+    targetname: str
     damage: str
     action: ActionValue
 
@@ -146,10 +151,10 @@ class HitsAutoattackLineTree:
 @dataclasses.dataclass
 class HealsLineTree:
     data: Literal[TreeType.HEALS_LINE]
-    name: PlayerName
+    name: str
     spellname: RawSpellName
     heal_crit: str
-    targetname: PlayerName
+    targetname: str
     heal_amount: str
 
 
@@ -157,23 +162,23 @@ class HealsLineTree:
 class FadesLineTree:
     data: Literal[TreeType.FADES_LINE]
     spellname: RawSpellName
-    targetname: PlayerName
+    targetname: str
 
 
 @dataclasses.dataclass
 class SuffersLineSourceTree:
     data: Literal[TreeType.SUFFERS_LINE_SOURCE]
-    targetname: PlayerName
+    targetname: str
     damage: str
     spell_damage_type: str
-    castername: PlayerName
+    castername: str
     spellname: RawSpellName
 
 
 @dataclasses.dataclass
 class SuffersLineNosourceTree:
     data: Literal[TreeType.SUFFERS_LINE_NOSOURCE]
-    targetname: PlayerName
+    targetname: str
     damage: str
     spell_damage_type: str
 
@@ -181,7 +186,7 @@ class SuffersLineNosourceTree:
 @dataclasses.dataclass
 class BeginsToCastLineTree:
     data: Literal[TreeType.BEGINS_TO_CAST_LINE]
-    name: PlayerName
+    name: str
     spellname: RawSpellName
 
 
@@ -491,25 +496,25 @@ class ReflectsDamageLineTree:
 @dataclasses.dataclass
 class CastsLineTree:
     data: Literal[TreeType.CASTS_LINE]
-    name: PlayerName
+    name: str
     spellname: RawSpellName
-    targetname: PlayerName | None
+    targetname: str | None
 
 
 @dataclasses.dataclass
 class DrainsManaLineTree:
     data: Literal[TreeType.DRAINS_MANA_LINE]
-    caster: PlayerName
+    caster: str
     spellname: RawSpellName
     mana: str
-    targetname: PlayerName
+    targetname: str
     gains: str
 
 
 @dataclasses.dataclass
 class GainsExtraAttacksLineTree:
     data: Literal[TreeType.GAINS_EXTRA_ATTACKS_LINE]
-    name: PlayerName
+    name: str
     howmany: RawStackCount
     source: RawSpellName
 
@@ -517,15 +522,15 @@ class GainsExtraAttacksLineTree:
 @dataclasses.dataclass
 class AfflictedLineTree:
     data: Literal[TreeType.AFFLICTED_LINE]
-    targetname: PlayerName
+    targetname: str
     spellname: RawSpellName
 
 
 @dataclasses.dataclass
 class BlockLineTree:
     data: Literal[TreeType.BLOCK_LINE]
-    name: PlayerName
-    targetname: PlayerName
+    name: str
+    targetname: str
 
 
 @dataclasses.dataclass
