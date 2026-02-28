@@ -70,7 +70,7 @@ from melbalabs.summarize_consumes.price_provider import PriceProvider
 from melbalabs.summarize_consumes.price_provider import WebPriceProvider
 from melbalabs.summarize_consumes.timeline import AbilityTimeline
 
-type PlayerStore = dict[CombatantName, dict[str, int]]
+type CombatantStore = dict[CombatantName, dict[str, int]]
 
 
 @dataclasses.dataclass(frozen=True, slots=True)
@@ -97,9 +97,9 @@ class App:
     unparsed_logger: UnparsedLogger | NullLogger
     unparsed_logger_fast: UnparsedLogger | NullLogger
     timestamp_parser: FastTimestampParser
-    player: PlayerStore
-    player_superwow: PlayerStore
-    player_superwow_unknown: PlayerStore
+    combatant: CombatantStore
+    combatant_superwow: CombatantStore
+    combatant_superwow_unknown: CombatantStore
     merge_superwow_consumables: MergeSuperwowConsumables
     class_detection: ClassDetection
     spell_count: SpellCount
@@ -247,18 +247,18 @@ def create_app(
     )
 
     # player - consumable - count
-    app.player = collections.defaultdict(lambda: collections.defaultdict(int))
-    app.player_superwow = collections.defaultdict(lambda: collections.defaultdict(int))
-    app.player_superwow_unknown = collections.defaultdict(lambda: collections.defaultdict(int))
+    app.combatant = collections.defaultdict(lambda: collections.defaultdict(int))
+    app.combatant_superwow = collections.defaultdict(lambda: collections.defaultdict(int))
+    app.combatant_superwow_unknown = collections.defaultdict(lambda: collections.defaultdict(int))
 
     app.merge_superwow_consumables = MergeSuperwowConsumables(
-        player=app.player,
-        player_superwow=app.player_superwow,
-        player_superwow_unknown=app.player_superwow_unknown,
+        player=app.combatant,
+        player_superwow=app.combatant_superwow,
+        player_superwow_unknown=app.combatant_superwow_unknown,
         expert_log_superwow_merge=expert_log_superwow_merge,
     )
 
-    app.class_detection = ClassDetection(player=app.player)
+    app.class_detection = ClassDetection(player=app.combatant)
 
     app.spell_count = SpellCount()
     app.sunder_armor_summary = SunderArmorSummary(
@@ -271,12 +271,12 @@ def create_app(
     )
 
     app.proc_count = ProcCount()
-    app.proc_summary = ProcSummary(proc_count=app.proc_count, player=app.player)
+    app.proc_summary = ProcSummary(proc_count=app.proc_count, player=app.combatant)
 
     app.auto_attack_stats = AutoAttackStats()
     app.auto_attack_summary = AutoAttackSummary(
         stats=app.auto_attack_stats,
-        player=app.player,
+        player=app.combatant,
         class_detection=app.class_detection,
     )
 
@@ -291,7 +291,7 @@ def create_app(
     # name -> death count
     app.death_count = collections.defaultdict(int)
 
-    app.hits_consumable = HitsConsumable(player=app.player, last_hit_cache=app.last_hit_cache)
+    app.hits_consumable = HitsConsumable(player=app.combatant, last_hit_cache=app.last_hit_cache)
 
     app.web_price_provider = WebPriceProvider(prices_server=prices_server)
     price_providers: list[PriceProvider] = []
@@ -300,7 +300,7 @@ def create_app(
     price_providers.append(LocalPriceProvider("prices.json"))
     app.pricedb = PriceDB(price_providers=price_providers)
     app.consumables_accumulator = ConsumablesAccumulator(
-        player=app.player, pricedb=app.pricedb, death_count=app.death_count
+        player=app.combatant, pricedb=app.pricedb, death_count=app.death_count
     )
     app.print_consumables = PrintConsumables(accumulator=app.consumables_accumulator)
     app.print_consumable_totals_csv = PrintConsumableTotalsCsv(
@@ -334,7 +334,7 @@ def create_app(
     app.kt_guardian = KTGuardian()
 
     app.dmgstore = Dmgstore2(
-        player=app.player,
+        player=app.combatant,
         class_detection=app.class_detection,
         abilitycost=ABILITYCOST,
         abilitycooldown=ABILITYCOOLDOWN,
@@ -342,7 +342,7 @@ def create_app(
         allow_selfdmg=False,
     )
     app.dmgtakenstore = Dmgstore2(
-        player=app.player,
+        player=app.combatant,
         class_detection=app.class_detection,
         abilitycost=ABILITYCOST,
         abilitycooldown=ABILITYCOOLDOWN,
@@ -350,7 +350,7 @@ def create_app(
         allow_selfdmg=True,
     )
     app.healstore = Dmgstore2(
-        player=app.player,
+        player=app.combatant,
         class_detection=app.class_detection,
         abilitycost=dict(),
         abilitycooldown=dict(),
@@ -360,7 +360,7 @@ def create_app(
 
     app.ability_timeline = AbilityTimeline(
         known_bosses=KNOWN_BOSSES,
-        player=app.player,
+        player=app.combatant,
         dmgstore=app.dmgstore,
         cdspell_class=CDSPELL_CLASS,
         tracked_spells=set(LINE2SPELLCAST.values()),
@@ -369,7 +369,7 @@ def create_app(
     app.encounter_mobs = create_encounter_mobs(
         write_encounter_mobs_output=write_encounter_mobs_output,
         known_bosses=KNOWN_BOSSES,
-        player=app.player,
+        player=app.combatant,
     )
 
     app.techinfo = Techinfo(
@@ -1719,7 +1719,7 @@ class ConsumablesEntry:
 
 @dataclasses.dataclass
 class ConsumablesAccumulator:
-    player: PlayerStore
+    player: CombatantStore
     pricedb: PriceDB
     death_count: dict[CombatantName, int]
     data: list[ConsumablesEntry] = dataclasses.field(default_factory=list)
@@ -2028,7 +2028,7 @@ def process_tree(app: App, line: str, tree: LineTree):
         app.proc_count.add(line_type=subtree.data, name=name, spell=spellname)
 
         if consumable_item := RAWSPELLNAME2CONSUMABLE.get((subtree.data, spellname)):
-            app.player[name][consumable_item.name] += 1
+            app.combatant[name][consumable_item.name] += 1
 
         if spellname in BUFF_SPELL:
             app.player_detect[name].add(BuffEvidence(spellname))
@@ -2079,7 +2079,7 @@ def process_tree(app: App, line: str, tree: LineTree):
         )
 
         if consumable_item := RAWSPELLNAME2CONSUMABLE.get((subtree.data, spellname)):
-            app.player[name][consumable_item.name] += 1
+            app.combatant[name][consumable_item.name] += 1
         return True
     elif subtree.data == TreeType.GAINS_ENERGY_LINE:
         # recipient = subtree.recipient
@@ -2118,11 +2118,11 @@ def process_tree(app: App, line: str, tree: LineTree):
             if consumable_item.has_component(IgnoreStrategyComponent):
                 return True  # Parsed and explicitly ignored
             if consumable_item.has_component(SuperwowComponent):
-                app.player_superwow[name][consumable_item.name] += 1
+                app.combatant_superwow[name][consumable_item.name] += 1
                 return True  # Parsed and staged for merge
 
         # If RAWSPELLNAME2CONSUMABLE.get found nothing or not a superwow consumable
-        app.player_superwow_unknown[name][spellname] += 1
+        app.combatant_superwow_unknown[name][spellname] += 1
         return True
 
     elif subtree.data == TreeType.DIES_LINE:
@@ -2164,7 +2164,7 @@ def process_tree(app: App, line: str, tree: LineTree):
         app.spell_count.add(line_type=subtree.data, name=name, spell=spellname)
 
         if consumable_item := RAWSPELLNAME2CONSUMABLE.get((subtree.data, spellname)):
-            app.player[name][consumable_item.name] += 1
+            app.combatant[name][consumable_item.name] += 1
 
         app.healstore.add(name, targetname, spellname_canonical, amount, timestamp_unix)
         return True
@@ -2179,7 +2179,7 @@ def process_tree(app: App, line: str, tree: LineTree):
             spellname = manapot_lookup(mana)
 
         if consumable_item := RAWSPELLNAME2CONSUMABLE.get((subtree.data, spellname)):
-            app.player[name][consumable_item.name] += 1
+            app.combatant[name][consumable_item.name] += 1
 
         return True
     elif subtree.data == TreeType.DRAINS_MANA_LINE:
@@ -2193,7 +2193,7 @@ def process_tree(app: App, line: str, tree: LineTree):
         app.class_detection.detect(line_type=subtree.data, name=name, spell=spellname)
 
         if consumable_item := RAWSPELLNAME2CONSUMABLE.get((subtree.data, spellname)):
-            app.player[name][consumable_item.name] += 1
+            app.combatant[name][consumable_item.name] += 1
 
         if name == "Kel'Thuzad" and spellname == "Frostbolt":
             app.kt_frostbolt.begins_to_cast(line)
@@ -2203,7 +2203,7 @@ def process_tree(app: App, line: str, tree: LineTree):
         name = subtree.name
         spellname = subtree.spellname
         if consumable_item := RAWSPELLNAME2CONSUMABLE.get((subtree.data, spellname)):
-            app.player[name][consumable_item.name] += 1
+            app.combatant[name][consumable_item.name] += 1
 
         if spellname == "Sunder Armor":
             # handle mystery sunder armor with no target
@@ -2589,7 +2589,7 @@ def process_tree(app: App, line: str, tree: LineTree):
         targetname = subtree.targetname
 
         if consumable_item := RAWSPELLNAME2CONSUMABLE.get((subtree.data, spellname)):
-            app.player[name][consumable_item.name] += 1
+            app.combatant[name][consumable_item.name] += 1
 
         return True
     elif subtree.data == TreeType.PERFORMS_LINE:
@@ -2602,7 +2602,7 @@ def process_tree(app: App, line: str, tree: LineTree):
         app.class_detection.detect(line_type=subtree.data, name=name, spell=spellname)
         app.spell_count.add(line_type=subtree.data, name=name, spell=spellname)
         if consumable_item := RAWSPELLNAME2CONSUMABLE.get((subtree.data, spellname)):
-            app.player[name][consumable_item.name] += 1
+            app.combatant[name][consumable_item.name] += 1
         return True
     elif subtree.data == TreeType.GAINS_EXTRA_ATTACKS_LINE:
         name = subtree.name
@@ -2731,7 +2731,7 @@ def generate_output(app: App):
 
     # add players detected
     for name in app.player_detect:
-        app.player[name]
+        app.combatant[name]
 
     # remove unknowns from class detection
     app.class_detection.remove_unknown()

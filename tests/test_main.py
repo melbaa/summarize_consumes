@@ -95,13 +95,13 @@ def test_consumable_entry():
 def test_consumable_accumulator(app):
     app.pricedb.data[NAME2ITEMID['Elixir of the Mongoose']] = 30_000
     app.pricedb.data[NAME2ITEMID['Flask of the Titans']] = 1_000_000
-    app.player['Psykhe']['Elixir of the Mongoose'] = 3
-    app.player['Psykhe']['Flask of the Titans'] = 1
-    app.player['Random']['Wizard Oil'] = 5
+    app.combatant['Psykhe']['Elixir of the Mongoose'] = 3
+    app.combatant['Psykhe']['Flask of the Titans'] = 1
+    app.combatant['Random']['Wizard Oil'] = 5
     app.death_count['Psykhe'] = 1
     app.death_count['Random'] = 42
 
-    accumulator = ConsumablesAccumulator(app.player, app.pricedb, app.death_count)
+    accumulator = ConsumablesAccumulator(app.combatant, app.pricedb, app.death_count)
     assert accumulator.death_count['Psykhe'] == 1
     assert not accumulator.data
 

@@ -22,7 +22,7 @@ def test_rage_consumable_line(app):
     for line in lines:
         parse_line(app, line)
     for pot in ["Great Rage Potion", "Mighty Rage Potion", "Rage Potion"]:
-        assert app.player["Dragoon"][pot] == 1
+        assert app.combatant["Dragoon"][pot] == 1
 
 
 def test_tea_with_sugar_line(app):
@@ -37,15 +37,15 @@ def test_tea_with_sugar_line(app):
     lines = lines.splitlines(keepends=True)
     for line in lines:
         parse_line(app, line)
-    assert app.player["Psykhe"]["Tea with Sugar"] == 2
-    assert app.player["Shumy"]["Tea with Sugar"] == 0
-    assert app.player["Elieena"]["Tea with Sugar"] == 1
+    assert app.combatant["Psykhe"]["Tea with Sugar"] == 2
+    assert app.combatant["Shumy"]["Tea with Sugar"] == 0
+    assert app.combatant["Elieena"]["Tea with Sugar"] == 1
 
-    assert app.player["Levaen"]["Tea with Sugar"] == 1
-    assert app.player_superwow["Levaen"]["Tea with Sugar"] == 1
+    assert app.combatant["Levaen"]["Tea with Sugar"] == 1
+    assert app.combatant_superwow["Levaen"]["Tea with Sugar"] == 1
     app.merge_superwow_consumables.merge()
-    assert app.player["Levaen"]["Tea with Sugar"] == 1
-    assert app.player_superwow["Levaen"]["Tea with Sugar"] == 0
+    assert app.combatant["Levaen"]["Tea with Sugar"] == 1
+    assert app.combatant_superwow["Levaen"]["Tea with Sugar"] == 0
 
 
 def test_gains_line(app):
@@ -77,18 +77,18 @@ def test_gains_consumable_line(app):
     lines = lines.splitlines(keepends=True)
     for line in lines:
         parse_line(app, line)
-    assert app.player["Turkishboss"]["Bloodkelp Elixir of Resistance"] == 1
-    assert app.player["Turkishboss"]["Fire-toasted Bun"] == 1
-    assert app.player["Xelya"]["Lucidity Potion"] == 1
-    assert app.player["Kuroiyuusha"]["Fire-toasted Bun"] == 1
-    assert app.player["Rando"]["Greater Arcane Elixir"] == 1
-    assert app.player["Rando"]["Arcane Elixir"] == 1
-    assert app.player["Rando"]["Elixir of Fortitude"] == 1
-    assert app.player["Rando"]["Increased Stamina"] == 0
-    assert app.player["Psykhe"]["Shadow Protection"] == 1
-    assert app.player["Axe"]["Gift of Arthas"] == 0
-    assert app.player["Unholy Axe"]["Gift of Arthas"] == 0
-    assert app.player["Squirreled"]["Elixir of Brute Force"] == 1
+    assert app.combatant["Turkishboss"]["Bloodkelp Elixir of Resistance"] == 1
+    assert app.combatant["Turkishboss"]["Fire-toasted Bun"] == 1
+    assert app.combatant["Xelya"]["Lucidity Potion"] == 1
+    assert app.combatant["Kuroiyuusha"]["Fire-toasted Bun"] == 1
+    assert app.combatant["Rando"]["Greater Arcane Elixir"] == 1
+    assert app.combatant["Rando"]["Arcane Elixir"] == 1
+    assert app.combatant["Rando"]["Elixir of Fortitude"] == 1
+    assert app.combatant["Rando"]["Increased Stamina"] == 0
+    assert app.combatant["Psykhe"]["Shadow Protection"] == 1
+    assert app.combatant["Axe"]["Gift of Arthas"] == 0
+    assert app.combatant["Unholy Axe"]["Gift of Arthas"] == 0
+    assert app.combatant["Squirreled"]["Elixir of Brute Force"] == 1
 
 
 def test_buff_line(app):
@@ -141,47 +141,47 @@ def test_healpot_line(app):
         parse_line(app, line)
 
     # both native and superwow detect what it is
-    assert app.player["Both"]["Healing Potion - Major"] == 1
-    assert app.player_superwow["Both"]["Healing Potion - Major"] == 1
+    assert app.combatant["Both"]["Healing Potion - Major"] == 1
+    assert app.combatant_superwow["Both"]["Healing Potion - Major"] == 1
 
     # only native detect
-    assert app.player["Native"]["Healing Potion - Major"] == 1
-    assert app.player_superwow["Native"].get("Healing Potion - Major", 0) == 0
+    assert app.combatant["Native"]["Healing Potion - Major"] == 1
+    assert app.combatant_superwow["Native"].get("Healing Potion - Major", 0) == 0
 
     # only swow detect
-    assert app.player["Swow"]["Healing Potion - Major"] == 0
-    assert app.player_superwow["Swow"]["Healing Potion - Major"] == 1
+    assert app.combatant["Swow"]["Healing Potion - Major"] == 0
+    assert app.combatant_superwow["Swow"]["Healing Potion - Major"] == 1
 
     # unknown resolves to Major
-    assert app.player["Unknown"]["Healing Potion - unknown"] == 1
-    assert app.player_superwow["Unknown"]["Healing Potion - Major"] == 1
+    assert app.combatant["Unknown"]["Healing Potion - unknown"] == 1
+    assert app.combatant_superwow["Unknown"]["Healing Potion - Major"] == 1
 
     # rando other data, no change
-    assert app.player["Macc"]["Healing Potion - Major"] == 1
-    assert app.player_superwow["Macc"].get("Healing Potion - Major", 0) == 0
+    assert app.combatant["Macc"]["Healing Potion - Major"] == 1
+    assert app.combatant_superwow["Macc"].get("Healing Potion - Major", 0) == 0
 
-    assert app.player["Srj"]["Healing Potion - Major"] == 1
-    assert app.player_superwow["Srj"].get("Healing Potion - Major", 0) == 0
+    assert app.combatant["Srj"]["Healing Potion - Major"] == 1
+    assert app.combatant_superwow["Srj"].get("Healing Potion - Major", 0) == 0
 
     app.merge_superwow_consumables.merge()
 
-    assert app.player["Both"]["Healing Potion - Major"] == 1
-    assert app.player_superwow["Both"]["Healing Potion - Major"] == 0
+    assert app.combatant["Both"]["Healing Potion - Major"] == 1
+    assert app.combatant_superwow["Both"]["Healing Potion - Major"] == 0
 
-    assert app.player["Native"]["Healing Potion - Major"] == 1
-    assert app.player_superwow["Native"]["Healing Potion - Major"] == 0
+    assert app.combatant["Native"]["Healing Potion - Major"] == 1
+    assert app.combatant_superwow["Native"]["Healing Potion - Major"] == 0
 
-    assert app.player["Swow"]["Healing Potion - Major"] == 1
-    assert app.player_superwow["Swow"]["Healing Potion - Major"] == 0
+    assert app.combatant["Swow"]["Healing Potion - Major"] == 1
+    assert app.combatant_superwow["Swow"]["Healing Potion - Major"] == 0
 
-    assert app.player["Unknown"]["Healing Potion - unknown"] == 0
-    assert app.player["Unknown"]["Healing Potion - Major"] == 1
-    assert app.player_superwow["Unknown"]["Healing Potion - Major"] == 0
+    assert app.combatant["Unknown"]["Healing Potion - unknown"] == 0
+    assert app.combatant["Unknown"]["Healing Potion - Major"] == 1
+    assert app.combatant_superwow["Unknown"]["Healing Potion - Major"] == 0
 
-    assert app.player["Macc"]["Healing Potion - Major"] == 1
-    assert app.player_superwow["Macc"]["Healing Potion - Major"] == 0
-    assert app.player["Srj"]["Healing Potion - Major"] == 1
-    assert app.player_superwow["Srj"]["Healing Potion - Major"] == 0
+    assert app.combatant["Macc"]["Healing Potion - Major"] == 1
+    assert app.combatant_superwow["Macc"]["Healing Potion - Major"] == 0
+    assert app.combatant["Srj"]["Healing Potion - Major"] == 1
+    assert app.combatant_superwow["Srj"]["Healing Potion - Major"] == 0
 
 
 def test_manapot_line(app):
@@ -193,9 +193,9 @@ def test_manapot_line(app):
     lines = lines.splitlines(keepends=True)
     for line in lines:
         parse_line(app, line)
-    assert app.player["Ikoretta"]["Mana Potion - Major"] == 1
-    assert app.player["Smahingbolt"]["Mana Potion - Major"] == 1
-    assert app.player["Magikal"]["Mana Potion - Major"] == 1
+    assert app.combatant["Ikoretta"]["Mana Potion - Major"] == 1
+    assert app.combatant["Smahingbolt"]["Mana Potion - Major"] == 1
+    assert app.combatant["Magikal"]["Mana Potion - Major"] == 1
 
 
 def test_manarune_line(app):
@@ -210,9 +210,9 @@ def test_manarune_line(app):
     lines = lines.splitlines(keepends=True)
     for line in lines:
         parse_line(app, line)
-    assert app.player["Getterfour"]["Demonic Rune"] == 1
-    assert app.player["Ionize"]["Dark Rune"] == 1
-    assert app.player["Badmanaz"]["Demonic Rune"] == 1
+    assert app.combatant["Getterfour"]["Demonic Rune"] == 1
+    assert app.combatant["Ionize"]["Dark Rune"] == 1
+    assert app.combatant["Badmanaz"]["Demonic Rune"] == 1
 
 
 def test_drains_mana_line(app):
@@ -249,10 +249,10 @@ def test_begins_to_cast_line(app):
     lines = lines.splitlines(keepends=True)
     for line in lines:
         parse_line(app, line)
-    assert app.player["Hammerlammy"]["Consecrated Sharpening Stone"] == 1
-    assert app.player["Nethrion"]["Consecrated Sharpening Stone"] == 2
-    assert app.player["Bruceweed"]["Kreeg's Stout Beatdown"] == 3
-    assert app.player["Exeggute"]["Elemental Sharpening Stone"] == 1
+    assert app.combatant["Hammerlammy"]["Consecrated Sharpening Stone"] == 1
+    assert app.combatant["Nethrion"]["Consecrated Sharpening Stone"] == 2
+    assert app.combatant["Bruceweed"]["Kreeg's Stout Beatdown"] == 3
+    assert app.combatant["Exeggute"]["Elemental Sharpening Stone"] == 1
 
 
 def test_casts_melt_weapon(app):
@@ -284,11 +284,11 @@ def test_casts_consumable_line(app):
     lines = lines.splitlines(keepends=True)
     for line in lines:
         parse_line(app, line)
-    assert app.player["Isilja"]["Emerald Blessing"] == 1
-    assert app.player["Faradin"]["Advanced Target Dummy"] == 1
-    assert app.player["FaradinMW"]["Masterwork Target Dummy"] == 1
-    assert app.player["Psykhe"]["Powerful Anti-Venom"] == 1
-    assert app.player["Doombabe"]["Jungle Remedy"] == 2
+    assert app.combatant["Isilja"]["Emerald Blessing"] == 1
+    assert app.combatant["Faradin"]["Advanced Target Dummy"] == 1
+    assert app.combatant["FaradinMW"]["Masterwork Target Dummy"] == 1
+    assert app.combatant["Psykhe"]["Powerful Anti-Venom"] == 1
+    assert app.combatant["Doombabe"]["Jungle Remedy"] == 2
 
 
 def test_uses_consumables(app_log_merge):
@@ -338,41 +338,41 @@ def test_uses_consumables(app_log_merge):
         "Concoction of the Arcane Giant",
         "Concoction of the Dreamwater",
     }:
-        assert app.player["Bcube"][name] == 0
-        assert app.player_superwow["Bcube"][name] == 1
+        assert app.combatant["Bcube"][name] == 0
+        assert app.combatant_superwow["Bcube"][name] == 1
 
-    assert app.player["Bcube"]["Rage of Ages (ROIDS)"] == 1
-    assert app.player_superwow["Bcube"]["Rage of Ages (ROIDS)"] == 3
+    assert app.combatant["Bcube"]["Rage of Ages (ROIDS)"] == 1
+    assert app.combatant_superwow["Bcube"]["Rage of Ages (ROIDS)"] == 3
 
-    assert app.player["Gregory"]["Juju Power"] == 0
-    assert app.player_superwow["Gregory"]["Juju Power"] == 1
+    assert app.combatant["Gregory"]["Juju Power"] == 0
+    assert app.combatant_superwow["Gregory"]["Juju Power"] == 1
 
-    assert app.player["Anarion"]["Juju Ember"] == 0
-    assert app.player_superwow["Anarion"]["Juju Ember"] == 1
+    assert app.combatant["Anarion"]["Juju Ember"] == 0
+    assert app.combatant_superwow["Anarion"]["Juju Ember"] == 1
 
-    assert app.player["Tnu"]["Danonzo's Tel'Abim Medley"] == 0
-    assert app.player_superwow["Tnu"]["Danonzo's Tel'Abim Medley"] == 1
+    assert app.combatant["Tnu"]["Danonzo's Tel'Abim Medley"] == 0
+    assert app.combatant_superwow["Tnu"]["Danonzo's Tel'Abim Medley"] == 1
 
-    assert app.player["Murdinn"]["Hourglass Sand"] == 0
-    assert app.player_superwow["Murdinn"]["Hourglass Sand"] == 1
+    assert app.combatant["Murdinn"]["Hourglass Sand"] == 0
+    assert app.combatant_superwow["Murdinn"]["Hourglass Sand"] == 1
 
-    assert app.player["Murdinn"]["Kreeg's Stout Beatdown"] == 1
-    assert app.player_superwow["Murdinn"]["Kreeg's Stout Beatdown"] == 2
+    assert app.combatant["Murdinn"]["Kreeg's Stout Beatdown"] == 1
+    assert app.combatant_superwow["Murdinn"]["Kreeg's Stout Beatdown"] == 2
 
-    assert app.player["Angrycat"]["Flask of Chromatic Resistance"] == 1
-    assert app.player_superwow["Angrycat"]["Flask of Chromatic Resistance"] == 2
+    assert app.combatant["Angrycat"]["Flask of Chromatic Resistance"] == 1
+    assert app.combatant_superwow["Angrycat"]["Flask of Chromatic Resistance"] == 2
 
-    assert app.player["Doomfully"]["Shadow Protection"] == 4
+    assert app.combatant["Doomfully"]["Shadow Protection"] == 4
 
-    assert app.player["Corta"]["Fire Protection"] == 2
-    assert app.player["Corta"]["Greater Fire Protection Potion"] == 0
-    assert app.player_superwow["Corta"]["Greater Fire Protection Potion"] == 1
+    assert app.combatant["Corta"]["Fire Protection"] == 2
+    assert app.combatant["Corta"]["Greater Fire Protection Potion"] == 0
+    assert app.combatant_superwow["Corta"]["Greater Fire Protection Potion"] == 1
 
-    assert app.player["Chocolandra"]["Arcane Protection"] == 1
-    assert app.player_superwow["Chocolandra"]["Greater Arcane Protection Potion"] == 1
+    assert app.combatant["Chocolandra"]["Arcane Protection"] == 1
+    assert app.combatant_superwow["Chocolandra"]["Greater Arcane Protection Potion"] == 1
 
-    assert app.player["Akanamu"]["Dreamshard Elixir"] == 1
-    assert app.player_superwow["Akanamu"]["Dreamshard Elixir"] == 1
+    assert app.combatant["Akanamu"]["Dreamshard Elixir"] == 1
+    assert app.combatant_superwow["Akanamu"]["Dreamshard Elixir"] == 1
 
     app.merge_superwow_consumables.merge()
 
@@ -381,44 +381,44 @@ def test_uses_consumables(app_log_merge):
         "Concoction of the Arcane Giant",
         "Concoction of the Dreamwater",
     }:
-        assert app.player["Bcube"][name] == 1
-        assert app.player_superwow["Bcube"][name] == 0
+        assert app.combatant["Bcube"][name] == 1
+        assert app.combatant_superwow["Bcube"][name] == 0
 
-    assert app.player["Bcube"]["Rage of Ages (ROIDS)"] == 3
-    assert app.player_superwow["Bcube"]["Rage of Ages (ROIDS)"] == 0
+    assert app.combatant["Bcube"]["Rage of Ages (ROIDS)"] == 3
+    assert app.combatant_superwow["Bcube"]["Rage of Ages (ROIDS)"] == 0
 
-    assert app.player["Gregory"]["Juju Power"] == 1
-    assert app.player_superwow["Gregory"]["Juju Power"] == 0
+    assert app.combatant["Gregory"]["Juju Power"] == 1
+    assert app.combatant_superwow["Gregory"]["Juju Power"] == 0
 
-    assert app.player["Anarion"]["Juju Ember"] == 1
-    assert app.player_superwow["Anarion"]["Juju Ember"] == 0
+    assert app.combatant["Anarion"]["Juju Ember"] == 1
+    assert app.combatant_superwow["Anarion"]["Juju Ember"] == 0
 
-    assert app.player["Tnu"]["Danonzo's Tel'Abim Medley"] == 1
-    assert app.player_superwow["Tnu"]["Danonzo's Tel'Abim Medley"] == 0
+    assert app.combatant["Tnu"]["Danonzo's Tel'Abim Medley"] == 1
+    assert app.combatant_superwow["Tnu"]["Danonzo's Tel'Abim Medley"] == 0
 
-    assert app.player["Murdinn"]["Hourglass Sand"] == 1
-    assert app.player_superwow["Murdinn"]["Hourglass Sand"] == 0
+    assert app.combatant["Murdinn"]["Hourglass Sand"] == 1
+    assert app.combatant_superwow["Murdinn"]["Hourglass Sand"] == 0
 
-    assert app.player["Murdinn"]["Kreeg's Stout Beatdown"] == 2
-    assert app.player_superwow["Murdinn"]["Kreeg's Stout Beatdown"] == 0
+    assert app.combatant["Murdinn"]["Kreeg's Stout Beatdown"] == 2
+    assert app.combatant_superwow["Murdinn"]["Kreeg's Stout Beatdown"] == 0
 
-    assert app.player["Angrycat"]["Flask of Chromatic Resistance"] == 2
-    assert app.player_superwow["Angrycat"]["Flask of Chromatic Resistance"] == 0
+    assert app.combatant["Angrycat"]["Flask of Chromatic Resistance"] == 2
+    assert app.combatant_superwow["Angrycat"]["Flask of Chromatic Resistance"] == 0
 
-    assert app.player["Doomfully"]["Shadow Protection"] == 0
-    assert app.player["Doomfully"]["Greater Shadow Protection Potion"] == 3
-    assert app.player["Doomfully"]["Shadow Protection Potion"] == 1
+    assert app.combatant["Doomfully"]["Shadow Protection"] == 0
+    assert app.combatant["Doomfully"]["Greater Shadow Protection Potion"] == 3
+    assert app.combatant["Doomfully"]["Shadow Protection Potion"] == 1
 
-    assert app.player["Corta"]["Fire Protection"] == 1
-    assert app.player["Corta"]["Greater Fire Protection Potion"] == 1
-    assert app.player_superwow["Corta"]["Greater Fire Protection Potion"] == 0
+    assert app.combatant["Corta"]["Fire Protection"] == 1
+    assert app.combatant["Corta"]["Greater Fire Protection Potion"] == 1
+    assert app.combatant_superwow["Corta"]["Greater Fire Protection Potion"] == 0
 
-    assert app.player["Chocolandra"]["Greater Arcane Protection Potion"] == 1
-    assert app.player["Chocolandra"]["Arcane Protection"] == 0
-    assert app.player_superwow["Chocolandra"]["Greater Arcane Protection Potion"] == 0
+    assert app.combatant["Chocolandra"]["Greater Arcane Protection Potion"] == 1
+    assert app.combatant["Chocolandra"]["Arcane Protection"] == 0
+    assert app.combatant_superwow["Chocolandra"]["Greater Arcane Protection Potion"] == 0
 
-    assert app.player["Akanamu"]["Dreamshard Elixir"] == 1
-    assert app.player_superwow["Akanamu"]["Dreamshard Elixir"] == 0
+    assert app.combatant["Akanamu"]["Dreamshard Elixir"] == 1
+    assert app.combatant_superwow["Akanamu"]["Dreamshard Elixir"] == 0
 
 
 def test_uses_consumable_ignore_line(app):
@@ -431,8 +431,8 @@ def test_uses_consumable_ignore_line(app):
     for line in lines:
         match += parse_line(app, line)
     assert match == len(lines) - 1
-    assert not app.player
-    assert not app.player_superwow
+    assert not app.combatant
+    assert not app.combatant_superwow
 
 
 def test_hits_consumable_line(app):
@@ -456,11 +456,11 @@ def test_hits_consumable_line(app):
     match = 0
     for line in lines:
         match += parse_line(app, line)
-    assert app.player["Getterfour"]["Dragonbreath Chili"] == 2
-    assert app.player["Srj"]["Dragonbreath Chili"] == 1
-    assert app.player["Abstractz"]["Goblin Sapper Charge"] == 1
-    assert app.player["Ionize"]["Stratholme Holy Water"] == 2
-    assert app.player["Samain"]["Stratholme Holy Water"] == 1
+    assert app.combatant["Getterfour"]["Dragonbreath Chili"] == 2
+    assert app.combatant["Srj"]["Dragonbreath Chili"] == 1
+    assert app.combatant["Abstractz"]["Goblin Sapper Charge"] == 1
+    assert app.combatant["Ionize"]["Stratholme Holy Water"] == 2
+    assert app.combatant["Samain"]["Stratholme Holy Water"] == 1
     assert match == 14
 
 
@@ -771,13 +771,13 @@ def test_gluth(app):
 
 
 def test_consumable_report(app):
-    app.player["Psykhe"]["Flask of the Titans"] = 3
-    app.player["Psykhe"]["Elixir of the Mongoose"] = 3
-    app.player["Psykhe"]["Rage of Ages (ROIDS)"] = 3
-    app.player["Psykhe"]["Wizard Oil"] = 1
-    app.player["Psykhe"]["Brilliant Wizard Oil"] = 1
-    app.player["Psykhe"]["Dark Rune"] = 1
-    app.player["Psykhe"]["Tea with Sugar"] = 1
+    app.combatant["Psykhe"]["Flask of the Titans"] = 3
+    app.combatant["Psykhe"]["Elixir of the Mongoose"] = 3
+    app.combatant["Psykhe"]["Rage of Ages (ROIDS)"] = 3
+    app.combatant["Psykhe"]["Wizard Oil"] = 1
+    app.combatant["Psykhe"]["Brilliant Wizard Oil"] = 1
+    app.combatant["Psykhe"]["Dark Rune"] = 1
+    app.combatant["Psykhe"]["Tea with Sugar"] = 1
 
     output = io.StringIO()
     app.pricedb.data[NAME2ITEMID["Flask of the Titans"]] = 3000000
@@ -816,10 +816,10 @@ def test_rejuv_pot(app):
     lines = lines.splitlines(keepends=True)
     for line in lines:
         parse_line(app, line)
-    assert app.player["Sebben"]["Rejuvenation Potion - Major"] == 3
-    assert app.player["Arzetlam"]["Rejuvenation Potion - Major"] == 1
-    assert app.player["Psykhe"]["Rejuvenation Potion - Major"] == 0
-    assert app.player["Psykhe"]["Rejuvenation Potion - Minor"] == 1
+    assert app.combatant["Sebben"]["Rejuvenation Potion - Major"] == 3
+    assert app.combatant["Arzetlam"]["Rejuvenation Potion - Major"] == 1
+    assert app.combatant["Psykhe"]["Rejuvenation Potion - Major"] == 0
+    assert app.combatant["Psykhe"]["Rejuvenation Potion - Minor"] == 1
 
 
 def test_fades_line(app):
@@ -981,7 +981,7 @@ def test_performs_line(app):
     for line in lines:
         match += parse_line(app, line)
     assert match == 7
-    assert app.player["Raibagz"]["Powerful Smelling Salts"] == 1
+    assert app.combatant["Raibagz"]["Powerful Smelling Salts"] == 1
 
 
 def test_begins_to_perform_line(app):
@@ -993,7 +993,7 @@ def test_begins_to_perform_line(app):
     for line in lines:
         match += parse_line(app, line)
     assert match == 1
-    assert app.player["Redmoon"]["Dissolvent Poison II"] == 1
+    assert app.combatant["Redmoon"]["Dissolvent Poison II"] == 1
 
 
 def test_gains_extra_attacks_line(app):
@@ -1367,7 +1367,7 @@ def test_is_immune_ability(app):
     for line in lines:
         match += parse_line(app, line)
     assert match == 3
-    assert app.player["Psykhe"]["Goblin Sapper Charge"] == 1
+    assert app.combatant["Psykhe"]["Goblin Sapper Charge"] == 1
 
 
 def test_cooldown_summary(app):
