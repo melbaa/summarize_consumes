@@ -1881,21 +1881,18 @@ class Infographic:
         PlayerClass.WARRIOR: "#C79C6E",
         PlayerClass.UNKNOWN: "#660099",
     }
-    DEFAULT_FILENAME = "infographic"
 
     def __init__(
         self,
         accumulator: ConsumablesAccumulator,
-        class_detection: ClassDetection = None,
+        class_detection: ClassDetection,
         title: str = "",
     ):
         self.accumulator = accumulator
-        self.detected_classes: dict[str, PlayerClass] = (
-            class_detection.store if class_detection else {}
-        )
+        self.detected_classes: dict[str, PlayerClass] = class_detection.store
         self.title = title
 
-    def generate(self, output_file: Path = None) -> None:
+    def generate(self, output_file: Path | str) -> None:
         players = sorted(self.accumulator.data, key=lambda entry: -entry.total_spent)
         names = [e.name for e in players]
         colors = [
@@ -1966,10 +1963,10 @@ class Infographic:
         bg_script = f'document.body.style.backgroundColor = "{self.BACKGROUND_COLOR}"; '
         output = fig.to_html(post_script=[bg_script])
 
-        filename = output_file or self.DEFAULT_FILENAME
-        filepath = Path(filename).with_suffix(".html")
+        filepath = Path(output_file).with_suffix(".html")
 
         if check_existing_file(filepath):
+            filename = filepath.stem
             while check_existing_file(
                 filepath := filepath.with_stem(f"{filename}_{str(uuid4())[-4:]}")
             ):
