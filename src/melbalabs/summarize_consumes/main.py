@@ -2724,7 +2724,8 @@ def generate_output(app: App):
     # remove pets from players
     for pet in app.pet_handler.get_all_pets():
         if pet in app.player_detect:
-            del app.player_detect[pet]
+            if pet not in app.class_detection.store:
+                del app.player_detect[pet]
 
     # add players detected
     for name in app.player_detect:
