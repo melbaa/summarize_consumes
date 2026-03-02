@@ -1,4 +1,6 @@
 from __future__ import annotations
+from melbalabs.summarize_consumes.parser import PetName
+
 
 import enum
 import argparse
@@ -71,7 +73,7 @@ from melbalabs.summarize_consumes.price_provider import WebPriceProvider
 from melbalabs.summarize_consumes.timeline import AbilityTimeline
 
 type CombatantStore = dict[CombatantName, dict[str, int]]
-
+type PlayerStore = dict[PlayerName, dict[str, int]]
 
 @dataclasses.dataclass(frozen=True, slots=True)
 class BuffEvidence:
@@ -215,9 +217,9 @@ def create_unparsed_loggers(expert_log_unparsed_lines):
     return unparsed, unparsed_fast
 
 
-def create_encounter_mobs(write_encounter_mobs_output, known_bosses, player):
+def create_encounter_mobs(write_encounter_mobs_output, known_bosses):
     if write_encounter_mobs_output:
-        return EncounterMobs(known_bosses=known_bosses, player=player)
+        return EncounterMobs(known_bosses=known_bosses)
     return NullEncounterMobs()
 
 
@@ -258,7 +260,7 @@ def create_app(
         expert_log_superwow_merge=expert_log_superwow_merge,
     )
 
-    app.class_detection = ClassDetection(player=app.combatant)
+    app.class_detection = ClassDetection()
 
     app.spell_count = SpellCount()
     app.sunder_armor_summary = SunderArmorSummary(
@@ -369,7 +371,6 @@ def create_app(
     app.encounter_mobs = create_encounter_mobs(
         write_encounter_mobs_output=write_encounter_mobs_output,
         known_bosses=KNOWN_BOSSES,
-        player=app.combatant,
     )
 
     app.techinfo = Techinfo(
@@ -1294,19 +1295,19 @@ class PriceDB:
 
 
 class PetHandler:
-    def __init__(self):
+    def __init__(self) -> None:
         # owner -> set of pets
-        self.store = collections.defaultdict(set)
+        self.store: collections.defaultdict[PlayerName, set[PetName]] = collections.defaultdict(set)
 
-    def add(self, owner, pet):
+    def add(self, owner, pet: PetName) -> None:
         self.store[owner].add(pet)
 
-    def get_all_pets(self):
+    def get_all_pets(self) -> collections.abc.Iterator[PetName]:
         for owner, petset in self.store.items():
             for pet in petset:
                 yield pet
 
-    def print(self, output):
+    def print(self, output) -> None:
         if not len(self.store):
             return
         print("\n\nPets", file=output)
@@ -1828,12 +1829,11 @@ for entity, (det_comp,) in get_entities_with_components(ClassDetectionComponent)
 
 
 class ClassDetection:
-    def __init__(self, player):
+    def __init__(self):
         self.store: dict[str, PlayerClass] = dict()
-        self.player = player
 
-    def remove_unknown(self):
-        knowns = set(self.player)
+    def remove_unknown(self, player):
+        knowns = set(player)
         for name in list(self.store):
             if name not in knowns:
                 del self.store[name]
@@ -1860,9 +1860,9 @@ class ClassDetection:
         #     # decide on a strategy: overwrite, keep first, error
         #     self.store[name] = detected_class # overwrite
 
-    def print(self, output):
+    def print(self, output, player):
         print("\n\nClass Detection", file=output)
-        for name in sorted(self.player):
+        for name in sorted(player):
             player_class = self.store.get(name, PlayerClass.UNKNOWN)
             print("  ", name, player_class.value, file=output)
 
@@ -2731,7 +2731,7 @@ def generate_output(app: App):
         app.combatant[name]
 
     # remove unknowns from class detection
-    app.class_detection.remove_unknown()
+    app.class_detection.remove_unknown(player=app.combatant)
 
     # merge superwow extra data so everything else can see it
     app.merge_superwow_consumables.merge()
@@ -2767,7 +2767,7 @@ def generate_output(app: App):
     # app.kt_guardian.print(output)
 
     app.pet_handler.print(output)
-    app.class_detection.print(output)
+    app.class_detection.print(output, player=app.combatant)
 
     app.techinfo.print(output)
 

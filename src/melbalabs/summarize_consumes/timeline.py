@@ -196,7 +196,9 @@ class AbilityTimeline:
 
             # damage to ANY target during this time window
             # used for sorting
-            impact_damage = collections.defaultdict(lambda: collections.defaultdict(int))
+            impact_damage: collections.defaultdict[
+                str, collections.defaultdict[str, int]
+            ] = collections.defaultdict(lambda: collections.defaultdict(int))
             for e in entries:
                 impact_damage[e.source][e.spellname] += e.amount
 

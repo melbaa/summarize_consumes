@@ -1,7 +1,6 @@
 class EncounterMobs:
-    def __init__(self, known_bosses, player):
+    def __init__(self, known_bosses):
         self.known_boss_names = set(known_bosses.keys())
-        self.player = player
         self.mob_to_boss = {}
         for boss, mobs in known_bosses.items():
             for mob in mobs:
@@ -28,7 +27,7 @@ class EncounterMobs:
         if boss_name:
             self.boss_timestamps.append((timestamp_unix, boss_name))
 
-    def print(self, output):
+    def print(self, output, player):
         if not self.boss_timestamps:
             return
 
@@ -81,7 +80,7 @@ class EncounterMobs:
             "Explosive Trap II",
         }
 
-        engagement_mobs = [set() for _ in range(len(engagements))]
+        engagement_mobs: list[set[str]] = [set() for _ in range(len(engagements))]
 
         # Sort events by timestamp for efficient processing
         sorted_events = sorted(self.events, key=lambda x: x[0])
@@ -111,7 +110,7 @@ class EncounterMobs:
                 ):
                     for name in [source, target]:
                         if (
-                            name not in self.player
+                            name not in player
                             and name not in self.known_boss_names
                             and name not in junk_names
                             and not name.endswith(junk_suffixes)
