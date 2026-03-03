@@ -2721,21 +2721,37 @@ def generate_output(app: App):
         file=output,
     )
 
+    # heuristics to decide which names we should report on
+    # a combatant can be a player, pet or npc, as encoded in its type
+    # In a vanilla log, the names are ambiguous and the log messages are not always received. so they are non-exhaustive, incomplete
+    # the naive approach, to start with an empty list and add only players to it, doesn't work.
+    # Players, pets and npcs can have the same name.
+    # some NPCs use abilities that players use.
+    # Players can be targeted by other players eg from mind controls.
+    # so we look for things that are mostly done by players and live with the fact it's not perfect.
+    # the indications are consumables, frequently used unique abilities (both class specific and trinkets), receiving buffs and some rare unambiguous log messages.
+    # none of those things are reliable, but we can't do better
+    # in combatant we get names that use consumables. this is the best indicator of a player
+    # in player_detect we collect names of players and pets related to buffs, trinkets and pets
+    # in class_detection we get names that use unique class abilities but we don't know player on npc
+    # in pet_handler we collect names of pets from pet messages. this is the best indicator of a pet
+
+    # merge superwow extra data so everything else can see it
+    app.merge_superwow_consumables.merge()
+
     # remove pets from players
     for pet in app.pet_handler.get_all_pets():
         if pet in app.player_detect:
             if pet not in app.class_detection.store:
+                # won't delete pets with a class, because it could be a player with a pet of the same name
                 del app.player_detect[pet]
 
-    # add players detected
+    # add players detected even though they didn't use consumables
     for name in app.player_detect:
         app.combatant[name]
 
-    # remove unknowns from class detection
+    # remove names from class detection that are not combatants
     app.class_detection.remove_unknown(player=app.combatant)
-
-    # merge superwow extra data so everything else can see it
-    app.merge_superwow_consumables.merge()
 
     # calculate consumables
     app.consumables_accumulator.calculate()
