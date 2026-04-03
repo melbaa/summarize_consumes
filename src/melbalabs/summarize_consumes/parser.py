@@ -4,9 +4,9 @@ import dataclasses
 import enum
 import re
 from typing import Literal
+from typing import NewType
 from typing import Optional
 from typing import Union
-from typing import NewType
 
 # expectation is to have 500k log lines, 4 branded casts per line, 10ns overhead per type cast = 2mil calls * 10ns overhead = 200ms overhead.
 # we accept this overhead, begrudgingly

@@ -1,13 +1,11 @@
 from __future__ import annotations
-from melbalabs.summarize_consumes.parser import PetName
 
-
-import enum
 import argparse
 import collections
 import csv
 import dataclasses
 import datetime
+import enum
 import functools
 import io
 import json
@@ -63,6 +61,7 @@ from melbalabs.summarize_consumes.parser import ActionValue
 from melbalabs.summarize_consumes.parser import CombatantName
 from melbalabs.summarize_consumes.parser import LineTree
 from melbalabs.summarize_consumes.parser import Parser2
+from melbalabs.summarize_consumes.parser import PetName
 from melbalabs.summarize_consumes.parser import PlayerName
 from melbalabs.summarize_consumes.parser import TreeType
 from melbalabs.summarize_consumes.price_provider import ItemPriceMap
@@ -74,6 +73,7 @@ from melbalabs.summarize_consumes.timeline import AbilityTimeline
 
 type CombatantStore = dict[CombatantName, dict[str, int]]
 type PlayerStore = dict[PlayerName, dict[str, int]]
+
 
 @dataclasses.dataclass(frozen=True, slots=True)
 class BuffEvidence:
@@ -88,6 +88,7 @@ class TrinketEvidence:
 @dataclasses.dataclass(frozen=True, slots=True)
 class PetEvidence:
     petname: str
+
 
 # based on some testing, this adds close to 0 overhead as the instances are created rarely
 type PlayerEvidenceEntry = BuffEvidence | TrinketEvidence | PetEvidence
@@ -165,7 +166,7 @@ class FastTimestampParser:
             return self.current_year - 1
         return self.current_year
 
-    def parse(self, timestamp_token) -> float:
+    def parse(self, timestamp_token) -> float | None:
         month = int(timestamp_token.month)
         day = int(timestamp_token.day)
 
@@ -190,9 +191,12 @@ class FastTimestampParser:
         day_base = self._day_cache.get(cache_key)
 
         if day_base is None:
-            day_base = dt(
-                year=self.current_year, month=month, day=day, tzinfo=datetime.timezone.utc
-            ).timestamp()
+            try:
+                day_base = dt(
+                    year=self.current_year, month=month, day=day, tzinfo=datetime.timezone.utc
+                ).timestamp()
+            except ValueError:
+                return None
             self._day_cache[cache_key] = day_base
 
         return (
@@ -1992,21 +1996,24 @@ def parse_line(app: App, line: str):
         if not tree:
             return False
 
-        return process_tree(app, line, tree)
+        timestamp_unix = app.timestamp_parser.parse(tree.timestamp)
+        if timestamp_unix is None:
+            msg = f"Invalid timestamp format {tree.timestamp} {line} \n"
+            app.unparsed_logger_fast.log(msg)
+            return False
+
+        return process_tree(app, line, tree, timestamp_unix)
 
     except Exception:
         logging.exception(line)
         raise
 
 
-def process_tree(app: App, line: str, tree: LineTree):
+def process_tree(app: App, line: str, tree: LineTree, timestamp_unix: float):
     """
     returns True to mark line as processed
     """
-    timestamp = tree.timestamp
     subtree = tree.subtree
-
-    timestamp_unix = app.timestamp_parser.parse(timestamp)
 
     # inline everything to reduce funcalls
     # for same reason not using visitors to traverse the parse tree
