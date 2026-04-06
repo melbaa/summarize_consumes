@@ -1886,6 +1886,8 @@ def test_lines_that_crash_parser(app):
 44/2 12:58:52.452  CAST: Kairo casts Plainsrunning(12568) on Kairo.
 10/29 20:01:52.120  Jaekta gains 11x4 health from Niviri 's Regrowth.
 12/14 01:28:58.237  NimpheraGH 's Greater Heal critically heals Didja for 35x25.
+2/9 21:47:33.736  Flamewaker Elite hits Supal for x399. (1x46 blocked)
+2/3 22:14:13.049  Squirreled gains 3x0 Rage from Squirreled 's Blood Fury.
 """
     lines = lines.splitlines(keepends=True)
     for line in lines:

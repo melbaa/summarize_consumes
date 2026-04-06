@@ -1398,6 +1398,7 @@ class Parser2:
                     # Slice the data out from between the anchors
                     # len(' gains ') == 7
                     mana = line[p_gains + 7 : p_mana_from]
+                    mana = int(mana)
 
                     # len(' Mana from ') == 11
                     # castername = line[p_mana_from + 11 : p_s]  # don't need this currently
@@ -1452,8 +1453,7 @@ class Parser2:
                     p_num_end = p_period
 
                 damage_amount = line[p_num_start:p_num_end]
-                if not damage_amount.isdigit():
-                    raise ValueError("invalid number?")
+                damage_amount = int(damage_amount)
 
                 damage_type_str = ""
                 # there's text after the damage_amount and it's not in parens
@@ -1587,6 +1587,7 @@ class Parser2:
                 p_num_start = p_suffers + 9  # len(' suffers ')
                 p_num_end = line.find(" ", p_num_start)
                 amount = line[p_num_start:p_num_end]
+                amount = int(amount)
 
                 self.subtree_suffers_line_source.targetname = NPCName(targetname_suffers)
                 self.subtree_suffers_line_source.damage = amount
@@ -1766,6 +1767,7 @@ class Parser2:
 
                 # The number of attacks is between " gains " and " extra attack".
                 howmany = line[p_gains + 7 : p_extra]  # 7 is len(' gains ')
+                howmany = int(howmany)
 
                 # The source is everything after " through " to the end.
                 source = line[p_through + 9 : -2]  # 9 is len(' through ')
@@ -1788,6 +1790,7 @@ class Parser2:
                 # Slice out the 4 required pieces of data.
                 recipient_name = line[p_ts_end + 2 : p_gains]
                 rage_amount = line[p_gains + 7 : p_rage_from]  # len(' gains ') == 7
+                rage_amount = int(rage_amount)
                 caster_name = line[p_rage_from + 11 : p_s]  # len(' Rage from ') == 11
 
                 # Spell name is from after " 's " to the final period.
@@ -2052,6 +2055,7 @@ class Parser2:
                 p_space_in_middle = line.find(" ", middle_part_start)
 
                 amount = line[middle_part_start:p_space_in_middle]
+                amount = int(amount)
                 damage_type = line[p_space_in_middle + 1 : p_damage_to]
 
                 # The target name is after the second anchor, with the final ".\n" removed.
@@ -2130,6 +2134,7 @@ class Parser2:
                 # target name & amount can now be sliced.
                 targetname_causes_damage = line[p_causes + 8 : p_last_space]  # len(' causes ')
                 amount = line[p_last_space + 1 : p_damage_word]
+                amount = int(amount)
 
                 # Construct the tree using the cache
                 self.subtree_causes_damage_line.caster = NPCName(caster_name)

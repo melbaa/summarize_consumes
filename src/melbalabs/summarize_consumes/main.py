@@ -2069,7 +2069,7 @@ def process_tree(app: App, line: str, tree: LineTree, timestamp_unix: float):
         app.proc_count.add(line_type=subtree.data, name=name, spell=spellname)
 
         if spellname == "Unbridled Wrath":
-            amount = int(subtree.amount)
+            amount = subtree.amount
             app.proc_count.add_unbridled_wrath(amount=amount, name=name)
 
         spellname_canonical = rename_spell(spellname, subtree.data)
@@ -2176,10 +2176,10 @@ def process_tree(app: App, line: str, tree: LineTree, timestamp_unix: float):
     elif subtree.data == TreeType.GAINS_MANA_LINE:
         name = subtree.name
         spellname = subtree.spellname
+        mana = subtree.mana
 
         # rename
         if spellname == "Restore Mana":
-            mana = int(subtree.mana)
             spellname = manapot_lookup(mana)
 
         if consumable_item := RAWSPELLNAME2CONSUMABLE.get((subtree.data, spellname)):
@@ -2271,7 +2271,7 @@ def process_tree(app: App, line: str, tree: LineTree, timestamp_unix: float):
         name = subtree.name
         spellname = subtree.spellname
         targetname = subtree.targetname
-        amount = int(subtree.damage)
+        amount = subtree.damage
 
         spellname_canonical = rename_spell(spellname, line_type=subtree.data)
 
@@ -2310,7 +2310,7 @@ def process_tree(app: App, line: str, tree: LineTree, timestamp_unix: float):
         if spellname in INTERRUPT_SPELLS and targetname == "Kel'Thuzad":
             app.kt_frostbolt.add(line)
 
-        if name == "Kel'Thuzad" and spellname == "Frostbolt" and int(subtree.damage) >= 4000:
+        if name == "Kel'Thuzad" and spellname == "Frostbolt" and amount >= 4000:
             app.kt_frostbolt.add(line)
 
         if name == "Kel'Thuzad" and spellname == "Frost Blast":
@@ -2328,7 +2328,7 @@ def process_tree(app: App, line: str, tree: LineTree, timestamp_unix: float):
     elif subtree.data == TreeType.HITS_AUTOATTACK_LINE:
         name = subtree.name
         target = subtree.targetname
-        amount = int(subtree.damage)
+        amount = subtree.damage
         action_verb = subtree.action
 
         app.dmgstore.add(name, target, SPELLNAME_AUTOATTACK, amount, timestamp_unix)
@@ -2530,7 +2530,7 @@ def process_tree(app: App, line: str, tree: LineTree, timestamp_unix: float):
         return True
     elif subtree.data == TreeType.SUFFERS_LINE_SOURCE:
         targetname = subtree.targetname
-        amount = int(subtree.damage)
+        amount = subtree.damage
         name = subtree.castername
         spellname = subtree.spellname
 
@@ -2553,7 +2553,7 @@ def process_tree(app: App, line: str, tree: LineTree, timestamp_unix: float):
         return True
     elif subtree.data == TreeType.SUFFERS_LINE_NOSOURCE:
         # targetname = subtree.targetname
-        # amount = int(subtree.damage)
+        # amount = subtree.damage
         return True
     elif subtree.data == TreeType.FADES_LINE:
         spellname = subtree.spellname
@@ -2610,7 +2610,7 @@ def process_tree(app: App, line: str, tree: LineTree, timestamp_unix: float):
         return True
     elif subtree.data == TreeType.GAINS_EXTRA_ATTACKS_LINE:
         name = subtree.name
-        howmany = int(subtree.howmany)
+        howmany = subtree.howmany
         source = subtree.source
         app.proc_count.add_extra_attacks(howmany=howmany, name=name, source=source)
         app.ability_timeline.add_extra_attacks(
@@ -2632,7 +2632,7 @@ def process_tree(app: App, line: str, tree: LineTree, timestamp_unix: float):
         return True
     elif subtree.data == TreeType.REFLECTS_DAMAGE_LINE:
         name = subtree.reflector
-        amount = int(subtree.amount)
+        amount = subtree.amount
         target = subtree.target
         app.dmgstore.add(name, target, "reflect", amount, timestamp_unix)
         app.dmgtakenstore.add(name, target, "reflect", amount, timestamp_unix)
@@ -2641,7 +2641,7 @@ def process_tree(app: App, line: str, tree: LineTree, timestamp_unix: float):
         name = subtree.caster
         spellname = subtree.spellname
         target = subtree.target
-        amount = int(subtree.amount)
+        amount = subtree.amount
         app.dmgstore.add(name, target, spellname, amount, timestamp_unix)
         app.dmgtakenstore.add(name, target, spellname, amount, timestamp_unix)
 
