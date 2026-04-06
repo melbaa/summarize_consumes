@@ -1546,6 +1546,7 @@ class Parser2:
                 p_period = line.find(".", p_num_start)
                 p_num_end = p_period
                 amount = line[p_num_start:p_num_end]
+                amount = int(amount)
 
                 self.subtree_heals_line.name = NPCName(caster_name)  # magic cached reference
                 self.subtree_heals_line.spellname = spellname_heals  # magic cached reference
@@ -1653,6 +1654,8 @@ class Parser2:
 
                 # The stackcount is the number between the parentheses.
                 stackcount = line[p_paren_open + 2 : p_paren_close]  # +2 skips " ("
+
+                stackcount = int(stackcount)
 
                 self.subtree_gains_line.name = NPCName(name)  # magic cached reference
                 self.subtree_gains_line.spellname = spellname_gains  # magic cached reference
@@ -1812,6 +1815,7 @@ class Parser2:
                 # Slice out the 4 required pieces of data.
                 targetname_gains_health = line[p_ts_end + 2 : p_gains]
                 health_amount = line[p_gains + 7 : p_health_from]  # len(' gains ') == 7
+                health_amount = int(health_amount)
                 caster_name = line[p_health_from + 13 : p_s]  # len(' health from ') == 13
 
                 p_period = line.rfind(".", p_s)

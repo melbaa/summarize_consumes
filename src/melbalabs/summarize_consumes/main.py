@@ -2020,7 +2020,7 @@ def process_tree(app: App, line: str, tree: LineTree, timestamp_unix: float):
     if subtree.data is TreeType.GAINS_LINE:
         name = subtree.name
         spellname = subtree.spellname
-        stackcount = int(subtree.stackcount)
+        stackcount = subtree.stackcount
 
         app.class_detection.detect(line_type=subtree.data, name=name, spell=spellname)
         app.spell_count.add_stackcount(
@@ -2093,7 +2093,7 @@ def process_tree(app: App, line: str, tree: LineTree, timestamp_unix: float):
         return True
     elif subtree.data == TreeType.GAINS_HEALTH_LINE:
         targetname = subtree.targetname
-        amount = int(subtree.amount)
+        amount = subtree.amount
         name = subtree.source
         spellname = subtree.spellname
 
@@ -2146,7 +2146,7 @@ def process_tree(app: App, line: str, tree: LineTree, timestamp_unix: float):
         spellname = subtree.spellname
 
         targetname = subtree.targetname
-        amount = int(subtree.heal_amount)
+        amount = subtree.heal_amount
 
         # rename
         if spellname == "Healing Potion":

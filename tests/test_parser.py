@@ -1878,3 +1878,16 @@ def test_exists_dataclass_for_each_tree_type():
 
     extras = all_dataclasses - union_args - ignore_types
     assert not extras, f"Dataclasses not in LineTree: {extras}"
+
+
+def test_lines_that_crash_parser(app):
+    lines = """
+4/6 20:08:37.818  Iolcutie gains Spell Blasting (14/6 20:08:30.159  CAST: Torretta casts Enrage(5229).
+44/2 12:58:52.452  CAST: Kairo casts Plainsrunning(12568) on Kairo.
+10/29 20:01:52.120  Jaekta gains 11x4 health from Niviri 's Regrowth.
+12/14 01:28:58.237  NimpheraGH 's Greater Heal critically heals Didja for 35x25.
+"""
+    lines = lines.splitlines(keepends=True)
+    for line in lines:
+        parse_line(app, line)
+    
